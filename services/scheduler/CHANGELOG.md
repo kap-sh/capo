@@ -1,5 +1,11 @@
 # aws-sdk-scheduler
 
+## 0.10.0
+
+### Minor Changes
+
+- fce8b82: regenerate services
+
 ## 0.9.0
 
 ### Minor Changes

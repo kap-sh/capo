@@ -1,5 +1,42 @@
 # AWS SDK for Python - Releases
 
+## 2026-09-17
+
+- [aws-sdk-accessanalyzer v0.2.0](services/accessanalyzer/CHANGELOG.md)
+- [aws-sdk-account v0.2.0](services/account/CHANGELOG.md)
+- [aws-sdk-aiops v0.2.0](services/aiops/CHANGELOG.md)
+- [aws-sdk-amp v0.2.0](services/amp/CHANGELOG.md)
+- [aws-sdk-amplifyuibuilder v0.2.0](services/amplifyuibuilder/CHANGELOG.md)
+- [aws-sdk-app-mesh v0.2.0](services/app-mesh/CHANGELOG.md)
+- [aws-sdk-appconfigdata v0.2.0](services/appconfigdata/CHANGELOG.md)
+- [aws-sdk-application-signals v0.2.0](services/application-signals/CHANGELOG.md)
+- [aws-sdk-arc-region-switch v0.2.0](services/arc-region-switch/CHANGELOG.md)
+- [aws-sdk-arc-zonal-shift v0.2.0](services/arc-zonal-shift/CHANGELOG.md)
+- [aws-sdk-artifact v0.2.0](services/artifact/CHANGELOG.md)
+- [aws-sdk-b2bi v0.2.0](services/b2bi/CHANGELOG.md)
+- [aws-sdk-backup-gateway v0.2.0](services/backup-gateway/CHANGELOG.md)
+- [aws-sdk-bcm-data-exports v0.2.0](services/bcm-data-exports/CHANGELOG.md)
+- [aws-sdk-bcm-pricing-calculator v0.2.0](services/bcm-pricing-calculator/CHANGELOG.md)
+- [aws-sdk-bedrock v0.4.0](services/bedrock/CHANGELOG.md)
+- [aws-sdk-bedrock-agent v0.3.0](services/bedrock-agent/CHANGELOG.md)
+- [aws-sdk-bedrock-agent-runtime v0.3.0](services/bedrock-agent-runtime/CHANGELOG.md)
+- [aws-sdk-bedrock-agentcore v0.3.0](services/bedrock-agentcore/CHANGELOG.md)
+- [aws-sdk-bedrock-agentcore-control v0.3.0](services/bedrock-agentcore-control/CHANGELOG.md)
+- [aws-sdk-bedrock-data-automation v0.3.0](services/bedrock-data-automation/CHANGELOG.md)
+- [aws-sdk-bedrock-data-automation-runtime v0.3.0](services/bedrock-data-automation-runtime/CHANGELOG.md)
+- [aws-sdk-bedrock-runtime v0.7.0](services/bedrock-runtime/CHANGELOG.md)
+- [aws-sdk-billingconductor v0.2.0](services/billingconductor/CHANGELOG.md)
+- [aws-sdk-braket v0.2.0](services/braket/CHANGELOG.md)
+- [aws-sdk-chatbot v0.2.0](services/chatbot/CHANGELOG.md)
+- [aws-sdk-cleanrooms v0.2.0](services/cleanrooms/CHANGELOG.md)
+- [aws-sdk-cleanroomsml v0.2.0](services/cleanroomsml/CHANGELOG.md)
+- [aws-sdk-codecatalyst v0.2.0](services/codecatalyst/CHANGELOG.md)
+- [aws-sdk-codeguruprofiler v0.2.0](services/codeguruprofiler/CHANGELOG.md)
+- [aws-sdk-connectcases v0.2.0](services/connectcases/CHANGELOG.md)
+- [aws-sdk-ecs v0.14.0](services/ecs/CHANGELOG.md)
+- [aws-sdk-lambda v0.13.0](services/lambda/CHANGELOG.md)
+- [aws-sdk-scheduler v0.10.0](services/scheduler/CHANGELOG.md)
+
 ## 2026-08-26
 
 - [aws-sdk-bedrock v0.3.0](services/bedrock/CHANGELOG.md)

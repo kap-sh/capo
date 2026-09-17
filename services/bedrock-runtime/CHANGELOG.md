@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-runtime
 
+## 0.7.0
+
+### Minor Changes
+
+- fce8b82: regenerate services
+
 ## 0.6.0
 
 ### Minor Changes

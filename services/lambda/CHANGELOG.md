@@ -1,5 +1,11 @@
 # aws-sdk-lambda
 
+## 0.13.0
+
+### Minor Changes
+
+- fce8b82: regenerate services
+
 ## 0.12.0
 
 ### Minor Changes

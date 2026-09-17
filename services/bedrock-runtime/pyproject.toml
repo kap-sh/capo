@@ -1,6 +1,6 @@
 [project]
 name = "capo-bedrock-runtime"
-version = "0.6.0"
+version = "0.7.0"
 description = "Python SDK for Bedrock Runtime."
 readme = "README.md"
 requires-python = ">=3.10"

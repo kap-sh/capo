@@ -1,5 +1,11 @@
 # aws-sdk-ecs
 
+## 0.14.0
+
+### Minor Changes
+
+- fce8b82: regenerate services
+
 ## 0.13.0
 
 ### Minor Changes
