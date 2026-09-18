@@ -1,5 +1,11 @@
 # aws-sdk-sfn
 
+## 0.7.0
+
+### Minor Changes
+
+- 4ddb736: add Body helper back
+
 ## 0.6.0
 
 ### Minor Changes

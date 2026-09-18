@@ -1,5 +1,11 @@
 # aws-sdk-sso
 
+## 0.9.0
+
+### Minor Changes
+
+- 4ddb736: add Body helper back
+
 ## 0.8.0
 
 ### Minor Changes

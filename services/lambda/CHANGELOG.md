@@ -1,5 +1,11 @@
 # aws-sdk-lambda
 
+## 0.14.0
+
+### Minor Changes
+
+- 4ddb736: add Body helper back
+
 ## 0.13.0
 
 ### Minor Changes

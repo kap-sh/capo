@@ -1,5 +1,11 @@
 # aws-sdk-bedrock
 
+## 0.5.0
+
+### Minor Changes
+
+- 4ddb736: add Body helper back
+
 ## 0.4.0
 
 ### Minor Changes

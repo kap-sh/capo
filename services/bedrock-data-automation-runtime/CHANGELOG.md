@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-data-automation-runtime
 
+## 0.4.0
+
+### Minor Changes
+
+- 4ddb736: add Body helper back
+
 ## 0.3.0
 
 ### Minor Changes

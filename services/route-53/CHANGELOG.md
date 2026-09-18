@@ -1,5 +1,11 @@
 # aws-sdk-route-53
 
+## 0.10.0
+
+### Minor Changes
+
+- 4ddb736: add Body helper back
+
 ## 0.9.0
 
 ### Minor Changes
