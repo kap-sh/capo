@@ -1,5 +1,11 @@
 # aws-sdk-cloudwatch
 
+## 0.12.0
+
+### Minor Changes
+
+- 4ddb736: add Body helper back
+
 ## 0.11.0
 
 ### Minor Changes

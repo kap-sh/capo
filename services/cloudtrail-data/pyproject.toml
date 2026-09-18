@@ -1,6 +1,6 @@
 [project]
 name = "capo-cloudtrail-data"
-version = "0.1.0"
+version = "0.2.0"
 description = "Python SDK for Cloudtrail Data."
 readme = "README.md"
 requires-python = ">=3.10"

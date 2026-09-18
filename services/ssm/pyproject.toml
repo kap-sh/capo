@@ -1,6 +1,6 @@
 [project]
 name = "capo-ssm"
-version = "0.6.0"
+version = "0.7.0"
 description = "Python SDK for SSM."
 readme = "README.md"
 requires-python = ">=3.10"

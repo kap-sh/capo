@@ -1,5 +1,11 @@
 # aws-sdk-ec2
 
+## 0.17.0
+
+### Minor Changes
+
+- 4ddb736: add Body helper back
+
 ## 0.16.0
 
 ### Minor Changes
