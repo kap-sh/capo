@@ -17,6 +17,7 @@ from capo_cloudsearch_domain._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_cloudsearch_domain._auth._zapros_handler import AuthMiddleware
+from capo_cloudsearch_domain._body import Body, closing_bodies
 from capo_cloudsearch_domain._iter import ensure_sync_iterator
 from capo_cloudsearch_domain._services._aws_config import aws_config
 from capo_cloudsearch_domain._services._pipeline import (
@@ -303,7 +304,7 @@ class CloudSearchDomainClient:
 
     def upload_documents(
         self,
-        documents: Iterator[bytes] | bytes,
+        documents: Body[Iterator[bytes]] | Iterator[bytes] | bytes,
         content_type: "capo_cloudsearch_domain.types.content_type.ContentType",
         *,
         config_overrides: Optional[CloudSearchDomainClientConfig] = None,
@@ -339,13 +340,14 @@ class CloudSearchDomainClient:
             "content_type": content_type,
         }
 
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
+        with closing_bodies(input_):
+            response = execute_pipeline(
+                OperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            response.response.close()
+            return response.output
 
     def __enter__(self) -> Self:
         return self

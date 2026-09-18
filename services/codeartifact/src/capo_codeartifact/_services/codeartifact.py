@@ -18,6 +18,7 @@ from capo_codeartifact._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_codeartifact._auth._zapros_handler import AuthMiddleware
+from capo_codeartifact._body import Body, closing_bodies
 from capo_codeartifact._iter import ensure_sync_iterator
 from capo_codeartifact._pagination import resolve_path as _resolve_path
 from capo_codeartifact._services._aws_config import aws_config
@@ -3152,7 +3153,7 @@ class codeartifactClient:
         format: "capo_codeartifact.types.package_format.PackageFormat",
         package: "capo_codeartifact.types.package_name.PackageName",
         package_version: "capo_codeartifact.types.package_version.PackageVersion",
-        asset_content: Iterator[bytes] | bytes,
+        asset_content: Body[Iterator[bytes]] | Iterator[bytes] | bytes,
         asset_name: "capo_codeartifact.types.asset_name.AssetName",
         asset_sha256: "capo_codeartifact.types.sha256.SHA256",
         *,
@@ -3223,13 +3224,14 @@ class codeartifactClient:
         if unfinished is not None:
             input_["unfinished"] = unfinished
 
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
+        with closing_bodies(input_):
+            response = execute_pipeline(
+                OperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            response.response.close()
+            return response.output
 
     def put_domain_permissions_policy(
         self,

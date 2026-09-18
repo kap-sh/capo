@@ -22,6 +22,7 @@ from capo_s3._auth._providers import (
 from capo_s3._auth._signers import SigV4Signer
 from capo_s3._auth._sigv4 import presign_sigv4
 from capo_s3._auth._zapros_handler import AuthMiddleware
+from capo_s3._body import Body, closing_bodies
 from capo_s3._checksums import ChecksumMiddleware, strip_checksum_headers
 from capo_s3._iter import ensure_sync_iterator
 from capo_s3._pagination import resolve_path as _resolve_path
@@ -7388,7 +7389,7 @@ class S3Client:
         *,
         config_overrides: Optional[S3ClientConfig] = None,
         acl: Optional["capo_s3.types.object_canned_acl.ObjectCannedACL"] = None,
-        body: Optional[Iterator[bytes] | bytes] = None,
+        body: Optional[Body[Iterator[bytes]] | Iterator[bytes] | bytes] = None,
         cache_control: Optional["capo_s3.types.cache_control.CacheControl"] = None,
         content_disposition: Optional[
             "capo_s3.types.content_disposition.ContentDisposition"
@@ -7669,13 +7670,14 @@ class S3Client:
         if expected_bucket_owner is not None:
             input_["expected_bucket_owner"] = expected_bucket_owner
 
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
+        with closing_bodies(input_):
+            response = execute_pipeline(
+                OperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            response.response.close()
+            return response.output
 
     def presigned_put_object(
         self,
@@ -8005,7 +8007,7 @@ class S3Client:
         bucket: "capo_s3.types.bucket_name.BucketName",
         key: "capo_s3.types.object_key.ObjectKey",
         annotation_name: "capo_s3.types.annotation_name.AnnotationName",
-        annotation_payload: Iterator[bytes] | bytes,
+        annotation_payload: Body[Iterator[bytes]] | Iterator[bytes] | bytes,
         *,
         config_overrides: Optional[S3ClientConfig] = None,
         version_id: Optional["capo_s3.types.object_version_id.ObjectVersionId"] = None,
@@ -8129,13 +8131,14 @@ class S3Client:
         if expected_bucket_owner is not None:
             input_["expected_bucket_owner"] = expected_bucket_owner
 
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
+        with closing_bodies(input_):
+            response = execute_pipeline(
+                OperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            response.response.close()
+            return response.output
 
     def put_object_legal_hold(
         self,
@@ -9006,7 +9009,7 @@ class S3Client:
         upload_id: "capo_s3.types.multipart_upload_id.MultipartUploadId",
         *,
         config_overrides: Optional[S3ClientConfig] = None,
-        body: Optional[Iterator[bytes] | bytes] = None,
+        body: Optional[Body[Iterator[bytes]] | Iterator[bytes] | bytes] = None,
         content_length: Optional["capo_s3.types.content_length.ContentLength"] = None,
         content_md5: Optional["capo_s3.types.content_md5.ContentMD5"] = None,
         checksum_algorithm: Optional[
@@ -9142,13 +9145,14 @@ class S3Client:
         if expected_bucket_owner is not None:
             input_["expected_bucket_owner"] = expected_bucket_owner
 
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
+        with closing_bodies(input_):
+            response = execute_pipeline(
+                OperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            response.response.close()
+            return response.output
 
     def presigned_upload_part(
         self,
@@ -9426,7 +9430,7 @@ class S3Client:
         request_token: "capo_s3.types.request_token.RequestToken",
         *,
         config_overrides: Optional[S3ClientConfig] = None,
-        body: Optional[Iterator[bytes] | bytes] = None,
+        body: Optional[Body[Iterator[bytes]] | Iterator[bytes] | bytes] = None,
         status_code: Optional[
             "capo_s3.types.get_object_response_status_code.GetObjectResponseStatusCode"
         ] = None,
@@ -9670,13 +9674,14 @@ class S3Client:
         if bucket_key_enabled is not None:
             input_["bucket_key_enabled"] = bucket_key_enabled
 
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
+        with closing_bodies(input_):
+            response = execute_pipeline(
+                OperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            response.response.close()
+            return response.output
 
     def __enter__(self) -> Self:
         return self

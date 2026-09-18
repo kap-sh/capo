@@ -21,6 +21,7 @@ from capo_lambda._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_lambda._auth._zapros_handler import AuthMiddleware
+from capo_lambda._body import Body, aclosing_bodies
 from capo_lambda._iter import ensure_async_iterator
 from capo_lambda._pagination import resolve_path as _resolve_path
 from capo_lambda._resources.aws_gir_api_service.capacity_provider_resource import (
@@ -4394,7 +4395,7 @@ class AsyncLambdaClient:
     async def invoke_async(
         self,
         function_name: "capo_lambda.types.namespaced_function_name.NamespacedFunctionName",
-        invoke_args: AsyncIterator[bytes] | bytes,
+        invoke_args: Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes,
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
     ) -> "capo_lambda.types.invoke_async_response.InvokeAsyncResponse":
@@ -4464,13 +4465,14 @@ class AsyncLambdaClient:
             "invoke_args": ensure_async_iterator(invoke_args),
         }
 
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
+        async with aclosing_bodies(input_):
+            response = await aexecute_pipeline(
+                AsyncOperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            await response.response.aclose()
+            return response.output
 
     @asynccontextmanager
     async def invoke_with_response_stream(

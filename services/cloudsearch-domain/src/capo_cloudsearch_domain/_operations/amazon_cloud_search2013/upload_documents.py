@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import AsyncIterator, Iterator
 from typing import Any, cast
 
 import zapros
@@ -10,6 +11,7 @@ from typing_extensions import Never
 
 import capo_cloudsearch_domain._auth._signers
 import capo_cloudsearch_domain._auth._sigv4
+import capo_cloudsearch_domain._body
 import capo_cloudsearch_domain._protocol.eventstream
 import capo_cloudsearch_domain.errors.document_service_exception
 import capo_cloudsearch_domain.types.blob
@@ -111,6 +113,67 @@ def build_request(
             )
         )
     body = input_["documents"]
+    if isinstance(body, capo_cloudsearch_domain._body.Body):
+        body = cast(capo_cloudsearch_domain._body.Body[Iterator[bytes]], body)
+        stream = body.stream
+        if stream is None:
+            rebuilt = body.rebuild()
+            if rebuilt is None:
+                raise RuntimeError("streaming body could not be rebuilt")
+            stream, _ = rebuilt
+        if "content-length" not in [header.lower() for header in headers]:
+            headers["Content-Length"] = str(body.length)
+        body = stream
+    if isinstance(body, capo_cloudsearch_domain._iter.StaticAnyIterator):
+        body = cast(bytes, body.content)
+    if not isinstance(body, bytes) and "content-length" not in [
+        header.lower() for header in headers
+    ]:
+        raise ValueError("Content-Length is required for streaming input")
+    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    normalized_url = zapros.URL(url)
+    for k, v in params:
+        normalized_url.search_params.append(k, v)
+    return zapros.Request(
+        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
+    )
+
+
+async def async_build_request(
+    options: OperationOptions | AsyncOperationOptions,
+    input_: capo_cloudsearch_domain.types.upload_documents_request.UploadDocumentsRequest,
+) -> zapros.Request:
+    endpoint = resolve(
+        EndpointParams(
+            Region=options.region,
+            UseDualStack=options.use_dual_stack,
+            UseFIPS=options.use_fips,
+            Endpoint=options.endpoint,
+        )
+    )  # noqa: F841
+    import capo_cloudsearch_domain.types.content_type
+
+    url = endpoint.url.rstrip("/") + "/2013-01-01/documents/batch?format=sdk"
+    params: list[tuple[str, str]] = []
+    headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
+    if "content_type" in input_:
+        headers["Content-Type"] = (
+            capo_cloudsearch_domain.types.content_type.serialize_json(
+                input_["content_type"]
+            )
+        )
+    body = input_["documents"]
+    if isinstance(body, capo_cloudsearch_domain._body.Body):
+        body = cast(capo_cloudsearch_domain._body.Body[AsyncIterator[bytes]], body)
+        stream = body.stream
+        if stream is None:
+            rebuilt = await body.arebuild()
+            if rebuilt is None:
+                raise RuntimeError("streaming body could not be rebuilt")
+            stream, _ = rebuilt
+        if "content-length" not in [header.lower() for header in headers]:
+            headers["Content-Length"] = str(body.length)
+        body = stream
     if isinstance(body, capo_cloudsearch_domain._iter.StaticAnyIterator):
         body = cast(bytes, body.content)
     if not isinstance(body, bytes) and "content-length" not in [
@@ -151,7 +214,9 @@ async def async_upload_documents(
     capo_cloudsearch_domain.types.upload_documents_response.UploadDocumentsResponse,
     zapros.Response,
 ]:
-    response = await options.client.handler.ahandle(build_request(options, input_))
+    response = await options.client.handler.ahandle(
+        await async_build_request(options, input_)
+    )
     try:
         if response.status >= 300:
             await response.aread()

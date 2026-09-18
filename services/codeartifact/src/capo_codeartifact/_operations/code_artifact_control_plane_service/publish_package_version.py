@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import AsyncIterator, Iterator
 from typing import Any, cast
 
 import zapros
@@ -10,6 +11,7 @@ from typing_extensions import Never
 
 import capo_codeartifact._auth._signers
 import capo_codeartifact._auth._sigv4
+import capo_codeartifact._body
 import capo_codeartifact._protocol.eventstream
 import capo_codeartifact.errors.access_denied_exception
 import capo_codeartifact.errors.conflict_exception
@@ -158,6 +160,86 @@ def build_request(
     if "asset_sha256" in input_:
         headers["x-amz-content-sha256"] = input_["asset_sha256"]
     body = input_["asset_content"]
+    if isinstance(body, capo_codeartifact._body.Body):
+        body = cast(capo_codeartifact._body.Body[Iterator[bytes]], body)
+        stream = body.stream
+        if stream is None:
+            rebuilt = body.rebuild()
+            if rebuilt is None:
+                raise RuntimeError("streaming body could not be rebuilt")
+            stream, _ = rebuilt
+        if "content-length" not in [header.lower() for header in headers]:
+            headers["Content-Length"] = str(body.length)
+        body = stream
+    if isinstance(body, capo_codeartifact._iter.StaticAnyIterator):
+        body = cast(bytes, body.content)
+    if not isinstance(body, bytes) and "content-length" not in [
+        header.lower() for header in headers
+    ]:
+        raise ValueError("Content-Length is required for streaming input")
+    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    normalized_url = zapros.URL(url)
+    for k, v in params:
+        normalized_url.search_params.append(k, v)
+    return zapros.Request(
+        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
+    )
+
+
+async def async_build_request(
+    options: OperationOptions | AsyncOperationOptions,
+    input_: capo_codeartifact.types.publish_package_version_request.PublishPackageVersionRequest,
+) -> zapros.Request:
+    endpoint = resolve(
+        EndpointParams(
+            Region=options.region,
+            UseDualStack=options.use_dual_stack,
+            UseFIPS=options.use_fips,
+            Endpoint=options.endpoint,
+        )
+    )  # noqa: F841
+    import capo_codeartifact.types.package_format
+
+    url = endpoint.url.rstrip("/") + "/v1/package/version/publish"
+    params: list[tuple[str, str]] = []
+    if "domain" in input_:
+        params.append(("domain", input_["domain"]))
+    if "domain_owner" in input_:
+        params.append(("domain-owner", input_["domain_owner"]))
+    if "repository" in input_:
+        params.append(("repository", input_["repository"]))
+    if "format" in input_:
+        params.append(
+            (
+                "format",
+                capo_codeartifact.types.package_format.serialize_json(input_["format"]),
+            )
+        )
+    if "namespace" in input_:
+        params.append(("namespace", input_["namespace"]))
+    if "package" in input_:
+        params.append(("package", input_["package"]))
+    if "package_version" in input_:
+        params.append(("version", input_["package_version"]))
+    if "asset_name" in input_:
+        params.append(("asset", input_["asset_name"]))
+    if "unfinished" in input_:
+        params.append(("unfinished", "true" if input_["unfinished"] else "false"))
+    headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
+    if "asset_sha256" in input_:
+        headers["x-amz-content-sha256"] = input_["asset_sha256"]
+    body = input_["asset_content"]
+    if isinstance(body, capo_codeartifact._body.Body):
+        body = cast(capo_codeartifact._body.Body[AsyncIterator[bytes]], body)
+        stream = body.stream
+        if stream is None:
+            rebuilt = await body.arebuild()
+            if rebuilt is None:
+                raise RuntimeError("streaming body could not be rebuilt")
+            stream, _ = rebuilt
+        if "content-length" not in [header.lower() for header in headers]:
+            headers["Content-Length"] = str(body.length)
+        body = stream
     if isinstance(body, capo_codeartifact._iter.StaticAnyIterator):
         body = cast(bytes, body.content)
     if not isinstance(body, bytes) and "content-length" not in [
@@ -198,7 +280,9 @@ async def async_publish_package_version(
     capo_codeartifact.types.publish_package_version_result.PublishPackageVersionResult,
     zapros.Response,
 ]:
-    response = await options.client.handler.ahandle(build_request(options, input_))
+    response = await options.client.handler.ahandle(
+        await async_build_request(options, input_)
+    )
     try:
         if response.status >= 300:
             await response.aread()

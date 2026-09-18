@@ -18,6 +18,7 @@ from capo_codeartifact._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_codeartifact._auth._zapros_handler import AuthMiddleware
+from capo_codeartifact._body import Body, aclosing_bodies
 from capo_codeartifact._iter import ensure_async_iterator
 from capo_codeartifact._pagination import resolve_path as _resolve_path
 from capo_codeartifact._services._aws_config import aaws_config
@@ -3190,7 +3191,7 @@ class AsynccodeartifactClient:
         format: "capo_codeartifact.types.package_format.PackageFormat",
         package: "capo_codeartifact.types.package_name.PackageName",
         package_version: "capo_codeartifact.types.package_version.PackageVersion",
-        asset_content: AsyncIterator[bytes] | bytes,
+        asset_content: Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes,
         asset_name: "capo_codeartifact.types.asset_name.AssetName",
         asset_sha256: "capo_codeartifact.types.sha256.SHA256",
         *,
@@ -3262,13 +3263,14 @@ class AsynccodeartifactClient:
         if unfinished is not None:
             input_["unfinished"] = unfinished
 
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
+        async with aclosing_bodies(input_):
+            response = await aexecute_pipeline(
+                AsyncOperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            await response.response.aclose()
+            return response.output
 
     async def put_domain_permissions_policy(
         self,

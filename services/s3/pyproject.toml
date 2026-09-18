@@ -19,6 +19,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
+    "anyio>=3.0",
     "zapros>=0.13.0",
 ]
 

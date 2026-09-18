@@ -24,6 +24,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Async file request bodies via Body.async_from_path
+anyio = ["anyio>=3.0"]
 # IAM Identity Center (SSO), assume-role and web-identity credentials providers
 sso = [
     "capo-sso>=0.2.0",

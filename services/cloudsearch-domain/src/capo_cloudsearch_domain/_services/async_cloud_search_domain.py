@@ -17,6 +17,7 @@ from capo_cloudsearch_domain._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_cloudsearch_domain._auth._zapros_handler import AuthMiddleware
+from capo_cloudsearch_domain._body import Body, aclosing_bodies
 from capo_cloudsearch_domain._iter import ensure_async_iterator
 from capo_cloudsearch_domain._services._aws_config import aaws_config
 from capo_cloudsearch_domain._services._pipeline import (
@@ -305,7 +306,7 @@ class AsyncCloudSearchDomainClient:
 
     async def upload_documents(
         self,
-        documents: AsyncIterator[bytes] | bytes,
+        documents: Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes,
         content_type: "capo_cloudsearch_domain.types.content_type.ContentType",
         *,
         config_overrides: Optional[AsyncCloudSearchDomainClientConfig] = None,
@@ -342,13 +343,14 @@ class AsyncCloudSearchDomainClient:
             "content_type": content_type,
         }
 
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
+        async with aclosing_bodies(input_):
+            response = await aexecute_pipeline(
+                AsyncOperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            await response.response.aclose()
+            return response.output
 
     async def __aenter__(self) -> Self:
         return self

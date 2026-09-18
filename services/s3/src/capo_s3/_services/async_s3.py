@@ -23,6 +23,7 @@ from capo_s3._auth._providers import (
 from capo_s3._auth._signers import SigV4Signer
 from capo_s3._auth._sigv4 import presign_sigv4
 from capo_s3._auth._zapros_handler import AuthMiddleware
+from capo_s3._body import Body, aclosing_bodies
 from capo_s3._checksums import ChecksumMiddleware, strip_checksum_headers
 from capo_s3._iter import ensure_async_iterator
 from capo_s3._pagination import resolve_path as _resolve_path
@@ -7503,7 +7504,9 @@ class AsyncS3Client:
         *,
         config_overrides: Optional[AsyncS3ClientConfig] = None,
         acl: Optional["capo_s3.types.object_canned_acl.ObjectCannedACL"] = None,
-        body: Optional[AsyncIterator[bytes] | bytes] = None,
+        body: Optional[
+            Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes
+        ] = None,
         cache_control: Optional["capo_s3.types.cache_control.CacheControl"] = None,
         content_disposition: Optional[
             "capo_s3.types.content_disposition.ContentDisposition"
@@ -7787,13 +7790,14 @@ class AsyncS3Client:
         if expected_bucket_owner is not None:
             input_["expected_bucket_owner"] = expected_bucket_owner
 
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
+        async with aclosing_bodies(input_):
+            response = await aexecute_pipeline(
+                AsyncOperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            await response.response.aclose()
+            return response.output
 
     def presigned_put_object(
         self,
@@ -8124,7 +8128,7 @@ class AsyncS3Client:
         bucket: "capo_s3.types.bucket_name.BucketName",
         key: "capo_s3.types.object_key.ObjectKey",
         annotation_name: "capo_s3.types.annotation_name.AnnotationName",
-        annotation_payload: AsyncIterator[bytes] | bytes,
+        annotation_payload: Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes,
         *,
         config_overrides: Optional[AsyncS3ClientConfig] = None,
         version_id: Optional["capo_s3.types.object_version_id.ObjectVersionId"] = None,
@@ -8249,13 +8253,14 @@ class AsyncS3Client:
         if expected_bucket_owner is not None:
             input_["expected_bucket_owner"] = expected_bucket_owner
 
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
+        async with aclosing_bodies(input_):
+            response = await aexecute_pipeline(
+                AsyncOperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            await response.response.aclose()
+            return response.output
 
     async def put_object_legal_hold(
         self,
@@ -9140,7 +9145,9 @@ class AsyncS3Client:
         upload_id: "capo_s3.types.multipart_upload_id.MultipartUploadId",
         *,
         config_overrides: Optional[AsyncS3ClientConfig] = None,
-        body: Optional[AsyncIterator[bytes] | bytes] = None,
+        body: Optional[
+            Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes
+        ] = None,
         content_length: Optional["capo_s3.types.content_length.ContentLength"] = None,
         content_md5: Optional["capo_s3.types.content_md5.ContentMD5"] = None,
         checksum_algorithm: Optional[
@@ -9279,13 +9286,14 @@ class AsyncS3Client:
         if expected_bucket_owner is not None:
             input_["expected_bucket_owner"] = expected_bucket_owner
 
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
+        async with aclosing_bodies(input_):
+            response = await aexecute_pipeline(
+                AsyncOperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            await response.response.aclose()
+            return response.output
 
     def presigned_upload_part(
         self,
@@ -9564,7 +9572,9 @@ class AsyncS3Client:
         request_token: "capo_s3.types.request_token.RequestToken",
         *,
         config_overrides: Optional[AsyncS3ClientConfig] = None,
-        body: Optional[AsyncIterator[bytes] | bytes] = None,
+        body: Optional[
+            Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes
+        ] = None,
         status_code: Optional[
             "capo_s3.types.get_object_response_status_code.GetObjectResponseStatusCode"
         ] = None,
@@ -9809,13 +9819,14 @@ class AsyncS3Client:
         if bucket_key_enabled is not None:
             input_["bucket_key_enabled"] = bucket_key_enabled
 
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
+        async with aclosing_bodies(input_):
+            response = await aexecute_pipeline(
+                AsyncOperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            await response.response.aclose()
+            return response.output
 
     async def __aenter__(self) -> Self:
         return self

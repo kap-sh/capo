@@ -30,6 +30,7 @@ from ._auth._providers import (
 )
 from ._auth._signers import Signer as Signer
 from ._auth._signers import SigV4Signer as SigV4Signer
+from ._body import Body as Body
 from ._services._pipeline import (
     AsyncOperationOptions as AsyncOperationOptions,
 )

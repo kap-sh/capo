@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import AsyncIterator, Iterator
 from typing import Any, cast
 from urllib.parse import quote
 
@@ -10,6 +11,7 @@ from typing_extensions import Never
 
 import capo_s3._auth._signers
 import capo_s3._auth._sigv4
+import capo_s3._body
 import capo_s3._checksums
 import capo_s3._protocol.eventstream
 import capo_s3.errors.encryption_type_mismatch
@@ -389,6 +391,17 @@ def build_request(
         for k, v in input_["metadata"].items():
             headers["x-amz-meta-" + k] = v
     body = input_["body"]
+    if isinstance(body, capo_s3._body.Body):
+        body = cast(capo_s3._body.Body[Iterator[bytes]], body)
+        stream = body.stream
+        if stream is None:
+            rebuilt = body.rebuild()
+            if rebuilt is None:
+                raise RuntimeError("streaming body could not be rebuilt")
+            stream, _ = rebuilt
+        if "content-length" not in [header.lower() for header in headers]:
+            headers["Content-Length"] = str(body.length)
+        body = stream
     if isinstance(body, capo_s3._iter.StaticAnyIterator):
         body = cast(bytes, body.content)
     if not isinstance(body, bytes) and "content-length" not in [
@@ -396,9 +409,205 @@ def build_request(
     ]:
         raise ValueError("Content-Length is required for streaming input")
     if "checksum_algorithm" in input_:
-        capo_s3._checksums.set_request_checksum(
+        if not capo_s3._checksums.set_request_checksum(
             headers, body, input_.get("checksum_algorithm")
+        ):
+            body = capo_s3._checksums.trailing_checksum(
+                headers, cast(Iterator[bytes], body), input_.get("checksum_algorithm")
+            )
+    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    normalized_url = zapros.URL(url)
+    for k, v in params:
+        normalized_url.search_params.append(k, v)
+    return zapros.Request(
+        normalized_url, "PUT", headers=headers, body=body, context={"signer": signer}
+    )
+
+
+async def async_build_request(
+    options: OperationOptions | AsyncOperationOptions,
+    input_: capo_s3.types.put_object_request.PutObjectRequest,
+) -> zapros.Request:
+    endpoint = resolve(
+        EndpointParams(
+            Bucket=input_.get("bucket"),
+            Region=options.region,
+            UseFIPS=options.use_fips,
+            UseDualStack=options.use_dual_stack,
+            Endpoint=options.endpoint,
+            ForcePathStyle=options.force_path_style,
+            Accelerate=options.accelerate,
+            UseGlobalEndpoint=options.use_global_endpoint,
+            UseObjectLambdaEndpoint=options.use_object_lambda_endpoint,
+            Key=input_.get("key"),
+            Prefix=options.prefix,
+            CopySource=options.copy_source,
+            DisableAccessPoints=options.disable_access_points,
+            DisableMultiRegionAccessPoints=options.disable_multi_region_access_points,
+            UseArnRegion=options.use_arn_region,
+            UseS3ExpressControlEndpoint=options.use_s3_express_control_endpoint,
+            DisableS3ExpressSessionAuth=options.disable_s3_express_session_auth,
         )
+    )  # noqa: F841
+    import capo_s3._protocol.serialize
+    import capo_s3.types.checksum_algorithm
+    import capo_s3.types.object_canned_acl
+    import capo_s3.types.object_lock_legal_hold_status
+    import capo_s3.types.object_lock_mode
+    import capo_s3.types.request_payer
+    import capo_s3.types.server_side_encryption
+    import capo_s3.types.storage_class
+
+    url = endpoint.url.rstrip("/") + "/{Key+}?x-id=PutObject"
+    url = url.replace("{Key+}", quote(input_["key"], safe="/"))
+    params: list[tuple[str, str]] = []
+    headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
+    if "acl" in input_:
+        headers["x-amz-acl"] = capo_s3.types.object_canned_acl.to_xml_text(
+            input_["acl"]
+        )
+    if "cache_control" in input_:
+        headers["Cache-Control"] = input_["cache_control"]
+    if "content_disposition" in input_:
+        headers["Content-Disposition"] = input_["content_disposition"]
+    if "content_encoding" in input_:
+        headers["Content-Encoding"] = input_["content_encoding"]
+    if "content_language" in input_:
+        headers["Content-Language"] = input_["content_language"]
+    if "content_length" in input_:
+        headers["Content-Length"] = str(input_["content_length"])
+    if "content_md5" in input_:
+        headers["Content-MD5"] = input_["content_md5"]
+    if "content_type" in input_:
+        headers["Content-Type"] = input_["content_type"]
+    if "checksum_algorithm" in input_:
+        headers["x-amz-sdk-checksum-algorithm"] = (
+            capo_s3.types.checksum_algorithm.to_xml_text(input_["checksum_algorithm"])
+        )
+    if "checksum_crc32" in input_:
+        headers["x-amz-checksum-crc32"] = input_["checksum_crc32"]
+    if "checksum_crc32_c" in input_:
+        headers["x-amz-checksum-crc32c"] = input_["checksum_crc32_c"]
+    if "checksum_crc64_nvme" in input_:
+        headers["x-amz-checksum-crc64nvme"] = input_["checksum_crc64_nvme"]
+    if "checksum_sha1" in input_:
+        headers["x-amz-checksum-sha1"] = input_["checksum_sha1"]
+    if "checksum_sha256" in input_:
+        headers["x-amz-checksum-sha256"] = input_["checksum_sha256"]
+    if "checksum_sha512" in input_:
+        headers["x-amz-checksum-sha512"] = input_["checksum_sha512"]
+    if "checksum_md5" in input_:
+        headers["x-amz-checksum-md5"] = input_["checksum_md5"]
+    if "checksum_xxhash64" in input_:
+        headers["x-amz-checksum-xxhash64"] = input_["checksum_xxhash64"]
+    if "checksum_xxhash3" in input_:
+        headers["x-amz-checksum-xxhash3"] = input_["checksum_xxhash3"]
+    if "checksum_xxhash128" in input_:
+        headers["x-amz-checksum-xxhash128"] = input_["checksum_xxhash128"]
+    if "expires" in input_:
+        headers["Expires"] = input_["expires"]
+    if "if_match" in input_:
+        headers["If-Match"] = input_["if_match"]
+    if "if_none_match" in input_:
+        headers["If-None-Match"] = input_["if_none_match"]
+    if "grant_full_control" in input_:
+        headers["x-amz-grant-full-control"] = input_["grant_full_control"]
+    if "grant_read" in input_:
+        headers["x-amz-grant-read"] = input_["grant_read"]
+    if "grant_read_acp" in input_:
+        headers["x-amz-grant-read-acp"] = input_["grant_read_acp"]
+    if "grant_write_acp" in input_:
+        headers["x-amz-grant-write-acp"] = input_["grant_write_acp"]
+    if "write_offset_bytes" in input_:
+        headers["x-amz-write-offset-bytes"] = str(input_["write_offset_bytes"])
+    if "server_side_encryption" in input_:
+        headers["x-amz-server-side-encryption"] = (
+            capo_s3.types.server_side_encryption.to_xml_text(
+                input_["server_side_encryption"]
+            )
+        )
+    if "storage_class" in input_:
+        headers["x-amz-storage-class"] = capo_s3.types.storage_class.to_xml_text(
+            input_["storage_class"]
+        )
+    if "website_redirect_location" in input_:
+        headers["x-amz-website-redirect-location"] = input_["website_redirect_location"]
+    if "sse_customer_algorithm" in input_:
+        headers["x-amz-server-side-encryption-customer-algorithm"] = input_[
+            "sse_customer_algorithm"
+        ]
+    if "sse_customer_key" in input_:
+        headers["x-amz-server-side-encryption-customer-key"] = input_[
+            "sse_customer_key"
+        ]
+    if "sse_customer_key_md5" in input_:
+        headers["x-amz-server-side-encryption-customer-key-MD5"] = input_[
+            "sse_customer_key_md5"
+        ]
+    if "ssekms_key_id" in input_:
+        headers["x-amz-server-side-encryption-aws-kms-key-id"] = input_["ssekms_key_id"]
+    if "ssekms_encryption_context" in input_:
+        headers["x-amz-server-side-encryption-context"] = input_[
+            "ssekms_encryption_context"
+        ]
+    if "bucket_key_enabled" in input_:
+        headers["x-amz-server-side-encryption-bucket-key-enabled"] = (
+            "true" if input_["bucket_key_enabled"] else "false"
+        )
+    if "request_payer" in input_:
+        headers["x-amz-request-payer"] = capo_s3.types.request_payer.to_xml_text(
+            input_["request_payer"]
+        )
+    if "tagging" in input_:
+        headers["x-amz-tagging"] = input_["tagging"]
+    if "object_lock_mode" in input_:
+        headers["x-amz-object-lock-mode"] = capo_s3.types.object_lock_mode.to_xml_text(
+            input_["object_lock_mode"]
+        )
+    if "object_lock_retain_until_date" in input_:
+        headers["x-amz-object-lock-retain-until-date"] = (
+            capo_s3._protocol.serialize.fmt_date_time(
+                input_["object_lock_retain_until_date"]
+            )
+        )
+    if "object_lock_legal_hold_status" in input_:
+        headers["x-amz-object-lock-legal-hold"] = (
+            capo_s3.types.object_lock_legal_hold_status.to_xml_text(
+                input_["object_lock_legal_hold_status"]
+            )
+        )
+    if "expected_bucket_owner" in input_:
+        headers["x-amz-expected-bucket-owner"] = input_["expected_bucket_owner"]
+    if "metadata" in input_:
+        for k, v in input_["metadata"].items():
+            headers["x-amz-meta-" + k] = v
+    body = input_["body"]
+    if isinstance(body, capo_s3._body.Body):
+        body = cast(capo_s3._body.Body[AsyncIterator[bytes]], body)
+        stream = body.stream
+        if stream is None:
+            rebuilt = await body.arebuild()
+            if rebuilt is None:
+                raise RuntimeError("streaming body could not be rebuilt")
+            stream, _ = rebuilt
+        if "content-length" not in [header.lower() for header in headers]:
+            headers["Content-Length"] = str(body.length)
+        body = stream
+    if isinstance(body, capo_s3._iter.StaticAnyIterator):
+        body = cast(bytes, body.content)
+    if not isinstance(body, bytes) and "content-length" not in [
+        header.lower() for header in headers
+    ]:
+        raise ValueError("Content-Length is required for streaming input")
+    if "checksum_algorithm" in input_:
+        if not capo_s3._checksums.set_request_checksum(
+            headers, body, input_.get("checksum_algorithm")
+        ):
+            body = capo_s3._checksums.trailing_checksum(
+                headers,
+                cast(AsyncIterator[bytes], body),
+                input_.get("checksum_algorithm"),
+            )
     signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
     normalized_url = zapros.URL(url)
     for k, v in params:
@@ -426,7 +635,9 @@ async def async_put_object(
     options: AsyncOperationOptions,
     input_: capo_s3.types.put_object_request.PutObjectRequest,
 ) -> tuple[capo_s3.types.put_object_output.PutObjectOutput, zapros.Response]:
-    response = await options.client.handler.ahandle(build_request(options, input_))
+    response = await options.client.handler.ahandle(
+        await async_build_request(options, input_)
+    )
     try:
         if response.status >= 300:
             await response.aread()

@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import zlib
+from collections.abc import AsyncIterator, Iterator
 from dataclasses import dataclass
 from typing import (
     TYPE_CHECKING,
@@ -186,6 +187,9 @@ ALGORITHMS: dict[ChecksumAlgorithm, Algorithm] = {
 
 LEGACY_MD5_HEADER = "Content-MD5"
 SDK_ALGORITHM_HEADER = "x-amz-sdk-checksum-algorithm"
+TRAILER_HEADER = "x-amz-trailer"
+DECODED_LENGTH_HEADER = "x-amz-decoded-content-length"
+STREAMING_UNSIGNED_PAYLOAD_TRAILER = "STREAMING-UNSIGNED-PAYLOAD-TRAILER"
 _FLEXIBLE_HEADERS: frozenset[str] = frozenset(
     spec.header for spec in ALGORITHMS.values()
 )
@@ -221,33 +225,133 @@ def compute(algorithm: ChecksumAlgorithm, data: Buffer) -> str:
     return _b64(hasher)
 
 
+def _request_algorithm(algorithm: ChecksumAlgorithm | None) -> ChecksumAlgorithm:
+    """The algorithm to checksum a request with: the caller's, else the default."""
+    name = cast(ChecksumAlgorithm, (algorithm or DEFAULT_REQUEST_ALGORITHM).upper())
+    if name not in ALGORITHMS:
+        raise ValueError(f"unsupported checksum algorithm: {algorithm}")
+    return name
+
+
 def set_request_checksum(
     headers: dict[str, str], body: object, algorithm: ChecksumAlgorithm | None
-) -> None:
+) -> bool:
     """Set ``x-amz-checksum-<algorithm>`` for a buffered request body.
 
     ``algorithm`` is what the caller passed for the operation's
     requestAlgorithmMember; None means nobody asked and the default applies.
-    Passing it also sends ``x-amz-sdk-checksum-algorithm``, which the service
-    rejects unless a matching checksum ships with it, so a requested algorithm
-    is either computed or refused -- never quietly dropped.
+
+    Returns True once the request carries its checksum -- computed here, or
+    already supplied by hand (an ``x-amz-checksum-*`` header, or ``Content-MD5``
+    when no algorithm was requested). Returns False when a checksum is wanted
+    but the body is a stream, which cannot be hashed up front: the caller then
+    sends it as a trailer through :func:`trailing_checksum` instead.
     """
     present = {key.lower() for key in headers}
     if present & _FLEXIBLE_HEADERS:  # a hand-supplied checksum wins
-        return
-    if not isinstance(body, (bytes, bytearray, memoryview)):
-        if algorithm is not None:
-            raise ValueError(
-                f"a {algorithm} checksum was requested for a streaming body, which cannot be "
-                f"checksummed without buffering all of it. Send the body as bytes, or set the "
-                f"x-amz-checksum-* member on the input yourself."
-            )
-        return
+        return True
     # Content-MD5 covers integrity, but does not stand in for a requested algorithm.
     if algorithm is None and LEGACY_MD5_HEADER.lower() in present:
-        return
-    name = cast(ChecksumAlgorithm, (algorithm or DEFAULT_REQUEST_ALGORITHM).upper())
+        return True
+    name = _request_algorithm(algorithm)
+    if body is None:  # an absent payload is an empty one
+        body = b""
+    if not isinstance(body, (bytes, bytearray, memoryview)):
+        return False
     headers[ALGORITHMS[name].header] = compute(name, cast(Buffer, body))
+    return True
+
+
+class TrailingChecksumStream(AsyncIterator[bytes], Iterator[bytes]):
+    """A streaming request body in ``aws-chunked`` framing, hashed on its way out.
+
+    Each chunk goes out as ``<hex size>\r\n<data>\r\n``; once the source is
+    exhausted, one last item carries the completion chunk and the trailer,
+    ``0\r\nx-amz-checksum-<algorithm>:<base64>\r\n\r\n``. The framing is part of
+    the entity, not the transfer coding: the service parses it *after* the HTTP
+    layer has undone ``Transfer-Encoding: chunked``, so a trailer in the HTTP
+    trailer section never reaches it.
+
+    Empty chunks are skipped -- ``0\r\n`` is the completion chunk, so one in the
+    middle would end the body early. Whichever of ``__next__`` / ``__anext__``
+    the transport drives is the one the wrapped stream supports.
+    """
+
+    def __init__(
+        self,
+        stream: Iterator[bytes] | AsyncIterator[bytes],
+        algorithm: ChecksumAlgorithm,
+    ) -> None:
+        self.stream = stream
+        self.algorithm = algorithm
+        self.hasher = ALGORITHMS[algorithm].factory()
+        self._done = False
+
+    @property
+    def header(self) -> str:
+        return ALGORITHMS[self.algorithm].header
+
+    def _frame(self, chunk: bytes) -> bytes:
+        self.hasher.update(chunk)
+        return f"{len(chunk):x}\r\n".encode("ascii") + chunk + b"\r\n"
+
+    def _trailer(self) -> bytes:
+        self._done = True
+        return f"0\r\n{self.header}:{_b64(self.hasher)}\r\n\r\n".encode("ascii")
+
+    def __next__(self) -> bytes:
+        if self._done:
+            raise StopIteration
+        stream = cast(Iterator[bytes], self.stream)
+        try:
+            while True:
+                chunk = next(stream)
+                if chunk:
+                    return self._frame(chunk)
+        except StopIteration:
+            return self._trailer()
+
+    async def __anext__(self) -> bytes:
+        if self._done:
+            raise StopAsyncIteration
+        stream = cast(AsyncIterator[bytes], self.stream)
+        try:
+            while True:
+                chunk = await stream.__anext__()
+                if chunk:
+                    return self._frame(chunk)
+        except StopAsyncIteration:
+            return self._trailer()
+
+
+def trailing_checksum(
+    headers: dict[str, str],
+    body: Iterator[bytes] | AsyncIterator[bytes],
+    algorithm: ChecksumAlgorithm | None,
+) -> TrailingChecksumStream:
+    """Send a streaming body's checksum as an ``aws-chunked`` trailer.
+
+    The wire format is what S3 documents for unsigned trailing checksums: the
+    body in ``aws-chunked`` framing with ``x-amz-checksum-*`` in its trailer
+    chunk, announced by ``x-amz-trailer``,
+    ``x-amz-content-sha256: STREAMING-UNSIGNED-PAYLOAD-TRAILER`` and
+    ``Content-Encoding: aws-chunked``. ``Content-Length`` gives way to
+    ``x-amz-decoded-content-length`` -- the framed length is not known up
+    front, so the transport sends the body with ``Transfer-Encoding: chunked``
+    on top, as the AWS SDKs do.
+
+    Returns the framed stream to send as the body.
+    """
+    stream = TrailingChecksumStream(body, _request_algorithm(algorithm))
+    for key in list(headers):
+        if key.lower() == "content-length":
+            headers[DECODED_LENGTH_HEADER] = headers.pop(key)
+        elif key.lower() == "content-encoding":
+            headers[key] = f"aws-chunked, {headers[key]}"
+    headers.setdefault("Content-Encoding", "aws-chunked")
+    headers[TRAILER_HEADER] = stream.header
+    headers["x-amz-content-sha256"] = STREAMING_UNSIGNED_PAYLOAD_TRAILER
+    return stream
 
 
 def is_composite(value: str) -> bool:
