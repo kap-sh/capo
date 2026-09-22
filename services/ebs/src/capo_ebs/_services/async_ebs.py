@@ -19,6 +19,7 @@ from capo_ebs._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_ebs._auth._zapros_handler import AuthMiddleware
+from capo_ebs._body import Body, aclosing_bodies
 from capo_ebs._iter import ensure_async_iterator
 from capo_ebs._pagination import resolve_path as _resolve_path
 from capo_ebs._services._aws_config import aaws_config
@@ -462,7 +463,7 @@ class AsyncEBSClient:
         self,
         snapshot_id: "capo_ebs.types.snapshot_id.SnapshotId",
         block_index: "capo_ebs.types.block_index.BlockIndex",
-        block_data: AsyncIterator[bytes] | bytes,
+        block_data: Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes,
         data_length: "capo_ebs.types.data_length.DataLength",
         checksum: "capo_ebs.types.checksum.Checksum",
         checksum_algorithm: "capo_ebs.types.checksum_algorithm.ChecksumAlgorithm",
@@ -518,13 +519,14 @@ class AsyncEBSClient:
         if progress is not None:
             input_["progress"] = progress
 
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
+        async with aclosing_bodies(input_):
+            response = await aexecute_pipeline(
+                AsyncOperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            await response.response.aclose()
+            return response.output
 
     async def start_snapshot(
         self,

@@ -444,6 +444,23 @@ def test_non_s3_does_not_set_payload_hash_header():
     assert "X-Amz-Content-SHA256" not in signed.headers
 
 
+def test_unsigned_payload_sends_header_for_non_s3():
+    """``aws.auth#unsignedPayload`` on a non-S3 operation (Lex RecognizeUtterance):
+    the header is the only way the service learns not to hash the body."""
+    ctx: SigV4AuthContext = {**_TEST_SUITE_CTX, "signing_name": "lex"}
+    req = _make_request(
+        "POST",
+        "https://runtime-v2-lex.us-east-1.amazonaws.com/bots/b/utterance",
+        {
+            "Host": "runtime-v2-lex.us-east-1.amazonaws.com",
+            "X-Amz-Date": "20150830T123600Z",
+        },
+    )
+    signed = sign_sigv4(req, ctx, None)
+    assert signed.headers["X-Amz-Content-SHA256"] == "UNSIGNED-PAYLOAD"
+    assert "x-amz-content-sha256" in signed.headers["Authorization"].split("SignedHeaders=")[1]
+
+
 def test_amz_date_autopopulated_when_missing():
     req = _make_request(
         "GET",

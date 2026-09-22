@@ -19,6 +19,7 @@ from capo_ebs._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_ebs._auth._zapros_handler import AuthMiddleware
+from capo_ebs._body import Body, closing_bodies
 from capo_ebs._iter import ensure_sync_iterator
 from capo_ebs._pagination import resolve_path as _resolve_path
 from capo_ebs._services._aws_config import aws_config
@@ -460,7 +461,7 @@ class EBSClient:
         self,
         snapshot_id: "capo_ebs.types.snapshot_id.SnapshotId",
         block_index: "capo_ebs.types.block_index.BlockIndex",
-        block_data: Iterator[bytes] | bytes,
+        block_data: Body[Iterator[bytes]] | Iterator[bytes] | bytes,
         data_length: "capo_ebs.types.data_length.DataLength",
         checksum: "capo_ebs.types.checksum.Checksum",
         checksum_algorithm: "capo_ebs.types.checksum_algorithm.ChecksumAlgorithm",
@@ -515,13 +516,14 @@ class EBSClient:
         if progress is not None:
             input_["progress"] = progress
 
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
+        with closing_bodies(input_):
+            response = execute_pipeline(
+                OperationRequest(input=input_, options=options_),
+                handler=_handler,
+                interceptors=list(interceptors_),
+            )
+            response.response.close()
+            return response.output
 
     def start_snapshot(
         self,
