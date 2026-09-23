@@ -13,12 +13,20 @@ Vectors come from two sources:
 
 from __future__ import annotations
 
+import asyncio
+import datetime as dt
+import hashlib
+import hmac
+from collections.abc import AsyncIterator, Iterator
+
 import pytest
 
 from pywhatwgurl import URL
 from zapros import Headers, Request
 
+from capo_athena._auth import _sigv4
 from capo_athena._auth._sigv4 import (
+    EventStreamIterator,
     SigV4AuthContext,
     build_sigv4_auth_scheme,
     _build_canonical_request,
@@ -30,6 +38,7 @@ from capo_athena._auth._sigv4 import (
     _uri_encode,
     sign_sigv4,
 )
+from capo_athena._protocol.eventstream import Message, MessageDecoder, encode_headers
 
 
 # ---------------------------------------------------------------------------
@@ -201,11 +210,16 @@ _TEST_SUITE_CTX: SigV4AuthContext = {
 }
 
 
-def _make_request(method: str, url: str, headers: dict[str, str]) -> Request:
+def _make_request(
+    method: str,
+    url: str,
+    headers: dict[str, str],
+    body: bytes | Iterator[bytes] | AsyncIterator[bytes] | None = None,
+) -> Request:
     """Build a Request and strip headers Request adds by default that the
     AWS test suite does not include (Accept, User-Agent, Accept-Encoding).
     """
-    req = Request(URL(url), method, headers=headers)
+    req = Request(URL(url), method, headers=headers, body=body)
     for h in ("accept", "user-agent", "accept-encoding"):
         if h in req.headers:
             del req.headers[h]
@@ -219,7 +233,7 @@ def test_get_vanilla():
         "https://example.amazonaws.com/",
         {"Host": "example.amazonaws.com", "X-Amz-Date": "20150830T123600Z"},
     )
-    signed = sign_sigv4(req, _TEST_SUITE_CTX, b"")
+    signed = sign_sigv4(req, _TEST_SUITE_CTX)
     assert signed.headers["Authorization"] == (
         "AWS4-HMAC-SHA256 "
         "Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request,"
@@ -235,7 +249,7 @@ def test_get_vanilla_query():
         "https://example.amazonaws.com/?Param1=value1",
         {"Host": "example.amazonaws.com", "X-Amz-Date": "20150830T123600Z"},
     )
-    signed = sign_sigv4(req, _TEST_SUITE_CTX, b"")
+    signed = sign_sigv4(req, _TEST_SUITE_CTX)
     assert signed.headers["Authorization"] == (
         "AWS4-HMAC-SHA256 "
         "Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request,"
@@ -255,7 +269,7 @@ def test_get_vanilla_query_order_key():
         "https://example.amazonaws.com/?Param2=value2&Param1=value1",
         {"Host": "example.amazonaws.com", "X-Amz-Date": "20150830T123600Z"},
     )
-    signed = sign_sigv4(req, _TEST_SUITE_CTX, b"")
+    signed = sign_sigv4(req, _TEST_SUITE_CTX)
     assert signed.headers["Authorization"] == (
         "AWS4-HMAC-SHA256 "
         "Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request,"
@@ -271,7 +285,7 @@ def test_post_vanilla():
         "https://example.amazonaws.com/",
         {"Host": "example.amazonaws.com", "X-Amz-Date": "20150830T123600Z"},
     )
-    signed = sign_sigv4(req, _TEST_SUITE_CTX, b"")
+    signed = sign_sigv4(req, _TEST_SUITE_CTX)
     assert signed.headers["Authorization"] == (
         "AWS4-HMAC-SHA256 "
         "Credential=AKIDEXAMPLE/20150830/us-east-1/service/aws4_request,"
@@ -308,7 +322,7 @@ def test_s3_get_object_example():
             "X-Amz-Date": "20130524T000000Z",
         },
     )
-    signed = sign_sigv4(req, _S3_DOCS_CTX, b"")
+    signed = sign_sigv4(req, _S3_DOCS_CTX)
 
     # Auto-injected payload hash for an empty body.
     assert signed.headers["X-Amz-Content-SHA256"] == (
@@ -334,7 +348,7 @@ def test_session_token_added_and_signed():
         "https://example.amazonaws.com/",
         {"Host": "example.amazonaws.com", "X-Amz-Date": "20150830T123600Z"},
     )
-    signed = sign_sigv4(req, ctx, b"")
+    signed = sign_sigv4(req, ctx)
     assert signed.headers["X-Amz-Security-Token"] == "TOKEN123"
     # x-amz-security-token must appear in the signed-headers list.
     assert "x-amz-security-token" in signed.headers["Authorization"]
@@ -345,9 +359,9 @@ def test_s3_sets_payload_hash_for_body():
         "PUT",
         "https://examplebucket.s3.amazonaws.com/key",
         {"Host": "examplebucket.s3.amazonaws.com", "X-Amz-Date": "20130524T000000Z"},
+        body=b"hello",
     )
-    body = b"hello"
-    signed = sign_sigv4(req, _S3_DOCS_CTX, body)
+    signed = sign_sigv4(req, _S3_DOCS_CTX)
     # sha256("hello")
     assert signed.headers["X-Amz-Content-SHA256"] == (
         "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
@@ -380,8 +394,9 @@ def test_s3_outposts_put_with_encoded_key():
             "Host": "s3-outposts.us-west-2.amazonaws.com",
             "X-Amz-Date": "20130524T000000Z",
         },
+        body=b"hello",
     )
-    signed = sign_sigv4(req, _s3_family_ctx("s3-outposts", "us-west-2"), b"hello")
+    signed = sign_sigv4(req, _s3_family_ctx("s3-outposts", "us-west-2"))
     assert signed.headers["X-Amz-Content-SHA256"] == (
         "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
     )
@@ -400,7 +415,7 @@ def test_s3express_get_with_encoded_key():
         f"https://{host}/a%20b?list-type=2",
         {"Host": host, "X-Amz-Date": "20130524T000000Z"},
     )
-    signed = sign_sigv4(req, _s3_family_ctx("s3express", "us-west-2"), b"")
+    signed = sign_sigv4(req, _s3_family_ctx("s3express", "us-west-2"))
     assert signed.headers["X-Amz-Content-SHA256"] == (
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     )
@@ -419,7 +434,7 @@ def test_s3_object_lambda_get_with_encoded_key():
         f"https://{host}/dir/a%20b",
         {"Host": host, "X-Amz-Date": "20130524T000000Z"},
     )
-    signed = sign_sigv4(req, _s3_family_ctx("s3-object-lambda", "us-east-1"), b"")
+    signed = sign_sigv4(req, _s3_family_ctx("s3-object-lambda", "us-east-1"))
     assert signed.headers["X-Amz-Content-SHA256"] == (
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     )
@@ -438,7 +453,7 @@ def test_non_s3_does_not_set_payload_hash_header():
         "https://iam.amazonaws.com/",
         {"Host": "iam.amazonaws.com", "X-Amz-Date": "20150830T123600Z"},
     )
-    signed = sign_sigv4(req, ctx, b"")
+    signed = sign_sigv4(req, ctx)
     # IAM/STS/etc. signs the payload hash into the canonical request but does
     # not transmit an X-Amz-Content-SHA256 header.
     assert "X-Amz-Content-SHA256" not in signed.headers
@@ -455,16 +470,137 @@ def test_unsigned_payload_sends_header_for_non_s3():
             "Host": "runtime-v2-lex.us-east-1.amazonaws.com",
             "X-Amz-Date": "20150830T123600Z",
         },
+        body=iter([b"audio"]),
     )
-    signed = sign_sigv4(req, ctx, None)
+    signed = sign_sigv4(req, ctx, unsigned_payload=True)
     assert signed.headers["X-Amz-Content-SHA256"] == "UNSIGNED-PAYLOAD"
     assert "x-amz-content-sha256" in signed.headers["Authorization"].split("SignedHeaders=")[1]
 
 
-def test_event_stream_signs_streaming_events_marker():
-    """A request event stream (Transcribe StartStreamTranscription) signs the
-    ``STREAMING-AWS4-HMAC-SHA256-EVENTS`` marker and sends it in the header."""
-    ctx: SigV4AuthContext = {**_TEST_SUITE_CTX, "signing_name": "transcribe"}
+def test_streamed_body_rejected_without_unsigned_payload():
+    req = _make_request(
+        "PUT",
+        "https://example.amazonaws.com/",
+        {"Host": "example.amazonaws.com"},
+        body=iter([b"chunk"]),
+    )
+    with pytest.raises(TypeError):
+        sign_sigv4(req, _TEST_SUITE_CTX)
+
+
+# ---------------------------------------------------------------------------
+# Request event streams (Transcribe StartStreamTranscription & co.)
+#
+# Frame vectors computed with the amazon-transcribe-streaming-sdk EventSigner
+# for the same credentials, clock and seed signature.
+# ---------------------------------------------------------------------------
+
+_EVENT_CTX: SigV4AuthContext = {**_TEST_SUITE_CTX, "signing_name": "transcribe"}
+_EVENT_NOW = dt.datetime(2015, 8, 30, 12, 36, 0, 123000, tzinfo=dt.timezone.utc)
+_SEED_SIGNATURE = "5fa00fa31553b73ebf1942676e86291e8372ff2a2260956d9b8aae1d763fbf31"
+_EXPECTED_CHUNK_SIGNATURES = [
+    "790059050e9798603e8e42a1ad7d6722d26b05ec6b02d78e6337e5b8c3c41c90",
+    "137143c4f956f3fe0ea64f7b27848aa1b9168e770143b06b8a78723c6d0c62c5",
+    "cb01529bff77188ec0f881ecdccab5e237925b6a14357c1ef10f873b4fc8793a",
+]
+
+
+def _audio_events() -> list[bytes]:
+    headers = {
+        ":message-type": "event",
+        ":event-type": "AudioEvent",
+        ":content-type": "application/octet-stream",
+    }
+    return [
+        Message(headers, b"\x01\x02\x03").encode(),
+        Message(headers, b"").encode(),
+    ]
+
+
+def _decode_frames(frames: list[bytes]) -> list[Message]:
+    decoder = MessageDecoder()
+    return [message for frame in frames for message in decoder.feed(frame)]
+
+
+def _chunk_signature(message: Message) -> str:
+    signature = message.headers[":chunk-signature"]
+    assert isinstance(signature, bytes) and len(signature) == 32
+    return signature.hex()
+
+
+def _expected_event_signature(prior: str, payload: bytes) -> str:
+    """The per-frame string to sign, straight from the Transcribe developer
+    guide (with the ``-PAYLOAD`` algorithm name every AWS SDK uses)."""
+    string_to_sign = "\n".join(
+        [
+            "AWS4-HMAC-SHA256-PAYLOAD",
+            "20150830T123600Z",
+            "20150830/us-east-1/transcribe/aws4_request",
+            prior,
+            hashlib.sha256(encode_headers({":date": _EVENT_NOW})).hexdigest(),
+            hashlib.sha256(payload).hexdigest(),
+        ]
+    )
+    key = _derive_signing_key(
+        _EVENT_CTX["secret_access_key"], "20150830", "us-east-1", "transcribe"
+    )
+    return hmac.new(key, string_to_sign.encode(), hashlib.sha256).hexdigest()
+
+
+def test_event_stream_frames_chain_from_seed_signature(monkeypatch):
+    monkeypatch.setattr(_sigv4, "_amz_now", lambda: _EVENT_NOW)
+    events = _audio_events()
+
+    frames = list(EventStreamIterator(iter(events), _EVENT_CTX, _SEED_SIGNATURE))
+    messages = _decode_frames(frames)
+
+    # One frame per event, plus the empty end frame.
+    assert [m.payload for m in messages] == [*events, b""]
+    prior = _SEED_SIGNATURE
+    for message, payload, expected in zip(
+        messages, [*events, b""], _EXPECTED_CHUNK_SIGNATURES
+    ):
+        assert set(message.headers) == {":date", ":chunk-signature"}
+        assert message.headers[":date"] == _EVENT_NOW
+        signature = _chunk_signature(message)
+        assert signature == _expected_event_signature(prior, payload) == expected
+        prior = signature
+
+
+def test_event_stream_empty_source_still_sends_end_frame(monkeypatch):
+    monkeypatch.setattr(_sigv4, "_amz_now", lambda: _EVENT_NOW)
+    frames = list(EventStreamIterator(iter([]), _EVENT_CTX, _SEED_SIGNATURE))
+    (message,) = _decode_frames(frames)
+    assert message.payload == b""
+    assert message.headers[":chunk-signature"] == bytes.fromhex(
+        _expected_event_signature(_SEED_SIGNATURE, b"")
+    )
+
+
+def test_async_event_stream_matches_sync(monkeypatch):
+    monkeypatch.setattr(_sigv4, "_amz_now", lambda: _EVENT_NOW)
+    events = _audio_events()
+
+    async def source() -> AsyncIterator[bytes]:
+        for event in events:
+            yield event
+
+    async def main() -> list[bytes]:
+        return [
+            f async for f in EventStreamIterator(source(), _EVENT_CTX, _SEED_SIGNATURE)
+        ]
+
+    frames = asyncio.run(main())
+    assert frames == list(EventStreamIterator(iter(events), _EVENT_CTX, _SEED_SIGNATURE))
+    assert [_chunk_signature(m) for m in _decode_frames(frames)] == _EXPECTED_CHUNK_SIGNATURES
+
+
+def test_event_stream_request_signs_marker_and_wraps_body(monkeypatch):
+    """A request event stream signs the ``STREAMING-AWS4-HMAC-SHA256-EVENTS``
+    marker, sends it in the header, and wraps the body so every event is
+    signed with a chain seeded by the Authorization signature."""
+    monkeypatch.setattr(_sigv4, "_amz_now", lambda: _EVENT_NOW)
+    events = _audio_events()
     req = _make_request(
         "POST",
         "https://transcribestreaming.us-east-1.amazonaws.com/stream-transcription",
@@ -472,10 +608,41 @@ def test_event_stream_signs_streaming_events_marker():
             "Host": "transcribestreaming.us-east-1.amazonaws.com",
             "X-Amz-Date": "20150830T123600Z",
         },
+        body=iter(events),
     )
-    signed = sign_sigv4(req, ctx, None, event_stream=True)
+    signed = sign_sigv4(req, _EVENT_CTX, event_stream=True)
     assert signed.headers["X-Amz-Content-SHA256"] == "STREAMING-AWS4-HMAC-SHA256-EVENTS"
     assert "x-amz-content-sha256" in signed.headers["Authorization"].split("SignedHeaders=")[1]
+    seed = signed.headers["Authorization"].rsplit("Signature=", 1)[1]
+
+    assert isinstance(signed.body, EventStreamIterator)
+    messages = _decode_frames(list(signed.body))
+    assert [m.payload for m in messages] == [*events, b""]
+    assert messages[0].headers[":chunk-signature"] == bytes.fromhex(
+        _expected_event_signature(seed, events[0])
+    )
+
+
+def test_event_stream_request_wraps_async_body():
+    async def source() -> AsyncIterator[bytes]:
+        yield b""
+
+    req = _make_request(
+        "POST",
+        "https://transcribestreaming.us-east-1.amazonaws.com/stream-transcription",
+        {"Host": "transcribestreaming.us-east-1.amazonaws.com"},
+        body=source(),
+    )
+    signed = sign_sigv4(req, _EVENT_CTX, event_stream=True)
+    assert isinstance(signed.body, EventStreamIterator)
+    assert isinstance(signed.body, AsyncIterator)
+    with pytest.raises(TypeError):
+        next(signed.body)
+    assert len(asyncio.run(_collect(signed.body))) == 2
+
+
+async def _collect(source: AsyncIterator[bytes]) -> list[bytes]:
+    return [chunk async for chunk in source]
 
 
 def test_amz_date_autopopulated_when_missing():
@@ -484,7 +651,7 @@ def test_amz_date_autopopulated_when_missing():
         "https://example.amazonaws.com/",
         {"Host": "example.amazonaws.com"},
     )
-    signed = sign_sigv4(req, _TEST_SUITE_CTX, b"")
+    signed = sign_sigv4(req, _TEST_SUITE_CTX)
     amz_date = signed.headers["X-Amz-Date"]
     # Format: YYYYMMDDTHHMMSSZ
     assert len(amz_date) == 16
@@ -498,7 +665,7 @@ def test_authorization_header_format():
         "https://example.amazonaws.com/",
         {"Host": "example.amazonaws.com", "X-Amz-Date": "20150830T123600Z"},
     )
-    signed = sign_sigv4(req, _TEST_SUITE_CTX, b"")
+    signed = sign_sigv4(req, _TEST_SUITE_CTX)
     auth = signed.headers["Authorization"]
     assert auth.startswith("AWS4-HMAC-SHA256 ")
     # Spec: comma-separated, no required whitespace between parts.

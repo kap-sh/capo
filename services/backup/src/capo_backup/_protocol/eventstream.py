@@ -89,7 +89,7 @@ def _decode_header_value(
     raise ValueError(f"unsupported eventstream header type: {type_byte:#x}")
 
 
-def _encode_headers(headers: dict[str, HeaderValue]) -> bytes:
+def encode_headers(headers: dict[str, HeaderValue]) -> bytes:
     parts: list[bytes] = []
     for name, value in headers.items():
         name_bytes = name.encode("utf-8")
@@ -124,7 +124,7 @@ class Message:
 
     def encode(self) -> bytes:
         """Serialize this message into eventstream framing bytes."""
-        headers_bytes = _encode_headers(self.headers)
+        headers_bytes = encode_headers(self.headers)
         headers_length = len(headers_bytes)
         payload = self.payload
         # total_length covers the whole frame, trailing message CRC included.
@@ -234,6 +234,7 @@ __all__ = [
     "MessageDecoder",
     "async_raw_stream_to_events",
     "async_read_messages",
+    "encode_headers",
     "raw_stream_to_events",
     "read_messages",
 ]
