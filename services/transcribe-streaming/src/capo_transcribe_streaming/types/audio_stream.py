@@ -6,6 +6,9 @@ from typing_extensions import TypedDict
 
 from capo_transcribe_streaming._iter import AnyIterator
 from capo_transcribe_streaming._protocol.eventstream import Message
+from capo_transcribe_streaming.errors import (
+    UnknownServiceError,
+)
 
 if TYPE_CHECKING:
     import capo_transcribe_streaming.types.audio_event
@@ -46,7 +49,20 @@ def serialize_event_json(value: _AudioStream) -> bytes:
 
 def deserialize_event_json(message: Message) -> _AudioStream:
     headers = message.headers
-    message_type = headers.get(":message-type", "event")  # noqa: F841
+    message_type = headers.get(":message-type", "event")
+    if message_type == "exception":
+        exception_type = headers.get(":exception-type")
+        raise UnknownServiceError(
+            code=str(exception_type), message=None, response=message
+        )
+    if message_type == "error":
+        error_code = headers.get(":error-code")
+        error_message = headers.get(":error-message")
+        raise UnknownServiceError(
+            code=None if error_code is None else str(error_code),
+            message=None if error_message is None else str(error_message),
+            response=message,
+        )
     event_type = headers.get(":event-type")
     match event_type:
         case "AudioEvent":

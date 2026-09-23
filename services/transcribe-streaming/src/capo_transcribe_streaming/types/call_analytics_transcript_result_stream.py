@@ -6,6 +6,9 @@ from typing_extensions import TypedDict
 
 from capo_transcribe_streaming._iter import AnyIterator
 from capo_transcribe_streaming._protocol.eventstream import Message
+from capo_transcribe_streaming.errors import (
+    UnknownServiceError,
+)
 
 if TYPE_CHECKING:
     import capo_transcribe_streaming.errors.bad_request_exception
@@ -121,52 +124,65 @@ def serialize_event_json(value: _CallAnalyticsTranscriptResultStream) -> bytes:
 
 def deserialize_event_json(message: Message) -> _CallAnalyticsTranscriptResultStream:
     headers = message.headers
-    message_type = headers.get(":message-type", "event")  # noqa: F841
-    if message_type == "error":
-        error_type = headers.get(":error-type")
-        match error_type:
+    message_type = headers.get(":message-type", "event")
+    if message_type == "exception":
+        exception_type = headers.get(":exception-type")
+        match exception_type:
             case "BadRequestException":
                 import capo_transcribe_streaming.errors.bad_request_exception
 
+                data = capo_transcribe_streaming.errors.bad_request_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_transcribe_streaming.errors.bad_request_exception.BadRequestException(
-                    capo_transcribe_streaming.errors.bad_request_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "LimitExceededException":
                 import capo_transcribe_streaming.errors.limit_exceeded_exception
 
+                data = capo_transcribe_streaming.errors.limit_exceeded_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_transcribe_streaming.errors.limit_exceeded_exception.LimitExceededException(
-                    capo_transcribe_streaming.errors.limit_exceeded_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "InternalFailureException":
                 import capo_transcribe_streaming.errors.internal_failure_exception
 
+                data = capo_transcribe_streaming.errors.internal_failure_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_transcribe_streaming.errors.internal_failure_exception.InternalFailureException(
-                    capo_transcribe_streaming.errors.internal_failure_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "ConflictException":
                 import capo_transcribe_streaming.errors.conflict_exception
 
+                data = capo_transcribe_streaming.errors.conflict_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_transcribe_streaming.errors.conflict_exception.ConflictException(
-                    capo_transcribe_streaming.errors.conflict_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "ServiceUnavailableException":
                 import capo_transcribe_streaming.errors.service_unavailable_exception
 
-                raise capo_transcribe_streaming.errors.service_unavailable_exception.ServiceUnavailableException(
-                    capo_transcribe_streaming.errors.service_unavailable_exception.deserialize_event_json(
-                        message
-                    )
+                data = capo_transcribe_streaming.errors.service_unavailable_exception.deserialize_event_json(
+                    message
                 )
-        raise ValueError(
-            f"CallAnalyticsTranscriptResultStream: unrecognized error-type {error_type!r}"
+                raise capo_transcribe_streaming.errors.service_unavailable_exception.ServiceUnavailableException(
+                    data, message=data.get("message")
+                )
+        raise UnknownServiceError(
+            code=str(exception_type), message=None, response=message
+        )
+    if message_type == "error":
+        error_code = headers.get(":error-code")
+        error_message = headers.get(":error-message")
+        raise UnknownServiceError(
+            code=None if error_code is None else str(error_code),
+            message=None if error_message is None else str(error_message),
+            response=message,
         )
     event_type = headers.get(":event-type")
     match event_type:

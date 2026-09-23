@@ -6,6 +6,9 @@ from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime._iter import AnyIterator
 from capo_bedrock_agent_runtime._protocol.eventstream import Message
+from capo_bedrock_agent_runtime.errors import (
+    UnknownServiceError,
+)
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.errors.access_denied_exception
@@ -129,60 +132,74 @@ def serialize_event_json(value: _OptimizedPromptStream) -> bytes:
 
 def deserialize_event_json(message: Message) -> _OptimizedPromptStream:
     headers = message.headers
-    message_type = headers.get(":message-type", "event")  # noqa: F841
-    if message_type == "error":
-        error_type = headers.get(":error-type")
-        match error_type:
+    message_type = headers.get(":message-type", "event")
+    if message_type == "exception":
+        exception_type = headers.get(":exception-type")
+        match exception_type:
             case "internalServerException":
                 import capo_bedrock_agent_runtime.errors.internal_server_exception
 
+                data = capo_bedrock_agent_runtime.errors.internal_server_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_bedrock_agent_runtime.errors.internal_server_exception.InternalServerException(
-                    capo_bedrock_agent_runtime.errors.internal_server_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "throttlingException":
                 import capo_bedrock_agent_runtime.errors.throttling_exception
 
+                data = capo_bedrock_agent_runtime.errors.throttling_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_bedrock_agent_runtime.errors.throttling_exception.ThrottlingException(
-                    capo_bedrock_agent_runtime.errors.throttling_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "validationException":
                 import capo_bedrock_agent_runtime.errors.validation_exception
 
+                data = capo_bedrock_agent_runtime.errors.validation_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_bedrock_agent_runtime.errors.validation_exception.ValidationException(
-                    capo_bedrock_agent_runtime.errors.validation_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "dependencyFailedException":
                 import capo_bedrock_agent_runtime.errors.dependency_failed_exception
 
+                data = capo_bedrock_agent_runtime.errors.dependency_failed_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_bedrock_agent_runtime.errors.dependency_failed_exception.DependencyFailedException(
-                    capo_bedrock_agent_runtime.errors.dependency_failed_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "accessDeniedException":
                 import capo_bedrock_agent_runtime.errors.access_denied_exception
 
+                data = capo_bedrock_agent_runtime.errors.access_denied_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_bedrock_agent_runtime.errors.access_denied_exception.AccessDeniedException(
-                    capo_bedrock_agent_runtime.errors.access_denied_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "badGatewayException":
                 import capo_bedrock_agent_runtime.errors.bad_gateway_exception
 
-                raise capo_bedrock_agent_runtime.errors.bad_gateway_exception.BadGatewayException(
-                    capo_bedrock_agent_runtime.errors.bad_gateway_exception.deserialize_event_json(
-                        message
-                    )
+                data = capo_bedrock_agent_runtime.errors.bad_gateway_exception.deserialize_event_json(
+                    message
                 )
-        raise ValueError(
-            f"OptimizedPromptStream: unrecognized error-type {error_type!r}"
+                raise capo_bedrock_agent_runtime.errors.bad_gateway_exception.BadGatewayException(
+                    data, message=data.get("message")
+                )
+        raise UnknownServiceError(
+            code=str(exception_type), message=None, response=message
+        )
+    if message_type == "error":
+        error_code = headers.get(":error-code")
+        error_message = headers.get(":error-message")
+        raise UnknownServiceError(
+            code=None if error_code is None else str(error_code),
+            message=None if error_message is None else str(error_message),
+            response=message,
         )
     event_type = headers.get(":event-type")
     match event_type:

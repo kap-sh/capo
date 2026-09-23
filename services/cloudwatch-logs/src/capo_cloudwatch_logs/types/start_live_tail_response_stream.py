@@ -6,6 +6,9 @@ from typing_extensions import TypedDict
 
 from capo_cloudwatch_logs._iter import AnyIterator
 from capo_cloudwatch_logs._protocol.eventstream import Message
+from capo_cloudwatch_logs.errors import (
+    UnknownServiceError,
+)
 
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.errors.session_streaming_exception
@@ -79,28 +82,38 @@ def serialize_event_aws_json_1_1(value: _StartLiveTailResponseStream) -> bytes:
 
 def deserialize_event_aws_json_1_1(message: Message) -> _StartLiveTailResponseStream:
     headers = message.headers
-    message_type = headers.get(":message-type", "event")  # noqa: F841
-    if message_type == "error":
-        error_type = headers.get(":error-type")
-        match error_type:
+    message_type = headers.get(":message-type", "event")
+    if message_type == "exception":
+        exception_type = headers.get(":exception-type")
+        match exception_type:
             case "SessionTimeoutException":
                 import capo_cloudwatch_logs.errors.session_timeout_exception
 
+                data = capo_cloudwatch_logs.errors.session_timeout_exception.deserialize_event_aws_json_1_1(
+                    message
+                )
                 raise capo_cloudwatch_logs.errors.session_timeout_exception.SessionTimeoutException(
-                    capo_cloudwatch_logs.errors.session_timeout_exception.deserialize_event_aws_json_1_1(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "SessionStreamingException":
                 import capo_cloudwatch_logs.errors.session_streaming_exception
 
-                raise capo_cloudwatch_logs.errors.session_streaming_exception.SessionStreamingException(
-                    capo_cloudwatch_logs.errors.session_streaming_exception.deserialize_event_aws_json_1_1(
-                        message
-                    )
+                data = capo_cloudwatch_logs.errors.session_streaming_exception.deserialize_event_aws_json_1_1(
+                    message
                 )
-        raise ValueError(
-            f"StartLiveTailResponseStream: unrecognized error-type {error_type!r}"
+                raise capo_cloudwatch_logs.errors.session_streaming_exception.SessionStreamingException(
+                    data, message=data.get("message")
+                )
+        raise UnknownServiceError(
+            code=str(exception_type), message=None, response=message
+        )
+    if message_type == "error":
+        error_code = headers.get(":error-code")
+        error_message = headers.get(":error-message")
+        raise UnknownServiceError(
+            code=None if error_code is None else str(error_code),
+            message=None if error_message is None else str(error_message),
+            response=message,
         )
     event_type = headers.get(":event-type")
     match event_type:
