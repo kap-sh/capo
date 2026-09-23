@@ -1,0 +1,40 @@
+# ry (https://github.com/karpetrosyan/ry) generates the sync twin of every
+# async test class in tests/ marked with `# unasync: generate`.
+#
+#   uv run ry tests          # check that generated code is up to date
+#   uv run ry --fix tests    # regenerate
+#
+# Async code is the source of truth: never edit a `# unasync: generated` class.
+version: 1
+
+defaults:
+  include:
+    - package: std
+    - package: capo
+
+packages:
+  capo:
+    rules:
+      - id: test-class
+        match: '\bTestAsync(\w+)'
+        replace: 'Test$1'
+
+      - id: async-s3-client
+        match: '\bAsyncS3Client\b'
+        replace: 'S3Client'
+      - id: async-transcribe-client
+        match: '\bAsyncTranscribeStreamingClient\b'
+        replace: 'TranscribeStreamingClient'
+
+      # fixtures (tests/conftest.py)
+      - id: async-s3-fixture
+        match: '\basync_s3\b'
+        replace: 's3'
+
+      - id: anyio-sleep
+        match: '\banyio\.sleep\b'
+        replace: 'time.sleep'
+      # tests/conftest.py: task group -> thread pool
+      - id: agather
+        match: '\bagather\b'
+        replace: 'gather'

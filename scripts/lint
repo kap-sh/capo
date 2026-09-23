@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# generated sync twins in tests/ must be up to date (see ry.yml)
+uv run ry tests

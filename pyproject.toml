@@ -1,0 +1,48 @@
+# Root project for the integration tests in tests/. Never published; it only
+# pins pytest and installs the service packages under test from their local paths.
+[project]
+name = "aws-sdk-python-tests"
+version = "0.0.0"
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "anyio>=4",
+    "trio",
+    "ry-cli==0.4.0",
+    "ty==0.0.68",
+    "capo-s3[sso]",
+    "capo-transcribe-streaming[sso]",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+capo-s3 = { path = "services/s3", editable = true }
+capo-transcribe-streaming = { path = "services/transcribe-streaming", editable = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+anyio_mode = "auto"
+markers = [
+    "third_party_services: free; needs the local S3-compatible servers from tests/docker-compose.yml, each backend is skipped when unreachable",
+    "paid: costs money on the AWS account; skipped unless CAPO_PAID=1",
+]
+
+[tool.ty.environment]
+# tests/scripts imports the release helpers from scripts/ via sys.path
+extra-paths = ["scripts"]
+
+[tool.ty.src]
+include = ["tests"]
+
+[tool.ruff]
+# Long enough that stripping `async`/`await` from a generated twin never
+# changes line wrapping, so `ry` and `ruff format` agree.
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
