@@ -34,6 +34,7 @@ from urllib.parse import urlparse
 import anyio
 import pytest
 from capo_s3 import AsyncS3Client, Credentials, S3Client
+from zapros import AsyncBaseHandler, BaseHandler
 
 # Third-party S3-compatible backends. Endpoint and credentials can be overridden
 # with CAPO_<BACKEND>_ENDPOINT / _ACCESS_KEY / _SECRET_KEY.
@@ -101,6 +102,21 @@ def read_body(get_object_ctx) -> bytes:
         return b"".join(obj["body"])
 
 
+def parts_of(data: bytes, size: int = 64 * 1024) -> list[bytes]:
+    return [data[i : i + size] for i in range(0, len(data), size)]
+
+
+async def astream(parts: list[bytes]) -> AsyncIterator[bytes]:
+    """An async one-shot body; ``stream`` is the sync twin."""
+    for part in parts:
+        yield part
+
+
+def stream(parts: list[bytes]) -> Iterator[bytes]:
+    for part in parts:
+        yield part
+
+
 def crc32_b64(data: bytes) -> str:
     """CRC32 the way S3 reports it: big-endian, base64."""
     return base64.b64encode(zlib.crc32(data).to_bytes(4, "big")).decode()
@@ -122,24 +138,40 @@ def local_s3_settings(backend: str) -> tuple[str, str, str]:
     )
 
 
-def make_s3_client(backend: str, credentials: Credentials | None = None) -> S3Client:
+def make_s3_client(
+    backend: str, credentials: Credentials | None = None, http_handler: BaseHandler | None = None
+) -> S3Client:
     """A client for ``backend``; AWS uses the default credentials chain unless given some."""
     if backend == "aws":
-        return S3Client(region=AWS_REGION, credentials=credentials)
+        return S3Client(region=AWS_REGION, credentials=credentials, http_handler=http_handler)
     endpoint, access_key, secret_key = local_s3_settings(backend)
     if credentials is None:
         credentials = Credentials(access_key=access_key, secret_key=secret_key)
-    return S3Client(endpoint=endpoint, region="us-east-1", force_path_style=True, credentials=credentials)
+    return S3Client(
+        endpoint=endpoint,
+        region="us-east-1",
+        force_path_style=True,
+        credentials=credentials,
+        http_handler=http_handler,
+    )
 
 
-def make_async_s3_client(backend: str, credentials: Credentials | None = None) -> AsyncS3Client:
+def make_async_s3_client(
+    backend: str, credentials: Credentials | None = None, http_handler: AsyncBaseHandler | None = None
+) -> AsyncS3Client:
     """Async twin of :func:`make_s3_client`."""
     if backend == "aws":
-        return AsyncS3Client(region=AWS_REGION, credentials=credentials)
+        return AsyncS3Client(region=AWS_REGION, credentials=credentials, http_handler=http_handler)
     endpoint, access_key, secret_key = local_s3_settings(backend)
     if credentials is None:
         credentials = Credentials(access_key=access_key, secret_key=secret_key)
-    return AsyncS3Client(endpoint=endpoint, region="us-east-1", force_path_style=True, credentials=credentials)
+    return AsyncS3Client(
+        endpoint=endpoint,
+        region="us-east-1",
+        force_path_style=True,
+        credentials=credentials,
+        http_handler=http_handler,
+    )
 
 
 @pytest.fixture(

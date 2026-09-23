@@ -12,7 +12,6 @@ from __future__ import annotations
 import base64
 import hashlib
 import os
-from collections.abc import AsyncIterator, Iterator
 from pathlib import Path
 
 import pytest
@@ -21,7 +20,7 @@ from capo_s3._checksums import TrailingChecksumStream
 from capo_s3.errors import NotFound, ServiceError
 from capo_s3.types.checksum_algorithm import ChecksumAlgorithm
 
-from tests.conftest import aread_body, crc32_b64, read_body
+from tests.conftest import aread_body, astream, crc32_b64, parts_of, read_body, stream
 
 DATA = os.urandom(300 * 1024 + 17)  # several 64 KiB frames plus a ragged tail
 PART = os.urandom(5 * 1024 * 1024 + 3)  # smallest legal non-final multipart part
@@ -48,20 +47,6 @@ def expected_checksum(algorithm: str, data: bytes) -> str | None:
     if algorithm == "SHA256":
         return base64.b64encode(hashlib.sha256(data).digest()).decode()
     return None
-
-
-def parts_of(data: bytes, size: int = 64 * 1024) -> list[bytes]:
-    return [data[i : i + size] for i in range(0, len(data), size)]
-
-
-async def astream(parts: list[bytes]) -> AsyncIterator[bytes]:  # unasync: generate
-    for part in parts:
-        yield part
-
-
-def stream(parts: list[bytes]) -> Iterator[bytes]:  # unasync: generated
-    for part in parts:
-        yield part
 
 
 class TestAsyncStreamingChecksum:  # unasync: generate

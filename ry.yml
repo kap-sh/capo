@@ -55,7 +55,10 @@ packages:
       - id: body-async-from-path
         match: '\basync_from_path\b'
         replace: 'from_path'
-      # tests/test_s3_streaming_checksum.py
       - id: astream
         match: '\bastream\b'
         replace: 'stream'
+      # tests/test_body.py
+      - id: faulty-async-s3-fixture
+        match: '\bfaulty_async_s3\b'
+        replace: 'faulty_s3'
