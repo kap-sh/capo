@@ -1,10 +1,10 @@
-# tests/test_aggregate_changelog.py
+# tests/scripts/test_aggregate_changelog.py
 import subprocess
 import tempfile
 from pathlib import Path
 from datetime import date
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
 from aggregate_changelog import changed_services, generate_root_changelog
 
