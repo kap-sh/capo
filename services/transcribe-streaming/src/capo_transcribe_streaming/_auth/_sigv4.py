@@ -95,9 +95,11 @@ _UNSIGNED_HEADERS = frozenset(
 
 _MULTI_SPACE = re.compile(r" +")
 
-# Services that require the payload hash to travel in ``x-amz-content-sha256``.
-# Other services sign the hash into the canonical request without sending it.
-_S3_SIGNING_NAMES = frozenset({"s3", "s3express", "s3-outposts", "s3-object-lambda"})
+# Services that require the payload hash to travel in ``x-amz-content-sha256``
+# on every request, and that accept ``UNSIGNED-PAYLOAD`` for any operation.
+# Other services sign the hash into the canonical request without sending it,
+# and only see the header when the payload is left unsigned.
+S3_SIGNING_NAMES = frozenset({"s3", "s3express", "s3-outposts", "s3-object-lambda"})
 
 
 def _uri_encode(value: str) -> str:
@@ -232,11 +234,16 @@ def sign_sigv4(
     request: Request,
     ctx: SigV4AuthContext,
     body: bytes | None,
+    *,
+    event_stream: bool = False,
 ) -> Request:
     """Return a new ``Request`` carrying SigV4 single-chunk auth headers.
 
-    Pass ``body=None`` to sign with ``UNSIGNED-PAYLOAD`` (streaming requests).
-    The original ``request.body`` is forwarded unchanged in that case.
+    Pass ``body=None`` to sign with ``UNSIGNED-PAYLOAD`` (streaming S3 requests
+    and operations carrying ``aws.auth#unsignedPayload``). The original
+    ``request.body`` is forwarded unchanged in that case. ``event_stream``
+    signs a request event stream with the ``STREAMING-AWS4-HMAC-SHA256-EVENTS``
+    payload marker instead; ``body`` is ignored.
     """
     service = ctx["signing_name"]
     region = ctx["signing_region"]
@@ -254,17 +261,22 @@ def sign_sigv4(
         date_stamp = now.strftime("%Y%m%d")
         headers["X-Amz-Date"] = amz_date
 
-    # Payload hash. For S3-family services, x-amz-content-sha256 is mandatory
-    # and must be set BEFORE computing the canonical request (it gets signed).
+    # Payload hash. For S3-family services, x-amz-content-sha256 is mandatory;
+    # for every service it is the only way to announce an unsigned payload or
+    # an event stream.
+    # Either way it must be set BEFORE computing the canonical request (it
+    # gets signed).
     payload_hash = headers.get("X-Amz-Content-SHA256")
     if payload_hash is None:
-        if body is None:
+        if event_stream:
+            payload_hash = "STREAMING-AWS4-HMAC-SHA256-EVENTS"
+        elif body is None:
             payload_hash = "UNSIGNED-PAYLOAD"
         else:
             payload_hash = (
                 hashlib.sha256(body).hexdigest() if body else _EMPTY_PAYLOAD_SHA256
             )
-    if service in _S3_SIGNING_NAMES:
+    if service in S3_SIGNING_NAMES or body is None or event_stream:
         headers["X-Amz-Content-SHA256"] = payload_hash
 
     # Session token (STS / assumed-role credentials).

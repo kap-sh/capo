@@ -461,6 +461,23 @@ def test_unsigned_payload_sends_header_for_non_s3():
     assert "x-amz-content-sha256" in signed.headers["Authorization"].split("SignedHeaders=")[1]
 
 
+def test_event_stream_signs_streaming_events_marker():
+    """A request event stream (Transcribe StartStreamTranscription) signs the
+    ``STREAMING-AWS4-HMAC-SHA256-EVENTS`` marker and sends it in the header."""
+    ctx: SigV4AuthContext = {**_TEST_SUITE_CTX, "signing_name": "transcribe"}
+    req = _make_request(
+        "POST",
+        "https://transcribestreaming.us-east-1.amazonaws.com/stream-transcription",
+        {
+            "Host": "transcribestreaming.us-east-1.amazonaws.com",
+            "X-Amz-Date": "20150830T123600Z",
+        },
+    )
+    signed = sign_sigv4(req, ctx, None, event_stream=True)
+    assert signed.headers["X-Amz-Content-SHA256"] == "STREAMING-AWS4-HMAC-SHA256-EVENTS"
+    assert "x-amz-content-sha256" in signed.headers["Authorization"].split("SignedHeaders=")[1]
+
+
 def test_amz_date_autopopulated_when_missing():
     req = _make_request(
         "GET",

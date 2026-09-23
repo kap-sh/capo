@@ -143,7 +143,9 @@ def get_signer(
             )
             if sigv4_config is not None:
                 return capo_bedrock_runtime._auth._signers.SigV4Signer(
-                    options.credentials_provider, auth_scheme=sigv4_config
+                    options.credentials_provider,
+                    auth_scheme=sigv4_config,
+                    event_stream=True,
                 )
     if options.bearer_provider is not None:
         return capo_bedrock_runtime._auth._signers.HttpBearerSigner(

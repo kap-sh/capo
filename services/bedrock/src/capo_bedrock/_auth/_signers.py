@@ -52,7 +52,8 @@ class SigV4Signer(Signer[Credentials]):
     endpoint rule-set's ``authSchemes`` property or built by the generated
     ``get_signer`` from operation defaults. ``unsigned_payload`` mirrors the
     operation's ``aws.auth#unsignedPayload`` trait: the body is sent but left
-    out of the signature.
+    out of the signature. ``event_stream`` marks a request event stream, signed
+    with the ``STREAMING-AWS4-HMAC-SHA256-EVENTS`` payload marker.
     """
 
     def __init__(
@@ -61,10 +62,12 @@ class SigV4Signer(Signer[Credentials]):
         *,
         auth_scheme: dict[str, Any],
         unsigned_payload: bool = False,
+        event_stream: bool = False,
     ) -> None:
         super().__init__(provider)
         self._auth_scheme = auth_scheme
         self._unsigned_payload = unsigned_payload
+        self._event_stream = event_stream
 
     async def asign(self, req: Request) -> Request:
         creds = await self.provider.aresolve_identity()
@@ -82,7 +85,7 @@ class SigV4Signer(Signer[Credentials]):
                 "disableNormalizePath", False
             ),
         }
-        if self._unsigned_payload:
+        if self._unsigned_payload or self._event_stream:
             body: bytes | None = None
         elif req.body is None:
             body = b""
@@ -96,7 +99,7 @@ class SigV4Signer(Signer[Credentials]):
                 "Currently we don't support signed chunked payloads, so buffer the body and "
                 "pass bytes as a workaround; chunked signed implementation coming soon"
             )
-        return sign_sigv4(req, ctx, body)
+        return sign_sigv4(req, ctx, body, event_stream=self._event_stream)
 
     def sign(self, req: Request) -> Request:
         creds = self.provider.resolve_identity()
@@ -114,7 +117,7 @@ class SigV4Signer(Signer[Credentials]):
                 "disableNormalizePath", False
             ),
         }
-        if self._unsigned_payload:
+        if self._unsigned_payload or self._event_stream:
             body: bytes | None = None
         elif req.body is None:
             body = b""
@@ -128,4 +131,4 @@ class SigV4Signer(Signer[Credentials]):
                 "Currently we don't support signed chunked payloads, so buffer the body and "
                 "pass bytes as a workaround; chunked signed implementation coming soon"
             )
-        return sign_sigv4(req, ctx, body)
+        return sign_sigv4(req, ctx, body, event_stream=self._event_stream)
