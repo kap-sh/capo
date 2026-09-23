@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchlogs#SessionStreamingException``."""
 
+import json
 from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
@@ -53,8 +54,13 @@ class SessionStreamingException(ServiceError):
 
 
 def serialize_event_aws_json_1_1(value: SessionStreamingException_) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "SessionStreamingException"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "SessionStreamingException",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_aws_json_1_1(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -62,4 +68,6 @@ def deserialize_event_aws_json_1_1(message: Message) -> SessionStreamingExceptio
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: SessionStreamingException_ = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_aws_json_1_1(json.loads(payload))
     return out

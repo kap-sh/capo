@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchlogs#LiveTailSessionStart``."""
 
+import json
 from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
@@ -109,8 +110,13 @@ def deserialize_aws_json_1_1(data: dict) -> LiveTailSessionStart:
 
 
 def serialize_event_aws_json_1_1(value: LiveTailSessionStart) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "sessionStart"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "sessionStart",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_aws_json_1_1(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -118,4 +124,6 @@ def deserialize_event_aws_json_1_1(message: Message) -> LiveTailSessionStart:
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: LiveTailSessionStart = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_aws_json_1_1(json.loads(payload))
     return out

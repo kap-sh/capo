@@ -27,7 +27,11 @@ def deserialize_xml(el: Element) -> RecordsEvent:
 
 
 def serialize_event_xml(value: RecordsEvent) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "Records"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "Records",
+        ":content-type": "application/octet-stream",
+    }
     payload = b""
     payload = value["payload"]
     return Message(headers=headers, payload=payload).encode()

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessMetadataEvent``."""
 
+import json
 from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
@@ -61,8 +62,13 @@ def deserialize_json(data: dict) -> HarnessMetadataEvent:
 
 
 def serialize_event_json(value: HarnessMetadataEvent) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "metadata"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "metadata",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_json(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -70,4 +76,6 @@ def deserialize_event_json(message: Message) -> HarnessMetadataEvent:
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: HarnessMetadataEvent = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_json(json.loads(payload))
     return out

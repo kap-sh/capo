@@ -27,7 +27,11 @@ def deserialize_json(data: dict) -> InvokeResponseStreamUpdate:
 
 
 def serialize_event_json(value: InvokeResponseStreamUpdate) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "PayloadChunk"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "PayloadChunk",
+        ":content-type": "application/octet-stream",
+    }
     payload = b""
     payload = value["payload"]
     return Message(headers=headers, payload=payload).encode()

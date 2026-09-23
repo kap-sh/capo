@@ -27,7 +27,11 @@ def deserialize_xml(el: Element) -> ProgressEvent:
 
 
 def serialize_event_xml(value: ProgressEvent) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "Progress"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "Progress",
+        ":content-type": "application/xml",
+    }
     payload = b""
     import capo_s3.types.progress
 

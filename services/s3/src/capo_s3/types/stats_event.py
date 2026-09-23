@@ -27,7 +27,11 @@ def deserialize_xml(el: Element) -> StatsEvent:
 
 
 def serialize_event_xml(value: StatsEvent) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "Stats"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "Stats",
+        ":content-type": "application/xml",
+    }
     payload = b""
     import capo_s3.types.stats
 

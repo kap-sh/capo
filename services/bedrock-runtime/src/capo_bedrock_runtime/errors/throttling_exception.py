@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ThrottlingException``."""
 
+import json
 from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
@@ -51,8 +52,13 @@ class ThrottlingException(ServiceError):
 
 
 def serialize_event_json(value: ThrottlingException_) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "throttlingException"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "throttlingException",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_json(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -60,4 +66,6 @@ def deserialize_event_json(message: Message) -> ThrottlingException_:
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: ThrottlingException_ = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_json(json.loads(payload))
     return out

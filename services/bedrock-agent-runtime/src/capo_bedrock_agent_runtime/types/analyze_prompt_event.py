@@ -1,5 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#AnalyzePromptEvent``."""
 
+import json
+
 from typing_extensions import NotRequired, TypedDict
 
 from capo_bedrock_agent_runtime._protocol.eventstream import HeaderValue, Message
@@ -26,8 +28,13 @@ def deserialize_json(data: dict) -> AnalyzePromptEvent:
 
 
 def serialize_event_json(value: AnalyzePromptEvent) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "analyzePromptEvent"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "analyzePromptEvent",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_json(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -35,4 +42,6 @@ def deserialize_event_json(message: Message) -> AnalyzePromptEvent:
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: AnalyzePromptEvent = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_json(json.loads(payload))
     return out

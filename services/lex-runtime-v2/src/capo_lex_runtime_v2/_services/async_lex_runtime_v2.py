@@ -18,6 +18,7 @@ from capo_lex_runtime_v2._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_lex_runtime_v2._auth._zapros_handler import AuthMiddleware
+from capo_lex_runtime_v2._body import Body
 from capo_lex_runtime_v2._iter import ensure_async_iterator
 from capo_lex_runtime_v2._services._aws_config import aaws_config
 from capo_lex_runtime_v2._services._pipeline import (
@@ -441,7 +442,9 @@ class AsyncLexRuntimeV2Client:
         response_content_type: Optional[
             "capo_lex_runtime_v2.types.non_empty_string.NonEmptyString"
         ] = None,
-        input_stream: Optional[AsyncIterator[bytes] | bytes] = None,
+        input_stream: Optional[
+            Body[AsyncIterator[bytes]] | AsyncIterator[bytes] | bytes
+        ] = None,
     ) -> "AsyncGenerator[capo_lex_runtime_v2.types.recognize_utterance_response.RecognizeUtteranceResponse]":
         r"""<p>Sends user input to Amazon Lex V2. You can send text or speech. Clients use this API to send text and audio requests to Amazon Lex V2 at runtime. Amazon Lex V2 interprets the user input using the machine learning model built for the bot.</p> <p>The following request fields must be compressed with gzip and then base64 encoded before you send them to Amazon Lex V2. </p> <ul> <li> <p>requestAttributes</p> </li> <li> <p>sessionState</p> </li> </ul> <p>The following response fields are compressed using gzip and then base64 encoded by Amazon Lex V2. Before you can use these fields, you must decode and decompress them. </p> <ul> <li> <p>inputTranscript</p> </li> <li> <p>interpretations</p> </li> <li> <p>messages</p> </li> <li> <p>requestAttributes</p> </li> <li> <p>sessionState</p> </li> </ul> <p>The example contains a Java application that compresses and encodes a Java object to send to Amazon Lex V2, and a second that decodes and decompresses a response from Amazon Lex V2.</p> <p>If the optional post-fulfillment response is specified, the messages are returned as follows. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/API_PostFulfillmentStatusSpecification.html\">PostFulfillmentStatusSpecification</a>.</p> <ul> <li> <p> <b>Success message</b> - Returned if the Lambda function completes successfully and the intent state is fulfilled or ready fulfillment if the message is present.</p> </li> <li> <p> <b>Failed message</b> - The failed message is returned if the Lambda function throws an exception or if the Lambda function returns a failed intent state without a message.</p> </li> <li> <p> <b>Timeout message</b> - If you don't configure a timeout message and a timeout, and the Lambda function doesn't return within 30 seconds, the timeout message is returned. If you configure a timeout, the timeout message is returned when the period times out. </p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/streaming-progress.html#progress-complete.html\">Completion message</a>.</p>
 

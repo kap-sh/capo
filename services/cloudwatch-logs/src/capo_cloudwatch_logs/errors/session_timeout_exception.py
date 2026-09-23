@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchlogs#SessionTimeoutException``."""
 
+import json
 from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
@@ -53,8 +54,13 @@ class SessionTimeoutException(ServiceError):
 
 
 def serialize_event_aws_json_1_1(value: SessionTimeoutException_) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "SessionTimeoutException"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "SessionTimeoutException",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_aws_json_1_1(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -62,4 +68,6 @@ def deserialize_event_aws_json_1_1(message: Message) -> SessionTimeoutException_
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: SessionTimeoutException_ = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_aws_json_1_1(json.loads(payload))
     return out

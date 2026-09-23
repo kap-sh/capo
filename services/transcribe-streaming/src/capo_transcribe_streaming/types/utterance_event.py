@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transcribestreaming#UtteranceEvent``."""
 
+import json
 from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
@@ -199,8 +200,13 @@ def deserialize_json(data: dict) -> UtteranceEvent:
 
 
 def serialize_event_json(value: UtteranceEvent) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "UtteranceEvent"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "UtteranceEvent",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_json(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -208,4 +214,6 @@ def deserialize_event_json(message: Message) -> UtteranceEvent:
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: UtteranceEvent = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_json(json.loads(payload))
     return out

@@ -89,7 +89,7 @@ def _decode_header_value(
     raise ValueError(f"unsupported eventstream header type: {type_byte:#x}")
 
 
-def _encode_headers(headers: dict[str, HeaderValue]) -> bytes:
+def encode_headers(headers: dict[str, HeaderValue]) -> bytes:
     parts: list[bytes] = []
     for name, value in headers.items():
         name_bytes = name.encode("utf-8")
@@ -124,10 +124,11 @@ class Message:
 
     def encode(self) -> bytes:
         """Serialize this message into eventstream framing bytes."""
-        headers_bytes = _encode_headers(self.headers)
+        headers_bytes = encode_headers(self.headers)
         headers_length = len(headers_bytes)
         payload = self.payload
-        total_length = 12 + headers_length + len(payload)
+        # total_length covers the whole frame, trailing message CRC included.
+        total_length = 12 + headers_length + len(payload) + 4
 
         prelude = total_length.to_bytes(4, "big") + headers_length.to_bytes(4, "big")
         prelude_crc = zlib.crc32(prelude).to_bytes(4, "big")
@@ -158,31 +159,31 @@ class MessageDecoder:
             prelude = bytes(self._buffer[:8])
             prelude_crc = int.from_bytes(self._buffer[8:12], "big")
 
-            if total_length < 12 + headers_length:
+            # total_length covers the whole frame: 12-byte prelude, headers,
+            # payload, and the trailing 4-byte message CRC.
+            if total_length < 16 + headers_length:
                 raise ValueError(
                     f"invalid eventstream message: total_length={total_length} "
-                    f"is smaller than minimum {12 + headers_length}"
+                    f"is smaller than minimum {16 + headers_length}"
                 )
 
-            message_end = total_length + 4
-            if len(self._buffer) < message_end:
+            if len(self._buffer) < total_length:
                 return
 
             computed_prelude_crc = zlib.crc32(prelude) & 0xFFFFFFFF
             if computed_prelude_crc != prelude_crc:
                 raise ValueError("eventstream prelude checksum mismatch")
 
-            message_bytes = bytes(self._buffer[:total_length])
-            message_crc = int.from_bytes(
-                self._buffer[total_length : total_length + 4], "big"
-            )
+            payload_end = total_length - 4
+            message_bytes = bytes(self._buffer[:payload_end])
+            message_crc = int.from_bytes(self._buffer[payload_end:total_length], "big")
             computed_message_crc = zlib.crc32(message_bytes) & 0xFFFFFFFF
             if computed_message_crc != message_crc:
                 raise ValueError("eventstream message checksum mismatch")
 
             headers = _decode_headers(self._buffer[12 : 12 + headers_length])
-            payload = bytes(self._buffer[12 + headers_length : total_length])
-            del self._buffer[:message_end]
+            payload = bytes(self._buffer[12 + headers_length : payload_end])
+            del self._buffer[:total_length]
             yield Message(headers=headers, payload=payload)
 
 
@@ -233,6 +234,7 @@ __all__ = [
     "MessageDecoder",
     "async_raw_stream_to_events",
     "async_read_messages",
+    "encode_headers",
     "raw_stream_to_events",
     "read_messages",
 ]
