@@ -2348,7 +2348,7 @@ class AsyncS3Client:
         await response.response.aclose()
         return response.output
 
-    def presigned_delete_object(
+    async def presigned_delete_object(
         self,
         bucket: "capo_s3.types.bucket_name.BucketName",
         key: "capo_s3.types.object_key.ObjectKey",
@@ -2399,7 +2399,7 @@ class AsyncS3Client:
         signer = (request.context or {}).get("signer")
         if not isinstance(signer, SigV4Signer):
             raise RuntimeError("presign requires SigV4 credentials")
-        creds = signer.provider.resolve_identity()
+        creds = await signer.provider.aresolve_identity()
         ctx: capo_s3._auth._sigv4.SigV4AuthContext = {
             "type": "sig_v4",
             "access_key_id": creds["access_key"],
@@ -3978,7 +3978,7 @@ class AsyncS3Client:
         finally:
             await response.response.aclose()
 
-    def presigned_get_object(
+    async def presigned_get_object(
         self,
         bucket: "capo_s3.types.bucket_name.BucketName",
         key: "capo_s3.types.object_key.ObjectKey",
@@ -4080,7 +4080,7 @@ class AsyncS3Client:
         signer = (request.context or {}).get("signer")
         if not isinstance(signer, SigV4Signer):
             raise RuntimeError("presign requires SigV4 credentials")
-        creds = signer.provider.resolve_identity()
+        creds = await signer.provider.aresolve_identity()
         ctx: capo_s3._auth._sigv4.SigV4AuthContext = {
             "type": "sig_v4",
             "access_key_id": creds["access_key"],
@@ -4951,7 +4951,7 @@ class AsyncS3Client:
         await response.response.aclose()
         return response.output
 
-    def presigned_head_object(
+    async def presigned_head_object(
         self,
         bucket: "capo_s3.types.bucket_name.BucketName",
         key: "capo_s3.types.object_key.ObjectKey",
@@ -5053,7 +5053,7 @@ class AsyncS3Client:
         signer = (request.context or {}).get("signer")
         if not isinstance(signer, SigV4Signer):
             raise RuntimeError("presign requires SigV4 credentials")
-        creds = signer.provider.resolve_identity()
+        creds = await signer.provider.aresolve_identity()
         ctx: capo_s3._auth._sigv4.SigV4AuthContext = {
             "type": "sig_v4",
             "access_key_id": creds["access_key"],
@@ -7799,7 +7799,7 @@ class AsyncS3Client:
             await response.response.aclose()
             return response.output
 
-    def presigned_put_object(
+    async def presigned_put_object(
         self,
         bucket: "capo_s3.types.bucket_name.BucketName",
         key: "capo_s3.types.object_key.ObjectKey",
@@ -8000,7 +8000,7 @@ class AsyncS3Client:
         signer = (request.context or {}).get("signer")
         if not isinstance(signer, SigV4Signer):
             raise RuntimeError("presign requires SigV4 credentials")
-        creds = signer.provider.resolve_identity()
+        creds = await signer.provider.aresolve_identity()
         ctx: capo_s3._auth._sigv4.SigV4AuthContext = {
             "type": "sig_v4",
             "access_key_id": creds["access_key"],
@@ -9295,7 +9295,7 @@ class AsyncS3Client:
             await response.response.aclose()
             return response.output
 
-    def presigned_upload_part(
+    async def presigned_upload_part(
         self,
         bucket: "capo_s3.types.bucket_name.BucketName",
         key: "capo_s3.types.object_key.ObjectKey",
@@ -9401,7 +9401,7 @@ class AsyncS3Client:
         signer = (request.context or {}).get("signer")
         if not isinstance(signer, SigV4Signer):
             raise RuntimeError("presign requires SigV4 credentials")
-        creds = signer.provider.resolve_identity()
+        creds = await signer.provider.aresolve_identity()
         ctx: capo_s3._auth._sigv4.SigV4AuthContext = {
             "type": "sig_v4",
             "access_key_id": creds["access_key"],

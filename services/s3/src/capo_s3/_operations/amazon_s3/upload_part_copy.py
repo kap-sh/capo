@@ -251,7 +251,8 @@ def upload_part_copy(
 ) -> tuple[capo_s3.types.upload_part_copy_output.UploadPartCopyOutput, zapros.Response]:
     response = options.client.handler.handle(build_request(options, input_))
     try:
-        if response.status >= 300 or is_xml_error_body(response.read()):
+        body = response.read()
+        if response.status >= 300 or is_xml_error_body(body):
             handle_error(response)
         return handle_response(response), response
     except BaseException:
@@ -265,7 +266,8 @@ async def async_upload_part_copy(
 ) -> tuple[capo_s3.types.upload_part_copy_output.UploadPartCopyOutput, zapros.Response]:
     response = await options.client.handler.ahandle(build_request(options, input_))
     try:
-        if response.status >= 300 or is_xml_error_body(await response.aread()):
+        body = await response.aread()
+        if response.status >= 300 or is_xml_error_body(body):
             handle_error(response)
         return await async_handle_response(response), response
     except BaseException:

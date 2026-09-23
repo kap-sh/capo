@@ -25,6 +25,13 @@ packages:
       - id: async-transcribe-client
         match: '\bAsyncTranscribeStreamingClient\b'
         replace: 'TranscribeStreamingClient'
+      # zapros, used as a plain HTTP client for presigned URLs
+      - id: zapros-async-client
+        match: '\bAsyncClient\b'
+        replace: 'Client'
+      - id: zapros-aread
+        match: '\baread\b'
+        replace: 'read'
 
       # fixtures (tests/conftest.py)
       - id: async-s3-fixture
@@ -38,3 +45,9 @@ packages:
       - id: agather
         match: '\bagather\b'
         replace: 'gather'
+      - id: aread-body
+        match: '\baread_body\b'
+        replace: 'read_body'
+      - id: make-async-s3-client
+        match: '\bmake_async_s3_client\b'
+        replace: 'make_s3_client'

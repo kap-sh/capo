@@ -76,7 +76,8 @@ def csv_bucket(s3: S3Client) -> Iterator[str]:
 
 
 class TestAsyncSelectObjectContent:  # unasync: generate
-    pytestmark = pytest.mark.third_party_services
+    # S3 Select is closed to new AWS accounts (MethodNotAllowed), so only the local backends run it.
+    pytestmark = pytest.mark.usefixtures("local_backend_only")
 
     async def test_small_csv(self, async_s3: AsyncS3Client, csv_bucket: str):
         async with async_s3.select_object_content(csv_bucket, "small.csv", **query(SELECT_ALL)) as out:
@@ -151,7 +152,8 @@ class TestAsyncSelectObjectContent:  # unasync: generate
 
 
 class TestSelectObjectContent:  # unasync: generated
-    pytestmark = pytest.mark.third_party_services
+    # S3 Select is closed to new AWS accounts (MethodNotAllowed), so only the local backends run it.
+    pytestmark = pytest.mark.usefixtures("local_backend_only")
 
     def test_small_csv(self, s3: S3Client, csv_bucket: str):
         with s3.select_object_content(csv_bucket, "small.csv", **query(SELECT_ALL)) as out:

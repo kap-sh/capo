@@ -105,7 +105,7 @@ from capo_s3 import AsyncS3Client
 async def main():
     async with AsyncS3Client() as s3:
         # Example: get a presigned URL for delete_object
-        url = s3.presigned_delete_object()
+        url = await s3.presigned_delete_object()
         print(url)
 ```
 
