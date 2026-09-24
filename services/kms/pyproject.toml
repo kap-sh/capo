@@ -1,6 +1,6 @@
 [project]
 name = "capo-kms"
-version = "0.7.0"
+version = "0.8.0"
 description = "Python SDK for AWS Key Management Service."
 readme = "README.md"
 requires-python = ">=3.10"
