@@ -11,6 +11,7 @@ from __future__ import annotations
 import fcntl
 import gc
 import os
+import sys
 from collections.abc import AsyncIterator, Iterator
 from contextlib import asynccontextmanager, contextmanager
 from pathlib import Path
@@ -18,7 +19,7 @@ from pathlib import Path
 import pytest
 from capo_s3 import AsyncS3Client, Body, S3Client
 from capo_s3.errors import NotFound, ServiceError
-from zapros import AsyncStdNetworkHandler, Response, StdNetworkHandler, ZaprosError
+from zapros import AsyncPyodideHandler, AsyncStdNetworkHandler, Response, StdNetworkHandler, ZaprosError
 from zapros.matchers import method
 from zapros.mock import Mock, MockMiddleware, MockRouter
 
@@ -27,6 +28,7 @@ from tests.conftest import (
     astream,
     make_async_s3_client,
     make_s3_client,
+    needs_threads,
     parts_of,
     read_body,
     stream,
@@ -74,7 +76,8 @@ def faulty_s3(s3_backend: str, router: MockRouter) -> Iterator[S3Client]:
 
 @pytest.fixture
 async def faulty_async_s3(s3_backend: str, router: MockRouter) -> AsyncIterator[AsyncS3Client]:
-    middleware = MockMiddleware(router, next_handler=AsyncStdNetworkHandler())
+    network = AsyncPyodideHandler() if sys.platform == "emscripten" else AsyncStdNetworkHandler()
+    middleware = MockMiddleware(router, next_handler=network)
     async with make_async_s3_client(s3_backend, http_handler=middleware) as client:
         yield client
 
@@ -96,6 +99,7 @@ def is_open(path: Path) -> bool:
 
 
 class TestAsyncBodyReplay:  # unasync: generate
+    @needs_threads
     async def test_body_is_replayed_after_500(
         self,
         faulty_async_s3: AsyncS3Client,
@@ -109,6 +113,7 @@ class TestAsyncBodyReplay:  # unasync: generate
         router.verify()
         assert await aread_body(async_s3.get_object(bucket, "replay.bin")) == DATA
 
+    @needs_threads
     async def test_gives_up_after_max_attempts(
         self,
         faulty_async_s3: AsyncS3Client,
@@ -158,6 +163,7 @@ class TestAsyncBodyReplay:  # unasync: generate
         with pytest.raises(NotFound):
             await async_s3.head_object(bucket, "once.bin")
 
+    @needs_threads
     async def test_upload_part_body_is_replayed(
         self,
         faulty_async_s3: AsyncS3Client,
@@ -232,6 +238,7 @@ class TestAsyncBodyReplay:  # unasync: generate
             await async_s3.head_object(bucket, "k")
 
 class TestBodyReplay:  # unasync: generated
+    @needs_threads
     def test_body_is_replayed_after_500(
         self,
         faulty_s3: S3Client,
@@ -245,6 +252,7 @@ class TestBodyReplay:  # unasync: generated
         router.verify()
         assert read_body(s3.get_object(bucket, "replay.bin")) == DATA
 
+    @needs_threads
     def test_gives_up_after_max_attempts(
         self,
         faulty_s3: S3Client,
@@ -294,6 +302,7 @@ class TestBodyReplay:  # unasync: generated
         with pytest.raises(NotFound):
             s3.head_object(bucket, "once.bin")
 
+    @needs_threads
     def test_upload_part_body_is_replayed(
         self,
         faulty_s3: S3Client,
@@ -398,6 +407,7 @@ class TestEarlyResponse:  # unasync: generated
 
 
 class TestAsyncBodyFiles:  # unasync: generate
+    @needs_threads
     async def test_file_is_closed_after_every_call(self, async_s3: AsyncS3Client, bucket: str, data_file: Path):
         # With the collector off, only deterministic closing keeps the descriptor count at zero.
         gc.disable()
@@ -416,6 +426,7 @@ class TestAsyncBodyFiles:  # unasync: generate
             gc.enable()
         assert await aread_body(async_s3.get_object(bucket, "reuse-2.bin")) == DATA
 
+    @needs_threads
     async def test_from_path_roundtrip(self, async_s3: AsyncS3Client, bucket: str, data_file: Path):
         body = Body.async_from_path(data_file)
         await async_s3.put_object(bucket, "a.bin", body=body)
@@ -424,6 +435,7 @@ class TestAsyncBodyFiles:  # unasync: generate
         assert await aread_body(async_s3.get_object(bucket, "b.bin")) == DATA
 
 class TestBodyFiles:  # unasync: generated
+    @needs_threads
     def test_file_is_closed_after_every_call(self, s3: S3Client, bucket: str, data_file: Path):
         # With the collector off, only deterministic closing keeps the descriptor count at zero.
         gc.disable()
@@ -442,6 +454,7 @@ class TestBodyFiles:  # unasync: generated
             gc.enable()
         assert read_body(s3.get_object(bucket, "reuse-2.bin")) == DATA
 
+    @needs_threads
     def test_from_path_roundtrip(self, s3: S3Client, bucket: str, data_file: Path):
         body = Body.from_path(data_file)
         s3.put_object(bucket, "a.bin", body=body)

@@ -53,6 +53,18 @@ def aws_credentials() -> Credentials:
 
 
 @pytest.fixture
+async def async_aws_credentials() -> Credentials:
+    """Async twin of :func:`aws_credentials` (function-scoped: anyio_backend is)."""
+    chain = ChainedProvider(
+        EnvCredentialsProvider(), SsoCredentialsProvider(AsyncClient()), ProfileCredentialsProvider()
+    )
+    try:
+        return await chain.aresolve_identity()
+    except Exception as exc:  # each provider raises its own error type
+        pytest.skip(f"no AWS credentials: {exc}")
+
+
+@pytest.fixture
 def snapshot(aws_credentials: Credentials) -> Iterator[str]:
     """A pending 1 GiB snapshot; cancelled by AWS after 10 minutes and deleted here."""
     with EBSClient(region=AWS_REGION) as ebs:
@@ -70,14 +82,14 @@ def snapshot(aws_credentials: Credentials) -> Iterator[str]:
 
 
 class TestAsyncCredentials:  # unasync: generate
-    pytestmark = pytest.mark.usefixtures("aws_credentials")
+    pytestmark = pytest.mark.usefixtures("async_aws_credentials")
 
     async def test_default_chain_signs_a_request(self):
         # No credentials given: the client resolves them itself (env, SSO, profile, ...).
         async with AsyncIAMClient(region=AWS_REGION) as iam:
             assert "account_aliases" in await iam.list_account_aliases()
 
-    async def test_sso_provider(self, aws_credentials: Credentials):
+    async def test_sso_provider(self, async_aws_credentials: Credentials):
         provider = SsoCredentialsProvider(AsyncClient())
         try:
             credentials = await provider.aresolve_identity()
@@ -86,11 +98,11 @@ class TestAsyncCredentials:  # unasync: generate
         assert credentials.get("session_token"), "SSO credentials are always temporary"
         async with AsyncSTSClient(region=AWS_REGION, credentials=credentials) as sts:
             identity = await sts.get_caller_identity()
-        assert identity.get("account") == (await self._account(aws_credentials))
+        assert identity.get("account") == (await self._account(async_aws_credentials))
         assert ":assumed-role/" in identity.get("arn", "")
 
-    async def test_query_protocol_request_is_signed(self, aws_credentials: Credentials):
-        async with AsyncSTSClient(region=AWS_REGION, credentials=aws_credentials) as sts:
+    async def test_query_protocol_request_is_signed(self, async_aws_credentials: Credentials):
+        async with AsyncSTSClient(region=AWS_REGION, credentials=async_aws_credentials) as sts:
             identity = await sts.get_caller_identity()
         account = identity.get("account", "")
         assert len(account) == 12 and account.isdigit()

@@ -20,7 +20,7 @@ from capo_s3._checksums import TrailingChecksumStream
 from capo_s3.errors import NotFound, ServiceError
 from capo_s3.types.checksum_algorithm import ChecksumAlgorithm
 
-from tests.conftest import aread_body, astream, crc32_b64, parts_of, read_body, stream
+from tests.conftest import aread_body, astream, crc32_b64, needs_threads, parts_of, read_body, stream
 
 DATA = os.urandom(300 * 1024 + 17)  # several 64 KiB frames plus a ragged tail
 PART = os.urandom(5 * 1024 * 1024 + 3)  # smallest legal non-final multipart part
@@ -67,6 +67,7 @@ class TestAsyncStreamingChecksum:  # unasync: generate
             assert obj.get(field) == out.get(field)
             assert b"".join([chunk async for chunk in obj["body"]]) == DATA
 
+    @needs_threads
     async def test_body_from_path_is_reusable(self, async_s3: AsyncS3Client, bucket: str, tmp_path: Path):
         path = tmp_path / "data.bin"
         path.write_bytes(DATA)
@@ -217,6 +218,7 @@ class TestStreamingChecksum:  # unasync: generated
             assert obj.get(field) == out.get(field)
             assert b"".join([chunk for chunk in obj["body"]]) == DATA
 
+    @needs_threads
     def test_body_from_path_is_reusable(self, s3: S3Client, bucket: str, tmp_path: Path):
         path = tmp_path / "data.bin"
         path.write_bytes(DATA)

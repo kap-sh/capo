@@ -39,6 +39,9 @@ packages:
       - id: async-s3-fixture
         match: '\basync_s3\b'
         replace: 's3'
+      - id: async-aws-credentials-fixture
+        match: '\basync_aws_credentials\b'
+        replace: 'aws_credentials'
 
       - id: anyio-sleep
         match: '\banyio\.sleep\b'

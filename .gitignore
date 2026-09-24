@@ -17,3 +17,7 @@ node_modules/
 
 # Docs
 site/
+
+# Pyodide test run (scripts/test-pyodide.sh)
+.pyodide-venv/
+.pyodide-reqs.txt

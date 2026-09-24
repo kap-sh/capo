@@ -10,6 +10,7 @@ import gzip
 import itertools
 import json
 import os
+import sys
 import time
 
 import anyio
@@ -291,6 +292,7 @@ class TestAsyncObjects:  # unasync: generate
             await async_s3.copy_object(bucket, f"{bucket}/does-not-exist", "copy.txt")
         assert info.value.code == "NoSuchKey"
 
+    @pytest.mark.skipif(sys.platform == "emscripten", reason="fetch transparently decodes Content-Encoding")
     async def test_content_encoding_is_not_decoded(self, async_s3: AsyncS3Client, bucket: str):
         gz = gzip.compress(b"compressed payload " * 50)
         await async_s3.put_object(bucket, "blob.gz", body=gz, content_encoding="gzip")
@@ -406,6 +408,7 @@ class TestObjects:  # unasync: generated
             s3.copy_object(bucket, f"{bucket}/does-not-exist", "copy.txt")
         assert info.value.code == "NoSuchKey"
 
+    @pytest.mark.skipif(sys.platform == "emscripten", reason="fetch transparently decodes Content-Encoding")
     def test_content_encoding_is_not_decoded(self, s3: S3Client, bucket: str):
         gz = gzip.compress(b"compressed payload " * 50)
         s3.put_object(bucket, "blob.gz", body=gz, content_encoding="gzip")

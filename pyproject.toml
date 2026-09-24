@@ -20,6 +20,7 @@ dev = [
     "capo-ebs[sso]",
     "capo-ec2[sso]",
     "pytest-xdist>=3.8.0",
+    "pyodide-build>=0.23.4",
 ]
 
 [tool.uv]
