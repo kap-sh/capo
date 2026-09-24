@@ -199,7 +199,6 @@ class TestAsyncStreamingChecksum:  # unasync: generate
         )
         assert await aread_body(async_s3.get_object(bucket, "mpu.bin")) == PART + DATA
 
-
 class TestStreamingChecksum:  # unasync: generated
     @pytest.mark.parametrize("algorithm", CHECKSUM_ALGORITHMS)
     def test_iterator_upload(self, s3: S3Client, bucket: str, algorithm: ChecksumAlgorithm):

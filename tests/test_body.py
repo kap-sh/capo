@@ -19,6 +19,7 @@ import pytest
 from capo_s3 import AsyncS3Client, Body, S3Client
 from capo_s3.errors import NotFound, ServiceError
 from zapros import AsyncStdNetworkHandler, Response, StdNetworkHandler, ZaprosError
+from zapros.matchers import method
 from zapros.mock import Mock, MockMiddleware, MockRouter
 
 from tests.conftest import (
@@ -41,13 +42,15 @@ ERROR_XML = (
 
 
 def fail_next(router: MockRouter, n: int) -> None:
-    """Answer the next ``n`` requests with a retryable 500; later ones pass through.
+    """Answer the next ``n`` uploads with a retryable 500; later ones pass through.
 
+    Only PUTs are matched: the client resolves credentials through the same
+    handler, and on AWS that is an SSO GET which must reach the network.
     Each mock is ``once()``, so ``router.verify()`` asserts every fault was hit.
     """
     for _ in range(n):
         response = Response(500, headers={"Content-Type": "application/xml"}, content=ERROR_XML)
-        router.add(Mock().respond(response).once())
+        router.add(Mock.given(method("PUT")).respond(response).once())
 
 
 @pytest.fixture
@@ -228,7 +231,6 @@ class TestAsyncBodyReplay:  # unasync: generate
         with pytest.raises(NotFound):
             await async_s3.head_object(bucket, "k")
 
-
 class TestBodyReplay:  # unasync: generated
     def test_body_is_replayed_after_500(
         self,
@@ -388,7 +390,6 @@ class TestAsyncEarlyResponse:  # unasync: generate
             await async_s3.put_object(unique_name("no-such-bucket"), "k", body=DATA)
         assert info.value.code == "NoSuchBucket"
 
-
 class TestEarlyResponse:  # unasync: generated
     def test_error_response_during_upload_is_reported(
         self,
@@ -437,7 +438,6 @@ class TestAsyncBodyFiles:  # unasync: generate
         await async_s3.put_object(bucket, "b.bin", body=body)
         assert await aread_body(async_s3.get_object(bucket, "a.bin")) == DATA
         assert await aread_body(async_s3.get_object(bucket, "b.bin")) == DATA
-
 
 class TestBodyFiles:  # unasync: generated
     def test_file_is_closed_after_every_call(self, s3: S3Client, bucket: str, data_file: Path):

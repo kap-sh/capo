@@ -189,12 +189,6 @@ def s3_backend(request: pytest.FixtureRequest) -> str:
     return name
 
 
-@pytest.fixture
-def local_backend_only(s3_backend: str) -> None:
-    if s3_backend == "aws":
-        pytest.skip("not supported by AWS S3")
-
-
 def create_bucket_kwargs(backend: str) -> dict:
     """AWS needs a LocationConstraint outside us-east-1; the local servers ignore it."""
     if backend == "aws":

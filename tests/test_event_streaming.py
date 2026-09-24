@@ -63,7 +63,11 @@ def summarize(events: Sequence[Mapping[str, Any]]) -> tuple[list[str], bytes]:
 
 
 @pytest.fixture(scope="module")
-def csv_bucket(s3: S3Client) -> Iterator[str]:
+def csv_bucket(s3: S3Client, s3_backend: str) -> Iterator[str]:
+    # S3 Select is closed to new AWS accounts (MethodNotAllowed), so only the local backends run it.
+    # The skip lives here because this module-scoped fixture is set up before any function-scoped one.
+    if s3_backend == "aws":
+        pytest.skip("S3 Select is not available on AWS")
     name = unique_name("capotest-select")
     s3.create_bucket(name)
     try:
@@ -76,9 +80,6 @@ def csv_bucket(s3: S3Client) -> Iterator[str]:
 
 
 class TestAsyncSelectObjectContent:  # unasync: generate
-    # S3 Select is closed to new AWS accounts (MethodNotAllowed), so only the local backends run it.
-    pytestmark = pytest.mark.usefixtures("local_backend_only")
-
     async def test_small_csv(self, async_s3: AsyncS3Client, csv_bucket: str):
         async with async_s3.select_object_content(csv_bucket, "small.csv", **query(SELECT_ALL)) as out:
             kinds, data = summarize([e async for e in out["payload"]])
@@ -150,11 +151,7 @@ class TestAsyncSelectObjectContent:  # unasync: generate
 
         assert await agather(count, 5) == [str(BIG_ROWS).encode()] * 5
 
-
 class TestSelectObjectContent:  # unasync: generated
-    # S3 Select is closed to new AWS accounts (MethodNotAllowed), so only the local backends run it.
-    pytestmark = pytest.mark.usefixtures("local_backend_only")
-
     def test_small_csv(self, s3: S3Client, csv_bucket: str):
         with s3.select_object_content(csv_bucket, "small.csv", **query(SELECT_ALL)) as out:
             kinds, data = summarize([e for e in out["payload"]])
@@ -279,7 +276,6 @@ class TestAsyncTranscribeStreaming:  # unasync: generate
                 ) as out:
                     async for _ in out["transcript_result_stream"]:
                         pass
-
 
 class TestTranscribeStreaming:  # unasync: generated
     pytestmark = pytest.mark.paid

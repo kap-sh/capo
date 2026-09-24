@@ -19,12 +19,10 @@ packages:
         match: '\bTestAsync(\w+)'
         replace: 'Test$1'
 
-      - id: async-s3-client
-        match: '\bAsyncS3Client\b'
-        replace: 'S3Client'
-      - id: async-transcribe-client
-        match: '\bAsyncTranscribeStreamingClient\b'
-        replace: 'TranscribeStreamingClient'
+      # capo service clients: AsyncS3Client -> S3Client, AsyncEBSClient -> EBSClient, ...
+      - id: async-service-client
+        match: '\bAsync(\w+)Client\b'
+        replace: '${1}Client'
       # zapros, used as a plain HTTP client for presigned URLs
       - id: zapros-async-client
         match: '\bAsyncClient\b'
@@ -32,6 +30,10 @@ packages:
       - id: zapros-aread
         match: '\baread\b'
         replace: 'read'
+      # capo credential providers
+      - id: aresolve-identity
+        match: '\baresolve_identity\b'
+        replace: 'resolve_identity'
 
       # fixtures (tests/conftest.py)
       - id: async-s3-fixture

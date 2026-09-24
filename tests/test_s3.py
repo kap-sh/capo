@@ -151,7 +151,6 @@ class TestAsyncBuckets:  # unasync: generate
         assert "owner" in await async_s3.get_bucket_acl(bucket)
         await async_s3.get_bucket_notification_configuration(bucket)
 
-
 class TestBuckets:  # unasync: generated
     def test_head_list_and_location(self, s3: S3Client, bucket: str, s3_backend: str):
         s3.head_bucket(bucket)
@@ -374,7 +373,6 @@ class TestAsyncObjects:  # unasync: generate
         await agather(put, 10)
         assert len((await async_s3.list_objects_v2(bucket, prefix="c/")).get("contents", [])) == 10
 
-
 class TestObjects:  # unasync: generated
     def test_put_get_head_roundtrip(self, s3: S3Client, bucket: str):
         s3.put_object(bucket, "a.txt", body=DATA)
@@ -534,7 +532,6 @@ class TestAsyncListing:  # unasync: generate
         assert sorted(p["prefix"] for p in out.get("common_prefixes", [])) == ["list/", "other/"]
         assert out.get("contents", []) == []
 
-
 class TestListing:  # unasync: generated
     def test_list_objects_v1_and_v2(self, s3: S3Client, listed_bucket: str):
         v1 = (s3.list_objects(listed_bucket, prefix="list/")).get("contents", [])
@@ -625,7 +622,6 @@ class TestAsyncMultipart:  # unasync: generate
     async def test_abort_unknown_upload_raises(self, async_s3: AsyncS3Client, bucket: str):
         with pytest.raises(NoSuchUpload):
             await async_s3.abort_multipart_upload(bucket, "x", "bogus")
-
 
 class TestMultipart:  # unasync: generated
     def test_upload_parts_and_complete(self, s3: S3Client, bucket: str):
@@ -722,7 +718,6 @@ class TestAsyncPresigned:  # unasync: generate
         )
         assert await aread_body(async_s3.get_object(bucket, "mp3.bin")) == b"C" * 1024
 
-
 class TestPresigned:  # unasync: generated
     def test_get_and_head(self, s3: S3Client, bucket: str):
         s3.put_object(bucket, "a.txt", body=DATA)
@@ -795,7 +790,6 @@ class TestAsyncErrors:  # unasync: generate
             await async_s3.head_object(bucket, "nope.txt")
         with pytest.raises(NoSuchUpload):
             await async_s3.abort_multipart_upload(bucket, "x", "bogus")
-
 
 class TestErrors:  # unasync: generated
     def test_bad_credentials_raise(self, s3_backend: str):
