@@ -102,7 +102,6 @@
 - [aws-sdk-connectcampaignsv2 v0.3.0](services/connectcampaignsv2/CHANGELOG.md)
 - [aws-sdk-connectcases v0.4.0](services/connectcases/CHANGELOG.md)
 - [aws-sdk-dynamodb v0.8.0](services/dynamodb/CHANGELOG.md)
-- [aws-sdk-ebs v0.2.0](services/ebs/CHANGELOG.md)
 - [aws-sdk-ec2 v0.18.0](services/ec2/CHANGELOG.md)
 - [aws-sdk-ecr v0.10.0](services/ecr/CHANGELOG.md)
 - [aws-sdk-ecs v0.16.0](services/ecs/CHANGELOG.md)
@@ -124,7 +123,6 @@
 - [aws-sdk-sso v0.10.0](services/sso/CHANGELOG.md)
 - [aws-sdk-sso-oidc v0.10.0](services/sso-oidc/CHANGELOG.md)
 - [aws-sdk-sts v0.11.0](services/sts/CHANGELOG.md)
-- [aws-sdk-transcribe-streaming v0.2.0](services/transcribe-streaming/CHANGELOG.md)
 
 ## 2026-09-18
 
@@ -628,7 +626,6 @@
 - [aws-sdk-dsql v0.2.0](services/dsql/CHANGELOG.md)
 - [aws-sdk-dynamodb v0.5.0](services/dynamodb/CHANGELOG.md)
 - [aws-sdk-dynamodb-streams v0.2.0](services/dynamodb-streams/CHANGELOG.md)
-- [aws-sdk-ebs v0.2.0](services/ebs/CHANGELOG.md)
 - [aws-sdk-ec2 v0.5.0](services/ec2/CHANGELOG.md)
 - [aws-sdk-ec2-instance-connect v0.2.0](services/ec2-instance-connect/CHANGELOG.md)
 - [aws-sdk-ecr v0.2.0](services/ecr/CHANGELOG.md)
@@ -900,7 +897,6 @@
 - [aws-sdk-timestream-write v0.2.0](services/timestream-write/CHANGELOG.md)
 - [aws-sdk-tnb v0.2.0](services/tnb/CHANGELOG.md)
 - [aws-sdk-transcribe v0.2.0](services/transcribe/CHANGELOG.md)
-- [aws-sdk-transcribe-streaming v0.2.0](services/transcribe-streaming/CHANGELOG.md)
 - [aws-sdk-transfer v0.2.0](services/transfer/CHANGELOG.md)
 - [aws-sdk-translate v0.2.0](services/translate/CHANGELOG.md)
 - [aws-sdk-trustedadvisor v0.2.0](services/trustedadvisor/CHANGELOG.md)
