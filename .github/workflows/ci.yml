@@ -86,3 +86,38 @@ jobs:
       - name: Stop S3-compatible servers
         if: always()
         run: docker compose -f tests/docker-compose.yml down
+
+  pyodide:
+    # The async integration tests inside Pyodide (Python on WebAssembly, run by
+    # Node); see scripts/test-pyodide.sh. The host Python must match Pyodide's.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
+
+      - name: Cache the Pyodide cross-build environment
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pyodide-build
+          # uv.lock is not committed, so key on the file that pins pyodide-build
+          key: pyodide-xbuildenv-${{ hashFiles('pyproject.toml') }}
+
+      - name: Start S3-compatible servers
+        run: |
+          docker compose -f tests/docker-compose.yml up -d
+          timeout 60 bash -c 'until nc -z localhost 9010; do sleep 1; done'
+
+      - name: Run async integration tests in Pyodide
+        run: ./scripts/test-pyodide.sh -rs
+
+      - name: Stop S3-compatible servers
+        if: always()
+        run: docker compose -f tests/docker-compose.yml down
