@@ -1,4 +1,4 @@
-"""Streaming uploads with a trailing checksum against MinIO, RustFS (free) and AWS (paid).
+"""Streaming uploads with a trailing checksum against RustFS (free) and AWS (paid).
 
 A body without a known digest up front (iterator, async generator, ``Body``)
 goes out in ``aws-chunked`` framing with the checksum in the trailer. Every

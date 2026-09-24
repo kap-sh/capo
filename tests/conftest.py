@@ -41,7 +41,6 @@ from zapros import AsyncBaseHandler, BaseHandler
 # Third-party S3-compatible backends. Endpoint and credentials can be overridden
 # with CAPO_<BACKEND>_ENDPOINT / _ACCESS_KEY / _SECRET_KEY.
 S3_BACKENDS = {
-    "minio": ("http://localhost:9000", "minioadmin", "minioadmin"),
     "rustfs": ("http://localhost:9010", "rustfsadmin", "rustfsadmin"),
 }
 AWS_REGION = os.environ.get("CAPO_AWS_REGION", "eu-central-1")

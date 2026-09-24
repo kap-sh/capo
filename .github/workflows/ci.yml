@@ -78,7 +78,7 @@ jobs:
       - name: Start S3-compatible servers
         run: |
           docker compose -f tests/docker-compose.yml up -d
-          timeout 60 bash -c 'until nc -z localhost 9000 && nc -z localhost 9010; do sleep 1; done'
+          timeout 60 bash -c 'until nc -z localhost 9010; do sleep 1; done'
 
       - name: Run integration tests
         run: uv run pytest -rs

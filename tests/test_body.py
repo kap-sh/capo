@@ -378,32 +378,20 @@ class TestBodyReplay:  # unasync: generated
 
 
 class TestAsyncEarlyResponse:  # unasync: generate
-    async def test_error_response_during_upload_is_reported(self, async_s3: AsyncS3Client, s3_backend: str):
+    async def test_error_response_during_upload_is_reported(self, async_s3: AsyncS3Client):
         # The server can answer before the whole body arrived; the client should
         # still deliver that answer rather than the failure of its own write.
-        # MinIO answers 404 and closes the socket at once, and whether the client's
-        # write then fails before it can read that answer depends on how much of the
-        # 4 MiB the platform buffers (Docker's userland proxy on Linux takes all of
-        # it; Docker Desktop on macOS does not), so either outcome is accepted there.
-        expected = (ServiceError, ZaprosError) if s3_backend == "minio" else ServiceError
-        with pytest.raises(expected) as info:
+        with pytest.raises(ServiceError) as info:
             await async_s3.put_object(unique_name("no-such-bucket"), "k", body=DATA)
-        if isinstance(info.value, ServiceError):
-            assert info.value.code == "NoSuchBucket"
+        assert info.value.code == "NoSuchBucket"
 
 class TestEarlyResponse:  # unasync: generated
-    def test_error_response_during_upload_is_reported(self, s3: S3Client, s3_backend: str):
+    def test_error_response_during_upload_is_reported(self, s3: S3Client):
         # The server can answer before the whole body arrived; the client should
         # still deliver that answer rather than the failure of its own write.
-        # MinIO answers 404 and closes the socket at once, and whether the client's
-        # write then fails before it can read that answer depends on how much of the
-        # 4 MiB the platform buffers (Docker's userland proxy on Linux takes all of
-        # it; Docker Desktop on macOS does not), so either outcome is accepted there.
-        expected = (ServiceError, ZaprosError) if s3_backend == "minio" else ServiceError
-        with pytest.raises(expected) as info:
+        with pytest.raises(ServiceError) as info:
             s3.put_object(unique_name("no-such-bucket"), "k", body=DATA)
-        if isinstance(info.value, ServiceError):
-            assert info.value.code == "NoSuchBucket"
+        assert info.value.code == "NoSuchBucket"
 
 
 class TestAsyncBodyFiles:  # unasync: generate

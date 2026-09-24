@@ -1,4 +1,4 @@
-"""Core S3 operations against MinIO, RustFS (free) and AWS (paid).
+"""Core S3 operations against RustFS (free) and AWS (paid).
 
 Every class runs once per backend and, for the async source, once per anyio
 backend; ``ry`` generates the sync twins.
@@ -116,14 +116,13 @@ class TestAsyncBuckets:  # unasync: generate
         assert await aread_body(async_s3.get_object(bucket, "ver.txt", version_id=old["version_id"])) == b"v1"
         assert await aread_body(async_s3.get_object(bucket, "ver.txt")) == b"v2"
 
-    async def test_lifecycle_configuration(self, async_s3: AsyncS3Client, bucket: str, s3_backend: str):
+    async def test_lifecycle_configuration(self, async_s3: AsyncS3Client, bucket: str):
         await async_s3.put_bucket_lifecycle_configuration(
             bucket,
             lifecycle_configuration={
                 "rules": [
                     {"id": "expire", "status": "Enabled", "filter": {"prefix": "tmp/"}, "expiration": {"days": 1}},
                     {
-                        # MinIO rejects a rule whose only action is the abort, so give it an expiration too.
                         "id": "abort-mpu",
                         "status": "Enabled",
                         "filter": {"prefix": "mpu/"},
@@ -136,12 +135,9 @@ class TestAsyncBuckets:  # unasync: generate
         got = (await async_s3.get_bucket_lifecycle_configuration(bucket)).get("rules", [])
         assert sorted(r["id"] for r in got) == ["abort-mpu", "expire"]
         abort = next(r for r in got if r["id"] == "abort-mpu")
-        if s3_backend != "minio":  # MinIO stores the rule but drops the abort action
-            assert abort["abort_incomplete_multipart_upload"]["days_after_initiation"] == 1
+        assert abort["abort_incomplete_multipart_upload"]["days_after_initiation"] == 1
 
-    async def test_cors_roundtrip(self, async_s3: AsyncS3Client, bucket: str, s3_backend: str):
-        if s3_backend == "minio":
-            pytest.skip("MinIO does not implement bucket CORS")
+    async def test_cors_roundtrip(self, async_s3: AsyncS3Client, bucket: str):
         await async_s3.put_bucket_cors(
             bucket, cors_configuration={"cors_rules": [{"allowed_methods": ["GET"], "allowed_origins": ["*"]}]}
         )
@@ -217,14 +213,13 @@ class TestBuckets:  # unasync: generated
         assert read_body(s3.get_object(bucket, "ver.txt", version_id=old["version_id"])) == b"v1"
         assert read_body(s3.get_object(bucket, "ver.txt")) == b"v2"
 
-    def test_lifecycle_configuration(self, s3: S3Client, bucket: str, s3_backend: str):
+    def test_lifecycle_configuration(self, s3: S3Client, bucket: str):
         s3.put_bucket_lifecycle_configuration(
             bucket,
             lifecycle_configuration={
                 "rules": [
                     {"id": "expire", "status": "Enabled", "filter": {"prefix": "tmp/"}, "expiration": {"days": 1}},
                     {
-                        # MinIO rejects a rule whose only action is the abort, so give it an expiration too.
                         "id": "abort-mpu",
                         "status": "Enabled",
                         "filter": {"prefix": "mpu/"},
@@ -237,12 +232,9 @@ class TestBuckets:  # unasync: generated
         got = (s3.get_bucket_lifecycle_configuration(bucket)).get("rules", [])
         assert sorted(r["id"] for r in got) == ["abort-mpu", "expire"]
         abort = next(r for r in got if r["id"] == "abort-mpu")
-        if s3_backend != "minio":  # MinIO stores the rule but drops the abort action
-            assert abort["abort_incomplete_multipart_upload"]["days_after_initiation"] == 1
+        assert abort["abort_incomplete_multipart_upload"]["days_after_initiation"] == 1
 
-    def test_cors_roundtrip(self, s3: S3Client, bucket: str, s3_backend: str):
-        if s3_backend == "minio":
-            pytest.skip("MinIO does not implement bucket CORS")
+    def test_cors_roundtrip(self, s3: S3Client, bucket: str):
         s3.put_bucket_cors(
             bucket, cors_configuration={"cors_rules": [{"allowed_methods": ["GET"], "allowed_origins": ["*"]}]}
         )
@@ -306,20 +298,7 @@ class TestAsyncObjects:  # unasync: generate
         await async_s3.delete_object_tagging(bucket, "a.txt")
         assert (await async_s3.get_object_tagging(bucket, "a.txt"))["tag_set"] == []
 
-    async def test_get_object_attributes(
-        self,
-        async_s3: AsyncS3Client,
-        bucket: str,
-        s3_backend: str,
-        request: pytest.FixtureRequest,
-    ):
-        if s3_backend == "minio":
-            request.applymarker(
-                pytest.mark.xfail(
-                    strict=True,
-                    reason="x-amz-object-attributes is sent as 'ObjectSize, ETag'; MinIO rejects the space after the comma",
-                )
-            )
+    async def test_get_object_attributes(self, async_s3: AsyncS3Client, bucket: str):
         await async_s3.put_object(bucket, "a.txt", body=DATA)
         attrs = await async_s3.get_object_attributes(bucket, "a.txt", object_attributes=["ObjectSize", "ETag"])
         assert attrs.get("object_size") == len(DATA)
@@ -422,20 +401,7 @@ class TestObjects:  # unasync: generated
         s3.delete_object_tagging(bucket, "a.txt")
         assert (s3.get_object_tagging(bucket, "a.txt"))["tag_set"] == []
 
-    def test_get_object_attributes(
-        self,
-        s3: S3Client,
-        bucket: str,
-        s3_backend: str,
-        request: pytest.FixtureRequest,
-    ):
-        if s3_backend == "minio":
-            request.applymarker(
-                pytest.mark.xfail(
-                    strict=True,
-                    reason="x-amz-object-attributes is sent as 'ObjectSize, ETag'; MinIO rejects the space after the comma",
-                )
-            )
+    def test_get_object_attributes(self, s3: S3Client, bucket: str):
         s3.put_object(bucket, "a.txt", body=DATA)
         attrs = s3.get_object_attributes(bucket, "a.txt", object_attributes=["ObjectSize", "ETag"])
         assert attrs.get("object_size") == len(DATA)

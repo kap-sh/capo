@@ -1,6 +1,6 @@
 """Event streams over real connections.
 
-* Output stream: S3 ``SelectObjectContent`` against the local MinIO and RustFS servers (free).
+* Output stream: S3 ``SelectObjectContent`` against the local RustFS server (free).
 * Input + output stream: Transcribe ``StartStreamTranscription`` against AWS
   (paid, billed per audio minute). This is the operation that needs every
   request event signed with a chained SigV4 ``:chunk-signature`` frame, so it
