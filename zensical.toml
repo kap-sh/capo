@@ -6,9 +6,19 @@ repo_url = "https://github.com/kap-sh/capo"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"
 
-# The single page is derived from the repository README, which is pulled in via
-# a snippet, so the README stays the only source of truth.
-nav = [{ "capo" = "index.md" }]
+# Every page is a section of the repository README, pulled in via a snippet
+# section (the `--8<-- [start:name]` markers), so the README stays the only
+# source of truth.
+nav = [
+  { "capo" = "index.md" },
+  { "Usage" = "usage.md" },
+  { "Configuration" = "configuration.md" },
+  { "Authentication" = "authentication.md" },
+  { "Streaming" = "streaming.md" },
+  { "Waiters, Pagination, Presigning" = "operations.md" },
+  { "Interceptors & HTTP" = "http.md" },
+  { "WASM (Pyodide)" = "wasm.md" },
+]
 watch = ["README.md"]
 
 [project.theme]
