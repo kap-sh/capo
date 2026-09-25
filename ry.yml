@@ -67,3 +67,10 @@ packages:
       - id: faulty-async-s3-fixture
         match: '\bfaulty_async_s3\b'
         replace: 'faulty_s3'
+      # tests/test_caching.py
+      - id: cached-async-s3-fixture
+        match: '\bcached_async_s3\b'
+        replace: 'cached_s3'
+      - id: make-cached-async-s3
+        match: '\bmake_cached_async_s3\b'
+        replace: 'make_cached_s3'

@@ -23,13 +23,14 @@ done
 
 # 3. export the locked test deps. The editable service paths are replaced by
 #    the wheels above; the pruned packages are host-only tools that either do
-#    not build for Pyodide (trio, pytest-xdist) or are not needed to run tests.
+#    not build for Pyodide (trio, pytest-xdist), are not needed to run tests, or
+#    only serve tests that skip there (hishel: its sqlite storage needs threads).
 no_emit=()
 for service in "${SERVICES[@]}"; do
     no_emit+=(--no-emit-package "capo-$service")
 done
 uv export --only-group dev --no-hashes --no-emit-project "${no_emit[@]}" \
-    --prune pyodide-build --prune ty --prune ry-cli --prune pytest-xdist --prune trio \
+    --prune pyodide-build --prune ty --prune ry-cli --prune pytest-xdist --prune trio --prune hishel \
     > .pyodide-reqs.txt
 
 # 4. install with the Pyodide venv's own pip
