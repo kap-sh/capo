@@ -31,12 +31,12 @@ from zapros import (
 from capo_s3.errors import ChecksumMismatch, ChecksumUnavailable
 
 if TYPE_CHECKING:
-    import google_crc32c
+    import crc32c_rs
 else:
     try:
-        import google_crc32c
+        import crc32c_rs
     except ImportError:
-        google_crc32c = None
+        crc32c_rs = None
 
 if TYPE_CHECKING:
     import xxhash
@@ -131,10 +131,10 @@ class Crc32cHasher(_CrcHasher):
     _table = _crc_table(_CRC32C_POLY)
 
     def update(self, data: Buffer, /) -> None:
-        if google_crc32c is None:
+        if crc32c_rs is None:
             super().update(data)
         else:
-            self._value = google_crc32c.extend(self._value, data)
+            self._value = crc32c_rs.crc32c(data, self._value)
 
 
 class Crc64NvmeHasher(_CrcHasher):
