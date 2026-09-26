@@ -19,6 +19,21 @@ async def main():
         print(response["endpoint_address"])
 ```
 
+## Pagination
+
+Some operations in this SDK support pagination. If the operation supports pagination it will have an `iter_` prefixed method that returns an async iterator.
+
+```python
+from capo_iot_managed_integrations import AsyncIoTManagedIntegrationsClient
+
+
+async def main():
+    async with AsyncIoTManagedIntegrationsClient() as io_t_managed_integrations:
+        # Example: paginate over list_account_associations
+        async for item in io_t_managed_integrations.iter_list_account_associations():
+            print(item)
+```
+
 ## Error Handling
 
 The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.

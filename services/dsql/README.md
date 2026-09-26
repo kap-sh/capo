@@ -19,6 +19,35 @@ async def main():
         print(response["tags"])
 ```
 
+## Pagination
+
+Some operations in this SDK support pagination. If the operation supports pagination it will have an `iter_` prefixed method that returns an async iterator.
+
+```python
+from capo_dsql import AsyncDSQLClient
+
+
+async def main():
+    async with AsyncDSQLClient() as dsql:
+        # Example: paginate over list_clusters
+        async for item in dsql.iter_list_clusters():
+            print(item)
+```
+
+## Waiters
+
+Waiters poll an operation until a resource reaches a desired state. If the operation supports waiters it will have a `wait_until_` prefixed method.
+
+```python
+from capo_dsql import AsyncDSQLClient
+
+
+async def main():
+    async with AsyncDSQLClient() as dsql:
+        # Example: wait for cluster_not_exists
+        await dsql.wait_until_cluster_not_exists(max_wait_time=300)
+```
+
 ## Error Handling
 
 The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.

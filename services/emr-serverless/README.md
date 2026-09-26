@@ -19,6 +19,21 @@ async def main():
         print(response["tags"])
 ```
 
+## Pagination
+
+Some operations in this SDK support pagination. If the operation supports pagination it will have an `iter_` prefixed method that returns an async iterator.
+
+```python
+from capo_emr_serverless import AsyncEMRServerlessClient
+
+
+async def main():
+    async with AsyncEMRServerlessClient() as emr_serverless:
+        # Example: paginate over list_applications
+        async for item in emr_serverless.iter_list_applications():
+            print(item)
+```
+
 ## Error Handling
 
 The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.

@@ -19,6 +19,21 @@ async def main():
         print(response["operation_identifier"])
 ```
 
+## Pagination
+
+Some operations in this SDK support pagination. If the operation supports pagination it will have an `iter_` prefixed method that returns an async iterator.
+
+```python
+from capo_controltower import AsyncControlTowerClient
+
+
+async def main():
+    async with AsyncControlTowerClient() as control_tower:
+        # Example: paginate over list_baselines
+        async for item in control_tower.iter_list_baselines():
+            print(item)
+```
+
 ## Error Handling
 
 The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.

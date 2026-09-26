@@ -19,6 +19,21 @@ async def main():
         print(response["tags"])
 ```
 
+## Pagination
+
+Some operations in this SDK support pagination. If the operation supports pagination it will have an `iter_` prefixed method that returns an async iterator.
+
+```python
+from capo_internetmonitor import AsyncInternetMonitorClient
+
+
+async def main():
+    async with AsyncInternetMonitorClient() as internet_monitor:
+        # Example: paginate over list_internet_events
+        async for item in internet_monitor.iter_list_internet_events():
+            print(item)
+```
+
 ## Error Handling
 
 The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.

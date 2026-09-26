@@ -34,6 +34,20 @@ async def main():
             print(item)
 ```
 
+## Waiters
+
+Waiters poll an operation until a resource reaches a desired state. If the operation supports waiters it will have a `wait_until_` prefixed method.
+
+```python
+from capo_gameliftstreams import AsyncGameLiftStreamsClient
+
+
+async def main():
+    async with AsyncGameLiftStreamsClient() as game_lift_streams:
+        # Example: wait for application_deleted
+        await game_lift_streams.wait_until_application_deleted(max_wait_time=300)
+```
+
 ## Error Handling
 
 The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.

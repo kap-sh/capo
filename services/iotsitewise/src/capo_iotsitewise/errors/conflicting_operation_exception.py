@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#ConflictingOperationException``."""
 
+import json
 from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
@@ -76,8 +77,13 @@ class ConflictingOperationException(ServiceError):
 
 
 def serialize_event_json(value: ConflictingOperationException_) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "conflictingOperationException"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "conflictingOperationException",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_json(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -85,4 +91,6 @@ def deserialize_event_json(message: Message) -> ConflictingOperationException_:
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: ConflictingOperationException_ = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_json(json.loads(payload))
     return out

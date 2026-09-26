@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#SendMessageContentBlockDeltaEvent``."""
 
+import json
 from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
@@ -57,8 +58,13 @@ def deserialize_json(data: dict) -> SendMessageContentBlockDeltaEvent:
 
 
 def serialize_event_json(value: SendMessageContentBlockDeltaEvent) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "contentBlockDelta"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "contentBlockDelta",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_json(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -66,4 +72,6 @@ def deserialize_event_json(message: Message) -> SendMessageContentBlockDeltaEven
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: SendMessageContentBlockDeltaEvent = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_json(json.loads(payload))
     return out

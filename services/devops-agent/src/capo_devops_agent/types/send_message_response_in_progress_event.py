@@ -1,5 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#SendMessageResponseInProgressEvent``."""
 
+import json
+
 from typing_extensions import NotRequired, TypedDict
 
 from capo_devops_agent._protocol.eventstream import HeaderValue, Message
@@ -32,8 +34,13 @@ def deserialize_json(data: dict) -> SendMessageResponseInProgressEvent:
 
 
 def serialize_event_json(value: SendMessageResponseInProgressEvent) -> bytes:
-    headers: dict[str, HeaderValue] = {":event-type": "responseInProgress"}
+    headers: dict[str, HeaderValue] = {
+        ":message-type": "event",
+        ":event-type": "responseInProgress",
+        ":content-type": "application/json",
+    }
     payload = b""
+    payload = json.dumps(serialize_json(value)).encode("utf-8")
     return Message(headers=headers, payload=payload).encode()
 
 
@@ -41,4 +48,6 @@ def deserialize_event_json(message: Message) -> SendMessageResponseInProgressEve
     headers = message.headers  # noqa: F841
     payload = message.payload  # noqa: F841
     out: SendMessageResponseInProgressEvent = {}  # type: ignore[typeddict-item]
+    if payload:
+        out = deserialize_json(json.loads(payload))
     return out

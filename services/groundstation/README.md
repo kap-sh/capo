@@ -19,6 +19,21 @@ async def main():
         print(response["agent_id"])
 ```
 
+## Pagination
+
+Some operations in this SDK support pagination. If the operation supports pagination it will have an `iter_` prefixed method that returns an async iterator.
+
+```python
+from capo_groundstation import AsyncGroundStationClient
+
+
+async def main():
+    async with AsyncGroundStationClient() as ground_station:
+        # Example: paginate over list_configs
+        async for item in ground_station.iter_list_configs():
+            print(item)
+```
+
 ## Error Handling
 
 The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.

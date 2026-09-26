@@ -1,0 +1,62 @@
+[project]
+name = "capo-agent-registry"
+version = "0.1.0"
+description = "Python SDK for Agent Registry."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Code Generators",
+    "Typing :: Typed",
+]
+dependencies = [
+    "zapros>=0.13.0",
+]
+
+[project.optional-dependencies]
+# Async file request bodies via Body.async_from_path
+anyio = ["anyio>=3.0"]
+# IAM Identity Center (SSO), assume-role and web-identity credentials providers
+sso = [
+    "capo-sso>=0.2.0",
+    "capo-sso-oidc>=0.2.0",
+    "capo-sts>=0.3.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ty.environment]
+python-version = "3.14"
+root = ["./src"]
+
+[tool.ty.src]
+include = ["src", "tests"]
+
+[tool.ty.rules]
+missing-typed-dict-key = "ignore"
+unused-type-ignore-comment = "ignore"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501", "E741"]
+
+[dependency-groups]
+dev = [
+    "inline-snapshot>=0.33.0",
+    # TODO: fix for 0.0.69
+    "ty==0.0.68",
+    "pytest>=9.0.3",
+    "ruff>=0.15.14",
+    "trio",
+]

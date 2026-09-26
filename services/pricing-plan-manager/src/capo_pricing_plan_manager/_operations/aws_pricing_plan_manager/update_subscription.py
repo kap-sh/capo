@@ -1,0 +1,189 @@
+"""Generated from Smithy shape ``com.amazonaws.pricingplanmanager#UpdateSubscription``."""
+
+from __future__ import annotations
+
+import json
+from typing import Any
+
+import zapros
+from typing_extensions import Never
+
+import capo_pricing_plan_manager._auth._signers
+import capo_pricing_plan_manager._auth._sigv4
+import capo_pricing_plan_manager._protocol.eventstream
+import capo_pricing_plan_manager.errors.access_denied_exception
+import capo_pricing_plan_manager.errors.conflict_exception
+import capo_pricing_plan_manager.errors.internal_server_exception
+import capo_pricing_plan_manager.errors.resource_not_found_exception
+import capo_pricing_plan_manager.errors.service_quota_exceeded_exception
+import capo_pricing_plan_manager.errors.throttling_exception
+import capo_pricing_plan_manager.errors.validation_exception
+import capo_pricing_plan_manager.types.subscription
+import capo_pricing_plan_manager.types.update_subscription_input
+import capo_pricing_plan_manager.types.update_subscription_output
+from capo_pricing_plan_manager._protocol.errors import parse_error_metadata_json
+from capo_pricing_plan_manager._rule_engine._endpoint_rule_set import (
+    EndpointParams,
+    resolve,
+)
+from capo_pricing_plan_manager._services._pipeline import (
+    AsyncOperationOptions,
+    OperationOptions,
+)
+from capo_pricing_plan_manager.errors import UnknownServiceError
+
+
+def handle_error(response: zapros.Response) -> Never:
+    data = json.loads(response.read())
+    code, message = parse_error_metadata_json(response, data)
+    match code:
+        case "AccessDeniedException":
+            raise capo_pricing_plan_manager.errors.access_denied_exception.AccessDeniedException.from_json(
+                data, message
+            )
+        case "ConflictException":
+            raise capo_pricing_plan_manager.errors.conflict_exception.ConflictException.from_json(
+                data, message
+            )
+        case "InternalServerException":
+            raise capo_pricing_plan_manager.errors.internal_server_exception.InternalServerException.from_json(
+                data, message
+            )
+        case "ResourceNotFoundException":
+            raise capo_pricing_plan_manager.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
+                data, message
+            )
+        case "ServiceQuotaExceededException":
+            raise capo_pricing_plan_manager.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
+                data, message
+            )
+        case "ThrottlingException":
+            raise capo_pricing_plan_manager.errors.throttling_exception.ThrottlingException.from_json(
+                data, message
+            )
+        case "ValidationException":
+            raise capo_pricing_plan_manager.errors.validation_exception.ValidationException.from_json(
+                data, message
+            )
+        case _:
+            raise UnknownServiceError(code=code, message=message, response=response)
+
+
+def handle_response(
+    response: zapros.Response,
+) -> (
+    capo_pricing_plan_manager.types.update_subscription_output.UpdateSubscriptionOutput
+):
+    out: capo_pricing_plan_manager.types.update_subscription_output.UpdateSubscriptionOutput = {
+        "subscription": capo_pricing_plan_manager.types.subscription.deserialize_json(
+            json.loads(response.read())
+        )
+    }  # type: ignore[typeddict-item]
+    out["e_tag"] = response.headers["ETag"]
+    return out
+
+
+async def async_handle_response(
+    response: zapros.Response,
+) -> (
+    capo_pricing_plan_manager.types.update_subscription_output.UpdateSubscriptionOutput
+):
+    out: capo_pricing_plan_manager.types.update_subscription_output.UpdateSubscriptionOutput = {
+        "subscription": capo_pricing_plan_manager.types.subscription.deserialize_json(
+            json.loads(await response.aread())
+        )
+    }  # type: ignore[typeddict-item]
+    out["e_tag"] = response.headers["ETag"]
+    return out
+
+
+def get_signer(
+    options: AsyncOperationOptions | OperationOptions,
+    auth_schemes: list[dict[str, Any]] | None = None,
+) -> capo_pricing_plan_manager._auth._signers.Signer | None:
+    name_to_schema = {s["name"]: s for s in (auth_schemes or [])}  # noqa: F841
+    if (
+        options.credentials_provider is not None
+        and name_to_schema
+        and not name_to_schema.keys() & {"sigv4", "sigv4-s3express"}
+    ):
+        raise RuntimeError(
+            "Endpoint requires an unsupported auth scheme: " + ", ".join(name_to_schema)
+        )
+    if options.credentials_provider is not None:
+        endpoint_scheme = name_to_schema.get("sigv4") or name_to_schema.get(
+            "sigv4-s3express"
+        )
+        if endpoint_scheme is not None or not name_to_schema:
+            sigv4_config = (
+                capo_pricing_plan_manager._auth._sigv4.build_sigv4_auth_scheme(
+                    "pricingplanmanager", options.region, endpoint_scheme
+                )
+            )
+            if sigv4_config is not None:
+                return capo_pricing_plan_manager._auth._signers.SigV4Signer(
+                    options.credentials_provider, auth_scheme=sigv4_config
+                )
+    raise RuntimeError("Auth was not resolved")
+
+
+def build_request(
+    options: OperationOptions | AsyncOperationOptions,
+    input_: capo_pricing_plan_manager.types.update_subscription_input.UpdateSubscriptionInput,
+) -> zapros.Request:
+    endpoint = resolve(EndpointParams(Endpoint=options.endpoint, Region=options.region))  # noqa: F841
+    url = endpoint.url.rstrip("/") + "/v1/UpdateSubscription"
+    params: list[tuple[str, str]] = []
+    headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
+    if "if_match" in input_:
+        headers["If-Match"] = input_["if_match"]
+    body: bytes | None = json.dumps(
+        capo_pricing_plan_manager.types.update_subscription_input.serialize_json(
+            input_
+        ),
+        allow_nan=False,
+    ).encode()
+    headers["content-type"] = "application/json"
+    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    normalized_url = zapros.URL(url)
+    for k, v in params:
+        normalized_url.search_params.append(k, v)
+    return zapros.Request(
+        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
+    )
+
+
+def update_subscription(
+    options: OperationOptions,
+    input_: capo_pricing_plan_manager.types.update_subscription_input.UpdateSubscriptionInput,
+) -> tuple[
+    capo_pricing_plan_manager.types.update_subscription_output.UpdateSubscriptionOutput,
+    zapros.Response,
+]:
+    response = options.client.handler.handle(build_request(options, input_))
+    try:
+        if response.status >= 300:
+            response.read()
+            handle_error(response)
+        return handle_response(response), response
+    except BaseException:
+        response.close()
+        raise
+
+
+async def async_update_subscription(
+    options: AsyncOperationOptions,
+    input_: capo_pricing_plan_manager.types.update_subscription_input.UpdateSubscriptionInput,
+) -> tuple[
+    capo_pricing_plan_manager.types.update_subscription_output.UpdateSubscriptionOutput,
+    zapros.Response,
+]:
+    response = await options.client.handler.ahandle(build_request(options, input_))
+    try:
+        if response.status >= 300:
+            await response.aread()
+            handle_error(response)
+        return await async_handle_response(response), response
+    except BaseException:
+        await response.aclose()
+        raise

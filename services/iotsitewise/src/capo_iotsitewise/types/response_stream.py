@@ -6,6 +6,9 @@ from typing_extensions import TypedDict
 
 from capo_iotsitewise._iter import AnyIterator
 from capo_iotsitewise._protocol.eventstream import Message
+from capo_iotsitewise.errors import (
+    UnknownServiceError,
+)
 
 if TYPE_CHECKING:
     import capo_iotsitewise.errors.access_denied_exception
@@ -145,67 +148,86 @@ def serialize_event_json(value: _ResponseStream) -> bytes:
 
 def deserialize_event_json(message: Message) -> _ResponseStream:
     headers = message.headers
-    message_type = headers.get(":message-type", "event")  # noqa: F841
-    if message_type == "error":
-        error_type = headers.get(":error-type")
-        match error_type:
+    message_type = headers.get(":message-type", "event")
+    if message_type == "exception":
+        exception_type = headers.get(":exception-type")
+        match exception_type:
             case "accessDeniedException":
                 import capo_iotsitewise.errors.access_denied_exception
 
+                data = capo_iotsitewise.errors.access_denied_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_iotsitewise.errors.access_denied_exception.AccessDeniedException(
-                    capo_iotsitewise.errors.access_denied_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "conflictingOperationException":
                 import capo_iotsitewise.errors.conflicting_operation_exception
 
+                data = capo_iotsitewise.errors.conflicting_operation_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException(
-                    capo_iotsitewise.errors.conflicting_operation_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "internalFailureException":
                 import capo_iotsitewise.errors.internal_failure_exception
 
+                data = capo_iotsitewise.errors.internal_failure_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_iotsitewise.errors.internal_failure_exception.InternalFailureException(
-                    capo_iotsitewise.errors.internal_failure_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "invalidRequestException":
                 import capo_iotsitewise.errors.invalid_request_exception
 
+                data = capo_iotsitewise.errors.invalid_request_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException(
-                    capo_iotsitewise.errors.invalid_request_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "limitExceededException":
                 import capo_iotsitewise.errors.limit_exceeded_exception
 
+                data = capo_iotsitewise.errors.limit_exceeded_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException(
-                    capo_iotsitewise.errors.limit_exceeded_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "resourceNotFoundException":
                 import capo_iotsitewise.errors.resource_not_found_exception
 
+                data = capo_iotsitewise.errors.resource_not_found_exception.deserialize_event_json(
+                    message
+                )
                 raise capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException(
-                    capo_iotsitewise.errors.resource_not_found_exception.deserialize_event_json(
-                        message
-                    )
+                    data, message=data.get("message")
                 )
             case "throttlingException":
                 import capo_iotsitewise.errors.throttling_exception
 
-                raise capo_iotsitewise.errors.throttling_exception.ThrottlingException(
+                data = (
                     capo_iotsitewise.errors.throttling_exception.deserialize_event_json(
                         message
                     )
                 )
-        raise ValueError(f"ResponseStream: unrecognized error-type {error_type!r}")
+                raise capo_iotsitewise.errors.throttling_exception.ThrottlingException(
+                    data, message=data.get("message")
+                )
+        raise UnknownServiceError(
+            code=str(exception_type), message=None, response=message
+        )
+    if message_type == "error":
+        error_code = headers.get(":error-code")
+        error_message = headers.get(":error-message")
+        raise UnknownServiceError(
+            code=None if error_code is None else str(error_code),
+            message=None if error_message is None else str(error_message),
+            response=message,
+        )
     event_type = headers.get(":event-type")
     match event_type:
         case "trace":

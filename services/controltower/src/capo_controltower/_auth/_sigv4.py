@@ -1,4 +1,4 @@
-"""AWS Signature Version 4 — single-chunk signing.
+"""AWS Signature Version 4 — single-chunk and event-stream signing.
 
 Reference:
     https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv-create-signed-request.html
@@ -15,13 +15,17 @@ import functools
 import hashlib
 import hmac
 import re
-from typing import Any, Literal, TypedDict
+from collections.abc import AsyncIterator, Iterator
+from typing import Any, Literal, TypedDict, cast
 from urllib.parse import quote, unquote
 
 import zapros
 from pywhatwgurl import URLSearchParams
 from zapros import Headers, Request
 from zapros._utils import get_host_header_value
+
+from .._iter import AnyIterator
+from .._protocol.eventstream import HeaderValue, Message, encode_headers
 
 
 def build_sigv4_auth_scheme(
@@ -65,6 +69,10 @@ class SigV4AuthContext(TypedDict):
 
 
 _SIGV4_ALGORITHM = "AWS4-HMAC-SHA256"
+# Per-event algorithm and request payload marker of a signed event stream.
+_EVENT_ALGORITHM = "AWS4-HMAC-SHA256-PAYLOAD"
+_EVENT_STREAM_PAYLOAD = "STREAMING-AWS4-HMAC-SHA256-EVENTS"
+_AMZ_DATE_FORMAT = "%Y%m%dT%H%M%SZ"
 _EMPTY_PAYLOAD_SHA256 = hashlib.sha256(b"").hexdigest()
 
 # Headers excluded from the signed-headers set. Mirrors botocore's denylist:
@@ -95,9 +103,11 @@ _UNSIGNED_HEADERS = frozenset(
 
 _MULTI_SPACE = re.compile(r" +")
 
-# Services that require the payload hash to travel in ``x-amz-content-sha256``.
-# Other services sign the hash into the canonical request without sending it.
-_S3_SIGNING_NAMES = frozenset({"s3", "s3express", "s3-outposts", "s3-object-lambda"})
+# Services that require the payload hash to travel in ``x-amz-content-sha256``
+# on every request, and that accept ``UNSIGNED-PAYLOAD`` for any operation.
+# Other services sign the hash into the canonical request without sending it,
+# and only see the header when the payload is left unsigned.
+S3_SIGNING_NAMES = frozenset({"s3", "s3express", "s3-outposts", "s3-object-lambda"})
 
 
 def _uri_encode(value: str) -> str:
@@ -231,12 +241,20 @@ def _canonical_query_from_pairs(pairs: list[tuple[str, str]]) -> str:
 def sign_sigv4(
     request: Request,
     ctx: SigV4AuthContext,
-    body: bytes | None,
+    *,
+    unsigned_payload: bool = False,
+    event_stream: bool = False,
 ) -> Request:
     """Return a new ``Request`` carrying SigV4 single-chunk auth headers.
 
-    Pass ``body=None`` to sign with ``UNSIGNED-PAYLOAD`` (streaming requests).
-    The original ``request.body`` is forwarded unchanged in that case.
+    The payload hash covers ``request.body``, which must be ``bytes`` or
+    ``None``. ``unsigned_payload`` signs ``UNSIGNED-PAYLOAD`` instead and
+    forwards any body unchanged (streaming S3 requests and operations carrying
+    ``aws.auth#unsignedPayload``). ``event_stream`` signs a request event
+    stream: the ``STREAMING-AWS4-HMAC-SHA256-EVENTS`` marker stands in for the
+    payload hash and the body — an iterator of encoded event messages — is
+    wrapped in an :class:`EventStreamIterator` that signs every event with a
+    signature chained from this request's.
     """
     service = ctx["signing_name"]
     region = ctx["signing_region"]
@@ -250,21 +268,31 @@ def sign_sigv4(
         date_stamp = amz_date[:8]
     else:
         now = _amz_now()
-        amz_date = now.strftime("%Y%m%dT%H%M%SZ")
+        amz_date = now.strftime(_AMZ_DATE_FORMAT)
         date_stamp = now.strftime("%Y%m%d")
         headers["X-Amz-Date"] = amz_date
 
-    # Payload hash. For S3-family services, x-amz-content-sha256 is mandatory
-    # and must be set BEFORE computing the canonical request (it gets signed).
+    # Payload hash. For S3-family services, x-amz-content-sha256 is mandatory;
+    # for every service it is the only way to announce an unsigned payload or
+    # an event stream.
+    # Either way it must be set BEFORE computing the canonical request (it
+    # gets signed).
     payload_hash = headers.get("X-Amz-Content-SHA256")
     if payload_hash is None:
-        if body is None:
+        if event_stream:
+            payload_hash = _EVENT_STREAM_PAYLOAD
+        elif unsigned_payload:
             payload_hash = "UNSIGNED-PAYLOAD"
+        elif request.body is None:
+            payload_hash = _EMPTY_PAYLOAD_SHA256
+        elif isinstance(request.body, bytes):
+            payload_hash = hashlib.sha256(request.body).hexdigest()
         else:
-            payload_hash = (
-                hashlib.sha256(body).hexdigest() if body else _EMPTY_PAYLOAD_SHA256
+            raise TypeError(
+                "sign_sigv4 hashes a bytes body only; pass unsigned_payload=True "
+                "to send a streamed body without a payload hash"
             )
-    if service in _S3_SIGNING_NAMES:
+    if service in S3_SIGNING_NAMES or unsigned_payload or event_stream:
         headers["X-Amz-Content-SHA256"] = payload_hash
 
     # Session token (STS / assumed-role credentials).
@@ -308,16 +336,133 @@ def sign_sigv4(
         f"Signature={signature}"
     )
 
-    effective_body = body if body is not None else request.body
-    if effective_body is not None:
+    body = request.body
+    if event_stream:
+        if not isinstance(body, (Iterator, AsyncIterator)):
+            raise TypeError(
+                "event_stream requires an iterator of encoded events as the body"
+            )
+        body = EventStreamIterator(
+            cast("Iterator[bytes] | AsyncIterator[bytes]", body), ctx, signature
+        )
+    if body is not None:
         return Request(
             request.url,
             request.method,
             headers,
-            body=effective_body,
+            body=body,
             context=request.context,
         )
     return Request(request.url, request.method, headers, context=request.context)
+
+
+def _sign_event(
+    ctx: SigV4AuthContext, prior_signature: str, payload: bytes
+) -> tuple[bytes, str]:
+    """Wrap one encoded event in a signed outer message.
+
+    Returns ``(frame, signature)``; the hex signature seeds the next event.
+    The string to sign chains every frame to its predecessor — the first one
+    to the request's ``Authorization`` signature — so the service can verify
+    the stream incrementally::
+
+        AWS4-HMAC-SHA256-PAYLOAD
+        <date, YYYYMMDDTHHMMSSZ>
+        <credential scope>
+        <prior signature, hex>
+        <hex sha256 of the encoded ``:date`` header>
+        <hex sha256 of the payload>
+
+    The AWS SDKs (and the service) use the ``-PAYLOAD`` algorithm name; the
+    Transcribe developer guide's pseudocode omits the suffix.
+    """
+    service = ctx["signing_name"]
+    region = ctx["signing_region"]
+    now = _amz_now()
+    amz_date = now.strftime(_AMZ_DATE_FORMAT)
+    date_stamp = amz_date[:8]
+    credential_scope = f"{date_stamp}/{region}/{service}/aws4_request"
+    date_header: dict[str, HeaderValue] = {":date": now}
+    string_to_sign = "\n".join(
+        (
+            _EVENT_ALGORITHM,
+            amz_date,
+            credential_scope,
+            prior_signature,
+            hashlib.sha256(encode_headers(date_header)).hexdigest(),
+            hashlib.sha256(payload).hexdigest(),
+        )
+    )
+    signing_key = _derive_signing_key(
+        ctx["secret_access_key"], date_stamp, region, service
+    )
+    signature = hmac.new(
+        signing_key, string_to_sign.encode("utf-8"), hashlib.sha256
+    ).hexdigest()
+    frame = Message(
+        {**date_header, ":chunk-signature": bytes.fromhex(signature)}, payload
+    ).encode()
+    return frame, signature
+
+
+class EventStreamIterator(AnyIterator[bytes]):
+    """Sign a request event stream, one frame per event.
+
+    Wraps an iterator of encoded event messages (as produced by the generated
+    ``serialize_event_*`` functions). Each event becomes the payload of an
+    outer message carrying ``:date`` and ``:chunk-signature`` headers, the
+    signature chained from the previous frame's and seeded by the request's
+    ``Authorization`` signature. Once the events are exhausted, one empty
+    signed frame is yielded to mark the end of the stream.
+
+    Like :class:`~capo._body.Body`, it is both a sync and an async iterator:
+    iterate it the way the wrapped source is iterable (``next`` over a sync
+    source, ``async for`` over an async one).
+
+    Reference:
+        https://docs.aws.amazon.com/transcribe/latest/dg/streaming-setting-up.html
+    """
+
+    def __init__(
+        self,
+        events: Iterator[bytes] | AsyncIterator[bytes],
+        ctx: SigV4AuthContext,
+        seed_signature: str,
+    ) -> None:
+        self._events = events
+        self._ctx = ctx
+        self._prior_signature = seed_signature
+        self._ended = False
+
+    def _frame(self, payload: bytes) -> bytes:
+        frame, self._prior_signature = _sign_event(
+            self._ctx, self._prior_signature, payload
+        )
+        return frame
+
+    def __next__(self) -> bytes:
+        if self._ended:
+            raise StopIteration
+        if not isinstance(self._events, Iterator):
+            raise TypeError("this event stream wraps an async source; use `async for`")
+        try:
+            payload = next(cast(Iterator[bytes], self._events))
+        except StopIteration:
+            self._ended = True
+            payload = b""
+        return self._frame(payload)
+
+    async def __anext__(self) -> bytes:
+        if self._ended:
+            raise StopAsyncIteration
+        if not isinstance(self._events, AsyncIterator):
+            raise TypeError("this event stream wraps a sync source; use `for`")
+        try:
+            payload = await cast(AsyncIterator[bytes], self._events).__anext__()
+        except StopAsyncIteration:
+            self._ended = True
+            payload = b""
+        return self._frame(payload)
 
 
 def presign_sigv4(
@@ -346,7 +491,7 @@ def presign_sigv4(
     service = ctx["signing_name"]
     region = ctx["signing_region"]
 
-    amz_date = sign_time.strftime("%Y%m%dT%H%M%SZ")
+    amz_date = sign_time.strftime(_AMZ_DATE_FORMAT)
     date_stamp = sign_time.strftime("%Y%m%d")
     credential_scope = f"{date_stamp}/{region}/{service}/aws4_request"
 
