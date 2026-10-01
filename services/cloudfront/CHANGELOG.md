@@ -1,5 +1,11 @@
 # aws-sdk-cloudfront
 
+## 0.12.0
+
+### Minor Changes
+
+- d14a26b: update the smithy spec
+
 ## 0.11.0
 
 ### Minor Changes

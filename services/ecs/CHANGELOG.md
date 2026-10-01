@@ -1,5 +1,11 @@
 # aws-sdk-ecs
 
+## 0.17.0
+
+### Minor Changes
+
+- d14a26b: update the smithy spec
+
 ## 0.16.0
 
 ### Minor Changes

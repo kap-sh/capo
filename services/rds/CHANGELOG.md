@@ -1,5 +1,11 @@
 # aws-sdk-rds
 
+## 0.14.0
+
+### Minor Changes
+
+- d14a26b: update the smithy spec
+
 ## 0.13.0
 
 ### Minor Changes

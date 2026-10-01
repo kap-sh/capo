@@ -1,5 +1,11 @@
 # aws-sdk-ec2
 
+## 0.19.0
+
+### Minor Changes
+
+- d14a26b: update the smithy spec
+
 ## 0.18.0
 
 ### Minor Changes

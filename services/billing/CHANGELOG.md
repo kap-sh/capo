@@ -1,5 +1,11 @@
 # aws-sdk-billing
 
+## 0.4.0
+
+### Minor Changes
+
+- d14a26b: update the smithy spec
+
 ## 0.3.0
 
 ### Minor Changes

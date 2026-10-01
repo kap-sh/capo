@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-agent
 
+## 0.6.0
+
+### Minor Changes
+
+- d14a26b: update the smithy spec
+
 ## 0.5.0
 
 ### Minor Changes

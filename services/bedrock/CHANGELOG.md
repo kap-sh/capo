@@ -1,5 +1,11 @@
 # aws-sdk-bedrock
 
+## 0.7.0
+
+### Minor Changes
+
+- d14a26b: update the smithy spec
+
 ## 0.6.0
 
 ### Minor Changes

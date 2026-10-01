@@ -1,5 +1,11 @@
 # aws-sdk-eventbridge
 
+## 0.9.0
+
+### Minor Changes
+
+- d14a26b: update the smithy spec
+
 ## 0.8.0
 
 ### Minor Changes
