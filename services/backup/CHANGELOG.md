@@ -1,5 +1,11 @@
 # aws-sdk-backup
 
+## 0.5.0
+
+### Minor Changes
+
+- f6fe1c8: fix: 429, transient 5xx and responses not being retried unless the error is marked
+
 ## 0.4.0
 
 ### Minor Changes

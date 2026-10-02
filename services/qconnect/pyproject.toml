@@ -1,6 +1,6 @@
 [project]
 name = "capo-qconnect"
-version = "0.2.0"
+version = "0.3.0"
 description = "Python SDK for AWS Qconnect."
 readme = "README.md"
 requires-python = ">=3.10"

@@ -1,5 +1,11 @@
 # aws-sdk-secrets-manager
 
+## 0.9.0
+
+### Minor Changes
+
+- f6fe1c8: fix: 429, transient 5xx and responses not being retried unless the error is marked
+
 ## 0.8.0
 
 ### Minor Changes

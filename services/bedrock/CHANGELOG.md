@@ -1,5 +1,15 @@
 # aws-sdk-bedrock
 
+## 0.8.0
+
+### Minor Changes
+
+- f6fe1c8: fix: 429, transient 5xx and responses not being retried unless the error is marked
+
+### Patch Changes
+
+- 8c8770d: fix `bearer`/`bearer_provider` being ignored in favour of SigV4 from the default credentials chain
+
 ## 0.7.0
 
 ### Minor Changes

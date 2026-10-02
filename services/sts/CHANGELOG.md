@@ -1,5 +1,11 @@
 # aws-sdk-sts
 
+## 0.13.0
+
+### Minor Changes
+
+- f6fe1c8: fix: 429, transient 5xx and responses not being retried unless the error is marked
+
 ## 0.12.0
 
 ### Minor Changes

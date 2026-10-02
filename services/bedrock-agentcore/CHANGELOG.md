@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-agentcore
 
+## 0.7.0
+
+### Minor Changes
+
+- f6fe1c8: fix: 429, transient 5xx and responses not being retried unless the error is marked
+
 ## 0.6.0
 
 ### Minor Changes
