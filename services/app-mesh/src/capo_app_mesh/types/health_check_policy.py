@@ -24,7 +24,7 @@ class HealthCheckPolicy(TypedDict, closed=True):
     )
     """<p>The time period in milliseconds between each health check execution.</p>"""
     protocol: "capo_app_mesh.types.port_protocol.PortProtocol"
-    r"""<p>The protocol for the health check request. If you specify <code>grpc</code>, then your service must conform to the <a href=\"https://github.com/grpc/grpc/blob/master/doc/health-checking.md\">GRPC Health Checking Protocol</a>.</p>"""
+    """<p>The protocol for the health check request. If you specify <code>grpc</code>, then your service must conform to the <a href="https://github.com/grpc/grpc/blob/master/doc/health-checking.md">GRPC Health Checking Protocol</a>.</p>"""
     port: NotRequired["capo_app_mesh.types.port_number.PortNumber"]
     """<p>The destination port for the health check request. This port must match the port defined in the <a>PortMapping</a> for the listener.</p>"""
     path: NotRequired["str"]

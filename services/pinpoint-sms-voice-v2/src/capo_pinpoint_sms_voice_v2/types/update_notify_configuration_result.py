@@ -57,7 +57,7 @@ class UpdateNotifyConfigurationResult(TypedDict, closed=True):
     deletion_protection_enabled: "bool"
     """<p>When set to true deletion protection is enabled. By default this is set to false. </p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the notify configuration was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the notify configuration was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

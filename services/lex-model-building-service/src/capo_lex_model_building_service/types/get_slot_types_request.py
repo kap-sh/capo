@@ -22,7 +22,7 @@ class GetSlotTypesRequest(TypedDict, closed=True):
     name_contains: NotRequired[
         "capo_lex_model_building_service.types.slot_type_name.SlotTypeName"
     ]
-    r"""<p>Substring to match in slot type names. A slot type will be returned if any part of its name matches the substring. For example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"</p>"""
+    """<p>Substring to match in slot type names. A slot type will be returned if any part of its name matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -17,7 +17,7 @@ class PerformanceInsightsReferenceData(TypedDict, closed=True):
     comparison_values: NotRequired[
         "capo_devops_guru.types.performance_insights_reference_comparison_values.PerformanceInsightsReferenceComparisonValues"
     ]
-    r"""<p>The specific reference values used to evaluate the Performance Insights. For more information, see <code> <a href=\"https://docs.aws.amazon.com/devops-guru/latest/APIReference/API_PerformanceInsightsReferenceComparisonValues.html\">PerformanceInsightsReferenceComparisonValues</a> </code>. </p>"""
+    """<p>The specific reference values used to evaluate the Performance Insights. For more information, see <code> <a href="https://docs.aws.amazon.com/devops-guru/latest/APIReference/API_PerformanceInsightsReferenceComparisonValues.html">PerformanceInsightsReferenceComparisonValues</a> </code>. </p>"""
 
 
 # --- restJson1 ser/de ---

@@ -38,7 +38,7 @@ class AutocompleteAddressHighlights(TypedDict, closed=True):
     intersection: NotRequired[
         "capo_geo_places.types.intersection_highlights_list.IntersectionHighlightsList"
     ]
-    r"""<p>Name of the streets in the intersection. For example: e.g. [\"Friedrichstraße\",\"Unter den Linden\"]</p>"""
+    """<p>Name of the streets in the intersection. For example: e.g. ["Friedrichstraße","Unter den Linden"]</p>"""
     postal_code: NotRequired["capo_geo_places.types.highlight_list.HighlightList"]
     """<p>An alphanumeric string included in a postal address to facilitate mail sorting, such as post code, postcode, or ZIP code for which the result should possess. </p>"""
     address_number: NotRequired["capo_geo_places.types.highlight_list.HighlightList"]

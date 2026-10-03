@@ -26,7 +26,7 @@ class DescribeRetrainingSchedulerResponse(TypedDict, closed=True):
     retraining_frequency: NotRequired[
         "capo_lookoutequipment.types.retraining_frequency.RetrainingFrequency"
     ]
-    r"""<p>The frequency at which the model retraining is set. This follows the <a href=\"https://en.wikipedia.org/wiki/ISO_8601#Durations\">ISO 8601</a> guidelines.</p>"""
+    """<p>The frequency at which the model retraining is set. This follows the <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601</a> guidelines.</p>"""
     lookback_window: NotRequired[
         "capo_lookoutequipment.types.lookback_window.LookbackWindow"
     ]
@@ -38,7 +38,7 @@ class DescribeRetrainingSchedulerResponse(TypedDict, closed=True):
     promote_mode: NotRequired[
         "capo_lookoutequipment.types.model_promote_mode.ModelPromoteMode"
     ]
-    r"""<p>Indicates how the service uses new models. In <code>MANAGED</code> mode, new models are used for inference if they have better performance than the current model. In <code>MANUAL</code> mode, the new models are not used until they are <a href=\"https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/versioning-model.html#model-activation\">manually activated</a>.</p>"""
+    """<p>Indicates how the service uses new models. In <code>MANAGED</code> mode, new models are used for inference if they have better performance than the current model. In <code>MANUAL</code> mode, the new models are not used until they are <a href="https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/versioning-model.html#model-activation">manually activated</a>.</p>"""
     created_at: NotRequired["capo_lookoutequipment.types.timestamp.Timestamp"]
     """<p>Indicates the time and date at which the retraining scheduler was created. </p>"""
     updated_at: NotRequired["capo_lookoutequipment.types.timestamp.Timestamp"]

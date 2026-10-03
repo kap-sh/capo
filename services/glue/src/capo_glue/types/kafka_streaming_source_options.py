@@ -20,7 +20,7 @@ class KafkaStreamingSourceOptions(TypedDict, closed=True):
     security_protocol: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>The protocol used to communicate with brokers. The possible values are <code>\"SSL\"</code> or <code>\"PLAINTEXT\"</code>.</p>"""
+    """<p>The protocol used to communicate with brokers. The possible values are <code>"SSL"</code> or <code>"PLAINTEXT"</code>.</p>"""
     connection_name: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
@@ -28,15 +28,15 @@ class KafkaStreamingSourceOptions(TypedDict, closed=True):
     topic_name: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>The topic name as specified in Apache Kafka. You must specify at least one of <code>\"topicName\"</code>, <code>\"assign\"</code> or <code>\"subscribePattern\"</code>.</p>"""
+    """<p>The topic name as specified in Apache Kafka. You must specify at least one of <code>"topicName"</code>, <code>"assign"</code> or <code>"subscribePattern"</code>.</p>"""
     assign: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>The specific <code>TopicPartitions</code> to consume. You must specify at least one of <code>\"topicName\"</code>, <code>\"assign\"</code> or <code>\"subscribePattern\"</code>.</p>"""
+    """<p>The specific <code>TopicPartitions</code> to consume. You must specify at least one of <code>"topicName"</code>, <code>"assign"</code> or <code>"subscribePattern"</code>.</p>"""
     subscribe_pattern: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>A Java regex string that identifies the topic list to subscribe to. You must specify at least one of <code>\"topicName\"</code>, <code>\"assign\"</code> or <code>\"subscribePattern\"</code>.</p>"""
+    """<p>A Java regex string that identifies the topic list to subscribe to. You must specify at least one of <code>"topicName"</code>, <code>"assign"</code> or <code>"subscribePattern"</code>.</p>"""
     classification: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
@@ -48,11 +48,11 @@ class KafkaStreamingSourceOptions(TypedDict, closed=True):
     starting_offsets: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>The starting position in the Kafka topic to read data from. The possible values are <code>\"earliest\"</code> or <code>\"latest\"</code>. The default value is <code>\"latest\"</code>.</p>"""
+    """<p>The starting position in the Kafka topic to read data from. The possible values are <code>"earliest"</code> or <code>"latest"</code>. The default value is <code>"latest"</code>.</p>"""
     ending_offsets: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>The end point when a batch query is ended. Possible values are either <code>\"latest\"</code> or a JSON string that specifies an ending offset for each <code>TopicPartition</code>.</p>"""
+    """<p>The end point when a batch query is ended. Possible values are either <code>"latest"</code> or a JSON string that specifies an ending offset for each <code>TopicPartition</code>.</p>"""
     poll_timeout_ms: NotRequired[
         "capo_glue.types.boxed_non_negative_long.BoxedNonNegativeLong"
     ]
@@ -74,17 +74,17 @@ class KafkaStreamingSourceOptions(TypedDict, closed=True):
     ]
     """<p>The desired minimum number of partitions to read from Kafka. The default value is null, which means that the number of spark partitions is equal to the number of Kafka partitions.</p>"""
     include_headers: NotRequired["capo_glue.types.boxed_boolean.BoxedBoolean"]
-    r"""<p>Whether to include the Kafka headers. When the option is set to \"true\", the data output will contain an additional column named \"glue_streaming_kafka_headers\" with type <code>Array[Struct(key: String, value: String)]</code>. The default value is \"false\". This option is available in Glue version 3.0 or later only.</p>"""
+    """<p>Whether to include the Kafka headers. When the option is set to "true", the data output will contain an additional column named "glue_streaming_kafka_headers" with type <code>Array[Struct(key: String, value: String)]</code>. The default value is "false". This option is available in Glue version 3.0 or later only.</p>"""
     add_record_timestamp: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>When this option is set to 'true', the data output will contain an additional column named \"__src_timestamp\" that indicates the time when the corresponding record received by the topic. The default value is 'false'. This option is supported in Glue version 4.0 or later.</p>"""
+    """<p>When this option is set to 'true', the data output will contain an additional column named "__src_timestamp" that indicates the time when the corresponding record received by the topic. The default value is 'false'. This option is supported in Glue version 4.0 or later.</p>"""
     emit_consumer_lag_metrics: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>When this option is set to 'true', for each batch, it will emit the metrics for the duration between the oldest record received by the topic and the time it arrives in Glue to CloudWatch. The metric's name is \"glue.driver.streaming.maxConsumerLagInMs\". The default value is 'false'. This option is supported in Glue version 4.0 or later.</p>"""
+    """<p>When this option is set to 'true', for each batch, it will emit the metrics for the duration between the oldest record received by the topic and the time it arrives in Glue to CloudWatch. The metric's name is "glue.driver.streaming.maxConsumerLagInMs". The default value is 'false'. This option is supported in Glue version 4.0 or later.</p>"""
     starting_timestamp: NotRequired["capo_glue.types.iso8601_date_time.Iso8601DateTime"]
-    r"""<p>The timestamp of the record in the Kafka topic to start reading data from. The possible values are a timestamp string in UTC format of the pattern <code>yyyy-mm-ddTHH:MM:SSZ</code> (where Z represents a UTC timezone offset with a +/-. For example: \"2023-04-04T08:00:00+08:00\"). </p> <p>Only one of <code>StartingTimestamp</code> or <code>StartingOffsets</code> must be set.</p>"""
+    """<p>The timestamp of the record in the Kafka topic to start reading data from. The possible values are a timestamp string in UTC format of the pattern <code>yyyy-mm-ddTHH:MM:SSZ</code> (where Z represents a UTC timezone offset with a +/-. For example: "2023-04-04T08:00:00+08:00"). </p> <p>Only one of <code>StartingTimestamp</code> or <code>StartingOffsets</code> must be set.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

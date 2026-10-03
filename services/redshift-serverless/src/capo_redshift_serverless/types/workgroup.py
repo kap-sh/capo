@@ -39,7 +39,7 @@ class Workgroup(TypedDict, closed=True):
     config_parameters: NotRequired[
         "capo_redshift_serverless.types.config_parameter_list.ConfigParameterList"
     ]
-    r"""<p>An array of parameters to set for advanced control over a database. The options are <code>auto_mv</code>, <code>datestyle</code>, <code>enable_case_sensitive_identifier</code>, <code>enable_user_activity_logging</code>, <code>query_group</code>, <code>search_path</code>, <code>require_ssl</code>, <code>use_fips_ssl</code>, and either <code>wlm_json_configuration</code> or query monitoring metrics that let you define performance boundaries. You can either specify individual query monitoring metrics (such as <code>max_scan_row_count</code>, <code>max_query_execution_time</code>) or use <code>wlm_json_configuration</code> to define query queues with rules, but not both. If you're using <code>wlm_json_configuration</code>, the maximum size of <code>parameterValue</code> is 8000 characters. For more information about query monitoring rules and available metrics, see <a href=\"https://docs.aws.amazon.com/redshift/latest/dg/cm-c-wlm-query-monitoring-rules.html#cm-c-wlm-query-monitoring-metrics-serverless\"> Query monitoring metrics for Amazon Redshift Serverless</a>.</p>"""
+    """<p>An array of parameters to set for advanced control over a database. The options are <code>auto_mv</code>, <code>datestyle</code>, <code>enable_case_sensitive_identifier</code>, <code>enable_user_activity_logging</code>, <code>query_group</code>, <code>search_path</code>, <code>require_ssl</code>, <code>use_fips_ssl</code>, and either <code>wlm_json_configuration</code> or query monitoring metrics that let you define performance boundaries. You can either specify individual query monitoring metrics (such as <code>max_scan_row_count</code>, <code>max_query_execution_time</code>) or use <code>wlm_json_configuration</code> to define query queues with rules, but not both. If you're using <code>wlm_json_configuration</code>, the maximum size of <code>parameterValue</code> is 8000 characters. For more information about query monitoring rules and available metrics, see <a href="https://docs.aws.amazon.com/redshift/latest/dg/cm-c-wlm-query-monitoring-rules.html#cm-c-wlm-query-monitoring-metrics-serverless"> Query monitoring metrics for Amazon Redshift Serverless</a>.</p>"""
     security_group_ids: NotRequired[
         "capo_redshift_serverless.types.security_group_id_list.SecurityGroupIdList"
     ]
@@ -71,9 +71,9 @@ class Workgroup(TypedDict, closed=True):
     custom_domain_certificate_expiry_time: NotRequired["datetime.datetime"]
     """<p>The expiration time for the certificate.</p>"""
     workgroup_version: NotRequired["str"]
-    r"""<p>The Amazon Redshift Serverless version of your workgroup. For more information about Amazon Redshift Serverless versions, see<a href=\"https://docs.aws.amazon.com/redshift/latest/mgmt/cluster-versions.html\">Cluster versions for Amazon Redshift</a>.</p>"""
+    """<p>The Amazon Redshift Serverless version of your workgroup. For more information about Amazon Redshift Serverless versions, see<a href="https://docs.aws.amazon.com/redshift/latest/mgmt/cluster-versions.html">Cluster versions for Amazon Redshift</a>.</p>"""
     patch_version: NotRequired["str"]
-    r"""<p>The patch version of your Amazon Redshift Serverless workgroup. For more information about patch versions, see <a href=\"https://docs.aws.amazon.com/redshift/latest/mgmt/cluster-versions.html\">Cluster versions for Amazon Redshift</a>.</p>"""
+    """<p>The patch version of your Amazon Redshift Serverless workgroup. For more information about patch versions, see <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/cluster-versions.html">Cluster versions for Amazon Redshift</a>.</p>"""
     max_capacity: NotRequired["int"]
     """<p>The maximum data-warehouse capacity Amazon Redshift Serverless uses to serve queries. The max capacity is specified in RPUs.</p>"""
     cross_account_vpcs: NotRequired["capo_redshift_serverless.types.vpc_ids.VpcIds"]

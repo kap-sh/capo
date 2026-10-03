@@ -27,7 +27,7 @@ class TableStatus(TypedDict, closed=True):
     state: NotRequired["capo_glue.types.resource_state.ResourceState"]
     """<p>A generic status for the change in progress, such as QUEUED, IN_PROGRESS, SUCCESS, or FAILED.</p>"""
     error: NotRequired["capo_glue.types.error_detail.ErrorDetail"]
-    r"""<p>An error that will only appear when the state is \"FAILED\". This is a parent level exception message, there may be different <code>Error</code>s for each dialect.</p>"""
+    """<p>An error that will only appear when the state is "FAILED". This is a parent level exception message, there may be different <code>Error</code>s for each dialect.</p>"""
     details: NotRequired["capo_glue.types.status_details.StatusDetails"]
     """<p>A <code>StatusDetails</code> object with information about the requested change.</p>"""
 

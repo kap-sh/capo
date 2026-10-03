@@ -29,7 +29,7 @@ class CreateUserRequest(TypedDict, closed=True):
     display_name: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string containing the name of the user. This value is typically formatted for display when the user is referenced. For example, \"John Doe.\" When used in IAM Identity Center, this parameter is required.</p>"""
+    """<p>A string containing the name of the user. This value is typically formatted for display when the user is referenced. For example, "John Doe." When used in IAM Identity Center, this parameter is required.</p>"""
     nick_name: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
@@ -55,7 +55,7 @@ class CreateUserRequest(TypedDict, closed=True):
     preferred_language: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string containing the preferred language of the user. For example, \"American English\" or \"en-us.\"</p>"""
+    """<p>A string containing the preferred language of the user. For example, "American English" or "en-us."</p>"""
     locale: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]

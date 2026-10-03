@@ -28,7 +28,7 @@ class DescribeSecurityGroupRulesRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_security_group_rules_max_results.DescribeSecurityGroupRulesMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. This value can be between 5 and 1000. If this parameter is not specified, then all items are returned. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. This value can be between 5 and 1000. If this parameter is not specified, then all items are returned. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
 
 
 # --- ec2Query ser/de ---

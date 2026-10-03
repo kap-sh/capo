@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class UpdateNetworkConfigurationInput(TypedDict, closed=True):
     security_group_ids: "capo_mwaa.types.security_group_list.SecurityGroupList"
-    r"""<p>A list of security group IDs. A security group must be attached to the same VPC as the subnets. For more information, refer to <a href=\"https://docs.aws.amazon.com/mwaa/latest/userguide/vpc-security.html\">Security in your VPC on Amazon MWAA</a>.</p>"""
+    """<p>A list of security group IDs. A security group must be attached to the same VPC as the subnets. For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/vpc-security.html">Security in your VPC on Amazon MWAA</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

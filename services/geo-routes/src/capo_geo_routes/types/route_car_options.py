@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class RouteCarOptions(TypedDict, closed=True):
     engine_type: NotRequired["capo_geo_routes.types.route_engine_type.RouteEngineType"]
-    r"""<p> Engine type of the vehicle. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p>"""
+    """<p> Engine type of the vehicle. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p>"""
     license_plate: NotRequired[
         "capo_geo_routes.types.route_vehicle_license_plate.RouteVehicleLicensePlate"
     ]
@@ -21,9 +21,9 @@ class RouteCarOptions(TypedDict, closed=True):
     max_speed: NotRequired[
         "capo_geo_routes.types.speed_kilometers_per_hour.SpeedKilometersPerHour"
     ]
-    r"""<p> Maximum speed specified. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p> <p> <b>Unit</b>: <code>kilometers per hour</code> </p>"""
+    """<p> Maximum speed specified. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p> <p> <b>Unit</b>: <code>kilometers per hour</code> </p>"""
     occupancy: NotRequired["capo_geo_routes.types.sensitive_integer.SensitiveInteger"]
-    r"""<p> The number of occupants in the vehicle. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p> <p>Default value: <code>1</code> </p>"""
+    """<p> The number of occupants in the vehicle. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p> <p>Default value: <code>1</code> </p>"""
 
 
 # --- restJson1 ser/de ---

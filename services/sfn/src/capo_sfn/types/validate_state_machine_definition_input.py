@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class ValidateStateMachineDefinitionInput(TypedDict, closed=True):
     definition: "capo_sfn.types.definition.Definition"
-    r"""<p>The Amazon States Language definition of the state machine. For more information, see <a href=\"https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html\">Amazon States Language</a> (ASL).</p>"""
+    """<p>The Amazon States Language definition of the state machine. For more information, see <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon States Language</a> (ASL).</p>"""
     type: NotRequired["capo_sfn.types.state_machine_type.StateMachineType"]
     """<p>The target type of state machine for this definition. The default is <code>STANDARD</code>.</p>"""
     severity: NotRequired[

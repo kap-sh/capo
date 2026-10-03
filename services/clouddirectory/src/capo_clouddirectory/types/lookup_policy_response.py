@@ -13,7 +13,7 @@ class LookupPolicyResponse(TypedDict, closed=True):
     policy_to_path_list: NotRequired[
         "capo_clouddirectory.types.policy_to_path_list.PolicyToPathList"
     ]
-    r"""<p>Provides list of path to policies. Policies contain <code>PolicyId</code>, <code>ObjectIdentifier</code>, and <code>PolicyType</code>. For more information, see <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies\">Policies</a>.</p>"""
+    """<p>Provides list of path to policies. Policies contain <code>PolicyId</code>, <code>ObjectIdentifier</code>, and <code>PolicyType</code>. For more information, see <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies">Policies</a>.</p>"""
     next_token: NotRequired["capo_clouddirectory.types.next_token.NextToken"]
     """<p>The pagination token.</p>"""
 

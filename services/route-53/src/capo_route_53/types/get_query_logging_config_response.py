@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class GetQueryLoggingConfigResponse(TypedDict, closed=True):
     query_logging_config: "capo_route_53.types.query_logging_config.QueryLoggingConfig"
-    r"""<p>A complex type that contains information about the query logging configuration that you specified in a <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetQueryLoggingConfig.html\">GetQueryLoggingConfig</a> request.</p>"""
+    """<p>A complex type that contains information about the query logging configuration that you specified in a <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetQueryLoggingConfig.html">GetQueryLoggingConfig</a> request.</p>"""
 
 
 # --- restXml ser/de ---

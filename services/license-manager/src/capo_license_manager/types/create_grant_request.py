@@ -31,7 +31,7 @@ class CreateGrantRequest(TypedDict, closed=True):
     )
     """<p>Allowed operations for the grant.</p>"""
     tags: NotRequired["capo_license_manager.types.tag_list.TagList"]
-    r"""<p>Tags to add to the grant. For more information about tagging support in License Manager, see the <a href=\"https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html\">TagResource</a> operation.</p>"""
+    """<p>Tags to add to the grant. For more information about tagging support in License Manager, see the <a href="https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html">TagResource</a> operation.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

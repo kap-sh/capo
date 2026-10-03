@@ -40,7 +40,7 @@ class DescribeArchiveResponse(TypedDict, closed=True):
     kms_key_identifier: NotRequired[
         "capo_eventbridge.types.kms_key_identifier.KmsKeyIdentifier"
     ]
-    r"""<p>The identifier of the KMS customer managed key for EventBridge to use to encrypt this archive, if one has been specified.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/encryption-archives.html\">Encrypting archives</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>The identifier of the KMS customer managed key for EventBridge to use to encrypt this archive, if one has been specified.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/encryption-archives.html">Encrypting archives</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
     retention_days: NotRequired["capo_eventbridge.types.retention_days.RetentionDays"]
     """<p>The number of days to retain events for in the archive.</p>"""
     size_bytes: "capo_eventbridge.types.long.Long"

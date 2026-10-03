@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ImportCertificateResponse(TypedDict, closed=True):
     certificate_arn: NotRequired["capo_acm.types.arn.Arn"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the imported certificate.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the imported certificate.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

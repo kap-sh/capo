@@ -19,10 +19,10 @@ class DescribeLocationS3Response(TypedDict, closed=True):
     location_uri: NotRequired["capo_datasync.types.location_uri.LocationUri"]
     """<p>The URL of the Amazon S3 location that was described.</p>"""
     s3_storage_class: NotRequired["capo_datasync.types.s3_storage_class.S3StorageClass"]
-    r"""<p>When Amazon S3 is a destination location, this is the storage class that you chose for your objects.</p> <p>Some storage classes have behaviors that can affect your Amazon S3 storage costs. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-s3-location.html#using-storage-classes\">Storage class considerations with Amazon S3 transfers</a>.</p>"""
+    """<p>When Amazon S3 is a destination location, this is the storage class that you chose for your objects.</p> <p>Some storage classes have behaviors that can affect your Amazon S3 storage costs. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-s3-location.html#using-storage-classes">Storage class considerations with Amazon S3 transfers</a>.</p>"""
     s3_config: NotRequired["capo_datasync.types.s3_config.S3Config"]
     agent_arns: NotRequired["capo_datasync.types.agent_arn_list.AgentArnList"]
-    r"""<p>The ARNs of the DataSync agents deployed on your Outpost when using working with Amazon S3 on Outposts.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/deploy-agents.html#outposts-agent\">Deploy your DataSync agent on Outposts</a>.</p>"""
+    """<p>The ARNs of the DataSync agents deployed on your Outpost when using working with Amazon S3 on Outposts.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/deploy-agents.html#outposts-agent">Deploy your DataSync agent on Outposts</a>.</p>"""
     creation_time: NotRequired["capo_datasync.types.time.Time"]
     """<p>The time that the Amazon S3 location was created.</p>"""
 

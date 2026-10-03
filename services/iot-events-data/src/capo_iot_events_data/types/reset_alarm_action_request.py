@@ -19,7 +19,7 @@ class ResetAlarmActionRequest(TypedDict, closed=True):
     alarm_model_name: "capo_iot_events_data.types.alarm_model_name.AlarmModelName"
     """<p>The name of the alarm model.</p>"""
     key_value: NotRequired["capo_iot_events_data.types.key_value.KeyValue"]
-    r"""<p>The value of the key used as a filter to select only the alarms associated with the <a href=\"https://docs.aws.amazon.com/iotevents/latest/apireference/API_CreateAlarmModel.html#iotevents-CreateAlarmModel-request-key\">key</a>.</p>"""
+    """<p>The value of the key used as a filter to select only the alarms associated with the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_CreateAlarmModel.html#iotevents-CreateAlarmModel-request-key">key</a>.</p>"""
     note: NotRequired["capo_iot_events_data.types.note.Note"]
     """<p>The note that you can leave when you reset the alarm.</p>"""
 

@@ -28,7 +28,7 @@ class ListPreviewRotationShiftsRequest(TypedDict, closed=True):
     )
     """<p>The contacts that would be assigned to a rotation.</p>"""
     time_zone_id: "capo_ssm_contacts.types.time_zone_id.TimeZoneId"
-    r"""<p>The time zone the rotation’s activity would be based on, in Internet Assigned Numbers Authority (IANA) format. For example: \"America/Los_Angeles\", \"UTC\", or \"Asia/Seoul\". </p>"""
+    """<p>The time zone the rotation’s activity would be based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". </p>"""
     recurrence: "capo_ssm_contacts.types.recurrence_settings.RecurrenceSettings"
     """<p>Information about how long a rotation would last before restarting at the beginning of the shift order.</p>"""
     overrides: NotRequired["capo_ssm_contacts.types.override_list.OverrideList"]

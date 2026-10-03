@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class Threshold(TypedDict, closed=True):
     comparison: NotRequired["capo_connect.types.comparison.Comparison"]
-    r"""<p>The type of comparison. Only \"less than\" (LT) comparisons are supported.</p>"""
+    """<p>The type of comparison. Only "less than" (LT) comparisons are supported.</p>"""
     threshold_value: NotRequired["capo_connect.types.threshold_value.ThresholdValue"]
     """<p>The threshold value to compare.</p>"""
 

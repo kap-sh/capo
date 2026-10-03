@@ -16,7 +16,7 @@ class SlotValueOverride(TypedDict, closed=True):
     value: NotRequired["capo_lex_models_v2.types.slot_value.SlotValue"]
     """<p>The current value of the slot.</p>"""
     values: NotRequired["capo_lex_models_v2.types.slot_values.SlotValues"]
-    r"""<p>A list of one or more values that the user provided for the slot. For example, for a slot that elicits pizza toppings, the values might be \"pepperoni\" and \"pineapple.\"</p>"""
+    """<p>A list of one or more values that the user provided for the slot. For example, for a slot that elicits pizza toppings, the values might be "pepperoni" and "pineapple."</p>"""
 
 
 # --- restJson1 ser/de ---

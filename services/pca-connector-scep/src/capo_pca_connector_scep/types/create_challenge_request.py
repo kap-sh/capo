@@ -16,7 +16,7 @@ class CreateChallengeRequest(TypedDict, closed=True):
     connector_arn: "capo_pca_connector_scep.types.connector_arn.ConnectorArn"
     """<p>The Amazon Resource Name (ARN) of the connector that you want to create a challenge for.</p>"""
     client_token: NotRequired["capo_pca_connector_scep.types.client_token.ClientToken"]
-    r"""<p>Custom string that can be used to distinguish between calls to the <a href=\"https://docs.aws.amazon.com/pca-connector-scep/latest/APIReference/API_CreateChallenge.html\">CreateChallenge</a> action. Client tokens for <code>CreateChallenge</code> time out after five minutes. Therefore, if you call <code>CreateChallenge</code> multiple times with the same client token within five minutes, Connector for SCEP recognizes that you are requesting only one challenge and will only respond with one. If you change the client token for each call, Connector for SCEP recognizes that you are requesting multiple challenge passwords.</p>"""
+    """<p>Custom string that can be used to distinguish between calls to the <a href="https://docs.aws.amazon.com/pca-connector-scep/latest/APIReference/API_CreateChallenge.html">CreateChallenge</a> action. Client tokens for <code>CreateChallenge</code> time out after five minutes. Therefore, if you call <code>CreateChallenge</code> multiple times with the same client token within five minutes, Connector for SCEP recognizes that you are requesting only one challenge and will only respond with one. If you change the client token for each call, Connector for SCEP recognizes that you are requesting multiple challenge passwords.</p>"""
     tags: NotRequired["capo_pca_connector_scep.types.tags.Tags"]
     """<p>The key-value pairs to associate with the resource.</p>"""
 

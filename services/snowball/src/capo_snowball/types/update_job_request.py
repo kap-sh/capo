@@ -23,7 +23,7 @@ class UpdateJobRequest(TypedDict, closed=True):
     job_id: "capo_snowball.types.job_id.JobId"
     """<p>The job ID of the job that you want to update, for example <code>JID123e4567-e89b-12d3-a456-426655440000</code>.</p>"""
     role_arn: NotRequired["capo_snowball.types.role_arn.RoleARN"]
-    r"""<p>The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN, use the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a>Identity and Access Management (IAM) API action.</p>"""
+    """<p>The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN, use the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>Identity and Access Management (IAM) API action.</p>"""
     notification: NotRequired["capo_snowball.types.notification.Notification"]
     """<p>The new or updated <a>Notification</a> object.</p>"""
     resources: NotRequired["capo_snowball.types.job_resource.JobResource"]
@@ -41,7 +41,7 @@ class UpdateJobRequest(TypedDict, closed=True):
     snowball_capacity_preference: NotRequired[
         "capo_snowball.types.snowball_capacity.SnowballCapacity"
     ]
-    r"""<p>The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB Snowballs are only available in the US regions.</p> <p>For more information, see \"https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html\" (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or \"https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html\" (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i>.</p>"""
+    """<p>The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB Snowballs are only available in the US regions.</p> <p>For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i>.</p>"""
     forwarding_address_id: NotRequired["capo_snowball.types.address_id.AddressId"]
     """<p>The updated ID for the forwarding address for a job. This field is not supported in most regions.</p>"""
     pickup_details: NotRequired["capo_snowball.types.pickup_details.PickupDetails"]

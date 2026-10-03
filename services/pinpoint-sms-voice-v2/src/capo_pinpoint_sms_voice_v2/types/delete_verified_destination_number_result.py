@@ -22,7 +22,7 @@ class DeleteVerifiedDestinationNumberResult(TypedDict, closed=True):
     )
     """<p>The verified destination phone number, in E.164 format.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the destination phone number was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the destination phone number was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

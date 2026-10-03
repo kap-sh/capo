@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 
 class RoleTemplateVersion(TypedDict, closed=True):
     template_arn: NotRequired["capo_iam.types.arn_type.arnType"]
-    r"""<p>The Amazon Resource Name (ARN) that identifies the role template.</p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) that identifies the role template.</p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     template_name: NotRequired[
         "capo_iam.types.role_template_name_type.roleTemplateNameType"
     ]
@@ -62,7 +62,7 @@ class RoleTemplateVersion(TypedDict, closed=True):
     role_name_pattern: NotRequired[
         "capo_iam.types.role_name_pattern_type.roleNamePatternType"
     ]
-    r"""<p>The pattern that is used to generate the name of a role that is created from this template. The pattern can include <code>@{parameter}</code> placeholders that are replaced with the values you supply in the <code>ReplacementValues</code> parameter of <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_AcquireRole.html\">AcquireRole</a>.</p>"""
+    """<p>The pattern that is used to generate the name of a role that is created from this template. The pattern can include <code>@{parameter}</code> placeholders that are replaced with the values you supply in the <code>ReplacementValues</code> parameter of <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AcquireRole.html">AcquireRole</a>.</p>"""
     role_path_pattern: NotRequired[
         "capo_iam.types.role_path_pattern_type.rolePathPatternType"
     ]
@@ -84,11 +84,11 @@ class RoleTemplateVersion(TypedDict, closed=True):
     ]
     """<p>A list of the ARNs of the managed policies that the service attaches to roles that you create from this template.</p>"""
     permission_boundary_arn: NotRequired["capo_iam.types.arn_type.arnType"]
-    r"""<p>The ARN of the policy that sets the permissions boundary for roles that you create from this template.</p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The ARN of the policy that sets the permissions boundary for roles that you create from this template.</p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     parameters_definition: NotRequired[
         "capo_iam.types.parameters_definition_list_type.parametersDefinitionListType"
     ]
-    r"""<p>A list of the parameters that are defined for this role template version. You supply values for these parameters when you create a role with <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_AcquireRole.html\">AcquireRole</a>.</p>"""
+    """<p>A list of the parameters that are defined for this role template version. You supply values for these parameters when you create a role with <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AcquireRole.html">AcquireRole</a>.</p>"""
     role_tags_template: NotRequired[
         "capo_iam.types.tag_template_list_type.tagTemplateListType"
     ]
@@ -100,9 +100,9 @@ class RoleTemplateVersion(TypedDict, closed=True):
     version_enabled: "capo_iam.types.boolean_type.booleanType"
     """<p>Specifies whether this specific minor version of the role template is enabled.</p>"""
     create_timestamp: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the role template version was created.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the role template version was created.</p>"""
     update_timestamp: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the role template version was last updated.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the role template version was last updated.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -60,15 +60,15 @@ class AwsSecurityFinding(TypedDict, closed=True):
     first_observed_at: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the security findings provider first observed the potential security issue that a finding captured.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the security findings provider first observed the potential security issue that a finding captured.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     last_observed_at: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the security findings provider most recently observed a change in the resource that is involved in the finding.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the security findings provider most recently observed a change in the resource that is involved in the finding.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     created_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the security findings provider created the potential security issue that a finding captured.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the security findings provider created the potential security issue that a finding captured.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     updated_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the security findings provider last updated the finding record.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the security findings provider last updated the finding record.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     severity: NotRequired["capo_securityhub.types.severity.Severity"]
     """<p>A finding's severity.</p>"""
     confidence: NotRequired["capo_securityhub.types.integer.Integer"]
@@ -142,13 +142,13 @@ class AwsSecurityFinding(TypedDict, closed=True):
     ]
     """<p>Provides metadata for the Amazon CodeGuru detector associated with a finding. This field pertains to findings that relate to Lambda functions. Amazon Inspector identifies policy violations and vulnerabilities in Lambda function code based on internal detectors developed in collaboration with Amazon CodeGuru. Security Hub CSPM receives those findings. </p>"""
     processed_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>A timestamp that indicates when Security Hub CSPM received a finding and begins to process it.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that indicates when Security Hub CSPM received a finding and begins to process it.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     aws_account_name: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
     """<p>The name of the Amazon Web Services account from which a finding was generated. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 50. </p>"""
     detection: NotRequired["capo_securityhub.types.detection.Detection"]
-    r"""<p> Provides details about an Amazon GuardDuty Extended Threat Detection attack sequence. GuardDuty generates an attack sequence finding when multiple events align to a potentially suspicious activity. To receive GuardDuty attack sequence findings in Security Hub CSPM, you must have GuardDuty enabled. For more information, see <a href=\"https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-extended-threat-detection.html\">GuardDuty Extended Threat Detection </a> in the <i>Amazon GuardDuty User Guide</i>. </p>"""
+    """<p> Provides details about an Amazon GuardDuty Extended Threat Detection attack sequence. GuardDuty generates an attack sequence finding when multiple events align to a potentially suspicious activity. To receive GuardDuty attack sequence findings in Security Hub CSPM, you must have GuardDuty enabled. For more information, see <a href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-extended-threat-detection.html">GuardDuty Extended Threat Detection </a> in the <i>Amazon GuardDuty User Guide</i>. </p>"""
 
 
 # --- restJson1 ser/de ---

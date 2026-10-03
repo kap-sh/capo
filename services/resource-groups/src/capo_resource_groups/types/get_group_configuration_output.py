@@ -12,7 +12,7 @@ class GetGroupConfigurationOutput(TypedDict, closed=True):
     group_configuration: NotRequired[
         "capo_resource_groups.types.group_configuration.GroupConfiguration"
     ]
-    r"""<p>A structure that describes the service configuration attached with the specified group. For details about the service configuration syntax, see <a href=\"https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html\">Service configurations for Resource Groups</a>.</p>"""
+    """<p>A structure that describes the service configuration attached with the specified group. For details about the service configuration syntax, see <a href="https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html">Service configurations for Resource Groups</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

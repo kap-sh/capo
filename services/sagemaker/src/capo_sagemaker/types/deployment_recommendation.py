@@ -17,7 +17,7 @@ class DeploymentRecommendation(TypedDict, closed=True):
     real_time_inference_recommendations: NotRequired[
         "capo_sagemaker.types.real_time_inference_recommendations.RealTimeInferenceRecommendations"
     ]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_RealTimeInferenceRecommendation.html\">RealTimeInferenceRecommendation</a> items.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_RealTimeInferenceRecommendation.html">RealTimeInferenceRecommendation</a> items.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

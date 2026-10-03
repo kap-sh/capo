@@ -13,7 +13,7 @@ class RepositoryAnalysis(TypedDict, closed=True):
     repository_head: NotRequired[
         "capo_codeguru_reviewer.types.repository_head_source_code_type.RepositoryHeadSourceCodeType"
     ]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_SourceCodeType\">SourceCodeType</a> that specifies the tip of a branch in an associated repository.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_SourceCodeType">SourceCodeType</a> that specifies the tip of a branch in an associated repository.</p>"""
     source_code_type: NotRequired[
         "capo_codeguru_reviewer.types.source_code_type.SourceCodeType"
     ]

@@ -37,7 +37,7 @@ class AnomalyDetector(TypedDict, closed=True):
     anomaly_detector_status: NotRequired[
         "capo_cloudwatch_logs.types.anomaly_detector_status.AnomalyDetectorStatus"
     ]
-    r"""<p>Specifies the current status of the anomaly detector. To pause an anomaly detector, use the <code>enabled</code> parameter in the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateLogAnomalyDetector.html\">UpdateLogAnomalyDetector</a> operation.</p>"""
+    """<p>Specifies the current status of the anomaly detector. To pause an anomaly detector, use the <code>enabled</code> parameter in the <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateLogAnomalyDetector.html">UpdateLogAnomalyDetector</a> operation.</p>"""
     kms_key_id: NotRequired["capo_cloudwatch_logs.types.kms_key_id.KmsKeyId"]
     """<p>The ARN of the KMS key assigned to this anomaly detector, if any.</p>"""
     creation_time_stamp: "capo_cloudwatch_logs.types.epoch_millis.EpochMillis"

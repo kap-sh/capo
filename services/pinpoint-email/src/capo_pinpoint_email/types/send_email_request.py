@@ -19,13 +19,13 @@ class SendEmailRequest(TypedDict, closed=True):
     from_email_address: NotRequired[
         "capo_pinpoint_email.types.email_address.EmailAddress"
     ]
-    r"""<p>The email address that you want to use as the \"From\" address for the email. The address that you specify has to be verified. </p>"""
+    """<p>The email address that you want to use as the "From" address for the email. The address that you specify has to be verified. </p>"""
     destination: "capo_pinpoint_email.types.destination.Destination"
     """<p>An object that contains the recipients of the email message.</p>"""
     reply_to_addresses: NotRequired[
         "capo_pinpoint_email.types.email_address_list.EmailAddressList"
     ]
-    r"""<p>The \"Reply-to\" email addresses for the message. When the recipient replies to the message, each Reply-to address receives the reply.</p>"""
+    """<p>The "Reply-to" email addresses for the message. When the recipient replies to the message, each Reply-to address receives the reply.</p>"""
     feedback_forwarding_email_address: NotRequired[
         "capo_pinpoint_email.types.email_address.EmailAddress"
     ]

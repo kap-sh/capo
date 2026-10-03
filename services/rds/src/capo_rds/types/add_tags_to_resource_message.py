@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class AddTagsToResourceMessage(TypedDict, closed=True):
     resource_name: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The Amazon RDS resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing\"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>"""
+    """<p>The Amazon RDS resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>"""
     tags: NotRequired["capo_rds.types.tag_list.TagList"]
     """<p>The tags to be assigned to the Amazon RDS resource.</p>"""
 

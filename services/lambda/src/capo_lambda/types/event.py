@@ -51,7 +51,7 @@ class Event(TypedDict, closed=True):
     event_timestamp: NotRequired[
         "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
     ]
-    r"""<p>The date and time when this event occurred, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
+    """<p>The date and time when this event occurred, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
     parent_id: NotRequired["capo_lambda.types.operation_id.OperationId"]
     """<p>The unique identifier of the parent operation, if this operation is running within a child context.</p>"""
     execution_started_details: NotRequired[

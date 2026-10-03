@@ -46,11 +46,11 @@ class GameServer(TypedDict, closed=True):
     ]
     """<p>Indicates whether the game server is currently available for new games or is busy. Possible statuses include:</p> <ul> <li> <p> <code>AVAILABLE</code> - The game server is available to be claimed. A game server that has been claimed remains in this status until it reports game hosting activity. </p> </li> <li> <p> <code>UTILIZED</code> - The game server is currently hosting a game session with players. </p> </li> </ul>"""
     registration_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>Timestamp that indicates when the game server registered. The format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>).</p>"""
+    """<p>Timestamp that indicates when the game server registered. The format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).</p>"""
     last_claim_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>Timestamp that indicates the last time the game server was claimed. The format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>). This value is used to calculate when a claimed game server's status should revert to null.</p>"""
+    """<p>Timestamp that indicates the last time the game server was claimed. The format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>). This value is used to calculate when a claimed game server's status should revert to null.</p>"""
     last_health_check_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>Timestamp that indicates the last time the game server was updated with health status. The format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>). After game server registration, this property is only changed when a game server update specifies a health check value.</p>"""
+    """<p>Timestamp that indicates the last time the game server was updated with health status. The format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>). After game server registration, this property is only changed when a game server update specifies a health check value.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

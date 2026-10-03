@@ -41,10 +41,10 @@ class ProvisionedConcurrencyConfig:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> "capo_lambda.types.put_provisioned_concurrency_config_response.PutProvisionedConcurrencyConfigResponse":
-        r"""<p>Adds a provisioned concurrency configuration to a function's alias or version.</p>
+        """<p>Adds a provisioned concurrency configuration to a function's alias or version.</p>
 
         Args:
-            function_name: <p>The name or ARN of the Lambda function.</p> <p class=\"title\"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
+            function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
             qualifier: <p>The version number or alias name.</p>
             provisioned_concurrent_executions: <p>The amount of provisioned concurrency to allocate for the version or alias.</p>
 
@@ -53,7 +53,7 @@ class ProvisionedConcurrencyConfig:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
-            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests\">Lambda quotas</a>.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -99,10 +99,10 @@ class ProvisionedConcurrencyConfig:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> "capo_lambda.types.get_provisioned_concurrency_config_response.GetProvisionedConcurrencyConfigResponse":
-        r"""<p>Retrieves the provisioned concurrency configuration for a function's alias or version.</p>
+        """<p>Retrieves the provisioned concurrency configuration for a function's alias or version.</p>
 
         Args:
-            function_name: <p>The name or ARN of the Lambda function.</p> <p class=\"title\"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
+            function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
             qualifier: <p>The version number or alias name.</p>
 
         Raises:
@@ -110,7 +110,7 @@ class ProvisionedConcurrencyConfig:
             capo_lambda.errors.provisioned_concurrency_config_not_found_exception.ProvisionedConcurrencyConfigNotFoundException: <p>The specified configuration does not exist.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
-            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests\">Lambda quotas</a>.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -159,10 +159,10 @@ class ProvisionedConcurrencyConfig:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes the provisioned concurrency configuration for a function.</p>
+        """<p>Deletes the provisioned concurrency configuration for a function.</p>
 
         Args:
-            function_name: <p>The name or ARN of the Lambda function.</p> <p class=\"title\"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
+            function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
             qualifier: <p>The version number or alias name.</p>
 
         Raises:
@@ -170,7 +170,7 @@ class ProvisionedConcurrencyConfig:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
-            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests\">Lambda quotas</a>.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -219,10 +219,10 @@ class AsyncProvisionedConcurrencyConfig:
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
     ) -> "capo_lambda.types.put_provisioned_concurrency_config_response.PutProvisionedConcurrencyConfigResponse":
-        r"""<p>Adds a provisioned concurrency configuration to a function's alias or version.</p>
+        """<p>Adds a provisioned concurrency configuration to a function's alias or version.</p>
 
         Args:
-            function_name: <p>The name or ARN of the Lambda function.</p> <p class=\"title\"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
+            function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
             qualifier: <p>The version number or alias name.</p>
             provisioned_concurrent_executions: <p>The amount of provisioned concurrency to allocate for the version or alias.</p>
 
@@ -231,7 +231,7 @@ class AsyncProvisionedConcurrencyConfig:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
-            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests\">Lambda quotas</a>.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -278,10 +278,10 @@ class AsyncProvisionedConcurrencyConfig:
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
     ) -> "capo_lambda.types.get_provisioned_concurrency_config_response.GetProvisionedConcurrencyConfigResponse":
-        r"""<p>Retrieves the provisioned concurrency configuration for a function's alias or version.</p>
+        """<p>Retrieves the provisioned concurrency configuration for a function's alias or version.</p>
 
         Args:
-            function_name: <p>The name or ARN of the Lambda function.</p> <p class=\"title\"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
+            function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
             qualifier: <p>The version number or alias name.</p>
 
         Raises:
@@ -289,7 +289,7 @@ class AsyncProvisionedConcurrencyConfig:
             capo_lambda.errors.provisioned_concurrency_config_not_found_exception.ProvisionedConcurrencyConfigNotFoundException: <p>The specified configuration does not exist.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
-            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests\">Lambda quotas</a>.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
@@ -339,10 +339,10 @@ class AsyncProvisionedConcurrencyConfig:
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes the provisioned concurrency configuration for a function.</p>
+        """<p>Deletes the provisioned concurrency configuration for a function.</p>
 
         Args:
-            function_name: <p>The name or ARN of the Lambda function.</p> <p class=\"title\"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
+            function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
             qualifier: <p>The version number or alias name.</p>
 
         Raises:
@@ -350,7 +350,7 @@ class AsyncProvisionedConcurrencyConfig:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
-            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests\">Lambda quotas</a>.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:

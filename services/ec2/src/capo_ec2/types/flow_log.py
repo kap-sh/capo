@@ -51,7 +51,7 @@ class FlowLog(TypedDict, closed=True):
     tags: NotRequired["capo_ec2.types.tag_list.TagList"]
     """<p>The tags for the flow log.</p>"""
     max_aggregation_interval: NotRequired["capo_ec2.types.integer.Integer"]
-    r"""<p>The maximum interval of time, in seconds, during which a flow of packets is captured and aggregated into a flow log record.</p> <p>When a network interface is attached to a <a href=\"https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html\">Nitro-based instance</a>, the aggregation interval is always 60 seconds (1 minute) or less, regardless of the specified value.</p> <p>Valid Values: <code>60</code> | <code>600</code> </p>"""
+    """<p>The maximum interval of time, in seconds, during which a flow of packets is captured and aggregated into a flow log record.</p> <p>When a network interface is attached to a <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Nitro-based instance</a>, the aggregation interval is always 60 seconds (1 minute) or less, regardless of the specified value.</p> <p>Valid Values: <code>60</code> | <code>600</code> </p>"""
     destination_options: NotRequired[
         "capo_ec2.types.destination_options_response.DestinationOptionsResponse"
     ]

@@ -25,7 +25,7 @@ class PackageVersionSummary(TypedDict, closed=True):
     origin: NotRequired[
         "capo_codeartifact.types.package_version_origin.PackageVersionOrigin"
     ]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionOrigin.html\">PackageVersionOrigin</a> object that contains information about how the package version was added to the repository.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionOrigin.html">PackageVersionOrigin</a> object that contains information about how the package version was added to the repository.</p>"""
 
 
 # --- restJson1 ser/de ---

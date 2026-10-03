@@ -34,7 +34,7 @@ class WorkflowRun(TypedDict, closed=True):
     status: NotRequired["capo_glue.types.workflow_run_status.WorkflowRunStatus"]
     """<p>The status of the workflow run.</p>"""
     error_message: NotRequired["capo_glue.types.error_string.ErrorString"]
-    r"""<p>This error message describes any error that may have occurred in starting the workflow run. Currently the only error message is \"Concurrent runs exceeded for workflow: <code>foo</code>.\"</p>"""
+    """<p>This error message describes any error that may have occurred in starting the workflow run. Currently the only error message is "Concurrent runs exceeded for workflow: <code>foo</code>."</p>"""
     statistics: NotRequired[
         "capo_glue.types.workflow_run_statistics.WorkflowRunStatistics"
     ]

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class AwsEc2LaunchTemplateDataMonitoringDetails(TypedDict, closed=True):
     enabled: NotRequired["capo_securityhub.types.boolean.Boolean"]
-    r"""<p> Enables detailed monitoring when <code>true</code> is specified. Otherwise, basic monitoring is enabled. For more information about detailed monitoring, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch-new.html\">Enable or turn off detailed monitoring for your instances</a> in the <i>Amazon EC2 User Guide</i>. </p>"""
+    """<p> Enables detailed monitoring when <code>true</code> is specified. Otherwise, basic monitoring is enabled. For more information about detailed monitoring, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch-new.html">Enable or turn off detailed monitoring for your instances</a> in the <i>Amazon EC2 User Guide</i>. </p>"""
 
 
 # --- restJson1 ser/de ---

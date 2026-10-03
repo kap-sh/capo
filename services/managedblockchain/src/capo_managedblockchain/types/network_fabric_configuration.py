@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class NetworkFabricConfiguration(TypedDict, closed=True):
     edition: "capo_managedblockchain.types.edition.Edition"
-    r"""<p>The edition of Amazon Managed Blockchain that the network uses. For more information, see <a href=\"http://aws.amazon.com/managed-blockchain/pricing/\">Amazon Managed Blockchain Pricing</a>.</p>"""
+    """<p>The edition of Amazon Managed Blockchain that the network uses. For more information, see <a href="http://aws.amazon.com/managed-blockchain/pricing/">Amazon Managed Blockchain Pricing</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

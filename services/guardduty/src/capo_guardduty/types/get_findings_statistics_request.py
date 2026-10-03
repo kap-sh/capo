@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class GetFindingsStatisticsRequest(TypedDict, closed=True):
     detector_id: "capo_guardduty.types.detector_id.DetectorId"
-    r"""<p>The ID of the detector whose findings statistics you want to retrieve.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href=\"https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html\">ListDetectors</a> API.</p>"""
+    """<p>The ID of the detector whose findings statistics you want to retrieve.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>"""
     finding_statistic_types: NotRequired[
         "capo_guardduty.types.finding_statistic_types.FindingStatisticTypes"
     ]

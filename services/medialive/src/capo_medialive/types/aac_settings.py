@@ -21,7 +21,7 @@ class AacSettings(TypedDict, closed=True):
     coding_mode: NotRequired["capo_medialive.types.aac_coding_mode.AacCodingMode"]
     """Mono, Stereo, or 5.1 channel layout. Valid values depend on rate control mode and profile. The adReceiverMix setting receives a stereo description plus control track and emits a mono AAC encode of the description track, with control data emitted in the PES header as per ETSI TS 101 154 Annex E."""
     input_type: NotRequired["capo_medialive.types.aac_input_type.AacInputType"]
-    r"""Set to \"broadcasterMixedAd\" when input contains pre-mixed main audio + AD (narration) as a stereo pair. The Audio Type field (audioType) will be set to 3, which signals to downstream systems that this stream contains \"broadcaster mixed AD\". Note that the input received by the encoder must contain pre-mixed audio; the encoder does not perform the mixing. The values in audioTypeControl and audioType (in AudioDescription) are ignored when set to broadcasterMixedAd. Leave set to \"normal\" when input does not contain pre-mixed audio + AD."""
+    """Set to "broadcasterMixedAd" when input contains pre-mixed main audio + AD (narration) as a stereo pair. The Audio Type field (audioType) will be set to 3, which signals to downstream systems that this stream contains "broadcaster mixed AD". Note that the input received by the encoder must contain pre-mixed audio; the encoder does not perform the mixing. The values in audioTypeControl and audioType (in AudioDescription) are ignored when set to broadcasterMixedAd. Leave set to "normal" when input does not contain pre-mixed audio + AD."""
     profile: NotRequired["capo_medialive.types.aac_profile.AacProfile"]
     """AAC Profile."""
     rate_control_mode: NotRequired[

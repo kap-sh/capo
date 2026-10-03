@@ -69,12 +69,12 @@ class AliasResource:
     ) -> (
         "capo_bedrock_agent.types.create_agent_alias_response.CreateAgentAliasResponse"
     ):
-        r"""<p>Creates an alias of an agent that can be used to deploy the agent.</p>
+        """<p>Creates an alias of an agent that can be used to deploy the agent.</p>
 
         Args:
             agent_id: <p>The unique identifier of the agent.</p>
             agent_alias_name: <p>The name of the alias.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             description: <p>A description of the alias of the agent.</p>
             routing_configuration: <p>Contains details about the routing configuration of the alias.</p>
             tags: <p>Any tags that you want to attach to the alias of the agent.</p>
@@ -385,12 +385,12 @@ class AsyncAliasResource:
     ) -> (
         "capo_bedrock_agent.types.create_agent_alias_response.CreateAgentAliasResponse"
     ):
-        r"""<p>Creates an alias of an agent that can be used to deploy the agent.</p>
+        """<p>Creates an alias of an agent that can be used to deploy the agent.</p>
 
         Args:
             agent_id: <p>The unique identifier of the agent.</p>
             agent_alias_name: <p>The name of the alias.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             description: <p>A description of the alias of the agent.</p>
             routing_configuration: <p>Contains details about the routing configuration of the alias.</p>
             tags: <p>Any tags that you want to attach to the alias of the agent.</p>

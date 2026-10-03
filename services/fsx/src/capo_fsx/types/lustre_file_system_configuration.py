@@ -31,7 +31,7 @@ class LustreFileSystemConfiguration(TypedDict, closed=True):
     deployment_type: NotRequired[
         "capo_fsx.types.lustre_deployment_type.LustreDeploymentType"
     ]
-    r"""<p>The deployment type of the FSx for Lustre file system. <i>Scratch deployment type</i> is designed for temporary storage and shorter-term processing of data.</p> <p> <code>SCRATCH_1</code> and <code>SCRATCH_2</code> deployment types are best suited for when you need temporary storage and shorter-term processing of data. The <code>SCRATCH_2</code> deployment type provides in-transit encryption of data and higher burst throughput capacity than <code>SCRATCH_1</code>.</p> <p>The <code>PERSISTENT_1</code> and <code>PERSISTENT_2</code> deployment type is used for longer-term storage and workloads and encryption of data in transit. <code>PERSISTENT_2</code> offers higher <code>PerUnitStorageThroughput</code> (up to 1000 MB/s/TiB) along with a lower minimum storage capacity requirement (600 GiB). To learn more about FSx for Lustre deployment types, see <a href=\"https://docs.aws.amazon.com/fsx/latest/LustreGuide/using-fsx-lustre.html\">Deployment and storage class options for FSx for Lustre file systems</a>.</p> <p>The default is <code>SCRATCH_1</code>.</p>"""
+    """<p>The deployment type of the FSx for Lustre file system. <i>Scratch deployment type</i> is designed for temporary storage and shorter-term processing of data.</p> <p> <code>SCRATCH_1</code> and <code>SCRATCH_2</code> deployment types are best suited for when you need temporary storage and shorter-term processing of data. The <code>SCRATCH_2</code> deployment type provides in-transit encryption of data and higher burst throughput capacity than <code>SCRATCH_1</code>.</p> <p>The <code>PERSISTENT_1</code> and <code>PERSISTENT_2</code> deployment type is used for longer-term storage and workloads and encryption of data in transit. <code>PERSISTENT_2</code> offers higher <code>PerUnitStorageThroughput</code> (up to 1000 MB/s/TiB) along with a lower minimum storage capacity requirement (600 GiB). To learn more about FSx for Lustre deployment types, see <a href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/using-fsx-lustre.html">Deployment and storage class options for FSx for Lustre file systems</a>.</p> <p>The default is <code>SCRATCH_1</code>.</p>"""
     per_unit_storage_throughput: NotRequired[
         "capo_fsx.types.per_unit_storage_throughput.PerUnitStorageThroughput"
     ]
@@ -39,7 +39,7 @@ class LustreFileSystemConfiguration(TypedDict, closed=True):
     mount_name: NotRequired[
         "capo_fsx.types.lustre_file_system_mount_name.LustreFileSystemMountName"
     ]
-    r"""<p>You use the <code>MountName</code> value when mounting the file system.</p> <p>For the <code>SCRATCH_1</code> deployment type, this value is always \"<code>fsx</code>\". For <code>SCRATCH_2</code>, <code>PERSISTENT_1</code>, and <code>PERSISTENT_2</code> deployment types, this value is a string that is unique within an Amazon Web Services Region. </p>"""
+    """<p>You use the <code>MountName</code> value when mounting the file system.</p> <p>For the <code>SCRATCH_1</code> deployment type, this value is always "<code>fsx</code>". For <code>SCRATCH_2</code>, <code>PERSISTENT_1</code>, and <code>PERSISTENT_2</code> deployment types, this value is a string that is unique within an Amazon Web Services Region. </p>"""
     daily_automatic_backup_start_time: NotRequired[
         "capo_fsx.types.daily_time.DailyTime"
     ]
@@ -53,7 +53,7 @@ class LustreFileSystemConfiguration(TypedDict, closed=True):
     data_compression_type: NotRequired[
         "capo_fsx.types.data_compression_type.DataCompressionType"
     ]
-    r"""<p>The data compression configuration for the file system. <code>DataCompressionType</code> can have the following values:</p> <ul> <li> <p> <code>NONE</code> - Data compression is turned off for the file system.</p> </li> <li> <p> <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html\">Lustre data compression</a>.</p>"""
+    """<p>The data compression configuration for the file system. <code>DataCompressionType</code> can have the following values:</p> <ul> <li> <p> <code>NONE</code> - Data compression is turned off for the file system.</p> </li> <li> <p> <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data compression</a>.</p>"""
     log_configuration: NotRequired[
         "capo_fsx.types.lustre_log_configuration.LustreLogConfiguration"
     ]

@@ -15,7 +15,7 @@ class ListVolumesOutput(TypedDict, closed=True):
     marker: NotRequired["capo_storage_gateway.types.marker.Marker"]
     """<p>Use the marker in your next request to continue pagination of iSCSI volumes. If there are no more volumes to list, this field does not appear in the response body.</p>"""
     volume_infos: NotRequired["capo_storage_gateway.types.volume_infos.VolumeInfos"]
-    r"""<p>An array of <a>VolumeInfo</a> objects, where each object describes an iSCSI volume. If no volumes are defined for the gateway, then <code>VolumeInfos</code> is an empty array \"[]\".</p>"""
+    """<p>An array of <a>VolumeInfo</a> objects, where each object describes an iSCSI volume. If no volumes are defined for the gateway, then <code>VolumeInfos</code> is an empty array "[]".</p>"""
 
 
 # --- awsJson1_1 ser/de ---

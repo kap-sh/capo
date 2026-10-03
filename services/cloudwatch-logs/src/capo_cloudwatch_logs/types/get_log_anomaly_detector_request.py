@@ -14,7 +14,7 @@ class GetLogAnomalyDetectorRequest(TypedDict, closed=True):
     anomaly_detector_arn: (
         "capo_cloudwatch_logs.types.anomaly_detector_arn.AnomalyDetectorArn"
     )
-    r"""<p>The ARN of the anomaly detector to retrieve information about. You can find the ARNs of log anomaly detectors in your account by using the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListLogAnomalyDetectors.html\">ListLogAnomalyDetectors</a> operation.</p>"""
+    """<p>The ARN of the anomaly detector to retrieve information about. You can find the ARNs of log anomaly detectors in your account by using the <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListLogAnomalyDetectors.html">ListLogAnomalyDetectors</a> operation.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

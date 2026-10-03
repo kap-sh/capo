@@ -16,7 +16,7 @@ class MetricAttributionOutput(TypedDict, closed=True):
         "capo_personalize.types.s3_data_config.S3DataConfig"
     ]
     role_arn: "capo_personalize.types.role_arn.RoleArn"
-    r"""<p>The Amazon Resource Name (ARN) of the IAM service role that has permissions to add data to your output Amazon S3 bucket and add metrics to Amazon CloudWatch. For more information, see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/measuring-recommendation-impact.html\">Measuring impact of recommendations</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM service role that has permissions to add data to your output Amazon S3 bucket and add metrics to Amazon CloudWatch. For more information, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/measuring-recommendation-impact.html">Measuring impact of recommendations</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

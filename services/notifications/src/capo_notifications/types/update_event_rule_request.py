@@ -16,7 +16,7 @@ class UpdateEventRuleRequest(TypedDict, closed=True):
     event_pattern: NotRequired[
         "capo_notifications.types.event_rule_event_pattern.EventRuleEventPattern"
     ]
-    r"""<p>An additional event pattern used to further filter the events this <code>EventRule</code> receives.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html\">Amazon EventBridge event patterns</a> in the <i>Amazon EventBridge User Guide.</i> </p>"""
+    """<p>An additional event pattern used to further filter the events this <code>EventRule</code> receives.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge event patterns</a> in the <i>Amazon EventBridge User Guide.</i> </p>"""
     regions: NotRequired["capo_notifications.types.regions.Regions"]
     """<p>A list of Amazon Web Services Regions that sends events to this <code>EventRule</code>.</p>"""
 

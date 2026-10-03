@@ -18,7 +18,7 @@ class SalesforceSourceConfiguration(TypedDict, closed=True):
     auth_type: "capo_bedrock_agent.types.salesforce_auth_type.SalesforceAuthType"
     """<p>The supported authentication type to authenticate and connect to your Salesforce instance.</p>"""
     credentials_secret_arn: "capo_bedrock_agent.types.secret_arn.SecretArn"
-    r"""<p>The Amazon Resource Name of an Secrets Manager secret that stores your authentication credentials for your Salesforce instance URL. For more information on the key-value pairs that must be included in your secret, depending on your authentication type, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/salesforce-data-source-connector.html#configuration-salesforce-connector\">Salesforce connection configuration</a>.</p>"""
+    """<p>The Amazon Resource Name of an Secrets Manager secret that stores your authentication credentials for your Salesforce instance URL. For more information on the key-value pairs that must be included in your secret, depending on your authentication type, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/salesforce-data-source-connector.html#configuration-salesforce-connector">Salesforce connection configuration</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

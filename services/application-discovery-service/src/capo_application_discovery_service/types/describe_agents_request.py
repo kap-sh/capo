@@ -17,7 +17,7 @@ class DescribeAgentsRequest(TypedDict, closed=True):
     ]
     """<p>The agent or the collector IDs for which you want information. If you specify no IDs, the system returns information about all agents/collectors associated with your user.</p>"""
     filters: NotRequired["capo_application_discovery_service.types.filters.Filters"]
-    r"""<p>You can filter the request using various logical operators and a <i>key</i>-<i>value</i> format. For example: </p> <p> <code>{\"key\": \"collectionStatus\", \"value\": \"STARTED\"}</code> </p>"""
+    """<p>You can filter the request using various logical operators and a <i>key</i>-<i>value</i> format. For example: </p> <p> <code>{"key": "collectionStatus", "value": "STARTED"}</code> </p>"""
     max_results: "capo_application_discovery_service.types.integer.Integer"
     """<p>The total number of agents/collectors to return in a single page of output. The maximum value is 100.</p>"""
     next_token: NotRequired[

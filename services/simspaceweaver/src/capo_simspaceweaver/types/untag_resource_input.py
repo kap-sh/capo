@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class UntagResourceInput(TypedDict, closed=True):
     resource_arn: "capo_simspaceweaver.types.sim_space_weaver_arn.SimSpaceWeaverArn"
-    r"""<p>The Amazon Resource Name (ARN) of the resource that you want to remove tags from. For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the resource that you want to remove tags from. For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     tag_keys: "capo_simspaceweaver.types.tag_key_list.TagKeyList"
     """<p>A list of tag keys to remove from the resource.</p>"""
 

@@ -42,7 +42,7 @@ class UpdateMaintenanceWindowResult(TypedDict, closed=True):
     schedule_timezone: NotRequired[
         "capo_ssm.types.maintenance_window_timezone.MaintenanceWindowTimezone"
     ]
-    r"""<p>The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: \"America/Los_Angeles\", \"UTC\", or \"Asia/Seoul\". For more information, see the <a href=\"https://www.iana.org/time-zones\">Time Zone Database</a> on the IANA website.</p>"""
+    """<p>The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <a href="https://www.iana.org/time-zones">Time Zone Database</a> on the IANA website.</p>"""
     schedule_offset: NotRequired[
         "capo_ssm.types.maintenance_window_offset.MaintenanceWindowOffset"
     ]

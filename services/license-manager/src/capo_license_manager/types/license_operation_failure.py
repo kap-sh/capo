@@ -25,7 +25,7 @@ class LicenseOperationFailure(TypedDict, closed=True):
     resource_owner_id: NotRequired["capo_license_manager.types.string.String"]
     """<p>ID of the Amazon Web Services account that owns the resource.</p>"""
     operation_requested_by: NotRequired["capo_license_manager.types.string.String"]
-    r"""<p>The requester is \"License Manager Automated Discovery\".</p>"""
+    """<p>The requester is "License Manager Automated Discovery".</p>"""
     metadata_list: NotRequired["capo_license_manager.types.metadata_list.MetadataList"]
     """<p>Reserved.</p>"""
 

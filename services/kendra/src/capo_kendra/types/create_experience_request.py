@@ -21,7 +21,7 @@ class CreateExperienceRequest(TypedDict, closed=True):
     index_id: "capo_kendra.types.index_id.IndexId"
     """<p>The identifier of the index for your Amazon Kendra experience.</p>"""
     role_arn: NotRequired["capo_kendra.types.role_arn.RoleArn"]
-    r"""<p>The Amazon Resource Name (ARN) of an IAM role with permission to access <code>Query</code> API, <code>GetQuerySuggestions</code> API, and other required APIs. The role also must include permission to access IAM Identity Center that stores your user and group information. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html\">IAM access roles for Amazon Kendra</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an IAM role with permission to access <code>Query</code> API, <code>GetQuerySuggestions</code> API, and other required APIs. The role also must include permission to access IAM Identity Center that stores your user and group information. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html">IAM access roles for Amazon Kendra</a>.</p>"""
     configuration: NotRequired[
         "capo_kendra.types.experience_configuration.ExperienceConfiguration"
     ]

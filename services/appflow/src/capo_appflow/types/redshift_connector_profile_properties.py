@@ -26,11 +26,11 @@ class RedshiftConnectorProfileProperties(TypedDict, closed=True):
     bucket_prefix: NotRequired["capo_appflow.types.bucket_prefix.BucketPrefix"]
     """<p> The object key for the destination bucket in which Amazon AppFlow places the files. </p>"""
     role_arn: "capo_appflow.types.role_arn.RoleArn"
-    r"""<p> The Amazon Resource Name (ARN) of IAM role that grants Amazon Redshift read-only access to Amazon S3. For more information, and for the polices that you attach to this role, see <a href=\"https://docs.aws.amazon.com/appflow/latest/userguide/security_iam_service-role-policies.html#redshift-access-s3\">Allow Amazon Redshift to access your Amazon AppFlow data in Amazon S3</a>.</p>"""
+    """<p> The Amazon Resource Name (ARN) of IAM role that grants Amazon Redshift read-only access to Amazon S3. For more information, and for the polices that you attach to this role, see <a href="https://docs.aws.amazon.com/appflow/latest/userguide/security_iam_service-role-policies.html#redshift-access-s3">Allow Amazon Redshift to access your Amazon AppFlow data in Amazon S3</a>.</p>"""
     data_api_role_arn: NotRequired[
         "capo_appflow.types.data_api_role_arn.DataApiRoleArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of an IAM role that permits Amazon AppFlow to access your Amazon Redshift database through the Data API. For more information, and for the polices that you attach to this role, see <a href=\"https://docs.aws.amazon.com/appflow/latest/userguide/security_iam_service-role-policies.html#access-redshift\">Allow Amazon AppFlow to access Amazon Redshift databases with the Data API</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an IAM role that permits Amazon AppFlow to access your Amazon Redshift database through the Data API. For more information, and for the polices that you attach to this role, see <a href="https://docs.aws.amazon.com/appflow/latest/userguide/security_iam_service-role-policies.html#access-redshift">Allow Amazon AppFlow to access Amazon Redshift databases with the Data API</a>.</p>"""
     is_redshift_serverless: "capo_appflow.types.boolean.Boolean"
     """<p>Indicates whether the connector profile defines a connection to an Amazon Redshift Serverless data warehouse.</p>"""
     cluster_identifier: NotRequired[

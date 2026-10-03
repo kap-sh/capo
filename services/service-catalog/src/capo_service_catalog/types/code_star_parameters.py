@@ -19,13 +19,13 @@ class CodeStarParameters(TypedDict, closed=True):
     )
     """<p>The CodeStar ARN, which is the connection between Service Catalog and the external repository.</p>"""
     repository: "capo_service_catalog.types.repository.Repository"
-    r"""<p>The specific repository where the product’s artifact-to-be-synced resides, formatted as \"Account/Repo.\" </p>"""
+    """<p>The specific repository where the product’s artifact-to-be-synced resides, formatted as "Account/Repo." </p>"""
     branch: "capo_service_catalog.types.repository_branch.RepositoryBranch"
     """<p>The specific branch where the artifact resides. </p>"""
     artifact_path: (
         "capo_service_catalog.types.repository_artifact_path.RepositoryArtifactPath"
     )
-    r"""<p>The absolute path wehre the artifact resides within the repo and branch, formatted as \"folder/file.json.\" </p>"""
+    """<p>The absolute path wehre the artifact resides within the repo and branch, formatted as "folder/file.json." </p>"""
 
 
 # --- awsJson1_1 ser/de ---

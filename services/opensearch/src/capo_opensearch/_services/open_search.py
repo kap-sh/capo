@@ -428,7 +428,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.accept_inbound_connection_response.AcceptInboundConnectionResponse":
-        r"""<p>Allows the destination Amazon OpenSearch Service domain owner to accept an inbound cross-cluster search connection request. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html\">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
+        """<p>Allows the destination Amazon OpenSearch Service domain owner to accept an inbound cross-cluster search connection request. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
 
         Args:
             connection_id: <p>The ID of the inbound connection to accept.</p>
@@ -478,7 +478,7 @@ class OpenSearchClient:
             "capo_opensearch.types.data_source_description.DataSourceDescription"
         ] = None,
     ) -> "capo_opensearch.types.add_data_source_response.AddDataSourceResponse":
-        r"""<p>Creates a new direct-query data source to the specified domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3-creating.html\">Creating Amazon OpenSearch Service data source integrations with Amazon S3</a>.</p>
+        """<p>Creates a new direct-query data source to the specified domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3-creating.html">Creating Amazon OpenSearch Service data source integrations with Amazon S3</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain to add the data source to.</p>
@@ -607,7 +607,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> None:
-        r"""<p>Attaches tags to an existing Amazon OpenSearch Service domain, data source, or application. </p> <p>Tags are a set of case-sensitive key-value pairs. A domain, data source, or application can have up to 10 tags. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-awsresourcetagging.html\">Tagging Amazon OpenSearch Service resources</a>. </p>
+        """<p>Attaches tags to an existing Amazon OpenSearch Service domain, data source, or application. </p> <p>Tags are a set of case-sensitive key-value pairs. A domain, data source, or application can have up to 10 tags. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-awsresourcetagging.html">Tagging Amazon OpenSearch Service resources</a>. </p>
 
         Args:
             arn: <p>Amazon Resource Name (ARN) for the OpenSearch Service domain, data source, or application to which you want to attach resource tags.</p>
@@ -660,7 +660,7 @@ class OpenSearchClient:
             "capo_opensearch.types.package_association_configuration.PackageAssociationConfiguration"
         ] = None,
     ) -> "capo_opensearch.types.associate_package_response.AssociatePackageResponse":
-        r"""<p>Associates a package with an Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Associates a package with an Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             package_id: <p>Internal ID of the package to associate with a domain. Use <code>DescribePackages</code> to find this value. </p>
@@ -944,7 +944,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.cancel_service_software_update_response.CancelServiceSoftwareUpdateResponse":
-        r"""<p>Cancels a scheduled service software update for an Amazon OpenSearch Service domain. You can only perform this operation before the <code>AutomatedUpdateDate</code> and when the domain's <code>UpdateStatus</code> is <code>PENDING_UPDATE</code>. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html\">Service software updates in Amazon OpenSearch Service</a>.</p>
+        """<p>Cancels a scheduled service software update for an Amazon OpenSearch Service domain. You can only perform this operation before the <code>AutomatedUpdateDate</code> and when the domain's <code>UpdateStatus</code> is <code>PENDING_UPDATE</code>. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html">Service software updates in Amazon OpenSearch Service</a>.</p>
 
         Args:
             domain_name: <p>Name of the OpenSearch Service domain that you want to cancel the service software update on.</p>
@@ -998,7 +998,7 @@ class OpenSearchClient:
         tag_list: Optional["capo_opensearch.types.tag_list.TagList"] = None,
         kms_key_arn: Optional["capo_opensearch.types.kms_key_arn.KmsKeyArn"] = None,
     ) -> "capo_opensearch.types.create_application_response.CreateApplicationResponse":
-        r"""<p>Creates an OpenSearch UI application. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/application.html\">Using the OpenSearch user interface in Amazon OpenSearch Service</a>.</p>
+        """<p>Creates an OpenSearch UI application. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/application.html">Using the OpenSearch user interface in Amazon OpenSearch Service</a>.</p>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier to ensure idempotency of the request.</p>
@@ -1128,21 +1128,21 @@ class OpenSearchClient:
         ] = None,
         engine_mode: Optional["capo_opensearch.types.engine_mode.EngineMode"] = None,
     ) -> "capo_opensearch.types.create_domain_response.CreateDomainResponse":
-        r"""<p>Creates an Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html\">Creating and managing Amazon OpenSearch Service domains</a>.</p>
+        """<p>Creates an Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html">Creating and managing Amazon OpenSearch Service domains</a>.</p>
 
         Args:
             domain_name: <p>Name of the OpenSearch Service domain to create. Domain names are unique across the domains owned by an account within an Amazon Web Services Region.</p>
-            engine_version: <p>String of format Elasticsearch_X.Y or OpenSearch_X.Y to specify the engine version for the OpenSearch Service domain. For example, <code>OpenSearch_1.0</code> or <code>Elasticsearch_7.9</code>. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomains\">Creating and managing Amazon OpenSearch Service domains</a>.</p>
+            engine_version: <p>String of format Elasticsearch_X.Y or OpenSearch_X.Y to specify the engine version for the OpenSearch Service domain. For example, <code>OpenSearch_1.0</code> or <code>Elasticsearch_7.9</code>. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomains">Creating and managing Amazon OpenSearch Service domains</a>.</p>
             cluster_config: <p>Container for the cluster configuration of a domain.</p>
             ebs_options: <p>Container for the parameters required to enable EBS-based storage for an OpenSearch Service domain.</p>
             access_policies: <p>Identity and Access Management (IAM) policy document specifying the access policies for the new domain.</p>
             ip_address_type: <p>Specify either dual stack or IPv4 as your IP address type. Dual stack allows you to share domain resources across IPv4 and IPv6 address types, and is the recommended option. If you set your IP address type to dual stack, you can't change your address type later.</p>
             snapshot_options: <p>DEPRECATED. Container for the parameters required to configure automated snapshots of domain indexes.</p>
-            vpc_options: <p>Container for the values required to configure VPC access domains. If you don't specify these values, OpenSearch Service creates the domain with a public endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/vpc.html\">Launching your Amazon OpenSearch Service domains using a VPC</a>.</p>
-            cognito_options: <p>Key-value pairs to configure Amazon Cognito authentication. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cognito-auth.html\">Configuring Amazon Cognito authentication for OpenSearch Dashboards</a>.</p>
+            vpc_options: <p>Container for the values required to configure VPC access domains. If you don't specify these values, OpenSearch Service creates the domain with a public endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/vpc.html">Launching your Amazon OpenSearch Service domains using a VPC</a>.</p>
+            cognito_options: <p>Key-value pairs to configure Amazon Cognito authentication. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cognito-auth.html">Configuring Amazon Cognito authentication for OpenSearch Dashboards</a>.</p>
             encryption_at_rest_options: <p>Key-value pairs to enable encryption at rest.</p>
             node_to_node_encryption_options: <p>Enables node-to-node encryption.</p>
-            advanced_options: <p>Key-value pairs to specify advanced configuration options. The following key-value pairs are supported:</p> <ul> <li> <p> <code>\"rest.action.multi.allow_explicit_index\": \"true\" | \"false\"</code> - Note the use of a string rather than a boolean. Specifies whether explicit references to indexes are allowed inside the body of HTTP requests. If you want to configure access policies for domain sub-resources, such as specific indexes and domain APIs, you must disable this property. Default is true.</p> </li> <li> <p> <code>\"indices.fielddata.cache.size\": \"80\" </code> - Note the use of a string rather than a boolean. Specifies the percentage of heap space allocated to field data. Default is unbounded.</p> </li> <li> <p> <code>\"indices.query.bool.max_clause_count\": \"1024\"</code> - Note the use of a string rather than a boolean. Specifies the maximum number of clauses allowed in a Lucene boolean query. Default is 1,024. Queries with more than the permitted number of clauses result in a <code>TooManyClauses</code> error.</p> </li> <li> <p> <code>\"override_main_response_version\": \"true\" | \"false\"</code> - Note the use of a string rather than a boolean. Specifies whether the domain reports its version as 7.10 to allow Elasticsearch OSS clients and plugins to continue working with it. Default is false when creating a domain and true when upgrading a domain.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options\">Advanced cluster parameters</a>.</p>
+            advanced_options: <p>Key-value pairs to specify advanced configuration options. The following key-value pairs are supported:</p> <ul> <li> <p> <code>"rest.action.multi.allow_explicit_index": "true" | "false"</code> - Note the use of a string rather than a boolean. Specifies whether explicit references to indexes are allowed inside the body of HTTP requests. If you want to configure access policies for domain sub-resources, such as specific indexes and domain APIs, you must disable this property. Default is true.</p> </li> <li> <p> <code>"indices.fielddata.cache.size": "80" </code> - Note the use of a string rather than a boolean. Specifies the percentage of heap space allocated to field data. Default is unbounded.</p> </li> <li> <p> <code>"indices.query.bool.max_clause_count": "1024"</code> - Note the use of a string rather than a boolean. Specifies the maximum number of clauses allowed in a Lucene boolean query. Default is 1,024. Queries with more than the permitted number of clauses result in a <code>TooManyClauses</code> error.</p> </li> <li> <p> <code>"override_main_response_version": "true" | "false"</code> - Note the use of a string rather than a boolean. Specifies whether the domain reports its version as 7.10 to allow Elasticsearch OSS clients and plugins to continue working with it. Default is false when creating a domain and true when upgrading a domain.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options">Advanced cluster parameters</a>.</p>
             log_publishing_options: <p>Key-value pairs to configure log publishing.</p>
             domain_endpoint_options: <p>Additional options for the domain endpoint, such as whether to require HTTPS for all traffic.</p>
             advanced_security_options: <p>Options for fine-grained access control.</p>
@@ -1253,7 +1253,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.create_index_response.CreateIndexResponse":
-        r"""<p>Creates an OpenSearch index with optional automatic semantic enrichment for specified text fields. Automatic semantic enrichment enables semantic search capabilities without requiring machine learning expertise, improving search relevance by up to 20% by understanding search intent and contextual meaning beyond keyword matching. The semantic enrichment process has zero impact on search latency as sparse encodings are stored directly within the index during indexing. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/opensearch-semantic-enrichment.html\">Automatic semantic enrichment</a>.</p>
+        """<p>Creates an OpenSearch index with optional automatic semantic enrichment for specified text fields. Automatic semantic enrichment enables semantic search capabilities without requiring machine learning expertise, improving search relevance by up to 20% by understanding search intent and contextual meaning beyond keyword matching. The semantic enrichment process has zero impact on search latency as sparse encodings are stored directly within the index during indexing. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/opensearch-semantic-enrichment.html">Automatic semantic enrichment</a>.</p>
 
         Args:
             index_name: <p>The name of the index to create. Must be between 1 and 255 characters and follow OpenSearch naming conventions.</p>
@@ -1314,7 +1314,7 @@ class OpenSearchClient:
             "capo_opensearch.types.connection_properties.ConnectionProperties"
         ] = None,
     ) -> "capo_opensearch.types.create_outbound_connection_response.CreateOutboundConnectionResponse":
-        r"""<p>Creates a new cross-cluster search connection from a source Amazon OpenSearch Service domain to a destination domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html\">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
+        """<p>Creates a new cross-cluster search connection from a source Amazon OpenSearch Service domain to a destination domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
 
         Args:
             local_domain_info: <p>Name and Region of the source (local) domain.</p>
@@ -1387,7 +1387,7 @@ class OpenSearchClient:
             "capo_opensearch.types.package_encryption_options.PackageEncryptionOptions"
         ] = None,
     ) -> "capo_opensearch.types.create_package_response.CreatePackageResponse":
-        r"""<p>Creates a package for use with Amazon OpenSearch Service domains. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Creates a package for use with Amazon OpenSearch Service domains. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             package_name: <p>Unique name for the package.</p>
@@ -1560,7 +1560,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.delete_data_source_response.DeleteDataSourceResponse":
-        r"""<p>Deletes a direct-query data source. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3-delete.html\">Deleting an Amazon OpenSearch Service data source with Amazon S3</a>.</p>
+        """<p>Deletes a direct-query data source. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3-delete.html">Deleting an Amazon OpenSearch Service data source with Amazon S3</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain.</p>
@@ -1701,7 +1701,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.delete_inbound_connection_response.DeleteInboundConnectionResponse":
-        r"""<p>Allows the destination Amazon OpenSearch Service domain owner to delete an existing inbound cross-cluster search connection. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html\">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
+        """<p>Allows the destination Amazon OpenSearch Service domain owner to delete an existing inbound cross-cluster search connection. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
 
         Args:
             connection_id: <p>The ID of the inbound connection to permanently delete.</p>
@@ -1796,7 +1796,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.delete_outbound_connection_response.DeleteOutboundConnectionResponse":
-        r"""<p>Allows the source Amazon OpenSearch Service domain owner to delete an existing outbound cross-cluster search connection. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html\">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
+        """<p>Allows the source Amazon OpenSearch Service domain owner to delete an existing outbound cross-cluster search connection. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
 
         Args:
             connection_id: <p>The ID of the outbound connection you want to permanently delete.</p>
@@ -1840,7 +1840,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.delete_package_response.DeletePackageResponse":
-        r"""<p>Deletes an Amazon OpenSearch Service package. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Deletes an Amazon OpenSearch Service package. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             package_id: <p>The internal ID of the package you want to delete. Use <code>DescribePackages</code> to find this value.</p>
@@ -2082,7 +2082,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.describe_domain_auto_tunes_response.DescribeDomainAutoTunesResponse":
-        r"""<p>Returns the list of optimizations that Auto-Tune has made to an Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html\">Auto-Tune for Amazon OpenSearch Service</a>.</p>
+        """<p>Returns the list of optimizations that Auto-Tune has made to an Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html">Auto-Tune for Amazon OpenSearch Service</a>.</p>
 
         Args:
             domain_name: <p>Name of the domain that you want Auto-Tune details about.</p>
@@ -2156,7 +2156,7 @@ class OpenSearchClient:
         config_overrides: Optional[OpenSearchClientConfig] = None,
         change_id: Optional["capo_opensearch.types.guid.GUID"] = None,
     ) -> "capo_opensearch.types.describe_domain_change_progress_response.DescribeDomainChangeProgressResponse":
-        r"""<p>Returns information about the current blue/green deployment happening on an Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-configuration-changes.html\">Making configuration changes in Amazon OpenSearch Service</a>.</p>
+        """<p>Returns information about the current blue/green deployment happening on an Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-configuration-changes.html">Making configuration changes in Amazon OpenSearch Service</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain to get progress information for.</p>
@@ -2393,7 +2393,7 @@ class OpenSearchClient:
         dry_run_id: Optional["capo_opensearch.types.guid.GUID"] = None,
         load_dry_run_config: Optional["capo_opensearch.types.boolean.Boolean"] = None,
     ) -> "capo_opensearch.types.describe_dry_run_progress_response.DescribeDryRunProgressResponse":
-        r"""<p>Describes the progress of a pre-update dry run analysis on an Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-configuration-changes#dryrun\">Determining whether a change will cause a blue/green deployment</a>.</p>
+        """<p>Describes the progress of a pre-update dry run analysis on an Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-configuration-changes#dryrun">Determining whether a change will cause a blue/green deployment</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain.</p>
@@ -2448,7 +2448,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.describe_inbound_connections_response.DescribeInboundConnectionsResponse":
-        r"""<p>Lists all the inbound cross-cluster search connections for a destination (remote) Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html\">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
+        """<p>Lists all the inbound cross-cluster search connections for a destination (remote) Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
 
         Args:
             filters: <p> A list of filters used to match properties for inbound cross-cluster connections.</p>
@@ -2631,7 +2631,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.describe_outbound_connections_response.DescribeOutboundConnectionsResponse":
-        r"""<p>Lists all the outbound cross-cluster connections for a local (source) Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html\">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
+        """<p>Lists all the outbound cross-cluster connections for a local (source) Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html">Cross-cluster search for Amazon OpenSearch Service</a>.</p>
 
         Args:
             filters: <p>List of filter names and values that you can use for requests.</p>
@@ -2706,7 +2706,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.describe_packages_response.DescribePackagesResponse":
-        r"""<p>Describes all packages available to OpenSearch Service. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Describes all packages available to OpenSearch Service. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             filters: <p>Only returns packages that match the <code>DescribePackagesFilterList</code> values.</p>
@@ -2786,7 +2786,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.describe_reserved_instance_offerings_response.DescribeReservedInstanceOfferingsResponse":
-        r"""<p>Describes the available Amazon OpenSearch Service Reserved Instance offerings for a given Region. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ri.html\">Reserved Instances in Amazon OpenSearch Service</a>.</p>
+        """<p>Describes the available Amazon OpenSearch Service Reserved Instance offerings for a given Region. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ri.html">Reserved Instances in Amazon OpenSearch Service</a>.</p>
 
         Args:
             reserved_instance_offering_id: <p>The Reserved Instance identifier filter value. Use this parameter to show only the available instance types that match the specified reservation identifier.</p>
@@ -2863,7 +2863,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.describe_reserved_instances_response.DescribeReservedInstancesResponse":
-        r"""<p>Describes the Amazon OpenSearch Service instances that you have reserved in a given Region. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ri.html\">Reserved Instances in Amazon OpenSearch Service</a>.</p>
+        """<p>Describes the Amazon OpenSearch Service instances that you have reserved in a given Region. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ri.html">Reserved Instances in Amazon OpenSearch Service</a>.</p>
 
         Args:
             reserved_instance_id: <p>The reserved instance identifier filter value. Use this parameter to show only the reservation that matches the specified reserved OpenSearch instance ID.</p>
@@ -3033,7 +3033,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.dissociate_package_response.DissociatePackageResponse":
-        r"""<p>Removes a package from the specified Amazon OpenSearch Service domain. The package can't be in use with any OpenSearch index for the dissociation to succeed. The package is still available in OpenSearch Service for association later. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Removes a package from the specified Amazon OpenSearch Service domain. The package can't be in use with any OpenSearch index for the dissociation to succeed. The package is still available in OpenSearch Service for association later. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             package_id: <p>Internal ID of the package to dissociate from the domain. Use <code>ListPackagesForDomain</code> to find this value.</p>
@@ -3566,7 +3566,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.get_package_version_history_response.GetPackageVersionHistoryResponse":
-        r"""<p>Returns a list of Amazon OpenSearch Service package versions, along with their creation time, commit message, and plugin properties (if the package is a zip plugin package). For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Returns a list of Amazon OpenSearch Service package versions, along with their creation time, commit message, and plugin properties (if the package is a zip plugin package). For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             package_id: <p>The unique identifier of the package.</p>
@@ -3959,7 +3959,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.list_data_sources_response.ListDataSourcesResponse":
-        r"""<p>Lists direct-query data sources for a specific domain. For more information, see For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3.html\">Working with Amazon OpenSearch Service direct queries with Amazon S3</a>.</p>
+        """<p>Lists direct-query data sources for a specific domain. For more information, see For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3.html">Working with Amazon OpenSearch Service direct queries with Amazon S3</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain.</p>
@@ -4193,7 +4193,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.list_domains_for_package_response.ListDomainsForPackageResponse":
-        r"""<p>Lists all Amazon OpenSearch Service domains associated with a given package. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Lists all Amazon OpenSearch Service domains associated with a given package. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             package_id: <p>The unique identifier of the package for which to list associated domains.</p>
@@ -4494,7 +4494,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.list_packages_for_domain_response.ListPackagesForDomainResponse":
-        r"""<p>Lists all packages associated with an Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Lists all packages associated with an Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain for which you want to list associated packages.</p>
@@ -4570,7 +4570,7 @@ class OpenSearchClient:
         max_results: Optional["capo_opensearch.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_opensearch.types.next_token.NextToken"] = None,
     ) -> "capo_opensearch.types.list_scheduled_actions_response.ListScheduledActionsResponse":
-        r"""<p>Retrieves a list of configuration changes that are scheduled for a domain. These changes can be <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html\">service software updates</a> or <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html#auto-tune-types\">blue/green Auto-Tune enhancements</a>.</p>
+        """<p>Retrieves a list of configuration changes that are scheduled for a domain. These changes can be <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html">service software updates</a> or <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html#auto-tune-types">blue/green Auto-Tune enhancements</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain.</p>
@@ -4644,7 +4644,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.list_tags_response.ListTagsResponse":
-        r"""<p>Returns all resource tags for an Amazon OpenSearch Service domain, data source, or application. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-awsresourcetagging.html\">Tagging Amazon OpenSearch Service resources</a>.</p>
+        """<p>Returns all resource tags for an Amazon OpenSearch Service domain, data source, or application. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-awsresourcetagging.html">Tagging Amazon OpenSearch Service resources</a>.</p>
 
         Args:
             arn: <p>Amazon Resource Name (ARN) for the domain, data source, or application to view tags for.</p>
@@ -5011,7 +5011,7 @@ class OpenSearchClient:
     ) -> (
         "capo_opensearch.types.register_capability_response.RegisterCapabilityResponse"
     ):
-        r"""<p>Registers a capability for an OpenSearch UI application. Use this operation to enable specific capabilities, such as AI features, for a given application. The capability configuration defines the type and settings of the capability to register. For more information about the AI features, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/application-ai-assistant.html\">Agentic AI for OpenSearch UI</a>.</p>
+        """<p>Registers a capability for an OpenSearch UI application. Use this operation to enable specific capabilities, such as AI features, for a given application. The capability configuration defines the type and settings of the capability to register. For more information about the AI features, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/application-ai-assistant.html">Agentic AI for OpenSearch UI</a>.</p>
 
         Args:
             application_id: <p>The unique identifier of the OpenSearch UI application to register the capability for.</p>
@@ -5109,7 +5109,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> None:
-        r"""<p>Removes the specified set of tags from an Amazon OpenSearch Service domain, data source, or application. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains.html#managedomains-awsresorcetagging\"> Tagging Amazon OpenSearch Service resources</a>.</p>
+        """<p>Removes the specified set of tags from an Amazon OpenSearch Service domain, data source, or application. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains.html#managedomains-awsresorcetagging"> Tagging Amazon OpenSearch Service resources</a>.</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the domain, data source, or application from which you want to delete the specified tags.</p>
@@ -5217,7 +5217,7 @@ class OpenSearchClient:
         *,
         config_overrides: Optional[OpenSearchClientConfig] = None,
     ) -> "capo_opensearch.types.rollback_service_software_update_response.RollbackServiceSoftwareUpdateResponse":
-        r"""<p>Rolls back a service software update for a domain to the previous version. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html\">Service software updates in Amazon OpenSearch Service</a>.</p>
+        """<p>Rolls back a service software update for a domain to the previous version. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html">Service software updates in Amazon OpenSearch Service</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain to roll back the service software update on.</p>
@@ -5375,7 +5375,7 @@ class OpenSearchClient:
         schedule_at: Optional["capo_opensearch.types.schedule_at.ScheduleAt"] = None,
         desired_start_time: Optional["capo_opensearch.types.long.Long"] = None,
     ) -> "capo_opensearch.types.start_service_software_update_response.StartServiceSoftwareUpdateResponse":
-        r"""<p>Schedules a service software update for an Amazon OpenSearch Service domain. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html\">Service software updates in Amazon OpenSearch Service</a>.</p>
+        """<p>Schedules a service software update for an Amazon OpenSearch Service domain. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html">Service software updates in Amazon OpenSearch Service</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain that you want to update to the latest service software.</p>
@@ -5498,7 +5498,7 @@ class OpenSearchClient:
             "capo_opensearch.types.data_source_status.DataSourceStatus"
         ] = None,
     ) -> "capo_opensearch.types.update_data_source_response.UpdateDataSourceResponse":
-        r"""<p>Updates a direct-query data source. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3-creating.html\">Working with Amazon OpenSearch Service data source integrations with Amazon S3</a>.</p>
+        """<p>Updates a direct-query data source. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3-creating.html">Working with Amazon OpenSearch Service data source integrations with Amazon S3</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain.</p>
@@ -5689,16 +5689,16 @@ class OpenSearchClient:
     ) -> (
         "capo_opensearch.types.update_domain_config_response.UpdateDomainConfigResponse"
     ):
-        r"""<p>Modifies the cluster configuration of the specified Amazon OpenSearch Service domain.</p>
+        """<p>Modifies the cluster configuration of the specified Amazon OpenSearch Service domain.</p>
 
         Args:
             domain_name: <p>The name of the domain that you're updating.</p>
             cluster_config: <p>Changes that you want to make to the cluster configuration, such as the instance type and number of EC2 instances.</p>
             ebs_options: <p>The type and size of the EBS volume to attach to instances in the domain.</p>
             snapshot_options: <p>Option to set the time, in UTC format, for the daily automated snapshot. Default value is <code>0</code> hours. </p>
-            vpc_options: <p>Options to specify the subnets and security groups for a VPC endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/vpc.html\">Launching your Amazon OpenSearch Service domains using a VPC</a>.</p>
+            vpc_options: <p>Options to specify the subnets and security groups for a VPC endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/vpc.html">Launching your Amazon OpenSearch Service domains using a VPC</a>.</p>
             cognito_options: <p>Key-value pairs to configure Amazon Cognito authentication for OpenSearch Dashboards.</p>
-            advanced_options: <p>Key-value pairs to specify advanced configuration options. The following key-value pairs are supported:</p> <ul> <li> <p> <code>\"rest.action.multi.allow_explicit_index\": \"true\" | \"false\"</code> - Note the use of a string rather than a boolean. Specifies whether explicit references to indexes are allowed inside the body of HTTP requests. If you want to configure access policies for domain sub-resources, such as specific indexes and domain APIs, you must disable this property. Default is true.</p> </li> <li> <p> <code>\"indices.fielddata.cache.size\": \"80\" </code> - Note the use of a string rather than a boolean. Specifies the percentage of heap space allocated to field data. Default is unbounded.</p> </li> <li> <p> <code>\"indices.query.bool.max_clause_count\": \"1024\"</code> - Note the use of a string rather than a boolean. Specifies the maximum number of clauses allowed in a Lucene boolean query. Default is 1,024. Queries with more than the permitted number of clauses result in a <code>TooManyClauses</code> error.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options\">Advanced cluster parameters</a>.</p>
+            advanced_options: <p>Key-value pairs to specify advanced configuration options. The following key-value pairs are supported:</p> <ul> <li> <p> <code>"rest.action.multi.allow_explicit_index": "true" | "false"</code> - Note the use of a string rather than a boolean. Specifies whether explicit references to indexes are allowed inside the body of HTTP requests. If you want to configure access policies for domain sub-resources, such as specific indexes and domain APIs, you must disable this property. Default is true.</p> </li> <li> <p> <code>"indices.fielddata.cache.size": "80" </code> - Note the use of a string rather than a boolean. Specifies the percentage of heap space allocated to field data. Default is unbounded.</p> </li> <li> <p> <code>"indices.query.bool.max_clause_count": "1024"</code> - Note the use of a string rather than a boolean. Specifies the maximum number of clauses allowed in a Lucene boolean query. Default is 1,024. Queries with more than the permitted number of clauses result in a <code>TooManyClauses</code> error.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options">Advanced cluster parameters</a>.</p>
             access_policies: <p>Identity and Access Management (IAM) access policy as a JSON-formatted string.</p>
             ip_address_type: <p>Specify either dual stack or IPv4 as your IP address type. Dual stack allows you to share domain resources across IPv4 and IPv6 address types, and is the recommended option. If your IP address type is currently set to dual stack, you can't change it. </p>
             log_publishing_options: <p>Options to publish OpenSearch logs to Amazon CloudWatch Logs.</p>
@@ -5708,7 +5708,7 @@ class OpenSearchClient:
             advanced_security_options: <p>Options for fine-grained access control.</p>
             auto_tune_options: <p>Options for Auto-Tune.</p>
             dry_run: <p>This flag, when set to True, specifies whether the <code>UpdateDomain</code> request should return the results of a dry run analysis without actually applying the change. A dry run determines what type of deployment the update will cause.</p>
-            dry_run_mode: <p>The type of dry run to perform.</p> <ul> <li> <p> <code>Basic</code> only returns the type of deployment (blue/green or dynamic) that the update will cause.</p> </li> <li> <p> <code>Verbose</code> runs an additional check to validate the changes you're making. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-configuration-changes#validation-check\">Validating a domain update</a>.</p> </li> </ul>
+            dry_run_mode: <p>The type of dry run to perform.</p> <ul> <li> <p> <code>Basic</code> only returns the type of deployment (blue/green or dynamic) that the update will cause.</p> </li> <li> <p> <code>Verbose</code> runs an additional check to validate the changes you're making. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-configuration-changes#validation-check">Validating a domain update</a>.</p> </li> </ul>
             off_peak_window_options: <p>Off-peak window options for the domain.</p>
             software_update_options: <p>Service software update options for the domain.</p>
             aiml_options: <p>Options for all machine learning features for the specified domain.</p>
@@ -5877,7 +5877,7 @@ class OpenSearchClient:
             "capo_opensearch.types.package_encryption_options.PackageEncryptionOptions"
         ] = None,
     ) -> "capo_opensearch.types.update_package_response.UpdatePackageResponse":
-        r"""<p>Updates a package for use with Amazon OpenSearch Service domains. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html\">Custom packages for Amazon OpenSearch Service</a>.</p>
+        """<p>Updates a package for use with Amazon OpenSearch Service domains. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html">Custom packages for Amazon OpenSearch Service</a>.</p>
 
         Args:
             package_id: <p>The unique identifier for the package.</p>
@@ -5998,12 +5998,12 @@ class OpenSearchClient:
         config_overrides: Optional[OpenSearchClientConfig] = None,
         desired_start_time: Optional["capo_opensearch.types.long.Long"] = None,
     ) -> "capo_opensearch.types.update_scheduled_action_response.UpdateScheduledActionResponse":
-        r"""<p>Reschedules a planned domain configuration change for a later time. This change can be a scheduled <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html\">service software update</a> or a <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html#auto-tune-types\">blue/green Auto-Tune enhancement</a>.</p>
+        """<p>Reschedules a planned domain configuration change for a later time. This change can be a scheduled <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/service-software.html">service software update</a> or a <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html#auto-tune-types">blue/green Auto-Tune enhancement</a>.</p>
 
         Args:
             domain_name: <p>The name of the domain to reschedule an action for.</p>
-            action_id: <p>The unique identifier of the action to reschedule. To retrieve this ID, send a <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_ListScheduledActions.html\">ListScheduledActions</a> request.</p>
-            action_type: <p>The type of action to reschedule. Can be one of <code>SERVICE_SOFTWARE_UPDATE</code>, <code>JVM_HEAP_SIZE_TUNING</code>, or <code>JVM_YOUNG_GEN_TUNING</code>. To retrieve this value, send a <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_ListScheduledActions.html\">ListScheduledActions</a> request.</p>
+            action_id: <p>The unique identifier of the action to reschedule. To retrieve this ID, send a <a href="https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_ListScheduledActions.html">ListScheduledActions</a> request.</p>
+            action_type: <p>The type of action to reschedule. Can be one of <code>SERVICE_SOFTWARE_UPDATE</code>, <code>JVM_HEAP_SIZE_TUNING</code>, or <code>JVM_YOUNG_GEN_TUNING</code>. To retrieve this value, send a <a href="https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_ListScheduledActions.html">ListScheduledActions</a> request.</p>
             schedule_at: <p>When to schedule the action.</p> <ul> <li> <p> <code>NOW</code> - Immediately schedules the update to happen in the current hour if there's capacity available.</p> </li> <li> <p> <code>TIMESTAMP</code> - Lets you specify a custom date and time to apply the update. If you specify this value, you must also provide a value for <code>DesiredStartTime</code>.</p> </li> <li> <p> <code>OFF_PEAK_WINDOW</code> - Marks the action to be picked up during an upcoming off-peak window. There's no guarantee that the change will be implemented during the next immediate window. Depending on capacity, it might happen in subsequent days.</p> </li> </ul>
             desired_start_time: <p>The time to implement the change, in Coordinated Universal Time (UTC). Only specify this parameter if you set <code>ScheduleAt</code> to <code>TIMESTAMP</code>.</p>
 

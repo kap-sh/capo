@@ -29,7 +29,7 @@ class AwsAutoScalingLaunchConfigurationDetails(TypedDict, closed=True):
     ]
     """<p>The identifiers of one or more security groups for the VPC that is specified in <code>ClassicLinkVPCId</code>.</p>"""
     created_time: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>The creation date and time for the launch configuration.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>The creation date and time for the launch configuration.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     ebs_optimized: NotRequired["capo_securityhub.types.boolean.Boolean"]
     """<p>Whether the launch configuration is optimized for Amazon EBS I/O.</p>"""
     iam_instance_profile: NotRequired[

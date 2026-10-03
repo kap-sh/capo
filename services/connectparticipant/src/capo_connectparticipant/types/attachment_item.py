@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class AttachmentItem(TypedDict, closed=True):
     content_type: NotRequired["capo_connectparticipant.types.content_type.ContentType"]
-    r"""<p>Describes the MIME file type of the attachment. For a list of supported file types, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/feature-limits.html\">Feature specifications</a> in the <i>Amazon Connect Administrator Guide</i>.</p>"""
+    """<p>Describes the MIME file type of the attachment. For a list of supported file types, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/feature-limits.html">Feature specifications</a> in the <i>Amazon Connect Administrator Guide</i>.</p>"""
     attachment_id: NotRequired["capo_connectparticipant.types.artifact_id.ArtifactId"]
     """<p>A unique identifier for the attachment.</p>"""
     attachment_name: NotRequired[

@@ -30,7 +30,7 @@ class Stage(TypedDict, closed=True):
     cache_cluster_size: NotRequired[
         "capo_api_gateway.types.cache_cluster_size.CacheClusterSize"
     ]
-    r"""<p>The stage's cache capacity in GB. For more information about choosing a cache size, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html\">Enabling API caching to enhance responsiveness</a>.</p>"""
+    """<p>The stage's cache capacity in GB. For more information about choosing a cache size, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API caching to enhance responsiveness</a>.</p>"""
     cache_cluster_status: NotRequired[
         "capo_api_gateway.types.cache_cluster_status.CacheClusterStatus"
     ]

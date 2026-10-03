@@ -35,7 +35,7 @@ class ServiceNowServiceCatalogConfiguration(TypedDict, closed=True):
     field_mappings: NotRequired[
         "capo_kendra.types.data_source_to_index_field_mapping_list.DataSourceToIndexFieldMappingList"
     ]
-    r"""<p>Maps attributes or field names of catalogs to Amazon Kendra index field names. To create custom fields, use the <code>UpdateIndex</code> API before you map to ServiceNow fields. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html\">Mapping data source fields</a>. The ServiceNow data source field names must exist in your ServiceNow custom metadata.</p>"""
+    """<p>Maps attributes or field names of catalogs to Amazon Kendra index field names. To create custom fields, use the <code>UpdateIndex</code> API before you map to ServiceNow fields. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html">Mapping data source fields</a>. The ServiceNow data source field names must exist in your ServiceNow custom metadata.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -18,7 +18,7 @@ class SnowflakeNodeData(TypedDict, closed=True):
     source_type: NotRequired[
         "capo_glue.types.generic_limited_string.GenericLimitedString"
     ]
-    r"""<p>Specifies how retrieved data is specified. Valid values: <code>\"table\"</code>, <code> \"query\"</code>.</p>"""
+    """<p>Specifies how retrieved data is specified. Valid values: <code>"table"</code>, <code> "query"</code>.</p>"""
     connection: NotRequired["capo_glue.types.option.Option"]
     """<p>Specifies a Glue Data Catalog Connection to a Snowflake endpoint.</p>"""
     schema: NotRequired["capo_glue.types.generic_string.GenericString"]
@@ -66,7 +66,7 @@ class SnowflakeNodeData(TypedDict, closed=True):
     selected_columns: NotRequired["capo_glue.types.option_list.OptionList"]
     """<p>Specifies the columns combined to identify a record when detecting matches for merges and upserts. A list of structures with <code>value</code>, <code>label</code> and <code> description</code> keys. Each structure describes a column.</p>"""
     auto_pushdown: "capo_glue.types.boolean_value.BooleanValue"
-    r"""<p>Specifies whether automatic query pushdown is enabled. If pushdown is enabled, then when a query is run on Spark, if part of the query can be \"pushed down\" to the Snowflake server, it is pushed down. This improves performance of some queries.</p>"""
+    """<p>Specifies whether automatic query pushdown is enabled. If pushdown is enabled, then when a query is run on Spark, if part of the query can be "pushed down" to the Snowflake server, it is pushed down. This improves performance of some queries.</p>"""
     table_schema: NotRequired["capo_glue.types.option_list.OptionList"]
     """<p>Manually defines the target schema for the node. A list of structures with <code>value</code> , <code>label</code> and <code>description</code> keys. Each structure defines a column.</p>"""
 

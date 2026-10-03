@@ -18,7 +18,7 @@ class S3Bucket(TypedDict, closed=True):
     created_at: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
     """<p>The timestamp at which the Amazon S3 bucket was created.</p>"""
     encryption_type: NotRequired["capo_guardduty.types.string.String"]
-    r"""<p>The type of encryption used for the Amazon S3 buckets and its objects. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html\">Protecting data with server-side encryption</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The type of encryption used for the Amazon S3 buckets and its objects. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html">Protecting data with server-side encryption</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     encryption_key_arn: NotRequired["capo_guardduty.types.string.String"]
     """<p>The Amazon Resource Name (ARN) of the encryption key that is used to encrypt the Amazon S3 bucket and its objects.</p>"""
     effective_permission: NotRequired["capo_guardduty.types.string.String"]

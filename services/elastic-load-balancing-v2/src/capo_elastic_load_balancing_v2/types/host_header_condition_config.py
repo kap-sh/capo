@@ -14,7 +14,7 @@ class HostHeaderConditionConfig(TypedDict, closed=True):
     values: NotRequired[
         "capo_elastic_load_balancing_v2.types.list_of_string.ListOfString"
     ]
-    r"""<p>The host names. The maximum length of each string is 128 characters. The comparison is case insensitive. The following wildcard characters are supported: * (matches 0 or more characters) and ? (matches exactly 1 character). You must include at least one \".\" character. You can include only alphabetical characters after the final \".\" character.</p> <p>If you specify multiple strings, the condition is satisfied if one of the strings matches the host name.</p>"""
+    """<p>The host names. The maximum length of each string is 128 characters. The comparison is case insensitive. The following wildcard characters are supported: * (matches 0 or more characters) and ? (matches exactly 1 character). You must include at least one "." character. You can include only alphabetical characters after the final "." character.</p> <p>If you specify multiple strings, the condition is satisfied if one of the strings matches the host name.</p>"""
     regex_values: NotRequired[
         "capo_elastic_load_balancing_v2.types.list_of_string.ListOfString"
     ]

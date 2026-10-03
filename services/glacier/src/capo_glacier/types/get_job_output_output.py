@@ -20,7 +20,7 @@ class GetJobOutputOutput(TypedDict, closed=True):
     content_range: NotRequired["capo_glacier.types.string.string"]
     """<p>The range of bytes returned by Amazon Glacier. If only partial output is downloaded, the response provides the range of bytes Amazon Glacier returned. For example, bytes 0-1048575/8388608 returns the first 1 MB from 8 MB.</p>"""
     accept_ranges: NotRequired["capo_glacier.types.string.string"]
-    r"""<p>Indicates the range units accepted. For more information, see <a href=\"http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html\">RFC2616</a>. </p>"""
+    """<p>Indicates the range units accepted. For more information, see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">RFC2616</a>. </p>"""
     content_type: NotRequired["capo_glacier.types.string.string"]
     """<p>The Content-Type depends on whether the job output is an archive or a vault inventory. For archive data, the Content-Type is application/octet-stream. For vault inventory, if you requested CSV format when you initiated the job, the Content-Type is text/csv. Otherwise, by default, vault inventory is returned as JSON, and the Content-Type is application/json.</p>"""
     archive_description: NotRequired["capo_glacier.types.string.string"]

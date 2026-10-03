@@ -17,7 +17,7 @@ class PriorityConfigurationOverride(TypedDict, closed=True):
     location_order: NotRequired[
         "capo_gamelift.types.location_order_override_list.LocationOrderOverrideList"
     ]
-    r"""<p>A prioritized list of hosting locations. The list can include Amazon Web Services Regions (such as <code>us-west-2</code>), local zones, and custom locations (for Anywhere fleets). Each location must be listed only once. For details, see <a href=\"https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-regions.html\">Amazon GameLift Servers service locations.</a> </p>"""
+    """<p>A prioritized list of hosting locations. The list can include Amazon Web Services Regions (such as <code>us-west-2</code>), local zones, and custom locations (for Anywhere fleets). Each location must be listed only once. For details, see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-regions.html">Amazon GameLift Servers service locations.</a> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -33,7 +33,7 @@ class UpdateDevEndpointRequest(TypedDict, closed=True):
     delete_arguments: NotRequired["capo_glue.types.string_list.StringList"]
     """<p>The list of argument keys to be deleted from the map of arguments used to configure the <code>DevEndpoint</code>.</p>"""
     add_arguments: NotRequired["capo_glue.types.map_value.MapValue"]
-    r"""<p>The map of arguments to add the map of arguments used to configure the <code>DevEndpoint</code>.</p> <p>Valid arguments are:</p> <ul> <li> <p> <code>\"--enable-glue-datacatalog\": \"\"</code> </p> </li> </ul> <p>You can specify a version of Python support for development endpoints by using the <code>Arguments</code> parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are provided, the version defaults to Python 2.</p>"""
+    """<p>The map of arguments to add the map of arguments used to configure the <code>DevEndpoint</code>.</p> <p>Valid arguments are:</p> <ul> <li> <p> <code>"--enable-glue-datacatalog": ""</code> </p> </li> </ul> <p>You can specify a version of Python support for development endpoints by using the <code>Arguments</code> parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are provided, the version defaults to Python 2.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

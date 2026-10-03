@@ -1009,12 +1009,12 @@ class ComprehendMedicalClient:
         ] = None,
         kms_key: Optional["capo_comprehendmedical.types.kms_key.KMSKey"] = None,
     ) -> "capo_comprehendmedical.types.start_entities_detection_v2_job_response.StartEntitiesDetectionV2JobResponse":
-        r"""<p>Starts an asynchronous medical entity detection job for a collection of documents. Use the <code>DescribeEntitiesDetectionV2Job</code> operation to track the status of a job.</p>
+        """<p>Starts an asynchronous medical entity detection job for a collection of documents. Use the <code>DescribeEntitiesDetectionV2Job</code> operation to track the status of a job.</p>
 
         Args:
             input_data_config: <p>The input configuration that specifies the format and location of the input data for the job.</p>
             output_data_config: <p>The output configuration that specifies where to send the output files.</p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med\">Role-Based Permissions Required for Asynchronous Operations</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med">Role-Based Permissions Required for Asynchronous Operations</a>.</p>
             job_name: <p>The identifier of the job.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend Medical generates one for you.</p>
             kms_key: <p>An AWS Key Management Service key to encrypt your output files. If you do not specify a key, the files are written in plain text.</p>
@@ -1079,12 +1079,12 @@ class ComprehendMedicalClient:
         ] = None,
         kms_key: Optional["capo_comprehendmedical.types.kms_key.KMSKey"] = None,
     ) -> "capo_comprehendmedical.types.start_icd10_cm_inference_job_response.StartICD10CMInferenceJobResponse":
-        r"""<p>Starts an asynchronous job to detect medical conditions and link them to the ICD-10-CM ontology. Use the <code>DescribeICD10CMInferenceJob</code> operation to track the status of a job.</p>
+        """<p>Starts an asynchronous job to detect medical conditions and link them to the ICD-10-CM ontology. Use the <code>DescribeICD10CMInferenceJob</code> operation to track the status of a job.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies where to send the output files.</p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med\"> Role-Based Permissions Required for Asynchronous Operations</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med"> Role-Based Permissions Required for Asynchronous Operations</a>.</p>
             job_name: <p>The identifier of the job.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend Medical generates one.</p>
             kms_key: <p>An AWS Key Management Service key to encrypt your output files. If you do not specify a key, the files are written in plain text.</p>
@@ -1149,12 +1149,12 @@ class ComprehendMedicalClient:
         ] = None,
         kms_key: Optional["capo_comprehendmedical.types.kms_key.KMSKey"] = None,
     ) -> "capo_comprehendmedical.types.start_phi_detection_job_response.StartPHIDetectionJobResponse":
-        r"""<p>Starts an asynchronous job to detect protected health information (PHI). Use the <code>DescribePHIDetectionJob</code> operation to track the status of a job.</p>
+        """<p>Starts an asynchronous job to detect protected health information (PHI). Use the <code>DescribePHIDetectionJob</code> operation to track the status of a job.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies where to send the output files.</p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med\"> Role-Based Permissions Required for Asynchronous Operations</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med"> Role-Based Permissions Required for Asynchronous Operations</a>.</p>
             job_name: <p>The identifier of the job.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend Medical generates one.</p>
             kms_key: <p>An AWS Key Management Service key to encrypt your output files. If you do not specify a key, the files are written in plain text.</p>
@@ -1219,12 +1219,12 @@ class ComprehendMedicalClient:
         ] = None,
         kms_key: Optional["capo_comprehendmedical.types.kms_key.KMSKey"] = None,
     ) -> "capo_comprehendmedical.types.start_rx_norm_inference_job_response.StartRxNormInferenceJobResponse":
-        r"""<p>Starts an asynchronous job to detect medication entities and link them to the RxNorm ontology. Use the <code>DescribeRxNormInferenceJob</code> operation to track the status of a job.</p>
+        """<p>Starts an asynchronous job to detect medication entities and link them to the RxNorm ontology. Use the <code>DescribeRxNormInferenceJob</code> operation to track the status of a job.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies where to send the output files.</p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med\"> Role-Based Permissions Required for Asynchronous Operations</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med"> Role-Based Permissions Required for Asynchronous Operations</a>.</p>
             job_name: <p>The identifier of the job.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend Medical generates one.</p>
             kms_key: <p>An AWS Key Management Service key to encrypt your output files. If you do not specify a key, the files are written in plain text.</p>

@@ -15,7 +15,7 @@ class UntagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_comprehend.types.comprehend_arn.ComprehendArn"
     """<p> The Amazon Resource Name (ARN) of the given Amazon Comprehend resource from which you want to remove the tags. </p>"""
     tag_keys: "capo_comprehend.types.tag_key_list.TagKeyList"
-    r"""<p>The initial part of a key-value pair that forms a tag being removed from a given resource. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department. Keys must be unique and cannot be duplicated for a particular resource. </p>"""
+    """<p>The initial part of a key-value pair that forms a tag being removed from a given resource. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department. Keys must be unique and cannot be duplicated for a particular resource. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

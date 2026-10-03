@@ -16,11 +16,11 @@ class TaskScheduleDetails(TypedDict, closed=True):
     disabled_reason: NotRequired[
         "capo_datasync.types.schedule_disabled_reason.ScheduleDisabledReason"
     ]
-    r"""<p>Provides a reason if the task schedule is disabled.</p> <p>If your schedule is disabled by <code>USER</code>, you see a <code>Manually disabled by user.</code> message.</p> <p>If your schedule is disabled by <code>SERVICE</code>, you see an error message to help you understand why the task keeps failing. For information on resolving DataSync errors, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/troubleshooting-datasync-locations-tasks.html\">Troubleshooting issues with DataSync transfers</a>.</p>"""
+    """<p>Provides a reason if the task schedule is disabled.</p> <p>If your schedule is disabled by <code>USER</code>, you see a <code>Manually disabled by user.</code> message.</p> <p>If your schedule is disabled by <code>SERVICE</code>, you see an error message to help you understand why the task keeps failing. For information on resolving DataSync errors, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/troubleshooting-datasync-locations-tasks.html">Troubleshooting issues with DataSync transfers</a>.</p>"""
     disabled_by: NotRequired[
         "capo_datasync.types.schedule_disabled_by.ScheduleDisabledBy"
     ]
-    r"""<p>Indicates how your task schedule was disabled.</p> <ul> <li> <p> <code>USER</code> - Your schedule was manually disabled by using the <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/API_UpdateTask.html\">UpdateTask</a> operation or DataSync console.</p> </li> <li> <p> <code>SERVICE</code> - Your schedule was automatically disabled by DataSync because the task failed repeatedly with the same error.</p> </li> </ul>"""
+    """<p>Indicates how your task schedule was disabled.</p> <ul> <li> <p> <code>USER</code> - Your schedule was manually disabled by using the <a href="https://docs.aws.amazon.com/datasync/latest/userguide/API_UpdateTask.html">UpdateTask</a> operation or DataSync console.</p> </li> <li> <p> <code>SERVICE</code> - Your schedule was automatically disabled by DataSync because the task failed repeatedly with the same error.</p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---

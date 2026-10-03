@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class ResourceSharePermissionDetail(TypedDict, closed=True):
     arn: NotRequired["capo_ram.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of this RAM managed permission.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of this RAM managed permission.</p>"""
     version: NotRequired["capo_ram.types.string.String"]
     """<p>The version of the permission described in this response.</p>"""
     default_version: NotRequired["capo_ram.types.boolean.Boolean"]

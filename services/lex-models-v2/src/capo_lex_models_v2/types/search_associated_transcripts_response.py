@@ -19,7 +19,7 @@ class SearchAssociatedTranscriptsResponse(TypedDict, closed=True):
     bot_version: NotRequired["capo_lex_models_v2.types.bot_version.BotVersion"]
     """<p>The version of the bot containing the transcripts that you are searching.</p>"""
     locale_id: NotRequired["capo_lex_models_v2.types.locale_id.LocaleId"]
-    r"""<p>The identifier of the language and locale of the transcripts to search. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a> </p>"""
+    """<p>The identifier of the language and locale of the transcripts to search. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a> </p>"""
     bot_recommendation_id: NotRequired["capo_lex_models_v2.types.id.Id"]
     """<p> The unique identifier of the bot recommendation associated with the transcripts to search.</p>"""
     next_index: NotRequired["capo_lex_models_v2.types.next_index.NextIndex"]

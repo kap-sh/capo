@@ -48,7 +48,7 @@ class Addon(TypedDict, closed=True):
     configuration_values: NotRequired["capo_eks.types.string.String"]
     """<p>The configuration values that you provided.</p>"""
     pod_identity_associations: NotRequired["capo_eks.types.string_list.StringList"]
-    r"""<p>An array of EKS Pod Identity associations owned by the add-on. Each association maps a role to a service account in a namespace in the cluster.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html\">Attach an IAM Role to an Amazon EKS add-on using EKS Pod Identity</a> in the <i>Amazon EKS User Guide</i>.</p>"""
+    """<p>An array of EKS Pod Identity associations owned by the add-on. Each association maps a role to a service account in a namespace in the cluster.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html">Attach an IAM Role to an Amazon EKS add-on using EKS Pod Identity</a> in the <i>Amazon EKS User Guide</i>.</p>"""
     namespace_config: NotRequired[
         "capo_eks.types.addon_namespace_config_response.AddonNamespaceConfigResponse"
     ]

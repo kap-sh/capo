@@ -43,7 +43,7 @@ class Service(TypedDict, closed=True):
     pipeline: NotRequired["capo_proton.types.service_pipeline.ServicePipeline"]
     """<p>The service pipeline detail data.</p>"""
     repository_connection_arn: NotRequired["capo_proton.types.arn.Arn"]
-    r"""<p>The Amazon Resource Name (ARN) of the repository connection. For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/setting-up-for-service.html#setting-up-vcontrol\">Setting up an AWS CodeStar connection</a> in the <i>Proton User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the repository connection. For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/setting-up-for-service.html#setting-up-vcontrol">Setting up an AWS CodeStar connection</a> in the <i>Proton User Guide</i>.</p>"""
     repository_id: NotRequired["capo_proton.types.repository_id.RepositoryId"]
     """<p>The ID of the source code repository.</p>"""
     branch_name: NotRequired["capo_proton.types.git_branch_name.GitBranchName"]

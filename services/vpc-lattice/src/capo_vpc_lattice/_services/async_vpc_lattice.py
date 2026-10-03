@@ -415,7 +415,7 @@ class AsyncVPCLatticeClient:
         *,
         config_overrides: Optional[AsyncVPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.batch_update_rule_response.BatchUpdateRuleResponse":
-        r"""<p>Updates the listener rules in a batch. You can use this operation to change the priority of listener rules. This can be useful when bulk updating or swapping rule priority.</p> <p> <b>Required permissions:</b> <code>vpc-lattice:UpdateRule</code> </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/security_iam_service-with-iam.html\">How Amazon VPC Lattice works with IAM</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Updates the listener rules in a batch. You can use this operation to change the priority of listener rules. This can be useful when bulk updating or swapping rule priority.</p> <p> <b>Required permissions:</b> <code>vpc-lattice:UpdateRule</code> </p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/security_iam_service-with-iam.html">How Amazon VPC Lattice works with IAM</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_identifier: <p>The ID or ARN of the service.</p>
@@ -788,7 +788,7 @@ class AsyncVPCLatticeClient:
         *,
         config_overrides: Optional[AsyncVPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.put_auth_policy_response.PutAuthPolicyResponse":
-        r"""<p>Creates or updates the auth policy. The policy string in JSON must not contain newlines or blank lines.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/auth-policies.html\">Auth policies</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Creates or updates the auth policy. The policy string in JSON must not contain newlines or blank lines.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/auth-policies.html">Auth policies</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             resource_identifier: <p>The ID or ARN of the service network or service for which the policy is created.</p>
@@ -1000,7 +1000,7 @@ class AsyncVPCLatticeClient:
         ] = None,
         tags: Optional["capo_vpc_lattice.types.tag_map.TagMap"] = None,
     ) -> "capo_vpc_lattice.types.create_access_log_subscription_response.CreateAccessLogSubscriptionResponse":
-        r"""<p>Enables access logs to be sent to Amazon CloudWatch, Amazon S3, and Amazon Kinesis Data Firehose. The service network owner can use the access logs to audit the services in the network. The service network owner can only see access logs from clients and services that are associated with their service network. Access log entries represent traffic originated from VPCs associated with that network. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/monitoring-access-logs.html\">Access logs</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Enables access logs to be sent to Amazon CloudWatch, Amazon S3, and Amazon Kinesis Data Firehose. The service network owner can use the access logs to audit the services in the network. The service network owner can only see access logs from clients and services that are associated with their service network. Access log entries represent traffic originated from VPCs associated with that network. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/monitoring-access-logs.html">Access logs</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token and parameters, the retry succeeds without performing any actions. If the parameters aren't identical, the retry fails.</p>
@@ -1524,7 +1524,7 @@ class AsyncVPCLatticeClient:
         ] = None,
         tags: Optional["capo_vpc_lattice.types.tag_map.TagMap"] = None,
     ) -> "capo_vpc_lattice.types.create_listener_response.CreateListenerResponse":
-        r"""<p>Creates a listener for a service. Before you start using your Amazon VPC Lattice service, you must add one or more listeners. A listener is a process that checks for connection requests to your services. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/listeners.html\">Listeners</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Creates a listener for a service. Before you start using your Amazon VPC Lattice service, you must add one or more listeners. A listener is a process that checks for connection requests to your services. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/listeners.html">Listeners</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_identifier: <p>The ID or ARN of the service.</p>
@@ -2704,7 +2704,7 @@ class AsyncVPCLatticeClient:
         ] = None,
         tags: Optional["capo_vpc_lattice.types.tag_map.TagMap"] = None,
     ) -> "capo_vpc_lattice.types.create_rule_response.CreateRuleResponse":
-        r"""<p>Creates a listener rule. Each listener has a default rule for checking connection requests, but you can define additional rules. Each rule consists of a priority, one or more actions, and one or more conditions. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/listeners.html#listener-rules\">Listener rules</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Creates a listener rule. Each listener has a default rule for checking connection requests, but you can define additional rules. Each rule consists of a priority, one or more actions, and one or more conditions. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/listeners.html#listener-rules">Listener rules</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_identifier: <p>The ID or ARN of the service.</p>
@@ -2773,7 +2773,7 @@ class AsyncVPCLatticeClient:
         *,
         config_overrides: Optional[AsyncVPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.get_rule_response.GetRuleResponse":
-        r"""<p>Retrieves information about the specified listener rules. You can also retrieve information about the default listener rule. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/listeners.html#listener-rules\">Listener rules</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Retrieves information about the specified listener rules. You can also retrieve information about the default listener rule. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/listeners.html#listener-rules">Listener rules</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_identifier: <p>The ID or ARN of the service.</p>
@@ -2895,7 +2895,7 @@ class AsyncVPCLatticeClient:
         *,
         config_overrides: Optional[AsyncVPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.delete_rule_response.DeleteRuleResponse":
-        r"""<p>Deletes a listener rule. Each listener has a default rule for checking connection requests, but you can define additional rules. Each rule consists of a priority, one or more actions, and one or more conditions. You can delete additional listener rules, but you cannot delete the default rule.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/listeners.html#listener-rules\">Listener rules</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Deletes a listener rule. Each listener has a default rule for checking connection requests, but you can define additional rules. Each rule consists of a priority, one or more actions, and one or more conditions. You can delete additional listener rules, but you cannot delete the default rule.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/listeners.html#listener-rules">Listener rules</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_identifier: <p>The ID or ARN of the service.</p>
@@ -3046,7 +3046,7 @@ class AsyncVPCLatticeClient:
             "capo_vpc_lattice.types.idle_timeout_seconds.IdleTimeoutSeconds"
         ] = None,
     ) -> "capo_vpc_lattice.types.create_service_response.CreateServiceResponse":
-        r"""<p>Creates a service. A service is any software application that can run on instances containers, or serverless functions within an account or virtual private cloud (VPC).</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/services.html\">Services</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Creates a service. A service is any software application that can run on instances containers, or serverless functions within an account or virtual private cloud (VPC).</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/services.html">Services</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token and parameters, the retry succeeds without performing any actions. If the parameters aren't identical, the retry fails.</p>
@@ -3229,7 +3229,7 @@ class AsyncVPCLatticeClient:
         *,
         config_overrides: Optional[AsyncVPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.delete_service_response.DeleteServiceResponse":
-        r"""<p>Deletes a service. A service can't be deleted if it's associated with a service network. If you delete a service, all resources related to the service, such as the resource policy, auth policy, listeners, listener rules, and access log subscriptions, are also deleted. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/services.html#delete-service\">Delete a service</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Deletes a service. A service can't be deleted if it's associated with a service network. If you delete a service, all resources related to the service, such as the resource policy, auth policy, listeners, listener rules, and access log subscriptions, are also deleted. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/services.html#delete-service">Delete a service</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_identifier: <p>The ID or ARN of the service.</p>
@@ -3358,7 +3358,7 @@ class AsyncVPCLatticeClient:
             "capo_vpc_lattice.types.sharing_config.SharingConfig"
         ] = None,
     ) -> "capo_vpc_lattice.types.create_service_network_response.CreateServiceNetworkResponse":
-        r"""<p>Creates a service network. A service network is a logical boundary for a collection of services. You can associate services and VPCs with a service network.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html\">Service networks</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Creates a service network. A service network is a logical boundary for a collection of services. You can associate services and VPCs with a service network.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html">Service networks</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token and parameters, the retry succeeds without performing any actions. If the parameters aren't identical, the retry fails.</p>
@@ -3523,7 +3523,7 @@ class AsyncVPCLatticeClient:
         *,
         config_overrides: Optional[AsyncVPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.delete_service_network_response.DeleteServiceNetworkResponse":
-        r"""<p>Deletes a service network. You can only delete the service network if there is no service or VPC associated with it. If you delete a service network, all resources related to the service network, such as the resource policy, auth policy, and access log subscriptions, are also deleted. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#delete-service-network\">Delete a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Deletes a service network. You can only delete the service network if there is no service or VPC associated with it. If you delete a service network, all resources related to the service network, such as the resource policy, auth policy, and access log subscriptions, are also deleted. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#delete-service-network">Delete a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_network_identifier: <p>The ID or ARN of the service network.</p>
@@ -3914,7 +3914,7 @@ class AsyncVPCLatticeClient:
         ] = None,
         tags: Optional["capo_vpc_lattice.types.tag_map.TagMap"] = None,
     ) -> "capo_vpc_lattice.types.create_service_network_service_association_response.CreateServiceNetworkServiceAssociationResponse":
-        r"""<p>Associates the specified service with the specified service network. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-network-associations.html#service-network-service-associations\">Manage service associations</a> in the <i>Amazon VPC Lattice User Guide</i>.</p> <p>You can't use this operation if the service and service network are already associated or if there is a disassociation or deletion in progress. If the association fails, you can retry the operation by deleting the association and recreating it.</p> <p>You cannot associate a service and service network that are shared with a caller. The caller must own either the service or the service network.</p> <p>As a result of this operation, the association is created in the service network account and the association owner account.</p>
+        """<p>Associates the specified service with the specified service network. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-network-associations.html#service-network-service-associations">Manage service associations</a> in the <i>Amazon VPC Lattice User Guide</i>.</p> <p>You can't use this operation if the service and service network are already associated or if there is a disassociation or deletion in progress. If the association fails, you can retry the operation by deleting the association and recreating it.</p> <p>You cannot associate a service and service network that are shared with a caller. The caller must own either the service or the service network.</p> <p>As a result of this operation, the association is created in the service network account and the association owner account.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token and parameters, the retry succeeds without performing any actions. If the parameters aren't identical, the retry fails.</p>
@@ -4172,14 +4172,14 @@ class AsyncVPCLatticeClient:
         tags: Optional["capo_vpc_lattice.types.tag_map.TagMap"] = None,
         dns_options: Optional["capo_vpc_lattice.types.dns_options.DnsOptions"] = None,
     ) -> "capo_vpc_lattice.types.create_service_network_vpc_association_response.CreateServiceNetworkVpcAssociationResponse":
-        r"""<p>Associates a VPC with a service network. When you associate a VPC with the service network, it enables all the resources within that VPC to be clients and communicate with other services in the service network. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-network-associations.html#service-network-vpc-associations\">Manage VPC associations</a> in the <i>Amazon VPC Lattice User Guide</i>.</p> <p>You can't use this operation if there is a disassociation in progress. If the association fails, retry by deleting the association and recreating it.</p> <p>As a result of this operation, the association gets created in the service network account and the VPC owner account.</p> <p>If you add a security group to the service network and VPC association, the association must continue to always have at least one security group. You can add or edit security groups at any time. However, to remove all security groups, you must first delete the association and recreate it without security groups.</p>
+        """<p>Associates a VPC with a service network. When you associate a VPC with the service network, it enables all the resources within that VPC to be clients and communicate with other services in the service network. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-network-associations.html#service-network-vpc-associations">Manage VPC associations</a> in the <i>Amazon VPC Lattice User Guide</i>.</p> <p>You can't use this operation if there is a disassociation in progress. If the association fails, retry by deleting the association and recreating it.</p> <p>As a result of this operation, the association gets created in the service network account and the VPC owner account.</p> <p>If you add a security group to the service network and VPC association, the association must continue to always have at least one security group. You can add or edit security groups at any time. However, to remove all security groups, you must first delete the association and recreate it without security groups.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token and parameters, the retry succeeds without performing any actions. If the parameters aren't identical, the retry fails.</p>
             service_network_identifier: <p>The ID or ARN of the service network. You must use an ARN if the resources are in different accounts.</p>
             vpc_identifier: <p>The ID of the VPC.</p>
             private_dns_enabled: <p> Indicates if private DNS is enabled for the VPC association. </p>
-            security_group_ids: <p>The IDs of the security groups. Security groups aren't added by default. You can add a security group to apply network level controls to control which resources in a VPC are allowed to access the service network and its services. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html\">Control traffic to resources using security groups</a> in the <i>Amazon VPC User Guide</i>.</p>
+            security_group_ids: <p>The IDs of the security groups. Security groups aren't added by default. You can add a security group to apply network level controls to control which resources in a VPC are allowed to access the service network and its services. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html">Control traffic to resources using security groups</a> in the <i>Amazon VPC User Guide</i>.</p>
             tags: <p>The tags for the association.</p>
             dns_options: <p> DNS options for the service network VPC association. </p>
 
@@ -4498,7 +4498,7 @@ class AsyncVPCLatticeClient:
     ) -> (
         "capo_vpc_lattice.types.create_target_group_response.CreateTargetGroupResponse"
     ):
-        r"""<p>Creates a target group. A target group is a collection of targets, or compute resources, that run your application or service. A target group can only be used by a single service.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/target-groups.html\">Target groups</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Creates a target group. A target group is a collection of targets, or compute resources, that run your application or service. A target group can only be used by a single service.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/target-groups.html">Target groups</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             name: <p>The name of the target group. The name must be unique within the account. The valid characters are a-z, 0-9, and hyphens (-). You can't use a hyphen as the first or last character, or immediately after another hyphen.</p>

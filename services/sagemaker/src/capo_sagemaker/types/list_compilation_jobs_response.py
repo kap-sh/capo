@@ -13,7 +13,7 @@ class ListCompilationJobsResponse(TypedDict, closed=True):
     compilation_job_summaries: NotRequired[
         "capo_sagemaker.types.compilation_job_summaries.CompilationJobSummaries"
     ]
-    r"""<p>An array of <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CompilationJobSummary.html\">CompilationJobSummary</a> objects, each describing a model compilation job. </p>"""
+    """<p>An array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CompilationJobSummary.html">CompilationJobSummary</a> objects, each describing a model compilation job. </p>"""
     next_token: NotRequired["capo_sagemaker.types.next_token.NextToken"]
     """<p>If the response is truncated, Amazon SageMaker AI returns this <code>NextToken</code>. To retrieve the next set of model compilation jobs, use this token in the next request.</p>"""
 

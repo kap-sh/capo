@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class Metric(TypedDict, closed=True):
     namespace: NotRequired["capo_application_signals.types.namespace.Namespace"]
-    r"""<p>The namespace of the metric. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace\">Namespaces</a>.</p>"""
+    """<p>The namespace of the metric. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace">Namespaces</a>.</p>"""
     metric_name: NotRequired["capo_application_signals.types.metric_name.MetricName"]
     """<p>The name of the metric to use.</p>"""
     dimensions: NotRequired["capo_application_signals.types.dimensions.Dimensions"]
-    r"""<p>An array of one or more dimensions to use to define the metric that you want to use. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Dimension\">Dimensions</a>.</p>"""
+    """<p>An array of one or more dimensions to use to define the metric that you want to use. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Dimension">Dimensions</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

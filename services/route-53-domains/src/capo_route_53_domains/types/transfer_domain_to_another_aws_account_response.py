@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class TransferDomainToAnotherAwsAccountResponse(TypedDict, closed=True):
     operation_id: NotRequired["capo_route_53_domains.types.operation_id.OperationId"]
-    r"""<p>Identifier for tracking the progress of the request. To query the operation status, use <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html\">GetOperationDetail</a>.</p>"""
+    """<p>Identifier for tracking the progress of the request. To query the operation status, use <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">GetOperationDetail</a>.</p>"""
     password: NotRequired["capo_route_53_domains.types.password.Password"]
-    r"""<p>To finish transferring a domain to another Amazon Web Services account, the account that the domain is being transferred to must submit an <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_AcceptDomainTransferFromAnotherAwsAccount.html\">AcceptDomainTransferFromAnotherAwsAccount</a> request. The request must include the value of the <code>Password</code> element that was returned in the <code>TransferDomainToAnotherAwsAccount</code> response.</p>"""
+    """<p>To finish transferring a domain to another Amazon Web Services account, the account that the domain is being transferred to must submit an <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_AcceptDomainTransferFromAnotherAwsAccount.html">AcceptDomainTransferFromAnotherAwsAccount</a> request. The request must include the value of the <code>Password</code> element that was returned in the <code>TransferDomainToAnotherAwsAccount</code> response.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

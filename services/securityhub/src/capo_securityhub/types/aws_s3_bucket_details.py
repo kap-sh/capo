@@ -26,7 +26,7 @@ class AwsS3BucketDetails(TypedDict, closed=True):
     ]
     """<p>The Amazon Web Services account identifier of the account that owns the S3 bucket.</p>"""
     created_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the S3 bucket was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the S3 bucket was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     server_side_encryption_configuration: NotRequired[
         "capo_securityhub.types.aws_s3_bucket_server_side_encryption_configuration.AwsS3BucketServerSideEncryptionConfiguration"
     ]

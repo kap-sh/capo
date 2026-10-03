@@ -31,17 +31,17 @@ class DescribeFeaturedResultsSetResponse(TypedDict, closed=True):
     status: NotRequired[
         "capo_kendra.types.featured_results_set_status.FeaturedResultsSetStatus"
     ]
-    r"""<p>The current status of the set of featured results. When the value is <code>ACTIVE</code>, featured results are ready for use. You can still configure your settings before setting the status to <code>ACTIVE</code>. You can set the status to <code>ACTIVE</code> or <code>INACTIVE</code> using the <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateFeaturedResultsSet.html\">UpdateFeaturedResultsSet</a> API. The queries you specify for featured results must be unique per featured results set for each index, whether the status is <code>ACTIVE</code> or <code>INACTIVE</code>.</p>"""
+    """<p>The current status of the set of featured results. When the value is <code>ACTIVE</code>, featured results are ready for use. You can still configure your settings before setting the status to <code>ACTIVE</code>. You can set the status to <code>ACTIVE</code> or <code>INACTIVE</code> using the <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateFeaturedResultsSet.html">UpdateFeaturedResultsSet</a> API. The queries you specify for featured results must be unique per featured results set for each index, whether the status is <code>ACTIVE</code> or <code>INACTIVE</code>.</p>"""
     query_texts: NotRequired["capo_kendra.types.query_text_list.QueryTextList"]
-    r"""<p>The list of queries for featuring results. For more information on the list of queries, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html\">FeaturedResultsSet</a>.</p>"""
+    """<p>The list of queries for featuring results. For more information on the list of queries, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html">FeaturedResultsSet</a>.</p>"""
     featured_documents_with_metadata: NotRequired[
         "capo_kendra.types.featured_document_with_metadata_list.FeaturedDocumentWithMetadataList"
     ]
-    r"""<p>The list of document IDs for the documents you want to feature with their metadata information. For more information on the list of featured documents, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html\">FeaturedResultsSet</a>.</p>"""
+    """<p>The list of document IDs for the documents you want to feature with their metadata information. For more information on the list of featured documents, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html">FeaturedResultsSet</a>.</p>"""
     featured_documents_missing: NotRequired[
         "capo_kendra.types.featured_document_missing_list.FeaturedDocumentMissingList"
     ]
-    r"""<p>The list of document IDs that don't exist but you have specified as featured documents. Amazon Kendra cannot feature these documents if they don't exist in the index. You can check the status of a document and its ID or check for documents with status errors using the <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_BatchGetDocumentStatus.html\">BatchGetDocumentStatus</a> API.</p>"""
+    """<p>The list of document IDs that don't exist but you have specified as featured documents. Amazon Kendra cannot feature these documents if they don't exist in the index. You can check the status of a document and its ID or check for documents with status errors using the <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchGetDocumentStatus.html">BatchGetDocumentStatus</a> API.</p>"""
     last_updated_timestamp: NotRequired["capo_kendra.types.long.Long"]
     """<p>The timestamp when the set of featured results was last updated.</p>"""
     creation_timestamp: NotRequired["capo_kendra.types.long.Long"]

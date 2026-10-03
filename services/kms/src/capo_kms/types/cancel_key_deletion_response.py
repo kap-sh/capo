@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CancelKeyDeletionResponse(TypedDict, closed=True):
     key_id: NotRequired["capo_kms.types.key_id_type.KeyIdType"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">key ARN</a>) of the KMS key whose deletion is canceled.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS key whose deletion is canceled.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

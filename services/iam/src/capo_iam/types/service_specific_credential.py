@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 class ServiceSpecificCredential(TypedDict, closed=True):
     create_date: "capo_iam.types.date_type.dateType"
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the service-specific credential were created.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the service-specific credential were created.</p>"""
     expiration_date: NotRequired["capo_iam.types.date_type.dateType"]
     """<p>The date and time when the service specific credential expires. This field is only present for Bedrock API keys and CloudWatch Logs API keys that were created with an expiration period.</p>"""
     service_name: "capo_iam.types.service_name.serviceName"

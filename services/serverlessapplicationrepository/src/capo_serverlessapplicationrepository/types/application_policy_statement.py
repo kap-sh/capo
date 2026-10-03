@@ -13,11 +13,11 @@ class ApplicationPolicyStatement(TypedDict, closed=True):
     actions: NotRequired[
         "capo_serverlessapplicationrepository.types.__list_of__string.__listOf__string"
     ]
-    r"""<p>For the list of actions supported for this operation, see <a href=\"https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions\">Application Permissions</a>.</p>"""
+    """<p>For the list of actions supported for this operation, see <a href="https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions">Application Permissions</a>.</p>"""
     principal_org_i_ds: NotRequired[
         "capo_serverlessapplicationrepository.types.__list_of__string.__listOf__string"
     ]
-    r"""<p>An array of PrinciplalOrgIDs, which corresponds to AWS IAM <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#principal-org-id\">aws:PrincipalOrgID</a> global condition key.</p>"""
+    """<p>An array of PrinciplalOrgIDs, which corresponds to AWS IAM <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#principal-org-id">aws:PrincipalOrgID</a> global condition key.</p>"""
     principals: NotRequired[
         "capo_serverlessapplicationrepository.types.__list_of__string.__listOf__string"
     ]

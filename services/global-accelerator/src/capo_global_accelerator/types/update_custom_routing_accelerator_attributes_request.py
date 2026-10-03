@@ -17,7 +17,7 @@ class UpdateCustomRoutingAcceleratorAttributesRequest(TypedDict, closed=True):
     flow_logs_enabled: NotRequired[
         "capo_global_accelerator.types.generic_boolean.GenericBoolean"
     ]
-    r"""<p>Update whether flow logs are enabled. The default value is false. If the value is true, <code>FlowLogsS3Bucket</code> and <code>FlowLogsS3Prefix</code> must be specified.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html\">Flow logs</a> in the <i>Global Accelerator Developer Guide</i>.</p>"""
+    """<p>Update whether flow logs are enabled. The default value is false. If the value is true, <code>FlowLogsS3Bucket</code> and <code>FlowLogsS3Prefix</code> must be specified.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html">Flow logs</a> in the <i>Global Accelerator Developer Guide</i>.</p>"""
     flow_logs_s3_bucket: NotRequired[
         "capo_global_accelerator.types.generic_string.GenericString"
     ]

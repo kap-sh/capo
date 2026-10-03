@@ -16,7 +16,7 @@ class ManagedSourceEventMetadataSummary(TypedDict, closed=True):
     event_origin_region: NotRequired["capo_notifications.types.region.Region"]
     """<p>The Region where the notification originated.</p>"""
     source: "capo_notifications.types.source.Source"
-    r"""<p>The source service of the notification.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level\">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>The source service of the notification.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
     event_type: "capo_notifications.types.event_type.EventType"
     """<p>The event Type of the notification.</p>"""
 

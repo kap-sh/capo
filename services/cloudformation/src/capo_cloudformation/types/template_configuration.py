@@ -15,11 +15,11 @@ class TemplateConfiguration(TypedDict, closed=True):
     deletion_policy: NotRequired[
         "capo_cloudformation.types.generated_template_deletion_policy.GeneratedTemplateDeletionPolicy"
     ]
-    r"""<p>The <code>DeletionPolicy</code> assigned to resources in the generated template. Supported values are:</p> <ul> <li> <p> <code>DELETE</code> - delete all resources when the stack is deleted.</p> </li> <li> <p> <code>RETAIN</code> - retain all resources when the stack is deleted.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html\">DeletionPolicy attribute</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>The <code>DeletionPolicy</code> assigned to resources in the generated template. Supported values are:</p> <ul> <li> <p> <code>DELETE</code> - delete all resources when the stack is deleted.</p> </li> <li> <p> <code>RETAIN</code> - retain all resources when the stack is deleted.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html">DeletionPolicy attribute</a> in the <i>CloudFormation User Guide</i>.</p>"""
     update_replace_policy: NotRequired[
         "capo_cloudformation.types.generated_template_update_replace_policy.GeneratedTemplateUpdateReplacePolicy"
     ]
-    r"""<p>The <code>UpdateReplacePolicy</code> assigned to resources in the generated template. Supported values are:</p> <ul> <li> <p> <code>DELETE</code> - delete all resources when the resource is replaced during an update operation.</p> </li> <li> <p> <code>RETAIN</code> - retain all resources when the resource is replaced during an update operation.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatereplacepolicy.html\">UpdateReplacePolicy attribute</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>The <code>UpdateReplacePolicy</code> assigned to resources in the generated template. Supported values are:</p> <ul> <li> <p> <code>DELETE</code> - delete all resources when the resource is replaced during an update operation.</p> </li> <li> <p> <code>RETAIN</code> - retain all resources when the resource is replaced during an update operation.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatereplacepolicy.html">UpdateReplacePolicy attribute</a> in the <i>CloudFormation User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

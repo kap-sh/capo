@@ -18,13 +18,13 @@ class CustomDocumentEnrichmentConfiguration(TypedDict, closed=True):
     pre_extraction_hook_configuration: NotRequired[
         "capo_kendra.types.hook_configuration.HookConfiguration"
     ]
-    r"""<p>Configuration information for invoking a Lambda function in Lambda on the original or raw documents before extracting their metadata and text. You can use a Lambda function to apply advanced logic for creating, modifying, or deleting document metadata and content. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html#advanced-data-manipulation\">Advanced data manipulation</a>.</p>"""
+    """<p>Configuration information for invoking a Lambda function in Lambda on the original or raw documents before extracting their metadata and text. You can use a Lambda function to apply advanced logic for creating, modifying, or deleting document metadata and content. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html#advanced-data-manipulation">Advanced data manipulation</a>.</p>"""
     post_extraction_hook_configuration: NotRequired[
         "capo_kendra.types.hook_configuration.HookConfiguration"
     ]
-    r"""<p>Configuration information for invoking a Lambda function in Lambda on the structured documents with their metadata and text extracted. You can use a Lambda function to apply advanced logic for creating, modifying, or deleting document metadata and content. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html#advanced-data-manipulation\">Advanced data manipulation</a>.</p>"""
+    """<p>Configuration information for invoking a Lambda function in Lambda on the structured documents with their metadata and text extracted. You can use a Lambda function to apply advanced logic for creating, modifying, or deleting document metadata and content. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html#advanced-data-manipulation">Advanced data manipulation</a>.</p>"""
     role_arn: NotRequired["capo_kendra.types.role_arn.RoleArn"]
-    r"""<p>The Amazon Resource Name (ARN) of an IAM role with permission to run <code>PreExtractionHookConfiguration</code> and <code>PostExtractionHookConfiguration</code> for altering document metadata and content during the document ingestion process. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html\">an IAM roles for Amazon Kendra</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an IAM role with permission to run <code>PreExtractionHookConfiguration</code> and <code>PostExtractionHookConfiguration</code> for altering document metadata and content during the document ingestion process. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html">an IAM roles for Amazon Kendra</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

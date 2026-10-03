@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class CreateRoutingProfileRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     name: "capo_connect.types.routing_profile_name.RoutingProfileName"
     """<p>The name of the routing profile. Must not be more than 127 characters.</p>"""
     description: (
@@ -32,7 +32,7 @@ class CreateRoutingProfileRequest(TypedDict, closed=True):
     queue_configs: NotRequired[
         "capo_connect.types.routing_profile_queue_config_list.RoutingProfileQueueConfigList"
     ]
-    r"""<p>The inbound queues associated with the routing profile. If no queue is added, the agent can make only outbound calls.</p> <p>The limit of 10 array members applies to the maximum number of <code>RoutingProfileQueueConfig</code> objects that can be passed during a CreateRoutingProfile API request. It is different from the quota of 50 queues per routing profile per instance that is listed in <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html\">Connect Customer service quotas</a>. </p>"""
+    """<p>The inbound queues associated with the routing profile. If no queue is added, the agent can make only outbound calls.</p> <p>The limit of 10 array members applies to the maximum number of <code>RoutingProfileQueueConfig</code> objects that can be passed during a CreateRoutingProfile API request. It is different from the quota of 50 queues per routing profile per instance that is listed in <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer service quotas</a>. </p>"""
     manual_assignment_queue_configs: NotRequired[
         "capo_connect.types.routing_profile_manual_assignment_queue_config_list.RoutingProfileManualAssignmentQueueConfigList"
     ]
@@ -40,7 +40,7 @@ class CreateRoutingProfileRequest(TypedDict, closed=True):
     media_concurrencies: "capo_connect.types.media_concurrencies.MediaConcurrencies"
     """<p>The channels that agents can handle in the Contact Control Panel (CCP) for this routing profile.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     agent_availability_timer: NotRequired[
         "capo_connect.types.agent_availability_timer.AgentAvailabilityTimer"
     ]

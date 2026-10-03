@@ -2188,7 +2188,7 @@ class AsyncNetworkSecurityManagerClient:
         ] = None,
         tags: Optional["capo_network_security_manager.types.tag_map.TagMap"] = None,
     ) -> "capo_network_security_manager.types.create_rule_output.CreateRuleOutput":
-        r"""<p>Creates a rule. A rule defines a network security configuration to enforce, such as an AWS WAF rule group or configuration data. Use <code>isPublished</code> to create the rule in published (<code>ACTIVE</code>) or draft (<code>DRAFT</code>) state.</p>
+        """<p>Creates a rule. A rule defines a network security configuration to enforce, such as an AWS WAF rule group or configuration data. Use <code>isPublished</code> to create the rule in published (<code>ACTIVE</code>) or draft (<code>DRAFT</code>) state.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive token that you provide to ensure that the operation completes no more than one time. If you retry a request with the same client token and the same parameters, the service returns the result of the original successful request.</p>
@@ -2196,7 +2196,7 @@ class AsyncNetworkSecurityManagerClient:
             firewall_type: <p>The firewall type associated with the resource.</p>
             rule_type: <p>The type of the rule. <code>CONFIGURATION</code> rules contain firewall settings, and <code>INSPECTION</code> rules contain rule groups.</p>
             rule_description: <p>A description of the rule.</p>
-            configuration: <p>The firewall configuration for the rule, as a JSON document. The structure depends on the rule's firewall type and rule type. For an AWS WAF <code>INSPECTION</code> rule, provide an AWS WAF rule group. For an AWS WAF <code>CONFIGURATION</code> rule, provide a single web ACL setting, such as <code>DefaultAction</code> or <code>VisibilityConfig</code>; use <code>wafConfigDataType</code> to declare which setting the document contains. For the schema of each setting and complete examples, see <a href=\"https://docs.aws.amazon.com/network-security-manager/latest/devguide/what-is.html\">Writing rule configurations</a> in the <i>AWS Network Security Manager Developer Guide</i>.</p>
+            configuration: <p>The firewall configuration for the rule, as a JSON document. The structure depends on the rule's firewall type and rule type. For an AWS WAF <code>INSPECTION</code> rule, provide an AWS WAF rule group. For an AWS WAF <code>CONFIGURATION</code> rule, provide a single web ACL setting, such as <code>DefaultAction</code> or <code>VisibilityConfig</code>; use <code>wafConfigDataType</code> to declare which setting the document contains. For the schema of each setting and complete examples, see <a href="https://docs.aws.amazon.com/network-security-manager/latest/devguide/what-is.html">Writing rule configurations</a> in the <i>AWS Network Security Manager Developer Guide</i>.</p>
             is_published: <p>Specifies whether to publish the resource. When <code>true</code>, the resource is saved in published (<code>ACTIVE</code>) state. When <code>false</code>, it is saved as a draft (<code>DRAFT</code>). Default: <code>true</code>.</p>
             tags: <p>The tags to add to the resource when it is created.</p>
 
@@ -2336,14 +2336,14 @@ class AsyncNetworkSecurityManagerClient:
             "capo_network_security_manager.types.idempotency_token.IdempotencyToken"
         ] = None,
     ) -> "capo_network_security_manager.types.update_rule_output.UpdateRuleOutput":
-        r"""<p>Updates the specified rule. To prevent conflicting concurrent updates, provide the current <code>updateToken</code>. Use <code>isPublished</code> to publish the update or keep the rule as a draft.</p>
+        """<p>Updates the specified rule. To prevent conflicting concurrent updates, provide the current <code>updateToken</code>. Use <code>isPublished</code> to publish the update or keep the rule as a draft.</p>
 
         Args:
             rule_identifier: <p>The identifier of the rule. This is the rule's Amazon Resource Name (ARN).</p>
             update_token: <p>A token used for optimistic concurrency control. Each read and write returns an <code>updateToken</code>. Provide the most recent value on your next update to detect and prevent conflicting concurrent modifications.</p>
             rule_type: <p>The type of the rule. <code>CONFIGURATION</code> rules contain firewall settings, and <code>INSPECTION</code> rules contain rule groups.</p>
             rule_description: <p>A description of the rule.</p>
-            configuration: <p>The firewall configuration for the rule, as a JSON document. The structure depends on the rule's firewall type and rule type. For an AWS WAF <code>INSPECTION</code> rule, provide an AWS WAF rule group. For an AWS WAF <code>CONFIGURATION</code> rule, provide a single web ACL setting, such as <code>DefaultAction</code> or <code>VisibilityConfig</code>; use <code>wafConfigDataType</code> to declare which setting the document contains. For the schema of each setting and complete examples, see <a href=\"https://docs.aws.amazon.com/network-security-manager/latest/devguide/what-is.html\">Writing rule configurations</a> in the <i>AWS Network Security Manager Developer Guide</i>.</p>
+            configuration: <p>The firewall configuration for the rule, as a JSON document. The structure depends on the rule's firewall type and rule type. For an AWS WAF <code>INSPECTION</code> rule, provide an AWS WAF rule group. For an AWS WAF <code>CONFIGURATION</code> rule, provide a single web ACL setting, such as <code>DefaultAction</code> or <code>VisibilityConfig</code>; use <code>wafConfigDataType</code> to declare which setting the document contains. For the schema of each setting and complete examples, see <a href="https://docs.aws.amazon.com/network-security-manager/latest/devguide/what-is.html">Writing rule configurations</a> in the <i>AWS Network Security Manager Developer Guide</i>.</p>
             is_published: <p>Specifies whether to publish the resource. When <code>true</code>, the resource is saved in published (<code>ACTIVE</code>) state. When <code>false</code>, it is saved as a draft (<code>DRAFT</code>).</p>
             client_token: <p>A unique, case-sensitive token that you provide to ensure that the operation completes no more than one time. If you retry a request with the same client token and the same parameters, the service returns the result of the original successful request.</p>
 

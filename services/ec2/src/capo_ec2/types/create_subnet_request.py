@@ -21,7 +21,7 @@ class CreateSubnetRequest(TypedDict, closed=True):
     ]
     """<p>The tags to assign to the subnet.</p>"""
     availability_zone: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The Availability Zone or Local Zone for the subnet.</p> <p>Default: Amazon Web Services selects one for you. If you create more than one subnet in your VPC, we do not necessarily select a different zone for each subnet.</p> <p>To create a subnet in a Local Zone, set this value to the Local Zone ID, for example <code>us-west-2-lax-1a</code>. For information about the Regions that support Local Zones, see <a href=\"https://docs.aws.amazon.com/local-zones/latest/ug/available-local-zones.html\">Available Local Zones</a>.</p> <p>To create a subnet in an Outpost, set this value to the Availability Zone for the Outpost and specify the Outpost ARN.</p>"""
+    """<p>The Availability Zone or Local Zone for the subnet.</p> <p>Default: Amazon Web Services selects one for you. If you create more than one subnet in your VPC, we do not necessarily select a different zone for each subnet.</p> <p>To create a subnet in a Local Zone, set this value to the Local Zone ID, for example <code>us-west-2-lax-1a</code>. For information about the Regions that support Local Zones, see <a href="https://docs.aws.amazon.com/local-zones/latest/ug/available-local-zones.html">Available Local Zones</a>.</p> <p>To create a subnet in an Outpost, set this value to the Availability Zone for the Outpost and specify the Outpost ARN.</p>"""
     availability_zone_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The AZ ID or the Local Zone ID of the subnet.</p>"""
     cidr_block: NotRequired["capo_ec2.types.string.String"]

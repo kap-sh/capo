@@ -24,7 +24,7 @@ class TimecodeConfig(TypedDict, closed=True):
     timestamp_offset: NotRequired[
         "capo_mediaconvert.types.__string_pattern0940191020191209301.__stringPattern0940191020191209301"
     ]
-    r"""Only applies to outputs that support program-date-time stamp. Use Timestamp offset to overwrite the timecode date without affecting the time and frame number. Provide the new date as a string in the format \"yyyy-mm-dd\". To use Timestamp offset, you must also enable Insert program-date-time in the output settings. For example, if the date part of your timecodes is 2002-1-25 and you want to change it to one year later, set Timestamp offset to 2003-1-25."""
+    """Only applies to outputs that support program-date-time stamp. Use Timestamp offset to overwrite the timecode date without affecting the time and frame number. Provide the new date as a string in the format "yyyy-mm-dd". To use Timestamp offset, you must also enable Insert program-date-time in the output settings. For example, if the date part of your timecodes is 2002-1-25 and you want to change it to one year later, set Timestamp offset to 2003-1-25."""
 
 
 # --- restJson1 ser/de ---

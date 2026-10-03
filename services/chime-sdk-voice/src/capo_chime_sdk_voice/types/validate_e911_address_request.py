@@ -33,7 +33,7 @@ class ValidateE911AddressRequest(TypedDict, closed=True):
     country: (
         "capo_chime_sdk_voice.types.sensitive_non_empty_string.SensitiveNonEmptyString"
     )
-    r"""<p>The country in the address being validated as two-letter country code in ISO 3166-1 alpha-2 format, such as <code>US</code>. For more information, see <a href=\"https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\">ISO 3166-1 alpha-2</a> in Wikipedia.</p>"""
+    """<p>The country in the address being validated as two-letter country code in ISO 3166-1 alpha-2 format, such as <code>US</code>. For more information, see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> in Wikipedia.</p>"""
     postal_code: (
         "capo_chime_sdk_voice.types.sensitive_non_empty_string.SensitiveNonEmptyString"
     )

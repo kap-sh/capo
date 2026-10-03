@@ -15,7 +15,7 @@ class TabularConditions(TypedDict, closed=True):
     property_filters: NotRequired[
         "capo_iottwinmaker.types.property_filters.PropertyFilters"
     ]
-    r"""<p>You can filter the request using various logical operators and a key-value format. For example:</p> <p> <code>{\"key\": \"serverType\", \"value\": \"webServer\"}</code> </p>"""
+    """<p>You can filter the request using various logical operators and a key-value format. For example:</p> <p> <code>{"key": "serverType", "value": "webServer"}</code> </p>"""
 
 
 # --- restJson1 ser/de ---

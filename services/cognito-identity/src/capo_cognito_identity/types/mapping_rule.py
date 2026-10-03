@@ -15,13 +15,13 @@ if TYPE_CHECKING:
 
 class MappingRule(TypedDict, closed=True):
     claim: "capo_cognito_identity.types.claim_name.ClaimName"
-    r"""<p>The claim name that must be present in the token, for example, \"isAdmin\" or \"paid\".</p>"""
+    """<p>The claim name that must be present in the token, for example, "isAdmin" or "paid".</p>"""
     match_type: (
         "capo_cognito_identity.types.mapping_rule_match_type.MappingRuleMatchType"
     )
     """<p>The match condition that specifies how closely the claim value in the IdP token must match <code>Value</code>.</p>"""
     value: "capo_cognito_identity.types.claim_value.ClaimValue"
-    r"""<p>A brief string that the claim must match, for example, \"paid\" or \"yes\".</p>"""
+    """<p>A brief string that the claim must match, for example, "paid" or "yes".</p>"""
     role_arn: "capo_cognito_identity.types.arn_string.ARNString"
     """<p>The role ARN.</p>"""
 

@@ -19,7 +19,7 @@ class ConditionBasedCollectionScheme(TypedDict, closed=True):
     minimum_trigger_interval_ms: NotRequired["capo_iotfleetwise.types.uint32.uint32"]
     """<p>The minimum duration of time between two triggering events to collect data, in milliseconds.</p> <note> <p>If a signal changes often, you might want to collect data at a slower rate.</p> </note>"""
     trigger_mode: NotRequired["capo_iotfleetwise.types.trigger_mode.TriggerMode"]
-    r"""<p>Whether to collect data for all triggering events (<code>ALWAYS</code>). Specify (<code>RISING_EDGE</code>), or specify only when the condition first evaluates to false. For example, triggering on \"AirbagDeployed\"; Users aren't interested on triggering when the airbag is already exploded; they only care about the change from not deployed =&gt; deployed.</p>"""
+    """<p>Whether to collect data for all triggering events (<code>ALWAYS</code>). Specify (<code>RISING_EDGE</code>), or specify only when the condition first evaluates to false. For example, triggering on "AirbagDeployed"; Users aren't interested on triggering when the airbag is already exploded; they only care about the change from not deployed =&gt; deployed.</p>"""
     condition_language_version: NotRequired[
         "capo_iotfleetwise.types.language_version.languageVersion"
     ]

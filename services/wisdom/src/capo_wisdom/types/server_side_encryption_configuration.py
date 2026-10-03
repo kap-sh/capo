@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ServerSideEncryptionConfiguration(TypedDict, closed=True):
     kms_key_id: NotRequired["capo_wisdom.types.non_empty_string.NonEmptyString"]
-    r"""<p>The customer managed key used for encryption. For more information about setting up a customer managed key for Wisdom, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-wisdom.html\">Enable Amazon Connect Wisdom for your instance</a>. For information about valid ID values, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id\">Key identifiers (KeyId)</a>.</p>"""
+    """<p>The customer managed key used for encryption. For more information about setting up a customer managed key for Wisdom, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-wisdom.html">Enable Amazon Connect Wisdom for your instance</a>. For information about valid ID values, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id">Key identifiers (KeyId)</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

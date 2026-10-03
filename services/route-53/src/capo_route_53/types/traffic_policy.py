@@ -26,7 +26,7 @@ class TrafficPolicy(TypedDict, closed=True):
     type: "capo_route_53.types.rr_type.RRType"
     """<p>The DNS type of the resource record sets that Amazon Route 53 creates when you use a traffic policy to create a traffic policy instance.</p>"""
     document: "capo_route_53.types.traffic_policy_document.TrafficPolicyDocument"
-    r"""<p>The definition of a traffic policy in JSON format. You specify the JSON document to use for a new traffic policy in the <code>CreateTrafficPolicy</code> request. For more information about the JSON format, see <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html\">Traffic Policy Document Format</a>.</p>"""
+    """<p>The definition of a traffic policy in JSON format. You specify the JSON document to use for a new traffic policy in the <code>CreateTrafficPolicy</code> request. For more information about the JSON format, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html">Traffic Policy Document Format</a>.</p>"""
     comment: NotRequired[
         "capo_route_53.types.traffic_policy_comment.TrafficPolicyComment"
     ]

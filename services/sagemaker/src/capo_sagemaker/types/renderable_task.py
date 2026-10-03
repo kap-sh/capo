@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class RenderableTask(TypedDict, closed=True):
     input: NotRequired["capo_sagemaker.types.task_input.TaskInput"]
-    r"""<p>A JSON object that contains values for the variables defined in the template. It is made available to the template under the substitution variable <code>task.input</code>. For example, if you define a variable <code>task.input.text</code> in your template, you can supply the variable in the JSON object as <code>\"text\": \"sample text\"</code>.</p>"""
+    """<p>A JSON object that contains values for the variables defined in the template. It is made available to the template under the substitution variable <code>task.input</code>. For example, if you define a variable <code>task.input.text</code> in your template, you can supply the variable in the JSON object as <code>"text": "sample text"</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

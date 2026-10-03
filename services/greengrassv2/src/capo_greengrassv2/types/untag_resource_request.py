@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class UntagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_greengrassv2.types.generic_v2_arn.GenericV2ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the resource to untag.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the resource to untag.</p>"""
     tag_keys: "capo_greengrassv2.types.tag_key_list.TagKeyList"
     """<p>A list of keys for tags to remove from the resource.</p>"""
 

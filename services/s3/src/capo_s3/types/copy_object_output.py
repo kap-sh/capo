@@ -24,7 +24,7 @@ class CopyObjectOutput(TypedDict, closed=True):
     copy_object_result: NotRequired["capo_s3.types.copy_object_result.CopyObjectResult"]
     """<p>Container for all response elements.</p>"""
     expiration: NotRequired["capo_s3.types.expiration.Expiration"]
-    r"""<p>If the object expiration is configured, the response includes this header.</p> <note> <p>Object expiration information is not returned in directory buckets and this header returns the value \"<code>NotImplemented</code>\" in all responses for directory buckets.</p> </note>"""
+    """<p>If the object expiration is configured, the response includes this header.</p> <note> <p>Object expiration information is not returned in directory buckets and this header returns the value "<code>NotImplemented</code>" in all responses for directory buckets.</p> </note>"""
     copy_source_version_id: NotRequired[
         "capo_s3.types.copy_source_version_id.CopySourceVersionId"
     ]

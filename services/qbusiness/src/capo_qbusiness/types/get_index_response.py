@@ -45,7 +45,7 @@ class GetIndexResponse(TypedDict, closed=True):
     document_attribute_configurations: NotRequired[
         "capo_qbusiness.types.document_attribute_configurations.DocumentAttributeConfigurations"
     ]
-    r"""<p>Configuration information for document attributes or metadata. Document metadata are fields associated with your documents. For example, the company department name associated with each document. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/business-use-dg/doc-attributes-types.html#doc-attributes\">Understanding document attributes</a>.</p>"""
+    """<p>Configuration information for document attributes or metadata. Document metadata are fields associated with your documents. For example, the company department name associated with each document. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/business-use-dg/doc-attributes-types.html#doc-attributes">Understanding document attributes</a>.</p>"""
     error: NotRequired["capo_qbusiness.types.error_detail.ErrorDetail"]
     """<p>When the <code>Status</code> field value is <code>FAILED</code>, the <code>ErrorMessage</code> field contains a message that explains why.</p>"""
     index_statistics: NotRequired[

@@ -16,7 +16,7 @@ class Transition(TypedDict, closed=True):
     date: NotRequired["capo_s3.types.date.Date"]
     """<p>Indicates when objects are transitioned to the specified storage class. The date value must be in ISO 8601 format. The time is always midnight UTC.</p>"""
     days: NotRequired["capo_s3.types.days.Days"]
-    r"""<p>Indicates the number of days after creation when objects are transitioned to the specified storage class. The value can be <code>0</code> or any positive integer. Be aware that some storage classes have a minimum storage duration and that you're charged for transitioning objects before their minimum storage duration. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html#lifecycle-configuration-constraints\"> Constraints and considerations for transitions</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>Indicates the number of days after creation when objects are transitioned to the specified storage class. The value can be <code>0</code> or any positive integer. Be aware that some storage classes have a minimum storage duration and that you're charged for transitioning objects before their minimum storage duration. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html#lifecycle-configuration-constraints"> Constraints and considerations for transitions</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     storage_class: NotRequired[
         "capo_s3.types.transition_storage_class.TransitionStorageClass"
     ]

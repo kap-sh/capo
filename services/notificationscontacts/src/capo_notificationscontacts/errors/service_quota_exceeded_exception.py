@@ -21,9 +21,9 @@ class ServiceQuotaExceededException_(TypedDict, closed=True):
     resource_type: "capo_notificationscontacts.types.resource_type.ResourceType"
     """<p>The type of the resource that exceeds the service quota.</p>"""
     service_code: "capo_notificationscontacts.types.service_code.ServiceCode"
-    r"""<p>The code for the service quota exceeded in <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html\">Service Quotas</a>.</p>"""
+    """<p>The code for the service quota exceeded in <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">Service Quotas</a>.</p>"""
     quota_code: "capo_notificationscontacts.types.quota_code.QuotaCode"
-    r"""<p>The code for the service quota in <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html\">Service Quotas</a>.</p>"""
+    """<p>The code for the service quota in <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">Service Quotas</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

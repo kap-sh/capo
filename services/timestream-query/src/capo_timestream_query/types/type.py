@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Type(TypedDict, closed=True):
     scalar_type: NotRequired["capo_timestream_query.types.scalar_type.ScalarType"]
-    r"""<p>Indicates if the column is of type string, integer, Boolean, double, timestamp, date, time. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/supported-data-types.html\">Supported data types</a>.</p>"""
+    """<p>Indicates if the column is of type string, integer, Boolean, double, timestamp, date, time. For more information, see <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/supported-data-types.html">Supported data types</a>.</p>"""
     array_column_info: NotRequired["capo_timestream_query.types.column_info.ColumnInfo"]
     """<p>Indicates if the column is an array.</p>"""
     time_series_measure_value_column_info: NotRequired[

@@ -24,7 +24,7 @@ class GetRetainedMessageResponse(TypedDict, closed=True):
     user_properties: NotRequired[
         "capo_iot_data_plane.types.user_properties_blob.UserPropertiesBlob"
     ]
-    r"""<p>A base64-encoded JSON string that includes an array of JSON objects, or null if the retained message doesn't include any user properties.</p> <p>The following example <code>userProperties</code> parameter is a JSON string that represents two user properties. Note that it will be base64-encoded:</p> <p> <code>[{\"deviceName\": \"alpha\"}, {\"deviceCnt\": \"45\"}]</code> </p>"""
+    """<p>A base64-encoded JSON string that includes an array of JSON objects, or null if the retained message doesn't include any user properties.</p> <p>The following example <code>userProperties</code> parameter is a JSON string that represents two user properties. Note that it will be base64-encoded:</p> <p> <code>[{"deviceName": "alpha"}, {"deviceCnt": "45"}]</code> </p>"""
 
 
 # --- restJson1 ser/de ---

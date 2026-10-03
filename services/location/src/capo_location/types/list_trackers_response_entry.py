@@ -23,9 +23,9 @@ class ListTrackersResponseEntry(TypedDict, closed=True):
     pricing_plan_data_source: NotRequired["str"]
     """<p>No longer used. Always returns an empty string.</p>"""
     create_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp for when the tracker resource was created in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp for when the tracker resource was created in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
     update_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp at which the device's position was determined. Uses <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp at which the device's position was determined. Uses <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
 
 
 # --- restJson1 ser/de ---

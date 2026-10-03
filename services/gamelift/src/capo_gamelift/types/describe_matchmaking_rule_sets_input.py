@@ -14,7 +14,7 @@ class DescribeMatchmakingRuleSetsInput(TypedDict, closed=True):
     names: NotRequired[
         "capo_gamelift.types.matchmaking_rule_set_name_list.MatchmakingRuleSetNameList"
     ]
-    r"""<p>A list of one or more matchmaking rule set names to retrieve details for. (Note: The rule set name is different from the optional \"name\" field in the rule set body.) You can use either the rule set name or ARN value. </p>"""
+    """<p>A list of one or more matchmaking rule set names to retrieve details for. (Note: The rule set name is different from the optional "name" field in the rule set body.) You can use either the rule set name or ARN value. </p>"""
     limit: NotRequired["capo_gamelift.types.rule_set_limit.RuleSetLimit"]
     """<p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>"""
     next_token: NotRequired[

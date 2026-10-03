@@ -21,7 +21,7 @@ class ModifyIntegrationMessage(TypedDict, closed=True):
     integration_name: NotRequired["capo_rds.types.integration_name.IntegrationName"]
     """<p>A new name for the integration.</p>"""
     data_filter: NotRequired["capo_rds.types.data_filter.DataFilter"]
-    r"""<p>A new data filter for the integration. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Zero_ETL_Filtering.html\">Data filtering for Aurora zero-ETL integrations with Amazon Redshift</a> or <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/zero-etl.filtering.html\">Data filtering for Amazon RDS zero-ETL integrations with Amazon Redshift</a>.</p>"""
+    """<p>A new data filter for the integration. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Zero_ETL_Filtering.html">Data filtering for Aurora zero-ETL integrations with Amazon Redshift</a> or <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/zero-etl.filtering.html">Data filtering for Amazon RDS zero-ETL integrations with Amazon Redshift</a>.</p>"""
     description: NotRequired[
         "capo_rds.types.integration_description.IntegrationDescription"
     ]

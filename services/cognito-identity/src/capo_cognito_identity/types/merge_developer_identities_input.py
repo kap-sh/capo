@@ -24,7 +24,7 @@ class MergeDeveloperIdentitiesInput(TypedDict, closed=True):
     developer_provider_name: (
         "capo_cognito_identity.types.developer_provider_name.DeveloperProviderName"
     )
-    r"""<p>The \"domain\" by which Cognito will refer to your users. This is a (pseudo) domain name that you provide while creating an identity pool. This name acts as a placeholder that allows your backend and the Cognito service to communicate about the developer provider. For the <code>DeveloperProviderName</code>, you can use letters as well as period (.), underscore (_), and dash (-).</p>"""
+    """<p>The "domain" by which Cognito will refer to your users. This is a (pseudo) domain name that you provide while creating an identity pool. This name acts as a placeholder that allows your backend and the Cognito service to communicate about the developer provider. For the <code>DeveloperProviderName</code>, you can use letters as well as period (.), underscore (_), and dash (-).</p>"""
     identity_pool_id: "capo_cognito_identity.types.identity_pool_id.IdentityPoolId"
     """<p>An identity pool ID in the format REGION:GUID.</p>"""
 

@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class Tag(TypedDict, closed=True):
     key: NotRequired["capo_emr.types.string.String"]
-    r"""<p>A user-defined key, which is the minimum required information for a valid tag. For more information, see <a href=\"https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html\">Tag</a>. </p>"""
+    """<p>A user-defined key, which is the minimum required information for a valid tag. For more information, see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag</a>. </p>"""
     value: NotRequired["capo_emr.types.string.String"]
-    r"""<p>A user-defined value, which is optional in a tag. For more information, see <a href=\"https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html\">Tag Clusters</a>. </p>"""
+    """<p>A user-defined value, which is optional in a tag. For more information, see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

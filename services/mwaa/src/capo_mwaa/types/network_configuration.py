@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 class NetworkConfiguration(TypedDict, closed=True):
     subnet_ids: NotRequired["capo_mwaa.types.subnet_list.SubnetList"]
-    r"""<p>A list of subnet IDs. For more information, refer to <a href=\"https://docs.aws.amazon.com/mwaa/latest/userguide/networking-about.html\">About networking on Amazon MWAA</a>.</p>"""
+    """<p>A list of subnet IDs. For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/networking-about.html">About networking on Amazon MWAA</a>.</p>"""
     security_group_ids: NotRequired[
         "capo_mwaa.types.security_group_list.SecurityGroupList"
     ]
-    r"""<p>A list of security group IDs. For more information, refer to <a href=\"https://docs.aws.amazon.com/mwaa/latest/userguide/vpc-security.html\">Security in your VPC on Amazon MWAA</a>.</p>"""
+    """<p>A list of security group IDs. For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/vpc-security.html">Security in your VPC on Amazon MWAA</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

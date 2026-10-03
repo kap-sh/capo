@@ -19,11 +19,11 @@ class S3Action(TypedDict, closed=True):
     bucket_name: "capo_iot.types.bucket_name.BucketName"
     """<p>The Amazon S3 bucket.</p>"""
     key: "capo_iot.types.key.Key"
-    r"""<p>The object key. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html\">Actions, resources, and condition keys for Amazon S3</a>.</p>"""
+    """<p>The object key. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html">Actions, resources, and condition keys for Amazon S3</a>.</p>"""
     canned_acl: NotRequired[
         "capo_iot.types.canned_access_control_list.CannedAccessControlList"
     ]
-    r"""<p>The Amazon S3 canned ACL that controls access to the object identified by the object key. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl\">S3 canned ACLs</a>.</p>"""
+    """<p>The Amazon S3 canned ACL that controls access to the object identified by the object key. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3 canned ACLs</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

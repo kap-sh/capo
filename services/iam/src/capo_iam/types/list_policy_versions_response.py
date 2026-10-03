@@ -16,7 +16,7 @@ class ListPolicyVersionsResponse(TypedDict, closed=True):
     versions: NotRequired[
         "capo_iam.types.policy_document_version_list_type.policyDocumentVersionListType"
     ]
-    r"""<p>A list of policy versions.</p> <p>For more information about managed policy versions, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html\">Versioning for managed policies</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>A list of policy versions.</p> <p>For more information about managed policy versions, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for managed policies</a> in the <i>IAM User Guide</i>.</p>"""
     is_truncated: "capo_iam.types.boolean_type.booleanType"
     """<p>A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the <code>Marker</code> request parameter to retrieve more items. Note that IAM might return fewer than the <code>MaxItems</code> number of results even when there are more results available. We recommend that you check <code>IsTruncated</code> after every call to ensure that you receive all your results.</p>"""
     marker: NotRequired["capo_iam.types.response_marker_type.responseMarkerType"]

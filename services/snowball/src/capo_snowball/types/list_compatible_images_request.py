@@ -13,7 +13,7 @@ class ListCompatibleImagesRequest(TypedDict, closed=True):
     max_results: NotRequired["capo_snowball.types.list_limit.ListLimit"]
     """<p>The maximum number of results for the list of compatible images. Currently, a Snowball Edge device can store 10 AMIs.</p>"""
     next_token: NotRequired["capo_snowball.types.string.String"]
-    r"""<p>HTTP requests are stateless. To identify what object comes \"next\" in the list of compatible images, you can specify a value for <code>NextToken</code> as the starting point for your list of returned images.</p>"""
+    """<p>HTTP requests are stateless. To identify what object comes "next" in the list of compatible images, you can specify a value for <code>NextToken</code> as the starting point for your list of returned images.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -72,13 +72,13 @@ class SnapshotResource:
     ) -> (
         "capo_redshift_serverless.types.create_snapshot_response.CreateSnapshotResponse"
     ):
-        r"""<p>Creates a snapshot of all databases in a namespace. For more information about snapshots, see <a href=\"https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html\"> Working with snapshots and recovery points</a>.</p>
+        """<p>Creates a snapshot of all databases in a namespace. For more information about snapshots, see <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html"> Working with snapshots and recovery points</a>.</p>
 
         Args:
             namespace_name: <p>The namespace to create a snapshot for.</p>
             snapshot_name: <p>The name of the snapshot.</p>
             retention_period: <p>How long to retain the created snapshot.</p>
-            tags: <p>An array of <a href=\"https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html\">Tag objects</a> to associate with the snapshot.</p>
+            tags: <p>An array of <a href="https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html">Tag objects</a> to associate with the snapshot.</p>
 
         Raises:
             capo_redshift_serverless.errors.conflict_exception.ConflictException: <p>The submitted action has conflicts.</p>
@@ -655,7 +655,7 @@ class SnapshotResource:
         target_schema_name: Optional[str] = None,
         activate_case_sensitive_identifier: Optional[bool] = None,
     ) -> "capo_redshift_serverless.types.restore_table_from_snapshot_response.RestoreTableFromSnapshotResponse":
-        r"""<p>Restores a table from a snapshot to your Amazon Redshift Serverless instance. You can't use this operation to restore tables with <a href=\"https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html#t_Sorting_data-interleaved\">interleaved sort keys</a>.</p>
+        """<p>Restores a table from a snapshot to your Amazon Redshift Serverless instance. You can't use this operation to restore tables with <a href="https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html#t_Sorting_data-interleaved">interleaved sort keys</a>.</p>
 
         Args:
             namespace_name: <p>The namespace of the snapshot to restore from.</p>
@@ -838,13 +838,13 @@ class AsyncSnapshotResource:
     ) -> (
         "capo_redshift_serverless.types.create_snapshot_response.CreateSnapshotResponse"
     ):
-        r"""<p>Creates a snapshot of all databases in a namespace. For more information about snapshots, see <a href=\"https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html\"> Working with snapshots and recovery points</a>.</p>
+        """<p>Creates a snapshot of all databases in a namespace. For more information about snapshots, see <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html"> Working with snapshots and recovery points</a>.</p>
 
         Args:
             namespace_name: <p>The namespace to create a snapshot for.</p>
             snapshot_name: <p>The name of the snapshot.</p>
             retention_period: <p>How long to retain the created snapshot.</p>
-            tags: <p>An array of <a href=\"https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html\">Tag objects</a> to associate with the snapshot.</p>
+            tags: <p>An array of <a href="https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html">Tag objects</a> to associate with the snapshot.</p>
 
         Raises:
             capo_redshift_serverless.errors.conflict_exception.ConflictException: <p>The submitted action has conflicts.</p>
@@ -1431,7 +1431,7 @@ class AsyncSnapshotResource:
         target_schema_name: Optional[str] = None,
         activate_case_sensitive_identifier: Optional[bool] = None,
     ) -> "capo_redshift_serverless.types.restore_table_from_snapshot_response.RestoreTableFromSnapshotResponse":
-        r"""<p>Restores a table from a snapshot to your Amazon Redshift Serverless instance. You can't use this operation to restore tables with <a href=\"https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html#t_Sorting_data-interleaved\">interleaved sort keys</a>.</p>
+        """<p>Restores a table from a snapshot to your Amazon Redshift Serverless instance. You can't use this operation to restore tables with <a href="https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html#t_Sorting_data-interleaved">interleaved sort keys</a>.</p>
 
         Args:
             namespace_name: <p>The namespace of the snapshot to restore from.</p>

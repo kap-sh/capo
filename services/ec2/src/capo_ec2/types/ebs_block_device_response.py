@@ -30,7 +30,7 @@ class EbsBlockDeviceResponse(TypedDict, closed=True):
     volume_size: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>The size of the volume, in GiBs.</p>"""
     volume_type: NotRequired["capo_ec2.types.volume_type.VolumeType"]
-    r"""<p>The volume type. For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html\">Amazon EBS volume types</a> in the <i>Amazon EBS User Guide</i>.</p>"""
+    """<p>The volume type. For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon EBS volume types</a> in the <i>Amazon EBS User Guide</i>.</p>"""
 
 
 # --- ec2Query ser/de ---

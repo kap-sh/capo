@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class CreateQuickConnectRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     name: "capo_connect.types.quick_connect_name.QuickConnectName"
     """<p>A unique name of the quick connect.</p>"""
     description: NotRequired[
@@ -26,7 +26,7 @@ class CreateQuickConnectRequest(TypedDict, closed=True):
     quick_connect_config: "capo_connect.types.quick_connect_config.QuickConnectConfig"
     """<p>Configuration settings for the quick connect.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

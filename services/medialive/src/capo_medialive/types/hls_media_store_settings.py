@@ -25,7 +25,7 @@ class HlsMediaStoreSettings(TypedDict, closed=True):
     ]
     """When set to temporal, output files are stored in non-persistent memory for faster reading and writing."""
     num_retries: NotRequired["capo_medialive.types.__integer_min0.__integerMin0"]
-    r"""Number of retry attempts that will be made before the Live Event is put into an error state. Applies only if the CDN destination URI begins with \"s3\" or \"mediastore\". For other URIs, the value is always 3."""
+    """Number of retry attempts that will be made before the Live Event is put into an error state. Applies only if the CDN destination URI begins with "s3" or "mediastore". For other URIs, the value is always 3."""
     restart_delay: NotRequired[
         "capo_medialive.types.__integer_min0_max15.__integerMin0Max15"
     ]

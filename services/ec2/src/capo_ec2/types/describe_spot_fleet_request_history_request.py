@@ -31,7 +31,7 @@ class DescribeSpotFleetRequestHistoryRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_spot_fleet_request_history_max_results.DescribeSpotFleetRequestHistoryMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
 
 
 # --- ec2Query ser/de ---

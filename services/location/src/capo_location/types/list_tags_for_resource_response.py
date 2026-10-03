@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceResponse(TypedDict, closed=True):
     tags: NotRequired["capo_location.types.tag_map.TagMap"]
-    r"""<p>Tags that have been applied to the specified resource. Tags are mapped from the tag key to the tag value: <code>\"TagKey\" : \"TagValue\"</code>.</p> <ul> <li> <p>Format example: <code>{\"tag1\" : \"value1\", \"tag2\" : \"value2\"} </code> </p> </li> </ul>"""
+    """<p>Tags that have been applied to the specified resource. Tags are mapped from the tag key to the tag value: <code>"TagKey" : "TagValue"</code>.</p> <ul> <li> <p>Format example: <code>{"tag1" : "value1", "tag2" : "value2"} </code> </p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceMessage(TypedDict, closed=True):
     resource_name: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The Amazon RDS resource with tags to be listed. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing\"> Constructing an ARN for Amazon RDS</a> in the <i>Amazon RDS User Guide</i>.</p>"""
+    """<p>The Amazon RDS resource with tags to be listed. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"> Constructing an ARN for Amazon RDS</a> in the <i>Amazon RDS User Guide</i>.</p>"""
     filters: NotRequired["capo_rds.types.filter_list.FilterList"]
     """<p>This parameter isn't currently supported.</p>"""
 

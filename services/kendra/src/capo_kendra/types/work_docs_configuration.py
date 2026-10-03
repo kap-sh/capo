@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class WorkDocsConfiguration(TypedDict, closed=True):
     organization_id: "capo_kendra.types.organization_id.OrganizationId"
-    r"""<p>The identifier of the directory corresponding to your WorkDocs site repository.</p> <p>You can find the organization ID in the <a href=\"https://console.aws.amazon.com/directoryservicev2/\">Directory Service</a> by going to <b>Active Directory</b>, then <b>Directories</b>. Your WorkDocs site directory has an ID, which is the organization ID. You can also set up a new WorkDocs directory in the Directory Service console and enable a WorkDocs site for the directory in the WorkDocs console.</p>"""
+    """<p>The identifier of the directory corresponding to your WorkDocs site repository.</p> <p>You can find the organization ID in the <a href="https://console.aws.amazon.com/directoryservicev2/">Directory Service</a> by going to <b>Active Directory</b>, then <b>Directories</b>. Your WorkDocs site directory has an ID, which is the organization ID. You can also set up a new WorkDocs directory in the Directory Service console and enable a WorkDocs site for the directory in the WorkDocs console.</p>"""
     crawl_comments: "capo_kendra.types.boolean.Boolean"
     """<p> <code>TRUE</code> to include comments on documents in your index. Including comments in your index means each comment is a document that can be searched on.</p> <p>The default is set to <code>FALSE</code>.</p>"""
     use_change_log: "capo_kendra.types.boolean.Boolean"
@@ -31,7 +31,7 @@ class WorkDocsConfiguration(TypedDict, closed=True):
     field_mappings: NotRequired[
         "capo_kendra.types.data_source_to_index_field_mapping_list.DataSourceToIndexFieldMappingList"
     ]
-    r"""<p>A list of <code>DataSourceToIndexFieldMapping</code> objects that map WorkDocs data source attributes or field names to Amazon Kendra index field names. To create custom fields, use the <code>UpdateIndex</code> API before you map to WorkDocs fields. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html\">Mapping data source fields</a>. The WorkDocs data source field names must exist in your WorkDocs custom metadata.</p>"""
+    """<p>A list of <code>DataSourceToIndexFieldMapping</code> objects that map WorkDocs data source attributes or field names to Amazon Kendra index field names. To create custom fields, use the <code>UpdateIndex</code> API before you map to WorkDocs fields. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html">Mapping data source fields</a>. The WorkDocs data source field names must exist in your WorkDocs custom metadata.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

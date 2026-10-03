@@ -18,7 +18,7 @@ class UpdateGroupRequest(TypedDict, closed=True):
     group_id: "capo_identitystore.types.resource_id.ResourceId"
     """<p>The identifier for a group in the identity store.</p>"""
     operations: "capo_identitystore.types.attribute_operations.AttributeOperations"
-    r"""<p>A list of <code>AttributeOperation</code> objects to apply to the requested group. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html\">Group</a>.</p>"""
+    """<p>A list of <code>AttributeOperation</code> objects to apply to the requested group. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href="https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html">Group</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

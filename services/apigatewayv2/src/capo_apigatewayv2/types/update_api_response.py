@@ -30,7 +30,7 @@ class UpdateApiResponse(TypedDict, closed=True):
     api_key_selection_expression: NotRequired[
         "capo_apigatewayv2.types.selection_expression.SelectionExpression"
     ]
-    r"""<p>An API key selection expression. Supported only for WebSocket APIs. See <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions\">API Key Selection Expressions</a>.</p>"""
+    """<p>An API key selection expression. Supported only for WebSocket APIs. See <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions">API Key Selection Expressions</a>.</p>"""
     cors_configuration: NotRequired["capo_apigatewayv2.types.cors.Cors"]
     """<p>A CORS configuration. Supported only for HTTP APIs.</p>"""
     created_date: NotRequired[

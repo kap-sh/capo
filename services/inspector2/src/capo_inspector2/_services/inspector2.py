@@ -423,7 +423,7 @@ class Inspector2Client:
         *,
         config_overrides: Optional[Inspector2ClientConfig] = None,
     ) -> "capo_inspector2.types.associate_member_response.AssociateMemberResponse":
-        r"""<p>Associates an Amazon Web Services account with an Amazon Inspector delegated administrator. An HTTP 200 response indicates the association was successfully started, but doesn’t indicate whether it was completed. You can check if the association completed by using <a href=\"https://docs.aws.amazon.com/inspector/v2/APIReference/API_ListMembers.html\">ListMembers</a> for multiple accounts or <a href=\"https://docs.aws.amazon.com/inspector/v2/APIReference/API_GetMember.html\">GetMembers</a> for a single account.</p>
+        """<p>Associates an Amazon Web Services account with an Amazon Inspector delegated administrator. An HTTP 200 response indicates the association was successfully started, but doesn’t indicate whether it was completed. You can check if the association completed by using <a href="https://docs.aws.amazon.com/inspector/v2/APIReference/API_ListMembers.html">ListMembers</a> for multiple accounts or <a href="https://docs.aws.amazon.com/inspector/v2/APIReference/API_GetMember.html">GetMembers</a> for a single account.</p>
 
         Args:
             account_id: <p>The Amazon Web Services account ID of the member account to be associated.</p>
@@ -5156,10 +5156,10 @@ class Inspector2Client:
         activate_deep_inspection: Optional[bool] = None,
         package_paths: Optional["capo_inspector2.types.path_list.PathList"] = None,
     ) -> "capo_inspector2.types.update_ec2_deep_inspection_configuration_response.UpdateEc2DeepInspectionConfigurationResponse":
-        r"""<p>Activates, deactivates Amazon Inspector deep inspection, or updates custom paths for your account. </p>
+        """<p>Activates, deactivates Amazon Inspector deep inspection, or updates custom paths for your account. </p>
 
         Args:
-            activate_deep_inspection: <p>Specify <code>TRUE</code> to activate Amazon Inspector deep inspection in your account, or <code>FALSE</code> to deactivate. Member accounts in an organization cannot deactivate deep inspection, instead the delegated administrator for the organization can deactivate a member account using <a href=\"https://docs.aws.amazon.com/inspector/v2/APIReference/API_BatchUpdateMemberEc2DeepInspectionStatus.html\">BatchUpdateMemberEc2DeepInspectionStatus</a>.</p>
+            activate_deep_inspection: <p>Specify <code>TRUE</code> to activate Amazon Inspector deep inspection in your account, or <code>FALSE</code> to deactivate. Member accounts in an organization cannot deactivate deep inspection, instead the delegated administrator for the organization can deactivate a member account using <a href="https://docs.aws.amazon.com/inspector/v2/APIReference/API_BatchUpdateMemberEc2DeepInspectionStatus.html">BatchUpdateMemberEc2DeepInspectionStatus</a>.</p>
             package_paths: <p>The Amazon Inspector deep inspection custom paths you are adding for your account.</p>
 
         Raises:

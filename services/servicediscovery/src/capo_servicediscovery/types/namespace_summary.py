@@ -24,7 +24,7 @@ class NamespaceSummary(TypedDict, closed=True):
     resource_owner: NotRequired[
         "capo_servicediscovery.types.aws_account_id.AWSAccountId"
     ]
-    r"""<p>The ID of the Amazon Web Services account that created the namespace. If this isn't your account ID, it's the ID of the account that shared the namespace with your account. For more information about shared namespaces, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html\">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
+    """<p>The ID of the Amazon Web Services account that created the namespace. If this isn't your account ID, it's the ID of the account that shared the namespace with your account. For more information about shared namespaces, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
     name: NotRequired["capo_servicediscovery.types.namespace_name.NamespaceName"]
     """<p>The name of the namespace. When you create a namespace, Cloud Map automatically creates a Route 53 hosted zone that has the same name as the namespace.</p>"""
     type: NotRequired["capo_servicediscovery.types.namespace_type.NamespaceType"]

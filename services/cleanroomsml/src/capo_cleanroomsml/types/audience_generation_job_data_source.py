@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class AudienceGenerationJobDataSource(TypedDict, closed=True):
     data_source: NotRequired["capo_cleanroomsml.types.s3_config_map.S3ConfigMap"]
-    r"""<p>Defines the Amazon S3 bucket where the seed audience for the generating audience is stored. A valid data source is a JSON line file in the following format:</p> <p> <code>{\"user_id\": \"111111\"}</code> </p> <p> <code>{\"user_id\": \"222222\"}</code> </p> <p> <code>...</code> </p>"""
+    """<p>Defines the Amazon S3 bucket where the seed audience for the generating audience is stored. A valid data source is a JSON line file in the following format:</p> <p> <code>{"user_id": "111111"}</code> </p> <p> <code>{"user_id": "222222"}</code> </p> <p> <code>...</code> </p>"""
     role_arn: "capo_cleanroomsml.types.iam_role_arn.IamRoleArn"
     """<p>The ARN of the IAM role that can read the Amazon S3 bucket where the seed audience is stored.</p>"""
     sql_parameters: NotRequired[

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class ReferenceDataSourceDescription(TypedDict, closed=True):
     reference_id: "capo_kinesis_analytics.types.id.Id"
-    r"""<p>ID of the reference data source. This is the ID that Amazon Kinesis Analytics assigns when you add the reference data source to your application using the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_AddApplicationReferenceDataSource.html\">AddApplicationReferenceDataSource</a> operation.</p>"""
+    """<p>ID of the reference data source. This is the ID that Amazon Kinesis Analytics assigns when you add the reference data source to your application using the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_AddApplicationReferenceDataSource.html">AddApplicationReferenceDataSource</a> operation.</p>"""
     table_name: "capo_kinesis_analytics.types.in_app_table_name.InAppTableName"
     """<p>The in-application table name created by the specific reference data source configuration.</p>"""
     s3_reference_data_source_description: "capo_kinesis_analytics.types.s3_reference_data_source_description.S3ReferenceDataSourceDescription"

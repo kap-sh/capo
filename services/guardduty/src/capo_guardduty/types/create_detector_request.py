@@ -25,7 +25,7 @@ class CreateDetectorRequest(TypedDict, closed=True):
     data_sources: NotRequired[
         "capo_guardduty.types.data_source_configurations.DataSourceConfigurations"
     ]
-    r"""<p>Describes which data sources will be enabled for the detector.</p> <p>There might be regional differences because some data sources might not be available in all the Amazon Web Services Regions where GuardDuty is presently supported. For more information, see <a href=\"https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html\">Regions and endpoints</a>.</p>"""
+    """<p>Describes which data sources will be enabled for the detector.</p> <p>There might be regional differences because some data sources might not be available in all the Amazon Web Services Regions where GuardDuty is presently supported. For more information, see <a href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.</p>"""
     tags: NotRequired["capo_guardduty.types.tag_map.TagMap"]
     """<p>The tags to be added to a new detector resource.</p>"""
     features: NotRequired[

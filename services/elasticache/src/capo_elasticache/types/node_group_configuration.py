@@ -20,7 +20,7 @@ class NodeGroupConfiguration(TypedDict, closed=True):
     ]
     """<p>Either the ElastiCache supplied 4-digit id or a user supplied id for the node group these configuration values apply to.</p>"""
     slots: NotRequired["capo_elasticache.types.string.String"]
-    r"""<p>A string that specifies the keyspace for a particular node group. Keyspaces range from 0 to 16,383. The string is in the format <code>startkey-endkey</code>.</p> <p>Example: <code>\"0-3999\"</code> </p>"""
+    """<p>A string that specifies the keyspace for a particular node group. Keyspaces range from 0 to 16,383. The string is in the format <code>startkey-endkey</code>.</p> <p>Example: <code>"0-3999"</code> </p>"""
     replica_count: NotRequired[
         "capo_elasticache.types.integer_optional.IntegerOptional"
     ]

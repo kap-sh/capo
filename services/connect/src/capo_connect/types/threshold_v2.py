@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ThresholdV2(TypedDict, closed=True):
     comparison: NotRequired["capo_connect.types.resource_arn_or_id.ResourceArnOrId"]
-    r"""<p>The type of comparison. Currently, \"less than\" (LT), \"less than equal\" (LTE), and \"greater than\" (GT) comparisons are supported.</p>"""
+    """<p>The type of comparison. Currently, "less than" (LT), "less than equal" (LTE), and "greater than" (GT) comparisons are supported.</p>"""
     threshold_value: NotRequired["capo_connect.types.threshold_value.ThresholdValue"]
     """<p>The threshold value to compare.</p>"""
 

@@ -13,7 +13,7 @@ class ClarifyTextConfig(TypedDict, closed=True):
     language: NotRequired[
         "capo_sagemaker.types.clarify_text_language.ClarifyTextLanguage"
     ]
-    r"""<p>Specifies the language of the text features in <a href=\" https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes\">ISO 639-1</a> or <a href=\"https://en.wikipedia.org/wiki/ISO_639-3\">ISO 639-3</a> code of a supported language. </p> <note> <p>For a mix of multiple languages, use code <code>'xx'</code>.</p> </note>"""
+    """<p>Specifies the language of the text features in <a href=" https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> or <a href="https://en.wikipedia.org/wiki/ISO_639-3">ISO 639-3</a> code of a supported language. </p> <note> <p>For a mix of multiple languages, use code <code>'xx'</code>.</p> </note>"""
     granularity: NotRequired[
         "capo_sagemaker.types.clarify_text_granularity.ClarifyTextGranularity"
     ]

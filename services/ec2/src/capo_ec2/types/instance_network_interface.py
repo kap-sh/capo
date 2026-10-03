@@ -75,7 +75,7 @@ class InstanceNetworkInterface(TypedDict, closed=True):
     connection_tracking_configuration: NotRequired[
         "capo_ec2.types.connection_tracking_specification_response.ConnectionTrackingSpecificationResponse"
     ]
-    r"""<p>A security group connection tracking configuration that enables you to set the timeout for connection tracking on an Elastic network interface. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts\">Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>A security group connection tracking configuration that enables you to set the timeout for connection tracking on an Elastic network interface. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts">Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     operator: NotRequired["capo_ec2.types.operator_response.OperatorResponse"]
     """<p>The service provider that manages the network interface.</p>"""
 

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class EdgeProperties(TypedDict, closed=True):
     protocol: NotRequired["str"]
-    r"""The IANA protocol name for the observed network traffic, such as \"tcp\"."""
+    """The IANA protocol name for the observed network traffic, such as "tcp"."""
     source_port: NotRequired["str"]
     """The source port of the observed traffic. May be a placeholder when the port is unknown."""
     destination_port: NotRequired["str"]

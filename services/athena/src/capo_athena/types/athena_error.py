@@ -15,7 +15,7 @@ class AthenaError(TypedDict, closed=True):
     error_category: NotRequired["capo_athena.types.error_category.ErrorCategory"]
     """<p>An integer value that specifies the category of a query failure error. The following list shows the category for each integer value.</p> <p> <b>1</b> - System</p> <p> <b>2</b> - User</p> <p> <b>3</b> - Other</p>"""
     error_type: NotRequired["capo_athena.types.error_type.ErrorType"]
-    r"""<p>An integer value that provides specific information about an Athena query error. For the meaning of specific values, see the <a href=\"https://docs.aws.amazon.com/athena/latest/ug/error-reference.html#error-reference-error-type-reference\">Error Type Reference</a> in the <i>Amazon Athena User Guide</i>.</p>"""
+    """<p>An integer value that provides specific information about an Athena query error. For the meaning of specific values, see the <a href="https://docs.aws.amazon.com/athena/latest/ug/error-reference.html#error-reference-error-type-reference">Error Type Reference</a> in the <i>Amazon Athena User Guide</i>.</p>"""
     retryable: "capo_athena.types.boolean.Boolean"
     """<p>True if the query might succeed if resubmitted.</p>"""
     error_message: NotRequired["capo_athena.types.string.String"]

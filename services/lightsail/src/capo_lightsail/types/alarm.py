@@ -79,7 +79,7 @@ class Alarm(TypedDict, closed=True):
     notification_enabled: NotRequired["capo_lightsail.types.boolean.boolean"]
     """<p>Indicates whether the alarm is enabled.</p>"""
     tags: NotRequired["capo_lightsail.types.tag_list.TagList"]
-    r"""<p>The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a href=\"https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags\">Amazon Lightsail Developer Guide</a>.</p>"""
+    """<p>The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

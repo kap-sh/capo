@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class DescribeQuerySuggestionsConfigResponse(TypedDict, closed=True):
     mode: NotRequired["capo_kendra.types.mode.Mode"]
-    r"""<p>Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.</p> <p>By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions for your users. You can change the mode using the <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html\">UpdateQuerySuggestionsConfig</a> API.</p>"""
+    """<p>Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.</p> <p>By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions for your users. You can change the mode using the <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html">UpdateQuerySuggestionsConfig</a> API.</p>"""
     status: NotRequired[
         "capo_kendra.types.query_suggestions_status.QuerySuggestionsStatus"
     ]
@@ -37,7 +37,7 @@ class DescribeQuerySuggestionsConfigResponse(TypedDict, closed=True):
     ]
     """<p>The minimum number of times a query must be searched in order for the query to be eligible to suggest to your users.</p>"""
     last_suggestions_build_time: NotRequired["capo_kendra.types.timestamp.Timestamp"]
-    r"""<p>The Unix timestamp when query suggestions for an index was last updated.</p> <p>Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you apply a <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist\">block list</a>.</p>"""
+    """<p>The Unix timestamp when query suggestions for an index was last updated.</p> <p>Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you apply a <a href="https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist">block list</a>.</p>"""
     last_clear_time: NotRequired["capo_kendra.types.timestamp.Timestamp"]
     """<p>The Unix timestamp when query suggestions for an index was last cleared.</p> <p>After you clear suggestions, Amazon Kendra learns new suggestions based on new queries added to the query log from the time you cleared suggestions. Amazon Kendra only considers re-occurences of a query from the time you cleared suggestions. </p>"""
     total_suggestions_count: NotRequired["capo_kendra.types.integer.Integer"]

@@ -36,7 +36,7 @@ class CreateCrawlerRequest(TypedDict, closed=True):
     targets: "capo_glue.types.crawler_targets.CrawlerTargets"
     """<p>A list of collection of targets to crawl.</p>"""
     schedule: NotRequired["capo_glue.types.cron_expression.CronExpression"]
-    r"""<p>A <code>cron</code> expression used to specify the schedule (see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html\">Time-Based Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>"""
+    """<p>A <code>cron</code> expression used to specify the schedule (see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>"""
     classifiers: NotRequired["capo_glue.types.classifier_name_list.ClassifierNameList"]
     """<p>A list of custom classifiers that the user has registered. By default, all built-in classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.</p>"""
     table_prefix: NotRequired["capo_glue.types.table_prefix.TablePrefix"]
@@ -58,13 +58,13 @@ class CreateCrawlerRequest(TypedDict, closed=True):
     configuration: NotRequired[
         "capo_glue.types.crawler_configuration.CrawlerConfiguration"
     ]
-    r"""<p>Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html\">Setting crawler configuration options</a>.</p>"""
+    """<p>Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration options</a>.</p>"""
     crawler_security_configuration: NotRequired[
         "capo_glue.types.crawler_security_configuration.CrawlerSecurityConfiguration"
     ]
     """<p>The name of the <code>SecurityConfiguration</code> structure to be used by this crawler.</p>"""
     tags: NotRequired["capo_glue.types.tags_map.TagsMap"]
-    r"""<p>The tags to use with this crawler request. You may use tags to limit access to the crawler. For more information about tags in Glue, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html\">Amazon Web Services Tags in Glue</a> in the developer guide.</p>"""
+    """<p>The tags to use with this crawler request. You may use tags to limit access to the crawler. For more information about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a> in the developer guide.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -31,7 +31,7 @@ class TestResult(TypedDict, closed=True):
     function_output: NotRequired[
         "capo_cloudfront.types.sensitive_string_type.sensitiveStringType"
     ]
-    r"""<p>The event object returned by the function. For more information about the structure of the event object, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html\">Event object structure</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
+    """<p>The event object returned by the function. For more information about the structure of the event object, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html">Event object structure</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
 
 
 # --- restXml ser/de ---

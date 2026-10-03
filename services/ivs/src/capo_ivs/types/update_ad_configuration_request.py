@@ -21,7 +21,7 @@ class UpdateAdConfigurationRequest(TypedDict, closed=True):
     media_tailor_playback_configurations: NotRequired[
         "capo_ivs.types.media_tailor_playback_configurations_list.MediaTailorPlaybackConfigurationsList"
     ]
-    r"""<p>List of integration configurations with MediaTailor resources. The first item in the list is the default playback configuration used for the ad configuration. To select a different configuration per viewing session, see <a href=\"https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/private-channels-generate-tokens.html\">Generate and Sign IVS Playback Tokens</a>.</p>"""
+    """<p>List of integration configurations with MediaTailor resources. The first item in the list is the default playback configuration used for the ad configuration. To select a different configuration per viewing session, see <a href="https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/private-channels-generate-tokens.html">Generate and Sign IVS Playback Tokens</a>.</p>"""
     post_roll_configuration: NotRequired[
         "capo_ivs.types.post_roll_configuration.PostRollConfiguration"
     ]

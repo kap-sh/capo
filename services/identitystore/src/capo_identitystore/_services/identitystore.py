@@ -204,7 +204,7 @@ class identitystoreClient:
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
     ) -> "capo_identitystore.types.get_group_id_response.GetGroupIdResponse":
-        r"""<p>Retrieves <code>GroupId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Retrieves <code>GroupId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
@@ -255,7 +255,7 @@ class identitystoreClient:
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
     ) -> "capo_identitystore.types.get_group_membership_id_response.GetGroupMembershipIdResponse":
-        r"""<p>Retrieves the <code>MembershipId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Retrieves the <code>MembershipId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
@@ -307,7 +307,7 @@ class identitystoreClient:
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
     ) -> "capo_identitystore.types.get_user_id_response.GetUserIdResponse":
-        r"""<p>Retrieves the <code>UserId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Retrieves the <code>UserId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
@@ -360,7 +360,7 @@ class identitystoreClient:
     ) -> (
         "capo_identitystore.types.is_member_in_groups_response.IsMemberInGroupsResponse"
     ):
-        r"""<p>Checks the user's membership in all requested groups and returns if the member exists in all queried groups.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Checks the user's membership in all requested groups and returns if the member exists in all queried groups.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
@@ -414,7 +414,7 @@ class identitystoreClient:
         max_results: Optional["capo_identitystore.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
     ) -> "capo_identitystore.types.list_group_memberships_for_member_response.ListGroupMembershipsForMemberResponse":
-        r"""<p>For the specified member in the specified identity store, returns the list of all <code> GroupMembership</code> objects and returns results in paginated form.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>For the specified member in the specified identity store, returns the list of all <code> GroupMembership</code> objects and returns results in paginated form.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
@@ -550,7 +550,7 @@ class identitystoreClient:
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
     ) -> "capo_identitystore.types.describe_group_membership_response.DescribeGroupMembershipResponse":
-        r"""<p>Retrieves membership metadata and attributes from <code>MembershipId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Retrieves membership metadata and attributes from <code>MembershipId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
@@ -653,7 +653,7 @@ class identitystoreClient:
         max_results: Optional["capo_identitystore.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
     ) -> "capo_identitystore.types.list_group_memberships_response.ListGroupMembershipsResponse":
-        r"""<p>For the specified group in the specified identity store, returns the list of all <code> GroupMembership</code> objects and returns results in paginated form.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>For the specified group in the specified identity store, returns the list of all <code> GroupMembership</code> objects and returns results in paginated form.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
@@ -795,7 +795,7 @@ class identitystoreClient:
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
     ) -> "capo_identitystore.types.describe_group_response.DescribeGroupResponse":
-        r"""<p>Retrieves the group metadata and attributes from <code>GroupId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Retrieves the group metadata and attributes from <code>GroupId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p>
@@ -846,12 +846,12 @@ class identitystoreClient:
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
     ) -> "capo_identitystore.types.update_group_response.UpdateGroupResponse":
-        r"""<p>Updates the specified group metadata and attributes in the specified identity store.</p>
+        """<p>Updates the specified group metadata and attributes in the specified identity store.</p>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
             group_id: <p>The identifier for a group in the identity store.</p>
-            operations: <p>A list of <code>AttributeOperation</code> objects to apply to the requested group. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html\">Group</a>.</p>
+            operations: <p>A list of <code>AttributeOperation</code> objects to apply to the requested group. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href="https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html">Group</a>.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -953,7 +953,7 @@ class identitystoreClient:
         next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
         filters: Optional["capo_identitystore.types.filters.Filters"] = None,
     ) -> "capo_identitystore.types.list_groups_response.ListGroupsResponse":
-        r"""<p>Lists all groups in the identity store. Returns a paginated list of complete <code>Group</code> objects. Filtering for a <code>Group</code> by the <code>DisplayName</code> attribute is deprecated. Instead, use the <code>GetGroupId</code> API action.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Lists all groups in the identity store. Returns a paginated list of complete <code>Group</code> objects. Filtering for a <code>Group</code> by the <code>DisplayName</code> attribute is deprecated. Instead, use the <code>GetGroupId</code> API action.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p>
@@ -1074,13 +1074,13 @@ class identitystoreClient:
         roles: Optional["capo_identitystore.types.roles.Roles"] = None,
         extensions: Optional["capo_identitystore.types.extensions.Extensions"] = None,
     ) -> "capo_identitystore.types.create_user_response.CreateUserResponse":
-        r"""<p>Creates a user within the specified identity store.</p>
+        """<p>Creates a user within the specified identity store.</p>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
             user_name: <p>A unique string used to identify the user. The length limit is 128 characters. This value can consist of letters, accented characters, symbols, numbers, and punctuation. This value is specified at the time the user is created and stored as an attribute of the user object in the identity store. <code>Administrator</code> and <code>AWSAdministrators</code> are reserved names and can't be used for users or groups.</p>
             name: <p>An object containing the name of the user. When used in IAM Identity Center, this parameter is required.</p>
-            display_name: <p>A string containing the name of the user. This value is typically formatted for display when the user is referenced. For example, \"John Doe.\" When used in IAM Identity Center, this parameter is required.</p>
+            display_name: <p>A string containing the name of the user. This value is typically formatted for display when the user is referenced. For example, "John Doe." When used in IAM Identity Center, this parameter is required.</p>
             nick_name: <p>A string containing an alternate name for the user.</p>
             profile_url: <p>A string containing a URL that might be associated with the user.</p>
             emails: <p>A list of <code>Email</code> objects containing email addresses associated with the user.</p>
@@ -1088,7 +1088,7 @@ class identitystoreClient:
             phone_numbers: <p>A list of <code>PhoneNumber</code> objects containing phone numbers associated with the user.</p>
             user_type: <p>A string indicating the type of user. Possible values are left unspecified. The value can vary based on your specific use case.</p>
             title: <p>A string containing the title of the user. Possible values are left unspecified. The value can vary based on your specific use case.</p>
-            preferred_language: <p>A string containing the preferred language of the user. For example, \"American English\" or \"en-us.\"</p>
+            preferred_language: <p>A string containing the preferred language of the user. For example, "American English" or "en-us."</p>
             locale: <p>A string containing the geographical region or location of the user.</p>
             timezone: <p>A string containing the time zone of the user.</p>
             photos: <p>A list of photos associated with the user. You can add up to 3 photos per user. Each photo can include a value, type, display name, and primary designation.</p>
@@ -1181,7 +1181,7 @@ class identitystoreClient:
             "capo_identitystore.types.extension_names.ExtensionNames"
         ] = None,
     ) -> "capo_identitystore.types.describe_user_response.DescribeUserResponse":
-        r"""<p>Retrieves the user metadata and attributes from the <code>UserId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Retrieves the user metadata and attributes from the <code>UserId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p>
@@ -1235,12 +1235,12 @@ class identitystoreClient:
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
     ) -> "capo_identitystore.types.update_user_response.UpdateUserResponse":
-        r"""<p>Updates the specified user metadata and attributes in the specified identity store.</p>
+        """<p>Updates the specified user metadata and attributes in the specified identity store.</p>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store.</p>
             user_id: <p>The identifier for a user in the identity store.</p>
-            operations: <p>A list of <code>AttributeOperation</code> objects to apply to the requested user. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html\">User</a>.</p>
+            operations: <p>A list of <code>AttributeOperation</code> objects to apply to the requested user. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href="https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html">User</a>.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1345,7 +1345,7 @@ class identitystoreClient:
         next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
         filters: Optional["capo_identitystore.types.filters.Filters"] = None,
     ) -> "capo_identitystore.types.list_users_response.ListUsersResponse":
-        r"""<p>Lists all users in the identity store. Returns a paginated list of complete <code>User</code> objects. Filtering for a <code>User</code> by the <code>UserName</code> attribute is deprecated. Instead, use the <code>GetUserId</code> API action.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts\">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Lists all users in the identity store. Returns a paginated list of complete <code>User</code> objects. Filtering for a <code>User</code> by the <code>UserName</code> attribute is deprecated. Instead, use the <code>GetUserId</code> API action.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
             identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p>

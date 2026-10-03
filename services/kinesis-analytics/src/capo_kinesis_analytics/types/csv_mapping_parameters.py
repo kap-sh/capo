@@ -19,7 +19,7 @@ class CSVMappingParameters(TypedDict, closed=True):
     record_column_delimiter: (
         "capo_kinesis_analytics.types.record_column_delimiter.RecordColumnDelimiter"
     )
-    r"""<p>Column delimiter. For example, in a CSV format, a comma (\",\") is the typical column delimiter.</p>"""
+    """<p>Column delimiter. For example, in a CSV format, a comma (",") is the typical column delimiter.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

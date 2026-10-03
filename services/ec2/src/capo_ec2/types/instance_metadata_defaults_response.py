@@ -30,7 +30,7 @@ class InstanceMetadataDefaultsResponse(TypedDict, closed=True):
     instance_metadata_tags: NotRequired[
         "capo_ec2.types.instance_metadata_tags_state.InstanceMetadataTagsState"
     ]
-    r"""<p>Indicates whether access to instance tags from the instance metadata is enabled or disabled. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html\">View tags for your EC2 instances using instance metadata</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Indicates whether access to instance tags from the instance metadata is enabled or disabled. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html">View tags for your EC2 instances using instance metadata</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     managed_by: NotRequired["capo_ec2.types.managed_by.ManagedBy"]
     """<p>The entity that manages the IMDS default settings. Possible values include:</p> <ul> <li> <p> <code>account</code> - The IMDS default settings are managed by the account.</p> </li> <li> <p> <code>declarative-policy</code> - The IMDS default settings are managed by a declarative policy and can't be modified by the account.</p> </li> </ul>"""
     managed_exception_message: NotRequired["capo_ec2.types.string.String"]

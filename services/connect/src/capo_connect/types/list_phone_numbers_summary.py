@@ -32,7 +32,7 @@ class ListPhoneNumbersSummary(TypedDict, closed=True):
     target_arn: NotRequired["capo_connect.types.arn.ARN"]
     """<p>The Amazon Resource Name (ARN) for Connect Customer instances or traffic distribution groups that phone number inbound traffic is routed through.</p>"""
     instance_id: NotRequired["capo_connect.types.instance_id.InstanceId"]
-    r"""<p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     phone_number_description: NotRequired[
         "capo_connect.types.phone_number_description.PhoneNumberDescription"
     ]

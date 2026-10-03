@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class AccessPoliciesStatus(TypedDict, closed=True):
     options: "capo_opensearch.types.policy_document.PolicyDocument"
-    r"""<p>The access policy configured for the domain. Access policies can be resource-based, IP-based, or IAM-based. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-access-policies\">Configuring access policies</a>.</p>"""
+    """<p>The access policy configured for the domain. Access policies can be resource-based, IP-based, or IAM-based. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-access-policies">Configuring access policies</a>.</p>"""
     status: "capo_opensearch.types.option_status.OptionStatus"
     """<p>The status of the access policy for the domain.</p>"""
 

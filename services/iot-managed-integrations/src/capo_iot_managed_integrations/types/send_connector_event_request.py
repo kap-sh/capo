@@ -28,11 +28,11 @@ class SendConnectorEventRequest(TypedDict, closed=True):
     ]
     """<p>The id of the third-party cloud provider.</p>"""
     operation: "capo_iot_managed_integrations.types.connector_event_operation.ConnectorEventOperation"
-    r"""<p>The Open Connectivity Foundation (OCF) operation requested to be performed on the managed thing.</p> <note> <p>The field op can have a value of \"I\" or \"U\". The field \"cn\" will contain the capability types.</p> </note>"""
+    """<p>The Open Connectivity Foundation (OCF) operation requested to be performed on the managed thing.</p> <note> <p>The field op can have a value of "I" or "U". The field "cn" will contain the capability types.</p> </note>"""
     operation_version: NotRequired[
         "capo_iot_managed_integrations.types.connector_event_operation_version.ConnectorEventOperationVersion"
     ]
-    r"""<p>The Open Connectivity Foundation (OCF) security specification version for the operation being requested on the managed thing. For more information, see <a href=\"https://openconnectivity.org/specs/OCF_Security_Specification_v1.0.0.pdf\">OCF Security Specification</a>.</p>"""
+    """<p>The Open Connectivity Foundation (OCF) security specification version for the operation being requested on the managed thing. For more information, see <a href="https://openconnectivity.org/specs/OCF_Security_Specification_v1.0.0.pdf">OCF Security Specification</a>.</p>"""
     status_code: NotRequired[
         "capo_iot_managed_integrations.types.connector_event_status_code.ConnectorEventStatusCode"
     ]

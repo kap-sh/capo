@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class GetParametersForImportResponse(TypedDict, closed=True):
     key_id: NotRequired["capo_kms.types.key_id_type.KeyIdType"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">key ARN</a>) of the KMS key to use in a subsequent <a>ImportKeyMaterial</a> request. This is the same KMS key specified in the <code>GetParametersForImport</code> request.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS key to use in a subsequent <a>ImportKeyMaterial</a> request. This is the same KMS key specified in the <code>GetParametersForImport</code> request.</p>"""
     import_token: NotRequired["capo_kms.types.ciphertext_type.CiphertextType"]
     """<p>The import token to send in a subsequent <a>ImportKeyMaterial</a> request.</p>"""
     public_key: NotRequired["capo_kms.types.plaintext_type.PlaintextType"]

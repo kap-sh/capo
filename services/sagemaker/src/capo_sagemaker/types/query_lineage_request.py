@@ -22,7 +22,7 @@ class QueryLineageRequest(TypedDict, closed=True):
     direction: NotRequired["capo_sagemaker.types.direction.Direction"]
     """<p>Associations between lineage entities have a direction. This parameter determines the direction from the StartArn(s) that the query traverses.</p>"""
     include_edges: NotRequired["capo_sagemaker.types.boolean.Boolean"]
-    r"""<p> Setting this value to <code>True</code> retrieves not only the entities of interest but also the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking-entities.html\">Associations</a> and lineage entities on the path. Set to <code>False</code> to only return lineage entities that match your query.</p>"""
+    """<p> Setting this value to <code>True</code> retrieves not only the entities of interest but also the <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking-entities.html">Associations</a> and lineage entities on the path. Set to <code>False</code> to only return lineage entities that match your query.</p>"""
     filters: NotRequired["capo_sagemaker.types.query_filters.QueryFilters"]
     """<p>A set of filtering parameters that allow you to specify which entities should be returned.</p> <ul> <li> <p>Properties - Key-value pairs to match on the lineage entities' properties.</p> </li> <li> <p>LineageTypes - A set of lineage entity types to match on. For example: <code>TrialComponent</code>, <code>Artifact</code>, or <code>Context</code>.</p> </li> <li> <p>CreatedBefore - Filter entities created before this date.</p> </li> <li> <p>ModifiedBefore - Filter entities modified before this date.</p> </li> <li> <p>ModifiedAfter - Filter entities modified after this date.</p> </li> </ul>"""
     max_depth: NotRequired[

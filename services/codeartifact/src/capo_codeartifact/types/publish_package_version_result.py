@@ -30,9 +30,9 @@ class PublishPackageVersionResult(TypedDict, closed=True):
     status: NotRequired[
         "capo_codeartifact.types.package_version_status.PackageVersionStatus"
     ]
-    r"""<p>A string that contains the status of the package version. For more information, see <a href=\"https://docs.aws.amazon.com/codeartifact/latest/ug/packages-overview.html#package-version-status.html#package-version-status\">Package version status</a> in the <i>CodeArtifact User Guide</i>.</p>"""
+    """<p>A string that contains the status of the package version. For more information, see <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/packages-overview.html#package-version-status.html#package-version-status">Package version status</a> in the <i>CodeArtifact User Guide</i>.</p>"""
     asset: NotRequired["capo_codeartifact.types.asset_summary.AssetSummary"]
-    r"""<p>An <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_AssetSummary.html\">AssetSummary</a> for the published asset.</p>"""
+    """<p>An <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_AssetSummary.html">AssetSummary</a> for the published asset.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -53,7 +53,7 @@ class FileSystemDescription(TypedDict, closed=True):
     kms_key_id: NotRequired["capo_efs.types.kms_key_id.KmsKeyId"]
     """<p>The ID of an KMS key used to protect the encrypted file system.</p>"""
     throughput_mode: NotRequired["capo_efs.types.throughput_mode.ThroughputMode"]
-    r"""<p>Displays the file system's throughput mode. For more information, see <a href=\"https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes\">Throughput modes</a> in the <i>Amazon EFS User Guide</i>. </p>"""
+    """<p>Displays the file system's throughput mode. For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in the <i>Amazon EFS User Guide</i>. </p>"""
     provisioned_throughput_in_mibps: NotRequired[
         "capo_efs.types.provisioned_throughput_in_mibps.ProvisionedThroughputInMibps"
     ]
@@ -61,7 +61,7 @@ class FileSystemDescription(TypedDict, closed=True):
     availability_zone_name: NotRequired[
         "capo_efs.types.availability_zone_name.AvailabilityZoneName"
     ]
-    r"""<p>Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid only for One Zone file systems. For more information, see <a href=\"https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html\">Using EFS storage classes</a> in the <i>Amazon EFS User Guide</i>.</p>"""
+    """<p>Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid only for One Zone file systems. For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the <i>Amazon EFS User Guide</i>.</p>"""
     availability_zone_id: NotRequired[
         "capo_efs.types.availability_zone_id.AvailabilityZoneId"
     ]

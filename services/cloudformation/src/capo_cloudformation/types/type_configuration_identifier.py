@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class TypeConfigurationIdentifier(TypedDict, closed=True):
     type_arn: NotRequired["capo_cloudformation.types.type_arn.TypeArn"]
-    r"""<p>The ARN for the extension, in this account and Region.</p> <p>For public extensions, this will be the ARN assigned when you call the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html\">ActivateType</a> API operation in this account and Region. For private extensions, this will be the ARN assigned when you call the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html\">RegisterType</a> API operation in this account and Region.</p>"""
+    """<p>The ARN for the extension, in this account and Region.</p> <p>For public extensions, this will be the ARN assigned when you call the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html">ActivateType</a> API operation in this account and Region. For private extensions, this will be the ARN assigned when you call the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html">RegisterType</a> API operation in this account and Region.</p>"""
     type_configuration_alias: NotRequired[
         "capo_cloudformation.types.type_configuration_alias.TypeConfigurationAlias"
     ]

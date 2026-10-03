@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class Circle(TypedDict, closed=True):
     center: "capo_location.types.position.Position"
-    r"""<p>A single point geometry, specifying the center of the circle, using <a href=\"https://gisgeography.com/wgs84-world-geodetic-system/\">WGS 84</a> coordinates, in the form <code>[longitude, latitude]</code>.</p>"""
+    """<p>A single point geometry, specifying the center of the circle, using <a href="https://gisgeography.com/wgs84-world-geodetic-system/">WGS 84</a> coordinates, in the form <code>[longitude, latitude]</code>.</p>"""
     radius: "capo_location.types.sensitive_double.SensitiveDouble"
     """<p>The radius of the circle in meters. Must be greater than zero and no larger than 100,000 (100 kilometers).</p>"""
 

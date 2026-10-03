@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class EntityFilter(TypedDict, closed=True):
     event_arns: "capo_health.types.event_arn_list.eventArnList"
-    r"""<p>A list of event ARNs (unique identifiers). For example: <code>\"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"</code> </p>"""
+    """<p>A list of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code> </p>"""
     entity_arns: NotRequired["capo_health.types.entity_arn_list.entityArnList"]
     """<p>A list of entity ARNs (unique identifiers).</p>"""
     entity_values: NotRequired["capo_health.types.entity_value_list.entityValueList"]

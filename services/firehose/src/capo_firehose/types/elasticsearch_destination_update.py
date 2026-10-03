@@ -21,11 +21,11 @@ if TYPE_CHECKING:
 
 class ElasticsearchDestinationUpdate(TypedDict, closed=True):
     role_arn: NotRequired["capo_firehose.types.role_arn.RoleARN"]
-    r"""<p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Firehose for calling the Amazon OpenSearch Service Configuration API and for indexing documents. For more information, see <a href=\"https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3\">Grant Firehose Access to an Amazon S3 Destination</a> and <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Firehose for calling the Amazon OpenSearch Service Configuration API and for indexing documents. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant Firehose Access to an Amazon S3 Destination</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
     domain_arn: NotRequired[
         "capo_firehose.types.elasticsearch_domain_arn.ElasticsearchDomainARN"
     ]
-    r"""<p>The ARN of the Amazon OpenSearch Service domain. The IAM role must have permissions for <code>DescribeDomain</code>, <code>DescribeDomains</code>, and <code>DescribeDomainConfig</code> after assuming the IAM role specified in <code>RoleARN</code>. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p> <p>Specify either <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>"""
+    """<p>The ARN of the Amazon OpenSearch Service domain. The IAM role must have permissions for <code>DescribeDomain</code>, <code>DescribeDomains</code>, and <code>DescribeDomainConfig</code> after assuming the IAM role specified in <code>RoleARN</code>. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p> <p>Specify either <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>"""
     cluster_endpoint: NotRequired[
         "capo_firehose.types.elasticsearch_cluster_endpoint.ElasticsearchClusterEndpoint"
     ]
@@ -41,7 +41,7 @@ class ElasticsearchDestinationUpdate(TypedDict, closed=True):
     index_rotation_period: NotRequired[
         "capo_firehose.types.elasticsearch_index_rotation_period.ElasticsearchIndexRotationPeriod"
     ]
-    r"""<p>The Elasticsearch index rotation period. Index rotation appends a timestamp to <code>IndexName</code> to facilitate the expiration of old data. For more information, see <a href=\"https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation\">Index Rotation for the Amazon OpenSearch Service Destination</a>. Default value is <code>OneDay</code>.</p>"""
+    """<p>The Elasticsearch index rotation period. Index rotation appends a timestamp to <code>IndexName</code> to facilitate the expiration of old data. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index Rotation for the Amazon OpenSearch Service Destination</a>. Default value is <code>OneDay</code>.</p>"""
     buffering_hints: NotRequired[
         "capo_firehose.types.elasticsearch_buffering_hints.ElasticsearchBufferingHints"
     ]

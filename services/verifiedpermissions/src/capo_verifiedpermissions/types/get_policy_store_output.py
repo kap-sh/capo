@@ -46,7 +46,7 @@ class GetPolicyStoreOutput(TypedDict, closed=True):
     cedar_version: NotRequired[
         "capo_verifiedpermissions.types.cedar_version.CedarVersion"
     ]
-    r"""<p>The version of the Cedar language used with policies, policy templates, and schemas in this policy store. For more information, see <a href=\"https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/cedar4-faq.html\">Amazon Verified Permissions upgrade to Cedar v4 FAQ</a>.</p>"""
+    """<p>The version of the Cedar language used with policies, policy templates, and schemas in this policy store. For more information, see <a href="https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/cedar4-faq.html">Amazon Verified Permissions upgrade to Cedar v4 FAQ</a>.</p>"""
     tags: NotRequired["capo_verifiedpermissions.types.tag_map.TagMap"]
     """<p>The list of tags associated with the policy store.</p>"""
 

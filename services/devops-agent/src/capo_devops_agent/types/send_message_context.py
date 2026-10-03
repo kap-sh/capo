@@ -14,11 +14,11 @@ class SendMessageContext(TypedDict, closed=True):
     last_message: NotRequired["str"]
     """<p>The ID of the last message in the conversation</p>"""
     user_action_response: NotRequired["str"]
-    r"""<p>Response to a UI prompt (not a text conversation message). Set this to the sentinel value `\"APPROVAL_ACTION\"` when the request is resuming a paused execution after an approval decision; in that case the structured decision is provided on the sibling `approvalAction` member. Preserved as a String for backward compatibility: clients that predate the typed approval field may still encode UI-prompt responses as JSON in this field.</p>"""
+    """<p>Response to a UI prompt (not a text conversation message). Set this to the sentinel value `"APPROVAL_ACTION"` when the request is resuming a paused execution after an approval decision; in that case the structured decision is provided on the sibling `approvalAction` member. Preserved as a String for backward compatibility: clients that predate the typed approval field may still encode UI-prompt responses as JSON in this field.</p>"""
     approval_action: NotRequired[
         "capo_devops_agent.types.approval_action.ApprovalAction"
     ]
-    r"""<p>An approval decision supplied when resuming a paused agent execution. When an agent execution pauses to request approval for an elevated action, SendMessage streams an approval request carrying interrupt identifiers. To resume the paused execution, call SendMessage again with `userActionResponse` set to `\"APPROVAL_ACTION\"` and this member populated with those identifiers and the decision (APPROVED or REJECTED). Optional; omit it for messages that are not resuming an approval.</p>"""
+    """<p>An approval decision supplied when resuming a paused agent execution. When an agent execution pauses to request approval for an elevated action, SendMessage streams an approval request carrying interrupt identifiers. To resume the paused execution, call SendMessage again with `userActionResponse` set to `"APPROVAL_ACTION"` and this member populated with those identifiers and the decision (APPROVED or REJECTED). Optional; omit it for messages that are not resuming an approval.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -30,7 +30,7 @@ class AutoScalingConfiguration(TypedDict, closed=True):
     auto_scaling_configuration_revision: NotRequired[
         "capo_apprunner.types.auto_scaling_configuration_revision.AutoScalingConfigurationRevision"
     ]
-    r"""<p>The revision of this auto scaling configuration. It's unique among all the active configurations (<code>\"Status\": \"ACTIVE\"</code>) that share the same <code>AutoScalingConfigurationName</code>.</p>"""
+    """<p>The revision of this auto scaling configuration. It's unique among all the active configurations (<code>"Status": "ACTIVE"</code>) that share the same <code>AutoScalingConfigurationName</code>.</p>"""
     latest: NotRequired["capo_apprunner.types.latest.Latest"]
     """<p>It's set to <code>true</code> for the configuration with the highest <code>Revision</code> among all configurations that share the same <code>AutoScalingConfigurationName</code>. It's set to <code>false</code> otherwise.</p>"""
     status: NotRequired[

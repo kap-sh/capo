@@ -20,7 +20,7 @@ class ApprovalAction(TypedDict, closed=True):
     approval_id: NotRequired["capo_devops_agent.types.approval_id.ApprovalId"]
     """<p>Identifier of the approval request being resolved.</p>"""
     button_text: NotRequired["capo_devops_agent.types.button_text.ButtonText"]
-    r"""<p>Optional display text of the UI control the user chose (for example, \"Approve Exact\", \"Approve Broader\", or \"Reject\"), provided as auxiliary decision context.</p>"""
+    """<p>Optional display text of the UI control the user chose (for example, "Approve Exact", "Approve Broader", or "Reject"), provided as auxiliary decision context.</p>"""
     action: NotRequired[
         "capo_devops_agent.types.approval_action_type.ApprovalActionType"
     ]

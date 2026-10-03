@@ -18,7 +18,7 @@ class SendSerialConsoleSSHPublicKeyRequest(TypedDict, closed=True):
     serial_port: "capo_ec2_instance_connect.types.serial_port.SerialPort"
     """<p>The serial port of the EC2 instance. Currently only port 0 is supported.</p> <p>Default: 0</p>"""
     ssh_public_key: "capo_ec2_instance_connect.types.ssh_public_key.SSHPublicKey"
-    r"""<p>The public key material. To use the public key, you must have the matching private key. For information about the supported key formats and lengths, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws\">Requirements for key pairs</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The public key material. To use the public key, you must have the matching private key. For information about the supported key formats and lengths, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws">Requirements for key pairs</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

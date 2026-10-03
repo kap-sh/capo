@@ -38,7 +38,7 @@ class FleetData(TypedDict, closed=True):
     fleet_state: NotRequired["capo_ec2.types.fleet_state_code.FleetStateCode"]
     """<p>The state of the EC2 Fleet.</p>"""
     client_token: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>"""
+    """<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>"""
     excess_capacity_termination_policy: NotRequired[
         "capo_ec2.types.fleet_excess_capacity_termination_policy.FleetExcessCapacityTerminationPolicy"
     ]
@@ -64,7 +64,7 @@ class FleetData(TypedDict, closed=True):
     valid_until: NotRequired["capo_ec2.types.date_time.DateTime"]
     """<p>The end date and time of the request, in UTC format (for example, <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). At this point, no new instance requests are placed or able to fulfill the request. The default end date is 7 days from the current date. </p>"""
     replace_unhealthy_instances: NotRequired["capo_ec2.types.boolean.Boolean"]
-    r"""<p>Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type <code>maintain</code>. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks\">EC2 Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type <code>maintain</code>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks">EC2 Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     spot_options: NotRequired["capo_ec2.types.spot_options.SpotOptions"]
     """<p>The configuration of Spot Instances in an EC2 Fleet.</p>"""
     on_demand_options: NotRequired["capo_ec2.types.on_demand_options.OnDemandOptions"]

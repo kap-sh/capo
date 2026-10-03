@@ -44,7 +44,7 @@ class IdentitySource:
         client_token: Optional["capo_mpa.types.token.Token"] = None,
         tags: Optional["capo_mpa.types.tags.Tags"] = None,
     ) -> "capo_mpa.types.create_identity_source_response.CreateIdentitySourceResponse":
-        r"""<p>Creates a new identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Creates a new identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_parameters: <p>A <code> IdentitySourceParameters</code> object. Contains details for the resource that provides identities to the identity source. For example, an IAM Identity Center instance.</p>
@@ -98,7 +98,7 @@ class IdentitySource:
         *,
         config_overrides: Optional[MPAClientConfig] = None,
     ) -> "capo_mpa.types.get_identity_source_response.GetIdentitySourceResponse":
-        r"""<p>Returns details for an identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Returns details for an identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_arn: <p>Amazon Resource Name (ARN) for the identity source.</p>
@@ -145,7 +145,7 @@ class IdentitySource:
         *,
         config_overrides: Optional[MPAClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes an identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Deletes an identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_arn: <p>Amazon Resource Name (ARN) for identity source.</p>
@@ -191,7 +191,7 @@ class IdentitySource:
         max_results: Optional["capo_mpa.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_mpa.types.token.Token"] = None,
     ) -> "capo_mpa.types.list_identity_sources_response.ListIdentitySourcesResponse":
-        r"""<p>Returns a list of identity sources. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Returns a list of identity sources. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             max_results: <p>The maximum number of items to return in the response. If more results exist than the specified <code>MaxResults</code> value, a token is included in the response so that you can retrieve the remaining results.</p>
@@ -247,7 +247,7 @@ class AsyncIdentitySource:
         client_token: Optional["capo_mpa.types.token.Token"] = None,
         tags: Optional["capo_mpa.types.tags.Tags"] = None,
     ) -> "capo_mpa.types.create_identity_source_response.CreateIdentitySourceResponse":
-        r"""<p>Creates a new identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Creates a new identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_parameters: <p>A <code> IdentitySourceParameters</code> object. Contains details for the resource that provides identities to the identity source. For example, an IAM Identity Center instance.</p>
@@ -302,7 +302,7 @@ class AsyncIdentitySource:
         *,
         config_overrides: Optional[AsyncMPAClientConfig] = None,
     ) -> "capo_mpa.types.get_identity_source_response.GetIdentitySourceResponse":
-        r"""<p>Returns details for an identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Returns details for an identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_arn: <p>Amazon Resource Name (ARN) for the identity source.</p>
@@ -350,7 +350,7 @@ class AsyncIdentitySource:
         *,
         config_overrides: Optional[AsyncMPAClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes an identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Deletes an identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_arn: <p>Amazon Resource Name (ARN) for identity source.</p>
@@ -397,7 +397,7 @@ class AsyncIdentitySource:
         max_results: Optional["capo_mpa.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_mpa.types.token.Token"] = None,
     ) -> "capo_mpa.types.list_identity_sources_response.ListIdentitySourcesResponse":
-        r"""<p>Returns a list of identity sources. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Returns a list of identity sources. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             max_results: <p>The maximum number of items to return in the response. If more results exist than the specified <code>MaxResults</code> value, a token is included in the response so that you can retrieve the remaining results.</p>

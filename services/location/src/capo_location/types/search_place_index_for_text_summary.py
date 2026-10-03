@@ -34,9 +34,9 @@ class SearchPlaceIndexForTextSummary(TypedDict, closed=True):
     result_b_box: NotRequired["capo_location.types.bounding_box.BoundingBox"]
     """<p>The bounding box that fully contains all search results.</p> <note> <p>If you specified the optional <code>FilterBBox</code> parameter in the request, <code>ResultBBox</code> is contained within <code>FilterBBox</code>.</p> </note>"""
     data_source: "str"
-    r"""<p>The geospatial data provider attached to the place index resource specified in the request. Values can be one of the following:</p> <ul> <li> <p>Esri</p> </li> <li> <p>Grab</p> </li> <li> <p>Here</p> </li> </ul> <p>For more information about data providers, see <a href=\"https://docs.aws.amazon.com/location/previous/developerguide/what-is-data-provider.html\">Amazon Location Service data providers</a>.</p>"""
+    """<p>The geospatial data provider attached to the place index resource specified in the request. Values can be one of the following:</p> <ul> <li> <p>Esri</p> </li> <li> <p>Grab</p> </li> <li> <p>Here</p> </li> </ul> <p>For more information about data providers, see <a href="https://docs.aws.amazon.com/location/previous/developerguide/what-is-data-provider.html">Amazon Location Service data providers</a>.</p>"""
     language: NotRequired["capo_location.types.language_tag.LanguageTag"]
-    r"""<p>The preferred language used to return results. Matches the language in the request. The value is a valid <a href=\"https://tools.ietf.org/search/bcp47\">BCP 47</a> language tag, for example, <code>en</code> for English.</p>"""
+    """<p>The preferred language used to return results. Matches the language in the request. The value is a valid <a href="https://tools.ietf.org/search/bcp47">BCP 47</a> language tag, for example, <code>en</code> for English.</p>"""
     filter_categories: NotRequired[
         "capo_location.types.filter_place_category_list.FilterPlaceCategoryList"
     ]

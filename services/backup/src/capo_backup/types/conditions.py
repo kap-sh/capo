@@ -12,15 +12,15 @@ class Conditions(TypedDict, closed=True):
     string_equals: NotRequired[
         "capo_backup.types.condition_parameters.ConditionParameters"
     ]
-    r"""<p>Filters the values of your tagged resources for only those resources that you tagged with the same value. Also called \"exact matching.\"</p>"""
+    """<p>Filters the values of your tagged resources for only those resources that you tagged with the same value. Also called "exact matching."</p>"""
     string_not_equals: NotRequired[
         "capo_backup.types.condition_parameters.ConditionParameters"
     ]
-    r"""<p>Filters the values of your tagged resources for only those resources that you tagged that do not have the same value. Also called \"negated matching.\"</p>"""
+    """<p>Filters the values of your tagged resources for only those resources that you tagged that do not have the same value. Also called "negated matching."</p>"""
     string_like: NotRequired[
         "capo_backup.types.condition_parameters.ConditionParameters"
     ]
-    r"""<p>Filters the values of your tagged resources for matching tag values with the use of a wildcard character (*) anywhere in the string. For example, \"prod*\" or \"*rod*\" matches the tag value \"production\".</p>"""
+    """<p>Filters the values of your tagged resources for matching tag values with the use of a wildcard character (*) anywhere in the string. For example, "prod*" or "*rod*" matches the tag value "production".</p>"""
     string_not_like: NotRequired[
         "capo_backup.types.condition_parameters.ConditionParameters"
     ]

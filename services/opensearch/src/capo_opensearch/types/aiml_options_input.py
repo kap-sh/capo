@@ -22,7 +22,7 @@ class AIMLOptionsInput(TypedDict, closed=True):
     serverless_vector_acceleration: NotRequired[
         "capo_opensearch.types.serverless_vector_acceleration.ServerlessVectorAcceleration"
     ]
-    r"""<p>Specifies whether to enable serverless vector acceleration for the domain. When enabled, provides <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/gpu-acceleration-vector-index.html\">GPU-accelerated</a> vector search capabilities for improved performance on vector workloads.</p>"""
+    """<p>Specifies whether to enable serverless vector acceleration for the domain. When enabled, provides <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/gpu-acceleration-vector-index.html">GPU-accelerated</a> vector search capabilities for improved performance on vector workloads.</p>"""
 
 
 # --- restJson1 ser/de ---

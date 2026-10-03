@@ -20,7 +20,7 @@ class QuerySpatialCoverageMax(TypedDict, closed=True):
     partition_key: NotRequired[
         "capo_timestream_query.types.partition_key_list.PartitionKeyList"
     ]
-    r"""<p>The partition key used for partitioning, which can be a default <code>measure_name</code> or a <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/customer-defined-partition-keys.html\">customer defined partition key</a>.</p>"""
+    """<p>The partition key used for partitioning, which can be a default <code>measure_name</code> or a <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/customer-defined-partition-keys.html">customer defined partition key</a>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

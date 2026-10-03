@@ -61,7 +61,7 @@ class RecoveryPointByBackupVault(TypedDict, closed=True):
     ]
     """<p>A <code>CalculatedLifecycle</code> object containing <code>DeleteAt</code> and <code>MoveToColdStorageAt</code> timestamps.</p>"""
     lifecycle: NotRequired["capo_backup.types.lifecycle.Lifecycle"]
-    r"""<p>The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup transitions and expires backups automatically according to the lifecycle that you define. </p> <p>Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold. </p> <p>Resource types that can transition to cold storage are listed in the <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/backup-feature-availability.html#features-by-resource\">Feature availability by resource</a> table. Backup ignores this expression for other resource types.</p>"""
+    """<p>The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup transitions and expires backups automatically according to the lifecycle that you define. </p> <p>Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold. </p> <p>Resource types that can transition to cold storage are listed in the <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/backup-feature-availability.html#features-by-resource">Feature availability by resource</a> table. Backup ignores this expression for other resource types.</p>"""
     encryption_key_arn: NotRequired["capo_backup.types.arn.ARN"]
     """<p>The server-side encryption key that is used to protect your backups; for example, <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>.</p>"""
     is_encrypted: "capo_backup.types.boolean2.Boolean2"
@@ -71,7 +71,7 @@ class RecoveryPointByBackupVault(TypedDict, closed=True):
     parent_recovery_point_arn: NotRequired["capo_backup.types.arn.ARN"]
     """<p>The Amazon Resource Name (ARN) of the parent (composite) recovery point.</p>"""
     composite_member_identifier: NotRequired["capo_backup.types.string.string"]
-    r"""<p>The identifier of a resource within a composite group, such as nested (child) recovery point belonging to a composite (parent) stack. The ID is transferred from the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax\"> logical ID</a> within a stack.</p>"""
+    """<p>The identifier of a resource within a composite group, such as nested (child) recovery point belonging to a composite (parent) stack. The ID is transferred from the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"> logical ID</a> within a stack.</p>"""
     is_parent: "capo_backup.types.boolean2.Boolean2"
     """<p>This is a boolean value indicating this is a parent (composite) recovery point.</p>"""
     resource_name: NotRequired["capo_backup.types.string.string"]

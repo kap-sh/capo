@@ -18,7 +18,7 @@ class CreateAccessPointRequest(TypedDict, closed=True):
     client_token: "capo_efs.types.client_token.ClientToken"
     """<p>A string of up to 64 ASCII characters that Amazon EFS uses to ensure idempotent creation.</p>"""
     tags: NotRequired["capo_efs.types.tags.Tags"]
-    r"""<p>Creates tags associated with the access point. Each tag is a key-value pair, each key must be unique. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services resources</a> in the <i>Amazon Web Services General Reference Guide</i>.</p>"""
+    """<p>Creates tags associated with the access point. Each tag is a key-value pair, each key must be unique. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a> in the <i>Amazon Web Services General Reference Guide</i>.</p>"""
     file_system_id: "capo_efs.types.file_system_id.FileSystemId"
     """<p>The ID of the EFS file system that the access point provides access to.</p>"""
     posix_user: NotRequired["capo_efs.types.posix_user.PosixUser"]

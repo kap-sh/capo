@@ -15,7 +15,7 @@ class Conversational(TypedDict, closed=True):
     content: "capo_bedrock_agentcore.types.content.Content"
     """<p>The content of the conversation message.</p>"""
     role: "capo_bedrock_agentcore.types.role.Role"
-    r"""<p>The role of the participant in the conversation (for example, \"user\" or \"assistant\").</p>"""
+    """<p>The role of the participant in the conversation (for example, "user" or "assistant").</p>"""
 
 
 # --- restJson1 ser/de ---

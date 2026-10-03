@@ -27,7 +27,7 @@ class GlobalCluster(TypedDict, closed=True):
     status: NotRequired["capo_neptune.types.string.String"]
     """<p>Specifies the current state of this global database.</p>"""
     engine: NotRequired["capo_neptune.types.string.String"]
-    r"""<p>The Neptune database engine used by the global database (<code>\"neptune\"</code>).</p>"""
+    """<p>The Neptune database engine used by the global database (<code>"neptune"</code>).</p>"""
     engine_version: NotRequired["capo_neptune.types.string.String"]
     """<p>The Neptune engine version used by the global database.</p>"""
     database_name: NotRequired["capo_neptune.types.string.String"]

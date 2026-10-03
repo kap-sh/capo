@@ -15,7 +15,7 @@ class PutCommentReactionInput(TypedDict, closed=True):
     comment_id: "capo_codecommit.types.comment_id.CommentId"
     """<p>The ID of the comment to which you want to add or update a reaction.</p>"""
     reaction_value: "capo_codecommit.types.reaction_value.ReactionValue"
-    r"""<p>The emoji reaction you want to add or update. To remove a reaction, provide a value of blank or null. You can also provide the value of none. For information about emoji reaction values supported in CodeCommit, see the <a href=\"https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table\">CodeCommit User Guide</a>.</p>"""
+    """<p>The emoji reaction you want to add or update. To remove a reaction, provide a value of blank or null. You can also provide the value of none. For information about emoji reaction values supported in CodeCommit, see the <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table">CodeCommit User Guide</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

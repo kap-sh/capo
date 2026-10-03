@@ -35,7 +35,7 @@ class GeoLocationDetails(TypedDict, closed=True):
     subdivision_code: NotRequired[
         "capo_route_53.types.geo_location_subdivision_code.GeoLocationSubdivisionCode"
     ]
-    r"""<p>The code for the subdivision, such as a particular state within the United States. For a list of US state abbreviations, see <a href=\"https://pe.usps.com/text/pub28/28apb.htm\">Appendix B: Two–Letter State and Possession Abbreviations</a> on the United States Postal Service website. For a list of all supported subdivision codes, use the <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html\">ListGeoLocations</a> API.</p>"""
+    """<p>The code for the subdivision, such as a particular state within the United States. For a list of US state abbreviations, see <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession Abbreviations</a> on the United States Postal Service website. For a list of all supported subdivision codes, use the <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html">ListGeoLocations</a> API.</p>"""
     subdivision_name: NotRequired[
         "capo_route_53.types.geo_location_subdivision_name.GeoLocationSubdivisionName"
     ]

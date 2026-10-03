@@ -12,7 +12,7 @@ class AccountSettings(TypedDict, closed=True):
     disable_remote_control: NotRequired["capo_chime.types.boolean.Boolean"]
     """<p>Setting that stops or starts remote control of shared screens during meetings.</p>"""
     enable_dial_out: NotRequired["capo_chime.types.boolean.Boolean"]
-    r"""<p>Setting that allows meeting participants to choose the <b>Call me at a phone number</b> option. For more information, see <a href=\"https://docs.aws.amazon.com/chime/latest/ug/chime-join-meeting.html\">Join a Meeting without the Amazon Chime App</a>.</p>"""
+    """<p>Setting that allows meeting participants to choose the <b>Call me at a phone number</b> option. For more information, see <a href="https://docs.aws.amazon.com/chime/latest/ug/chime-join-meeting.html">Join a Meeting without the Amazon Chime App</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

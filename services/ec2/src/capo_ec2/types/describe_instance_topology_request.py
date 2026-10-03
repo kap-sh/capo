@@ -23,7 +23,7 @@ class DescribeInstanceTopologyRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_instance_topology_max_results.DescribeInstanceTopologyMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p> <p>You can't specify this parameter and the instance IDs parameter in the same request.</p> <p>Default: <code>20</code> </p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p> <p>You can't specify this parameter and the instance IDs parameter in the same request.</p> <p>Default: <code>20</code> </p>"""
     instance_ids: NotRequired[
         "capo_ec2.types.describe_instance_topology_instance_id_set.DescribeInstanceTopologyInstanceIdSet"
     ]

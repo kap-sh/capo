@@ -191,14 +191,14 @@ class Subscriber:
             "capo_securitylake.types.log_source_resource_list.LogSourceResourceList"
         ] = None,
     ) -> "capo_securitylake.types.update_subscriber_response.UpdateSubscriberResponse":
-        r"""<p>Updates an existing subscription for the given Amazon Security Lake account ID. You can update a subscriber by changing the sources that the subscriber consumes data from.</p>
+        """<p>Updates an existing subscription for the given Amazon Security Lake account ID. You can update a subscriber by changing the sources that the subscriber consumes data from.</p>
 
         Args:
             subscriber_id: <p>A value created by Security Lake that uniquely identifies your subscription.</p>
             subscriber_identity: <p>The Amazon Web Services identity used to access your data.</p>
             subscriber_name: <p>The name of the Security Lake account subscriber.</p>
             subscriber_description: <p>The description of the Security Lake account subscriber.</p>
-            sources: <p>The supported Amazon Web Services services from which logs and events are collected. For the list of supported Amazon Web Services services, see the <a href=\"https://docs.aws.amazon.com/security-lake/latest/userguide/internal-sources.html\">Amazon Security Lake User Guide</a>.</p>
+            sources: <p>The supported Amazon Web Services services from which logs and events are collected. For the list of supported Amazon Web Services services, see the <a href="https://docs.aws.amazon.com/security-lake/latest/userguide/internal-sources.html">Amazon Security Lake User Guide</a>.</p>
 
         Raises:
             capo_securitylake.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action. Access denied errors appear when Amazon Security Lake explicitly or implicitly denies an authorization request. An explicit denial occurs when a policy contains a Deny statement for the specific Amazon Web Services action. An implicit denial occurs when there is no applicable Deny statement and also no applicable Allow statement.</p>
@@ -638,14 +638,14 @@ class AsyncSubscriber:
             "capo_securitylake.types.log_source_resource_list.LogSourceResourceList"
         ] = None,
     ) -> "capo_securitylake.types.update_subscriber_response.UpdateSubscriberResponse":
-        r"""<p>Updates an existing subscription for the given Amazon Security Lake account ID. You can update a subscriber by changing the sources that the subscriber consumes data from.</p>
+        """<p>Updates an existing subscription for the given Amazon Security Lake account ID. You can update a subscriber by changing the sources that the subscriber consumes data from.</p>
 
         Args:
             subscriber_id: <p>A value created by Security Lake that uniquely identifies your subscription.</p>
             subscriber_identity: <p>The Amazon Web Services identity used to access your data.</p>
             subscriber_name: <p>The name of the Security Lake account subscriber.</p>
             subscriber_description: <p>The description of the Security Lake account subscriber.</p>
-            sources: <p>The supported Amazon Web Services services from which logs and events are collected. For the list of supported Amazon Web Services services, see the <a href=\"https://docs.aws.amazon.com/security-lake/latest/userguide/internal-sources.html\">Amazon Security Lake User Guide</a>.</p>
+            sources: <p>The supported Amazon Web Services services from which logs and events are collected. For the list of supported Amazon Web Services services, see the <a href="https://docs.aws.amazon.com/security-lake/latest/userguide/internal-sources.html">Amazon Security Lake User Guide</a>.</p>
 
         Raises:
             capo_securitylake.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action. Access denied errors appear when Amazon Security Lake explicitly or implicitly denies an authorization request. An explicit denial occurs when a policy contains a Deny statement for the specific Amazon Web Services action. An implicit denial occurs when there is no applicable Deny statement and also no applicable Allow statement.</p>

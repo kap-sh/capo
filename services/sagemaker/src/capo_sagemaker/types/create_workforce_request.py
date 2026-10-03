@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class CreateWorkforceRequest(TypedDict, closed=True):
     cognito_config: NotRequired["capo_sagemaker.types.cognito_config.CognitoConfig"]
-    r"""<p>Use this parameter to configure an Amazon Cognito private workforce. A single Cognito workforce is created using and corresponds to a single <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html\"> Amazon Cognito user pool</a>.</p> <p>Do not use <code>OidcConfig</code> if you specify values for <code>CognitoConfig</code>.</p>"""
+    """<p>Use this parameter to configure an Amazon Cognito private workforce. A single Cognito workforce is created using and corresponds to a single <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html"> Amazon Cognito user pool</a>.</p> <p>Do not use <code>OidcConfig</code> if you specify values for <code>CognitoConfig</code>.</p>"""
     oidc_config: NotRequired["capo_sagemaker.types.oidc_config.OidcConfig"]
     """<p>Use this parameter to configure a private workforce using your own OIDC Identity Provider.</p> <p>Do not use <code>CognitoConfig</code> if you specify values for <code>OidcConfig</code>.</p>"""
     source_ip_config: NotRequired[

@@ -15,7 +15,7 @@ class CodeCaptureConfiguration(TypedDict, closed=True):
     capture_arguments: NotRequired[
         "capo_application_signals.types.string_list.StringList"
     ]
-    r"""<p>The function arguments to capture. Omit to capture defaults, use an empty list to capture none, use <code>[\"*\"]</code> to capture all arguments, or specify argument names to capture selectively (up to 10 entries).</p>"""
+    """<p>The function arguments to capture. Omit to capture defaults, use an empty list to capture none, use <code>["*"]</code> to capture all arguments, or specify argument names to capture selectively (up to 10 entries).</p>"""
     capture_return: NotRequired["bool"]
     """<p>Whether to capture the return value. Defaults to false.</p>"""
     capture_stack_trace: NotRequired["bool"]

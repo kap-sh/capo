@@ -15,7 +15,7 @@ class CreateKxUserResponse(TypedDict, closed=True):
     user_name: NotRequired["capo_finspace.types.kx_user_name_string.KxUserNameString"]
     """<p>A unique identifier for the user.</p>"""
     user_arn: NotRequired["capo_finspace.types.kx_user_arn.KxUserArn"]
-    r"""<p> The Amazon Resource Name (ARN) that identifies the user. For more information about ARNs and how to use ARNs in policies, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html\">IAM Identifiers</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p> The Amazon Resource Name (ARN) that identifies the user. For more information about ARNs and how to use ARNs in policies, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM Identifiers</a> in the <i>IAM User Guide</i>. </p>"""
     environment_id: NotRequired["capo_finspace.types.id_type.IdType"]
     """<p>A unique identifier for the kdb environment.</p>"""
     iam_role: NotRequired["capo_finspace.types.role_arn.RoleArn"]

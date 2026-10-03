@@ -72,7 +72,7 @@ class WorkspaceDirectory(TypedDict, closed=True):
     state: NotRequired[
         "capo_workspaces.types.workspace_directory_state.WorkspaceDirectoryState"
     ]
-    r"""<p>The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so this state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by using <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html\"> DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been successfully deregistered.</p>"""
+    """<p>The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so this state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by using <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html"> DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been successfully deregistered.</p>"""
     workspace_creation_properties: NotRequired[
         "capo_workspaces.types.default_workspace_creation_properties.DefaultWorkspaceCreationProperties"
     ]
@@ -84,7 +84,7 @@ class WorkspaceDirectory(TypedDict, closed=True):
     ]
     """<p>The devices and operating systems that users can use to access WorkSpaces.</p>"""
     tenancy: NotRequired["capo_workspaces.types.tenancy.Tenancy"]
-    r"""<p>Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value must be set to <code>DEDICATED</code>. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html\">Bring Your Own Windows Desktop Images</a>.</p>"""
+    """<p>Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value must be set to <code>DEDICATED</code>. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows Desktop Images</a>.</p>"""
     selfservice_permissions: NotRequired[
         "capo_workspaces.types.selfservice_permissions.SelfservicePermissions"
     ]

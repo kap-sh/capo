@@ -25,7 +25,7 @@ class DistributeImageRequest(TypedDict, closed=True):
     tags: NotRequired["capo_imagebuilder.types.tag_map.TagMap"]
     """<p>The tags to apply to the new Image Builder image resource that this operation creates. To tag the output AMIs, use <code>amiTags</code> in the distribution configuration.</p>"""
     client_token: "capo_imagebuilder.types.client_token.ClientToken"
-    r"""<p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>"""
+    """<p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>"""
     logging_configuration: NotRequired[
         "capo_imagebuilder.types.image_logging_configuration.ImageLoggingConfiguration"
     ]

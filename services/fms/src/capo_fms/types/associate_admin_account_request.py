@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class AssociateAdminAccountRequest(TypedDict, closed=True):
     admin_account: "capo_fms.types.aws_account_id.AWSAccountId"
-    r"""<p>The Amazon Web Services account ID to associate with Firewall Manager as the Firewall Manager default administrator account. This account must be a member account of the organization in Organizations whose resources you want to protect. For more information about Organizations, see <a href=\"https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html\">Managing the Amazon Web Services Accounts in Your Organization</a>. </p>"""
+    """<p>The Amazon Web Services account ID to associate with Firewall Manager as the Firewall Manager default administrator account. This account must be a member account of the organization in Organizations whose resources you want to protect. For more information about Organizations, see <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html">Managing the Amazon Web Services Accounts in Your Organization</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

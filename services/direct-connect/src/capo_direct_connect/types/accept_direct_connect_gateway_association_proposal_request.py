@@ -27,7 +27,7 @@ class AcceptDirectConnectGatewayAssociationProposalRequest(TypedDict, closed=Tru
     override_allowed_prefixes_to_direct_connect_gateway: NotRequired[
         "capo_direct_connect.types.route_filter_prefix_list.RouteFilterPrefixList"
     ]
-    r"""<p>Overrides the Amazon VPC prefixes advertised to the Direct Connect gateway.</p> <p>For information about how to set the prefixes, see <a href=\"https://docs.aws.amazon.com/directconnect/latest/UserGuide/multi-account-associate-vgw.html#allowed-prefixes\">Allowed Prefixes</a> in the <i>Direct Connect User Guide</i>.</p>"""
+    """<p>Overrides the Amazon VPC prefixes advertised to the Direct Connect gateway.</p> <p>For information about how to set the prefixes, see <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/multi-account-associate-vgw.html#allowed-prefixes">Allowed Prefixes</a> in the <i>Direct Connect User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

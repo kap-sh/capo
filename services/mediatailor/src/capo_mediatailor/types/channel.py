@@ -38,7 +38,7 @@ class Channel(TypedDict, closed=True):
     playback_mode: "capo_mediatailor.types.__string.__string"
     """<p>The type of playback mode for this channel.</p> <p> <code>LINEAR</code> - Programs play back-to-back only once.</p> <p> <code>LOOP</code> - Programs play back-to-back in an endless loop. When the last program in the schedule plays, playback loops back to the first program in the schedule.</p>"""
     tags: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
-    r"""<p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>"""
+    """<p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>"""
     tier: "capo_mediatailor.types.__string.__string"
     """<p>The tier for this channel. STANDARD tier channels can contain live programs.</p>"""
     log_configuration: "capo_mediatailor.types.log_configuration_for_channel.LogConfigurationForChannel"

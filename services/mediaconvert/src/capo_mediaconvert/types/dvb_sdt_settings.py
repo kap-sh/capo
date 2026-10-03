@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DvbSdtSettings(TypedDict, closed=True):
     output_sdt: NotRequired["capo_mediaconvert.types.output_sdt.OutputSdt"]
-    r"""Selects method of inserting SDT information into output stream. \"Follow input SDT\" copies SDT information from input stream to output stream. \"Follow input SDT if present\" copies SDT information from input stream to output stream if SDT information is present in the input, otherwise it will fall back on the user-defined values. Enter \"SDT Manually\" means user will enter the SDT information. \"No SDT\" means output stream will not contain SDT information."""
+    """Selects method of inserting SDT information into output stream. "Follow input SDT" copies SDT information from input stream to output stream. "Follow input SDT if present" copies SDT information from input stream to output stream if SDT information is present in the input, otherwise it will fall back on the user-defined values. Enter "SDT Manually" means user will enter the SDT information. "No SDT" means output stream will not contain SDT information."""
     sdt_interval: NotRequired[
         "capo_mediaconvert.types.__integer_min25_max2000.__integerMin25Max2000"
     ]

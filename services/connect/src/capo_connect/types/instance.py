@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class Instance(TypedDict, closed=True):
     id: NotRequired["capo_connect.types.instance_id.InstanceId"]
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     arn: NotRequired["capo_connect.types.arn.ARN"]
     """<p>The Amazon Resource Name (ARN) of the instance.</p>"""
     identity_management_type: NotRequired[

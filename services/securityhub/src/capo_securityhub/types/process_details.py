@@ -19,9 +19,9 @@ class ProcessDetails(TypedDict, closed=True):
     parent_pid: NotRequired["capo_securityhub.types.integer.Integer"]
     """<p>The parent process ID. This field accepts positive integers between <code>O</code> and <code>2147483647</code>.</p>"""
     launched_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the process was launched.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the process was launched.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     terminated_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the process was terminated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the process was terminated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

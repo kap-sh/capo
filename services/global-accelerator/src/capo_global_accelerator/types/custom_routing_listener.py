@@ -15,7 +15,7 @@ class CustomRoutingListener(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of the listener.</p>"""
     port_ranges: NotRequired["capo_global_accelerator.types.port_ranges.PortRanges"]
-    r"""<p>The port range to support for connections from clients to your accelerator.</p> <p>Separately, you set port ranges for endpoints. For more information, see <a href=\"https://docs.aws.amazon.com/global-accelerator/latest/dg/about-custom-routing-endpoints.html\">About endpoints for custom routing accelerators</a>.</p>"""
+    """<p>The port range to support for connections from clients to your accelerator.</p> <p>Separately, you set port ranges for endpoints. For more information, see <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-custom-routing-endpoints.html">About endpoints for custom routing accelerators</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

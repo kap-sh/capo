@@ -38,7 +38,7 @@ class CreateSequenceStoreRequest(TypedDict, closed=True):
     e_tag_algorithm_family: NotRequired[
         "capo_omics.types.e_tag_algorithm_family.ETagAlgorithmFamily"
     ]
-    r"""<p>The ETag algorithm family to use for ingested read sets. The default value is MD5up. For more information on ETags, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/etags-and-provenance.html\">ETags and data provenance</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
+    """<p>The ETag algorithm family to use for ingested read sets. The default value is MD5up. For more information on ETags, see <a href="https://docs.aws.amazon.com/omics/latest/dev/etags-and-provenance.html">ETags and data provenance</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
     propagated_set_level_tags: NotRequired[
         "capo_omics.types.propagated_set_level_tags.PropagatedSetLevelTags"
     ]

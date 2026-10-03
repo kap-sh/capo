@@ -15,7 +15,7 @@ class CreateSpotDatafeedSubscriptionRequest(TypedDict, closed=True):
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
     bucket: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The name of the Amazon S3 bucket in which to store the Spot Instance data feed. For more information about bucket names, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html\">Bucket naming rules</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The name of the Amazon S3 bucket in which to store the Spot Instance data feed. For more information about bucket names, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Bucket naming rules</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     prefix: NotRequired["capo_ec2.types.string.String"]
     """<p>The prefix for the data feed file names.</p>"""
 

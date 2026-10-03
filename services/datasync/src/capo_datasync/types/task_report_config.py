@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class TaskReportConfig(TypedDict, closed=True):
     destination: NotRequired["capo_datasync.types.report_destination.ReportDestination"]
-    r"""<p>Specifies the Amazon S3 bucket where DataSync uploads your task report. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html#task-report-access\">Task reports</a>.</p>"""
+    """<p>Specifies the Amazon S3 bucket where DataSync uploads your task report. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html#task-report-access">Task reports</a>.</p>"""
     output_type: NotRequired["capo_datasync.types.report_output_type.ReportOutputType"]
     """<p>Specifies the type of task report that you want:</p> <ul> <li> <p> <code>SUMMARY_ONLY</code>: Provides necessary details about your task, including the number of files, objects, and directories transferred and transfer duration.</p> </li> <li> <p> <code>STANDARD</code>: Provides complete details about your task, including a full list of files, objects, and directories that were transferred, skipped, verified, and more.</p> </li> </ul>"""
     report_level: NotRequired["capo_datasync.types.report_level.ReportLevel"]
@@ -22,7 +22,7 @@ class TaskReportConfig(TypedDict, closed=True):
     object_version_ids: NotRequired[
         "capo_datasync.types.object_version_ids.ObjectVersionIds"
     ]
-    r"""<p>Specifies whether your task report includes the new version of each object transferred into an S3 bucket. This only applies if you <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/manage-versioning-examples.html\">enable versioning on your bucket</a>. Keep in mind that setting this to <code>INCLUDE</code> can increase the duration of your task execution.</p>"""
+    """<p>Specifies whether your task report includes the new version of each object transferred into an S3 bucket. This only applies if you <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/manage-versioning-examples.html">enable versioning on your bucket</a>. Keep in mind that setting this to <code>INCLUDE</code> can increase the duration of your task execution.</p>"""
     overrides: NotRequired["capo_datasync.types.report_overrides.ReportOverrides"]
     """<p>Customizes the reporting level for aspects of your task report. For example, your report might generally only include errors, but you could specify that you want a list of successes and errors just for the files that DataSync attempted to delete in your destination location.</p>"""
 

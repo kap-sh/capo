@@ -139,7 +139,7 @@ class EKSAuthClient:
             zone: <p>The Availability Zone ID of the worker node where the pod is running.</p>
 
         Raises:
-            capo_eks_auth.errors.access_denied_exception.AccessDeniedException: <p>You don't have permissions to perform the requested operation. The IAM principal making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access management</a> in the <i>IAM User Guide</i>. </p>
+            capo_eks_auth.errors.access_denied_exception.AccessDeniedException: <p>You don't have permissions to perform the requested operation. The IAM principal making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management</a> in the <i>IAM User Guide</i>. </p>
             capo_eks_auth.errors.expired_token_exception.ExpiredTokenException: <p>The specified Kubernetes service account token is expired.</p>
             capo_eks_auth.errors.internal_server_exception.InternalServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_eks_auth.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>

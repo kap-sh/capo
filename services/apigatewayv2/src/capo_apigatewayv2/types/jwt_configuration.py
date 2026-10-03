@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class JWTConfiguration(TypedDict, closed=True):
     audience: NotRequired["capo_apigatewayv2.types.__list_of__string.__listOf__string"]
-    r"""<p>A list of the intended recipients of the JWT. A valid JWT must provide an aud that matches at least one entry in this list. See <a href=\"https://tools.ietf.org/html/rfc7519#section-4.1.3\">RFC 7519</a>. Supported only for HTTP APIs.</p>"""
+    """<p>A list of the intended recipients of the JWT. A valid JWT must provide an aud that matches at least one entry in this list. See <a href="https://tools.ietf.org/html/rfc7519#section-4.1.3">RFC 7519</a>. Supported only for HTTP APIs.</p>"""
     issuer: NotRequired[
         "capo_apigatewayv2.types.uri_with_length_between1_and2048.UriWithLengthBetween1And2048"
     ]

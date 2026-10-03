@@ -35,7 +35,7 @@ class TooltipSheetDefinition(TypedDict, closed=True):
     ]
     """<p>A list of images on a tooltip sheet.</p>"""
     layouts: NotRequired["capo_quicksight.types.layout_list.LayoutList"]
-    r"""<p>Layouts define how the components of a tooltip sheet are arranged.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/types-of-layout.html\">Types of layout</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>Layouts define how the components of a tooltip sheet are arranged.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/types-of-layout.html">Types of layout</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

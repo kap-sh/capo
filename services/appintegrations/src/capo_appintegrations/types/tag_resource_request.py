@@ -15,7 +15,7 @@ class TagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_appintegrations.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the resource.</p>"""
     tags: "capo_appintegrations.types.tag_map.TagMap"
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

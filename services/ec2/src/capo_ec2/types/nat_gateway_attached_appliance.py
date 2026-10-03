@@ -17,7 +17,7 @@ class NatGatewayAttachedAppliance(TypedDict, closed=True):
     type: NotRequired[
         "capo_ec2.types.nat_gateway_appliance_type.NatGatewayApplianceType"
     ]
-    r"""<p>The type of appliance attached to the NAT Gateway. For network firewall proxy functionality, this will be \"network-firewall-proxy\".</p>"""
+    """<p>The type of appliance attached to the NAT Gateway. For network firewall proxy functionality, this will be "network-firewall-proxy".</p>"""
     appliance_arn: NotRequired["capo_ec2.types.string.String"]
     """<p>The Amazon Resource Name (ARN) of the attached appliance, identifying the specific proxy or security appliance resource.</p>"""
     vpc_endpoint_id: NotRequired["capo_ec2.types.string.String"]

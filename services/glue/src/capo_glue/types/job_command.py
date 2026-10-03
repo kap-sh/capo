@@ -23,7 +23,7 @@ class JobCommand(TypedDict, closed=True):
     ]
     """<p>The Python version being used to run a Python shell job. Allowed values are 2 or 3.</p>"""
     runtime: NotRequired["capo_glue.types.runtime_name_string.RuntimeNameString"]
-    r"""<p>In Ray jobs, Runtime is used to specify the versions of Ray, Python and additional libraries available in your environment. This field is not used in other job types. For supported runtime environment values, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/ray-jobs-section.html\">Supported Ray runtime environments</a> in the Glue Developer Guide.</p>"""
+    """<p>In Ray jobs, Runtime is used to specify the versions of Ray, Python and additional libraries available in your environment. This field is not used in other job types. For supported runtime environment values, see <a href="https://docs.aws.amazon.com/glue/latest/dg/ray-jobs-section.html">Supported Ray runtime environments</a> in the Glue Developer Guide.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -13,7 +13,7 @@ class KmsKeyConfiguration(TypedDict, closed=True):
     key_policies: NotRequired[
         "capo_accessanalyzer.types.kms_key_policies_map.KmsKeyPoliciesMap"
     ]
-    r"""<p>Resource policy configuration for the KMS key. The only valid value for the name of the key policy is <code>default</code>. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default\">Default key policy</a>.</p>"""
+    """<p>Resource policy configuration for the KMS key. The only valid value for the name of the key policy is <code>default</code>. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default">Default key policy</a>.</p>"""
     grants: NotRequired[
         "capo_accessanalyzer.types.kms_grant_configurations_list.KmsGrantConfigurationsList"
     ]

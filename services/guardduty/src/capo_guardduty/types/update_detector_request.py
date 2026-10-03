@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class UpdateDetectorRequest(TypedDict, closed=True):
     detector_id: "capo_guardduty.types.detector_id.DetectorId"
-    r"""<p>The unique ID of the detector to update.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href=\"https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html\">ListDetectors</a> API.</p>"""
+    """<p>The unique ID of the detector to update.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>"""
     enable: NotRequired["capo_guardduty.types.boolean.Boolean"]
     """<p>Specifies whether the detector is enabled or not enabled.</p>"""
     finding_publishing_frequency: NotRequired[
@@ -24,7 +24,7 @@ class UpdateDetectorRequest(TypedDict, closed=True):
     data_sources: NotRequired[
         "capo_guardduty.types.data_source_configurations.DataSourceConfigurations"
     ]
-    r"""<p>Describes which data sources will be updated.</p> <p>There might be regional differences because some data sources might not be available in all the Amazon Web Services Regions where GuardDuty is presently supported. For more information, see <a href=\"https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html\">Regions and endpoints</a>.</p>"""
+    """<p>Describes which data sources will be updated.</p> <p>There might be regional differences because some data sources might not be available in all the Amazon Web Services Regions where GuardDuty is presently supported. For more information, see <a href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.</p>"""
     features: NotRequired[
         "capo_guardduty.types.detector_feature_configurations.DetectorFeatureConfigurations"
     ]

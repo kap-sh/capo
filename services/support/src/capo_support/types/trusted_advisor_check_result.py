@@ -19,7 +19,7 @@ class TrustedAdvisorCheckResult(TypedDict, closed=True):
     timestamp: "capo_support.types.string.String"
     """<p>The time of the last refresh of the check.</p>"""
     status: "capo_support.types.string.String"
-    r"""<p>The alert status of the check: \"ok\" (green), \"warning\" (yellow), \"error\" (red), or \"not_available\".</p>"""
+    """<p>The alert status of the check: "ok" (green), "warning" (yellow), "error" (red), or "not_available".</p>"""
     resources_summary: "capo_support.types.trusted_advisor_resources_summary.TrustedAdvisorResourcesSummary"
     category_specific_summary: "capo_support.types.trusted_advisor_category_specific_summary.TrustedAdvisorCategorySpecificSummary"
     """<p>Summary information that relates to the category of the check. Cost Optimizing is the only category that is currently supported.</p>"""

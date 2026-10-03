@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DeleteAccountAliasRequest(TypedDict, closed=True):
     account_alias: "capo_iam.types.account_alias_type.accountAliasType"
-    r"""<p>The name of the account alias to delete.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of lowercase letters, digits, and dashes. You cannot start or finish with a dash, nor can you have two dashes in a row.</p>"""
+    """<p>The name of the account alias to delete.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of lowercase letters, digits, and dashes. You cannot start or finish with a dash, nor can you have two dashes in a row.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -55,7 +55,7 @@ class ModelSummary(TypedDict, closed=True):
     next_scheduled_retraining_start_date: NotRequired[
         "capo_lookoutequipment.types.timestamp.Timestamp"
     ]
-    r"""<p>Indicates the date that the next scheduled retraining run will start on. Lookout for Equipment truncates the time you provide to <a href=\"https://docs.aws.amazon.com/https:/docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-types.html#parameter-type-timestamp\">the nearest UTC day</a>.</p>"""
+    """<p>Indicates the date that the next scheduled retraining run will start on. Lookout for Equipment truncates the time you provide to <a href="https://docs.aws.amazon.com/https:/docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-types.html#parameter-type-timestamp">the nearest UTC day</a>.</p>"""
     retraining_scheduler_status: NotRequired[
         "capo_lookoutequipment.types.retraining_scheduler_status.RetrainingSchedulerStatus"
     ]
@@ -64,7 +64,7 @@ class ModelSummary(TypedDict, closed=True):
         "capo_lookoutequipment.types.model_diagnostics_output_configuration.ModelDiagnosticsOutputConfiguration"
     ]
     model_quality: NotRequired["capo_lookoutequipment.types.model_quality.ModelQuality"]
-    r"""<p>Provides a quality assessment for a model that uses labels. If Lookout for Equipment determines that the model quality is poor based on training metrics, the value is <code>POOR_QUALITY_DETECTED</code>. Otherwise, the value is <code>QUALITY_THRESHOLD_MET</code>.</p> <p>If the model is unlabeled, the model quality can't be assessed and the value of <code>ModelQuality</code> is <code>CANNOT_DETERMINE_QUALITY</code>. In this situation, you can get a model quality assessment by adding labels to the input dataset and retraining the model.</p> <p>For information about using labels with your models, see <a href=\"https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/understanding-labeling.html\">Understanding labeling</a>.</p> <p>For information about improving the quality of a model, see <a href=\"https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/best-practices.html\">Best practices with Amazon Lookout for Equipment</a>.</p>"""
+    """<p>Provides a quality assessment for a model that uses labels. If Lookout for Equipment determines that the model quality is poor based on training metrics, the value is <code>POOR_QUALITY_DETECTED</code>. Otherwise, the value is <code>QUALITY_THRESHOLD_MET</code>.</p> <p>If the model is unlabeled, the model quality can't be assessed and the value of <code>ModelQuality</code> is <code>CANNOT_DETERMINE_QUALITY</code>. In this situation, you can get a model quality assessment by adding labels to the input dataset and retraining the model.</p> <p>For information about using labels with your models, see <a href="https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/understanding-labeling.html">Understanding labeling</a>.</p> <p>For information about improving the quality of a model, see <a href="https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/best-practices.html">Best practices with Amazon Lookout for Equipment</a>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

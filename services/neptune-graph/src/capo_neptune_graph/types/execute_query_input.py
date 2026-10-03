@@ -24,7 +24,7 @@ class ExecuteQueryInput(TypedDict, closed=True):
     parameters: NotRequired[
         "capo_neptune_graph.types.document_valued_map.DocumentValuedMap"
     ]
-    r"""<p>The data parameters the query can use in JSON format. For example: {\"name\": \"john\", \"age\": 20}. (optional) </p>"""
+    """<p>The data parameters the query can use in JSON format. For example: {"name": "john", "age": 20}. (optional) </p>"""
     plan_cache: NotRequired["capo_neptune_graph.types.plan_cache_type.PlanCacheType"]
     """<p>Query plan cache is a feature that saves the query plan and reuses it on successive executions of the same query. This reduces query latency, and works for both <code>READ</code> and <code>UPDATE</code> queries. The plan cache is an LRU cache with a 5 minute TTL and a capacity of 1000.</p>"""
     explain_mode: NotRequired["capo_neptune_graph.types.explain_mode.ExplainMode"]

@@ -149,7 +149,7 @@ class FilterCriteria(TypedDict, closed=True):
     lambda_function_layers: NotRequired[
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]
-    r"""<p>Filters the list of Amazon Web Services Lambda functions by the function's <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html\"> layers</a>. A Lambda function can have up to five layers.</p>"""
+    """<p>Filters the list of Amazon Web Services Lambda functions by the function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html"> layers</a>. A Lambda function can have up to five layers.</p>"""
     lambda_function_runtime: NotRequired[
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]
@@ -157,7 +157,7 @@ class FilterCriteria(TypedDict, closed=True):
     lambda_function_last_modified_at: NotRequired[
         "capo_inspector2.types.date_filter_list.DateFilterList"
     ]
-    r"""<p>Filters the list of Amazon Web Services Lambda functions by the date and time that a user last updated the configuration, in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601 format</a> </p>"""
+    """<p>Filters the list of Amazon Web Services Lambda functions by the date and time that a user last updated the configuration, in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601 format</a> </p>"""
     lambda_function_execution_role_arn: NotRequired[
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]
@@ -173,7 +173,7 @@ class FilterCriteria(TypedDict, closed=True):
     code_vulnerability_detector_tags: NotRequired[
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]
-    r"""<p>The detector type tag associated with the vulnerability used to filter findings. Detector tags group related vulnerabilities by common themes or tactics. For a list of available tags by programming language, see <a href=\"https://docs.aws.amazon.com/codeguru/detector-library/java/tags/\">Java tags</a>, or <a href=\"https://docs.aws.amazon.com/codeguru/detector-library/python/tags/\">Python tags</a>. </p>"""
+    """<p>The detector type tag associated with the vulnerability used to filter findings. Detector tags group related vulnerabilities by common themes or tactics. For a list of available tags by programming language, see <a href="https://docs.aws.amazon.com/codeguru/detector-library/java/tags/">Java tags</a>, or <a href="https://docs.aws.amazon.com/codeguru/detector-library/python/tags/">Python tags</a>. </p>"""
     code_vulnerability_file_path: NotRequired[
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]

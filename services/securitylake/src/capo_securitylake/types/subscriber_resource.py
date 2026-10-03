@@ -36,7 +36,7 @@ class SubscriberResource(TypedDict, closed=True):
     ]
     """<p>The subscriber descriptions for a subscriber account. The description for a subscriber includes <code>subscriberName</code>, <code>accountID</code>, <code>externalID</code>, and <code>subscriberId</code>.</p>"""
     sources: "capo_securitylake.types.log_source_resource_list.LogSourceResourceList"
-    r"""<p>Amazon Security Lake supports log and event collection for natively supported Amazon Web Services services. For more information, see the <a href=\"https://docs.aws.amazon.com/security-lake/latest/userguide/source-management.html\">Amazon Security Lake User Guide</a>.</p>"""
+    """<p>Amazon Security Lake supports log and event collection for natively supported Amazon Web Services services. For more information, see the <a href="https://docs.aws.amazon.com/security-lake/latest/userguide/source-management.html">Amazon Security Lake User Guide</a>.</p>"""
     access_types: NotRequired["capo_securitylake.types.access_type_list.AccessTypeList"]
     """<p>You can choose to notify subscribers of new objects with an Amazon Simple Queue Service (Amazon SQS) queue or through messaging to an HTTPS endpoint provided by the subscriber.</p> <p> Subscribers can consume data by directly querying Lake Formation tables in your Amazon S3 bucket through services like Amazon Athena. This subscription type is defined as <code>LAKEFORMATION</code>.</p>"""
     role_arn: NotRequired["capo_securitylake.types.role_arn.RoleArn"]

@@ -31,7 +31,7 @@ class SetUserPoolMfaConfigRequest(TypedDict, closed=True):
     email_mfa_configuration: NotRequired[
         "capo_cognito_identity_provider.types.email_mfa_config_type.EmailMfaConfigType"
     ]
-    r"""<p>Sets configuration for user pool email message MFA and sign-in with one-time passwords (OTPs). Includes the subject and body of the email message template for sign-in and MFA messages. To activate this setting, your user pool must be in the <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html\"> Essentials tier</a> or higher.</p>"""
+    """<p>Sets configuration for user pool email message MFA and sign-in with one-time passwords (OTPs). Includes the subject and body of the email message template for sign-in and MFA messages. To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p>"""
     mfa_configuration: NotRequired[
         "capo_cognito_identity_provider.types.user_pool_mfa_type.UserPoolMfaType"
     ]

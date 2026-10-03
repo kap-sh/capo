@@ -32,7 +32,7 @@ class S3DirectTarget(TypedDict, closed=True):
     compression: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>Specifies how the data is compressed. This is generally not necessary if the data has a standard file extension. Possible values are <code>\"gzip\"</code> and <code>\"bzip\"</code>).</p>"""
+    """<p>Specifies how the data is compressed. This is generally not necessary if the data has a standard file extension. Possible values are <code>"gzip"</code> and <code>"bzip"</code>).</p>"""
     number_target_partitions: NotRequired[
         "capo_glue.types.number_target_partitions_string.NumberTargetPartitionsString"
     ]

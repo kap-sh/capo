@@ -15,7 +15,7 @@ class PolicyUser(TypedDict, closed=True):
     user_name: NotRequired["capo_iam.types.user_name_type.userNameType"]
     """<p>The name (friendly name, not ARN) identifying the user.</p>"""
     user_id: NotRequired["capo_iam.types.id_type.idType"]
-    r"""<p>The stable and unique string identifying the user. For more information about IDs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The stable and unique string identifying the user. For more information about IDs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

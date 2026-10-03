@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class RuntimeVersion(TypedDict, closed=True):
     version_name: NotRequired["capo_synthetics.types.string.String"]
-    r"""<p>The name of the runtime version. For a list of valid runtime versions, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Library.html\"> Canary Runtime Versions</a>.</p>"""
+    """<p>The name of the runtime version. For a list of valid runtime versions, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Library.html"> Canary Runtime Versions</a>.</p>"""
     description: NotRequired["capo_synthetics.types.string.String"]
     """<p>A description of the runtime version, created by Amazon.</p>"""
     release_date: NotRequired["capo_synthetics.types.timestamp.Timestamp"]

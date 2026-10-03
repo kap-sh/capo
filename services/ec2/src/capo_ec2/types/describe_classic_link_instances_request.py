@@ -28,7 +28,7 @@ class DescribeClassicLinkInstancesRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_classic_link_instances_max_results.DescribeClassicLinkInstancesMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p> <p>Constraint: If the value is greater than 1000, we return only 1000 items.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p> <p>Constraint: If the value is greater than 1000, we return only 1000 items.</p>"""
 
 
 # --- ec2Query ser/de ---

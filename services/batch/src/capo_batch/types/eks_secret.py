@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class EksSecret(TypedDict, closed=True):
     secret_name: NotRequired["capo_batch.types.string.String"]
-    r"""<p>The name of the secret. The name must be allowed as a DNS subdomain name. For more information, see <a href=\"https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names\">DNS subdomain names</a> in the <i>Kubernetes documentation</i>.</p>"""
+    """<p>The name of the secret. The name must be allowed as a DNS subdomain name. For more information, see <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names">DNS subdomain names</a> in the <i>Kubernetes documentation</i>.</p>"""
     optional: NotRequired["capo_batch.types.boolean.Boolean"]
     """<p>Specifies whether the secret or the secret's keys must be defined.</p>"""
 

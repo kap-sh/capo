@@ -32,67 +32,67 @@ if TYPE_CHECKING:
 
 class Processor(TypedDict, closed=True):
     add_keys: NotRequired["capo_cloudwatch_logs.types.add_keys.AddKeys"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-addKeys\"> addKeys</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-addKeys"> addKeys</a> processor in your transformer.</p>"""
     copy_value: NotRequired["capo_cloudwatch_logs.types.copy_value.CopyValue"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-copyValue\"> copyValue</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-copyValue"> copyValue</a> processor in your transformer.</p>"""
     csv: NotRequired["capo_cloudwatch_logs.types.csv.CSV"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-CSV\"> CSV</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-CSV"> CSV</a> processor in your transformer.</p>"""
     date_time_converter: NotRequired[
         "capo_cloudwatch_logs.types.date_time_converter.DateTimeConverter"
     ]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-datetimeConverter\"> datetimeConverter</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-datetimeConverter"> datetimeConverter</a> processor in your transformer.</p>"""
     delete_keys: NotRequired["capo_cloudwatch_logs.types.delete_keys.DeleteKeys"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-deleteKeys\"> deleteKeys</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-deleteKeys"> deleteKeys</a> processor in your transformer.</p>"""
     grok: NotRequired["capo_cloudwatch_logs.types.grok.Grok"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-grok\"> grok</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-grok"> grok</a> processor in your transformer.</p>"""
     list_to_map: NotRequired["capo_cloudwatch_logs.types.list_to_map.ListToMap"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-listToMap\"> listToMap</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-listToMap"> listToMap</a> processor in your transformer.</p>"""
     lower_case_string: NotRequired[
         "capo_cloudwatch_logs.types.lower_case_string.LowerCaseString"
     ]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-lowerCaseString\"> lowerCaseString</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-lowerCaseString"> lowerCaseString</a> processor in your transformer.</p>"""
     move_keys: NotRequired["capo_cloudwatch_logs.types.move_keys.MoveKeys"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-moveKeys\"> moveKeys</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-moveKeys"> moveKeys</a> processor in your transformer.</p>"""
     parse_cloudfront: NotRequired[
         "capo_cloudwatch_logs.types.parse_cloudfront.ParseCloudfront"
     ]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseCloudfront\"> parseCloudfront</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseCloudfront"> parseCloudfront</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
     parse_json: NotRequired["capo_cloudwatch_logs.types.parse_json.ParseJSON"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseJSON\"> parseJSON</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseJSON"> parseJSON</a> processor in your transformer.</p>"""
     parse_key_value: NotRequired[
         "capo_cloudwatch_logs.types.parse_key_value.ParseKeyValue"
     ]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseKeyValue\"> parseKeyValue</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseKeyValue"> parseKeyValue</a> processor in your transformer.</p>"""
     parse_route53: NotRequired["capo_cloudwatch_logs.types.parse_route53.ParseRoute53"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseRoute53\"> parseRoute53</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseRoute53"> parseRoute53</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
     parse_to_ocsf: NotRequired["capo_cloudwatch_logs.types.parse_to_ocsf.ParseToOCSF"]
     """<p>Use this parameter to convert logs into Open Cybersecurity Schema (OCSF) format.</p>"""
     parse_postgres: NotRequired[
         "capo_cloudwatch_logs.types.parse_postgres.ParsePostgres"
     ]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parsePostGres\"> parsePostGres</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parsePostGres"> parsePostGres</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
     parse_vpc: NotRequired["capo_cloudwatch_logs.types.parse_vpc.ParseVPC"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseVPC\"> parseVPC</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseVPC"> parseVPC</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
     parse_waf: NotRequired["capo_cloudwatch_logs.types.parse_waf.ParseWAF"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseWAF\"> parseWAF</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-parseWAF"> parseWAF</a> processor in your transformer.</p> <p>If you use this processor, it must be the first processor in your transformer.</p>"""
     rename_keys: NotRequired["capo_cloudwatch_logs.types.rename_keys.RenameKeys"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-renameKeys\"> renameKeys</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-renameKeys"> renameKeys</a> processor in your transformer.</p>"""
     split_string: NotRequired["capo_cloudwatch_logs.types.split_string.SplitString"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-splitString\"> splitString</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-splitString"> splitString</a> processor in your transformer.</p>"""
     substitute_string: NotRequired[
         "capo_cloudwatch_logs.types.substitute_string.SubstituteString"
     ]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-substituteString\"> substituteString</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-substituteString"> substituteString</a> processor in your transformer.</p>"""
     trim_string: NotRequired["capo_cloudwatch_logs.types.trim_string.TrimString"]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-trimString\"> trimString</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-trimString"> trimString</a> processor in your transformer.</p>"""
     type_converter: NotRequired[
         "capo_cloudwatch_logs.types.type_converter.TypeConverter"
     ]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-typeConverter\"> typeConverter</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-typeConverter"> typeConverter</a> processor in your transformer.</p>"""
     upper_case_string: NotRequired[
         "capo_cloudwatch_logs.types.upper_case_string.UpperCaseString"
     ]
-    r"""<p>Use this parameter to include the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-upperCaseString\"> upperCaseString</a> processor in your transformer.</p>"""
+    """<p>Use this parameter to include the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html#CloudWatch-Logs-Transformation-upperCaseString"> upperCaseString</a> processor in your transformer.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

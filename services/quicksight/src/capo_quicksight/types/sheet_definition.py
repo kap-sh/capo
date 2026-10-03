@@ -36,11 +36,11 @@ class SheetDefinition(TypedDict, closed=True):
     parameter_controls: NotRequired[
         "capo_quicksight.types.parameter_control_list.ParameterControlList"
     ]
-    r"""<p>The list of parameter controls that are on a sheet.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/parameters-controls.html\">Using a Control with a Parameter in Amazon Quick Sight</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>The list of parameter controls that are on a sheet.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/parameters-controls.html">Using a Control with a Parameter in Amazon Quick Sight</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     filter_controls: NotRequired[
         "capo_quicksight.types.filter_control_list.FilterControlList"
     ]
-    r"""<p>The list of filter controls that are on a sheet.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/filter-controls.html\">Adding filter controls to analysis sheets</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>The list of filter controls that are on a sheet.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/filter-controls.html">Adding filter controls to analysis sheets</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     visuals: NotRequired["capo_quicksight.types.visual_list.VisualList"]
     """<p>A list of the visuals that are on a sheet. Visual placement is determined by the layout of the sheet.</p>"""
     text_boxes: NotRequired[
@@ -50,7 +50,7 @@ class SheetDefinition(TypedDict, closed=True):
     images: NotRequired["capo_quicksight.types.sheet_image_list.SheetImageList"]
     """<p>A list of images on a sheet.</p>"""
     layouts: NotRequired["capo_quicksight.types.layout_list.LayoutList"]
-    r"""<p>Layouts define how the components of a sheet are arranged.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/types-of-layout.html\">Types of layout</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>Layouts define how the components of a sheet are arranged.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/types-of-layout.html">Types of layout</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     sheet_control_layouts: NotRequired[
         "capo_quicksight.types.sheet_control_layout_list.SheetControlLayoutList"
     ]

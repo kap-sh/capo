@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class AutoParticipantRecordingConfiguration(TypedDict, closed=True):
     storage_configuration_arn: "capo_ivs_realtime.types.auto_participant_recording_storage_configuration_arn.AutoParticipantRecordingStorageConfigurationArn"
-    r"""<p>ARN of the <a>StorageConfiguration</a> resource to use for individual participant recording. Default: <code>\"\"</code> (empty string, no storage configuration is specified). Individual participant recording cannot be started unless a storage configuration is specified, when a <a>Stage</a> is created or updated. To disable individual participant recording, set this to <code>\"\"</code>; other fields in this object will get reset to their defaults when sending <code>\"\"</code>. </p>"""
+    """<p>ARN of the <a>StorageConfiguration</a> resource to use for individual participant recording. Default: <code>""</code> (empty string, no storage configuration is specified). Individual participant recording cannot be started unless a storage configuration is specified, when a <a>Stage</a> is created or updated. To disable individual participant recording, set this to <code>""</code>; other fields in this object will get reset to their defaults when sending <code>""</code>. </p>"""
     media_types: NotRequired[
         "capo_ivs_realtime.types.participant_recording_media_type_list.ParticipantRecordingMediaTypeList"
     ]

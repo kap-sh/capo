@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class PutAccountPricingAttributesRequest(TypedDict, closed=True):
     plan: "capo_sesv2.types.pricing_plan.PricingPlan"
-    r"""<p>The pricing plan to apply to your Amazon SES account. For details about each plan, see <a href=\"http://aws.amazon.com/ses/pricing/\">Amazon SES Pricing</a>. Can be one of the following:</p> <ul> <li> <p> <code>NONE</code> </p> </li> <li> <p> <code>ESSENTIALS</code> </p> </li> <li> <p> <code>PRO</code> </p> </li> <li> <p> <code>ENTERPRISE</code> </p> </li> </ul>"""
+    """<p>The pricing plan to apply to your Amazon SES account. For details about each plan, see <a href="http://aws.amazon.com/ses/pricing/">Amazon SES Pricing</a>. Can be one of the following:</p> <ul> <li> <p> <code>NONE</code> </p> </li> <li> <p> <code>ESSENTIALS</code> </p> </li> <li> <p> <code>PRO</code> </p> </li> <li> <p> <code>ENTERPRISE</code> </p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

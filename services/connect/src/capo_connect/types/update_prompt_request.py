@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class UpdatePromptRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     prompt_id: "capo_connect.types.prompt_id.PromptId"
     """<p>A unique identifier for the prompt.</p>"""
     name: NotRequired["capo_connect.types.common_name_length127.CommonNameLength127"]
@@ -22,7 +22,7 @@ class UpdatePromptRequest(TypedDict, closed=True):
     description: NotRequired["capo_connect.types.prompt_description.PromptDescription"]
     """<p>A description of the prompt.</p>"""
     s3_uri: NotRequired["capo_connect.types.s3_uri.S3Uri"]
-    r"""<p>The URI for the S3 bucket where the prompt is stored. You can provide S3 pre-signed URLs returned by the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_GetPromptFile.html\">GetPromptFile</a> API instead of providing S3 URIs.</p>"""
+    """<p>The URI for the S3 bucket where the prompt is stored. You can provide S3 pre-signed URLs returned by the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_GetPromptFile.html">GetPromptFile</a> API instead of providing S3 URIs.</p>"""
 
 
 # --- restJson1 ser/de ---

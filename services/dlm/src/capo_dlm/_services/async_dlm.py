@@ -196,7 +196,7 @@ class AsyncDLMClient:
     ) -> (
         "capo_dlm.types.create_lifecycle_policy_response.CreateLifecyclePolicyResponse"
     ):
-        r"""<p>Creates an Amazon Data Lifecycle Manager lifecycle policy. Amazon Data Lifecycle Manager supports the following policy types:</p> <ul> <li> <p>Custom EBS snapshot policy</p> </li> <li> <p>Custom EBS-backed AMI policy</p> </li> <li> <p>Cross-account copy event policy</p> </li> <li> <p>Default policy for EBS snapshots</p> </li> <li> <p>Default policy for EBS-backed AMIs</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/policy-differences.html\"> Default policies vs custom policies</a>.</p> <important> <p>If you create a default policy, you can specify the request parameters either in the request body, or in the PolicyDetails request structure, but not both.</p> </important>
+        """<p>Creates an Amazon Data Lifecycle Manager lifecycle policy. Amazon Data Lifecycle Manager supports the following policy types:</p> <ul> <li> <p>Custom EBS snapshot policy</p> </li> <li> <p>Custom EBS-backed AMI policy</p> </li> <li> <p>Cross-account copy event policy</p> </li> <li> <p>Default policy for EBS snapshots</p> </li> <li> <p>Default policy for EBS-backed AMIs</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/policy-differences.html"> Default policies vs custom policies</a>.</p> <important> <p>If you create a default policy, you can specify the request parameters either in the request body, or in the PolicyDetails request structure, but not both.</p> </important>
 
         Args:
             execution_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role used to run the operations specified by the lifecycle policy.</p>
@@ -277,7 +277,7 @@ class AsyncDLMClient:
     ) -> (
         "capo_dlm.types.delete_lifecycle_policy_response.DeleteLifecyclePolicyResponse"
     ):
-        r"""<p>Deletes the specified lifecycle policy and halts the automated operations that the policy specified.</p> <p>For more information about deleting a policy, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#delete\">Delete lifecycle policies</a>.</p>
+        """<p>Deletes the specified lifecycle policy and halts the automated operations that the policy specified.</p> <p>For more information about deleting a policy, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#delete">Delete lifecycle policies</a>.</p>
 
         Args:
             policy_id: <p>The identifier of the lifecycle policy.</p>
@@ -338,7 +338,7 @@ class AsyncDLMClient:
             "capo_dlm.types.default_policies_type_values.DefaultPoliciesTypeValues"
         ] = None,
     ) -> "capo_dlm.types.get_lifecycle_policies_response.GetLifecyclePoliciesResponse":
-        r"""<p>Gets summary information about all or the specified data lifecycle policies.</p> <p>To get complete information about a policy, use <a href=\"https://docs.aws.amazon.com/dlm/latest/APIReference/API_GetLifecyclePolicy.html\">GetLifecyclePolicy</a>.</p>
+        """<p>Gets summary information about all or the specified data lifecycle policies.</p> <p>To get complete information about a policy, use <a href="https://docs.aws.amazon.com/dlm/latest/APIReference/API_GetLifecyclePolicy.html">GetLifecyclePolicy</a>.</p>
 
         Args:
             policy_ids: <p>The identifiers of the data lifecycle policies.</p>
@@ -620,7 +620,7 @@ class AsyncDLMClient:
     ) -> (
         "capo_dlm.types.update_lifecycle_policy_response.UpdateLifecyclePolicyResponse"
     ):
-        r"""<p>Updates the specified lifecycle policy.</p> <p>For more information about updating a policy, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#modify\">Modify lifecycle policies</a>.</p>
+        """<p>Updates the specified lifecycle policy.</p> <p>For more information about updating a policy, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#modify">Modify lifecycle policies</a>.</p>
 
         Args:
             policy_id: <p>The identifier of the lifecycle policy.</p>

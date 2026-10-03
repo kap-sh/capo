@@ -101,7 +101,7 @@ class BuildBatch(TypedDict, closed=True):
     debug_session_enabled: NotRequired[
         "capo_codebuild.types.wrapper_boolean.WrapperBoolean"
     ]
-    r"""<p>Specifies if session debugging is enabled for this batch build. For more information, see <a href=\"https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html\">Viewing a running build in Session Manager</a>. Batch session debugging is not supported for matrix batch builds.</p>"""
+    """<p>Specifies if session debugging is enabled for this batch build. For more information, see <a href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running build in Session Manager</a>. Batch session debugging is not supported for matrix batch builds.</p>"""
     report_arns: NotRequired["capo_codebuild.types.build_report_arns.BuildReportArns"]
     """<p>An array that contains the ARNs of reports created by merging reports from builds associated with this batch build.</p>"""
 

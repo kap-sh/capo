@@ -21,7 +21,7 @@ class RateBasedRule(TypedDict, closed=True):
     name: NotRequired["capo_waf.types.resource_name.ResourceName"]
     """<p>A friendly name or description for a <code>RateBasedRule</code>. You can't change the name of a <code>RateBasedRule</code> after you create it.</p>"""
     metric_name: NotRequired["capo_waf.types.metric_name.MetricName"]
-    r"""<p>A friendly name or description for the metrics for a <code>RateBasedRule</code>. The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including \"All\" and \"Default_Action.\" You can't change the name of the metric after you create the <code>RateBasedRule</code>.</p>"""
+    """<p>A friendly name or description for the metrics for a <code>RateBasedRule</code>. The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including "All" and "Default_Action." You can't change the name of the metric after you create the <code>RateBasedRule</code>.</p>"""
     match_predicates: "capo_waf.types.predicates.Predicates"
     """<p>The <code>Predicates</code> object contains one <code>Predicate</code> element for each <a>ByteMatchSet</a>, <a>IPSet</a>, or <a>SqlInjectionMatchSet</a> object that you want to include in a <code>RateBasedRule</code>.</p>"""
     rate_key: "capo_waf.types.rate_key.RateKey"

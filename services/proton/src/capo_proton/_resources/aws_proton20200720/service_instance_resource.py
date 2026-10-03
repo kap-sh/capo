@@ -60,7 +60,7 @@ class ServiceInstanceResource:
         tags: Optional["capo_proton.types.tag_list.TagList"] = None,
         client_token: Optional["capo_proton.types.client_token.ClientToken"] = None,
     ) -> "capo_proton.types.create_service_instance_output.CreateServiceInstanceOutput":
-        r"""<p>Create a service instance.</p>
+        """<p>Create a service instance.</p>
 
         Args:
             name: <p>The name of the service instance to create.</p>
@@ -68,7 +68,7 @@ class ServiceInstanceResource:
             spec: <p>The spec for the service instance you want to create.</p>
             template_major_version: <p>To create a new major and minor version of the service template, <i>exclude</i> <code>major Version</code>.</p>
             template_minor_version: <p>To create a new minor version of the service template, include a <code>major Version</code>.</p>
-            tags: <p>An optional list of metadata items that you can associate with the Proton service instance. A tag is a key-value pair.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>
+            tags: <p>An optional list of metadata items that you can associate with the Proton service instance. A tag is a key-value pair.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/resources.html">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>
             client_token: <p>The client token of the service instance to create.</p>
 
         Raises:
@@ -185,7 +185,7 @@ class ServiceInstanceResource:
         ] = None,
         client_token: Optional["capo_proton.types.client_token.ClientToken"] = None,
     ) -> "capo_proton.types.update_service_instance_output.UpdateServiceInstanceOutput":
-        r"""<p>Update a service instance.</p> <p>There are a few modes for updating a service instance. The <code>deploymentType</code> field defines the mode.</p> <note> <p>You can't update a service instance while its deployment status, or the deployment status of a component attached to it, is <code>IN_PROGRESS</code>.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p> </note>
+        """<p>Update a service instance.</p> <p>There are a few modes for updating a service instance. The <code>deploymentType</code> field defines the mode.</p> <note> <p>You can't update a service instance while its deployment status, or the deployment status of a component attached to it, is <code>IN_PROGRESS</code>.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p> </note>
 
         Args:
             name: <p>The name of the service instance to update.</p>
@@ -338,7 +338,7 @@ class AsyncServiceInstanceResource:
         tags: Optional["capo_proton.types.tag_list.TagList"] = None,
         client_token: Optional["capo_proton.types.client_token.ClientToken"] = None,
     ) -> "capo_proton.types.create_service_instance_output.CreateServiceInstanceOutput":
-        r"""<p>Create a service instance.</p>
+        """<p>Create a service instance.</p>
 
         Args:
             name: <p>The name of the service instance to create.</p>
@@ -346,7 +346,7 @@ class AsyncServiceInstanceResource:
             spec: <p>The spec for the service instance you want to create.</p>
             template_major_version: <p>To create a new major and minor version of the service template, <i>exclude</i> <code>major Version</code>.</p>
             template_minor_version: <p>To create a new minor version of the service template, include a <code>major Version</code>.</p>
-            tags: <p>An optional list of metadata items that you can associate with the Proton service instance. A tag is a key-value pair.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>
+            tags: <p>An optional list of metadata items that you can associate with the Proton service instance. A tag is a key-value pair.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/resources.html">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>
             client_token: <p>The client token of the service instance to create.</p>
 
         Raises:
@@ -465,7 +465,7 @@ class AsyncServiceInstanceResource:
         ] = None,
         client_token: Optional["capo_proton.types.client_token.ClientToken"] = None,
     ) -> "capo_proton.types.update_service_instance_output.UpdateServiceInstanceOutput":
-        r"""<p>Update a service instance.</p> <p>There are a few modes for updating a service instance. The <code>deploymentType</code> field defines the mode.</p> <note> <p>You can't update a service instance while its deployment status, or the deployment status of a component attached to it, is <code>IN_PROGRESS</code>.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p> </note>
+        """<p>Update a service instance.</p> <p>There are a few modes for updating a service instance. The <code>deploymentType</code> field defines the mode.</p> <note> <p>You can't update a service instance while its deployment status, or the deployment status of a component attached to it, is <code>IN_PROGRESS</code>.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p> </note>
 
         Args:
             name: <p>The name of the service instance to update.</p>

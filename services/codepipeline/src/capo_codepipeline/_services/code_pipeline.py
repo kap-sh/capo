@@ -382,14 +382,14 @@ class CodePipelineClient:
         ] = None,
         tags: Optional["capo_codepipeline.types.tag_list.TagList"] = None,
     ) -> "capo_codepipeline.types.create_custom_action_type_output.CreateCustomActionTypeOutput":
-        r"""<p>Creates a new custom action that can be used in all pipelines associated with the Amazon Web Services account. Only used for custom actions.</p>
+        """<p>Creates a new custom action that can be used in all pipelines associated with the Amazon Web Services account. Only used for custom actions.</p>
 
         Args:
             category: <p>The category of the custom action, such as a build action or a test action.</p>
             provider: <p>The provider of the service used in the custom action, such as CodeDeploy.</p>
             version: <p>The version identifier of the custom action.</p>
             settings: <p>URLs that provide users information about this custom action.</p>
-            configuration_properties: <p>The configuration properties for the custom action.</p> <note> <p>You can refer to a name in the configuration properties of the custom action within the URL templates by following the format of {Config:name}, as long as the configuration property is both required and not secret. For more information, see <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/how-to-create-custom-action.html\">Create a Custom Action for a Pipeline</a>.</p> </note>
+            configuration_properties: <p>The configuration properties for the custom action.</p> <note> <p>You can refer to a name in the configuration properties of the custom action within the URL templates by following the format of {Config:name}, as long as the configuration property is both required and not secret. For more information, see <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/how-to-create-custom-action.html">Create a Custom Action for a Pipeline</a>.</p> </note>
             input_artifact_details: <p>The details of the input artifact for the action, such as its commit ID.</p>
             output_artifact_details: <p>The details of the output artifact of the action, such as its commit ID.</p>
             tags: <p>The tags for the custom action.</p>
@@ -1590,7 +1590,7 @@ class CodePipelineClient:
             "capo_codepipeline.types.aws_region_name.AWSRegionName"
         ] = None,
     ) -> "capo_codepipeline.types.list_rule_types_output.ListRuleTypesOutput":
-        r"""<p>Lists the rules for the condition. For more information about conditions, see <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/stage-conditions.html\">Stage conditions</a> and <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-how-it-works-conditions.html\">How do stage conditions work?</a>.For more information about rules, see the <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/rule-reference.html\">CodePipeline rule reference</a>.</p>
+        """<p>Lists the rules for the condition. For more information about conditions, see <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/stage-conditions.html">Stage conditions</a> and <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-how-it-works-conditions.html">How do stage conditions work?</a>.For more information about rules, see the <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/rule-reference.html">CodePipeline rule reference</a>.</p>
 
         Args:
             rule_owner_filter: <p>The rule owner to filter on.</p>
@@ -1786,7 +1786,7 @@ class CodePipelineClient:
         *,
         config_overrides: Optional[CodePipelineClientConfig] = None,
     ) -> None:
-        r"""<p>Used to override a stage condition. For more information about conditions, see <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/stage-conditions.html\">Stage conditions</a> and <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-how-it-works-conditions.html\">How do stage conditions work?</a>.</p>
+        """<p>Used to override a stage condition. For more information about conditions, see <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/stage-conditions.html">Stage conditions</a> and <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-how-it-works-conditions.html">How do stage conditions work?</a>.</p>
 
         Args:
             pipeline_name: <p>The name of the pipeline with the stage that will override the condition.</p>
@@ -1845,7 +1845,7 @@ class CodePipelineClient:
             "capo_codepipeline.types.query_param_map.QueryParamMap"
         ] = None,
     ) -> "capo_codepipeline.types.poll_for_jobs_output.PollForJobsOutput":
-        r"""<p>Returns information about any jobs for CodePipeline to act on. <code>PollForJobs</code> is valid only for action types with \"Custom\" in the owner field. If the action type contains <code>AWS</code> or <code>ThirdParty</code> in the owner field, the <code>PollForJobs</code> action returns an error.</p> <important> <p>When this API is called, CodePipeline returns temporary credentials for the S3 bucket used to store artifacts for the pipeline, if the action requires access to that S3 bucket for input or output artifacts. This API also returns any secret values defined for the action.</p> </important>
+        """<p>Returns information about any jobs for CodePipeline to act on. <code>PollForJobs</code> is valid only for action types with "Custom" in the owner field. If the action type contains <code>AWS</code> or <code>ThirdParty</code> in the owner field, the <code>PollForJobs</code> action returns an error.</p> <important> <p>When this API is called, CodePipeline returns temporary credentials for the S3 bucket used to store artifacts for the pipeline, if the action requires access to that S3 bucket for input or output artifacts. This API also returns any secret values defined for the action.</p> </important>
 
         Args:
             action_type_id: <p>Represents information about an action type.</p>

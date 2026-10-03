@@ -23,7 +23,7 @@ class ContactDetail(TypedDict, closed=True):
     last_name: NotRequired["capo_route_53_domains.types.contact_name.ContactName"]
     """<p>Last name of contact.</p>"""
     contact_type: NotRequired["capo_route_53_domains.types.contact_type.ContactType"]
-    r"""<p>Indicates whether the contact is a person, company, association, or public organization. Note the following:</p> <ul> <li> <p>If you specify a value other than <code>PERSON</code>, you must also specify a value for <code>OrganizationName</code>.</p> </li> <li> <p>For some TLDs, the privacy protection available depends on the value that you specify for <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a href=\"https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html\">Domains that You Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i> </p> </li> <li> <p>For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.</p> </li> </ul>"""
+    """<p>Indicates whether the contact is a person, company, association, or public organization. Note the following:</p> <ul> <li> <p>If you specify a value other than <code>PERSON</code>, you must also specify a value for <code>OrganizationName</code>.</p> </li> <li> <p>For some TLDs, the privacy protection available depends on the value that you specify for <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i> </p> </li> <li> <p>For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.</p> </li> </ul>"""
     organization_name: NotRequired[
         "capo_route_53_domains.types.contact_name.ContactName"
     ]
@@ -43,11 +43,11 @@ class ContactDetail(TypedDict, closed=True):
     phone_number: NotRequired[
         "capo_route_53_domains.types.contact_number.ContactNumber"
     ]
-    r"""<p>The phone number of the contact.</p> <p>Constraints: Phone number must be specified in the format \"+[country dialing code].[number including any area code>]\". For example, a US phone number might appear as <code>\"+1.1234567890\"</code>.</p>"""
+    """<p>The phone number of the contact.</p> <p>Constraints: Phone number must be specified in the format "+[country dialing code].[number including any area code>]". For example, a US phone number might appear as <code>"+1.1234567890"</code>.</p>"""
     email: NotRequired["capo_route_53_domains.types.email.Email"]
     """<p>Email address of the contact.</p>"""
     fax: NotRequired["capo_route_53_domains.types.contact_number.ContactNumber"]
-    r"""<p>Fax number of the contact.</p> <p>Constraints: Phone number must be specified in the format \"+[country dialing code].[number including any area code]\". For example, a US phone number might appear as <code>\"+1.1234567890\"</code>.</p>"""
+    """<p>Fax number of the contact.</p> <p>Constraints: Phone number must be specified in the format "+[country dialing code].[number including any area code]". For example, a US phone number might appear as <code>"+1.1234567890"</code>.</p>"""
     extra_params: NotRequired[
         "capo_route_53_domains.types.extra_param_list.ExtraParamList"
     ]

@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 
 class PutIntentRequest(TypedDict, closed=True):
     name: "capo_lex_model_building_service.types.intent_name.IntentName"
-    r"""<p>The name of the intent. The name is <i>not</i> case sensitive. </p> <p>The name can't match a built-in intent name, or a built-in intent name with \"AMAZON.\" removed. For example, because there is a built-in intent called <code>AMAZON.HelpIntent</code>, you can't create a custom intent called <code>HelpIntent</code>.</p> <p>For a list of built-in intents, see <a href=\"https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents\">Standard Built-in Intents</a> in the <i>Alexa Skills Kit</i>.</p>"""
+    """<p>The name of the intent. The name is <i>not</i> case sensitive. </p> <p>The name can't match a built-in intent name, or a built-in intent name with "AMAZON." removed. For example, because there is a built-in intent called <code>AMAZON.HelpIntent</code>, you can't create a custom intent called <code>HelpIntent</code>.</p> <p>For a list of built-in intents, see <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents">Standard Built-in Intents</a> in the <i>Alexa Skills Kit</i>.</p>"""
     description: NotRequired[
         "capo_lex_model_building_service.types.description.Description"
     ]
@@ -34,7 +34,7 @@ class PutIntentRequest(TypedDict, closed=True):
     sample_utterances: NotRequired[
         "capo_lex_model_building_service.types.intent_utterance_list.IntentUtteranceList"
     ]
-    r"""<p>An array of utterances (strings) that a user might say to signal the intent. For example, \"I want {PizzaSize} pizza\", \"Order {Quantity} {PizzaSize} pizzas\". </p> <p>In each utterance, a slot name is enclosed in curly braces. </p>"""
+    """<p>An array of utterances (strings) that a user might say to signal the intent. For example, "I want {PizzaSize} pizza", "Order {Quantity} {PizzaSize} pizzas". </p> <p>In each utterance, a slot name is enclosed in curly braces. </p>"""
     confirmation_prompt: NotRequired[
         "capo_lex_model_building_service.types.prompt.Prompt"
     ]
@@ -42,11 +42,11 @@ class PutIntentRequest(TypedDict, closed=True):
     rejection_statement: NotRequired[
         "capo_lex_model_building_service.types.statement.Statement"
     ]
-    r"""<p>When the user answers \"no\" to the question defined in <code>confirmationPrompt</code>, Amazon Lex responds with this statement to acknowledge that the intent was canceled. </p> <note> <p>You must provide both the <code>rejectionStatement</code> and the <code>confirmationPrompt</code>, or neither.</p> </note>"""
+    """<p>When the user answers "no" to the question defined in <code>confirmationPrompt</code>, Amazon Lex responds with this statement to acknowledge that the intent was canceled. </p> <note> <p>You must provide both the <code>rejectionStatement</code> and the <code>confirmationPrompt</code>, or neither.</p> </note>"""
     follow_up_prompt: NotRequired[
         "capo_lex_model_building_service.types.follow_up_prompt.FollowUpPrompt"
     ]
-    r"""<p>Amazon Lex uses this prompt to solicit additional activity after fulfilling an intent. For example, after the <code>OrderPizza</code> intent is fulfilled, you might prompt the user to order a drink.</p> <p>The action that Amazon Lex takes depends on the user's response, as follows:</p> <ul> <li> <p>If the user says \"Yes\" it responds with the clarification prompt that is configured for the bot.</p> </li> <li> <p>if the user says \"Yes\" and continues with an utterance that triggers an intent it starts a conversation for the intent.</p> </li> <li> <p>If the user says \"No\" it responds with the rejection statement configured for the the follow-up prompt.</p> </li> <li> <p>If it doesn't recognize the utterance it repeats the follow-up prompt again.</p> </li> </ul> <p>The <code>followUpPrompt</code> field and the <code>conclusionStatement</code> field are mutually exclusive. You can specify only one. </p>"""
+    """<p>Amazon Lex uses this prompt to solicit additional activity after fulfilling an intent. For example, after the <code>OrderPizza</code> intent is fulfilled, you might prompt the user to order a drink.</p> <p>The action that Amazon Lex takes depends on the user's response, as follows:</p> <ul> <li> <p>If the user says "Yes" it responds with the clarification prompt that is configured for the bot.</p> </li> <li> <p>if the user says "Yes" and continues with an utterance that triggers an intent it starts a conversation for the intent.</p> </li> <li> <p>If the user says "No" it responds with the rejection statement configured for the the follow-up prompt.</p> </li> <li> <p>If it doesn't recognize the utterance it repeats the follow-up prompt again.</p> </li> </ul> <p>The <code>followUpPrompt</code> field and the <code>conclusionStatement</code> field are mutually exclusive. You can specify only one. </p>"""
     conclusion_statement: NotRequired[
         "capo_lex_model_building_service.types.statement.Statement"
     ]
@@ -62,7 +62,7 @@ class PutIntentRequest(TypedDict, closed=True):
     parent_intent_signature: NotRequired[
         "capo_lex_model_building_service.types.builtin_intent_signature.BuiltinIntentSignature"
     ]
-    r"""<p>A unique identifier for the built-in intent to base this intent on. To find the signature for an intent, see <a href=\"https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents\">Standard Built-in Intents</a> in the <i>Alexa Skills Kit</i>.</p>"""
+    """<p>A unique identifier for the built-in intent to base this intent on. To find the signature for an intent, see <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents">Standard Built-in Intents</a> in the <i>Alexa Skills Kit</i>.</p>"""
     checksum: NotRequired["capo_lex_model_building_service.types.string.String"]
     """<p>Identifies a specific revision of the <code>$LATEST</code> version.</p> <p>When you create a new intent, leave the <code>checksum</code> field blank. If you specify a checksum you get a <code>BadRequestException</code> exception.</p> <p>When you want to update a intent, set the <code>checksum</code> field to the checksum of the most recent revision of the <code>$LATEST</code> version. If you don't specify the <code> checksum</code> field, or if the checksum does not match the <code>$LATEST</code> version, you get a <code>PreconditionFailedException</code> exception.</p>"""
     create_version: NotRequired["capo_lex_model_building_service.types.boolean.Boolean"]
@@ -70,7 +70,7 @@ class PutIntentRequest(TypedDict, closed=True):
     kendra_configuration: NotRequired[
         "capo_lex_model_building_service.types.kendra_configuration.KendraConfiguration"
     ]
-    r"""<p>Configuration information required to use the <code>AMAZON.KendraSearchIntent</code> intent to connect to an Amazon Kendra index. For more information, see <a href=\"http://docs.aws.amazon.com/lex/latest/dg/built-in-intent-kendra-search.html\"> AMAZON.KendraSearchIntent</a>.</p>"""
+    """<p>Configuration information required to use the <code>AMAZON.KendraSearchIntent</code> intent to connect to an Amazon Kendra index. For more information, see <a href="http://docs.aws.amazon.com/lex/latest/dg/built-in-intent-kendra-search.html"> AMAZON.KendraSearchIntent</a>.</p>"""
     input_contexts: NotRequired[
         "capo_lex_model_building_service.types.input_context_list.InputContextList"
     ]

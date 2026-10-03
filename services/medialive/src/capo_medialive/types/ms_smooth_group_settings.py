@@ -39,13 +39,13 @@ class MsSmoothGroupSettings(TypedDict, closed=True):
     destination: NotRequired[
         "capo_medialive.types.output_location_ref.OutputLocationRef"
     ]
-    r"""Smooth Streaming publish point on an IIS server. Elemental Live acts as a \"Push\" encoder to IIS."""
+    """Smooth Streaming publish point on an IIS server. Elemental Live acts as a "Push" encoder to IIS."""
     event_id: NotRequired["capo_medialive.types.__string.__string"]
     """MS Smooth event ID to be sent to the IIS server. Should only be specified if eventIdMode is set to useConfigured."""
     event_id_mode: NotRequired[
         "capo_medialive.types.smooth_group_event_id_mode.SmoothGroupEventIdMode"
     ]
-    r"""Specifies whether or not to send an event ID to the IIS server. If no event ID is sent and the same Live Event is used without changing the publishing point, clients might see cached video from the previous run. Options: - \"useConfigured\" - use the value provided in eventId - \"useTimestamp\" - generate and send an event ID based on the current timestamp - \"noEventId\" - do not send an event ID to the IIS server."""
+    """Specifies whether or not to send an event ID to the IIS server. If no event ID is sent and the same Live Event is used without changing the publishing point, clients might see cached video from the previous run. Options: - "useConfigured" - use the value provided in eventId - "useTimestamp" - generate and send an event ID based on the current timestamp - "noEventId" - do not send an event ID to the IIS server."""
     event_stop_behavior: NotRequired[
         "capo_medialive.types.smooth_group_event_stop_behavior.SmoothGroupEventStopBehavior"
     ]

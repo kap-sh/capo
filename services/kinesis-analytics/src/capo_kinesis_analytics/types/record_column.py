@@ -18,7 +18,7 @@ class RecordColumn(TypedDict, closed=True):
     mapping: NotRequired[
         "capo_kinesis_analytics.types.record_column_mapping.RecordColumnMapping"
     ]
-    r"""<p>Reference to the data element in the streaming input or the reference data source. This element is required if the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_RecordFormat.html#analytics-Type-RecordFormat-RecordFormatTypel\">RecordFormatType</a> is <code>JSON</code>.</p>"""
+    """<p>Reference to the data element in the streaming input or the reference data source. This element is required if the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_RecordFormat.html#analytics-Type-RecordFormat-RecordFormatTypel">RecordFormatType</a> is <code>JSON</code>.</p>"""
     sql_type: "capo_kinesis_analytics.types.record_column_sql_type.RecordColumnSqlType"
     """<p>Type of column created in the in-application input stream or reference table.</p>"""
 

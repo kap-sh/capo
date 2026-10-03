@@ -25,7 +25,7 @@ class DescribeAlarmModelResponse(TypedDict, closed=True):
     creation_time: NotRequired["capo_iot_events.types.timestamp.Timestamp"]
     """<p>The time the alarm model was created, in the Unix epoch format.</p>"""
     alarm_model_arn: NotRequired["capo_iot_events.types.alarm_model_arn.AlarmModelArn"]
-    r"""<p>The ARN of the alarm model. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
+    """<p>The ARN of the alarm model. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
     alarm_model_version: NotRequired[
         "capo_iot_events.types.alarm_model_version.AlarmModelVersion"
     ]
@@ -49,9 +49,9 @@ class DescribeAlarmModelResponse(TypedDict, closed=True):
     role_arn: NotRequired[
         "capo_iot_events.types.amazon_resource_name.AmazonResourceName"
     ]
-    r"""<p>The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
+    """<p>The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
     key: NotRequired["capo_iot_events.types.attribute_json_path.AttributeJsonPath"]
-    r"""<p>An input attribute used as a key to create an alarm. AWS IoT Events routes <a href=\"https://docs.aws.amazon.com/iotevents/latest/apireference/API_Input.html\">inputs</a> associated with this key to the alarm.</p>"""
+    """<p>An input attribute used as a key to create an alarm. AWS IoT Events routes <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Input.html">inputs</a> associated with this key to the alarm.</p>"""
     severity: NotRequired["capo_iot_events.types.severity.Severity"]
     """<p>A non-negative integer that reflects the severity level of the alarm.</p>"""
     alarm_rule: NotRequired["capo_iot_events.types.alarm_rule.AlarmRule"]

@@ -31,7 +31,7 @@ class GCMMessage(TypedDict, closed=True):
     preferred_authentication_method: NotRequired[
         "capo_pinpoint.types.__string.__string"
     ]
-    r"""<p>The preferred authentication method, with valid values \"KEY\" or \"TOKEN\". If a value isn't provided then the <b>DefaultAuthenticationMethod</b> is used.</p>"""
+    """<p>The preferred authentication method, with valid values "KEY" or "TOKEN". If a value isn't provided then the <b>DefaultAuthenticationMethod</b> is used.</p>"""
     priority: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>para>normal – The notification might be delayed. Delivery is optimized for battery usage on the recipient's device. Use this value unless immediate delivery is required.</p>/listitem> <li><p>high – The notification is sent immediately and might wake a sleeping device.</p></li>/para> <p>Amazon Pinpoint specifies this value in the FCM priority parameter when it sends the notification message to FCM.</p> <p>The equivalent values for Apple Push Notification service (APNs) are 5, for normal, and 10, for high. If you specify an APNs value for this property, Amazon Pinpoint accepts and converts the value to the corresponding FCM value.</p>"""
     raw_content: NotRequired["capo_pinpoint.types.__string.__string"]

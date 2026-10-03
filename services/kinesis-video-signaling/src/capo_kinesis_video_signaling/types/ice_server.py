@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class IceServer(TypedDict, closed=True):
     uris: NotRequired["capo_kinesis_video_signaling.types.uris.Uris"]
-    r"""<p>An array of URIs, in the form specified in the <a href=\"https://tools.ietf.org/html/draft-petithuguenin-behave-turn-uris-03\">I-D.petithuguenin-behave-turn-uris</a> spec. These URIs provide the different addresses and/or protocols that can be used to reach the TURN server.</p>"""
+    """<p>An array of URIs, in the form specified in the <a href="https://tools.ietf.org/html/draft-petithuguenin-behave-turn-uris-03">I-D.petithuguenin-behave-turn-uris</a> spec. These URIs provide the different addresses and/or protocols that can be used to reach the TURN server.</p>"""
     username: NotRequired["capo_kinesis_video_signaling.types.username.Username"]
     """<p>A username to login to the ICE server.</p>"""
     password: NotRequired["capo_kinesis_video_signaling.types.password.Password"]

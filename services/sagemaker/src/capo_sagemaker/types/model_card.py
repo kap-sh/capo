@@ -25,7 +25,7 @@ class ModelCard(TypedDict, closed=True):
     model_card_version: NotRequired["capo_sagemaker.types.integer.Integer"]
     """<p>The version of the model card.</p>"""
     content: NotRequired["capo_sagemaker.types.model_card_content.ModelCardContent"]
-    r"""<p>The content of the model card. Content uses the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html#model-cards-json-schema\">model card JSON schema</a> and provided as a string.</p>"""
+    """<p>The content of the model card. Content uses the <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html#model-cards-json-schema">model card JSON schema</a> and provided as a string.</p>"""
     model_card_status: NotRequired[
         "capo_sagemaker.types.model_card_status.ModelCardStatus"
     ]
@@ -45,7 +45,7 @@ class ModelCard(TypedDict, closed=True):
     model_id: NotRequired["capo_sagemaker.types.string.String"]
     """<p>The unique name (ID) of the model.</p>"""
     risk_rating: NotRequired["capo_sagemaker.types.string.String"]
-    r"""<p>The risk rating of the model. Different organizations might have different criteria for model card risk ratings. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards-risk-rating.html\">Risk ratings</a>.</p>"""
+    """<p>The risk rating of the model. Different organizations might have different criteria for model card risk ratings. For more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards-risk-rating.html">Risk ratings</a>.</p>"""
     model_package_group_name: NotRequired["capo_sagemaker.types.string.String"]
     """<p>The model package group that contains the model package. Only relevant for model cards created for model packages in the Amazon SageMaker Model Registry. </p>"""
 

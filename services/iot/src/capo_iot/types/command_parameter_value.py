@@ -16,9 +16,9 @@ if TYPE_CHECKING:
 
 class CommandParameterValue(TypedDict, closed=True):
     s: NotRequired["capo_iot.types.string_parameter_value.StringParameterValue"]
-    r"""<p>An attribute of type String. For example:</p> <p> <code>\"S\": \"Hello\"</code> </p>"""
+    """<p>An attribute of type String. For example:</p> <p> <code>"S": "Hello"</code> </p>"""
     b: NotRequired["capo_iot.types.boolean_parameter_value.BooleanParameterValue"]
-    r"""<p>An attribute of type Boolean. For example:</p> <p> <code>\"BOOL\": true</code> </p>"""
+    """<p>An attribute of type Boolean. For example:</p> <p> <code>"BOOL": true</code> </p>"""
     i: NotRequired["capo_iot.types.integer_parameter_value.IntegerParameterValue"]
     """<p>An attribute of type Integer (Thirty-Two Bits).</p>"""
     l: NotRequired["capo_iot.types.long_parameter_value.LongParameterValue"]
@@ -26,7 +26,7 @@ class CommandParameterValue(TypedDict, closed=True):
     d: NotRequired["capo_iot.types.double_parameter_value.DoubleParameterValue"]
     """<p>An attribute of type Double (Sixty-Four Bits).</p>"""
     bin: NotRequired["capo_iot.types.binary_parameter_value.BinaryParameterValue"]
-    r"""<p>An attribute of type Binary. For example:</p> <p> <code>\"B\": \"dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk\"</code> </p>"""
+    """<p>An attribute of type Binary. For example:</p> <p> <code>"B": "dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk"</code> </p>"""
     ul: NotRequired[
         "capo_iot.types.unsigned_long_parameter_value.UnsignedLongParameterValue"
     ]

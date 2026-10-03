@@ -20,7 +20,7 @@ class UpdateStateMachineInput(TypedDict, closed=True):
     state_machine_arn: "capo_sfn.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the state machine.</p>"""
     definition: NotRequired["capo_sfn.types.definition.Definition"]
-    r"""<p>The Amazon States Language definition of the state machine. See <a href=\"https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html\">Amazon States Language</a>.</p>"""
+    """<p>The Amazon States Language definition of the state machine. See <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon States Language</a>.</p>"""
     role_arn: NotRequired["capo_sfn.types.arn.Arn"]
     """<p>The Amazon Resource Name (ARN) of the IAM role of the state machine.</p>"""
     logging_configuration: NotRequired[

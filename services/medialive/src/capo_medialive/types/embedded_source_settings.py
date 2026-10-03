@@ -15,11 +15,11 @@ class EmbeddedSourceSettings(TypedDict, closed=True):
     convert608_to708: NotRequired[
         "capo_medialive.types.embedded_convert608_to708.EmbeddedConvert608To708"
     ]
-    r"""If upconvert, 608 data is both passed through via the \"608 compatibility bytes\" fields of the 708 wrapper as well as translated into 708. 708 data present in the source content will be discarded."""
+    """If upconvert, 608 data is both passed through via the "608 compatibility bytes" fields of the 708 wrapper as well as translated into 708. 708 data present in the source content will be discarded."""
     scte20_detection: NotRequired[
         "capo_medialive.types.embedded_scte20_detection.EmbeddedScte20Detection"
     ]
-    r"""Set to \"auto\" to handle streams with intermittent and/or non-aligned SCTE-20 and Embedded captions."""
+    """Set to "auto" to handle streams with intermittent and/or non-aligned SCTE-20 and Embedded captions."""
     source608_channel_number: NotRequired[
         "capo_medialive.types.__integer_min1_max4.__integerMin1Max4"
     ]

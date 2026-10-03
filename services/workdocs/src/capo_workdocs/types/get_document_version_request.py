@@ -22,7 +22,7 @@ class GetDocumentVersionRequest(TypedDict, closed=True):
     version_id: "capo_workdocs.types.document_version_id_type.DocumentVersionIdType"
     """<p>The version ID of the document.</p>"""
     fields: NotRequired["capo_workdocs.types.field_names_type.FieldNamesType"]
-    r"""<p>A comma-separated list of values. Specify \"SOURCE\" to include a URL for the source document.</p>"""
+    """<p>A comma-separated list of values. Specify "SOURCE" to include a URL for the source document.</p>"""
     include_custom_metadata: "capo_workdocs.types.boolean_type.BooleanType"
     """<p>Set this to TRUE to include custom metadata in the response.</p>"""
 

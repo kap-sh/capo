@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class DataSourceCredentials(TypedDict, closed=True):
     credential_pair: NotRequired["capo_quicksight.types.credential_pair.CredentialPair"]
-    r"""<p>Credential pair. For more information, see <code> <a href=\"https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CredentialPair.html\">CredentialPair</a> </code>.</p>"""
+    """<p>Credential pair. For more information, see <code> <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CredentialPair.html">CredentialPair</a> </code>.</p>"""
     copy_source_arn: NotRequired["capo_quicksight.types.copy_source_arn.CopySourceArn"]
     """<p>The Amazon Resource Name (ARN) of a data source that has the credential pair that you want to use. When <code>CopySourceArn</code> is not null, the credential pair from the data source in the ARN is used as the credentials for the <code>DataSourceCredentials</code> structure.</p>"""
     secret_arn: NotRequired["capo_quicksight.types.secret_arn.SecretArn"]
@@ -31,7 +31,7 @@ class DataSourceCredentials(TypedDict, closed=True):
     o_auth_client_credentials: NotRequired[
         "capo_quicksight.types.o_auth_client_credentials.OAuthClientCredentials"
     ]
-    r"""<p>The OAuth client credentials for connecting to a data source using OAuth 2.0 client credentials (2LO) authentication. For more information, see <code> <a href=\"https://docs.aws.amazon.com/quicksight/latest/APIReference/API_OAuthClientCredentials.html\">OAuthClientCredentials</a> </code>.</p>"""
+    """<p>The OAuth client credentials for connecting to a data source using OAuth 2.0 client credentials (2LO) authentication. For more information, see <code> <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_OAuthClientCredentials.html">OAuthClientCredentials</a> </code>.</p>"""
 
 
 # --- restJson1 ser/de ---

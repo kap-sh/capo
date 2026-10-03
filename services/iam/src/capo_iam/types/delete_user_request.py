@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DeleteUserRequest(TypedDict, closed=True):
     user_name: "capo_iam.types.existing_user_name_type.existingUserNameType"
-    r"""<p>The name of the user to delete.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
+    """<p>The name of the user to delete.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
 
 
 # --- awsQuery ser/de ---

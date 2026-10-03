@@ -20,7 +20,7 @@ class CustomMetricDefinition(TypedDict, closed=True):
     )
     """<p>The prompt for a custom metric that instructs the evaluator model how to rate the model or RAG source under evaluation.</p>"""
     rating_scale: NotRequired["capo_bedrock.types.rating_scale.RatingScale"]
-    r"""<p>Defines the rating scale to be used for a custom metric. We recommend that you always define a ratings scale when creating a custom metric. If you don't define a scale, Amazon Bedrock won't be able to visually display the results of the evaluation in the console or calculate average values of numerical scores. For more information on specifying a rating scale, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-custom-metrics-prompt-formats.html#model-evaluation-custom-metrics-prompt-formats-schema\">Specifying an output schema (rating scale)</a>.</p>"""
+    """<p>Defines the rating scale to be used for a custom metric. We recommend that you always define a ratings scale when creating a custom metric. If you don't define a scale, Amazon Bedrock won't be able to visually display the results of the evaluation in the console or calculate average values of numerical scores. For more information on specifying a rating scale, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-custom-metrics-prompt-formats.html#model-evaluation-custom-metrics-prompt-formats-schema">Specifying an output schema (rating scale)</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

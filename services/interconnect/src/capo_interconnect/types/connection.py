@@ -34,7 +34,7 @@ class Connection(TypedDict, closed=True):
     bandwidth: "capo_interconnect.types.connection_bandwidth.ConnectionBandwidth"
     """<p>The specific selected bandwidth of this connection.</p>"""
     attach_point: "capo_interconnect.types.attach_point.AttachPoint"
-    r"""<p>The Attach Point to which the connection should be associated.\"</p>"""
+    """<p>The Attach Point to which the connection should be associated."</p>"""
     environment_id: "capo_interconnect.types.environment_id.EnvironmentId"
     """<p>The specific <a>Environment</a> this connection is placed upon.</p>"""
     provider: "capo_interconnect.types.provider.Provider"

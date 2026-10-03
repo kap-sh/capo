@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class FsxConfiguration(TypedDict, closed=True):
     file_system_id: "capo_kendra.types.file_system_id.FileSystemId"
-    r"""<p>The identifier of the Amazon FSx file system.</p> <p>You can find your file system ID on the file system dashboard in the Amazon FSx console. For information on how to create a file system in Amazon FSx console, using Windows File Server as an example, see <a href=\"https://docs.aws.amazon.com/fsx/latest/WindowsGuide/getting-started-step1.html\">Amazon FSx Getting started guide</a>.</p>"""
+    """<p>The identifier of the Amazon FSx file system.</p> <p>You can find your file system ID on the file system dashboard in the Amazon FSx console. For information on how to create a file system in Amazon FSx console, using Windows File Server as an example, see <a href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/getting-started-step1.html">Amazon FSx Getting started guide</a>.</p>"""
     file_system_type: "capo_kendra.types.fsx_file_system_type.FsxFileSystemType"
     """<p>The Amazon FSx file system type. Windows is currently the only supported type.</p>"""
     vpc_configuration: (
@@ -37,7 +37,7 @@ class FsxConfiguration(TypedDict, closed=True):
     field_mappings: NotRequired[
         "capo_kendra.types.data_source_to_index_field_mapping_list.DataSourceToIndexFieldMappingList"
     ]
-    r"""<p>A list of <code>DataSourceToIndexFieldMapping</code> objects that map Amazon FSx data source attributes or field names to Amazon Kendra index field names. To create custom fields, use the <code>UpdateIndex</code> API before you map to Amazon FSx fields. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html\">Mapping data source fields</a>. The Amazon FSx data source field names must exist in your Amazon FSx custom metadata.</p>"""
+    """<p>A list of <code>DataSourceToIndexFieldMapping</code> objects that map Amazon FSx data source attributes or field names to Amazon Kendra index field names. To create custom fields, use the <code>UpdateIndex</code> API before you map to Amazon FSx fields. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html">Mapping data source fields</a>. The Amazon FSx data source field names must exist in your Amazon FSx custom metadata.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

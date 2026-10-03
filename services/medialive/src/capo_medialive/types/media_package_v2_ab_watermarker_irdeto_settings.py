@@ -19,11 +19,11 @@ class MediaPackageV2AbWatermarkerIrdetoSettings(TypedDict, closed=True):
     additional_destinations_alternate_destinations: NotRequired[
         "capo_medialive.types.__list_of_output_location_ref.__listOfOutputLocationRef"
     ]
-    r"""The \"B\" pipeline renditions for the additional destinations."""
+    """The "B" pipeline renditions for the additional destinations."""
     alternate_destination: NotRequired[
         "capo_medialive.types.output_location_ref.OutputLocationRef"
     ]
-    r"""The \"B\" pipeline renditions for the main destination."""
+    """The "B" pipeline renditions for the main destination."""
     custom_profile: NotRequired[
         "capo_medialive.types.ab_watermarking_custom_profile.AbWatermarkingCustomProfile"
     ]

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class StartImportRequest(TypedDict, closed=True):
     import_id: "capo_lex_models_v2.types.id.Id"
-    r"""<p>The unique identifier for the import. It is included in the response from the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateUploadUrl.html\">CreateUploadUrl</a> operation.</p>"""
+    """<p>The unique identifier for the import. It is included in the response from the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateUploadUrl.html">CreateUploadUrl</a> operation.</p>"""
     resource_specification: "capo_lex_models_v2.types.import_resource_specification.ImportResourceSpecification"
     """<p>Parameters for creating the bot, bot locale or custom vocabulary.</p>"""
     merge_strategy: "capo_lex_models_v2.types.merge_strategy.MergeStrategy"

@@ -43,7 +43,7 @@ class CreateIntentRequest(TypedDict, closed=True):
     sample_utterances: NotRequired[
         "capo_lex_models_v2.types.sample_utterances_list.SampleUtterancesList"
     ]
-    r"""<p>An array of strings that a user might say to signal the intent. For example, \"I want a pizza\", or \"I want a {PizzaSize} pizza\". </p> <p>In an utterance, slot names are enclosed in curly braces (\"{\", \"}\") to indicate where they should be displayed in the utterance shown to the user.. </p>"""
+    """<p>An array of strings that a user might say to signal the intent. For example, "I want a pizza", or "I want a {PizzaSize} pizza". </p> <p>In an utterance, slot names are enclosed in curly braces ("{", "}") to indicate where they should be displayed in the utterance shown to the user.. </p>"""
     dialog_code_hook: NotRequired[
         "capo_lex_models_v2.types.dialog_code_hook_settings.DialogCodeHookSettings"
     ]
@@ -55,7 +55,7 @@ class CreateIntentRequest(TypedDict, closed=True):
     intent_confirmation_setting: NotRequired[
         "capo_lex_models_v2.types.intent_confirmation_setting.IntentConfirmationSetting"
     ]
-    r"""<p>Provides prompts that Amazon Lex sends to the user to confirm the completion of an intent. If the user answers \"no,\" the settings contain a statement that is sent to the user to end the intent.</p>"""
+    """<p>Provides prompts that Amazon Lex sends to the user to confirm the completion of an intent. If the user answers "no," the settings contain a statement that is sent to the user to end the intent.</p>"""
     intent_closing_setting: NotRequired[
         "capo_lex_models_v2.types.intent_closing_setting.IntentClosingSetting"
     ]
@@ -77,7 +77,7 @@ class CreateIntentRequest(TypedDict, closed=True):
     bot_version: "capo_lex_models_v2.types.draft_bot_version.DraftBotVersion"
     """<p>The version of the bot associated with this intent.</p>"""
     locale_id: "capo_lex_models_v2.types.locale_id.LocaleId"
-    r"""<p>The identifier of the language and locale where this intent is used. All of the bots, slot types, and slots used by the intent must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>"""
+    """<p>The identifier of the language and locale where this intent is used. All of the bots, slot types, and slots used by the intent must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>"""
     initial_response_setting: NotRequired[
         "capo_lex_models_v2.types.initial_response_setting.InitialResponseSetting"
     ]

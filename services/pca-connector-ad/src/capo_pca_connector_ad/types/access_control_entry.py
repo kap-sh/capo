@@ -21,11 +21,11 @@ class AccessControlEntry(TypedDict, closed=True):
     group_security_identifier: NotRequired[
         "capo_pca_connector_ad.types.group_security_identifier.GroupSecurityIdentifier"
     ]
-    r"""<p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>"""
+    """<p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>"""
     access_rights: NotRequired["capo_pca_connector_ad.types.access_rights.AccessRights"]
     """<p>Permissions to allow or deny an Active Directory group to enroll or autoenroll certificates issued against a template.</p>"""
     template_arn: NotRequired["capo_pca_connector_ad.types.template_arn.TemplateArn"]
-    r"""<p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>"""
     created_at: NotRequired["datetime.datetime"]
     """<p>The date and time that the Access Control Entry was created.</p>"""
     updated_at: NotRequired["datetime.datetime"]

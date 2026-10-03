@@ -14,11 +14,11 @@ if TYPE_CHECKING:
 
 class ResponseInspectionJson(TypedDict, closed=True):
     identifier: "capo_wafv2.types.field_identifier.FieldIdentifier"
-    r"""<p>The identifier for the value to match against in the JSON. The identifier must be an exact match, including case.</p> <p>JSON examples: <code>\"Identifier\": [ \"/login/success\" ]</code> and <code>\"Identifier\": [ \"/sign-up/success\" ]</code> </p>"""
+    """<p>The identifier for the value to match against in the JSON. The identifier must be an exact match, including case.</p> <p>JSON examples: <code>"Identifier": [ "/login/success" ]</code> and <code>"Identifier": [ "/sign-up/success" ]</code> </p>"""
     success_values: "capo_wafv2.types.response_inspection_json_success_values.ResponseInspectionJsonSuccessValues"
-    r"""<p>Values for the specified identifier in the response JSON that indicate a successful login or account creation attempt. To be counted as a success, the value must be an exact match, including case. Each value must be unique among the success and failure values. </p> <p>JSON example: <code>\"SuccessValues\": [ \"True\", \"Succeeded\" ]</code> </p>"""
+    """<p>Values for the specified identifier in the response JSON that indicate a successful login or account creation attempt. To be counted as a success, the value must be an exact match, including case. Each value must be unique among the success and failure values. </p> <p>JSON example: <code>"SuccessValues": [ "True", "Succeeded" ]</code> </p>"""
     failure_values: "capo_wafv2.types.response_inspection_json_failure_values.ResponseInspectionJsonFailureValues"
-    r"""<p>Values for the specified identifier in the response JSON that indicate a failed login or account creation attempt. To be counted as a failure, the value must be an exact match, including case. Each value must be unique among the success and failure values. </p> <p>JSON example: <code>\"FailureValues\": [ \"False\", \"Failed\" ]</code> </p>"""
+    """<p>Values for the specified identifier in the response JSON that indicate a failed login or account creation attempt. To be counted as a failure, the value must be an exact match, including case. Each value must be unique among the success and failure values. </p> <p>JSON example: <code>"FailureValues": [ "False", "Failed" ]</code> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

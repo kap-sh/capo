@@ -24,7 +24,7 @@ class CreateBatchPredictionInput(TypedDict, closed=True):
     batch_prediction_data_source_id: "capo_machine_learning.types.entity_id.EntityId"
     """<p>The ID of the <code>DataSource</code> that points to the group of observations to predict.</p>"""
     output_uri: "capo_machine_learning.types.s3_url.S3Url"
-    r"""<p>The location of an Amazon Simple Storage Service (Amazon S3) bucket or directory to store the batch prediction results. The following substrings are not allowed in the <code>s3 key</code> portion of the <code>outputURI</code> field: ':', '//', '/./', '/../'.</p> <p>Amazon ML needs permissions to store and retrieve the logs on your behalf. For information about how to set permissions, see the <a href=\"https://docs.aws.amazon.com/machine-learning/latest/dg\">Amazon Machine Learning Developer Guide</a>.</p>"""
+    """<p>The location of an Amazon Simple Storage Service (Amazon S3) bucket or directory to store the batch prediction results. The following substrings are not allowed in the <code>s3 key</code> portion of the <code>outputURI</code> field: ':', '//', '/./', '/../'.</p> <p>Amazon ML needs permissions to store and retrieve the logs on your behalf. For information about how to set permissions, see the <a href="https://docs.aws.amazon.com/machine-learning/latest/dg">Amazon Machine Learning Developer Guide</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -24,15 +24,15 @@ class Workforce(TypedDict, closed=True):
     workforce_arn: NotRequired["capo_sagemaker.types.workforce_arn.WorkforceArn"]
     """<p>The Amazon Resource Name (ARN) of the private workforce.</p>"""
     last_updated_date: NotRequired["capo_sagemaker.types.timestamp.Timestamp"]
-    r"""<p>The most recent date that <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateWorkforce.html\">UpdateWorkforce</a> was used to successfully add one or more IP address ranges (<a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html\">CIDRs</a>) to a private workforce's allow list.</p>"""
+    """<p>The most recent date that <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateWorkforce.html">UpdateWorkforce</a> was used to successfully add one or more IP address ranges (<a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">CIDRs</a>) to a private workforce's allow list.</p>"""
     source_ip_config: NotRequired[
         "capo_sagemaker.types.source_ip_config.SourceIpConfig"
     ]
-    r"""<p>A list of one to ten IP address ranges (<a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html\">CIDRs</a>) to be added to the workforce allow list. By default, a workforce isn't restricted to specific IP addresses.</p>"""
+    """<p>A list of one to ten IP address ranges (<a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">CIDRs</a>) to be added to the workforce allow list. By default, a workforce isn't restricted to specific IP addresses.</p>"""
     sub_domain: NotRequired["capo_sagemaker.types.string.String"]
     """<p>The subdomain for your OIDC Identity Provider.</p>"""
     cognito_config: NotRequired["capo_sagemaker.types.cognito_config.CognitoConfig"]
-    r"""<p>The configuration of an Amazon Cognito workforce. A single Cognito workforce is created using and corresponds to a single <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html\"> Amazon Cognito user pool</a>.</p>"""
+    """<p>The configuration of an Amazon Cognito workforce. A single Cognito workforce is created using and corresponds to a single <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html"> Amazon Cognito user pool</a>.</p>"""
     oidc_config: NotRequired[
         "capo_sagemaker.types.oidc_config_for_response.OidcConfigForResponse"
     ]

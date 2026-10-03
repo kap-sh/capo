@@ -15,9 +15,9 @@ class GetTileRequest(TypedDict, closed=True):
     additional_features: NotRequired[
         "capo_geo_maps.types.tile_additional_feature_list.TileAdditionalFeatureList"
     ]
-    r"""<p>A list of optional additional parameters such as map styles that can be requested for each result. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers.</p>"""
+    """<p>A list of optional additional parameters such as map styles that can be requested for each result. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers.</p>"""
     tileset: "capo_geo_maps.types.tileset.Tileset"
-    r"""<p>Specifies the desired tile set. For <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers, <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions support only the <code>vector.basemap</code> value.</p> <p>Valid Values: <code>raster.satellite | vector.basemap | vector.traffic | raster.dem</code> </p>"""
+    """<p>Specifies the desired tile set. For <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers, <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions support only the <code>vector.basemap</code> value.</p> <p>Valid Values: <code>raster.satellite | vector.basemap | vector.traffic | raster.dem</code> </p>"""
     z: "capo_geo_maps.types.sensitive_string.SensitiveString"
     """<p>The zoom value for the map tile.</p>"""
     x: "capo_geo_maps.types.sensitive_string.SensitiveString"

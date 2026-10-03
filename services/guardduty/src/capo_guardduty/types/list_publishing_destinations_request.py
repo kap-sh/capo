@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListPublishingDestinationsRequest(TypedDict, closed=True):
     detector_id: "capo_guardduty.types.detector_id.DetectorId"
-    r"""<p>The detector ID for which you want to retrieve the publishing destination.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href=\"https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html\">ListDetectors</a> API.</p>"""
+    """<p>The detector ID for which you want to retrieve the publishing destination.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>"""
     max_results: NotRequired["capo_guardduty.types.max_results.MaxResults"]
     """<p>The maximum number of results to return in the response.</p>"""
     next_token: NotRequired["capo_guardduty.types.string.String"]

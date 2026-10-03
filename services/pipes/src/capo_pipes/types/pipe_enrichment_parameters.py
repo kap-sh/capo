@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class PipeEnrichmentParameters(TypedDict, closed=True):
     input_template: NotRequired["capo_pipes.types.input_template.InputTemplate"]
-    r"""<p>Valid JSON text passed to the enrichment. In this case, nothing from the event itself is passed to the enrichment. For more information, see <a href=\"http://www.rfc-editor.org/rfc/rfc7159.txt\">The JavaScript Object Notation (JSON) Data Interchange Format</a>.</p> <p>To remove an input template, specify an empty string.</p>"""
+    """<p>Valid JSON text passed to the enrichment. In this case, nothing from the event itself is passed to the enrichment. For more information, see <a href="http://www.rfc-editor.org/rfc/rfc7159.txt">The JavaScript Object Notation (JSON) Data Interchange Format</a>.</p> <p>To remove an input template, specify an empty string.</p>"""
     http_parameters: NotRequired[
         "capo_pipes.types.pipe_enrichment_http_parameters.PipeEnrichmentHttpParameters"
     ]

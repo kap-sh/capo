@@ -13,7 +13,7 @@ class ListAccessPoliciesResponse(TypedDict, closed=True):
     access_policies: NotRequired[
         "capo_eks.types.access_policies_list.AccessPoliciesList"
     ]
-    r"""<p>The list of available access policies. You can't view the contents of an access policy using the API. To view the contents, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/access-policies.html#access-policy-permissions\">Access policy permissions</a> in the <i>Amazon EKS User Guide</i>.</p>"""
+    """<p>The list of available access policies. You can't view the contents of an access policy using the API. To view the contents, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/access-policies.html#access-policy-permissions">Access policy permissions</a> in the <i>Amazon EKS User Guide</i>.</p>"""
     next_token: NotRequired["capo_eks.types.string.String"]
     """<p>The <code>nextToken</code> value returned from a previous paginated request, where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the <code>nextToken</code> value. This value is null when there are no more results to return.</p> <note> <p>This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.</p> </note>"""
 

@@ -30,7 +30,7 @@ class CreateCustomModelDeploymentRequest(TypedDict, closed=True):
     client_request_token: NotRequired[
         "capo_bedrock.types.idempotency_token.IdempotencyToken"
     ]
-    r"""<p>A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-idempotency.html">Ensuring idempotency</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

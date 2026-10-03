@@ -12,25 +12,25 @@ if TYPE_CHECKING:
 
 class RegistrationVersionStatusHistory(TypedDict, closed=True):
     draft_timestamp: "datetime.datetime"
-    r"""<p>The time when the registration was in the draft state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the draft state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     submitted_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the submitted state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the submitted state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     aws_reviewing_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the AWS reviewing state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the AWS reviewing state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     reviewing_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the reviewing state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the reviewing state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     requires_authentication_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the requires authentication state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the requires authentication state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     approved_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the approved state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the approved state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     discarded_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the discarded state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the discarded state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     denied_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the denied state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the denied state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     revoked_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the revoked state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the revoked state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     archived_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the registration was in the archived state, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was in the archived state, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

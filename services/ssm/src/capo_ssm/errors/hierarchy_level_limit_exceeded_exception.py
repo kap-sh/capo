@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class HierarchyLevelLimitExceededException_(TypedDict, closed=True):
     message: NotRequired["capo_ssm.types.string.String"]
-    r"""<p>A hierarchy can have a maximum of 15 levels. For more information, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html#sysman-parameter-name-constraints\">About requirements and constraints for parameter names</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. </p>"""
+    """<p>A hierarchy can have a maximum of 15 levels. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html#sysman-parameter-name-constraints">About requirements and constraints for parameter names</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

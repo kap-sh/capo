@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class JobParameters(TypedDict, closed=True):
     format: NotRequired["capo_glacier.types.string.string"]
-    r"""<p>When initiating a job to retrieve a vault inventory, you can optionally add this parameter to your request to specify the output format. If you are initiating an inventory job and do not specify a Format field, JSON is the default format. Valid values are \"CSV\" and \"JSON\".</p>"""
+    """<p>When initiating a job to retrieve a vault inventory, you can optionally add this parameter to your request to specify the output format. If you are initiating an inventory job and do not specify a Format field, JSON is the default format. Valid values are "CSV" and "JSON".</p>"""
     type: NotRequired["capo_glacier.types.string.string"]
-    r"""<p>The job type. You can initiate a job to perform a select query on an archive, retrieve an archive, or get an inventory of a vault. Valid values are \"select\", \"archive-retrieval\" and \"inventory-retrieval\".</p>"""
+    """<p>The job type. You can initiate a job to perform a select query on an archive, retrieve an archive, or get an inventory of a vault. Valid values are "select", "archive-retrieval" and "inventory-retrieval".</p>"""
     archive_id: NotRequired["capo_glacier.types.string.string"]
     """<p>The ID of the archive that you want to retrieve. This field is required only if <code>Type</code> is set to <code>select</code> or <code>archive-retrieval</code>code>. An error occurs if you specify this request parameter for an inventory retrieval job request. </p>"""
     description: NotRequired["capo_glacier.types.string.string"]
@@ -23,7 +23,7 @@ class JobParameters(TypedDict, closed=True):
     sns_topic: NotRequired["capo_glacier.types.string.string"]
     """<p>The Amazon SNS topic ARN to which Amazon Glacier sends a notification when the job is completed and the output is ready for you to download. The specified topic publishes the notification to its subscribers. The SNS topic must exist.</p>"""
     retrieval_byte_range: NotRequired["capo_glacier.types.string.string"]
-    r"""<p>The byte range to retrieve for an archive retrieval. in the form \"<i>StartByteValue</i>-<i>EndByteValue</i>\" If not specified, the whole archive is retrieved. If specified, the byte range must be megabyte (1024*1024) aligned which means that <i>StartByteValue</i> must be divisible by 1 MB and <i>EndByteValue</i> plus 1 must be divisible by 1 MB or be the end of the archive specified as the archive byte size value minus 1. If RetrievalByteRange is not megabyte aligned, this operation returns a 400 response. </p> <p>An error occurs if you specify this field for an inventory retrieval job request.</p>"""
+    """<p>The byte range to retrieve for an archive retrieval. in the form "<i>StartByteValue</i>-<i>EndByteValue</i>" If not specified, the whole archive is retrieved. If specified, the byte range must be megabyte (1024*1024) aligned which means that <i>StartByteValue</i> must be divisible by 1 MB and <i>EndByteValue</i> plus 1 must be divisible by 1 MB or be the end of the archive specified as the archive byte size value minus 1. If RetrievalByteRange is not megabyte aligned, this operation returns a 400 response. </p> <p>An error occurs if you specify this field for an inventory retrieval job request.</p>"""
     tier: NotRequired["capo_glacier.types.string.string"]
     """<p>The tier to use for a select or an archive retrieval job. Valid values are <code>Expedited</code>, <code>Standard</code>, or <code>Bulk</code>. <code>Standard</code> is the default.</p>"""
     inventory_retrieval_parameters: NotRequired[

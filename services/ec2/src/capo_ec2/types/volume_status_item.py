@@ -40,7 +40,7 @@ class VolumeStatusItem(TypedDict, closed=True):
     initialization_status_details: NotRequired[
         "capo_ec2.types.initialization_status_details.InitializationStatusDetails"
     ]
-    r"""<p>Information about the volume initialization. It can take up to 5 minutes for the volume initialization information to be updated.</p> <p>Only available for volumes created from snapshots. Not available for empty volumes created without a snapshot.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html\"> Initialize Amazon EBS volumes</a>.</p>"""
+    """<p>Information about the volume initialization. It can take up to 5 minutes for the volume initialization information to be updated.</p> <p>Only available for volumes created from snapshots. Not available for empty volumes created without a snapshot.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html"> Initialize Amazon EBS volumes</a>.</p>"""
     availability_zone_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the Availability Zone.</p>"""
     operator: NotRequired["capo_ec2.types.operator_response.OperatorResponse"]

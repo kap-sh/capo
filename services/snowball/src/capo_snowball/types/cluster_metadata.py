@@ -26,9 +26,9 @@ class ClusterMetadata(TypedDict, closed=True):
     description: NotRequired["capo_snowball.types.string.String"]
     """<p>The optional description of the cluster.</p>"""
     kms_key_arn: NotRequired["capo_snowball.types.kms_key_arn.KmsKeyARN"]
-    r"""<p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created using the <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> API action in Key Management Service (KMS.</p>"""
+    """<p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in Key Management Service (KMS.</p>"""
     role_arn: NotRequired["capo_snowball.types.role_arn.RoleARN"]
-    r"""<p>The role ARN associated with this cluster. This ARN was created using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in Identity and Access Management (IAM).</p>"""
+    """<p>The role ARN associated with this cluster. This ARN was created using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in Identity and Access Management (IAM).</p>"""
     cluster_state: NotRequired["capo_snowball.types.cluster_state.ClusterState"]
     """<p>The current status of the cluster.</p>"""
     job_type: NotRequired["capo_snowball.types.job_type.JobType"]

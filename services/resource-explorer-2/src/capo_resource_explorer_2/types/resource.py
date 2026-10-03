@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Resource(TypedDict, closed=True):
     arn: NotRequired["str"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of the resource.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of the resource.</p>"""
     owning_account_id: NotRequired["str"]
     """<p>The Amazon Web Services account that owns the resource.</p>"""
     region: NotRequired["str"]

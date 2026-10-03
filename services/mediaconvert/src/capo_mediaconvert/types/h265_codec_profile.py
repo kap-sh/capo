@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""Represents the Profile and Tier, per the HEVC (H.265) specification. Selections are grouped as [Profile] / [Tier], so \"Main/High\" represents Main Profile with High Tier. 4:2:2 profiles are only available with the HEVC 4:2:2 License."""
+"""Represents the Profile and Tier, per the HEVC (H.265) specification. Selections are grouped as [Profile] / [Tier], so "Main/High" represents Main Profile with High Tier. 4:2:2 profiles are only available with the HEVC 4:2:2 License."""
 H265CodecProfile: TypeAlias = Literal[
     "MAIN_MAIN",
     "MAIN_HIGH",

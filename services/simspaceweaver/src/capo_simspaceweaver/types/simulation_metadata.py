@@ -18,7 +18,7 @@ class SimulationMetadata(TypedDict, closed=True):
     ]
     """<p>The name of the simulation.</p>"""
     arn: NotRequired["capo_simspaceweaver.types.sim_space_weaver_arn.SimSpaceWeaverArn"]
-    r"""<p>The Amazon Resource Name (ARN) of the simulation. For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the simulation. For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     creation_time: NotRequired["capo_simspaceweaver.types.timestamp.Timestamp"]
     """<p>The time when the simulation was created, expressed as the number of seconds and milliseconds in UTC since the Unix epoch (0:0:0.000, January 1, 1970).</p>"""
     status: NotRequired["capo_simspaceweaver.types.simulation_status.SimulationStatus"]

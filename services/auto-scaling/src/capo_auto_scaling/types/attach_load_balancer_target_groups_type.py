@@ -19,7 +19,7 @@ class AttachLoadBalancerTargetGroupsType(TypedDict, closed=True):
     target_group_ar_ns: NotRequired[
         "capo_auto_scaling.types.target_group_ar_ns.TargetGroupARNs"
     ]
-    r"""<p>The Amazon Resource Names (ARNs) of the target groups. You can specify up to 10 target groups. To get the ARN of a target group, use the Elastic Load Balancing <a href=\"https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html\">DescribeTargetGroups</a> API operation.</p>"""
+    """<p>The Amazon Resource Names (ARNs) of the target groups. You can specify up to 10 target groups. To get the ARN of a target group, use the Elastic Load Balancing <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html">DescribeTargetGroups</a> API operation.</p>"""
 
 
 # --- awsQuery ser/de ---

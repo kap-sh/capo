@@ -19,7 +19,7 @@ class ShaderCacheSummary(TypedDict, closed=True):
     identifier: "capo_gameliftstreams.types.identifier.Identifier"
     """<p>A unique identifier for the shader cache, formatted as a 32-character hexadecimal string. Format is <code>1271e693c50b940e228582f1ccdd4e27</code>.</p>"""
     application_arn: "capo_gameliftstreams.types.arn.Arn"
-    r"""<p>An <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that uniquely identifies the application resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6</code>. </p>"""
+    """<p>An <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that uniquely identifies the application resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6</code>. </p>"""
     status: NotRequired[
         "capo_gameliftstreams.types.shader_cache_status.ShaderCacheStatus"
     ]
@@ -29,7 +29,7 @@ class ShaderCacheSummary(TypedDict, closed=True):
     storage_bytes: NotRequired["int"]
     """<p>The total storage used by all compiled shader files in this shader cache, in bytes.</p>"""
     associated_stream_groups: NotRequired["capo_gameliftstreams.types.arn_list.ArnList"]
-    r"""<p>The stream groups compatible with this shader cache. Compatibility is based on GPU type and GPU driver version. For more information on shader cache compatibility, see <a href=\"https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/shader-caches.html\">Shader caches</a> in the <i>Amazon GameLift Streams Developer Guide</i>.</p> <p>This value is a set of <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Names (ARNs)</a> that uniquely identify stream group resources. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. </p>"""
+    """<p>The stream groups compatible with this shader cache. Compatibility is based on GPU type and GPU driver version. For more information on shader cache compatibility, see <a href="https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/shader-caches.html">Shader caches</a> in the <i>Amazon GameLift Streams Developer Guide</i>.</p> <p>This value is a set of <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Names (ARNs)</a> that uniquely identify stream group resources. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. </p>"""
 
 
 # --- restJson1 ser/de ---

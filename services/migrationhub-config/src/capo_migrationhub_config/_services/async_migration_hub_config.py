@@ -200,10 +200,10 @@ class AsyncMigrationHubConfigClient:
         *,
         config_overrides: Optional[AsyncMigrationHubConfigClientConfig] = None,
     ) -> "capo_migrationhub_config.types.delete_home_region_control_result.DeleteHomeRegionControlResult":
-        r"""<p>This operation deletes the home region configuration for the calling account. The operation does not delete discovery or migration tracking data in the home region.</p>
+        """<p>This operation deletes the home region configuration for the calling account. The operation does not delete discovery or migration tracking data in the home region.</p>
 
         Args:
-            control_id: <p>A unique identifier that's generated for each home region control. It's always a string that begins with \"hrc-\" followed by 12 lowercase letters and numbers.</p>
+            control_id: <p>A unique identifier that's generated for each home region control. It's always a string that begins with "hrc-" followed by 12 lowercase letters and numbers.</p>
 
         Raises:
             capo_migrationhub_config.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>

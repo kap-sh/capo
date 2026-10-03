@@ -18,7 +18,7 @@ class UpdateMapResponse(TypedDict, closed=True):
     map_arn: "capo_location.types.geo_arn.GeoArn"
     """<p>The Amazon Resource Name (ARN) of the updated map resource. Used to specify a resource across AWS.</p> <ul> <li> <p>Format example: <code>arn:aws:geo:region:account-id:map/ExampleMap</code> </p> </li> </ul>"""
     update_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp for when the map resource was last updated in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp for when the map resource was last updated in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
 
 
 # --- restJson1 ser/de ---

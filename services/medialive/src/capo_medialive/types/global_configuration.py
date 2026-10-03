@@ -22,7 +22,7 @@ class GlobalConfiguration(TypedDict, closed=True):
     input_end_action: NotRequired[
         "capo_medialive.types.global_configuration_input_end_action.GlobalConfigurationInputEndAction"
     ]
-    r"""Indicates the action to take when the current input completes (e.g. end-of-file). When switchAndLoopInputs is configured the encoder will restart at the beginning of the first input. When \"none\" is configured the encoder will transcode either black, a solid color, or a user specified slate images per the \"Input Loss Behavior\" configuration until the next input switch occurs (which is controlled through the Channel Schedule API)."""
+    """Indicates the action to take when the current input completes (e.g. end-of-file). When switchAndLoopInputs is configured the encoder will restart at the beginning of the first input. When "none" is configured the encoder will transcode either black, a solid color, or a user specified slate images per the "Input Loss Behavior" configuration until the next input switch occurs (which is controlled through the Channel Schedule API)."""
     input_loss_behavior: NotRequired[
         "capo_medialive.types.input_loss_behavior.InputLossBehavior"
     ]

@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class InstanceTypeOffering(TypedDict, closed=True):
     instance_type: NotRequired["capo_ec2.types.instance_type.InstanceType"]
-    r"""<p>The instance type. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html\">Instance types</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The instance type. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     location_type: NotRequired["capo_ec2.types.location_type.LocationType"]
     """<p>The location type.</p>"""
     location: NotRequired["capo_ec2.types.location.Location"]

@@ -22,7 +22,7 @@ class FieldTypeDetails(TypedDict, closed=True):
     supported_values: NotRequired[
         "capo_appflow.types.supported_value_list.SupportedValueList"
     ]
-    r"""<p> The list of values that a field can contain. For example, a Boolean <code>fieldType</code> can have two values: \"true\" and \"false\". </p>"""
+    """<p> The list of values that a field can contain. For example, a Boolean <code>fieldType</code> can have two values: "true" and "false". </p>"""
     value_regex_pattern: NotRequired["capo_appflow.types.string.String"]
     """<p>The regular expression pattern for the field name.</p>"""
     supported_date_format: NotRequired["capo_appflow.types.string.String"]

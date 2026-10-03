@@ -189,7 +189,7 @@ class AsynccodestarnotificationsClient:
             "capo_codestar_notifications.types.notification_rule_status.NotificationRuleStatus"
         ] = None,
     ) -> "capo_codestar_notifications.types.create_notification_rule_result.CreateNotificationRuleResult":
-        r"""<p>Creates a notification rule for a resource. The rule specifies the events you want notifications about and the targets (such as Amazon Q Developer in chat applications topics or Amazon Q Developer in chat applications clients configured for Slack) where you want to receive them.</p>
+        """<p>Creates a notification rule for a resource. The rule specifies the events you want notifications about and the targets (such as Amazon Q Developer in chat applications topics or Amazon Q Developer in chat applications clients configured for Slack) where you want to receive them.</p>
 
         Args:
             name: <p>The name for the notification rule. Notification rule names must be unique in your Amazon Web Services account.</p>
@@ -198,7 +198,7 @@ class AsynccodestarnotificationsClient:
             targets: <p>A list of Amazon Resource Names (ARNs) of Amazon Simple Notification Service topics and Amazon Q Developer in chat applications clients to associate with the notification rule.</p>
             detail_type: <p>The level of detail to include in the notifications for this resource. <code>BASIC</code> will include only the contents of the event as it would appear in Amazon CloudWatch. <code>FULL</code> will include any supplemental information provided by CodeStar Notifications and/or the service for the resource for which the notification is created.</p>
             client_request_token: <p>A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be repeated with a changed parameter. If a request with the same parameters is received and a token is included, the request returns information about the initial request that used that token.</p> <note> <p>The Amazon Web Services SDKs prepopulate client request tokens. If you are using an Amazon Web Services SDK, an idempotency token is created for you.</p> </note>
-            tags: <p>A list of tags to apply to this notification rule. Key names cannot start with \"<code>aws</code>\". </p>
+            tags: <p>A list of tags to apply to this notification rule. Key names cannot start with "<code>aws</code>". </p>
             status: <p>The status of the notification rule. The default value is <code>ENABLED</code>. If the status is set to <code>DISABLED</code>, notifications aren't sent for the notification rule.</p>
 
         Raises:
@@ -765,11 +765,11 @@ class AsynccodestarnotificationsClient:
         *,
         config_overrides: Optional[AsynccodestarnotificationsClientConfig] = None,
     ) -> "capo_codestar_notifications.types.tag_resource_result.TagResourceResult":
-        r"""<p>Associates a set of provided tags with a notification rule.</p>
+        """<p>Associates a set of provided tags with a notification rule.</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the notification rule to tag.</p>
-            tags: <p>The list of tags to associate with the resource. Tag key names cannot start with \"<code>aws</code>\".</p>
+            tags: <p>The list of tags to associate with the resource. Tag key names cannot start with "<code>aws</code>".</p>
 
         Raises:
             capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException: <p>CodeStar Notifications can't complete the request because the resource is being modified by another process. Wait a few minutes and try again.</p>
@@ -924,13 +924,13 @@ class AsynccodestarnotificationsClient:
             "capo_codestar_notifications.types.detail_type.DetailType"
         ] = None,
     ) -> "capo_codestar_notifications.types.update_notification_rule_result.UpdateNotificationRuleResult":
-        r"""<p>Updates a notification rule for a resource. You can change the events that trigger the notification rule, the status of the rule, and the targets that receive the notifications.</p> <note> <p>To add or remove tags for a notification rule, you must use <a>TagResource</a> and <a>UntagResource</a>.</p> </note>
+        """<p>Updates a notification rule for a resource. You can change the events that trigger the notification rule, the status of the rule, and the targets that receive the notifications.</p> <note> <p>To add or remove tags for a notification rule, you must use <a>TagResource</a> and <a>UntagResource</a>.</p> </note>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the notification rule.</p>
             name: <p>The name of the notification rule.</p>
             status: <p>The status of the notification rule. Valid statuses include enabled (sending notifications) or disabled (not sending notifications).</p>
-            event_type_ids: <p>A list of event types associated with this notification rule. For a complete list of event types and IDs, see <a href=\"https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api\">Notification concepts</a> in the <i>Developer Tools Console User Guide</i>.</p>
+            event_type_ids: <p>A list of event types associated with this notification rule. For a complete list of event types and IDs, see <a href="https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api">Notification concepts</a> in the <i>Developer Tools Console User Guide</i>.</p>
             targets: <p>The address and type of the targets to receive notifications from this notification rule.</p>
             detail_type: <p>The level of detail to include in the notifications for this resource. BASIC will include only the contents of the event as it would appear in Amazon CloudWatch. FULL will include any supplemental information provided by CodeStar Notifications and/or the service for the resource for which the notification is created.</p>
 

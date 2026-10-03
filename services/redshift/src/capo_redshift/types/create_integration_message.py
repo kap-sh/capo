@@ -32,7 +32,7 @@ class CreateIntegrationMessage(TypedDict, closed=True):
     additional_encryption_context: NotRequired[
         "capo_redshift.types.encryption_context_map.EncryptionContextMap"
     ]
-    r"""<p>An optional set of non-secret key–value pairs that contains additional contextual information about the data. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context\">Encryption context</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p> <p>You can only include this parameter if you specify the <code>KMSKeyId</code> parameter.</p>"""
+    """<p>An optional set of non-secret key–value pairs that contains additional contextual information about the data. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption context</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p> <p>You can only include this parameter if you specify the <code>KMSKeyId</code> parameter.</p>"""
     description: NotRequired[
         "capo_redshift.types.integration_description.IntegrationDescription"
     ]

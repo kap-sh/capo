@@ -17,7 +17,7 @@ class GetMigrationWorkflowTemplateResponse(TypedDict, closed=True):
     id: NotRequired["str"]
     """<p>The ID of the template.</p>"""
     template_arn: NotRequired["str"]
-    r"""<p>&gt;The Amazon Resource Name (ARN) of the migration workflow template. The format for an Migration Hub Orchestrator template ARN is <code>arn:aws:migrationhub-orchestrator:region:account:template/template-abcd1234</code>. For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
+    """<p>&gt;The Amazon Resource Name (ARN) of the migration workflow template. The format for an Migration Hub Orchestrator template ARN is <code>arn:aws:migrationhub-orchestrator:region:account:template/template-abcd1234</code>. For more information about ARNs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
     name: NotRequired["str"]
     """<p>The name of the template.</p>"""
     description: NotRequired["str"]

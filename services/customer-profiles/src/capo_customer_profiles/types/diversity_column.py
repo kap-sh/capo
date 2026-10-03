@@ -18,7 +18,7 @@ class DiversityColumn(TypedDict, closed=True):
     cap_type: "capo_customer_profiles.types.diversity_cap_type.DiversityCapType"
     """<p>The type of diversity cap to apply. Valid values are <code>PERCENTAGE</code> (interpret <code>Target</code> as a percentage of returned items) and <code>VALUE</code> (interpret <code>Target</code> as an absolute count).</p>"""
     target: "capo_customer_profiles.types.diversity_target_expression.DiversityTargetExpression"
-    r"""<p>The diversity cap target. Either an integer literal (for example, <code>\"25\"</code>) or a placeholder expression of the form <code>$name</code> whose value is supplied at inference time through <code>GetProfileRecommendations</code>.</p>"""
+    """<p>The diversity cap target. Either an integer literal (for example, <code>"25"</code>) or a placeholder expression of the form <code>$name</code> whose value is supplied at inference time through <code>GetProfileRecommendations</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

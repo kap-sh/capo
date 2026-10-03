@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListEvaluationFormsRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     max_results: NotRequired["capo_connect.types.max_result100.MaxResult100"]
     """<p>The maximum number of results to return per page.</p>"""
     next_token: NotRequired["capo_connect.types.next_token.NextToken"]

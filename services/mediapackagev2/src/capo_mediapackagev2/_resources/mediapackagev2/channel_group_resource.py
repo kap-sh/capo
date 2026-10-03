@@ -59,13 +59,13 @@ class ChannelGroupResource:
         ] = None,
         tags: Optional["capo_mediapackagev2.types.tag_map.TagMap"] = None,
     ) -> "capo_mediapackagev2.types.create_channel_group_response.CreateChannelGroupResponse":
-        r"""<p>Create a channel group to group your channels and origin endpoints. A channel group is the top-level resource that consists of channels and origin endpoints that are associated with it and that provides predictable URLs for stream delivery. All channels and origin endpoints within the channel group are guaranteed to share the DNS. You can create only one channel group with each request. </p>
+        """<p>Create a channel group to group your channels and origin endpoints. A channel group is the top-level resource that consists of channels and origin endpoints that are associated with it and that provides predictable URLs for stream delivery. All channels and origin endpoints within the channel group are guaranteed to share the DNS. You can create only one channel group with each request. </p>
 
         Args:
             channel_group_name: <p>The name that describes the channel group. The name is the primary identifier for the channel group, and must be unique for your account in the AWS Region. You can't use spaces in the name. You can't change the name after you create the channel group.</p>
             client_token: <p>A unique, case-sensitive token that you provide to ensure the idempotency of the request.</p>
             description: <p>Enter any descriptive text that helps you to identify the channel group.</p>
-            tags: <p>A comma-separated list of tag key:value pairs that you define. For example:</p> <p> <code>\"Key1\": \"Value1\",</code> </p> <p> <code>\"Key2\": \"Value2\"</code> </p>
+            tags: <p>A comma-separated list of tag key:value pairs that you define. For example:</p> <p> <code>"Key1": "Value1",</code> </p> <p> <code>"Key2": "Value2"</code> </p>
 
         Raises:
             capo_mediapackagev2.errors.access_denied_exception.AccessDeniedException: <p>Access is denied because either you don't have permissions to perform the requested operation or MediaPackage is getting throttling errors with CDN authorization. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see Access Management in the IAM User Guide. Or, if you're using CDN authorization, you will receive this exception if MediaPackage receives a throttling error from Secrets Manager.</p>
@@ -359,13 +359,13 @@ class AsyncChannelGroupResource:
         ] = None,
         tags: Optional["capo_mediapackagev2.types.tag_map.TagMap"] = None,
     ) -> "capo_mediapackagev2.types.create_channel_group_response.CreateChannelGroupResponse":
-        r"""<p>Create a channel group to group your channels and origin endpoints. A channel group is the top-level resource that consists of channels and origin endpoints that are associated with it and that provides predictable URLs for stream delivery. All channels and origin endpoints within the channel group are guaranteed to share the DNS. You can create only one channel group with each request. </p>
+        """<p>Create a channel group to group your channels and origin endpoints. A channel group is the top-level resource that consists of channels and origin endpoints that are associated with it and that provides predictable URLs for stream delivery. All channels and origin endpoints within the channel group are guaranteed to share the DNS. You can create only one channel group with each request. </p>
 
         Args:
             channel_group_name: <p>The name that describes the channel group. The name is the primary identifier for the channel group, and must be unique for your account in the AWS Region. You can't use spaces in the name. You can't change the name after you create the channel group.</p>
             client_token: <p>A unique, case-sensitive token that you provide to ensure the idempotency of the request.</p>
             description: <p>Enter any descriptive text that helps you to identify the channel group.</p>
-            tags: <p>A comma-separated list of tag key:value pairs that you define. For example:</p> <p> <code>\"Key1\": \"Value1\",</code> </p> <p> <code>\"Key2\": \"Value2\"</code> </p>
+            tags: <p>A comma-separated list of tag key:value pairs that you define. For example:</p> <p> <code>"Key1": "Value1",</code> </p> <p> <code>"Key2": "Value2"</code> </p>
 
         Raises:
             capo_mediapackagev2.errors.access_denied_exception.AccessDeniedException: <p>Access is denied because either you don't have permissions to perform the requested operation or MediaPackage is getting throttling errors with CDN authorization. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see Access Management in the IAM User Guide. Or, if you're using CDN authorization, you will receive this exception if MediaPackage receives a throttling error from Secrets Manager.</p>

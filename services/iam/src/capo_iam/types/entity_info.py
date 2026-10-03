@@ -24,7 +24,7 @@ class EntityInfo(TypedDict, closed=True):
     id: "capo_iam.types.id_type.idType"
     """<p>The identifier of the entity (user or role).</p>"""
     path: NotRequired["capo_iam.types.path_type.pathType"]
-    r"""<p>The path to the entity (user or role). For more information about paths, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p>The path to the entity (user or role). For more information about paths, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
 
 
 # --- awsQuery ser/de ---

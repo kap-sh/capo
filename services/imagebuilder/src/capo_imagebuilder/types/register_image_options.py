@@ -15,7 +15,7 @@ class RegisterImageOptions(TypedDict, closed=True):
     ]
     """<p>Specifies whether Secure Boot is enabled for the output AMI. The default value is <code>true</code>. To disable Secure Boot for custom unsigned drivers, set this value to <code>false</code>.</p>"""
     uefi_data: NotRequired["capo_imagebuilder.types.uefi_data.UefiData"]
-    r"""<p>A Base64-encoded representation of the non-volatile UEFI variable store. You can specify this parameter only when <code>secureBootEnabled</code> is <code>true</code> or unspecified. You can inspect and modify the UEFI data by using the <a href=\"https://github.com/awslabs/python-uefivars\">python-uefivars tool on GitHub</a>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-variables.html\">UEFI variables for Amazon EC2 instances</a>.</p>"""
+    """<p>A Base64-encoded representation of the non-volatile UEFI variable store. You can specify this parameter only when <code>secureBootEnabled</code> is <code>true</code> or unspecified. You can inspect and modify the UEFI data by using the <a href="https://github.com/awslabs/python-uefivars">python-uefivars tool on GitHub</a>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-variables.html">UEFI variables for Amazon EC2 instances</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

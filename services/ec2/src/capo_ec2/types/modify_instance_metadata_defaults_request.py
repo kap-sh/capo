@@ -31,13 +31,13 @@ class ModifyInstanceMetadataDefaultsRequest(TypedDict, closed=True):
     instance_metadata_tags: NotRequired[
         "capo_ec2.types.default_instance_metadata_tags_state.DefaultInstanceMetadataTagsState"
     ]
-    r"""<p>Enables or disables access to an instance's tags from the instance metadata. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html\">View tags for your EC2 instances using instance metadata</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Enables or disables access to an instance's tags from the instance metadata. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html">View tags for your EC2 instances using instance metadata</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
     http_tokens_enforced: NotRequired[
         "capo_ec2.types.default_http_tokens_enforced_state.DefaultHttpTokensEnforcedState"
     ]
-    r"""<p>Specifies whether to enforce the requirement of IMDSv2 on an instance at the time of launch. When enforcement is enabled, the instance can't launch unless IMDSv2 (<code>HttpTokens</code>) is set to <code>required</code>. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#enforce-imdsv2-at-the-account-level\">Enforce IMDSv2 at the account level</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Specifies whether to enforce the requirement of IMDSv2 on an instance at the time of launch. When enforcement is enabled, the instance can't launch unless IMDSv2 (<code>HttpTokens</code>) is set to <code>required</code>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#enforce-imdsv2-at-the-account-level">Enforce IMDSv2 at the account level</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
 
 
 # --- ec2Query ser/de ---

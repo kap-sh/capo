@@ -18,7 +18,7 @@ class Account(TypedDict, closed=True):
     ]
     """<p>Specifies the API request limits configured for the current Account.</p>"""
     features: NotRequired["capo_api_gateway.types.list_of_string.ListOfString"]
-    r"""<p>A list of features supported for the account. When usage plans are enabled, the features list will include an entry of <code>\"UsagePlans\"</code>.</p>"""
+    """<p>A list of features supported for the account. When usage plans are enabled, the features list will include an entry of <code>"UsagePlans"</code>.</p>"""
     api_key_version: NotRequired["capo_api_gateway.types.string.String"]
     """<p>The version of the API keys used for the account.</p>"""
 

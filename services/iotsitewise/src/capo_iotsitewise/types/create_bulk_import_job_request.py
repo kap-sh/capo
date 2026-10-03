@@ -22,7 +22,7 @@ class CreateBulkImportJobRequest(TypedDict, closed=True):
     job_name: "capo_iotsitewise.types.bulk_import_job_name.BulkImportJobName"
     """<p>The unique name that helps identify the job request.</p>"""
     job_role_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the IAM role that allows IoT SiteWise to read Amazon S3 data.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the IAM role that allows IoT SiteWise to read Amazon S3 data.</p>"""
     files: "capo_iotsitewise.types.files.Files"
     """<p>The files in the specified Amazon S3 bucket that contain your data. You can specify up to 100 files for each bulk import job. Each file supports the following size limits:</p> <ul> <li> <p>Parquet files – Up to 256 MiB.</p> </li> <li> <p>Other file formats – Up to 5 GiB.</p> </li> </ul>"""
     error_report_location: (

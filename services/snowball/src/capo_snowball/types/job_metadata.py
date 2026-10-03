@@ -44,9 +44,9 @@ class JobMetadata(TypedDict, closed=True):
     description: NotRequired["capo_snowball.types.string.String"]
     """<p>The description of the job, provided at job creation.</p>"""
     kms_key_arn: NotRequired["capo_snowball.types.kms_key_arn.KmsKeyARN"]
-    r"""<p>The Amazon Resource Name (ARN) for the Key Management Service (KMS) key associated with this job. This ARN was created using the <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> API action in KMS.</p>"""
+    """<p>The Amazon Resource Name (ARN) for the Key Management Service (KMS) key associated with this job. This ARN was created using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in KMS.</p>"""
     role_arn: NotRequired["capo_snowball.types.role_arn.RoleARN"]
-    r"""<p>The role ARN associated with this job. This ARN was created using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in Identity and Access Management.</p>"""
+    """<p>The role ARN associated with this job. This ARN was created using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in Identity and Access Management.</p>"""
     address_id: NotRequired["capo_snowball.types.address_id.AddressId"]
     """<p>The ID for the address that you want the Snow device shipped to.</p>"""
     shipping_details: NotRequired[
@@ -56,7 +56,7 @@ class JobMetadata(TypedDict, closed=True):
     snowball_capacity_preference: NotRequired[
         "capo_snowball.types.snowball_capacity.SnowballCapacity"
     ]
-    r"""<p>The Snow device capacity preference for this job, specified at job creation. In US regions, you can choose between 50 TB and 80 TB Snowballs. All other regions use 80 TB capacity Snowballs.</p> <p>For more information, see \"https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html\" (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or \"https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html\" (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i>.</p>"""
+    """<p>The Snow device capacity preference for this job, specified at job creation. In US regions, you can choose between 50 TB and 80 TB Snowballs. All other regions use 80 TB capacity Snowballs.</p> <p>For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i>.</p>"""
     notification: NotRequired["capo_snowball.types.notification.Notification"]
     """<p>The Amazon Simple Notification Service (Amazon SNS) notification settings associated with a specific job. The <code>Notification</code> object is returned as a part of the response syntax of the <code>DescribeJob</code> action in the <code>JobMetadata</code> data type.</p>"""
     data_transfer_progress: NotRequired[

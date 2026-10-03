@@ -46,7 +46,7 @@ class PendingModifiedValues(TypedDict, closed=True):
     storage_type: NotRequired["capo_rds.types.string.String"]
     """<p>The storage type of the DB instance.</p>"""
     ca_certificate_identifier: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The identifier of the CA certificate for the DB instance.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html\">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html\"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
+    """<p>The identifier of the CA certificate for the DB instance.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
     db_subnet_group_name: NotRequired["capo_rds.types.string.String"]
     """<p>The DB subnet group for the DB instance.</p>"""
     pending_cloudwatch_logs_exports: NotRequired[

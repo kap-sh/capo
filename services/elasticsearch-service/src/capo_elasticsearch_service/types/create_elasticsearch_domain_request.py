@@ -35,7 +35,7 @@ class CreateElasticsearchDomainRequest(TypedDict, closed=True):
     elasticsearch_version: NotRequired[
         "capo_elasticsearch_service.types.elasticsearch_version_string.ElasticsearchVersionString"
     ]
-    r"""<p>String of format X.Y to specify version for the Elasticsearch domain eg. \"1.5\" or \"2.3\". For more information, see <a href=\"http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomains\" target=\"_blank\">Creating Elasticsearch Domains</a> in the <i>Amazon Elasticsearch Service Developer Guide</i>.</p>"""
+    """<p>String of format X.Y to specify version for the Elasticsearch domain eg. "1.5" or "2.3". For more information, see <a href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomains" target="_blank">Creating Elasticsearch Domains</a> in the <i>Amazon Elasticsearch Service Developer Guide</i>.</p>"""
     elasticsearch_cluster_config: NotRequired[
         "capo_elasticsearch_service.types.elasticsearch_cluster_config.ElasticsearchClusterConfig"
     ]
@@ -51,11 +51,11 @@ class CreateElasticsearchDomainRequest(TypedDict, closed=True):
     ]
     """<p>Option to set time, in UTC format, of the daily automated snapshot. Default value is 0 hours. </p>"""
     vpc_options: NotRequired["capo_elasticsearch_service.types.vpc_options.VPCOptions"]
-    r"""<p>Options to specify the subnets and security groups for VPC endpoint. For more information, see <a href=\"http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-creating-vpc\" target=\"_blank\">Creating a VPC</a> in <i>VPC Endpoints for Amazon Elasticsearch Service Domains</i></p>"""
+    """<p>Options to specify the subnets and security groups for VPC endpoint. For more information, see <a href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-creating-vpc" target="_blank">Creating a VPC</a> in <i>VPC Endpoints for Amazon Elasticsearch Service Domains</i></p>"""
     cognito_options: NotRequired[
         "capo_elasticsearch_service.types.cognito_options.CognitoOptions"
     ]
-    r"""<p>Options to specify the Cognito user and identity pools for Kibana authentication. For more information, see <a href=\"http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html\" target=\"_blank\">Amazon Cognito Authentication for Kibana</a>.</p>"""
+    """<p>Options to specify the Cognito user and identity pools for Kibana authentication. For more information, see <a href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html" target="_blank">Amazon Cognito Authentication for Kibana</a>.</p>"""
     encryption_at_rest_options: NotRequired[
         "capo_elasticsearch_service.types.encryption_at_rest_options.EncryptionAtRestOptions"
     ]
@@ -67,7 +67,7 @@ class CreateElasticsearchDomainRequest(TypedDict, closed=True):
     advanced_options: NotRequired[
         "capo_elasticsearch_service.types.advanced_options.AdvancedOptions"
     ]
-    r"""<p> Option to allow references to indices in an HTTP request body. Must be <code>false</code> when configuring access to individual sub-resources. By default, the value is <code>true</code>. See <a href=\"http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options\" target=\"_blank\">Configuration Advanced Options</a> for more information.</p>"""
+    """<p> Option to allow references to indices in an HTTP request body. Must be <code>false</code> when configuring access to individual sub-resources. By default, the value is <code>true</code>. See <a href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options" target="_blank">Configuration Advanced Options</a> for more information.</p>"""
     log_publishing_options: NotRequired[
         "capo_elasticsearch_service.types.log_publishing_options.LogPublishingOptions"
     ]

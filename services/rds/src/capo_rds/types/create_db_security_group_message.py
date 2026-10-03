@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class CreateDBSecurityGroupMessage(TypedDict, closed=True):
     db_security_group_name: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The name for the DB security group. This value is stored as a lowercase string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li> <p>Must not be \"Default\"</p> </li> </ul> <p>Example: <code>mysecuritygroup</code> </p>"""
+    """<p>The name for the DB security group. This value is stored as a lowercase string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li> <p>Must not be "Default"</p> </li> </ul> <p>Example: <code>mysecuritygroup</code> </p>"""
     db_security_group_description: NotRequired["capo_rds.types.string.String"]
     """<p>The description for the DB security group.</p>"""
     tags: NotRequired["capo_rds.types.tag_list.TagList"]

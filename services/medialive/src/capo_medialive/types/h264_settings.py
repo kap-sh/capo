@@ -51,7 +51,7 @@ class H264Settings(TypedDict, closed=True):
     ]
     """Enables or disables adaptive quantization (AQ), which is a technique MediaLive can apply to video on a frame-by-frame basis to produce more compression without losing quality. There are three types of adaptive quantization: spatial, temporal, and flicker. We recommend that you set the field to Auto. For more information about all the options, see the topic about video adaptive quantization in the MediaLive user guide."""
     afd_signaling: NotRequired["capo_medialive.types.afd_signaling.AfdSignaling"]
-    r"""Indicates that AFD values will be written into the output stream. If afdSignaling is \"auto\", the system will try to preserve the input AFD value (in cases where multiple AFD values are valid). If set to \"fixed\", the AFD value will be the value configured in the fixedAfd parameter."""
+    """Indicates that AFD values will be written into the output stream. If afdSignaling is "auto", the system will try to preserve the input AFD value (in cases where multiple AFD values are valid). If set to "fixed", the AFD value will be the value configured in the fixedAfd parameter."""
     bitrate: NotRequired["capo_medialive.types.__integer_min1000.__integerMin1000"]
     """Average bitrate in bits/second. Required when the rate control mode is VBR or CBR. Not used for QVBR. In an MS Smooth output group, each output must have a unique value when its bitrate is rounded down to the nearest multiple of 1000."""
     buf_fill_pct: NotRequired[
@@ -83,11 +83,11 @@ class H264Settings(TypedDict, closed=True):
     force_field_pictures: NotRequired[
         "capo_medialive.types.h264_force_field_pictures.H264ForceFieldPictures"
     ]
-    r"""This setting applies only when scan type is \"interlaced.\" It controls whether coding is performed on a field basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame basis.) enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded separately. disabled: Code the two sets of fields separately (on a field basis) or together (on a frame basis using PAFF), depending on what is most appropriate for the content."""
+    """This setting applies only when scan type is "interlaced." It controls whether coding is performed on a field basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame basis.) enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded separately. disabled: Code the two sets of fields separately (on a field basis) or together (on a frame basis using PAFF), depending on what is most appropriate for the content."""
     framerate_control: NotRequired[
         "capo_medialive.types.h264_framerate_control.H264FramerateControl"
     ]
-    r"""This field indicates how the output video frame rate is specified. If \"specified\" is selected then the output video frame rate is determined by framerateNumerator and framerateDenominator, else if \"initializeFromSource\" is selected then the output video frame rate will be set equal to the input video frame rate of the first input."""
+    """This field indicates how the output video frame rate is specified. If "specified" is selected then the output video frame rate is determined by framerateNumerator and framerateDenominator, else if "initializeFromSource" is selected then the output video frame rate will be set equal to the input video frame rate of the first input."""
     framerate_denominator: NotRequired[
         "capo_medialive.types.__integer_min1.__integerMin1"
     ]
@@ -129,7 +129,7 @@ class H264Settings(TypedDict, closed=True):
     ]
     """Number of reference frames to use. The encoder may use more than requested if using B-frames and/or interlaced encoding."""
     par_control: NotRequired["capo_medialive.types.h264_par_control.H264ParControl"]
-    r"""This field indicates how the output pixel aspect ratio is specified. If \"specified\" is selected then the output video pixel aspect ratio is determined by parNumerator and parDenominator, else if \"initializeFromSource\" is selected then the output pixsel aspect ratio will be set equal to the input video pixel aspect ratio of the first input."""
+    """This field indicates how the output pixel aspect ratio is specified. If "specified" is selected then the output video pixel aspect ratio is determined by parNumerator and parDenominator, else if "initializeFromSource" is selected then the output pixsel aspect ratio will be set equal to the input video pixel aspect ratio of the first input."""
     par_denominator: NotRequired["capo_medialive.types.__integer_min1.__integerMin1"]
     """Pixel Aspect Ratio denominator."""
     par_numerator: NotRequired["capo_medialive.types.__integer_min1.__integerMin1"]
@@ -143,7 +143,7 @@ class H264Settings(TypedDict, closed=True):
     qvbr_quality_level: NotRequired[
         "capo_medialive.types.__integer_min1_max10.__integerMin1Max10"
     ]
-    r"""Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You can set a target quality or you can let MediaLive determine the best quality. To set a target quality, enter values in the QVBR quality level field and the Max bitrate field. Enter values that suit your most important viewing devices. Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level: 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M To let MediaLive decide, leave the QVBR quality level field empty, and in Max bitrate enter the maximum rate you want in the video. For more information, see the section called \"Video - rate control mode\" in the MediaLive user guide"""
+    """Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You can set a target quality or you can let MediaLive determine the best quality. To set a target quality, enter values in the QVBR quality level field and the Max bitrate field. Enter values that suit your most important viewing devices. Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level: 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M To let MediaLive decide, leave the QVBR quality level field empty, and in Max bitrate enter the maximum rate you want in the video. For more information, see the section called "Video - rate control mode" in the MediaLive user guide"""
     rate_control_mode: NotRequired[
         "capo_medialive.types.h264_rate_control_mode.H264RateControlMode"
     ]

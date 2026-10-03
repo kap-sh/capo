@@ -29,7 +29,7 @@ class AutocompleteResultItem(TypedDict, closed=True):
     distance: "capo_geo_places.types.distance_meters.DistanceMeters"
     """<p>The distance in meters between the center of the search area and this result. Useful to evaluate how far away from the original bias position the result is.</p>"""
     language: NotRequired["capo_geo_places.types.language_tag.LanguageTag"]
-    r"""<p>A list of <a href=\"https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\">BCP 47</a> compliant language codes for the results to be rendered in. If there is no data for the result in the requested language, data will be returned in the default language for the entry.</p>"""
+    """<p>A list of <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">BCP 47</a> compliant language codes for the results to be rendered in. If there is no data for the result in the requested language, data will be returned in the default language for the entry.</p>"""
     political_view: NotRequired["capo_geo_places.types.country_code3.CountryCode3"]
     """<p>The alpha-2 or alpha-3 character code for the political view of a country. The political view applies to the results of the request to represent unresolved territorial claims through the point of view of the specified country.</p>"""
     highlights: NotRequired[

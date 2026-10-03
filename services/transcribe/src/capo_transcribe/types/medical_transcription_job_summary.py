@@ -34,7 +34,7 @@ class MedicalTranscriptionJobSummary(TypedDict, closed=True):
     ]
     """<p>Provides the status of your medical transcription job.</p> <p>If the status is <code>COMPLETED</code>, the job is finished and you can find the results at the location specified in <code>TranscriptFileUri</code>. If the status is <code>FAILED</code>, <code>FailureReason</code> provides details on why your transcription job failed.</p>"""
     failure_reason: NotRequired["capo_transcribe.types.failure_reason.FailureReason"]
-    r"""<p>If <code>TranscriptionJobStatus</code> is <code>FAILED</code>, <code>FailureReason</code> contains information about why the transcription job failed. See also: <a href=\"https://docs.aws.amazon.com/transcribe/latest/APIReference/CommonErrors.html\">Common Errors</a>.</p>"""
+    """<p>If <code>TranscriptionJobStatus</code> is <code>FAILED</code>, <code>FailureReason</code> contains information about why the transcription job failed. See also: <a href="https://docs.aws.amazon.com/transcribe/latest/APIReference/CommonErrors.html">Common Errors</a>.</p>"""
     output_location_type: NotRequired[
         "capo_transcribe.types.output_location_type.OutputLocationType"
     ]
@@ -44,7 +44,7 @@ class MedicalTranscriptionJobSummary(TypedDict, closed=True):
     content_identification_type: NotRequired[
         "capo_transcribe.types.medical_content_identification_type.MedicalContentIdentificationType"
     ]
-    r"""<p>Labels all personal health information (PHI) identified in your transcript. For more information, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/phi-id.html\">Identifying personal health information (PHI) in a transcription</a>.</p>"""
+    """<p>Labels all personal health information (PHI) identified in your transcript. For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/phi-id.html">Identifying personal health information (PHI) in a transcription</a>.</p>"""
     type: NotRequired["capo_transcribe.types.type.Type"]
     """<p>Indicates whether the input media is a dictation or a conversation, as specified in the <code>StartMedicalTranscriptionJob</code> request.</p>"""
 

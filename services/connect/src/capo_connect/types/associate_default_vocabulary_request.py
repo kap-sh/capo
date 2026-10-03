@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 
 class AssociateDefaultVocabularyRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     language_code: "capo_connect.types.vocabulary_language_code.VocabularyLanguageCode"
-    r"""<p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html\">What is Amazon Transcribe?</a> </p>"""
+    """<p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html">What is Amazon Transcribe?</a> </p>"""
     vocabulary_id: NotRequired["capo_connect.types.vocabulary_id.VocabularyId"]
     """<p>The identifier of the custom vocabulary. If this is empty, the default is set to none.</p>"""
 

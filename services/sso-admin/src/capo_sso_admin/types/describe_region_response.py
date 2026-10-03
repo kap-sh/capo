@@ -19,7 +19,7 @@ class DescribeRegionResponse(TypedDict, closed=True):
     added_date: NotRequired["capo_sso_admin.types.date.Date"]
     """<p>The timestamp when the Region was added to the IAM Identity Center instance. For the primary Region, this is the IAM Identity Center instance creation time.</p>"""
     is_primary_region: "capo_sso_admin.types.is_primary_region.IsPrimaryRegion"
-    r"""<p>Indicates whether this is the primary Region where the IAM Identity Center instance was originally enabled. For more information on the difference between the primary Region and additional Regions, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/multi-region-iam-identity-center.html\">IAM Identity Center User Guide</a> </p>"""
+    """<p>Indicates whether this is the primary Region where the IAM Identity Center instance was originally enabled. For more information on the difference between the primary Region and additional Regions, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/multi-region-iam-identity-center.html">IAM Identity Center User Guide</a> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -47,9 +47,9 @@ class CreateBlueGreenDeploymentRequest(TypedDict, closed=True):
     upgrade_target_storage_config: NotRequired[
         "capo_rds.types.boolean_optional.BooleanOptional"
     ]
-    r"""<p>Whether to upgrade the storage file system configuration on the green database. This option migrates the green DB instance from the older 32-bit file system to the preferred configuration. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.UpgradeFileSystem\">Upgrading the storage file system for a DB instance</a>.</p>"""
+    """<p>Whether to upgrade the storage file system configuration on the green database. This option migrates the green DB instance from the older 32-bit file system to the preferred configuration. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.UpgradeFileSystem">Upgrading the storage file system for a DB instance</a>.</p>"""
     target_iops: NotRequired["capo_rds.types.integer_optional.IntegerOptional"]
-    r"""<p>The amount of Provisioned IOPS (input/output operations per second) to allocate for the green DB instance. For information about valid IOPS values, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html\">Amazon RDS DB instance storage</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting doesn't apply to Amazon Aurora blue/green deployments.</p>"""
+    """<p>The amount of Provisioned IOPS (input/output operations per second) to allocate for the green DB instance. For information about valid IOPS values, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html">Amazon RDS DB instance storage</a> in the <i>Amazon RDS User Guide</i>.</p> <p>This setting doesn't apply to Amazon Aurora blue/green deployments.</p>"""
     target_storage_type: NotRequired[
         "capo_rds.types.target_storage_type.TargetStorageType"
     ]

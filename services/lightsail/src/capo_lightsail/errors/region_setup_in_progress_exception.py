@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class RegionSetupInProgressException_(TypedDict, closed=True):
     code: NotRequired["capo_lightsail.types.string.string"]
     docs: NotRequired["capo_lightsail.types.string.string"]
-    r"""<p> <a href=\"https://docs.aws.amazon.com/lightsail/latest/userguide/understanding-regions-and-availability-zones-in-amazon-lightsail.html\">Regions and Availability Zones for Lightsail</a> </p>"""
+    """<p> <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/understanding-regions-and-availability-zones-in-amazon-lightsail.html">Regions and Availability Zones for Lightsail</a> </p>"""
     message: NotRequired["capo_lightsail.types.string.string"]
     tip: NotRequired["capo_lightsail.types.string.string"]
     """<p>Opt-in Regions typically take a few minutes to finish setting up before you can work with them. Wait a few minutes and try again.</p>"""

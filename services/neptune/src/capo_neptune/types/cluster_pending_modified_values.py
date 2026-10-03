@@ -31,7 +31,7 @@ class ClusterPendingModifiedValues(TypedDict, closed=True):
     ]
     """<p>The number of days for which automatic DB snapshots are retained.</p>"""
     storage_type: NotRequired["capo_neptune.types.string.String"]
-    r"""<p>The pending change in storage type for the DB cluster. Valid Values:</p> <ul> <li> <p> <b> <code>standard</code> </b> – ( <i>the default</i> ) Configures cost-effective database storage for applications with moderate to small I/O usage.</p> </li> <li> <p> <b> <code>iopt1</code> </b> – Enables <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/storage-types.html#provisioned-iops-storage\">I/O-Optimized storage</a> that's designed to meet the needs of I/O-intensive graph workloads that require predictable pricing with low I/O latency and consistent I/O throughput.</p> <p>Neptune I/O-Optimized storage is only available starting with engine release 1.3.0.0.</p> </li> </ul>"""
+    """<p>The pending change in storage type for the DB cluster. Valid Values:</p> <ul> <li> <p> <b> <code>standard</code> </b> – ( <i>the default</i> ) Configures cost-effective database storage for applications with moderate to small I/O usage.</p> </li> <li> <p> <b> <code>iopt1</code> </b> – Enables <a href="https://docs.aws.amazon.com/neptune/latest/userguide/storage-types.html#provisioned-iops-storage">I/O-Optimized storage</a> that's designed to meet the needs of I/O-intensive graph workloads that require predictable pricing with low I/O latency and consistent I/O throughput.</p> <p>Neptune I/O-Optimized storage is only available starting with engine release 1.3.0.0.</p> </li> </ul>"""
     allocated_storage: NotRequired[
         "capo_neptune.types.integer_optional.IntegerOptional"
     ]

@@ -16,7 +16,7 @@ class EntityDetails(TypedDict, closed=True):
     entity_info: "capo_iam.types.entity_info.EntityInfo"
     """<p>The <code>EntityInfo</code> object that contains details about the entity (user or role).</p>"""
     last_authenticated: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report unauthenticated requests.</p> <p>This field is null if no IAM entities attempted to access the service within the <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period\">tracking period</a>.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report unauthenticated requests.</p> <p>This field is null if no IAM entities attempted to access the service within the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period">tracking period</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class CreateNotificationRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     expires_at: NotRequired["capo_connect.types.timestamp.Timestamp"]
     """<p>The timestamp when the notification should expire and no longer be displayed to users. If not specified, defaults to one week from creation.</p>"""
     recipients: "capo_connect.types.recipient_list.RecipientList"
@@ -31,12 +31,12 @@ class CreateNotificationRequest(TypedDict, closed=True):
     content: "capo_connect.types.notification_content.NotificationContent"
     """<p>The localized content of the notification. A map where keys are locale codes and values are the notification text in that locale. Content supports links. Maximum 250 characters per locale.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, <code>{ "Tags": {"key1":"value1", "key2":"value2"} }</code>.</p>"""
     predefined_notification_id: NotRequired[
         "capo_connect.types.notification_id.NotificationId"
     ]
     client_token: NotRequired["capo_connect.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

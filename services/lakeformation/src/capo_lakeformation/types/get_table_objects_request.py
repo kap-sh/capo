@@ -34,7 +34,7 @@ class GetTableObjectsRequest(TypedDict, closed=True):
     partition_predicate: NotRequired[
         "capo_lakeformation.types.predicate_string.PredicateString"
     ]
-    r"""<p>A predicate to filter the objects returned based on the partition keys defined in the governed table.</p> <ul> <li> <p>The comparison operators supported are: =, >, <, >=, <=</p> </li> <li> <p>The logical operators supported are: AND</p> </li> <li> <p>The data types supported are integer, long, date(yyyy-MM-dd), timestamp(yyyy-MM-dd HH:mm:ssXXX or yyyy-MM-dd HH:mm:ss\"), string and decimal.</p> </li> </ul>"""
+    """<p>A predicate to filter the objects returned based on the partition keys defined in the governed table.</p> <ul> <li> <p>The comparison operators supported are: =, >, <, >=, <=</p> </li> <li> <p>The logical operators supported are: AND</p> </li> <li> <p>The data types supported are integer, long, date(yyyy-MM-dd), timestamp(yyyy-MM-dd HH:mm:ssXXX or yyyy-MM-dd HH:mm:ss"), string and decimal.</p> </li> </ul>"""
     max_results: NotRequired["capo_lakeformation.types.page_size.PageSize"]
     """<p>Specifies how many values to return in a page.</p>"""
     next_token: NotRequired["capo_lakeformation.types.token_string.TokenString"]

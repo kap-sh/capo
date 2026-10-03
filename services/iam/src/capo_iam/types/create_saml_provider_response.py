@@ -15,7 +15,7 @@ class CreateSAMLProviderResponse(TypedDict, closed=True):
     saml_provider_arn: NotRequired["capo_iam.types.arn_type.arnType"]
     """<p>The Amazon Resource Name (ARN) of the new SAML provider resource in IAM.</p>"""
     tags: NotRequired["capo_iam.types.tag_list_type.tagListType"]
-    r"""<p>A list of tags that are attached to the new IAM SAML provider. The returned list of tags is sorted by tag key. For more information about tagging, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html\">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>A list of tags that are attached to the new IAM SAML provider. The returned list of tags is sorted by tag key. For more information about tagging, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

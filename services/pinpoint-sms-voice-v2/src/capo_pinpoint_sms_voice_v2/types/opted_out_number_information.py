@@ -16,7 +16,7 @@ class OptedOutNumberInformation(TypedDict, closed=True):
     opted_out_number: "capo_pinpoint_sms_voice_v2.types.phone_number.PhoneNumber"
     """<p>The phone number that is opted out.</p>"""
     opted_out_timestamp: "datetime.datetime"
-    r"""<p>The time that the op tout occurred, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time that the op tout occurred, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     end_user_opted_out: "bool"
     """<p>This is set to true if it was the end recipient that opted out.</p>"""
 

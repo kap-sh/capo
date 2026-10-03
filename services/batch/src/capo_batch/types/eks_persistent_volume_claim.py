@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class EksPersistentVolumeClaim(TypedDict, closed=True):
     claim_name: NotRequired["capo_batch.types.string.String"]
-    r"""<p>The name of the <code>persistentVolumeClaim</code> bounded to a <code>persistentVolume</code>. For more information, see <a href=\"https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims\"> Persistent Volume Claims</a> in the <i>Kubernetes documentation</i>.</p>"""
+    """<p>The name of the <code>persistentVolumeClaim</code> bounded to a <code>persistentVolume</code>. For more information, see <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims"> Persistent Volume Claims</a> in the <i>Kubernetes documentation</i>.</p>"""
     read_only: NotRequired["capo_batch.types.boolean.Boolean"]
-    r"""<p>An optional boolean value indicating if the mount is read only. Default is false. For more information, see <a href=\"https://kubernetes.io/docs/concepts/storage/volumes/#read-only-mounts\"> Read Only Mounts</a> in the <i>Kubernetes documentation</i>.</p>"""
+    """<p>An optional boolean value indicating if the mount is read only. Default is false. For more information, see <a href="https://kubernetes.io/docs/concepts/storage/volumes/#read-only-mounts"> Read Only Mounts</a> in the <i>Kubernetes documentation</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class KmsEncryptionState(TypedDict, closed=True):
     key: "capo_verifiedpermissions.types.kms_key.KmsKey"
-    r"""<p>The customer-managed KMS key <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> being used for encryption processes. </p>"""
+    """<p>The customer-managed KMS key <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> being used for encryption processes. </p>"""
     encryption_context: (
         "capo_verifiedpermissions.types.encryption_context.EncryptionContext"
     )

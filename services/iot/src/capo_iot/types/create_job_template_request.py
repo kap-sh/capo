@@ -24,11 +24,11 @@ if TYPE_CHECKING:
 
 class CreateJobTemplateRequest(TypedDict, closed=True):
     job_template_id: "capo_iot.types.job_template_id.JobTemplateId"
-    r"""<p>A unique identifier for the job template. We recommend using a UUID. Alpha-numeric characters, \"-\", and \"_\" are valid for use here.</p>"""
+    """<p>A unique identifier for the job template. We recommend using a UUID. Alpha-numeric characters, "-", and "_" are valid for use here.</p>"""
     job_arn: NotRequired["capo_iot.types.job_arn.JobArn"]
     """<p>The ARN of the job to use as the basis for the job template.</p>"""
     document_source: NotRequired["capo_iot.types.job_document_source.JobDocumentSource"]
-    r"""<p>An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you don't specify a value for <code>document</code>.</p> <p>For example, <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code> </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html\">Methods for accessing a bucket</a>.</p>"""
+    """<p>An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you don't specify a value for <code>document</code>.</p> <p>For example, <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code> </p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for accessing a bucket</a>.</p>"""
     document: NotRequired["capo_iot.types.job_document.JobDocument"]
     """<p>The job document. Required if you don't specify a value for <code>documentSource</code>.</p>"""
     description: "capo_iot.types.job_description.JobDescription"
@@ -54,7 +54,7 @@ class CreateJobTemplateRequest(TypedDict, closed=True):
     destination_package_versions: NotRequired[
         "capo_iot.types.destination_package_versions.DestinationPackageVersions"
     ]
-    r"""<p>The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully completes. The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p> <p> <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.</p>"""
+    """<p>The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully completes. The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p> <p> <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.</p>"""
 
 
 # --- restJson1 ser/de ---

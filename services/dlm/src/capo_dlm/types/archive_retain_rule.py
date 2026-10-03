@@ -12,7 +12,7 @@ class ArchiveRetainRule(TypedDict, closed=True):
     retention_archive_tier: NotRequired[
         "capo_dlm.types.retention_archive_tier.RetentionArchiveTier"
     ]
-    r"""<p>Information about retention period in the Amazon EBS Snapshots Archive. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/snapshot-archive.html\">Archive Amazon EBS snapshots</a>.</p>"""
+    """<p>Information about retention period in the Amazon EBS Snapshots Archive. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/snapshot-archive.html">Archive Amazon EBS snapshots</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

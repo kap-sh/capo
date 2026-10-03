@@ -15,7 +15,7 @@ class AttachPolicyRequest(TypedDict, closed=True):
     policy_name: "capo_iot.types.policy_name.PolicyName"
     """<p>The name of the policy to attach.</p>"""
     target: "capo_iot.types.policy_target.PolicyTarget"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html\">identity</a> to which the policy is attached. For example, a thing group or a certificate.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html">identity</a> to which the policy is attached. For example, a thing group or a certificate.</p>"""
 
 
 # --- restJson1 ser/de ---

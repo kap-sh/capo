@@ -12,7 +12,7 @@ class BatchPutDocumentResponse(TypedDict, closed=True):
     failed_documents: NotRequired[
         "capo_kendra.types.batch_put_document_response_failed_documents.BatchPutDocumentResponseFailedDocuments"
     ]
-    r"""<p>A list of documents that were not added to the index because the document failed a validation check. Each document contains an error message that indicates why the document couldn't be added to the index.</p> <p>If there was an error adding a document to an index the error is reported in your Amazon Web Services CloudWatch log. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-logs.html\">Monitoring Amazon Kendra with Amazon CloudWatch logs</a>.</p>"""
+    """<p>A list of documents that were not added to the index because the document failed a validation check. Each document contains an error message that indicates why the document couldn't be added to the index.</p> <p>If there was an error adding a document to an index the error is reported in your Amazon Web Services CloudWatch log. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-logs.html">Monitoring Amazon Kendra with Amazon CloudWatch logs</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

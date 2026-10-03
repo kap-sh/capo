@@ -19,7 +19,7 @@ class Subnet(TypedDict, closed=True):
         "capo_rds.types.availability_zone.AvailabilityZone"
     ]
     subnet_outpost: NotRequired["capo_rds.types.outpost.Outpost"]
-    r"""<p>If the subnet is associated with an Outpost, this value specifies the Outpost.</p> <p>For more information about RDS on Outposts, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html\">Amazon RDS on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide.</i> </p>"""
+    """<p>If the subnet is associated with an Outpost, this value specifies the Outpost.</p> <p>For more information about RDS on Outposts, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide.</i> </p>"""
     subnet_status: NotRequired["capo_rds.types.string.String"]
     """<p>The status of the subnet.</p>"""
 

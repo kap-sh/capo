@@ -24,7 +24,7 @@ class AttachTrafficSourcesType(TypedDict, closed=True):
     skip_zonal_shift_validation: NotRequired[
         "capo_auto_scaling.types.skip_zonal_shift_validation.SkipZonalShiftValidation"
     ]
-    r"""<p> If you enable zonal shift with cross-zone disabled load balancers, capacity could become imbalanced across Availability Zones. To skip the validation, specify <code>true</code>. For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-zonal-shift.html\">Auto Scaling group zonal shift</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>"""
+    """<p> If you enable zonal shift with cross-zone disabled load balancers, capacity could become imbalanced across Availability Zones. To skip the validation, specify <code>true</code>. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-zonal-shift.html">Auto Scaling group zonal shift</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>"""
 
 
 # --- awsQuery ser/de ---

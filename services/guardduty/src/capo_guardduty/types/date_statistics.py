@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DateStatistics(TypedDict, closed=True):
     date: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
-    r"""<p>The timestamp when the total findings count is observed.</p> <p>For example, <code>Date</code> would look like <code>\"2024-09-05T17:00:00-07:00\"</code> whereas <code>LastGeneratedAt</code> would look like 2024-09-05T17:12:29-07:00\".</p>"""
+    """<p>The timestamp when the total findings count is observed.</p> <p>For example, <code>Date</code> would look like <code>"2024-09-05T17:00:00-07:00"</code> whereas <code>LastGeneratedAt</code> would look like 2024-09-05T17:12:29-07:00".</p>"""
     last_generated_at: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
     """<p>The timestamp at which the last finding in the findings count, was generated.</p>"""
     severity: NotRequired["capo_guardduty.types.double.Double"]

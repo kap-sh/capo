@@ -25,7 +25,7 @@ class ProactiveAnomaly(TypedDict, closed=True):
     id: NotRequired["capo_devops_guru.types.anomaly_id.AnomalyId"]
     """<p> The ID of a proactive anomaly. </p>"""
     severity: NotRequired["capo_devops_guru.types.anomaly_severity.AnomalySeverity"]
-    r"""<p>The severity of the anomaly. The severity of anomalies that generate an insight determine that insight's severity. For more information, see <a href=\"https://docs.aws.amazon.com/devops-guru/latest/userguide/working-with-insights.html#understanding-insights-severities\">Understanding insight severities</a> in the <i>Amazon DevOps Guru User Guide</i>.</p>"""
+    """<p>The severity of the anomaly. The severity of anomalies that generate an insight determine that insight's severity. For more information, see <a href="https://docs.aws.amazon.com/devops-guru/latest/userguide/working-with-insights.html#understanding-insights-severities">Understanding insight severities</a> in the <i>Amazon DevOps Guru User Guide</i>.</p>"""
     status: NotRequired["capo_devops_guru.types.anomaly_status.AnomalyStatus"]
     """<p> The status of a proactive anomaly. </p>"""
     update_time: NotRequired["capo_devops_guru.types.timestamp.Timestamp"]

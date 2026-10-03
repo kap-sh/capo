@@ -22,7 +22,7 @@ class ProgressEvent(TypedDict, closed=True):
     identifier: NotRequired["capo_cloudcontrol.types.identifier.Identifier"]
     """<p>The primary identifier for the resource.</p> <note> <p>In some cases, the resource identifier may be available before the resource operation has reached a status of <code>SUCCESS</code>.</p> </note>"""
     request_token: NotRequired["capo_cloudcontrol.types.request_token.RequestToken"]
-    r"""<p>The unique token representing this resource operation request.</p> <p>Use the <code>RequestToken</code> with <a href=\"https://docs.aws.amazon.com/cloudcontrolapi/latest/APIReference/API_GetResourceRequestStatus.html\">GetResourceRequestStatus</a> to return the current status of a resource operation request.</p>"""
+    """<p>The unique token representing this resource operation request.</p> <p>Use the <code>RequestToken</code> with <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/APIReference/API_GetResourceRequestStatus.html">GetResourceRequestStatus</a> to return the current status of a resource operation request.</p>"""
     hooks_request_token: NotRequired[
         "capo_cloudcontrol.types.request_token.RequestToken"
     ]
@@ -42,7 +42,7 @@ class ProgressEvent(TypedDict, closed=True):
     error_code: NotRequired[
         "capo_cloudcontrol.types.handler_error_code.HandlerErrorCode"
     ]
-    r"""<p>For requests with a status of <code>FAILED</code>, the associated error code.</p> <p>For error code definitions, see <a href=\"https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract-errors.html\">Handler error codes</a> in the <i>CloudFormation Command Line Interface User Guide for Extension Development</i>.</p>"""
+    """<p>For requests with a status of <code>FAILED</code>, the associated error code.</p> <p>For error code definitions, see <a href="https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract-errors.html">Handler error codes</a> in the <i>CloudFormation Command Line Interface User Guide for Extension Development</i>.</p>"""
     retry_after: NotRequired["capo_cloudcontrol.types.timestamp.Timestamp"]
     """<p>When to next request the status of this resource operation request.</p>"""
 

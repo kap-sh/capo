@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ListWorkspacePagesRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     workspace_id: "capo_connect.types.workspace_id.WorkspaceId"
     """<p>The identifier of the workspace.</p>"""
     next_token: NotRequired["capo_connect.types.next_token.NextToken"]

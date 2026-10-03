@@ -15,7 +15,7 @@ class PutServiceLinkedConfigurationRecorderResponse(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of the specified configuration recorder.</p>"""
     name: NotRequired["capo_config_service.types.recorder_name.RecorderName"]
-    r"""<p>The name of the specified configuration recorder.</p> <p>For service-linked configuration recorders, Config automatically assigns a name that has the prefix \"<code>AWSConfigurationRecorderFor</code>\" to the new service-linked configuration recorder.</p>"""
+    """<p>The name of the specified configuration recorder.</p> <p>For service-linked configuration recorders, Config automatically assigns a name that has the prefix "<code>AWSConfigurationRecorderFor</code>" to the new service-linked configuration recorder.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

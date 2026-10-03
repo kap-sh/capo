@@ -28,7 +28,7 @@ class ListSchemasRequest(TypedDict, closed=True):
     connected_database: NotRequired["capo_redshift_data.types.string.String"]
     """<p>A database name. The connected database is specified when you connect with your authentication credentials. </p>"""
     schema_pattern: NotRequired["capo_redshift_data.types.string.String"]
-    r"""<p>A pattern to filter results by schema name. Within a schema pattern, \"%\" means match any substring of 0 or more characters and \"_\" means match any one character. Only schema name entries matching the search pattern are returned. </p>"""
+    """<p>A pattern to filter results by schema name. Within a schema pattern, "%" means match any substring of 0 or more characters and "_" means match any one character. Only schema name entries matching the search pattern are returned. </p>"""
     next_token: NotRequired["capo_redshift_data.types.string.String"]
     """<p>A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned NextToken value in the next NextToken parameter and retrying the command. If the NextToken field is empty, all response records have been retrieved for the request. </p>"""
     max_results: "capo_redshift_data.types.page_size.PageSize"

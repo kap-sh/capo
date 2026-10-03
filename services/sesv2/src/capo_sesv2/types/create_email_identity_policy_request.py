@@ -18,7 +18,7 @@ class CreateEmailIdentityPolicyRequest(TypedDict, closed=True):
     policy_name: "capo_sesv2.types.policy_name.PolicyName"
     """<p>The name of the policy.</p> <p>The policy name cannot exceed 64 characters and can only include alphanumeric characters, dashes, and underscores.</p>"""
     policy: "capo_sesv2.types.policy.Policy"
-    r"""<p>The text of the policy in JSON format. The policy cannot exceed 4 KB.</p> <p>For information about the syntax of sending authorization policies, see the <a href=\"https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization-policies.html\">Amazon SES Developer Guide</a>.</p>"""
+    """<p>The text of the policy in JSON format. The policy cannot exceed 4 KB.</p> <p>For information about the syntax of sending authorization policies, see the <a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization-policies.html">Amazon SES Developer Guide</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

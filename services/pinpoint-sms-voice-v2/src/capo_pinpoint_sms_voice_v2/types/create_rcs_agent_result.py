@@ -33,7 +33,7 @@ class CreateRcsAgentResult(TypedDict, closed=True):
     ]
     """<p>The name of the OptOutList associated with the RCS agent.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the RCS agent was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the RCS agent was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     self_managed_opt_outs_enabled: "bool"
     """<p>By default this is set to false. When set to true you're responsible for responding to HELP and STOP requests. You're also responsible for tracking and honoring opt-out requests.</p>"""
     two_way_channel_arn: NotRequired[

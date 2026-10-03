@@ -3997,11 +3997,11 @@ class MediaLiveClient:
         pipeline_id: Optional["capo_medialive.types.__string.__string"] = None,
         thumbnail_type: Optional["capo_medialive.types.__string.__string"] = None,
     ) -> "capo_medialive.types.describe_thumbnails_response.DescribeThumbnailsResponse":
-        r"""Describe the latest thumbnails data.
+        """Describe the latest thumbnails data.
 
         Args:
             channel_id: Unique ID of the channel
-            pipeline_id: Pipeline ID (\"0\" or \"1\")
+            pipeline_id: Pipeline ID ("0" or "1")
             thumbnail_type: thumbnail type
 
         Raises:

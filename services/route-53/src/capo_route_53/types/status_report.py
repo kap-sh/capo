@@ -15,7 +15,7 @@ class StatusReport(TypedDict, closed=True):
     status: NotRequired["capo_route_53.types.status.Status"]
     """<p>A description of the status of the health check endpoint as reported by one of the Amazon Route 53 health checkers.</p>"""
     checked_time: NotRequired["capo_route_53.types.time_stamp.TimeStamp"]
-    r"""<p>The date and time that the health checker performed the health check in <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 format</a> and Coordinated Universal Time (UTC). For example, the value <code>2017-03-27T17:48:16.751Z</code> represents March 27, 2017 at 17:48:16.751 UTC.</p>"""
+    """<p>The date and time that the health checker performed the health check in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 format</a> and Coordinated Universal Time (UTC). For example, the value <code>2017-03-27T17:48:16.751Z</code> represents March 27, 2017 at 17:48:16.751 UTC.</p>"""
 
 
 # --- restXml ser/de ---

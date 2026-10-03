@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class UpdateCognitoUserPoolConfiguration(TypedDict, closed=True):
     user_pool_arn: "capo_verifiedpermissions.types.user_pool_arn.UserPoolArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the Amazon Cognito user pool associated with this identity source.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the Amazon Cognito user pool associated with this identity source.</p>"""
     client_ids: NotRequired["capo_verifiedpermissions.types.client_ids.ClientIds"]
     """<p>The client ID of an app client that is configured for the specified Amazon Cognito user pool.</p>"""
     group_configuration: NotRequired[

@@ -28,7 +28,7 @@ class ResourceDataSyncSource(TypedDict, closed=True):
     include_future_regions: "capo_ssm.types.resource_data_sync_include_future_regions.ResourceDataSyncIncludeFutureRegions"
     """<p>Whether to automatically synchronize and aggregate data from new Amazon Web Services Regions when those Regions come online.</p>"""
     enable_all_ops_data_sources: "capo_ssm.types.resource_data_sync_enable_all_ops_data_sources.ResourceDataSyncEnableAllOpsDataSources"
-    r"""<p>When you create a resource data sync, if you choose one of the Organizations options, then Systems Manager automatically enables all OpsData sources in the selected Amazon Web Services Regions for all Amazon Web Services accounts in your organization (or in the selected organization units). For more information, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html\">Setting up Systems Manager Explorer to display data from multiple accounts and Regions</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>When you create a resource data sync, if you choose one of the Organizations options, then Systems Manager automatically enables all OpsData sources in the selected Amazon Web Services Regions for all Amazon Web Services accounts in your organization (or in the selected organization units). For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html">Setting up Systems Manager Explorer to display data from multiple accounts and Regions</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

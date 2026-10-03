@@ -24,7 +24,7 @@ class RDFGraphSummary(TypedDict, closed=True):
     predicates: NotRequired[
         "capo_neptunedata.types.long_valued_map_list.LongValuedMapList"
     ]
-    r"""<p>\"A list of predicates in the graph, along with the predicate counts.</p>"""
+    """<p>"A list of predicates in the graph, along with the predicate counts.</p>"""
     subject_structures: NotRequired[
         "capo_neptunedata.types.subject_structures.SubjectStructures"
     ]

@@ -27,9 +27,9 @@ class ServiceQuotaExceededException_(TypedDict, closed=True):
     service_code: NotRequired[
         "capo_workspaces_thin_client.types.service_code.ServiceCode"
     ]
-    r"""<p>The code for the service in <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html\">Service Quotas</a>.</p>"""
+    """<p>The code for the service in <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">Service Quotas</a>.</p>"""
     quota_code: NotRequired["capo_workspaces_thin_client.types.quota_code.QuotaCode"]
-    r"""<p>The code for the quota in <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html\">Service Quotas</a>.</p>"""
+    """<p>The code for the quota in <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">Service Quotas</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

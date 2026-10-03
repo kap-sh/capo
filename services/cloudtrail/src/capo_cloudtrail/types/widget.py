@@ -23,7 +23,7 @@ class Widget(TypedDict, closed=True):
     view_properties: NotRequired[
         "capo_cloudtrail.types.view_properties_map.ViewPropertiesMap"
     ]
-    r"""<p> The view properties for the widget. For more information about view properties, see <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/lake-widget-properties.html\"> View properties for widgets </a> in the <i>CloudTrail User Guide</i>.. </p>"""
+    """<p> The view properties for the widget. For more information about view properties, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/lake-widget-properties.html"> View properties for widgets </a> in the <i>CloudTrail User Guide</i>.. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

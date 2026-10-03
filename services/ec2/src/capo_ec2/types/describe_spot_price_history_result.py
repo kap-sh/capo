@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DescribeSpotPriceHistoryResult(TypedDict, closed=True):
     next_token: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The token to include in another request to get the next page of items. This value is an empty string (<code>\"\"</code>) or <code>null</code> when there are no more items to return.</p>"""
+    """<p>The token to include in another request to get the next page of items. This value is an empty string (<code>""</code>) or <code>null</code> when there are no more items to return.</p>"""
     spot_price_history: NotRequired[
         "capo_ec2.types.spot_price_history_list.SpotPriceHistoryList"
     ]

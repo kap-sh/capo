@@ -26,7 +26,7 @@ class InstanceFleetModifyConfig(TypedDict, closed=True):
     instance_type_configs: NotRequired[
         "capo_emr.types.instance_type_config_list.InstanceTypeConfigList"
     ]
-    r"""<p>An array of InstanceTypeConfig objects that specify how Amazon EMR provisions Amazon EC2 instances when it fulfills On-Demand and Spot capacities. For more information, see <a href=\"https://docs.aws.amazon.com/emr/latest/APIReference/API_InstanceTypeConfig.html\">InstanceTypeConfig</a>.</p>"""
+    """<p>An array of InstanceTypeConfig objects that specify how Amazon EMR provisions Amazon EC2 instances when it fulfills On-Demand and Spot capacities. For more information, see <a href="https://docs.aws.amazon.com/emr/latest/APIReference/API_InstanceTypeConfig.html">InstanceTypeConfig</a>.</p>"""
     context: NotRequired["capo_emr.types.xml_string_max_len256.XmlStringMaxLen256"]
     """<p>Reserved.</p>"""
 

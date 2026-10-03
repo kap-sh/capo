@@ -31,7 +31,7 @@ class DescribeEntityResponse(TypedDict, closed=True):
     details_document: NotRequired[
         "capo_marketplace_catalog.types.json_document_type.JsonDocumentType"
     ]
-    r"""<p>The JSON value of the details specific to the entity.</p> <p>To download \"DetailsDocument\" shapes, see the <a href=\"https://github.com/awslabs/aws-marketplace-catalog-api-shapes-for-python\">Python</a> and <a href=\"https://github.com/awslabs/aws-marketplace-catalog-api-shapes-for-java/tree/main\">Java</a> shapes on GitHub.</p>"""
+    """<p>The JSON value of the details specific to the entity.</p> <p>To download "DetailsDocument" shapes, see the <a href="https://github.com/awslabs/aws-marketplace-catalog-api-shapes-for-python">Python</a> and <a href="https://github.com/awslabs/aws-marketplace-catalog-api-shapes-for-java/tree/main">Java</a> shapes on GitHub.</p>"""
 
 
 # --- restJson1 ser/de ---

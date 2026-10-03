@@ -36,7 +36,7 @@ class StreamSession(TypedDict, closed=True):
     ]
     """<p>The properties of recording the live stream.</p>"""
     truncated_events: NotRequired["capo_ivs.types.stream_events.StreamEvents"]
-    r"""<p>List of Amazon IVS events that the stream encountered. The list is sorted by most recent events and contains up to 500 events. For Amazon IVS events, see <a href=\"https://docs.aws.amazon.com/ivs/latest/userguide/eventbridge.html\">Using Amazon EventBridge with Amazon IVS</a>.</p>"""
+    """<p>List of Amazon IVS events that the stream encountered. The list is sorted by most recent events and contains up to 500 events. For Amazon IVS events, see <a href="https://docs.aws.amazon.com/ivs/latest/userguide/eventbridge.html">Using Amazon EventBridge with Amazon IVS</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

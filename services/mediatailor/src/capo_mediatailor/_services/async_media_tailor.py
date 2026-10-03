@@ -325,12 +325,12 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.manifest_service_interaction_log.ManifestServiceInteractionLog"
         ] = None,
     ) -> "capo_mediatailor.types.configure_logs_for_playback_configuration_response.ConfigureLogsForPlaybackConfigurationResponse":
-        r"""<p>Defines where AWS Elemental MediaTailor sends logs for the playback configuration.</p>
+        """<p>Defines where AWS Elemental MediaTailor sends logs for the playback configuration.</p>
 
         Args:
-            percent_enabled: <p>The percentage of session logs that MediaTailor sends to your CloudWatch Logs account. For example, if your playback configuration has 1000 sessions and percentEnabled is set to <code>60</code>, MediaTailor sends logs for 600 of the sessions to CloudWatch Logs. MediaTailor decides at random which of the playback configuration sessions to send logs for. If you want to view logs for a specific session, you can use the <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/debug-log-mode.html\">debug log mode</a>.</p> <p>Valid values: <code>0</code> - <code>100</code> </p>
+            percent_enabled: <p>The percentage of session logs that MediaTailor sends to your CloudWatch Logs account. For example, if your playback configuration has 1000 sessions and percentEnabled is set to <code>60</code>, MediaTailor sends logs for 600 of the sessions to CloudWatch Logs. MediaTailor decides at random which of the playback configuration sessions to send logs for. If you want to view logs for a specific session, you can use the <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/debug-log-mode.html">debug log mode</a>.</p> <p>Valid values: <code>0</code> - <code>100</code> </p>
             playback_configuration_name: <p>The name of the playback configuration.</p>
-            enabled_logging_strategies: <p>The method used for collecting logs from AWS Elemental MediaTailor. To configure MediaTailor to send logs directly to Amazon CloudWatch Logs, choose <code>LEGACY_CLOUDWATCH</code>. To configure MediaTailor to send logs to CloudWatch, which then vends the logs to your destination of choice, choose <code>VENDED_LOGS</code>. Supported destinations are CloudWatch Logs log group, Amazon S3 bucket, and Amazon Data Firehose stream.</p> <p>To use vended logs, you must configure the delivery destination in Amazon CloudWatch, as described in <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html#AWS-vended-logs-permissions-V2\">Enable logging from AWS services, Logging that requires additional permissions [V2]</a>.</p>
+            enabled_logging_strategies: <p>The method used for collecting logs from AWS Elemental MediaTailor. To configure MediaTailor to send logs directly to Amazon CloudWatch Logs, choose <code>LEGACY_CLOUDWATCH</code>. To configure MediaTailor to send logs to CloudWatch, which then vends the logs to your destination of choice, choose <code>VENDED_LOGS</code>. Supported destinations are CloudWatch Logs log group, Amazon S3 bucket, and Amazon Data Firehose stream.</p> <p>To use vended logs, you must configure the delivery destination in Amazon CloudWatch, as described in <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html#AWS-vended-logs-permissions-V2">Enable logging from AWS services, Logging that requires additional permissions [V2]</a>.</p>
             ads_interaction_log: <p>The event types that MediaTailor emits in logs for interactions with the ADS.</p>
             manifest_service_interaction_log: <p>The event types that MediaTailor emits in logs for interactions with the origin server.</p>
 
@@ -455,7 +455,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>A list of tags that are associated with this resource. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+        """<p>A list of tags that are associated with this resource. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) associated with this resource.</p>
@@ -500,11 +500,11 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> None:
-        r"""<p>The resource to tag. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+        """<p>The resource to tag. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) associated with the resource.</p>
-            tags: <p>The tags to assign to the resource. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the resource. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.bad_request_exception.BadRequestException: <p>A request contains unexpected data.</p>
@@ -602,14 +602,14 @@ class AsyncMediaTailorClient:
         ] = None,
         audiences: Optional["capo_mediatailor.types.audiences.Audiences"] = None,
     ) -> "capo_mediatailor.types.create_channel_response.CreateChannelResponse":
-        r"""<p>Creates a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
             filler_slate: <p>The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels using the <code>LOOP</code> <code>PlaybackMode</code>.</p>
             outputs: <p>The channel's output properties.</p>
             playback_mode: <p>The type of playback mode to use for this channel.</p> <p> <code>LINEAR</code> - The programs in the schedule play once back-to-back in the schedule.</p> <p> <code>LOOP</code> - The programs in the schedule play back-to-back in an endless loop. When the last program in the schedule stops playing, playback loops back to the first program in the schedule.</p>
-            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             tier: <p>The tier of the channel.</p>
             time_shift_configuration: <p> The time-shifted viewing configuration you want to associate to the channel. </p>
             audiences: <p>The list of audiences defined in channel.</p>
@@ -664,7 +664,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.describe_channel_response.DescribeChannelResponse":
-        r"""<p>Describes a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Describes a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -715,7 +715,7 @@ class AsyncMediaTailorClient:
         ] = None,
         audiences: Optional["capo_mediatailor.types.audiences.Audiences"] = None,
     ) -> "capo_mediatailor.types.update_channel_response.UpdateChannelResponse":
-        r"""<p>Updates a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Updates a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -769,7 +769,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_channel_response.DeleteChannelResponse":
-        r"""<p>Deletes a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -1012,7 +1012,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.start_channel_response.StartChannelResponse":
-        r"""<p>Starts a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Starts a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -1055,7 +1055,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.stop_channel_response.StopChannelResponse":
-        r"""<p>Stops a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Stops a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -1244,7 +1244,7 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_program_response.CreateProgramResponse":
-        r"""<p>Creates a program within a channel. For information about programs, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-programs.html\">Working with programs</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a program within a channel. For information about programs, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-programs.html">Working with programs</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             ad_breaks: <p>The ad break configuration settings.</p>
@@ -1255,7 +1255,7 @@ class AsyncMediaTailorClient:
             source_location_name: <p>The name of the source location.</p>
             vod_source_name: <p>The name that's used to refer to a VOD source.</p>
             audience_media: <p>The list of AudienceMedia defined in program.</p>
-            tags: <p>The tags to assign to the program. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the program. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -1309,7 +1309,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.describe_program_response.DescribeProgramResponse":
-        r"""<p>Describes a program within a channel. For information about programs, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-programs.html\">Working with programs</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Describes a program within a channel. For information about programs, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-programs.html">Working with programs</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel associated with this Program.</p>
@@ -1416,7 +1416,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_program_response.DeleteProgramResponse":
-        r"""<p>Deletes a program within a channel. For information about programs, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-programs.html\">Working with programs</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a program within a channel. For information about programs, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-programs.html">Working with programs</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -1484,11 +1484,11 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.put_function_response.PutFunctionResponse":
-        r"""<p>Creates or updates a function. A function defines reusable logic that MediaTailor executes at lifecycle hooks during ad insertion. For more information about functions, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions.html\">Working with functions</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates or updates a function. A function defines reusable logic that MediaTailor executes at lifecycle hooks during ad insertion. For more information about functions, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions.html">Working with functions</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             function_id: <p>The identifier of the function. The identifier must be unique within your account.</p>
-            function_type: <p>The type of the function, which determines what the function can do at runtime. Valid values:</p> <ul> <li> <p> <code>CUSTOM_OUTPUT</code> – Evaluates expressions and produces output bindings with no external calls.</p> </li> <li> <p> <code>HTTP_REQUEST</code> – Makes an HTTP call to an external service and evaluates output expressions that can reference the response.</p> </li> <li> <p> <code>AWS_SERVICE_REQUEST</code> – Makes an authenticated request to a supported AWS service API and evaluates output expressions that can reference the response.</p> </li> <li> <p> <code>VAST_REQUEST</code> – Calls a VAST endpoint, parses the response as VAST, and makes the parsed ads available to output expressions.</p> </li> <li> <p> <code>SEQUENTIAL_EXECUTOR</code> – Runs a sequence of child functions in order, passing data between steps through temporary data.</p> </li> <li> <p> <code>CONCURRENT_EXECUTOR</code> – Runs a set of child functions in parallel, up to a maximum concurrency, and combines their output when all functions complete.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-types.html\">Function types and composition</a> in the <i>MediaTailor User Guide</i>.</p>
+            function_type: <p>The type of the function, which determines what the function can do at runtime. Valid values:</p> <ul> <li> <p> <code>CUSTOM_OUTPUT</code> – Evaluates expressions and produces output bindings with no external calls.</p> </li> <li> <p> <code>HTTP_REQUEST</code> – Makes an HTTP call to an external service and evaluates output expressions that can reference the response.</p> </li> <li> <p> <code>AWS_SERVICE_REQUEST</code> – Makes an authenticated request to a supported AWS service API and evaluates output expressions that can reference the response.</p> </li> <li> <p> <code>VAST_REQUEST</code> – Calls a VAST endpoint, parses the response as VAST, and makes the parsed ads available to output expressions.</p> </li> <li> <p> <code>SEQUENTIAL_EXECUTOR</code> – Runs a sequence of child functions in order, passing data between steps through temporary data.</p> </li> <li> <p> <code>CONCURRENT_EXECUTOR</code> – Runs a set of child functions in parallel, up to a maximum concurrency, and combines their output when all functions complete.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-types.html">Function types and composition</a> in the <i>MediaTailor User Guide</i>.</p>
             description: <p>A description of the function.</p>
             http_request_configuration: <p>The configuration for an <code>HTTP_REQUEST</code> function. Specifies the HTTP method, URL, headers, body, timeout, and output expressions. Required when <code>FunctionType</code> is <code>HTTP_REQUEST</code>.</p>
             aws_service_request_configuration: <p>The configuration for an <code>AWS_SERVICE_REQUEST</code> function. You must specify this parameter when <code>FunctionType</code> is <code>AWS_SERVICE_REQUEST</code>.</p>
@@ -1496,7 +1496,7 @@ class AsyncMediaTailorClient:
             concurrent_executor_configuration: <p>The configuration for a <code>CONCURRENT_EXECUTOR</code> function. Specifies the list of child functions to run in parallel, the maximum concurrency, an optional output block, and a timeout. Required when <code>FunctionType</code> is <code>CONCURRENT_EXECUTOR</code>.</p>
             sequential_executor_configuration: <p>The configuration for a <code>SEQUENTIAL_EXECUTOR</code> function. Specifies the ordered list of child functions to execute, an optional output block, and a timeout. Required when <code>FunctionType</code> is <code>SEQUENTIAL_EXECUTOR</code>.</p>
             vast_request_configuration: <p>The configuration for a <code>VAST_REQUEST</code> function. Specifies the HTTP method, URL, headers, body, timeout, and output expressions. Required when <code>FunctionType</code> is <code>VAST_REQUEST</code>.</p>
-            tags: <p>The tags to assign to the function. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the function. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -1559,7 +1559,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.get_function_response.GetFunctionResponse":
-        r"""<p>Retrieves the configuration and metadata for a function. For more information about functions, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions.html\">Working with functions</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Retrieves the configuration and metadata for a function. For more information about functions, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions.html">Working with functions</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             function_id: <p>The identifier of the function.</p>
@@ -1602,7 +1602,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_function_response.DeleteFunctionResponse":
-        r"""<p>Deletes a function. MediaTailor prevents deletion of a function that is still referenced by a playback configuration or by another function. Remove all references before deleting. For more information about functions, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions.html\">Working with functions</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a function. MediaTailor prevents deletion of a function that is still referenced by a playback configuration or by another function. Remove all references before deleting. For more information about functions, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions.html">Working with functions</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             function_id: <p>The identifier of the function to delete.</p>
@@ -1646,7 +1646,7 @@ class AsyncMediaTailorClient:
         max_results: Optional["capo_mediatailor.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_mediatailor.types.__string.__string"] = None,
     ) -> "capo_mediatailor.types.list_functions_response.ListFunctionsResponse":
-        r"""<p>Retrieves all functions associated with your AWS account in the current Region. For more information about functions, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions.html\">Working with functions</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Retrieves all functions associated with your AWS account in the current Region. For more information about functions, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions.html">Working with functions</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             max_results: <p>The maximum number of functions that you want MediaTailor to return in response to the current request. If there are more than <code>MaxResults</code> functions, use the value of <code>NextToken</code> in the response to get the next page of results.</p> <p>The default value is 100. MediaTailor uses token-based pagination, which means that a response might contain fewer than <code>MaxResults</code> items, including 0 items, even when more results are available. To retrieve all results, you must continue making requests using the <code>NextToken</code> value from each response until the response no longer includes a <code>NextToken</code> value.</p>
@@ -1718,13 +1718,13 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_live_source_response.CreateLiveSourceResponse":
-        r"""<p>The live source configuration.</p>
+        """<p>The live source configuration.</p>
 
         Args:
             http_package_configurations: <p>A list of HTTP package configuration parameters for this live source.</p>
             live_source_name: <p>The name of the live source.</p>
             source_location_name: <p>The name of the source location.</p>
-            tags: <p>The tags to assign to the live source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the live source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -2039,28 +2039,28 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.ads_personalization_concurrency.AdsPersonalizationConcurrency"
         ] = None,
     ) -> "capo_mediatailor.types.put_playback_configuration_response.PutPlaybackConfigurationResponse":
-        r"""<p>Creates a playback configuration. For information about MediaTailor configurations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html\">Working with configurations in AWS Elemental MediaTailor</a>.</p>
+        """<p>Creates a playback configuration. For information about MediaTailor configurations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html">Working with configurations in AWS Elemental MediaTailor</a>.</p>
 
         Args:
             ad_decision_server_url: <p>The URL for the ad decision server (ADS). This includes the specification of static parameters and placeholders for dynamic parameters. AWS Elemental MediaTailor substitutes player-specific and session-specific parameters as needed when calling the ADS. Alternately, for testing you can provide a static VAST URL. The maximum length is 25,000 characters.</p>
-            avail_suppression: <p>The configuration for avail suppression, also known as ad suppression. For more information about ad suppression, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html\">Ad Suppression</a>.</p>
-            bumper: <p>The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the end of an ad break. To learn more about bumpers, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html\">Bumpers</a>.</p>
+            avail_suppression: <p>The configuration for avail suppression, also known as ad suppression. For more information about ad suppression, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Suppression</a>.</p>
+            bumper: <p>The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the end of an ad break. To learn more about bumpers, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.</p>
             cdn_configuration: <p>The configuration for using a content delivery network (CDN), like Amazon CloudFront, for content and ad segment management.</p>
-            configuration_aliases: <p>The player parameters and aliases used as dynamic variables during session initialization. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domains.html\">Domain Variables</a>.</p>
+            configuration_aliases: <p>The player parameters and aliases used as dynamic variables during session initialization. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domains.html">Domain Variables</a>.</p>
             dash_configuration: <p>The configuration for DASH content.</p>
             insertion_mode: <p>The setting that controls whether players can use stitched or guided ad insertion. The default, <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion. Choosing <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at session-initialization time. The default for players that do not specify an insertion mode is stitched.</p>
             live_pre_roll_configuration: <p>The configuration for pre-roll ad insertion.</p>
             manifest_processing_rules: <p>The configuration for manifest processing rules. Manifest processing rules enable customization of the personalized manifests created by MediaTailor.</p>
             name: <p>The identifier for the playback configuration.</p>
-            personalization_threshold_seconds: <p>Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration of underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is abandoned and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and VOD streams, rather than ad insertion, because it relies on an underlying content stream. For more information about ad break behavior, including ad replacement and insertion, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html\">Ad Behavior in AWS Elemental MediaTailor</a>.</p>
+            personalization_threshold_seconds: <p>Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration of underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is abandoned and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and VOD streams, rather than ad insertion, because it relies on an underlying content stream. For more information about ad break behavior, including ad replacement and insertion, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental MediaTailor</a>.</p>
             slate_ad_url: <p>The URL for a high-quality video asset to transcode and use to fill in time that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in gaps in media content. Configuring the slate is optional for non-VPAID configurations. For VPAID, the slate is required because MediaTailor provides it in the slots that are designated for dynamic ad content. The slate must be a high-quality asset that contains both audio and video.</p>
-            tags: <p>The tags to assign to the playback configuration. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the playback configuration. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             transcode_profile_name: <p>The name that is used to associate this playback configuration with a custom transcode profile. This overrides the dynamic transcoding defaults of MediaTailor. Use this only if you have already set up custom profiles with the help of AWS Support.</p>
             video_content_source_url: <p>The URL prefix for the parent manifest for the stream, minus the asset ID. The maximum length is 512 characters.</p>
             ad_conditioning_configuration: <p>The setting that indicates what conditioning MediaTailor will perform on ads that the ad decision server (ADS) returns, and what priority MediaTailor uses when inserting ads. </p>
             ad_decision_server_configuration: <p>The configuration for customizing HTTP requests to the ad decision server (ADS). This includes settings for request method, headers, body content, and compression options.</p>
             yield_optimization_configuration: <p>Configuration for Yield Optimization, which fills unsold ad inventory in ad breaks with programmatic ads from Amazon Publisher Services (APS).</p>
-            function_mapping: <p>A map of lifecycle hook event names to function identifiers. The function mapping specifies which function MediaTailor executes at each lifecycle hook during ad insertion. Valid keys are <code>PRE_SESSION_INITIALIZATION</code>, <code>PRE_ADS_REQUEST</code>, <code>POST_ADS_RESPONSE</code>, and <code>PRE_MANIFEST_INSERTION</code>. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-hooks.html\">Functions lifecycle hooks</a> in the <i>MediaTailor User Guide</i>.</p>
+            function_mapping: <p>A map of lifecycle hook event names to function identifiers. The function mapping specifies which function MediaTailor executes at each lifecycle hook during ad insertion. Valid keys are <code>PRE_SESSION_INITIALIZATION</code>, <code>PRE_ADS_REQUEST</code>, <code>POST_ADS_RESPONSE</code>, and <code>PRE_MANIFEST_INSERTION</code>. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-hooks.html">Functions lifecycle hooks</a> in the <i>MediaTailor User Guide</i>.</p>
             ads_personalization_timeouts: <p>The timeout settings for ad decision server interactions. These settings control how long MediaTailor waits for ADS responses and the total time budget for ad personalization across live, VOD, and prefetch workflows.</p>
             ads_personalization_concurrency: <p>The concurrency settings for ad decision server interactions. These settings control how many simultaneous ADS requests MediaTailor makes per manifest request.</p>
 
@@ -2148,7 +2148,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.get_playback_configuration_response.GetPlaybackConfigurationResponse":
-        r"""<p>Retrieves a playback configuration. For information about MediaTailor configurations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html\">Working with configurations in AWS Elemental MediaTailor</a>.</p>
+        """<p>Retrieves a playback configuration. For information about MediaTailor configurations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html">Working with configurations in AWS Elemental MediaTailor</a>.</p>
 
         Args:
             name: <p>The identifier for the playback configuration.</p>
@@ -2191,7 +2191,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_playback_configuration_response.DeletePlaybackConfigurationResponse":
-        r"""<p>Deletes a playback configuration. For information about MediaTailor configurations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html\">Working with configurations in AWS Elemental MediaTailor</a>.</p>
+        """<p>Deletes a playback configuration. For information about MediaTailor configurations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html">Working with configurations in AWS Elemental MediaTailor</a>.</p>
 
         Args:
             name: <p>The name of the playback configuration.</p>
@@ -2235,7 +2235,7 @@ class AsyncMediaTailorClient:
         max_results: Optional["capo_mediatailor.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_mediatailor.types.__string.__string"] = None,
     ) -> "capo_mediatailor.types.list_playback_configurations_response.ListPlaybackConfigurationsResponse":
-        r"""<p>Retrieves existing playback configurations. For information about MediaTailor configurations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html\">Working with Configurations in AWS Elemental MediaTailor</a>.</p>
+        """<p>Retrieves existing playback configurations. For information about MediaTailor configurations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html">Working with Configurations in AWS Elemental MediaTailor</a>.</p>
 
         Args:
             max_results: <p>The maximum number of playback configurations that you want MediaTailor to return in response to the current request. If there are more than <code>MaxResults</code> playback configurations, use the value of <code>NextToken</code> in the response to get the next page of results.</p> <p>The default value is 100. MediaTailor uses DynamoDB-based pagination, which means that a response might contain fewer than <code>MaxResults</code> items, including 0 items, even when more results are available. To retrieve all results, you must continue making requests using the <code>NextToken</code> value from each response until the response no longer includes a <code>NextToken</code> value.</p>
@@ -2319,7 +2319,7 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_prefetch_schedule_response.CreatePrefetchScheduleResponse":
-        r"""<p>Creates a prefetch schedule for a playback configuration. A prefetch schedule allows you to tell MediaTailor to fetch and prepare certain ads before an ad break happens. For more information about ad prefetching, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html\">Using ad prefetching</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a prefetch schedule for a playback configuration. A prefetch schedule allows you to tell MediaTailor to fetch and prepare certain ads before an ad break happens. For more information about ad prefetching, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html">Using ad prefetching</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             consumption: <p>The configuration settings for how and when MediaTailor consumes prefetched ads from the ad decision server for single prefetch schedules. Each consumption configuration contains an end time and an optional start time that define the <i>consumption window</i>. Prefetch schedules automatically expire no earlier than seven days after the end time.</p>
@@ -2327,9 +2327,9 @@ class AsyncMediaTailorClient:
             playback_configuration_name: <p>The name to assign to the playback configuration.</p>
             retrieval: <p>The configuration settings for retrieval of prefetched ads from the ad decision server. Only one set of prefetched ads will be retrieved and subsequently consumed for each ad break.</p>
             recurring_prefetch_configuration: <p>The configuration that defines how and when MediaTailor performs ad prefetching in a live event.</p>
-            schedule_type: <p>The frequency that MediaTailor creates prefetch schedules. <code>SINGLE</code> indicates that this schedule applies to one ad break. <code>RECURRING</code> indicates that MediaTailor automatically creates a schedule for each ad avail in a live event.</p> <p>For more information about the prefetch types and when you might use each, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html\">Prefetching ads in Elemental MediaTailor.</a> </p>
+            schedule_type: <p>The frequency that MediaTailor creates prefetch schedules. <code>SINGLE</code> indicates that this schedule applies to one ad break. <code>RECURRING</code> indicates that MediaTailor automatically creates a schedule for each ad avail in a live event.</p> <p>For more information about the prefetch types and when you might use each, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html">Prefetching ads in Elemental MediaTailor.</a> </p>
             stream_id: <p>An optional stream identifier that MediaTailor uses to prefetch ads for multiple streams that use the same playback configuration. If <code>StreamId</code> is specified, MediaTailor returns all of the prefetch schedules with an exact match on <code>StreamId</code>. If not specified, MediaTailor returns all of the prefetch schedules for the playback configuration, regardless of <code>StreamId</code>.</p>
-            tags: <p>The tags to assign to the prefetch schedule. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the prefetch schedule. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -2385,7 +2385,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.get_prefetch_schedule_response.GetPrefetchScheduleResponse":
-        r"""<p>Retrieves a prefetch schedule for a playback configuration. A prefetch schedule allows you to tell MediaTailor to fetch and prepare certain ads before an ad break happens. For more information about ad prefetching, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html\">Using ad prefetching</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Retrieves a prefetch schedule for a playback configuration. A prefetch schedule allows you to tell MediaTailor to fetch and prepare certain ads before an ad break happens. For more information about ad prefetching, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html">Using ad prefetching</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             name: <p>The name of the prefetch schedule. The name must be unique among all prefetch schedules that are associated with the specified playback configuration.</p>
@@ -2431,7 +2431,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_prefetch_schedule_response.DeletePrefetchScheduleResponse":
-        r"""<p>Deletes a prefetch schedule for a specific playback configuration. If you call <code>DeletePrefetchSchedule</code> on an expired prefetch schedule, MediaTailor returns an HTTP 404 status code. For more information about ad prefetching, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html\">Using ad prefetching</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a prefetch schedule for a specific playback configuration. If you call <code>DeletePrefetchSchedule</code> on an expired prefetch schedule, MediaTailor returns an HTTP 404 status code. For more information about ad prefetching, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html">Using ad prefetching</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             name: <p>The name of the prefetch schedule. If the action is successful, the service sends back an HTTP 204 response with an empty HTTP body.</p>
@@ -2583,7 +2583,7 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_source_location_response.CreateSourceLocationResponse":
-        r"""<p>Creates a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             access_configuration: <p>Access configuration parameters. Configures the type of authentication used to access content from your source location.</p>
@@ -2591,7 +2591,7 @@ class AsyncMediaTailorClient:
             http_configuration: <p>The source's HTTP package configurations.</p>
             segment_delivery_configurations: <p>A list of the segment delivery configurations associated with this resource.</p>
             source_location_name: <p>The name associated with the source location.</p>
-            tags: <p>The tags to assign to the source location. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the source location. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -2642,7 +2642,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.describe_source_location_response.DescribeSourceLocationResponse":
-        r"""<p>Describes a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Describes a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             source_location_name: <p>The name of the source location.</p>
@@ -2695,7 +2695,7 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.__list_of_segment_delivery_configuration.__listOfSegmentDeliveryConfiguration"
         ] = None,
     ) -> "capo_mediatailor.types.update_source_location_response.UpdateSourceLocationResponse":
-        r"""<p>Updates a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Updates a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             access_configuration: <p>Access configuration parameters. Configures the type of authentication used to access content from your source location.</p>
@@ -2751,7 +2751,7 @@ class AsyncMediaTailorClient:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_source_location_response.DeleteSourceLocationResponse":
-        r"""<p>Deletes a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             source_location_name: <p>The name of the source location.</p>
@@ -2867,12 +2867,12 @@ class AsyncMediaTailorClient:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_vod_source_response.CreateVodSourceResponse":
-        r"""<p>The VOD source configuration parameters.</p>
+        """<p>The VOD source configuration parameters.</p>
 
         Args:
             http_package_configurations: <p>A list of HTTP package configuration parameters for this VOD source.</p>
             source_location_name: <p>The name of the source location for this VOD source.</p>
-            tags: <p>The tags to assign to the VOD source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the VOD source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             vod_source_name: <p>The name associated with the VOD source.&gt;</p>
 
         Raises:

@@ -14,7 +14,7 @@ class GetStackPolicyOutput(TypedDict, closed=True):
     stack_policy_body: NotRequired[
         "capo_cloudformation.types.stack_policy_body.StackPolicyBody"
     ]
-    r"""<p>Structure that contains the stack policy body. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html\">Prevent updates to stack resources</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>Structure that contains the stack policy body. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html">Prevent updates to stack resources</a> in the <i>CloudFormation User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

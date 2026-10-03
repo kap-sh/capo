@@ -17,7 +17,7 @@ class CreateScheduleRequest(TypedDict, closed=True):
     job_names: NotRequired["capo_databrew.types.job_name_list.JobNameList"]
     """<p>The name or names of one or more jobs to be run.</p>"""
     cron_expression: "capo_databrew.types.cron_expression.CronExpression"
-    r"""<p>The date or dates and time or times when the jobs are to be run. For more information, see <a href=\"https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html\">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>"""
+    """<p>The date or dates and time or times when the jobs are to be run. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>"""
     tags: NotRequired["capo_databrew.types.tag_map.TagMap"]
     """<p>Metadata tags to apply to this schedule.</p>"""
     name: "capo_databrew.types.schedule_name.ScheduleName"

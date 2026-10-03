@@ -24,7 +24,7 @@ class ManualSearchAIAgentConfiguration(TypedDict, closed=True):
     ]
     """<p>The association configurations for overriding behavior on this AI Agent.</p>"""
     locale: NotRequired["capo_qconnect.types.non_empty_string.NonEmptyString"]
-    r"""<p>The locale to which specifies the language and region settings that determine the response language for <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_amazon-q-connect_QueryAssistant.html\">QueryAssistant</a>.</p> <note> <p>For more information on supported locales, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/supported-languages.html#qic-notes-languages\">Language support for Amazon Q in Connect</a>.</p> </note>"""
+    """<p>The locale to which specifies the language and region settings that determine the response language for <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_amazon-q-connect_QueryAssistant.html">QueryAssistant</a>.</p> <note> <p>For more information on supported locales, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/supported-languages.html#qic-notes-languages">Language support for Amazon Q in Connect</a>.</p> </note>"""
 
 
 # --- restJson1 ser/de ---

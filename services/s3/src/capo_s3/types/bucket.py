@@ -23,7 +23,7 @@ class Bucket(TypedDict, closed=True):
     bucket_arn: NotRequired[
         "capo_s3.types.s3_regional_or_s3_express_bucket_arn_string.S3RegionalOrS3ExpressBucketArnString"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of the S3 bucket. ARNs uniquely identify Amazon Web Services resources across all of Amazon Web Services.</p> <note> <p>This parameter is only supported for S3 directory buckets. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html\">Using tags with directory buckets</a>.</p> </note>"""
+    """<p>The Amazon Resource Name (ARN) of the S3 bucket. ARNs uniquely identify Amazon Web Services resources across all of Amazon Web Services.</p> <note> <p>This parameter is only supported for S3 directory buckets. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html">Using tags with directory buckets</a>.</p> </note>"""
 
 
 # --- restXml ser/de ---

@@ -68,7 +68,7 @@ class EvaluationForm(TypedDict, closed=True):
     ]
     """<p>Configuration for evaluation review settings of this evaluation form.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     target_configuration: NotRequired[
         "capo_connect.types.evaluation_form_target_configuration.EvaluationFormTargetConfiguration"
     ]

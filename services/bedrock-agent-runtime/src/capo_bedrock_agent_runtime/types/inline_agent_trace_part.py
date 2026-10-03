@@ -19,7 +19,7 @@ class InlineAgentTracePart(TypedDict, closed=True):
     session_id: NotRequired["capo_bedrock_agent_runtime.types.session_id.SessionId"]
     """<p>The unique identifier of the session with the agent.</p>"""
     trace: NotRequired["capo_bedrock_agent_runtime.types.trace.Trace"]
-    r"""<p>Contains one part of the agent's reasoning process and results from calling API actions and querying knowledge bases. You can use the trace to understand how the agent arrived at the response it provided the customer. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/agents-test.html#trace-enablement\">Trace enablement</a>. </p>"""
+    """<p>Contains one part of the agent's reasoning process and results from calling API actions and querying knowledge bases. You can use the trace to understand how the agent arrived at the response it provided the customer. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-test.html#trace-enablement">Trace enablement</a>. </p>"""
     caller_chain: NotRequired[
         "capo_bedrock_agent_runtime.types.caller_chain.CallerChain"
     ]

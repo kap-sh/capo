@@ -32,7 +32,7 @@ class CmafIngestGroupSettings(TypedDict, closed=True):
     ]
     """If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag will be inserted in the output."""
     scte35_type: NotRequired["capo_medialive.types.scte35_type.Scte35Type"]
-    r"""SCTE-35 insertion type. Option \"none\" indicates that a SCTE-35 marker will not be inserted, nor will an IDR be inserted at the SCTE-35 cue point, nor will the segment be segmented. Option \"scte35WithoutIdr\" indicates that a SCTE-35 marker will be inserted to indicate the cue point, but MediaLive will not insert an IDR on that frame nor will it introduce a new segment boundary there if it wasn't already going to be one (this option is required for use with downstream multiview bitstream stitching workflows). Option \"scte35WithoutSegmentation\" indicates that a SCTE-35 marker will be inserted to indicate the cue point, and an IDR will be inserted on that frame so that a downstream re-packager might split the segment there, but MediaLive itself will not introduce a new segment boundary there."""
+    """SCTE-35 insertion type. Option "none" indicates that a SCTE-35 marker will not be inserted, nor will an IDR be inserted at the SCTE-35 cue point, nor will the segment be segmented. Option "scte35WithoutIdr" indicates that a SCTE-35 marker will be inserted to indicate the cue point, but MediaLive will not insert an IDR on that frame nor will it introduce a new segment boundary there if it wasn't already going to be one (this option is required for use with downstream multiview bitstream stitching workflows). Option "scte35WithoutSegmentation" indicates that a SCTE-35 marker will be inserted to indicate the cue point, and an IDR will be inserted on that frame so that a downstream re-packager might split the segment there, but MediaLive itself will not introduce a new segment boundary there."""
     segment_length: NotRequired["capo_medialive.types.__integer_min1.__integerMin1"]
     """The nominal duration of segments. The units are specified in SegmentLengthUnits. The segments will end on the next keyframe after the specified duration, so the actual segment length might be longer, and it might be a fraction of the units."""
     segment_length_units: NotRequired[
@@ -48,21 +48,21 @@ class CmafIngestGroupSettings(TypedDict, closed=True):
     klv_name_modifier: NotRequired[
         "capo_medialive.types.__string_max100.__stringMax100"
     ]
-    r"""Change the modifier that MediaLive automatically adds to the Streams() name that identifies a KLV track. The default is \"klv\", which means the default name will be Streams(klv.cmfm). Any string you enter here will replace the \"klv\" string.\nThe modifier can only contain: numbers, letters, plus (+), minus (-), underscore (_) and period (.) and has a maximum length of 100 characters."""
+    r"""Change the modifier that MediaLive automatically adds to the Streams() name that identifies a KLV track. The default is "klv", which means the default name will be Streams(klv.cmfm). Any string you enter here will replace the "klv" string.\nThe modifier can only contain: numbers, letters, plus (+), minus (-), underscore (_) and period (.) and has a maximum length of 100 characters."""
     nielsen_id3_name_modifier: NotRequired[
         "capo_medialive.types.__string_max100.__stringMax100"
     ]
-    r"""Change the modifier that MediaLive automatically adds to the Streams() name that identifies a Nielsen ID3 track. The default is \"nid3\", which means the default name will be Streams(nid3.cmfm). Any string you enter here will replace the \"nid3\" string.\nThe modifier can only contain: numbers, letters, plus (+), minus (-), underscore (_) and period (.) and has a maximum length of 100 characters."""
+    r"""Change the modifier that MediaLive automatically adds to the Streams() name that identifies a Nielsen ID3 track. The default is "nid3", which means the default name will be Streams(nid3.cmfm). Any string you enter here will replace the "nid3" string.\nThe modifier can only contain: numbers, letters, plus (+), minus (-), underscore (_) and period (.) and has a maximum length of 100 characters."""
     scte35_name_modifier: NotRequired[
         "capo_medialive.types.__string_max100.__stringMax100"
     ]
-    r"""Change the modifier that MediaLive automatically adds to the Streams() name for a SCTE 35 track. The default is \"scte\", which means the default name will be Streams(scte.cmfm). Any string you enter here will replace the \"scte\" string.\nThe modifier can only contain: numbers, letters, plus (+), minus (-), underscore (_) and period (.) and has a maximum length of 100 characters."""
+    r"""Change the modifier that MediaLive automatically adds to the Streams() name for a SCTE 35 track. The default is "scte", which means the default name will be Streams(scte.cmfm). Any string you enter here will replace the "scte" string.\nThe modifier can only contain: numbers, letters, plus (+), minus (-), underscore (_) and period (.) and has a maximum length of 100 characters."""
     id3_behavior: NotRequired["capo_medialive.types.cmaf_id3_behavior.CmafId3Behavior"]
     """Set to ENABLED to enable ID3 metadata insertion. To include metadata, you configure other parameters in the output group, or you add an ID3 action to the channel schedule."""
     id3_name_modifier: NotRequired[
         "capo_medialive.types.__string_max100.__stringMax100"
     ]
-    r"""Change the modifier that MediaLive automatically adds to the Streams() name that identifies an ID3 track. The default is \"id3\", which means the default name will be Streams(id3.cmfm). Any string you enter here will replace the \"id3\" string.\nThe modifier can only contain: numbers, letters, plus (+), minus (-), underscore (_) and period (.) and has a maximum length of 100 characters."""
+    r"""Change the modifier that MediaLive automatically adds to the Streams() name that identifies an ID3 track. The default is "id3", which means the default name will be Streams(id3.cmfm). Any string you enter here will replace the "id3" string.\nThe modifier can only contain: numbers, letters, plus (+), minus (-), underscore (_) and period (.) and has a maximum length of 100 characters."""
     caption_language_mappings: NotRequired[
         "capo_medialive.types.__list_of_cmaf_ingest_caption_language_mapping.__listOfCmafIngestCaptionLanguageMapping"
     ]

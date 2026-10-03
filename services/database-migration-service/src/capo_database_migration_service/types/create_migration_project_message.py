@@ -27,7 +27,7 @@ class CreateMigrationProjectMessage(TypedDict, closed=True):
     transformation_rules: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>A JSON string that specifies the transformation rules for the migration project. Transformation rules let you customize how DMS Schema Conversion converts your source database objects, including renaming, adding prefixes or suffixes, and changing data types. For the transformation rule format and examples, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/sc-transformation-rules.html\">Transformation rules in DMS Schema Conversion</a>.</p> <note> <p>Homogeneous data migrations do not support transformation rules.</p> </note>"""
+    """<p>A JSON string that specifies the transformation rules for the migration project. Transformation rules let you customize how DMS Schema Conversion converts your source database objects, including renaming, adding prefixes or suffixes, and changing data types. For the transformation rule format and examples, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/sc-transformation-rules.html">Transformation rules in DMS Schema Conversion</a>.</p> <note> <p>Homogeneous data migrations do not support transformation rules.</p> </note>"""
     description: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>A user-friendly description of the migration project.</p>"""
     tags: NotRequired["capo_database_migration_service.types.tag_list.TagList"]

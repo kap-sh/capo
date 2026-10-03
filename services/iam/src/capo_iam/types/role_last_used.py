@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class RoleLastUsed(TypedDict, closed=True):
     last_used_date: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a> that the role was last used.</p> <p>This field is null if the role has not been used within the IAM tracking period. For more information about the tracking period, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period\">Regions where data is tracked</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a> that the role was last used.</p> <p>This field is null if the role has not been used within the IAM tracking period. For more information about the tracking period, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period">Regions where data is tracked</a> in the <i>IAM User Guide</i>. </p>"""
     region: NotRequired["capo_iam.types.string_type.stringType"]
     """<p>The name of the Amazon Web Services Region in which the role was last used.</p>"""
 

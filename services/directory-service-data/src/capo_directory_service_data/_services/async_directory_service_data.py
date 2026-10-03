@@ -275,13 +275,13 @@ class AsyncDirectoryServiceDataClient:
             "capo_directory_service_data.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_directory_service_data.types.create_group_result.CreateGroupResult":
-        r"""<p>Creates a new group.</p>
+        """<p>Creates a new group.</p>
 
         Args:
             directory_id: <p> The identifier (ID) of the directory that's associated with the group. </p>
             sam_account_name: <p> The name of the group. </p>
-            group_type: <p> The AD group type. For details, see <a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#how-active-directory-security-groups-work\">Active Directory security group type</a>.</p>
-            group_scope: <p> The scope of the AD group. For details, see <a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope\">Active Directory security group scope</a>. </p>
+            group_type: <p> The AD group type. For details, see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#how-active-directory-security-groups-work">Active Directory security group type</a>.</p>
+            group_scope: <p> The scope of the AD group. For details, see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope">Active Directory security group scope</a>. </p>
             other_attributes: <p> An expression that defines one or more attributes with the data type and value of each attribute. </p>
             client_token: <p> A unique and case-sensitive identifier that you provide to make sure the idempotency of the request, so multiple identical calls have the same effect as one single call. </p> <p> A client token is valid for 8 hours after the first request that uses it completes. After 8 hours, any request with the same client token is treated as a new request. If the request succeeds, any future uses of that token will be idempotent for another 8 hours. </p> <p> If you submit a request with the same client token but change one of the other parameters within the 8-hour idempotency window, Directory Service Data returns an <code>ConflictException</code>. </p> <note> <p> This parameter is optional when using the CLI or SDK. </p> </note>
 
@@ -359,7 +359,7 @@ class AsyncDirectoryServiceDataClient:
             "capo_directory_service_data.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_directory_service_data.types.create_user_result.CreateUserResult":
-        r"""<p>Creates a new user.</p>
+        """<p>Creates a new user.</p>
 
         Args:
             directory_id: <p> The identifier (ID) of the directory that’s associated with the user. </p>
@@ -367,7 +367,7 @@ class AsyncDirectoryServiceDataClient:
             email_address: <p> The email address of the user. </p>
             given_name: <p> The first name of the user. </p>
             surname: <p> The last name of the user. </p>
-            other_attributes: <p> An expression that defines one or more attribute names with the data type and value of each attribute. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p> <note> <p> Attribute names are case insensitive. </p> </note>
+            other_attributes: <p> An expression that defines one or more attribute names with the data type and value of each attribute. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p> <note> <p> Attribute names are case insensitive. </p> </note>
             client_token: <p> A unique and case-sensitive identifier that you provide to make sure the idempotency of the request, so multiple identical calls have the same effect as one single call. </p> <p> A client token is valid for 8 hours after the first request that uses it completes. After 8 hours, any request with the same client token is treated as a new request. If the request succeeds, any future uses of that token will be idempotent for another 8 hours. </p> <p> If you submit a request with the same client token but change one of the other parameters within the 8-hour idempotency window, Directory Service Data returns an <code>ConflictException</code>. </p> <note> <p> This parameter is optional when using the CLI or SDK. </p> </note>
 
         Raises:
@@ -569,13 +569,13 @@ class AsyncDirectoryServiceDataClient:
             "capo_directory_service_data.types.ldap_display_name_list.LdapDisplayNameList"
         ] = None,
     ) -> "capo_directory_service_data.types.describe_group_result.DescribeGroupResult":
-        r"""<p>Returns information about a specific group.</p>
+        """<p>Returns information about a specific group.</p>
 
         Args:
             directory_id: <p>The Identifier (ID) of the directory associated with the group.</p>
             realm: <p> The domain name that's associated with the group. </p> <note> <p> This parameter is optional, so you can return groups outside of your Managed Microsoft AD domain. When no value is defined, only your Managed Microsoft AD groups are returned. </p> <p> This value is case insensitive. </p> </note>
             sam_account_name: <p> The name of the group. </p>
-            other_attributes: <p> One or more attributes to be returned for the group. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p>
+            other_attributes: <p> One or more attributes to be returned for the group. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p>
 
         Raises:
             capo_directory_service_data.errors.access_denied_exception.AccessDeniedException: <p> You don't have permission to perform the request or access the directory. It can also occur when the <code>DirectoryId</code> doesn't exist or the user, member, or group might be outside of your organizational unit (OU). </p> <p> Make sure that you have the authentication and authorization to perform the action. Review the directory information in the request, and make sure that the object isn't outside of your OU. </p>
@@ -637,12 +637,12 @@ class AsyncDirectoryServiceDataClient:
         ] = None,
         realm: Optional["capo_directory_service_data.types.realm.Realm"] = None,
     ) -> "capo_directory_service_data.types.describe_user_result.DescribeUserResult":
-        r"""<p>Returns information about a specific user.</p>
+        """<p>Returns information about a specific user.</p>
 
         Args:
             directory_id: <p> The identifier (ID) of the directory that's associated with the user. </p>
             sam_account_name: <p> The name of the user. </p>
-            other_attributes: <p> One or more attribute names to be returned for the user. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p>
+            other_attributes: <p> One or more attribute names to be returned for the user. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p>
             realm: <p> The domain name that's associated with the user. </p> <note> <p> This parameter is optional, so you can return users outside your Managed Microsoft AD domain. When no value is defined, only your Managed Microsoft AD users are returned. </p> <p> This value is case insensitive. </p> </note>
 
         Raises:
@@ -704,7 +704,7 @@ class AsyncDirectoryServiceDataClient:
             "capo_directory_service_data.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_directory_service_data.types.disable_user_result.DisableUserResult":
-        r"""<p> Deactivates an active user account. For information about how to enable an inactive user account, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/devguide/API_ResetUserPassword.html\">ResetUserPassword</a> in the <i>Directory Service API Reference</i>.</p>
+        """<p> Deactivates an active user account. For information about how to enable an inactive user account, see <a href="https://docs.aws.amazon.com/directoryservice/latest/devguide/API_ResetUserPassword.html">ResetUserPassword</a> in the <i>Directory Service API Reference</i>.</p>
 
         Args:
             directory_id: <p> The identifier (ID) of the directory that's associated with the user. </p>
@@ -1268,12 +1268,12 @@ class AsyncDirectoryServiceDataClient:
             "capo_directory_service_data.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_directory_service_data.types.search_groups_result.SearchGroupsResult":
-        r"""<p> Searches the specified directory for a group. You can find groups that match the <code>SearchString</code> parameter with the value of their attributes included in the <code>SearchString</code> parameter. </p> <p> This operation supports pagination with the use of the <code>NextToken</code> request and response parameters. If more results are available, the <code>SearchGroups.NextToken</code> member contains a token that you pass in the next call to <code>SearchGroups</code>. This retrieves the next set of items. </p> <p> You can also specify a maximum number of return results with the <code>MaxResults</code> parameter. </p>
+        """<p> Searches the specified directory for a group. You can find groups that match the <code>SearchString</code> parameter with the value of their attributes included in the <code>SearchString</code> parameter. </p> <p> This operation supports pagination with the use of the <code>NextToken</code> request and response parameters. If more results are available, the <code>SearchGroups.NextToken</code> member contains a token that you pass in the next call to <code>SearchGroups</code>. This retrieves the next set of items. </p> <p> You can also specify a maximum number of return results with the <code>MaxResults</code> parameter. </p>
 
         Args:
             directory_id: <p> The identifier (ID) of the directory that's associated with the group. </p>
-            search_string: <p> The attribute value that you want to search for. </p> <note> <p> Wildcard <code>(*)</code> searches aren't supported. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p> </note>
-            search_attributes: <p> One or more data attributes that are used to search for a group. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p>
+            search_string: <p> The attribute value that you want to search for. </p> <note> <p> Wildcard <code>(*)</code> searches aren't supported. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p> </note>
+            search_attributes: <p> One or more data attributes that are used to search for a group. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p>
             realm: <p> The domain name that's associated with the group. </p> <note> <p> This parameter is optional, so you can return groups outside of your Managed Microsoft AD domain. When no value is defined, only your Managed Microsoft AD groups are returned. </p> <p> This value is case insensitive. </p> </note>
             next_token: <p> An encoded paging token for paginated calls that can be passed back to retrieve the next page. </p>
             max_results: <p> The maximum number of results to be returned per request. </p>
@@ -1377,13 +1377,13 @@ class AsyncDirectoryServiceDataClient:
             "capo_directory_service_data.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_directory_service_data.types.search_users_result.SearchUsersResult":
-        r"""<p> Searches the specified directory for a user. You can find users that match the <code>SearchString</code> parameter with the value of their attributes included in the <code>SearchString</code> parameter.</p> <p> This operation supports pagination with the use of the <code>NextToken</code> request and response parameters. If more results are available, the <code>SearchUsers.NextToken</code> member contains a token that you pass in the next call to <code>SearchUsers</code>. This retrieves the next set of items. </p> <p> You can also specify a maximum number of return results with the <code>MaxResults</code> parameter. </p>
+        """<p> Searches the specified directory for a user. You can find users that match the <code>SearchString</code> parameter with the value of their attributes included in the <code>SearchString</code> parameter.</p> <p> This operation supports pagination with the use of the <code>NextToken</code> request and response parameters. If more results are available, the <code>SearchUsers.NextToken</code> member contains a token that you pass in the next call to <code>SearchUsers</code>. This retrieves the next set of items. </p> <p> You can also specify a maximum number of return results with the <code>MaxResults</code> parameter. </p>
 
         Args:
             directory_id: <p> The identifier (ID) of the directory that's associated with the user. </p>
             realm: <p> The domain name that's associated with the user. </p> <note> <p> This parameter is optional, so you can return users outside of your Managed Microsoft AD domain. When no value is defined, only your Managed Microsoft AD users are returned. </p> <p> This value is case insensitive. </p> </note>
-            search_string: <p> The attribute value that you want to search for. </p> <note> <p> Wildcard <code>(*)</code> searches aren't supported. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p> </note>
-            search_attributes: <p> One or more data attributes that are used to search for a user. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p>
+            search_string: <p> The attribute value that you want to search for. </p> <note> <p> Wildcard <code>(*)</code> searches aren't supported. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p> </note>
+            search_attributes: <p> One or more data attributes that are used to search for a user. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p>
             next_token: <p> An encoded paging token for paginated calls that can be passed back to retrieve the next page. </p>
             max_results: <p> The maximum number of results to be returned per request. </p>
 
@@ -1493,13 +1493,13 @@ class AsyncDirectoryServiceDataClient:
             "capo_directory_service_data.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_directory_service_data.types.update_group_result.UpdateGroupResult":
-        r"""<p> Updates group information. </p>
+        """<p> Updates group information. </p>
 
         Args:
             directory_id: <p> The identifier (ID) of the directory that's associated with the group. </p>
             sam_account_name: <p> The name of the group. </p>
-            group_type: <p> The AD group type. For details, see <a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#how-active-directory-security-groups-work\">Active Directory security group type</a>. </p>
-            group_scope: <p> The scope of the AD group. For details, see <a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope\">Active Directory security groups</a>. </p>
+            group_type: <p> The AD group type. For details, see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#how-active-directory-security-groups-work">Active Directory security group type</a>. </p>
+            group_scope: <p> The scope of the AD group. For details, see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope">Active Directory security groups</a>. </p>
             other_attributes: <p> An expression that defines one or more attributes with the data type and the value of each attribute. </p>
             update_type: <p> The type of update to be performed. If no value exists for the attribute, use <code>ADD</code>. Otherwise, use <code>REPLACE</code> to change an attribute value or <code>REMOVE</code> to clear the attribute value. </p>
             client_token: <p> A unique and case-sensitive identifier that you provide to make sure the idempotency of the request, so multiple identical calls have the same effect as one single call. </p> <p> A client token is valid for 8 hours after the first request that uses it completes. After 8 hours, any request with the same client token is treated as a new request. If the request succeeds, any future uses of that token will be idempotent for another 8 hours. </p> <p> If you submit a request with the same client token but change one of the other parameters within the 8-hour idempotency window, Directory Service Data returns an <code>ConflictException</code>. </p> <note> <p> This parameter is optional when using the CLI or SDK. </p> </note>
@@ -1584,7 +1584,7 @@ class AsyncDirectoryServiceDataClient:
             "capo_directory_service_data.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_directory_service_data.types.update_user_result.UpdateUserResult":
-        r"""<p> Updates user information. </p>
+        """<p> Updates user information. </p>
 
         Args:
             directory_id: <p> The identifier (ID) of the directory that's associated with the user. </p>
@@ -1592,7 +1592,7 @@ class AsyncDirectoryServiceDataClient:
             email_address: <p> The email address of the user. </p>
             given_name: <p> The first name of the user. </p>
             surname: <p> The last name of the user. </p>
-            other_attributes: <p> An expression that defines one or more attribute names with the data type and value of each attribute. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p> <note> <p> Attribute names are case insensitive. </p> </note>
+            other_attributes: <p> An expression that defines one or more attribute names with the data type and value of each attribute. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p> <note> <p> Attribute names are case insensitive. </p> </note>
             update_type: <p> The type of update to be performed. If no value exists for the attribute, use <code>ADD</code>. Otherwise, use <code>REPLACE</code> to change an attribute value or <code>REMOVE</code> to clear the attribute value. </p>
             client_token: <p> A unique and case-sensitive identifier that you provide to make sure the idempotency of the request, so multiple identical calls have the same effect as one single call. </p> <p> A client token is valid for 8 hours after the first request that uses it completes. After 8 hours, any request with the same client token is treated as a new request. If the request succeeds, any future uses of that token will be idempotent for another 8 hours. </p> <p> If you submit a request with the same client token but change one of the other parameters within the 8-hour idempotency window, Directory Service Data returns an <code>ConflictException</code>. </p> <note> <p> This parameter is optional when using the CLI or SDK. </p> </note>
 

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class GetAnalyzedResourceRequest(TypedDict, closed=True):
     analyzer_arn: "capo_accessanalyzer.types.analyzer_arn.AnalyzerArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources\">ARN of the analyzer</a> to retrieve information from.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources">ARN of the analyzer</a> to retrieve information from.</p>"""
     resource_arn: "capo_accessanalyzer.types.resource_arn.ResourceArn"
     """<p>The ARN of the resource to retrieve information about.</p>"""
 

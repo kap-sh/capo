@@ -15,7 +15,7 @@ class DynamoDBv2Action(TypedDict, closed=True):
     role_arn: "capo_iot.types.aws_arn.AwsArn"
     """<p>The ARN of the IAM role that grants access to the DynamoDB table.</p>"""
     put_item: "capo_iot.types.put_item_input.PutItemInput"
-    r"""<p>Specifies the DynamoDB table to which the message data will be written. For example:</p> <p> <code>{ \"dynamoDBv2\": { \"roleArn\": \"aws:iam:12341251:my-role\" \"putItem\": { \"tableName\": \"my-table\" } } }</code> </p> <p>Each attribute in the message payload will be written to a separate column in the DynamoDB database.</p>"""
+    """<p>Specifies the DynamoDB table to which the message data will be written. For example:</p> <p> <code>{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }</code> </p> <p>Each attribute in the message payload will be written to a separate column in the DynamoDB database.</p>"""
 
 
 # --- restJson1 ser/de ---

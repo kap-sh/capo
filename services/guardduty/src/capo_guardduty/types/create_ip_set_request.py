@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class CreateIPSetRequest(TypedDict, closed=True):
     detector_id: "capo_guardduty.types.detector_id.DetectorId"
-    r"""<p>The unique ID of the detector of the GuardDuty account for which you want to create an IPSet.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href=\"https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html\">ListDetectors</a> API.</p>"""
+    """<p>The unique ID of the detector of the GuardDuty account for which you want to create an IPSet.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>"""
     name: NotRequired["capo_guardduty.types.name.Name"]
     """<p>The user-friendly name to identify the IPSet.</p> <p> Allowed characters are alphanumeric, whitespace, dash (-), and underscores (_).</p>"""
     format: NotRequired["capo_guardduty.types.ip_set_format.IpSetFormat"]

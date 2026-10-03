@@ -26,7 +26,7 @@ class TestDNSAnswerResponse(TypedDict, closed=True):
     record_data: "capo_route_53.types.record_data.RecordData"
     """<p>A list that contains values that Amazon Route 53 returned for this resource record set.</p>"""
     response_code: "capo_route_53.types.dnsr_code.DNSRCode"
-    r"""<p>A code that indicates whether the request is valid or not. The most common response code is <code>NOERROR</code>, meaning that the request is valid. If the response is not valid, Amazon Route 53 returns a response code that describes the error. For a list of possible response codes, see <a href=\"http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6\">DNS RCODES</a> on the IANA website. </p>"""
+    """<p>A code that indicates whether the request is valid or not. The most common response code is <code>NOERROR</code>, meaning that the request is valid. If the response is not valid, Amazon Route 53 returns a response code that describes the error. For a list of possible response codes, see <a href="http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6">DNS RCODES</a> on the IANA website. </p>"""
     protocol: "capo_route_53.types.transport_protocol.TransportProtocol"
     """<p>The protocol that Amazon Route 53 used to respond to the request, either <code>UDP</code> or <code>TCP</code>. </p>"""
 

@@ -22,7 +22,7 @@ class GlobalCluster(TypedDict, closed=True):
     ]
     """<p>Contains a user-supplied global database cluster identifier. This identifier is the unique key that identifies a global database cluster.</p>"""
     global_cluster_resource_id: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The Amazon Web Services <a href=\"https://docs.aws.amazon.com/glossary/latest/reference/glos-chap.html?id=docs_gateway#partition\">partition</a>-unique, immutable identifier for the global database cluster. This identifier is found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key for the DB cluster is accessed.</p>"""
+    """<p>The Amazon Web Services <a href="https://docs.aws.amazon.com/glossary/latest/reference/glos-chap.html?id=docs_gateway#partition">partition</a>-unique, immutable identifier for the global database cluster. This identifier is found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key for the DB cluster is accessed.</p>"""
     global_cluster_arn: NotRequired["capo_rds.types.string.String"]
     """<p>The Amazon Resource Name (ARN) for the global database cluster.</p>"""
     status: NotRequired["capo_rds.types.string.String"]

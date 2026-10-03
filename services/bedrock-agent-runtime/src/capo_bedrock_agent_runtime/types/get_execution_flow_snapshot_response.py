@@ -28,7 +28,7 @@ class GetExecutionFlowSnapshotResponse(TypedDict, closed=True):
     )
     """<p>The Amazon Resource Name (ARN) of the IAM service role that's used by the flow execution.</p>"""
     definition: "str"
-    r"""<p>The flow definition used for the flow execution, including the nodes, connections, and configuration at the time when the execution started.</p> <p>The definition returns as a string that follows the structure of a <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_FlowDefinition.html\">FlowDefinition</a> object.</p>"""
+    """<p>The flow definition used for the flow execution, including the nodes, connections, and configuration at the time when the execution started.</p> <p>The definition returns as a string that follows the structure of a <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_FlowDefinition.html">FlowDefinition</a> object.</p>"""
     customer_encryption_key_arn: NotRequired[
         "capo_bedrock_agent_runtime.types.kms_key_arn.KmsKeyArn"
     ]

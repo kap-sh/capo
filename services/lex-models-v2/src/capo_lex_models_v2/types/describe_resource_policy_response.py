@@ -16,7 +16,7 @@ class DescribeResourcePolicyResponse(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of the bot or bot alias that the resource policy is attached to.</p>"""
     policy: NotRequired["capo_lex_models_v2.types.policy.Policy"]
-    r"""<p>The JSON structure that contains the resource policy. For more information about the contents of a JSON policy document, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html\"> IAM JSON policy reference </a>.</p>"""
+    """<p>The JSON structure that contains the resource policy. For more information about the contents of a JSON policy document, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html"> IAM JSON policy reference </a>.</p>"""
     revision_id: NotRequired["capo_lex_models_v2.types.revision_id.RevisionId"]
     """<p>The current revision of the resource policy. Use the revision ID to make sure that you are updating the most current version of a resource policy when you add a policy statement to a resource, delete a resource, or update a resource.</p>"""
 

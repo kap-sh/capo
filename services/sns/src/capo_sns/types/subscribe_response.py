@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class SubscribeResponse(TypedDict, closed=True):
     subscription_arn: NotRequired["capo_sns.types.subscription_arn.subscriptionARN"]
-    r"""<p>The ARN of the subscription if it is confirmed, or the string \"pending confirmation\" if the subscription requires confirmation. However, if the API request parameter <code>ReturnSubscriptionArn</code> is true, then the value is always the subscription ARN, even if the subscription requires confirmation.</p>"""
+    """<p>The ARN of the subscription if it is confirmed, or the string "pending confirmation" if the subscription requires confirmation. However, if the API request parameter <code>ReturnSubscriptionArn</code> is true, then the value is always the subscription ARN, even if the subscription requires confirmation.</p>"""
 
 
 # --- awsQuery ser/de ---

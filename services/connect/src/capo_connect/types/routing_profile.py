@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 class RoutingProfile(TypedDict, closed=True):
     instance_id: NotRequired["capo_connect.types.instance_id.InstanceId"]
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     name: NotRequired["capo_connect.types.routing_profile_name.RoutingProfileName"]
     """<p>The name of the routing profile.</p>"""
     routing_profile_arn: NotRequired["capo_connect.types.arn.ARN"]
@@ -43,7 +43,7 @@ class RoutingProfile(TypedDict, closed=True):
     default_outbound_queue_id: NotRequired["capo_connect.types.queue_id.QueueId"]
     """<p>The identifier of the default outbound queue for this routing profile.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     number_of_associated_queues: NotRequired["capo_connect.types.long.Long"]
     """<p>The number of associated queues in routing profile.</p>"""
     number_of_associated_manual_assignment_queues: NotRequired[

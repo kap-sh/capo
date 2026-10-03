@@ -31,7 +31,7 @@ class RepositoryDescription(TypedDict, closed=True):
     upstreams: NotRequired[
         "capo_codeartifact.types.upstream_repository_info_list.UpstreamRepositoryInfoList"
     ]
-    r"""<p> A list of upstream repositories to associate with the repository. The order of the upstream repositories in the list determines their priority order when CodeArtifact looks for a requested package version. For more information, see <a href=\"https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html\">Working with upstream repositories</a>. </p>"""
+    """<p> A list of upstream repositories to associate with the repository. The order of the upstream repositories in the list determines their priority order when CodeArtifact looks for a requested package version. For more information, see <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html">Working with upstream repositories</a>. </p>"""
     external_connections: NotRequired[
         "capo_codeartifact.types.repository_external_connection_info_list.RepositoryExternalConnectionInfoList"
     ]

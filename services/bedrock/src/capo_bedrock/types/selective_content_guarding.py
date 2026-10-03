@@ -12,7 +12,7 @@ class SelectiveContentGuarding(TypedDict, closed=True):
     system: NotRequired[
         "capo_bedrock.types.selective_guarding_mode.SelectiveGuardingMode"
     ]
-    r"""<p>Selective guarding mode for system prompts.\"</p>"""
+    """<p>Selective guarding mode for system prompts."</p>"""
     messages: NotRequired[
         "capo_bedrock.types.selective_guarding_mode.SelectiveGuardingMode"
     ]

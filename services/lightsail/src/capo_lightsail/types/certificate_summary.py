@@ -24,7 +24,7 @@ class CertificateSummary(TypedDict, closed=True):
     certificate_detail: NotRequired["capo_lightsail.types.certificate.Certificate"]
     """<p>An object that describes a certificate in detail.</p>"""
     tags: NotRequired["capo_lightsail.types.tag_list.TagList"]
-    r"""<p>The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a href=\"https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags\">Amazon Lightsail Developer Guide</a>.</p>"""
+    """<p>The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

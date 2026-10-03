@@ -17,7 +17,7 @@ class BatchWriteRecordRequest(TypedDict, closed=True):
     ttl_duration: NotRequired[
         "capo_sagemaker_featurestore_runtime.types.ttl_duration.TtlDuration"
     ]
-    r"""<p>Time to live duration applied to all entries in the batch that do not specify their own <code>TtlDuration</code>; <code>ExpiresAt</code> = <code>EventTime</code> + <code>TtlDuration</code>. For information on HardDelete, see the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_feature_store_DeleteRecord.html\">DeleteRecord</a> API in the Amazon SageMaker API Reference guide.</p>"""
+    """<p>Time to live duration applied to all entries in the batch that do not specify their own <code>TtlDuration</code>; <code>ExpiresAt</code> = <code>EventTime</code> + <code>TtlDuration</code>. For information on HardDelete, see the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_feature_store_DeleteRecord.html">DeleteRecord</a> API in the Amazon SageMaker API Reference guide.</p>"""
 
 
 # --- restJson1 ser/de ---

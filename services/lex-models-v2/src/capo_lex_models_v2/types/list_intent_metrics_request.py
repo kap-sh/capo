@@ -33,7 +33,7 @@ class ListIntentMetricsRequest(TypedDict, closed=True):
     group_by: NotRequired[
         "capo_lex_models_v2.types.analytics_intent_group_by_list.AnalyticsIntentGroupByList"
     ]
-    r"""<p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>IntentName</code> – The name of the intent.</p> </li> <li> <p> <code>IntentEndState</code> – The final state of the intent. The possible end states are detailed in <a href=\"https://docs.aws.amazon.com/analytics-key-definitions-intents\">Key definitions</a> in the user guide.</p> </li> </ul>"""
+    """<p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>IntentName</code> – The name of the intent.</p> </li> <li> <p> <code>IntentEndState</code> – The final state of the intent. The possible end states are detailed in <a href="https://docs.aws.amazon.com/analytics-key-definitions-intents">Key definitions</a> in the user guide.</p> </li> </ul>"""
     filters: NotRequired[
         "capo_lex_models_v2.types.analytics_intent_filters.AnalyticsIntentFilters"
     ]

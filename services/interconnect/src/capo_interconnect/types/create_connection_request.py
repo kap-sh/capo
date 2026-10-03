@@ -23,7 +23,7 @@ class CreateConnectionRequest(TypedDict, closed=True):
     bandwidth: "capo_interconnect.types.connection_bandwidth.ConnectionBandwidth"
     """<p>The desired bandwidth of the requested <a>Connection</a> </p>"""
     attach_point: "capo_interconnect.types.attach_point.AttachPoint"
-    r"""<p>The Attach Point to which the connection should be associated.\"</p>"""
+    """<p>The Attach Point to which the connection should be associated."</p>"""
     environment_id: "capo_interconnect.types.environment_id.EnvironmentId"
     """<p>The identifier of the <a>Environment</a> across which this <a>Connection</a> should be created.</p> <p>The available <a>Environment</a> objects can be determined using <a>ListEnvironments</a>.</p>"""
     remote_account: NotRequired[

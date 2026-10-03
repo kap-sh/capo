@@ -21,15 +21,15 @@ class AssetProperty(TypedDict, closed=True):
     id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the asset property.</p>"""
     external_id: NotRequired["capo_iotsitewise.types.external_id.ExternalId"]
-    r"""<p>The external ID of the asset property. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids\">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The external ID of the asset property. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     name: "capo_iotsitewise.types.name.Name"
     """<p>The name of the property.</p>"""
     alias: NotRequired["capo_iotsitewise.types.property_alias.PropertyAlias"]
-    r"""<p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     notification: NotRequired[
         "capo_iotsitewise.types.property_notification.PropertyNotification"
     ]
-    r"""<p>The asset property's notification topic and state. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html\">UpdateAssetProperty</a>.</p>"""
+    """<p>The asset property's notification topic and state. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html">UpdateAssetProperty</a>.</p>"""
     data_type: "capo_iotsitewise.types.property_data_type.PropertyDataType"
     """<p>The data type of the asset property.</p>"""
     data_type_spec: NotRequired["capo_iotsitewise.types.name.Name"]

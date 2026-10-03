@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class RegisterStreamConsumerInput(TypedDict, closed=True):
     stream_arn: "capo_kinesis.types.stream_arn.StreamARN"
-    r"""<p>The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
+    """<p>The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
     consumer_name: "capo_kinesis.types.consumer_name.ConsumerName"
     """<p>For a given Kinesis data stream, each consumer must have a unique name. However, consumer names don't have to be unique across data streams.</p>"""
     stream_id: NotRequired["capo_kinesis.types.stream_id.StreamId"]

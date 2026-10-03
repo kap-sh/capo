@@ -47,7 +47,7 @@ class Anomaly(TypedDict, closed=True):
     active: "capo_cloudwatch_logs.types.boolean.Boolean"
     """<p>Specifies whether this anomaly is still ongoing.</p>"""
     state: "capo_cloudwatch_logs.types.state.State"
-    r"""<p>Indicates the current state of this anomaly. If it is still being treated as an anomaly, the value is <code>Active</code>. If you have suppressed this anomaly by using the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateAnomaly.html\">UpdateAnomaly</a> operation, the value is <code>Suppressed</code>. If this behavior is now considered to be normal, the value is <code>Baseline</code>.</p>"""
+    """<p>Indicates the current state of this anomaly. If it is still being treated as an anomaly, the value is <code>Active</code>. If you have suppressed this anomaly by using the <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateAnomaly.html">UpdateAnomaly</a> operation, the value is <code>Suppressed</code>. If this behavior is now considered to be normal, the value is <code>Baseline</code>.</p>"""
     histogram: "capo_cloudwatch_logs.types.histogram.Histogram"
     """<p>A map showing times when the anomaly detector ran, and the number of occurrences of this anomaly that were detected at each of those runs. The times are specified in epoch time, which is the number of seconds since <code>January 1, 1970, 00:00:00 UTC</code>.</p>"""
     log_samples: "capo_cloudwatch_logs.types.log_samples.LogSamples"
@@ -57,7 +57,7 @@ class Anomaly(TypedDict, closed=True):
     log_group_arn_list: "capo_cloudwatch_logs.types.log_group_arn_list.LogGroupArnList"
     """<p>An array of ARNS of the log groups that contained log events considered to be part of this anomaly.</p>"""
     suppressed: NotRequired["capo_cloudwatch_logs.types.boolean.Boolean"]
-    r"""<p>Indicates whether this anomaly is currently suppressed. To suppress an anomaly, use <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateAnomaly.html\">UpdateAnomaly</a>.</p>"""
+    """<p>Indicates whether this anomaly is currently suppressed. To suppress an anomaly, use <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateAnomaly.html">UpdateAnomaly</a>.</p>"""
     suppressed_date: "capo_cloudwatch_logs.types.epoch_millis.EpochMillis"
     """<p>If the anomaly is suppressed, this indicates when it was suppressed.</p>"""
     suppressed_until: "capo_cloudwatch_logs.types.epoch_millis.EpochMillis"

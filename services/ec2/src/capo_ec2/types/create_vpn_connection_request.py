@@ -39,7 +39,7 @@ class CreateVpnConnectionRequest(TypedDict, closed=True):
     ]
     """<p>The tags to apply to the VPN connection.</p>"""
     pre_shared_key_storage: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>Specifies the storage mode for the pre-shared key (PSK). Valid values are <code>Standard</code>\" (stored in the Site-to-Site VPN service) or <code>SecretsManager</code> (stored in Amazon Web Services Secrets Manager).</p>"""
+    """<p>Specifies the storage mode for the pre-shared key (PSK). Valid values are <code>Standard</code>" (stored in the Site-to-Site VPN service) or <code>SecretsManager</code> (stored in Amazon Web Services Secrets Manager).</p>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
     options: NotRequired[

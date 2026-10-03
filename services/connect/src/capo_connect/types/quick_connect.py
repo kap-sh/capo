@@ -31,7 +31,7 @@ class QuickConnect(TypedDict, closed=True):
     ]
     """<p>Contains information about the quick connect.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     last_modified_time: NotRequired["capo_connect.types.timestamp.Timestamp"]
     """<p>The timestamp when this resource was last modified.</p>"""
     last_modified_region: NotRequired["capo_connect.types.region_name.RegionName"]

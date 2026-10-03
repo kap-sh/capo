@@ -57,13 +57,13 @@ class LandingZoneResource:
         tags: Optional["capo_controltower.types.tag_map.TagMap"] = None,
         manifest: Optional["capo_controltower.types.manifest.Manifest"] = None,
     ) -> "capo_controltower.types.create_landing_zone_output.CreateLandingZoneOutput":
-        r"""<p>Creates a new landing zone. This API call starts an asynchronous operation that creates and configures a landing zone, based on the parameters specified in the manifest JSON file.</p>
+        """<p>Creates a new landing zone. This API call starts an asynchronous operation that creates and configures a landing zone, based on the parameters specified in the manifest JSON file.</p>
 
         Args:
             version: <p>The landing zone version, for example, 3.0.</p>
             remediation_types: <p>Specifies the types of remediation actions to apply when creating the landing zone, such as automatic drift correction or compliance enforcement.</p>
             tags: <p>Tags to be applied to the landing zone. </p>
-            manifest: <p>The manifest JSON file is a text file that describes your Amazon Web Services resources. For examples, review <a href=\"https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch\">Launch your landing zone</a>. </p>
+            manifest: <p>The manifest JSON file is a text file that describes your Amazon Web Services resources. For examples, review <a href="https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch">Launch your landing zone</a>. </p>
 
         Raises:
             capo_controltower.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -165,13 +165,13 @@ class LandingZoneResource:
         ] = None,
         manifest: Optional["capo_controltower.types.manifest.Manifest"] = None,
     ) -> "capo_controltower.types.update_landing_zone_output.UpdateLandingZoneOutput":
-        r"""<p>This API call updates the landing zone. It starts an asynchronous operation that updates the landing zone based on the new landing zone version, or on the changed parameters specified in the updated manifest file. </p>
+        """<p>This API call updates the landing zone. It starts an asynchronous operation that updates the landing zone based on the new landing zone version, or on the changed parameters specified in the updated manifest file. </p>
 
         Args:
             version: <p>The landing zone version, for example, 3.2.</p>
             remediation_types: <p>Specifies the types of remediation actions to apply when updating the landing zone configuration.</p>
             landing_zone_identifier: <p>The unique identifier of the landing zone.</p>
-            manifest: <p>The manifest file (JSON) is a text file that describes your Amazon Web Services resources. For an example, review <a href=\"https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch\">Launch your landing zone</a>. The example manifest file contains each of the available parameters. The schema for the landing zone's JSON manifest file is not published, by design.</p>
+            manifest: <p>The manifest file (JSON) is a text file that describes your Amazon Web Services resources. For an example, review <a href="https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch">Launch your landing zone</a>. The example manifest file contains each of the available parameters. The schema for the landing zone's JSON manifest file is not published, by design.</p>
 
         Raises:
             capo_controltower.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -379,13 +379,13 @@ class AsyncLandingZoneResource:
         tags: Optional["capo_controltower.types.tag_map.TagMap"] = None,
         manifest: Optional["capo_controltower.types.manifest.Manifest"] = None,
     ) -> "capo_controltower.types.create_landing_zone_output.CreateLandingZoneOutput":
-        r"""<p>Creates a new landing zone. This API call starts an asynchronous operation that creates and configures a landing zone, based on the parameters specified in the manifest JSON file.</p>
+        """<p>Creates a new landing zone. This API call starts an asynchronous operation that creates and configures a landing zone, based on the parameters specified in the manifest JSON file.</p>
 
         Args:
             version: <p>The landing zone version, for example, 3.0.</p>
             remediation_types: <p>Specifies the types of remediation actions to apply when creating the landing zone, such as automatic drift correction or compliance enforcement.</p>
             tags: <p>Tags to be applied to the landing zone. </p>
-            manifest: <p>The manifest JSON file is a text file that describes your Amazon Web Services resources. For examples, review <a href=\"https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch\">Launch your landing zone</a>. </p>
+            manifest: <p>The manifest JSON file is a text file that describes your Amazon Web Services resources. For examples, review <a href="https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch">Launch your landing zone</a>. </p>
 
         Raises:
             capo_controltower.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -489,13 +489,13 @@ class AsyncLandingZoneResource:
         ] = None,
         manifest: Optional["capo_controltower.types.manifest.Manifest"] = None,
     ) -> "capo_controltower.types.update_landing_zone_output.UpdateLandingZoneOutput":
-        r"""<p>This API call updates the landing zone. It starts an asynchronous operation that updates the landing zone based on the new landing zone version, or on the changed parameters specified in the updated manifest file. </p>
+        """<p>This API call updates the landing zone. It starts an asynchronous operation that updates the landing zone based on the new landing zone version, or on the changed parameters specified in the updated manifest file. </p>
 
         Args:
             version: <p>The landing zone version, for example, 3.2.</p>
             remediation_types: <p>Specifies the types of remediation actions to apply when updating the landing zone configuration.</p>
             landing_zone_identifier: <p>The unique identifier of the landing zone.</p>
-            manifest: <p>The manifest file (JSON) is a text file that describes your Amazon Web Services resources. For an example, review <a href=\"https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch\">Launch your landing zone</a>. The example manifest file contains each of the available parameters. The schema for the landing zone's JSON manifest file is not published, by design.</p>
+            manifest: <p>The manifest file (JSON) is a text file that describes your Amazon Web Services resources. For an example, review <a href="https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch">Launch your landing zone</a>. The example manifest file contains each of the available parameters. The schema for the landing zone's JSON manifest file is not published, by design.</p>
 
         Raises:
             capo_controltower.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>

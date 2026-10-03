@@ -15,7 +15,7 @@ class DescribeCertificateAuthorityAuditReportRequest(TypedDict, closed=True):
     certificate_authority_arn: "capo_acm_pca.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the private CA. This must be of the form:</p> <p> <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>. </p>"""
     audit_report_id: "capo_acm_pca.types.audit_report_id.AuditReportId"
-    r"""<p>The report ID returned by calling the <a href=\"https://docs.aws.amazon.com/privateca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html\">CreateCertificateAuthorityAuditReport</a> action.</p>"""
+    """<p>The report ID returned by calling the <a href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html">CreateCertificateAuthorityAuditReport</a> action.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

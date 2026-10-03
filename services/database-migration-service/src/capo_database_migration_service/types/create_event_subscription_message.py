@@ -24,7 +24,7 @@ class CreateEventSubscriptionMessage(TypedDict, closed=True):
     event_categories: NotRequired[
         "capo_database_migration_service.types.event_categories_list.EventCategoriesList"
     ]
-    r"""<p>A list of event categories for a source type that you want to subscribe to. For more information, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html\">Working with Events and Notifications</a> in the <i>Database Migration Service User Guide.</i> </p>"""
+    """<p>A list of event categories for a source type that you want to subscribe to. For more information, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a> in the <i>Database Migration Service User Guide.</i> </p>"""
     source_ids: NotRequired[
         "capo_database_migration_service.types.source_ids_list.SourceIdsList"
     ]

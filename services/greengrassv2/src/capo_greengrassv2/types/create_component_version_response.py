@@ -18,7 +18,7 @@ class CreateComponentVersionResponse(TypedDict, closed=True):
     arn: NotRequired[
         "capo_greengrassv2.types.component_version_arn.ComponentVersionARN"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the component version.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the component version.</p>"""
     component_name: "capo_greengrassv2.types.component_name_string.ComponentNameString"
     """<p>The name of the component.</p>"""
     component_version: (

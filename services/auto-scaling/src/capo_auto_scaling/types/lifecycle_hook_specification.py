@@ -44,7 +44,7 @@ class LifecycleHookSpecification(TypedDict, closed=True):
     role_arn: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]
-    r"""<p>The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target. For information about creating this role, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/prepare-for-lifecycle-notifications.html\">Prepare to add a lifecycle hook to your Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p> <p>Valid only if the notification target is an Amazon SNS topic or an Amazon SQS queue.</p>"""
+    """<p>The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target. For information about creating this role, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/prepare-for-lifecycle-notifications.html">Prepare to add a lifecycle hook to your Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p> <p>Valid only if the notification target is an Amazon SNS topic or an Amazon SQS queue.</p>"""
 
 
 # --- awsQuery ser/de ---

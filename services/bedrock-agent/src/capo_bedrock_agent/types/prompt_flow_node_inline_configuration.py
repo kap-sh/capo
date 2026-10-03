@@ -19,7 +19,7 @@ class PromptFlowNodeInlineConfiguration(TypedDict, closed=True):
     template_configuration: "capo_bedrock_agent.types.prompt_template_configuration.PromptTemplateConfiguration"
     """<p>Contains a prompt and variables in the prompt that can be replaced with values at runtime.</p>"""
     model_id: "capo_bedrock_agent.types.flow_prompt_model_identifier.FlowPromptModelIdentifier"
-    r"""<p>The unique identifier of the model or <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html\">inference profile</a> to run inference with.</p>"""
+    """<p>The unique identifier of the model or <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html">inference profile</a> to run inference with.</p>"""
     inference_configuration: NotRequired[
         "capo_bedrock_agent.types.prompt_inference_configuration.PromptInferenceConfiguration"
     ]

@@ -67,11 +67,11 @@ class AudioSelector(TypedDict, closed=True):
     streams: NotRequired[
         "capo_mediaconvert.types.__list_of__integer_min1_max2147483647.__listOf__integerMin1Max2147483647"
     ]
-    r"""Identify a track from the input audio to include in this selector by entering the stream index number. These numberings count all tracks in the input file, but only a track containing audio data may be used here. To include several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a comma-separated list. For example, type \"1,2,3\" to include tracks 1 through 3."""
+    """Identify a track from the input audio to include in this selector by entering the stream index number. These numberings count all tracks in the input file, but only a track containing audio data may be used here. To include several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a comma-separated list. For example, type "1,2,3" to include tracks 1 through 3."""
     tracks: NotRequired[
         "capo_mediaconvert.types.__list_of__integer_min1_max2147483647.__listOf__integerMin1Max2147483647"
     ]
-    r"""Identify a track from the input audio to include in this selector by entering the track index number. These numberings include only tracks recognized as audio. If the service recognizes more types of audio tracks in the future, these numberings may shift. To include several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a comma-separated list. For example, type \"1,2,3\" to include tracks 1 through 3."""
+    """Identify a track from the input audio to include in this selector by entering the track index number. These numberings include only tracks recognized as audio. If the service recognizes more types of audio tracks in the future, these numberings may shift. To include several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a comma-separated list. For example, type "1,2,3" to include tracks 1 through 3."""
 
 
 # --- restJson1 ser/de ---

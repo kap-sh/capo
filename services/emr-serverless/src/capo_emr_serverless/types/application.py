@@ -87,7 +87,7 @@ class Application(TypedDict, closed=True):
     runtime_configuration: NotRequired[
         "capo_emr_serverless.types.configuration_list.ConfigurationList"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html\">Configuration</a> specifications of an application. Each configuration consists of a classification and properties. You use this parameter when creating or updating an application. To see the runtimeConfiguration object of an application, run the <a href=\"https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_GetApplication.html\">GetApplication</a> API operation.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html">Configuration</a> specifications of an application. Each configuration consists of a classification and properties. You use this parameter when creating or updating an application. To see the runtimeConfiguration object of an application, run the <a href="https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_GetApplication.html">GetApplication</a> API operation.</p>"""
     monitoring_configuration: NotRequired[
         "capo_emr_serverless.types.monitoring_configuration.MonitoringConfiguration"
     ]

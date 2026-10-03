@@ -14,9 +14,9 @@ class CreateOAuth2TokenWithIAMRequest(TypedDict, closed=True):
     grant_type: (
         "capo_signin.types.client_credentials_grant_type.ClientCredentialsGrantType"
     )
-    r"""OAuth 2.0 grant type. Must be \"client_credentials\"."""
+    """OAuth 2.0 grant type. Must be "client_credentials"."""
     resource: "str"
-    r"""The OAuth resource for which the access token is requested. Example: \"aws-mcp.amazonaws.com\"."""
+    """The OAuth resource for which the access token is requested. Example: "aws-mcp.amazonaws.com"."""
 
 
 # --- restJson1 ser/de ---

@@ -18,7 +18,7 @@ class GeneralName(TypedDict, closed=True):
     other_name: NotRequired["capo_acm_pca.types.other_name.OtherName"]
     """<p>Represents <code>GeneralName</code> using an <code>OtherName</code> object.</p>"""
     rfc822_name: NotRequired["capo_acm_pca.types.string256.String256"]
-    r"""<p>Represents <code>GeneralName</code> as an <a href=\"https://datatracker.ietf.org/doc/html/rfc822\">RFC 822</a> email address.</p>"""
+    """<p>Represents <code>GeneralName</code> as an <a href="https://datatracker.ietf.org/doc/html/rfc822">RFC 822</a> email address.</p>"""
     dns_name: NotRequired["capo_acm_pca.types.string253.String253"]
     """<p>Represents <code>GeneralName</code> as a DNS name.</p>"""
     directory_name: NotRequired["capo_acm_pca.types.asn1_subject.ASN1Subject"]

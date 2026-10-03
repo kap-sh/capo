@@ -14,7 +14,7 @@ class SchedulerRequest(TypedDict, closed=True):
     type: "capo_pcs.types.scheduler_type.SchedulerType"
     """<p>The software PCS uses to manage cluster scaling and job scheduling.</p>"""
     version: "str"
-    r"""<p>The version of the specified scheduling software that PCS uses to manage cluster scaling and job scheduling. For more information, see <a href=\"https://docs.aws.amazon.com/pcs/latest/userguide/slurm-versions.html\">Slurm versions in PCS</a> in the <i>PCS User Guide</i>.</p> <p>Valid Values: <code>24.11 | 25.05 | 25.11 | 26.05</code> </p>"""
+    """<p>The version of the specified scheduling software that PCS uses to manage cluster scaling and job scheduling. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/slurm-versions.html">Slurm versions in PCS</a> in the <i>PCS User Guide</i>.</p> <p>Valid Values: <code>24.11 | 25.05 | 25.11 | 26.05</code> </p>"""
 
 
 # --- awsJson1_0 ser/de ---

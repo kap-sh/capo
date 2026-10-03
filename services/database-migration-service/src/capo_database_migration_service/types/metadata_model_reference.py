@@ -14,7 +14,7 @@ class MetadataModelReference(TypedDict, closed=True):
     ]
     """<p>The name of the metadata model.</p>"""
     selection_rules: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>A JSON string that identifies this metadata model in the metadata tree. For the selection rule format, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/sc-selection-rules.html\">Selection rules in DMS Schema Conversion</a>.</p> <p>Usage:</p> <ul> <li> <p>You can pass this value as the <code>SelectionRules</code> parameter to any operation that accepts selection rules, such as <code>DescribeMetadataModel</code>, <code>StartMetadataModelConversion</code>, and others.</p> </li> </ul>"""
+    """<p>A JSON string that identifies this metadata model in the metadata tree. For the selection rule format, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/sc-selection-rules.html">Selection rules in DMS Schema Conversion</a>.</p> <p>Usage:</p> <ul> <li> <p>You can pass this value as the <code>SelectionRules</code> parameter to any operation that accepts selection rules, such as <code>DescribeMetadataModel</code>, <code>StartMetadataModelConversion</code>, and others.</p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---

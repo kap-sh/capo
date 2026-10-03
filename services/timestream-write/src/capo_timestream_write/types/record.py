@@ -27,7 +27,7 @@ class Record(TypedDict, closed=True):
     measure_value_type: NotRequired[
         "capo_timestream_write.types.measure_value_type.MeasureValueType"
     ]
-    r"""<p> Contains the data type of the measure value for the time-series data point. Default type is <code>DOUBLE</code>. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types\">Data types</a>.</p>"""
+    """<p> Contains the data type of the measure value for the time-series data point. Default type is <code>DOUBLE</code>. For more information, see <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types">Data types</a>.</p>"""
     time: NotRequired["capo_timestream_write.types.string_value256.StringValue256"]
     """<p> Contains the time at which the measure value for the data point was collected. The time value plus the unit provides the time elapsed since the epoch. For example, if the time value is <code>12345</code> and the unit is <code>ms</code>, then <code>12345 ms</code> have elapsed since the epoch. </p>"""
     time_unit: NotRequired["capo_timestream_write.types.time_unit.TimeUnit"]

@@ -25,7 +25,7 @@ class UpdateAlarmModelRequest(TypedDict, closed=True):
     ]
     """<p>The description of the alarm model.</p>"""
     role_arn: "capo_iot_events.types.amazon_resource_name.AmazonResourceName"
-    r"""<p>The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
+    """<p>The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
     severity: NotRequired["capo_iot_events.types.severity.Severity"]
     """<p>A non-negative integer that reflects the severity level of the alarm.</p>"""
     alarm_rule: "capo_iot_events.types.alarm_rule.AlarmRule"

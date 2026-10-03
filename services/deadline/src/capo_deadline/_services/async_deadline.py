@@ -1957,14 +1957,14 @@ class AsyncdeadlineClient:
         timezone: Optional["capo_deadline.types.timezone.Timezone"] = None,
         period: Optional["capo_deadline.types.period.Period"] = None,
     ) -> "capo_deadline.types.start_sessions_statistics_aggregation_response.StartSessionsStatisticsAggregationResponse":
-        r"""<p>Starts an asynchronous request for getting aggregated statistics about queues and farms. Get the statistics using the <code>GetSessionsStatisticsAggregation</code> operation. You can only have one running aggregation for your Deadline Cloud farm. Call the <code>GetSessionsStatisticsAggregation</code> operation and check the <code>status</code> field to see if an aggregation is running. Statistics are available for 1 hour after you call the <code>StartSessionsStatisticsAggregation</code> operation.</p>
+        """<p>Starts an asynchronous request for getting aggregated statistics about queues and farms. Get the statistics using the <code>GetSessionsStatisticsAggregation</code> operation. You can only have one running aggregation for your Deadline Cloud farm. Call the <code>GetSessionsStatisticsAggregation</code> operation and check the <code>status</code> field to see if an aggregation is running. Statistics are available for 1 hour after you call the <code>StartSessionsStatisticsAggregation</code> operation.</p>
 
         Args:
             farm_id: <p>The identifier of the farm that contains queues or fleets to return statistics for.</p>
             resource_ids: <p>A list of fleet IDs or queue IDs to gather statistics for.</p>
             start_time: <p>The Linux timestamp of the date and time that the statistics start.</p>
             end_time: <p>The Linux timestamp of the date and time that the statistics end.</p>
-            timezone: <p>The timezone to use for the statistics. Use UTC notation such as \"UTC+8.\"</p>
+            timezone: <p>The timezone to use for the statistics. Use UTC notation such as "UTC+8."</p>
             period: <p>The period to aggregate the statistics.</p>
             group_by: <p>The field to use to group the statistics.</p>
             statistics: <p>One to four statistics to return.</p>
@@ -6486,7 +6486,7 @@ class AsyncdeadlineClient:
         ] = None,
         tags: Optional["capo_deadline.types.tags.Tags"] = None,
     ) -> "capo_deadline.types.create_job_response.CreateJobResponse":
-        r"""<p>Creates a job. A job is a set of instructions that Deadline Cloud uses to schedule and run work on available workers. For more information, see <a href=\"https://docs.aws.amazon.com/deadline-cloud/latest/userguide/deadline-cloud-jobs.html\">Deadline Cloud jobs</a>.</p>
+        """<p>Creates a job. A job is a set of instructions that Deadline Cloud uses to schedule and run work on available workers. For more information, see <a href="https://docs.aws.amazon.com/deadline-cloud/latest/userguide/deadline-cloud-jobs.html">Deadline Cloud jobs</a>.</p>
 
         Args:
             farm_id: <p>The farm ID of the farm to connect to the job.</p>

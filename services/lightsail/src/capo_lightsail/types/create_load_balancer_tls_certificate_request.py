@@ -17,7 +17,7 @@ class CreateLoadBalancerTlsCertificateRequest(TypedDict, closed=True):
     load_balancer_name: "capo_lightsail.types.resource_name.ResourceName"
     """<p>The load balancer name where you want to create the SSL/TLS certificate.</p>"""
     certificate_name: "capo_lightsail.types.resource_name.ResourceName"
-    r"""<p>The SSL/TLS certificate name.</p> <p>You can have up to 10 certificates in your account at one time. Each Lightsail load balancer can have up to 2 certificates associated with it at one time. There is also an overall limit to the number of certificates that can be issue in a 365-day period. For more information, see <a href=\"http://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html\">Limits</a>.</p>"""
+    """<p>The SSL/TLS certificate name.</p> <p>You can have up to 10 certificates in your account at one time. Each Lightsail load balancer can have up to 2 certificates associated with it at one time. There is also an overall limit to the number of certificates that can be issue in a 365-day period. For more information, see <a href="http://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.</p>"""
     certificate_domain_name: "capo_lightsail.types.domain_name.DomainName"
     """<p>The domain name (<code>example.com</code>) for your SSL/TLS certificate.</p>"""
     certificate_alternative_names: NotRequired[

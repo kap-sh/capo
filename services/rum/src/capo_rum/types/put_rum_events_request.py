@@ -26,7 +26,7 @@ class PutRumEventsRequest(TypedDict, closed=True):
     rum_events: "capo_rum.types.rum_event_list.RumEventList"
     """<p>An array of structures that contain the telemetry event data.</p>"""
     alias: NotRequired["capo_rum.types.alias.Alias"]
-    r"""<p>If the app monitor uses a resource-based policy that requires <code>PutRumEvents</code> requests to specify a certain alias, specify that alias here. This alias will be compared to the <code>rum:alias</code> context key in the resource-based policy. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-resource-policies.html\">Using resource-based policies with CloudWatch RUM</a>.</p>"""
+    """<p>If the app monitor uses a resource-based policy that requires <code>PutRumEvents</code> requests to specify a certain alias, specify that alias here. This alias will be compared to the <code>rum:alias</code> context key in the resource-based policy. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-resource-policies.html">Using resource-based policies with CloudWatch RUM</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

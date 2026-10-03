@@ -13,7 +13,7 @@ class AttachedManagedPolicy(TypedDict, closed=True):
     name: NotRequired["capo_sso_admin.types.name.Name"]
     """<p>The name of the Amazon Web Services managed policy.</p>"""
     arn: NotRequired["capo_sso_admin.types.managed_policy_arn.ManagedPolicyArn"]
-    r"""<p>The ARN of the Amazon Web Services managed policy. For more information about ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The ARN of the Amazon Web Services managed policy. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

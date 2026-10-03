@@ -21,7 +21,7 @@ class CoinbaseCdpTokenRequestInput(TypedDict, closed=True):
     request_host: NotRequired[
         "capo_bedrock_agentcore.types.payment_request_host_type.PaymentRequestHostType"
     ]
-    r"""<p>The host for the payment API request. Defaults to \"api.cdp.coinbase.com\".</p>"""
+    """<p>The host for the payment API request. Defaults to "api.cdp.coinbase.com".</p>"""
     request_path: (
         "capo_bedrock_agentcore.types.payment_request_path_type.PaymentRequestPathType"
     )

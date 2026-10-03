@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class UntagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_gameliftstreams.types.arn.Arn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> of the Amazon GameLift Streams resource that you want to remove tags from.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> of the Amazon GameLift Streams resource that you want to remove tags from.</p>"""
     tag_keys: "capo_gameliftstreams.types.tag_key_list.TagKeyList"
     """<p>A list of tag keys to remove from the specified Amazon GameLift Streams resource.</p>"""
 

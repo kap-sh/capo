@@ -31,7 +31,7 @@ class StreamingDistributionConfig(TypedDict, closed=True):
     ]
     """<p>A complex type that controls whether access logs are written for the streaming distribution.</p>"""
     trusted_signers: "capo_cloudfront.types.trusted_signers.TrustedSigners"
-    r"""<p>A complex type that specifies any Amazon Web Services accounts that you want to permit to create signed URLs for private content. If you want the distribution to use signed URLs, include this element; if you want the distribution to use public URLs, remove this element. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html\">Serving Private Content through CloudFront</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
+    """<p>A complex type that specifies any Amazon Web Services accounts that you want to permit to create signed URLs for private content. If you want the distribution to use signed URLs, include this element; if you want the distribution to use public URLs, remove this element. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">Serving Private Content through CloudFront</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
     price_class: NotRequired["capo_cloudfront.types.price_class.PriceClass"]
     """<p>A complex type that contains information about price class for this streaming distribution.</p>"""
     enabled: "capo_cloudfront.types.boolean.boolean"

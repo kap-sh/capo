@@ -21,7 +21,7 @@ class BatchGetRecordError(TypedDict, closed=True):
     error_code: NotRequired[
         "capo_sagemaker_featurestore_runtime.types.value_as_string.ValueAsString"
     ]
-    r"""<p>The error code of an error that has occurred when attempting to retrieve a batch of Records. For more information on errors, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_feature_store_GetRecord.html#API_feature_store_GetRecord_Errors\">Errors</a>.</p>"""
+    """<p>The error code of an error that has occurred when attempting to retrieve a batch of Records. For more information on errors, see <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_feature_store_GetRecord.html#API_feature_store_GetRecord_Errors">Errors</a>.</p>"""
     error_message: NotRequired[
         "capo_sagemaker_featurestore_runtime.types.message.Message"
     ]

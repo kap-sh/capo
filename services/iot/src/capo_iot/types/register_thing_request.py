@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class RegisterThingRequest(TypedDict, closed=True):
     template_body: "capo_iot.types.template_body.TemplateBody"
-    r"""<p>The provisioning template. See <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html\">Provisioning Devices That Have Device Certificates</a> for more information.</p>"""
+    """<p>The provisioning template. See <a href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html">Provisioning Devices That Have Device Certificates</a> for more information.</p>"""
     parameters: NotRequired["capo_iot.types.parameters.Parameters"]
-    r"""<p>The parameters for provisioning a thing. See <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html\">Provisioning Templates</a> for more information.</p>"""
+    """<p>The parameters for provisioning a thing. See <a href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html">Provisioning Templates</a> for more information.</p>"""
 
 
 # --- restJson1 ser/de ---

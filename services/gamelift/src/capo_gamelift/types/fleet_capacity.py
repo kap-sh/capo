@@ -18,9 +18,9 @@ class FleetCapacity(TypedDict, closed=True):
     fleet_id: NotRequired["capo_gamelift.types.fleet_id.FleetId"]
     """<p>A unique identifier for the fleet associated with the location.</p>"""
     fleet_arn: NotRequired["capo_gamelift.types.fleet_arn.FleetArn"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) that is assigned to a Amazon GameLift Servers fleet resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a Amazon GameLift Servers fleet resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.</p>"""
     instance_type: NotRequired["capo_gamelift.types.ec2_instance_type.EC2InstanceType"]
-    r"""<p>The Amazon EC2 instance type that is used for instances in a fleet. Instance type determines the computing resources in use, including CPU, memory, storage, and networking capacity. See <a href=\"http://aws.amazon.com/ec2/instance-types/\">Amazon Elastic Compute Cloud Instance Types</a> for detailed descriptions.</p>"""
+    """<p>The Amazon EC2 instance type that is used for instances in a fleet. Instance type determines the computing resources in use, including CPU, memory, storage, and networking capacity. See <a href="http://aws.amazon.com/ec2/instance-types/">Amazon Elastic Compute Cloud Instance Types</a> for detailed descriptions.</p>"""
     instance_counts: NotRequired[
         "capo_gamelift.types.ec2_instance_counts.EC2InstanceCounts"
     ]

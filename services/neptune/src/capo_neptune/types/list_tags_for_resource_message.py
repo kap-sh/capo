@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceMessage(TypedDict, closed=True):
     resource_name: NotRequired["capo_neptune.types.string.String"]
-    r"""<p>The Amazon Neptune resource with tags to be listed. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing\"> Constructing an Amazon Resource Name (ARN)</a>.</p>"""
+    """<p>The Amazon Neptune resource with tags to be listed. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href="https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing"> Constructing an Amazon Resource Name (ARN)</a>.</p>"""
     filters: NotRequired["capo_neptune.types.filter_list.FilterList"]
     """<p>This parameter is not currently supported.</p>"""
 

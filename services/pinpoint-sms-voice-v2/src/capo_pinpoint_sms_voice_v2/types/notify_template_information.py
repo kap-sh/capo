@@ -66,7 +66,7 @@ class NotifyTemplateInformation(TypedDict, closed=True):
     ]
     """<p>An array of supported voice IDs for voice templates.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the notify template was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the notify template was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

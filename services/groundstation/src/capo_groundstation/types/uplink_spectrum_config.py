@@ -15,7 +15,7 @@ class UplinkSpectrumConfig(TypedDict, closed=True):
     center_frequency: "capo_groundstation.types.frequency.Frequency"
     """<p>Center frequency of an uplink spectral <code>Config</code>. Valid values are between 2025 to 2120 MHz.</p>"""
     polarization: NotRequired["capo_groundstation.types.polarization.Polarization"]
-    r"""<p>Polarization of an uplink spectral <code>Config</code>. Capturing both <code>\"RIGHT_HAND\"</code> and <code>\"LEFT_HAND\"</code> polarization requires two separate configs.</p>"""
+    """<p>Polarization of an uplink spectral <code>Config</code>. Capturing both <code>"RIGHT_HAND"</code> and <code>"LEFT_HAND"</code> polarization requires two separate configs.</p>"""
 
 
 # --- restJson1 ser/de ---

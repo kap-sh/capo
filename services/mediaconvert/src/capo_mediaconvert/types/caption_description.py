@@ -16,7 +16,7 @@ class CaptionDescription(TypedDict, closed=True):
     caption_selector_name: NotRequired[
         "capo_mediaconvert.types.__string_min1.__stringMin1"
     ]
-    r"""Specifies which \"Caption Selector\":#inputs-caption_selector to use from each input when generating captions. The name should be of the format \"Caption Selector <N>\", which denotes that the Nth Caption Selector will be used from each input."""
+    """Specifies which "Caption Selector":#inputs-caption_selector to use from each input when generating captions. The name should be of the format "Caption Selector <N>", which denotes that the Nth Caption Selector will be used from each input."""
     custom_language_code: NotRequired[
         "capo_mediaconvert.types.__string_pattern_a_za_z23_a_za_z.__stringPatternAZaZ23AZaZ"
     ]
@@ -28,7 +28,7 @@ class CaptionDescription(TypedDict, closed=True):
     language_code: NotRequired["capo_mediaconvert.types.language_code.LanguageCode"]
     """Specify the language of this captions output track. For most captions output formats, the encoder puts this language information in the output captions metadata. If your output captions format is DVB-Sub or Burn in, the encoder uses this language information to choose the font language for rendering the captions text."""
     language_description: NotRequired["capo_mediaconvert.types.__string.__string"]
-    r"""Specify a label for this set of output captions. For example, \"English\", \"Director commentary\", or \"track_2\". For streaming outputs, MediaConvert passes this information into destination manifests for display on the end-viewer's player device. For outputs in other output groups, the service ignores this setting."""
+    """Specify a label for this set of output captions. For example, "English", "Director commentary", or "track_2". For streaming outputs, MediaConvert passes this information into destination manifests for display on the end-viewer's player device. For outputs in other output groups, the service ignores this setting."""
 
 
 # --- restJson1 ser/de ---

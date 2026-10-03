@@ -41,7 +41,7 @@ class ProfileDetail(TypedDict, closed=True):
     updated_at: NotRequired["datetime.datetime"]
     """<p>The ISO-8601 timestamp when the profile was last updated. </p>"""
     duration_seconds: NotRequired["int"]
-    r"""<p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href=\"https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object\">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>"""
+    """<p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>"""
     accept_role_session_name: NotRequired["bool"]
     """<p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>"""
     attribute_mappings: NotRequired[

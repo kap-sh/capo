@@ -21,7 +21,7 @@ class RepublishAction(TypedDict, closed=True):
     qos: NotRequired["capo_iot.types.qos.Qos"]
     """<p>The Quality of Service (QoS) level to use when republishing messages. The default value is 0.</p>"""
     headers: NotRequired["capo_iot.types.mqtt_headers.MqttHeaders"]
-    r"""<p>MQTT Version 5.0 headers information. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html\"> MQTT</a> from the Amazon Web Services IoT Core Developer Guide.</p>"""
+    """<p>MQTT Version 5.0 headers information. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html"> MQTT</a> from the Amazon Web Services IoT Core Developer Guide.</p>"""
 
 
 # --- restJson1 ser/de ---

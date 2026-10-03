@@ -884,10 +884,10 @@ class AsyncBackupGatewayClient:
         *,
         config_overrides: Optional[AsyncBackupGatewayClientConfig] = None,
     ) -> "capo_backup_gateway.types.put_bandwidth_rate_limit_schedule_output.PutBandwidthRateLimitScheduleOutput":
-        r"""<p>This action sets the bandwidth rate limit schedule for a specified gateway. By default, gateways do not have a bandwidth rate limit schedule, which means no bandwidth rate limiting is in effect. Use this to initiate a gateway's bandwidth rate limit schedule.</p>
+        """<p>This action sets the bandwidth rate limit schedule for a specified gateway. By default, gateways do not have a bandwidth rate limit schedule, which means no bandwidth rate limiting is in effect. Use this to initiate a gateway's bandwidth rate limit schedule.</p>
 
         Args:
-            gateway_arn: <p>The Amazon Resource Name (ARN) of the gateway. Use the <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BGW_ListGateways.html\"> <code>ListGateways</code> </a> operation to return a list of gateways for your account and Amazon Web Services Region.</p>
+            gateway_arn: <p>The Amazon Resource Name (ARN) of the gateway. Use the <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BGW_ListGateways.html"> <code>ListGateways</code> </a> operation to return a list of gateways for your account and Amazon Web Services Region.</p>
             bandwidth_rate_limit_intervals: <p>An array containing bandwidth rate limit schedule intervals for a gateway. When no bandwidth rate limit intervals have been scheduled, the array is empty.</p>
 
         Raises:
@@ -933,10 +933,10 @@ class AsyncBackupGatewayClient:
         *,
         config_overrides: Optional[AsyncBackupGatewayClientConfig] = None,
     ) -> "capo_backup_gateway.types.get_bandwidth_rate_limit_schedule_output.GetBandwidthRateLimitScheduleOutput":
-        r"""<p>Retrieves the bandwidth rate limit schedule for a specified gateway. By default, gateways do not have bandwidth rate limit schedules, which means no bandwidth rate limiting is in effect. Use this to get a gateway's bandwidth rate limit schedule.</p>
+        """<p>Retrieves the bandwidth rate limit schedule for a specified gateway. By default, gateways do not have bandwidth rate limit schedules, which means no bandwidth rate limiting is in effect. Use this to get a gateway's bandwidth rate limit schedule.</p>
 
         Args:
-            gateway_arn: <p>The Amazon Resource Name (ARN) of the gateway. Use the <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BGW_ListGateways.html\"> <code>ListGateways</code> </a> operation to return a list of gateways for your account and Amazon Web Services Region.</p>
+            gateway_arn: <p>The Amazon Resource Name (ARN) of the gateway. Use the <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BGW_ListGateways.html"> <code>ListGateways</code> </a> operation to return a list of gateways for your account and Amazon Web Services Region.</p>
 
         Raises:
             capo_backup_gateway.errors.internal_server_exception.InternalServerException: <p>The operation did not succeed because an internal error occurred. Try again later.</p>

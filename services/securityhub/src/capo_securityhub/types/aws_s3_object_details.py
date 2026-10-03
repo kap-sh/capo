@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class AwsS3ObjectDetails(TypedDict, closed=True):
     last_modified: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the object was last modified.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the object was last modified.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     e_tag: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The opaque identifier assigned by a web server to a specific version of a resource found at a URL.</p>"""
     version_id: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

@@ -18,7 +18,7 @@ class ListDevicePositionsResponseEntry(TypedDict, closed=True):
     device_id: "capo_location.types.id.Id"
     """<p>The ID of the device for this position.</p>"""
     sample_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp at which the device position was determined. Uses <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>.</p>"""
+    """<p>The timestamp at which the device position was determined. Uses <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>.</p>"""
     position: "capo_location.types.position.Position"
     """<p>The last known device position. Empty if no positions currently stored.</p>"""
     accuracy: NotRequired["capo_location.types.positional_accuracy.PositionalAccuracy"]

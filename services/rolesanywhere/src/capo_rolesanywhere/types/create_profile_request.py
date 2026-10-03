@@ -27,7 +27,7 @@ class CreateProfileRequest(TypedDict, closed=True):
     ]
     """<p>A list of managed policy ARNs that apply to the vended session credentials. </p>"""
     duration_seconds: NotRequired["int"]
-    r"""<p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href=\"https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object\">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>"""
+    """<p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>"""
     enabled: NotRequired["bool"]
     """<p>Specifies whether the profile is enabled.</p>"""
     tags: NotRequired["capo_rolesanywhere.types.tag_list.TagList"]

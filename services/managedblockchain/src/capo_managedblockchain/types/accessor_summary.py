@@ -23,7 +23,7 @@ class AccessorSummary(TypedDict, closed=True):
     creation_date: NotRequired["capo_managedblockchain.types.timestamp.Timestamp"]
     """<p>The creation date and time of the accessor.</p>"""
     arn: NotRequired["capo_managedblockchain.types.arn_string.ArnString"]
-    r"""<p>The Amazon Resource Name (ARN) of the accessor. For more information about ARNs and their format, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the accessor. For more information about ARNs and their format, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     network_type: NotRequired[
         "capo_managedblockchain.types.accessor_network_type.AccessorNetworkType"
     ]

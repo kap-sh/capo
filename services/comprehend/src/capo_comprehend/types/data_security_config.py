@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class DataSecurityConfig(TypedDict, closed=True):
     model_kms_key_id: NotRequired["capo_comprehend.types.kms_key_id.KmsKeyId"]
-    r"""<p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>"""
+    """<p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>"""
     volume_kms_key_id: NotRequired["capo_comprehend.types.kms_key_id.KmsKeyId"]
     """<p>ID for the KMS key that Amazon Comprehend uses to encrypt the volume.</p>"""
     data_lake_kms_key_id: NotRequired["capo_comprehend.types.kms_key_id.KmsKeyId"]

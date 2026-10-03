@@ -29,7 +29,7 @@ class UpdateTrackerRequest(TypedDict, closed=True):
     event_bridge_enabled: NotRequired["bool"]
     """<p>Whether to enable position <code>UPDATE</code> events from this tracker to be sent to EventBridge.</p> <note> <p>You do not need enable this feature to get <code>ENTER</code> and <code>EXIT</code> events for geofences with this tracker. Those events are always sent to EventBridge.</p> </note>"""
     kms_key_enable_geospatial_queries: NotRequired["bool"]
-    r"""<p>Enables <code>GeospatialQueries</code> for a tracker that uses a <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html\">Amazon Web Services KMS customer managed key</a>.</p> <p>This parameter is only used if you are using a KMS customer managed key.</p>"""
+    """<p>Enables <code>GeospatialQueries</code> for a tracker that uses a <a href="https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html">Amazon Web Services KMS customer managed key</a>.</p> <p>This parameter is only used if you are using a KMS customer managed key.</p>"""
 
 
 # --- restJson1 ser/de ---

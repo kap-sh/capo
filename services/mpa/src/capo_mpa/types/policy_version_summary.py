@@ -30,7 +30,7 @@ class PolicyVersionSummary(TypedDict, closed=True):
     name: "capo_mpa.types.policy_name.PolicyName"
     """<p>Name of the policy</p>"""
     status: "capo_mpa.types.policy_status.PolicyStatus"
-    r"""<p>Status for the policy. For example, if the policy is <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_manage_attach-policy.html\">attachable</a> or <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-deprecated.html\">deprecated</a>.</p>"""
+    """<p>Status for the policy. For example, if the policy is <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_manage_attach-policy.html">attachable</a> or <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-deprecated.html">deprecated</a>.</p>"""
     creation_time: "capo_mpa.types.iso_timestamp.IsoTimestamp"
     """<p>Timestamp when the policy was created.</p>"""
     last_updated_time: "capo_mpa.types.iso_timestamp.IsoTimestamp"

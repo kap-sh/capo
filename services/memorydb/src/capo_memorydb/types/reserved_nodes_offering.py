@@ -15,7 +15,7 @@ class ReservedNodesOffering(TypedDict, closed=True):
     reserved_nodes_offering_id: NotRequired["capo_memorydb.types.string.String"]
     """<p>The offering identifier.</p>"""
     node_type: NotRequired["capo_memorydb.types.string.String"]
-    r"""<p>The node type for the reserved nodes. For more information, see <a href=\"https://docs.aws.amazon.com/memorydb/latest/devguide/nodes.reserved.html#reserved-nodes-supported\">Supported node types</a>.</p>"""
+    """<p>The node type for the reserved nodes. For more information, see <a href="https://docs.aws.amazon.com/memorydb/latest/devguide/nodes.reserved.html#reserved-nodes-supported">Supported node types</a>.</p>"""
     duration: "capo_memorydb.types.integer.Integer"
     """<p>The duration of the reservation in seconds.</p>"""
     fixed_price: "capo_memorydb.types.double.Double"

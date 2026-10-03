@@ -30,7 +30,7 @@ class ComputeEnvironmentDetail(TypedDict, closed=True):
     tags: NotRequired["capo_batch.types.tagris_tags_map.TagrisTagsMap"]
     """<p>The tags applied to the compute environment.</p>"""
     type: NotRequired["capo_batch.types.ce_type.CEType"]
-    r"""<p>The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html\">Compute environments</a> in the <i>Batch User Guide</i>.</p>"""
+    """<p>The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute environments</a> in the <i>Batch User Guide</i>.</p>"""
     state: NotRequired["capo_batch.types.ce_state.CEState"]
     """<p>The state of the compute environment. The valid values are <code>ENABLED</code> or <code>DISABLED</code>.</p> <p>If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job queue on the compute resources within the environment. If the compute environment is managed, then it can scale its instances out or in automatically based on the job queue demand.</p> <p>If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed compute environments in the <code>DISABLED</code> state don't scale out. </p> <note> <p>Compute environments in a <code>DISABLED</code> state may continue to incur billing charges, for example, if they have running instances due to jobs that are still executing or a non-zero <code>minvCpus</code> setting. To prevent additional charges, disable and delete the compute environment.</p> </note> <p>When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a <code>c5.large</code> instance.</p>"""
     status: NotRequired["capo_batch.types.ce_status.CEStatus"]
@@ -38,11 +38,11 @@ class ComputeEnvironmentDetail(TypedDict, closed=True):
     status_reason: NotRequired["capo_batch.types.string.String"]
     """<p>A short, human-readable string to provide additional details for the current status of the compute environment.</p>"""
     compute_resources: NotRequired["capo_batch.types.compute_resource.ComputeResource"]
-    r"""<p>The compute resources defined for the compute environment. For more information, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html\">Compute environments</a> in the <i>Batch User Guide</i>.</p>"""
+    """<p>The compute resources defined for the compute environment. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute environments</a> in the <i>Batch User Guide</i>.</p>"""
     service_role: NotRequired["capo_batch.types.string.String"]
-    r"""<p>The service role that's associated with the compute environment that allows Batch to make calls to Amazon Web Services API operations on your behalf. For more information, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html\">Batch service IAM role</a> in the <i>Batch User Guide</i>.</p>"""
+    """<p>The service role that's associated with the compute environment that allows Batch to make calls to Amazon Web Services API operations on your behalf. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the <i>Batch User Guide</i>.</p>"""
     update_policy: NotRequired["capo_batch.types.update_policy.UpdatePolicy"]
-    r"""<p>Specifies the infrastructure update policy for the compute environment. For more information about infrastructure updates, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html\">Updating compute environments</a> in the <i>Batch User Guide</i>.</p>"""
+    """<p>Specifies the infrastructure update policy for the compute environment. For more information about infrastructure updates, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute environments</a> in the <i>Batch User Guide</i>.</p>"""
     eks_configuration: NotRequired[
         "capo_batch.types.eks_configuration.EksConfiguration"
     ]

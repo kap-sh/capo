@@ -27,7 +27,7 @@ class UpdateMultiRegionClusterRequest(TypedDict, closed=True):
     multi_region_parameter_group_name: NotRequired["capo_memorydb.types.string.String"]
     """<p>The new multi-Region parameter group to be associated with the cluster.</p>"""
     update_strategy: NotRequired["capo_memorydb.types.update_strategy.UpdateStrategy"]
-    r"""<p>The strategy to use for the update operation. Supported values are \"coordinated\" or \"uncoordinated\".</p>"""
+    """<p>The strategy to use for the update operation. Supported values are "coordinated" or "uncoordinated".</p>"""
 
 
 # --- awsJson1_1 ser/de ---

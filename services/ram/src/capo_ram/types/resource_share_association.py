@@ -14,11 +14,11 @@ if TYPE_CHECKING:
 
 class ResourceShareAssociation(TypedDict, closed=True):
     resource_share_arn: NotRequired["capo_ram.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the resource share.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource share.</p>"""
     resource_share_name: NotRequired["capo_ram.types.string.String"]
     """<p>The name of the resource share.</p>"""
     associated_entity: NotRequired["capo_ram.types.string.String"]
-    r"""<p>The associated entity. This can be either of the following:</p> <ul> <li> <p>For a resource association, this is the <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the resource.</p> </li> <li> <p>For principal associations, this is one of the following:</p> <ul> <li> <p>The ID of an Amazon Web Services account</p> </li> <li> <p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of an organization in Organizations</p> </li> <li> <p>The ARN of an organizational unit (OU) in Organizations</p> </li> <li> <p>The ARN of an IAM role</p> </li> <li> <p>The ARN of an IAM user</p> </li> </ul> </li> </ul>"""
+    """<p>The associated entity. This can be either of the following:</p> <ul> <li> <p>For a resource association, this is the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource.</p> </li> <li> <p>For principal associations, this is one of the following:</p> <ul> <li> <p>The ID of an Amazon Web Services account</p> </li> <li> <p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of an organization in Organizations</p> </li> <li> <p>The ARN of an organizational unit (OU) in Organizations</p> </li> <li> <p>The ARN of an IAM role</p> </li> <li> <p>The ARN of an IAM user</p> </li> </ul> </li> </ul>"""
     association_type: NotRequired[
         "capo_ram.types.resource_share_association_type.ResourceShareAssociationType"
     ]

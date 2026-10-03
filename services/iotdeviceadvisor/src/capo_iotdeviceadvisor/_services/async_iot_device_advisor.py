@@ -176,7 +176,7 @@ class AsyncIotDeviceAdvisorClient:
             "capo_iotdeviceadvisor.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotdeviceadvisor.types.create_suite_definition_response.CreateSuiteDefinitionResponse":
-        r"""<p>Creates a Device Advisor test suite.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateSuiteDefinition</a> action.</p>
+        """<p>Creates a Device Advisor test suite.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateSuiteDefinition</a> action.</p>
 
         Args:
             suite_definition_configuration: <p>Creates a Device Advisor test suite with suite definition configuration.</p>
@@ -228,7 +228,7 @@ class AsyncIotDeviceAdvisorClient:
         *,
         config_overrides: Optional[AsyncIotDeviceAdvisorClientConfig] = None,
     ) -> "capo_iotdeviceadvisor.types.delete_suite_definition_response.DeleteSuiteDefinitionResponse":
-        r"""<p>Deletes a Device Advisor test suite.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteSuiteDefinition</a> action.</p>
+        """<p>Deletes a Device Advisor test suite.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteSuiteDefinition</a> action.</p>
 
         Args:
             suite_definition_id: <p>Suite definition ID of the test suite to be deleted.</p>
@@ -342,7 +342,7 @@ class AsyncIotDeviceAdvisorClient:
             "capo_iotdeviceadvisor.types.suite_definition_version.SuiteDefinitionVersion"
         ] = None,
     ) -> "capo_iotdeviceadvisor.types.get_suite_definition_response.GetSuiteDefinitionResponse":
-        r"""<p>Gets information about a Device Advisor test suite.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetSuiteDefinition</a> action.</p>
+        """<p>Gets information about a Device Advisor test suite.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetSuiteDefinition</a> action.</p>
 
         Args:
             suite_definition_id: <p>Suite definition ID of the test suite to get.</p>
@@ -392,7 +392,7 @@ class AsyncIotDeviceAdvisorClient:
         *,
         config_overrides: Optional[AsyncIotDeviceAdvisorClientConfig] = None,
     ) -> "capo_iotdeviceadvisor.types.get_suite_run_response.GetSuiteRunResponse":
-        r"""<p>Gets information about a Device Advisor test suite run.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetSuiteRun</a> action.</p>
+        """<p>Gets information about a Device Advisor test suite run.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetSuiteRun</a> action.</p>
 
         Args:
             suite_definition_id: <p>Suite definition ID for the test suite run.</p>
@@ -441,7 +441,7 @@ class AsyncIotDeviceAdvisorClient:
         *,
         config_overrides: Optional[AsyncIotDeviceAdvisorClientConfig] = None,
     ) -> "capo_iotdeviceadvisor.types.get_suite_run_report_response.GetSuiteRunReportResponse":
-        r"""<p>Gets a report download link for a successful Device Advisor qualifying test suite run.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetSuiteRunReport</a> action.</p>
+        """<p>Gets a report download link for a successful Device Advisor qualifying test suite run.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetSuiteRunReport</a> action.</p>
 
         Args:
             suite_definition_id: <p>Suite definition ID of the test suite.</p>
@@ -492,7 +492,7 @@ class AsyncIotDeviceAdvisorClient:
         ] = None,
         next_token: Optional["capo_iotdeviceadvisor.types.token.Token"] = None,
     ) -> "capo_iotdeviceadvisor.types.list_suite_definitions_response.ListSuiteDefinitionsResponse":
-        r"""<p>Lists the Device Advisor test suites you have created.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListSuiteDefinitions</a> action.</p>
+        """<p>Lists the Device Advisor test suites you have created.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListSuiteDefinitions</a> action.</p>
 
         Args:
             max_results: <p>The maximum number of results to return at once.</p>
@@ -568,7 +568,7 @@ class AsyncIotDeviceAdvisorClient:
         ] = None,
         next_token: Optional["capo_iotdeviceadvisor.types.token.Token"] = None,
     ) -> "capo_iotdeviceadvisor.types.list_suite_runs_response.ListSuiteRunsResponse":
-        r"""<p>Lists runs of the specified Device Advisor test suite. You can list all runs of the test suite, or the runs of a specific version of the test suite.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListSuiteRuns</a> action.</p>
+        """<p>Lists runs of the specified Device Advisor test suite. You can list all runs of the test suite, or the runs of a specific version of the test suite.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListSuiteRuns</a> action.</p>
 
         Args:
             suite_definition_id: <p>Lists the test suite runs of the specified test suite based on suite definition ID.</p>
@@ -649,7 +649,7 @@ class AsyncIotDeviceAdvisorClient:
         *,
         config_overrides: Optional[AsyncIotDeviceAdvisorClientConfig] = None,
     ) -> "capo_iotdeviceadvisor.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>Lists the tags attached to an IoT Device Advisor resource.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListTagsForResource</a> action.</p>
+        """<p>Lists the tags attached to an IoT Device Advisor resource.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListTagsForResource</a> action.</p>
 
         Args:
             resource_arn: <p>The resource ARN of the IoT Device Advisor resource. This can be SuiteDefinition ARN or SuiteRun ARN.</p>
@@ -702,7 +702,7 @@ class AsyncIotDeviceAdvisorClient:
         ] = None,
         tags: Optional["capo_iotdeviceadvisor.types.tag_map.TagMap"] = None,
     ) -> "capo_iotdeviceadvisor.types.start_suite_run_response.StartSuiteRunResponse":
-        r"""<p>Starts a Device Advisor test suite run.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">StartSuiteRun</a> action.</p>
+        """<p>Starts a Device Advisor test suite run.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">StartSuiteRun</a> action.</p>
 
         Args:
             suite_definition_id: <p>Suite definition ID of the test suite.</p>
@@ -758,7 +758,7 @@ class AsyncIotDeviceAdvisorClient:
         *,
         config_overrides: Optional[AsyncIotDeviceAdvisorClientConfig] = None,
     ) -> "capo_iotdeviceadvisor.types.stop_suite_run_response.StopSuiteRunResponse":
-        r"""<p>Stops a Device Advisor test suite run that is currently running.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">StopSuiteRun</a> action.</p>
+        """<p>Stops a Device Advisor test suite run that is currently running.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">StopSuiteRun</a> action.</p>
 
         Args:
             suite_definition_id: <p>Suite definition ID of the test suite run to be stopped.</p>
@@ -807,7 +807,7 @@ class AsyncIotDeviceAdvisorClient:
         config_overrides: Optional[AsyncIotDeviceAdvisorClientConfig] = None,
         tags: Optional["capo_iotdeviceadvisor.types.tag_map.TagMap"] = None,
     ) -> "capo_iotdeviceadvisor.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds to and modifies existing tags of an IoT Device Advisor resource.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">TagResource</a> action.</p>
+        """<p>Adds to and modifies existing tags of an IoT Device Advisor resource.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">TagResource</a> action.</p>
 
         Args:
             resource_arn: <p>The resource ARN of an IoT Device Advisor resource. This can be SuiteDefinition ARN or SuiteRun ARN.</p>
@@ -859,7 +859,7 @@ class AsyncIotDeviceAdvisorClient:
             "capo_iotdeviceadvisor.types.tag_key_list.TagKeyList"
         ] = None,
     ) -> "capo_iotdeviceadvisor.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Removes tags from an IoT Device Advisor resource.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UntagResource</a> action.</p>
+        """<p>Removes tags from an IoT Device Advisor resource.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UntagResource</a> action.</p>
 
         Args:
             resource_arn: <p>The resource ARN of an IoT Device Advisor resource. This can be SuiteDefinition ARN or SuiteRun ARN.</p>
@@ -911,7 +911,7 @@ class AsyncIotDeviceAdvisorClient:
             "capo_iotdeviceadvisor.types.suite_definition_configuration.SuiteDefinitionConfiguration"
         ] = None,
     ) -> "capo_iotdeviceadvisor.types.update_suite_definition_response.UpdateSuiteDefinitionResponse":
-        r"""<p>Updates a Device Advisor test suite.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateSuiteDefinition</a> action.</p>
+        """<p>Updates a Device Advisor test suite.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateSuiteDefinition</a> action.</p>
 
         Args:
             suite_definition_id: <p>Suite definition ID of the test suite to be updated.</p>

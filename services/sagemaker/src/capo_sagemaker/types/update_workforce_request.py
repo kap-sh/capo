@@ -14,11 +14,11 @@ if TYPE_CHECKING:
 
 class UpdateWorkforceRequest(TypedDict, closed=True):
     workforce_name: NotRequired["capo_sagemaker.types.workforce_name.WorkforceName"]
-    r"""<p>The name of the private workforce that you want to update. You can find your workforce name by using the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ListWorkforces.html\">ListWorkforces</a> operation.</p>"""
+    """<p>The name of the private workforce that you want to update. You can find your workforce name by using the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ListWorkforces.html">ListWorkforces</a> operation.</p>"""
     source_ip_config: NotRequired[
         "capo_sagemaker.types.source_ip_config.SourceIpConfig"
     ]
-    r"""<p>A list of one to ten worker IP address ranges (<a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html\">CIDRs</a>) that can be used to access tasks assigned to this workforce.</p> <p>Maximum: Ten CIDR values</p>"""
+    """<p>A list of one to ten worker IP address ranges (<a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">CIDRs</a>) that can be used to access tasks assigned to this workforce.</p> <p>Maximum: Ten CIDR values</p>"""
     oidc_config: NotRequired["capo_sagemaker.types.oidc_config.OidcConfig"]
     """<p>Use this parameter to update your OIDC Identity Provider (IdP) configuration for a workforce made using your own IdP.</p>"""
     workforce_vpc_config: NotRequired[

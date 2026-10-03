@@ -20,7 +20,7 @@ class ComponentVersionListItem(TypedDict, closed=True):
     ]
     """<p>The version of the component.</p>"""
     arn: NotRequired["capo_greengrassv2.types.non_empty_string.NonEmptyString"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the component version.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the component version.</p>"""
 
 
 # --- restJson1 ser/de ---

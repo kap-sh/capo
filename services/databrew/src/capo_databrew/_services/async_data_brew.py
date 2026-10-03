@@ -792,11 +792,11 @@ class AsyncDataBrewClient:
         job_names: Optional["capo_databrew.types.job_name_list.JobNameList"] = None,
         tags: Optional["capo_databrew.types.tag_map.TagMap"] = None,
     ) -> "capo_databrew.types.create_schedule_response.CreateScheduleResponse":
-        r"""<p>Creates a new schedule for one or more DataBrew jobs. Jobs can be run at a specific date and time, or at regular intervals.</p>
+        """<p>Creates a new schedule for one or more DataBrew jobs. Jobs can be run at a specific date and time, or at regular intervals.</p>
 
         Args:
             job_names: <p>The name or names of one or more jobs to be run.</p>
-            cron_expression: <p>The date or dates and time or times when the jobs are to be run. For more information, see <a href=\"https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html\">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>
+            cron_expression: <p>The date or dates and time or times when the jobs are to be run. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>
             tags: <p>Metadata tags to apply to this schedule.</p>
             name: <p>A unique name for the schedule. Valid characters are alphanumeric (A-Z, a-z, 0-9), hyphen (-), period (.), and space.</p>
 
@@ -2907,11 +2907,11 @@ class AsyncDataBrewClient:
         config_overrides: Optional[AsyncDataBrewClientConfig] = None,
         job_names: Optional["capo_databrew.types.job_name_list.JobNameList"] = None,
     ) -> "capo_databrew.types.update_schedule_response.UpdateScheduleResponse":
-        r"""<p>Modifies the definition of an existing DataBrew schedule.</p>
+        """<p>Modifies the definition of an existing DataBrew schedule.</p>
 
         Args:
             job_names: <p>The name or names of one or more jobs to be run for this schedule.</p>
-            cron_expression: <p>The date or dates and time or times when the jobs are to be run. For more information, see <a href=\"https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html\">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>
+            cron_expression: <p>The date or dates and time or times when the jobs are to be run. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>
             name: <p>The name of the schedule to update.</p>
 
         Raises:

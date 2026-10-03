@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class UpdateQuickConnectNameRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     quick_connect_id: "capo_connect.types.quick_connect_id.QuickConnectId"
     """<p>The identifier for the quick connect.</p>"""
     name: NotRequired["capo_connect.types.quick_connect_name.QuickConnectName"]

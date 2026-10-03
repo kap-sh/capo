@@ -58,9 +58,9 @@ class GetPropertyValueHistoryRequest(TypedDict, closed=True):
     order_by_time: NotRequired["capo_iottwinmaker.types.order_by_time.OrderByTime"]
     """<p>The time direction to use in the result order.</p>"""
     start_time: NotRequired["capo_iottwinmaker.types.time.Time"]
-    r"""<p>The ISO8601 DateTime of the earliest property value to return.</p> <p>For more information about the ISO8601 DateTime format, see the data type <a href=\"https://docs.aws.amazon.com/iot-twinmaker/latest/apireference/API_PropertyValue.html\">PropertyValue</a>.</p>"""
+    """<p>The ISO8601 DateTime of the earliest property value to return.</p> <p>For more information about the ISO8601 DateTime format, see the data type <a href="https://docs.aws.amazon.com/iot-twinmaker/latest/apireference/API_PropertyValue.html">PropertyValue</a>.</p>"""
     end_time: NotRequired["capo_iottwinmaker.types.time.Time"]
-    r"""<p>The ISO8601 DateTime of the latest property value to return.</p> <p>For more information about the ISO8601 DateTime format, see the data type <a href=\"https://docs.aws.amazon.com/iot-twinmaker/latest/apireference/API_PropertyValue.html\">PropertyValue</a>.</p>"""
+    """<p>The ISO8601 DateTime of the latest property value to return.</p> <p>For more information about the ISO8601 DateTime format, see the data type <a href="https://docs.aws.amazon.com/iot-twinmaker/latest/apireference/API_PropertyValue.html">PropertyValue</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

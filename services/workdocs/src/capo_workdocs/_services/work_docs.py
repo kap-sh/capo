@@ -706,7 +706,7 @@ class WorkDocsClient:
         *,
         config_overrides: Optional[WorkDocsClientConfig] = None,
     ) -> "capo_workdocs.types.create_notification_subscription_response.CreateNotificationSubscriptionResponse":
-        r"""<p>Configure Amazon WorkDocs to use Amazon SNS notifications. The endpoint receives a confirmation message, and must confirm the subscription.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/workdocs/latest/developerguide/manage-notifications.html\">Setting up notifications for an IAM user or role</a> in the <i>Amazon WorkDocs Developer Guide</i>.</p>
+        """<p>Configure Amazon WorkDocs to use Amazon SNS notifications. The endpoint receives a confirmation message, and must confirm the subscription.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/workdocs/latest/developerguide/manage-notifications.html">Setting up notifications for an IAM user or role</a> in the <i>Amazon WorkDocs Developer Guide</i>.</p>
 
         Args:
             organization_id: <p>The ID of the organization.</p>
@@ -774,7 +774,7 @@ class WorkDocsClient:
             "capo_workdocs.types.authentication_header_type.AuthenticationHeaderType"
         ] = None,
     ) -> "capo_workdocs.types.create_user_response.CreateUserResponse":
-        r"""<p>Creates a user in a Simple AD or Microsoft AD directory. The status of a newly created user is \"ACTIVE\". New users can access Amazon WorkDocs.</p>
+        """<p>Creates a user in a Simple AD or Microsoft AD directory. The status of a newly created user is "ACTIVE". New users can access Amazon WorkDocs.</p>
 
         Args:
             organization_id: <p>The ID of the organization.</p>
@@ -1642,15 +1642,15 @@ class WorkDocsClient:
         include: Optional["capo_workdocs.types.field_names_type.FieldNamesType"] = None,
         fields: Optional["capo_workdocs.types.field_names_type.FieldNamesType"] = None,
     ) -> "capo_workdocs.types.describe_document_versions_response.DescribeDocumentVersionsResponse":
-        r"""<p>Retrieves the document versions for the specified document.</p> <p>By default, only active versions are returned.</p>
+        """<p>Retrieves the document versions for the specified document.</p> <p>By default, only active versions are returned.</p>
 
         Args:
             authentication_token: <p>Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to access the API.</p>
             document_id: <p>The ID of the document.</p>
             marker: <p>The marker for the next set of results. (You received this marker from a previous call.)</p>
             limit: <p>The maximum number of versions to return with this call.</p>
-            include: <p>A comma-separated list of values. Specify \"INITIALIZED\" to include incomplete versions.</p>
-            fields: <p>Specify \"SOURCE\" to include initialized versions and a URL for the source document.</p>
+            include: <p>A comma-separated list of values. Specify "INITIALIZED" to include incomplete versions.</p>
+            fields: <p>Specify "SOURCE" to include initialized versions and a URL for the source document.</p>
 
         Raises:
             capo_workdocs.errors.entity_not_exists_exception.EntityNotExistsException: <p>The resource does not exist.</p>
@@ -1751,7 +1751,7 @@ class WorkDocsClient:
         ] = None,
         include: Optional["capo_workdocs.types.field_names_type.FieldNamesType"] = None,
     ) -> "capo_workdocs.types.describe_folder_contents_response.DescribeFolderContentsResponse":
-        r"""<p>Describes the contents of the specified folder, including its documents and subfolders.</p> <p>By default, Amazon WorkDocs returns the first 100 active document and folder metadata items. If there are more results, the response includes a marker that you can use to request the next set of results. You can also request initialized documents.</p>
+        """<p>Describes the contents of the specified folder, including its documents and subfolders.</p> <p>By default, Amazon WorkDocs returns the first 100 active document and folder metadata items. If there are more results, the response includes a marker that you can use to request the next set of results. You can also request initialized documents.</p>
 
         Args:
             authentication_token: <p>Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to access the API.</p>
@@ -1761,7 +1761,7 @@ class WorkDocsClient:
             limit: <p>The maximum number of items to return with this call.</p>
             marker: <p>The marker for the next set of results. This marker was received from a previous call.</p>
             type: <p>The type of items.</p>
-            include: <p>The contents to include. Specify \"INITIALIZED\" to include initialized documents.</p>
+            include: <p>The contents to include. Specify "INITIALIZED" to include initialized documents.</p>
 
         Raises:
             capo_workdocs.errors.entity_not_exists_exception.EntityNotExistsException: <p>The resource does not exist.</p>
@@ -2128,7 +2128,7 @@ class WorkDocsClient:
     ) -> (
         "capo_workdocs.types.describe_root_folders_response.DescribeRootFoldersResponse"
     ):
-        r"""<p>Describes the current user's special folders; the <code>RootFolder</code> and the <code>RecycleBin</code>. <code>RootFolder</code> is the root of user's files and folders and <code>RecycleBin</code> is the root of recycled items. This is not a valid action for SigV4 (administrative API) clients.</p> <p>This action requires an authentication token. To get an authentication token, register an application with Amazon WorkDocs. For more information, see <a href=\"https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html\">Authentication and Access Control for User Applications</a> in the <i>Amazon WorkDocs Developer Guide</i>.</p>
+        """<p>Describes the current user's special folders; the <code>RootFolder</code> and the <code>RecycleBin</code>. <code>RootFolder</code> is the root of user's files and folders and <code>RecycleBin</code> is the root of recycled items. This is not a valid action for SigV4 (administrative API) clients.</p> <p>This action requires an authentication token. To get an authentication token, register an application with Amazon WorkDocs. For more information, see <a href="https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html">Authentication and Access Control for User Applications</a> in the <i>Amazon WorkDocs Developer Guide</i>.</p>
 
         Args:
             authentication_token: <p>Amazon WorkDocs authentication token.</p>
@@ -2215,19 +2215,19 @@ class WorkDocsClient:
         limit: Optional["capo_workdocs.types.limit_type.LimitType"] = None,
         fields: Optional["capo_workdocs.types.field_names_type.FieldNamesType"] = None,
     ) -> "capo_workdocs.types.describe_users_response.DescribeUsersResponse":
-        r"""<p>Describes the specified users. You can describe all users or filter the results (for example, by status or organization).</p> <p>By default, Amazon WorkDocs returns the first 24 active or pending users. If there are more results, the response includes a marker that you can use to request the next set of results.</p>
+        """<p>Describes the specified users. You can describe all users or filter the results (for example, by status or organization).</p> <p>By default, Amazon WorkDocs returns the first 24 active or pending users. If there are more results, the response includes a marker that you can use to request the next set of results.</p>
 
         Args:
             authentication_token: <p>Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to access the API.</p>
             organization_id: <p>The ID of the organization.</p>
             user_ids: <p>The IDs of the users.</p>
-            query: <p>A query to filter users by user name. Remember the following about the <code>Userids</code> and <code>Query</code> parameters:</p> <ul> <li> <p>If you don't use either parameter, the API returns a paginated list of all users on the site.</p> </li> <li> <p>If you use both parameters, the API ignores the <code>Query</code> parameter.</p> </li> <li> <p>The <code>Userid</code> parameter only returns user names that match a corresponding user ID.</p> </li> <li> <p>The <code>Query</code> parameter runs a \"prefix\" search for users by the <code>GivenName</code>, <code>SurName</code>, or <code>UserName</code> fields included in a <a href=\"https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html\">CreateUser</a> API call. For example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson. If you use multiple characters, the API only returns data that matches all characters. For example, querying on <code>Ma J</code> only returns Mateo Jackson.</p> </li> </ul>
-            include: <p>The state of the users. Specify \"ALL\" to include inactive users.</p>
+            query: <p>A query to filter users by user name. Remember the following about the <code>Userids</code> and <code>Query</code> parameters:</p> <ul> <li> <p>If you don't use either parameter, the API returns a paginated list of all users on the site.</p> </li> <li> <p>If you use both parameters, the API ignores the <code>Query</code> parameter.</p> </li> <li> <p>The <code>Userid</code> parameter only returns user names that match a corresponding user ID.</p> </li> <li> <p>The <code>Query</code> parameter runs a "prefix" search for users by the <code>GivenName</code>, <code>SurName</code>, or <code>UserName</code> fields included in a <a href="https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html">CreateUser</a> API call. For example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson. If you use multiple characters, the API only returns data that matches all characters. For example, querying on <code>Ma J</code> only returns Mateo Jackson.</p> </li> </ul>
+            include: <p>The state of the users. Specify "ALL" to include inactive users.</p>
             order: <p>The order for the results.</p>
             sort: <p>The sorting criteria.</p>
             marker: <p>The marker for the next set of results. (You received this marker from a previous call.)</p>
             limit: <p>The maximum number of items to return.</p>
-            fields: <p>A comma-separated list of values. Specify \"STORAGE_METADATA\" to include the user storage quota and utilization information.</p>
+            fields: <p>A comma-separated list of values. Specify "STORAGE_METADATA" to include the user storage quota and utilization information.</p>
 
         Raises:
             capo_workdocs.errors.entity_not_exists_exception.EntityNotExistsException: <p>The resource does not exist.</p>
@@ -2330,7 +2330,7 @@ class WorkDocsClient:
         *,
         config_overrides: Optional[WorkDocsClientConfig] = None,
     ) -> "capo_workdocs.types.get_current_user_response.GetCurrentUserResponse":
-        r"""<p>Retrieves details of the current user for whom the authentication token was generated. This is not a valid action for SigV4 (administrative API) clients.</p> <p>This action requires an authentication token. To get an authentication token, register an application with Amazon WorkDocs. For more information, see <a href=\"https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html\">Authentication and Access Control for User Applications</a> in the <i>Amazon WorkDocs Developer Guide</i>.</p>
+        """<p>Retrieves details of the current user for whom the authentication token was generated. This is not a valid action for SigV4 (administrative API) clients.</p> <p>This action requires an authentication token. To get an authentication token, register an application with Amazon WorkDocs. For more information, see <a href="https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html">Authentication and Access Control for User Applications</a> in the <i>Amazon WorkDocs Developer Guide</i>.</p>
 
         Args:
             authentication_token: <p>Amazon WorkDocs authentication token.</p>
@@ -2511,13 +2511,13 @@ class WorkDocsClient:
             "capo_workdocs.types.boolean_type.BooleanType"
         ] = None,
     ) -> "capo_workdocs.types.get_document_version_response.GetDocumentVersionResponse":
-        r"""<p>Retrieves version metadata for the specified document.</p>
+        """<p>Retrieves version metadata for the specified document.</p>
 
         Args:
             authentication_token: <p>Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to access the API.</p>
             document_id: <p>The ID of the document.</p>
             version_id: <p>The version ID of the document.</p>
-            fields: <p>A comma-separated list of values. Specify \"SOURCE\" to include a URL for the source document.</p>
+            fields: <p>A comma-separated list of values. Specify "SOURCE" to include a URL for the source document.</p>
             include_custom_metadata: <p>Set this to TRUE to include custom metadata in the response.</p>
 
         Raises:
@@ -2638,13 +2638,13 @@ class WorkDocsClient:
         fields: Optional["capo_workdocs.types.field_names_type.FieldNamesType"] = None,
         marker: Optional["capo_workdocs.types.page_marker_type.PageMarkerType"] = None,
     ) -> "capo_workdocs.types.get_folder_path_response.GetFolderPathResponse":
-        r"""<p>Retrieves the path information (the hierarchy from the root folder) for the specified folder.</p> <p>By default, Amazon WorkDocs returns a maximum of 100 levels upwards from the requested folder and only includes the IDs of the parent folders in the path. You can limit the maximum number of levels. You can also request the parent folder names.</p>
+        """<p>Retrieves the path information (the hierarchy from the root folder) for the specified folder.</p> <p>By default, Amazon WorkDocs returns a maximum of 100 levels upwards from the requested folder and only includes the IDs of the parent folders in the path. You can limit the maximum number of levels. You can also request the parent folder names.</p>
 
         Args:
             authentication_token: <p>Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to access the API.</p>
             folder_id: <p>The ID of the folder.</p>
             limit: <p>The maximum number of levels in the hierarchy to return.</p>
-            fields: <p>A comma-separated list of values. Specify \"NAME\" to include the names of the parent folders.</p>
+            fields: <p>A comma-separated list of values. Specify "NAME" to include the names of the parent folders.</p>
             marker: <p>This value is not supported.</p>
 
         Raises:

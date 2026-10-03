@@ -18,7 +18,7 @@ class GetBucketsResult(TypedDict, closed=True):
     account_level_bpa_sync: NotRequired[
         "capo_lightsail.types.account_level_bpa_sync.AccountLevelBpaSync"
     ]
-    r"""<p>An object that describes the synchronization status of the Amazon S3 account-level block public access feature for your Lightsail buckets.</p> <p>For more information about this feature and how it affects Lightsail buckets, see <a href=\"https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-block-public-access-for-buckets\">Block public access for buckets in Amazon Lightsail</a>.</p>"""
+    """<p>An object that describes the synchronization status of the Amazon S3 account-level block public access feature for your Lightsail buckets.</p> <p>For more information about this feature and how it affects Lightsail buckets, see <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-block-public-access-for-buckets">Block public access for buckets in Amazon Lightsail</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

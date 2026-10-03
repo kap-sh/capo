@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DBInstanceStatusInfo(TypedDict, closed=True):
     status_type: NotRequired["capo_docdb.types.string.String"]
-    r"""<p>This value is currently \"<code>read replication</code>.\"</p>"""
+    """<p>This value is currently "<code>read replication</code>."</p>"""
     normal: NotRequired["capo_docdb.types.boolean.Boolean"]
     """<p>A Boolean value that is <code>true</code> if the instance is operating normally, or <code>false</code> if the instance is in an error state.</p>"""
     status: NotRequired["capo_docdb.types.string.String"]

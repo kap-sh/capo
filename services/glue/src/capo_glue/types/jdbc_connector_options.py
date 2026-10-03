@@ -43,7 +43,7 @@ class JDBCConnectorOptions(TypedDict, closed=True):
     data_type_mapping: NotRequired[
         "capo_glue.types.jdbc_data_type_mapping.JDBCDataTypeMapping"
     ]
-    r"""<p>Custom data type mapping that builds a mapping from a JDBC data type to an Glue data type. For example, the option <code>\"dataTypeMapping\":{\"FLOAT\":\"STRING\"}</code> maps data fields of JDBC type <code>FLOAT</code> into the Java <code>String</code> type by calling the <code>ResultSet.getString()</code> method of the driver, and uses it to build the Glue record. The <code>ResultSet</code> object is implemented by each driver, so the behavior is specific to the driver you use. Refer to the documentation for your JDBC driver to understand how the driver performs the conversions.</p>"""
+    """<p>Custom data type mapping that builds a mapping from a JDBC data type to an Glue data type. For example, the option <code>"dataTypeMapping":{"FLOAT":"STRING"}</code> maps data fields of JDBC type <code>FLOAT</code> into the Java <code>String</code> type by calling the <code>ResultSet.getString()</code> method of the driver, and uses it to build the Glue record. The <code>ResultSet</code> object is implemented by each driver, so the behavior is specific to the driver you use. Refer to the documentation for your JDBC driver to understand how the driver performs the conversions.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

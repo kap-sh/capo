@@ -25,11 +25,11 @@ class Annotation(TypedDict, closed=True):
     status_message: NotRequired[
         "capo_cloudformation.types.remediation_message_status_message.RemediationMessageStatusMessage"
     ]
-    r"""<p>The explanation for the specific status assigned to this Hook invocation. For example, \"Bucket does not block public access\".</p>"""
+    """<p>The explanation for the specific status assigned to this Hook invocation. For example, "Bucket does not block public access".</p>"""
     remediation_message: NotRequired[
         "capo_cloudformation.types.remediation_message_remediation_message.RemediationMessageRemediationMessage"
     ]
-    r"""<p>Suggests what to change if your Hook returns a <code>FAILED</code> status. For example, \"Block public access to the bucket\".</p>"""
+    """<p>Suggests what to change if your Hook returns a <code>FAILED</code> status. For example, "Block public access to the bucket".</p>"""
     remediation_link: NotRequired[
         "capo_cloudformation.types.annotation_remediation_link.AnnotationRemediationLink"
     ]

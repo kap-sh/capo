@@ -21,7 +21,7 @@ class CoreNetworkChangeEvent(TypedDict, closed=True):
     identifier_path: NotRequired[
         "capo_networkmanager.types.constrained_string.ConstrainedString"
     ]
-    r"""<p>Uniquely identifies the path for a change within the changeset. For example, the <code>IdentifierPath</code> for a core network segment change might be <code>\"CORE_NETWORK_SEGMENT/us-east-1/devsegment\"</code>.</p>"""
+    """<p>Uniquely identifies the path for a change within the changeset. For example, the <code>IdentifierPath</code> for a core network segment change might be <code>"CORE_NETWORK_SEGMENT/us-east-1/devsegment"</code>.</p>"""
     event_time: NotRequired["capo_networkmanager.types.date_time.DateTime"]
     """<p>The timestamp for an event change in status.</p>"""
     status: NotRequired["capo_networkmanager.types.change_status.ChangeStatus"]

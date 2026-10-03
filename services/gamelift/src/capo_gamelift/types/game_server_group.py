@@ -28,7 +28,7 @@ class GameServerGroup(TypedDict, closed=True):
     ]
     """<p>A generated unique ID for the game server group.</p>"""
     role_arn: NotRequired["capo_gamelift.types.iam_role_arn.IamRoleArn"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) for an IAM role that allows Amazon GameLift Servers to access your Amazon EC2 Auto Scaling groups.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for an IAM role that allows Amazon GameLift Servers to access your Amazon EC2 Auto Scaling groups.</p>"""
     instance_definitions: NotRequired[
         "capo_gamelift.types.instance_definitions.InstanceDefinitions"
     ]
@@ -58,7 +58,7 @@ class GameServerGroup(TypedDict, closed=True):
     ]
     """<p>A list of activities that are currently suspended for this game server group. If this property is empty, all activities are occurring.</p>"""
     creation_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>).</p>"""
+    """<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).</p>"""
     last_updated_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
     """<p>A timestamp that indicates when this game server group was last updated.</p>"""
 

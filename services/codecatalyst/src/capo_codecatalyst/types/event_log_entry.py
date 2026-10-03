@@ -26,7 +26,7 @@ class EventLogEntry(TypedDict, closed=True):
     event_source: "str"
     """<p>The source of the event.</p>"""
     event_time: "capo_codecatalyst.types.timestamp.Timestamp"
-    r"""<p>The time the event took place, in coordinated universal time (UTC) timestamp format as specified in <a href=\"https://www.rfc-editor.org/rfc/rfc3339#section-5.6\">RFC 3339</a>.</p>"""
+    """<p>The time the event took place, in coordinated universal time (UTC) timestamp format as specified in <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a>.</p>"""
     operation_type: "capo_codecatalyst.types.operation_type.OperationType"
     """<p>The type of the event.</p>"""
     user_identity: "capo_codecatalyst.types.user_identity.UserIdentity"

@@ -15,11 +15,11 @@ class Recommendation(TypedDict, closed=True):
     database_id: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The identifier of the source database for which Fleet Advisor provided this recommendation.</p>"""
     engine_name: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>The name of the target engine. Valid values include <code>\"rds-aurora-mysql\"</code>, <code>\"rds-aurora-postgresql\"</code>, <code>\"rds-mysql\"</code>, <code>\"rds-oracle\"</code>, <code>\"rds-sql-server\"</code>, and <code>\"rds-postgresql\"</code>.</p>"""
+    """<p>The name of the target engine. Valid values include <code>"rds-aurora-mysql"</code>, <code>"rds-aurora-postgresql"</code>, <code>"rds-mysql"</code>, <code>"rds-oracle"</code>, <code>"rds-sql-server"</code>, and <code>"rds-postgresql"</code>.</p>"""
     created_date: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The date when Fleet Advisor created the target engine recommendation.</p>"""
     status: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>The status of the target engine recommendation. Valid values include <code>\"alternate\"</code>, <code>\"in-progress\"</code>, <code>\"not-viable\"</code>, and <code>\"recommended\"</code>.</p>"""
+    """<p>The status of the target engine recommendation. Valid values include <code>"alternate"</code>, <code>"in-progress"</code>, <code>"not-viable"</code>, and <code>"recommended"</code>.</p>"""
     preferred: NotRequired[
         "capo_database_migration_service.types.boolean_optional.BooleanOptional"
     ]

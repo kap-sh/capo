@@ -23,7 +23,7 @@ class DatasetInputDataConfig(TypedDict, closed=True):
     document_classifier_input_data_config: NotRequired[
         "capo_comprehend.types.dataset_document_classifier_input_data_config.DatasetDocumentClassifierInputDataConfig"
     ]
-    r"""<p>The input properties for training a document classifier model. </p> <p>For more information on how the input file is formatted, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/prep-classifier-data.html\">Preparing training data</a> in the Comprehend Developer Guide. </p>"""
+    """<p>The input properties for training a document classifier model. </p> <p>For more information on how the input file is formatted, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/prep-classifier-data.html">Preparing training data</a> in the Comprehend Developer Guide. </p>"""
     entity_recognizer_input_data_config: NotRequired[
         "capo_comprehend.types.dataset_entity_recognizer_input_data_config.DatasetEntityRecognizerInputDataConfig"
     ]

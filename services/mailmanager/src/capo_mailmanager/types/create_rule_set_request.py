@@ -23,7 +23,7 @@ class CreateRuleSetRequest(TypedDict, closed=True):
     rules: "capo_mailmanager.types.rules.Rules"
     """<p>Conditional rules that are evaluated for determining actions on email.</p>"""
     tags: NotRequired["capo_mailmanager.types.tag_list.TagList"]
-    r"""<p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

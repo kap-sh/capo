@@ -39,7 +39,7 @@ class MessageInsightsFilters(TypedDict, closed=True):
     last_engagement_event: NotRequired[
         "capo_sesv2.types.last_engagement_event_list.LastEngagementEventList"
     ]
-    r"""<p> The last engagement-related event for the email, where the ordering is as follows: <code>OPEN</code> < <code>CLICK</code>. </p> <p> Engagement events are only available if <a href=\"https://docs.aws.amazon.com/ses/latest/dg/vdm-settings.html\">Engagement tracking</a> is enabled. </p>"""
+    """<p> The last engagement-related event for the email, where the ordering is as follows: <code>OPEN</code> < <code>CLICK</code>. </p> <p> Engagement events are only available if <a href="https://docs.aws.amazon.com/ses/latest/dg/vdm-settings.html">Engagement tracking</a> is enabled. </p>"""
 
 
 # --- restJson1 ser/de ---

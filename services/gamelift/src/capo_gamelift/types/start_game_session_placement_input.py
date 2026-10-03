@@ -26,7 +26,7 @@ class StartGameSessionPlacementInput(TypedDict, closed=True):
     game_properties: NotRequired[
         "capo_gamelift.types.game_property_list.GamePropertyList"
     ]
-    r"""<p>A set of key-value pairs that can store custom data in a game session. For example: <code>{\"Key\": \"difficulty\", \"Value\": \"novice\"}</code>.</p> <note> <ul> <li> <p>Avoid using periods (\".\") in property keys if you plan to search for game sessions by properties. Property keys containing periods cannot be searched and will be filtered out from search results due to search index limitations.</p> </li> <li> <p>If you use SearchGameSessions API, there is a limit of 500 game property keys across all game sessions and all fleets per region. If the limit is exceeded, there will potentially be game session entries missing from SearchGameSessions API results.</p> </li> </ul> </note>"""
+    """<p>A set of key-value pairs that can store custom data in a game session. For example: <code>{"Key": "difficulty", "Value": "novice"}</code>.</p> <note> <ul> <li> <p>Avoid using periods (".") in property keys if you plan to search for game sessions by properties. Property keys containing periods cannot be searched and will be filtered out from search results due to search index limitations.</p> </li> <li> <p>If you use SearchGameSessions API, there is a limit of 500 game property keys across all game sessions and all fleets per region. If the limit is exceeded, there will potentially be game session entries missing from SearchGameSessions API results.</p> </li> </ul> </note>"""
     maximum_player_session_count: NotRequired[
         "capo_gamelift.types.whole_number.WholeNumber"
     ]
@@ -46,7 +46,7 @@ class StartGameSessionPlacementInput(TypedDict, closed=True):
     game_session_data: NotRequired[
         "capo_gamelift.types.large_game_session_data.LargeGameSessionData"
     ]
-    r"""<p>A set of custom game session properties, formatted as a single string value. This data is passed to a game server process with a request to start a new game session. For more information, see <a href=\"https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-startsession\">Start a game session</a>.</p>"""
+    """<p>A set of custom game session properties, formatted as a single string value. This data is passed to a game server process with a request to start a new game session. For more information, see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-startsession">Start a game session</a>.</p>"""
     priority_configuration_override: NotRequired[
         "capo_gamelift.types.priority_configuration_override.PriorityConfigurationOverride"
     ]

@@ -19,9 +19,9 @@ class Build(TypedDict, closed=True):
     build_id: NotRequired["capo_gamelift.types.build_id.BuildId"]
     """<p>A unique identifier for the build.</p>"""
     build_arn: NotRequired["capo_gamelift.types.build_arn.BuildArn"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) that is assigned to a Amazon GameLift Servers build resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::build/build-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a GameLift build ARN, the resource ID matches the <i>BuildId</i> value.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a Amazon GameLift Servers build resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::build/build-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a GameLift build ARN, the resource ID matches the <i>BuildId</i> value.</p>"""
     name: NotRequired["capo_gamelift.types.free_text.FreeText"]
-    r"""<p>A descriptive label that is associated with a build. Build names do not need to be unique. It can be set using <a href=\"https://docs.aws.amazon.com/gamelift/latest/apireference/API_CreateBuild.html\">CreateBuild</a> or <a href=\"https://docs.aws.amazon.com/gamelift/latest/apireference/UpdateBuild\">UpdateBuild</a>.</p>"""
+    """<p>A descriptive label that is associated with a build. Build names do not need to be unique. It can be set using <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_CreateBuild.html">CreateBuild</a> or <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/UpdateBuild">UpdateBuild</a>.</p>"""
     version: NotRequired["capo_gamelift.types.free_text.FreeText"]
     """<p>Version information that is associated with a build or script. Version strings do not need to be unique.</p>"""
     status: NotRequired["capo_gamelift.types.build_status.BuildStatus"]
@@ -31,9 +31,9 @@ class Build(TypedDict, closed=True):
     operating_system: NotRequired[
         "capo_gamelift.types.operating_system.OperatingSystem"
     ]
-    r"""<p>Operating system that the game server binaries are built to run on. This value determines the type of fleet resources that you can use for this build.</p> <note> <p>Amazon Linux 2 (AL2) will reach end of support on 6/30/2026. See more details in the <a href=\"http://aws.amazon.com/amazon-linux-2/faqs/\">Amazon Linux 2 FAQs</a>. For game servers that are hosted on AL2 and use server SDK version 4.x for Amazon GameLift Servers, first update the game server build to server SDK 5.x, and then deploy to AL2023 instances. See <a href=\"https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-serversdk5-migration.html\"> Migrate to server SDK version 5.</a> </p> </note>"""
+    """<p>Operating system that the game server binaries are built to run on. This value determines the type of fleet resources that you can use for this build.</p> <note> <p>Amazon Linux 2 (AL2) will reach end of support on 6/30/2026. See more details in the <a href="http://aws.amazon.com/amazon-linux-2/faqs/">Amazon Linux 2 FAQs</a>. For game servers that are hosted on AL2 and use server SDK version 4.x for Amazon GameLift Servers, first update the game server build to server SDK 5.x, and then deploy to AL2023 instances. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-serversdk5-migration.html"> Migrate to server SDK version 5.</a> </p> </note>"""
     creation_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>).</p>"""
+    """<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).</p>"""
     server_sdk_version: NotRequired[
         "capo_gamelift.types.server_sdk_version.ServerSdkVersion"
     ]

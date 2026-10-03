@@ -26,7 +26,7 @@ class DeleteProtectConfigurationRuleSetNumberOverrideResult(TypedDict, closed=Tr
     )
     """<p>The destination phone number in E.164 format.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the rule was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the rule was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     action: "capo_pinpoint_sms_voice_v2.types.protect_configuration_rule_override_action.ProtectConfigurationRuleOverrideAction"
     """<p>The action associated with the rule.</p>"""
     iso_country_code: NotRequired[
@@ -34,7 +34,7 @@ class DeleteProtectConfigurationRuleSetNumberOverrideResult(TypedDict, closed=Tr
     ]
     """<p>The two-character code, in ISO 3166-1 alpha-2 format, for the country or region.</p>"""
     expiration_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the resource-based policy was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the resource-based policy was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

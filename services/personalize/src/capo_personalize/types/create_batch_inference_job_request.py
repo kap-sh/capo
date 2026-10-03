@@ -25,7 +25,7 @@ class CreateBatchInferenceJobRequest(TypedDict, closed=True):
     solution_version_arn: "capo_personalize.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the solution version that will be used to generate the batch inference recommendations.</p>"""
     filter_arn: NotRequired["capo_personalize.types.arn.Arn"]
-    r"""<p>The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html\">Filtering batch recommendations</a>.</p>"""
+    """<p>The ARN of the filter to apply to the batch inference job. For more information on using filters, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/filter-batch.html">Filtering batch recommendations</a>.</p>"""
     num_results: NotRequired["capo_personalize.types.num_batch_results.NumBatchResults"]
     """<p>The number of recommendations to retrieve.</p>"""
     job_input: "capo_personalize.types.batch_inference_job_input.BatchInferenceJobInput"
@@ -41,11 +41,11 @@ class CreateBatchInferenceJobRequest(TypedDict, closed=True):
     ]
     """<p>The configuration details of a batch inference job.</p>"""
     tags: NotRequired["capo_personalize.types.tags.Tags"]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html\">tags</a> to apply to the batch inference job.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to the batch inference job.</p>"""
     batch_inference_job_mode: NotRequired[
         "capo_personalize.types.batch_inference_job_mode.BatchInferenceJobMode"
     ]
-    r"""<p>The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the job mode to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default <code>BATCH_INFERENCE</code>.</p> <p> When you get batch recommendations with themes, you will incur additional costs. For more information, see <a href=\"https://aws.amazon.com/personalize/pricing/\">Amazon Personalize pricing</a>. </p>"""
+    """<p>The mode of the batch inference job. To generate descriptive themes for groups of similar items, set the job mode to <code>THEME_GENERATION</code>. If you don't want to generate themes, use the default <code>BATCH_INFERENCE</code>.</p> <p> When you get batch recommendations with themes, you will incur additional costs. For more information, see <a href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>. </p>"""
     theme_generation_config: NotRequired[
         "capo_personalize.types.theme_generation_config.ThemeGenerationConfig"
     ]

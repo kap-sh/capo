@@ -19,7 +19,7 @@ class HealthCheckConfiguration(TypedDict, closed=True):
     ]
     """<p>The IP protocol that App Runner uses to perform health checks for your service.</p> <p>If you set <code>Protocol</code> to <code>HTTP</code>, App Runner sends health check requests to the HTTP path specified by <code>Path</code>.</p> <p>Default: <code>TCP</code> </p>"""
     path: NotRequired["capo_apprunner.types.health_check_path.HealthCheckPath"]
-    r"""<p>The URL that health check requests are sent to.</p> <p> <code>Path</code> is only applicable when you set <code>Protocol</code> to <code>HTTP</code>.</p> <p>Default: <code>\"/\"</code> </p>"""
+    """<p>The URL that health check requests are sent to.</p> <p> <code>Path</code> is only applicable when you set <code>Protocol</code> to <code>HTTP</code>.</p> <p>Default: <code>"/"</code> </p>"""
     interval: NotRequired[
         "capo_apprunner.types.health_check_interval.HealthCheckInterval"
     ]

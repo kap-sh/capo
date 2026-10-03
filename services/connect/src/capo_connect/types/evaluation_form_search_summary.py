@@ -63,7 +63,7 @@ class EvaluationFormSearchSummary(TypedDict, closed=True):
     ]
     """<p>The contact interaction type for this evaluation form.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     ai_version: NotRequired[
         "capo_connect.types.evaluation_form_ai_version.EvaluationFormAIVersion"
     ]

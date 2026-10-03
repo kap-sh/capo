@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ChangeResourceRecordSetsResponse(TypedDict, closed=True):
     change_info: "capo_route_53.types.change_info.ChangeInfo"
-    r"""<p>A complex type that contains information about changes made to your hosted zone.</p> <p>This element contains an ID that you use when performing a <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html\">GetChange</a> action to get detailed information about the change.</p>"""
+    """<p>A complex type that contains information about changes made to your hosted zone.</p> <p>This element contains an ID that you use when performing a <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get detailed information about the change.</p>"""
 
 
 # --- restXml ser/de ---

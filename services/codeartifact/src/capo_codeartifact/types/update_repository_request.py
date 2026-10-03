@@ -24,7 +24,7 @@ class UpdateRepositoryRequest(TypedDict, closed=True):
     upstreams: NotRequired[
         "capo_codeartifact.types.upstream_repository_list.UpstreamRepositoryList"
     ]
-    r"""<p> A list of upstream repositories to associate with the repository. The order of the upstream repositories in the list determines their priority order when CodeArtifact looks for a requested package version. For more information, see <a href=\"https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html\">Working with upstream repositories</a>. </p>"""
+    """<p> A list of upstream repositories to associate with the repository. The order of the upstream repositories in the list determines their priority order when CodeArtifact looks for a requested package version. For more information, see <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html">Working with upstream repositories</a>. </p>"""
 
 
 # --- restJson1 ser/de ---

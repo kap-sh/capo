@@ -15,7 +15,7 @@ class QuotaSettings(TypedDict, closed=True):
     offset: "capo_api_gateway.types.integer.Integer"
     """<p>The number of requests subtracted from the given limit in the initial time period.</p>"""
     period: NotRequired["capo_api_gateway.types.quota_period_type.QuotaPeriodType"]
-    r"""<p>The time period in which the limit applies. Valid values are \"DAY\", \"WEEK\" or \"MONTH\".</p>"""
+    """<p>The time period in which the limit applies. Valid values are "DAY", "WEEK" or "MONTH".</p>"""
 
 
 # --- restJson1 ser/de ---

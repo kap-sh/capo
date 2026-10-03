@@ -34,7 +34,7 @@ class MetricFilter(TypedDict, closed=True):
     apply_on_transformed_logs: (
         "capo_cloudwatch_logs.types.apply_on_transformed_logs.ApplyOnTransformedLogs"
     )
-    r"""<p>This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutTransformer.html\">PutTransformer</a>.</p> <p>If this value is <code>true</code>, the metric filter is applied on the transformed version of the log events instead of the original ingested log events.</p>"""
+    """<p>This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutTransformer.html">PutTransformer</a>.</p> <p>If this value is <code>true</code>, the metric filter is applied on the transformed version of the log events instead of the original ingested log events.</p>"""
     field_selection_criteria: NotRequired[
         "capo_cloudwatch_logs.types.field_selection_criteria.FieldSelectionCriteria"
     ]

@@ -15,11 +15,11 @@ if TYPE_CHECKING:
 
 class MedicalScribeSettings(TypedDict, closed=True):
     show_speaker_labels: NotRequired["capo_transcribe.types.boolean.Boolean"]
-    r"""<p>Enables speaker partitioning (diarization) in your Medical Scribe output. Speaker partitioning labels the speech from individual speakers in your media file.</p> <p>If you enable <code>ShowSpeakerLabels</code> in your request, you must also include <code>MaxSpeakerLabels</code>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html\">Partitioning speakers (diarization)</a>.</p>"""
+    """<p>Enables speaker partitioning (diarization) in your Medical Scribe output. Speaker partitioning labels the speech from individual speakers in your media file.</p> <p>If you enable <code>ShowSpeakerLabels</code> in your request, you must also include <code>MaxSpeakerLabels</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers (diarization)</a>.</p>"""
     max_speaker_labels: NotRequired["capo_transcribe.types.max_speakers.MaxSpeakers"]
     """<p>Specify the maximum number of speakers you want to partition in your media.</p> <p>Note that if your media contains more speakers than the specified number, multiple speakers are treated as a single speaker.</p> <p>If you specify the <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to true.</p>"""
     channel_identification: NotRequired["capo_transcribe.types.boolean.Boolean"]
-    r"""<p>Enables channel identification in multi-channel audio.</p> <p>Channel identification transcribes the audio on each channel independently, then appends the output for each channel into one transcript.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html\">Transcribing multi-channel audio</a>.</p>"""
+    """<p>Enables channel identification in multi-channel audio.</p> <p>Channel identification transcribes the audio on each channel independently, then appends the output for each channel into one transcript.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing multi-channel audio</a>.</p>"""
     vocabulary_name: NotRequired["capo_transcribe.types.vocabulary_name.VocabularyName"]
     """<p>The name of the custom vocabulary you want to include in your Medical Scribe request. Custom vocabulary names are case sensitive.</p>"""
     vocabulary_filter_name: NotRequired[

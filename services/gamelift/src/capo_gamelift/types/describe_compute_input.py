@@ -15,7 +15,7 @@ class DescribeComputeInput(TypedDict, closed=True):
     compute_name: NotRequired[
         "capo_gamelift.types.compute_name_or_arn.ComputeNameOrArn"
     ]
-    r"""<p>The unique identifier of the compute resource to retrieve properties for. For a managed container fleet or Anywhere fleet, use a compute name. For an EC2 fleet, use an instance ID. To retrieve a fleet's compute identifiers, call <a href=\"https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListCompute.html\">ListCompute</a>.</p>"""
+    """<p>The unique identifier of the compute resource to retrieve properties for. For a managed container fleet or Anywhere fleet, use a compute name. For an EC2 fleet, use an instance ID. To retrieve a fleet's compute identifiers, call <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListCompute.html">ListCompute</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -34,7 +34,7 @@ class StorediSCSIVolume(TypedDict, closed=True):
     volume_attachment_status: NotRequired[
         "capo_storage_gateway.types.volume_attachment_status.VolumeAttachmentStatus"
     ]
-    r"""<p>A value that indicates whether a storage volume is attached to, detached from, or is in the process of detaching from a gateway. For more information, see <a href=\"https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume\">Moving your volumes to a different gateway</a>.</p>"""
+    """<p>A value that indicates whether a storage volume is attached to, detached from, or is in the process of detaching from a gateway. For more information, see <a href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving your volumes to a different gateway</a>.</p>"""
     volume_size_in_bytes: "capo_storage_gateway.types.long.long"
     """<p>The size of the volume in bytes.</p>"""
     volume_progress: NotRequired[

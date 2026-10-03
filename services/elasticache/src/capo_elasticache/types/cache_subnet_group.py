@@ -26,7 +26,7 @@ class CacheSubnetGroup(TypedDict, closed=True):
     supported_network_types: NotRequired[
         "capo_elasticache.types.network_type_list.NetworkTypeList"
     ]
-    r"""<p>Either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS engine version 6.2 to 7.1 or Memcached engine version 1.6.6 and above on all instances built on the <a href=\"http://aws.amazon.com/ec2/nitro/\">Nitro system</a>.</p>"""
+    """<p>Either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS engine version 6.2 to 7.1 or Memcached engine version 1.6.6 and above on all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -36,9 +36,9 @@ class UsageRecord(TypedDict, closed=True):
     customer_aws_account_id: NotRequired[
         "capo_marketplace_metering.types.customer_aws_account_id.CustomerAWSAccountId"
     ]
-    r"""<p>The <code>CustomerAWSAccountId</code> parameter specifies the AWS account ID of the buyer.</p> <important> <p>If you have an existing integration and need the <code>CustomerAWSAccountId</code> that corresponds to a <code>CustomerIdentifier</code>, contact <a href=\"https://aws.amazon.com/marketplace/management/contact-us/\">AWS Marketplace Seller Operations</a> to obtain the mapping. Do not request the <code>CustomerAWSAccountId</code> directly from buyers. We cannot verify that a buyer-provided account ID is authentic, which can result in incorrect metering or billing.</p> </important>"""
+    """<p>The <code>CustomerAWSAccountId</code> parameter specifies the AWS account ID of the buyer.</p> <important> <p>If you have an existing integration and need the <code>CustomerAWSAccountId</code> that corresponds to a <code>CustomerIdentifier</code>, contact <a href="https://aws.amazon.com/marketplace/management/contact-us/">AWS Marketplace Seller Operations</a> to obtain the mapping. Do not request the <code>CustomerAWSAccountId</code> directly from buyers. We cannot verify that a buyer-provided account ID is authentic, which can result in incorrect metering or billing.</p> </important>"""
     license_arn: NotRequired["capo_marketplace_metering.types.license_arn.LicenseArn"]
-    r"""<p>The <code>LicenseArn</code> is a unique identifier for a specific granted license. These are used for software purchased through Amazon Web Services Marketplace.</p> <note> <p>To access your <code>CustomerAWSAccountId</code> and <code>LicenseArn</code> mapping, visit <a href=\"https://docs.aws.amazon.com/marketplace/latest/userguide/data-feed-agreements.html\">Agreements Feeds</a>.</p> </note>"""
+    """<p>The <code>LicenseArn</code> is a unique identifier for a specific granted license. These are used for software purchased through Amazon Web Services Marketplace.</p> <note> <p>To access your <code>CustomerAWSAccountId</code> and <code>LicenseArn</code> mapping, visit <a href="https://docs.aws.amazon.com/marketplace/latest/userguide/data-feed-agreements.html">Agreements Feeds</a>.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---

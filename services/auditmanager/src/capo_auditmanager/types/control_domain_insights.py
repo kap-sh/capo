@@ -16,7 +16,7 @@ class ControlDomainInsights(TypedDict, closed=True):
     name: NotRequired["capo_auditmanager.types.string.String"]
     """<p>The name of the control domain. </p>"""
     id: NotRequired["capo_auditmanager.types.control_domain_id.ControlDomainId"]
-    r"""<p>The unique identifier for the control domain. Audit Manager supports the control domains that are provided by Amazon Web Services Control Catalog. For information about how to find a list of available control domains, see <a href=\"https://docs.aws.amazon.com/controlcatalog/latest/APIReference/API_ListDomains.html\"> <code>ListDomains</code> </a> in the Amazon Web Services Control Catalog API Reference.</p>"""
+    """<p>The unique identifier for the control domain. Audit Manager supports the control domains that are provided by Amazon Web Services Control Catalog. For information about how to find a list of available control domains, see <a href="https://docs.aws.amazon.com/controlcatalog/latest/APIReference/API_ListDomains.html"> <code>ListDomains</code> </a> in the Amazon Web Services Control Catalog API Reference.</p>"""
     controls_count_by_noncompliant_evidence: NotRequired[
         "capo_auditmanager.types.nullable_integer.NullableInteger"
     ]

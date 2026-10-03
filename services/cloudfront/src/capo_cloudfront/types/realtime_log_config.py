@@ -24,7 +24,7 @@ class RealtimeLogConfig(TypedDict, closed=True):
     end_points: "capo_cloudfront.types.end_point_list.EndPointList"
     """<p>Contains information about the Amazon Kinesis data stream where you are sending real-time log data for this real-time log configuration.</p>"""
     fields: "capo_cloudfront.types.field_list.FieldList"
-    r"""<p>A list of fields that are included in each real-time log record. In an API response, the fields are provided in the same order in which they are sent to the Amazon Kinesis data stream.</p> <p>For more information about fields, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields\">Real-time log configuration fields</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
+    """<p>A list of fields that are included in each real-time log record. In an API response, the fields are provided in the same order in which they are sent to the Amazon Kinesis data stream.</p> <p>For more information about fields, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html#understand-real-time-log-config-fields">Real-time log configuration fields</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
 
 
 # --- restXml ser/de ---

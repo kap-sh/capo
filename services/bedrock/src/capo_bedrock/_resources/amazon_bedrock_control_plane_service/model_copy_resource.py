@@ -58,14 +58,14 @@ class ModelCopyResource:
             "capo_bedrock.types.idempotency_token.IdempotencyToken"
         ] = None,
     ) -> "capo_bedrock.types.create_model_copy_job_response.CreateModelCopyJobResponse":
-        r"""<p>Copies a model to another region so that it can be used there. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html\">Copy models to be used in other regions</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Copies a model to another region so that it can be used there. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html">Copy models to be used in other regions</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             source_model_arn: <p>The Amazon Resource Name (ARN) of the model to be copied.</p>
             target_model_name: <p>A name for the copied model.</p>
             model_kms_key_id: <p>The ARN of the KMS key that you use to encrypt the model copy.</p>
-            target_model_tags: <p>Tags to associate with the target model. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tag resources</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
-            client_request_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            target_model_tags: <p>Tags to associate with the target model. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tag resources</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
+            client_request_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
 
         Raises:
             capo_bedrock.errors.access_denied_exception.AccessDeniedException: <p>The request is denied because of missing access permissions.</p>
@@ -116,7 +116,7 @@ class ModelCopyResource:
         *,
         config_overrides: Optional[BedrockClientConfig] = None,
     ) -> "capo_bedrock.types.get_model_copy_job_response.GetModelCopyJobResponse":
-        r"""<p>Retrieves information about a model copy job. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html\">Copy models to be used in other regions</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Retrieves information about a model copy job. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html">Copy models to be used in other regions</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             job_arn: <p>The Amazon Resource Name (ARN) of the model copy job.</p>
@@ -182,7 +182,7 @@ class ModelCopyResource:
         sort_by: Optional["capo_bedrock.types.sort_jobs_by.SortJobsBy"] = None,
         sort_order: Optional["capo_bedrock.types.sort_order.SortOrder"] = None,
     ) -> "capo_bedrock.types.list_model_copy_jobs_response.ListModelCopyJobsResponse":
-        r"""<p>Returns a list of model copy jobs that you have submitted. You can filter the jobs to return based on one or more criteria. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html\">Copy models to be used in other regions</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Returns a list of model copy jobs that you have submitted. You can filter the jobs to return based on one or more criteria. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html">Copy models to be used in other regions</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             creation_time_after: <p>Filters for model copy jobs created after the specified time.</p>
@@ -267,14 +267,14 @@ class AsyncModelCopyResource:
             "capo_bedrock.types.idempotency_token.IdempotencyToken"
         ] = None,
     ) -> "capo_bedrock.types.create_model_copy_job_response.CreateModelCopyJobResponse":
-        r"""<p>Copies a model to another region so that it can be used there. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html\">Copy models to be used in other regions</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Copies a model to another region so that it can be used there. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html">Copy models to be used in other regions</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             source_model_arn: <p>The Amazon Resource Name (ARN) of the model to be copied.</p>
             target_model_name: <p>A name for the copied model.</p>
             model_kms_key_id: <p>The ARN of the KMS key that you use to encrypt the model copy.</p>
-            target_model_tags: <p>Tags to associate with the target model. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tag resources</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
-            client_request_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            target_model_tags: <p>Tags to associate with the target model. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tag resources</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
+            client_request_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
 
         Raises:
             capo_bedrock.errors.access_denied_exception.AccessDeniedException: <p>The request is denied because of missing access permissions.</p>
@@ -326,7 +326,7 @@ class AsyncModelCopyResource:
         *,
         config_overrides: Optional[AsyncBedrockClientConfig] = None,
     ) -> "capo_bedrock.types.get_model_copy_job_response.GetModelCopyJobResponse":
-        r"""<p>Retrieves information about a model copy job. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html\">Copy models to be used in other regions</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Retrieves information about a model copy job. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html">Copy models to be used in other regions</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             job_arn: <p>The Amazon Resource Name (ARN) of the model copy job.</p>
@@ -393,7 +393,7 @@ class AsyncModelCopyResource:
         sort_by: Optional["capo_bedrock.types.sort_jobs_by.SortJobsBy"] = None,
         sort_order: Optional["capo_bedrock.types.sort_order.SortOrder"] = None,
     ) -> "capo_bedrock.types.list_model_copy_jobs_response.ListModelCopyJobsResponse":
-        r"""<p>Returns a list of model copy jobs that you have submitted. You can filter the jobs to return based on one or more criteria. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html\">Copy models to be used in other regions</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Returns a list of model copy jobs that you have submitted. You can filter the jobs to return based on one or more criteria. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/copy-model.html">Copy models to be used in other regions</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             creation_time_after: <p>Filters for model copy jobs created after the specified time.</p>

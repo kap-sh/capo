@@ -29,7 +29,7 @@ class PipeTargetTimestreamParameters(TypedDict, closed=True):
     version_value: "capo_pipes.types.version_value.VersionValue"
     """<p>64 bit version value or source data field that represents the version value for your data.</p> <p>Write requests with a higher version number will update the existing measure values of the record and version. In cases where the measure value is the same, the version will still be updated. </p> <p>Default value is 1. </p> <p>Timestream for LiveAnalytics does not support updating partial measure values in a record.</p> <p>Write requests for duplicate data with a higher version number will update the existing measure value and version. In cases where the measure value is the same, <code>Version</code> will still be updated. Default value is <code>1</code>.</p> <note> <p> <code>Version</code> must be <code>1</code> or greater, or you will receive a <code>ValidationException</code> error.</p> </note>"""
     dimension_mappings: "capo_pipes.types.dimension_mappings.DimensionMappings"
-    r"""<p>Map source data to dimensions in the target Timestream for LiveAnalytics table.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/concepts.html\">Amazon Timestream for LiveAnalytics concepts</a> </p>"""
+    """<p>Map source data to dimensions in the target Timestream for LiveAnalytics table.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/concepts.html">Amazon Timestream for LiveAnalytics concepts</a> </p>"""
     single_measure_mappings: NotRequired[
         "capo_pipes.types.single_measure_mappings.SingleMeasureMappings"
     ]

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Region(TypedDict, closed=True):
     code: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
-    r"""<p> Abbreviated code for a the state, province or region of the country. Not available in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p> <p>Example: <code>BC</code>.</p>"""
+    """<p> Abbreviated code for a the state, province or region of the country. Not available in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p> <p>Example: <code>BC</code>.</p>"""
     name: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
     """<p>Name for a the state, province, or region of the country. </p> <p>Example: <code>British Columbia</code>. </p>"""
 

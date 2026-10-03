@@ -863,11 +863,11 @@ class AsyncSsmSapClient:
         next_token: Optional["capo_ssm_sap.types.next_token.NextToken"] = None,
         filters: Optional["capo_ssm_sap.types.filter_list.FilterList"] = None,
     ) -> "capo_ssm_sap.types.list_configuration_check_operations_output.ListConfigurationCheckOperationsOutput":
-        r"""<p>Lists the configuration check operations performed by AWS Systems Manager for SAP.</p>
+        """<p>Lists the configuration check operations performed by AWS Systems Manager for SAP.</p>
 
         Args:
             application_id: <p>The ID of the application.</p>
-            list_mode: <p>The mode for listing configuration check operations. Defaults to \"LATEST_PER_CHECK\".</p> <ul> <li> <p>LATEST_PER_CHECK - Will list the latest configuration check operation per check type.</p> </li> <li> <p>ALL_OPERATIONS - Will list all configuration check operations performed on the application.</p> </li> </ul>
+            list_mode: <p>The mode for listing configuration check operations. Defaults to "LATEST_PER_CHECK".</p> <ul> <li> <p>LATEST_PER_CHECK - Will list the latest configuration check operation per check type.</p> </li> <li> <p>ALL_OPERATIONS - Will list all configuration check operations performed on the application.</p> </li> </ul>
             max_results: <p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned nextToken value.</p>
             next_token: <p>The token for the next page of results.</p>
             filters: <p>The filters of an operation.</p>

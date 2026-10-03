@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Filter(TypedDict, closed=True):
     pattern: NotRequired["capo_lambda.types.pattern.Pattern"]
-    r"""<p> A filter pattern. For more information on the syntax of a filter pattern, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-syntax\"> Filter rule syntax</a>. </p>"""
+    """<p> A filter pattern. For more information on the syntax of a filter pattern, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-syntax"> Filter rule syntax</a>. </p>"""
 
 
 # --- restJson1 ser/de ---

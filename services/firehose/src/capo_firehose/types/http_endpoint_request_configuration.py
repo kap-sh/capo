@@ -13,7 +13,7 @@ class HttpEndpointRequestConfiguration(TypedDict, closed=True):
     content_encoding: NotRequired[
         "capo_firehose.types.content_encoding.ContentEncoding"
     ]
-    r"""<p>Firehose uses the content encoding to compress the body of a request before sending the request to the destination. For more information, see <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding\">Content-Encoding</a> in MDN Web Docs, the official Mozilla documentation.</p>"""
+    """<p>Firehose uses the content encoding to compress the body of a request before sending the request to the destination. For more information, see <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding">Content-Encoding</a> in MDN Web Docs, the official Mozilla documentation.</p>"""
     common_attributes: NotRequired[
         "capo_firehose.types.http_endpoint_common_attributes_list.HttpEndpointCommonAttributesList"
     ]

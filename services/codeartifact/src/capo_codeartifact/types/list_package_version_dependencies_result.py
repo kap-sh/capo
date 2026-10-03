@@ -32,7 +32,7 @@ class ListPackageVersionDependenciesResult(TypedDict, closed=True):
     dependencies: NotRequired[
         "capo_codeartifact.types.package_dependency_list.PackageDependencyList"
     ]
-    r"""<p> The returned list of <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageDependency.html\">PackageDependency</a> objects. </p>"""
+    """<p> The returned list of <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageDependency.html">PackageDependency</a> objects. </p>"""
 
 
 # --- restJson1 ser/de ---

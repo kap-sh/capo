@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class AccessControlTranslation(TypedDict, closed=True):
     owner: "capo_s3.types.owner_override.OwnerOverride"
-    r"""<p>Specifies the replica ownership. For default and valid values, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html\">PUT bucket replication</a> in the <i>Amazon S3 API Reference</i>.</p>"""
+    """<p>Specifies the replica ownership. For default and valid values, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html">PUT bucket replication</a> in the <i>Amazon S3 API Reference</i>.</p>"""
 
 
 # --- restXml ser/de ---

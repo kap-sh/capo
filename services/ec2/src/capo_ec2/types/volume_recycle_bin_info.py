@@ -31,7 +31,7 @@ class VolumeRecycleBinInfo(TypedDict, closed=True):
     throughput: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>The throughput that the volume supports, in MiB/s.</p>"""
     outpost_arn: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The ARN of the Outpost on which the volume is stored. For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-outposts.html\">Amazon EBS volumes on Outposts</a> in the <i>Amazon EBS User Guide</i>.</p>"""
+    """<p>The ARN of the Outpost on which the volume is stored. For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-outposts.html">Amazon EBS volumes on Outposts</a> in the <i>Amazon EBS User Guide</i>.</p>"""
     availability_zone: NotRequired["capo_ec2.types.string.String"]
     """<p>The Availability Zone for the volume.</p>"""
     availability_zone_id: NotRequired["capo_ec2.types.string.String"]

@@ -69,7 +69,7 @@ class AgentVersion(TypedDict, closed=True):
     prompt_override_configuration: NotRequired[
         "capo_bedrock_agent.types.prompt_override_configuration.PromptOverrideConfiguration"
     ]
-    r"""<p>Contains configurations to override prompt templates in different parts of an agent sequence. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompts.html\">Advanced prompts</a>.</p>"""
+    """<p>Contains configurations to override prompt templates in different parts of an agent sequence. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompts.html">Advanced prompts</a>.</p>"""
     guardrail_configuration: NotRequired[
         "capo_bedrock_agent.types.guardrail_configuration.GuardrailConfiguration"
     ]

@@ -18,7 +18,7 @@ class ListClustersRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_eks.types.string.String"]
     """<p>The <code>nextToken</code> value returned from a previous paginated request, where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the <code>nextToken</code> value. This value is null when there are no more results to return.</p> <note> <p>This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.</p> </note>"""
     include: NotRequired["capo_eks.types.include_clusters_list.IncludeClustersList"]
-    r"""<p>Indicates whether external clusters are included in the returned list. Use '<code>all</code>' to return <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/eks-connector.html\">https://docs.aws.amazon.com/eks/latest/userguide/eks-connector.html</a>connected clusters, or blank to return only Amazon EKS clusters. '<code>all</code>' must be in lowercase otherwise an error occurs.</p>"""
+    """<p>Indicates whether external clusters are included in the returned list. Use '<code>all</code>' to return <a href="https://docs.aws.amazon.com/eks/latest/userguide/eks-connector.html">https://docs.aws.amazon.com/eks/latest/userguide/eks-connector.html</a>connected clusters, or blank to return only Amazon EKS clusters. '<code>all</code>' must be in lowercase otherwise an error occurs.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -16,11 +16,11 @@ class ReplicationConfiguration(TypedDict, closed=True):
     ]
     """<p>A list of replication status summaries. The summaries contain details about the replication of configuration information for Connect Customer resources, for each Amazon Web Services Region.</p>"""
     source_region: NotRequired["capo_connect.types.aws_region.AwsRegion"]
-    r"""<p>The Amazon Web Services Region where the source Connect Customer instance was created. This is the Region where the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ReplicateInstance.html\">ReplicateInstance</a> API was called to start the replication process.</p>"""
+    """<p>The Amazon Web Services Region where the source Connect Customer instance was created. This is the Region where the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ReplicateInstance.html">ReplicateInstance</a> API was called to start the replication process.</p>"""
     global_sign_in_endpoint: NotRequired[
         "capo_connect.types.global_sign_in_endpoint.GlobalSignInEndpoint"
     ]
-    r"""<p>The URL that is used to sign-in to your Connect Customer instance according to your traffic distribution group configuration. For more information about sign-in and traffic distribution groups, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-traffic-distribution-groups.html\">Important things to know</a> in the <i>Create traffic distribution groups</i> topic in the <i>Connect Customer Administrator Guide</i>. </p>"""
+    """<p>The URL that is used to sign-in to your Connect Customer instance according to your traffic distribution group configuration. For more information about sign-in and traffic distribution groups, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-traffic-distribution-groups.html">Important things to know</a> in the <i>Create traffic distribution groups</i> topic in the <i>Connect Customer Administrator Guide</i>. </p>"""
 
 
 # --- restJson1 ser/de ---

@@ -17,7 +17,7 @@ class StopParticipantReplicationRequest(TypedDict, closed=True):
     destination_stage_arn: "capo_ivs_realtime.types.stage_arn.StageArn"
     """<p>ARN of the stage where the participant has been replicated.</p>"""
     participant_id: "capo_ivs_realtime.types.participant_id.ParticipantId"
-    r"""<p>Participant ID of the publisher that has been replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href=\"https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed\"> create a self signed token</a>.</p>"""
+    """<p>Participant ID of the publisher that has been replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href="https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed"> create a self signed token</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

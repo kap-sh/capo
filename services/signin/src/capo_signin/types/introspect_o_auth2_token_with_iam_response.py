@@ -17,23 +17,23 @@ class IntrospectOAuth2TokenWithIAMResponse(TypedDict, closed=True):
     client_id: NotRequired["str"]
     """Client identifier for the OAuth 2.0 client that requested the token."""
     user_id: NotRequired["str"]
-    r"""User identifier matching sts:GetCallerIdentity's `UserId` field for the token's subject principal (e.g. \"AIDAEXAMPLE\" for an IAM user, or \"AROAEXAMPLE:session-name\" for an assumed role)."""
+    """User identifier matching sts:GetCallerIdentity's `UserId` field for the token's subject principal (e.g. "AIDAEXAMPLE" for an IAM user, or "AROAEXAMPLE:session-name" for an assumed role)."""
     token_type: NotRequired[
         "capo_signin.types.introspected_token_type.IntrospectedTokenType"
     ]
-    r"""Indicates which kind of token was introspected. One of \"access_token\" or \"refresh_token\"."""
+    """Indicates which kind of token was introspected. One of "access_token" or "refresh_token"."""
     exp: NotRequired["int"]
     """Token expiration time as a NumericDate (Unix epoch seconds)."""
     iat: NotRequired["int"]
     """Token issuance time as a NumericDate (Unix epoch seconds)."""
     nbf: NotRequired["int"]
-    r"""Token \"not before\" time as a NumericDate (Unix epoch seconds)."""
+    """Token "not before" time as a NumericDate (Unix epoch seconds)."""
     sub: NotRequired["str"]
     """Subject of the token: the IAM principal ARN. For assumed-role sessions, this is the session ARN (matches sts:GetCallerIdentity's `Arn` field), e.g. arn:aws:sts::123456789012:assumed-role/MyRole/session-name."""
     aud: NotRequired["str"]
-    r"""Audience of the token: the OAuth resource the token is scoped to (for example, \"aws-mcp.amazonaws.com\"). Omitted for refresh tokens."""
+    """Audience of the token: the OAuth resource the token is scoped to (for example, "aws-mcp.amazonaws.com"). Omitted for refresh tokens."""
     iss: NotRequired["str"]
-    r"""Issuer of the token. Always \"signin.amazonaws.com\" for AWS Sign-In."""
+    """Issuer of the token. Always "signin.amazonaws.com" for AWS Sign-In."""
     jti: NotRequired["str"]
     """Unique identifier for the token."""
     account_id: NotRequired["capo_signin.types.account_id.AccountId"]

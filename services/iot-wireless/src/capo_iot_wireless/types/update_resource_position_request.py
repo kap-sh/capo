@@ -18,7 +18,7 @@ class UpdateResourcePositionRequest(TypedDict, closed=True):
     geo_json_payload: NotRequired[
         "capo_iot_wireless.types.geo_json_payload.GeoJsonPayload"
     ]
-    r"""<p>The position information of the resource, displayed as a JSON payload. The payload uses the GeoJSON format, which a format that's used to encode geographic data structures. For more information, see <a href=\"https://geojson.org/\">GeoJSON</a>.</p>"""
+    """<p>The position information of the resource, displayed as a JSON payload. The payload uses the GeoJSON format, which a format that's used to encode geographic data structures. For more information, see <a href="https://geojson.org/">GeoJSON</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

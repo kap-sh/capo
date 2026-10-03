@@ -49,7 +49,7 @@ class UserSearchSummary(TypedDict, closed=True):
     ]
     """<p>The identifiers of the user's security profiles.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     username: NotRequired["capo_connect.types.agent_username.AgentUsername"]
     """<p>The name of the user.</p>"""
     auto_accept_configs: NotRequired[

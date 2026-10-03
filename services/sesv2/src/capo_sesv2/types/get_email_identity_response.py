@@ -22,7 +22,7 @@ class GetEmailIdentityResponse(TypedDict, closed=True):
     feedback_forwarding_status: "capo_sesv2.types.enabled.Enabled"
     """<p>The feedback forwarding configuration for the identity.</p> <p>If the value is <code>true</code>, you receive email notifications when bounce or complaint events occur. These notifications are sent to the address that you specified in the <code>Return-Path</code> header of the original email.</p> <p>You're required to have a method of tracking bounces and complaints. If you haven't set up another mechanism for receiving bounce or complaint notifications (for example, by setting up an event destination), you receive an email notification when these events occur (even if this setting is disabled).</p>"""
     verified_for_sending_status: "capo_sesv2.types.enabled.Enabled"
-    r"""<p>Specifies whether or not the identity is verified. You can only send email from verified email addresses or domains. For more information about verifying identities, see the <a href=\"https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-manage-verify.html\">Amazon Pinpoint User Guide</a>.</p>"""
+    """<p>Specifies whether or not the identity is verified. You can only send email from verified email addresses or domains. For more information about verifying identities, see the <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-manage-verify.html">Amazon Pinpoint User Guide</a>.</p>"""
     dkim_attributes: NotRequired["capo_sesv2.types.dkim_attributes.DkimAttributes"]
     """<p>An object that contains information about the DKIM attributes for the identity.</p>"""
     mail_from_attributes: NotRequired[

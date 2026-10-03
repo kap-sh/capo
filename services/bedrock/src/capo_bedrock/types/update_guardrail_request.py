@@ -57,7 +57,7 @@ class UpdateGuardrailRequest(TypedDict, closed=True):
     cross_region_config: NotRequired[
         "capo_bedrock.types.guardrail_cross_region_config.GuardrailCrossRegionConfig"
     ]
-    r"""<p>The system-defined guardrail profile that you're using with your guardrail. Guardrail profiles define the destination Amazon Web Services Regions where guardrail inference requests can be automatically routed.</p> <p>For more information, see the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-cross-region.html\">Amazon Bedrock User Guide</a>.</p>"""
+    """<p>The system-defined guardrail profile that you're using with your guardrail. Guardrail profiles define the destination Amazon Web Services Regions where guardrail inference requests can be automatically routed.</p> <p>For more information, see the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-cross-region.html">Amazon Bedrock User Guide</a>.</p>"""
     blocked_input_messaging: (
         "capo_bedrock.types.guardrail_blocked_messaging.GuardrailBlockedMessaging"
     )

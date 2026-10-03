@@ -10,13 +10,13 @@ if TYPE_CHECKING:
 
 class Criterion(TypedDict, closed=True):
     eq: NotRequired["capo_accessanalyzer.types.value_list.ValueList"]
-    r"""<p>An \"equals\" operator to match for the filter used to create the rule.</p>"""
+    """<p>An "equals" operator to match for the filter used to create the rule.</p>"""
     neq: NotRequired["capo_accessanalyzer.types.value_list.ValueList"]
-    r"""<p>A \"not equals\" operator to match for the filter used to create the rule.</p>"""
+    """<p>A "not equals" operator to match for the filter used to create the rule.</p>"""
     contains: NotRequired["capo_accessanalyzer.types.value_list.ValueList"]
-    r"""<p>A \"contains\" operator to match for the filter used to create the rule.</p>"""
+    """<p>A "contains" operator to match for the filter used to create the rule.</p>"""
     exists: NotRequired["bool"]
-    r"""<p>An \"exists\" operator to match for the filter used to create the rule. </p>"""
+    """<p>An "exists" operator to match for the filter used to create the rule. </p>"""
 
 
 # --- restJson1 ser/de ---

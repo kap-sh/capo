@@ -20,7 +20,7 @@ class WrappedWorkingKey(TypedDict, closed=True):
     key_check_value: (
         "capo_payment_cryptography_data.types.key_check_value.KeyCheckValue"
     )
-    r"""<p>The key check value (KCV) of the key contained within the outgoing TR31WrappedKeyBlock.</p> <p> The KCV is used to check if all parties holding a given key have the same key or to detect that a key has changed. For more information on KCV, see <a href=\"https://docs.aws.amazon.com/payment-cryptography/latest/userguide/terminology.html#terms.kcv\">KCV</a> in the <i>Amazon Web Services Payment Cryptography User Guide</i>.</p>"""
+    """<p>The key check value (KCV) of the key contained within the outgoing TR31WrappedKeyBlock.</p> <p> The KCV is used to check if all parties holding a given key have the same key or to detect that a key has changed. For more information on KCV, see <a href="https://docs.aws.amazon.com/payment-cryptography/latest/userguide/terminology.html#terms.kcv">KCV</a> in the <i>Amazon Web Services Payment Cryptography User Guide</i>.</p>"""
     wrapped_key_material_format: "capo_payment_cryptography_data.types.wrapped_key_material_format.WrappedKeyMaterialFormat"
     """<p>The key block format of the wrapped key.</p>"""
 

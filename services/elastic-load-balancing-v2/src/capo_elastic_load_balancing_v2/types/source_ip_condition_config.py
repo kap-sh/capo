@@ -15,7 +15,7 @@ class SourceIpConditionConfig(TypedDict, closed=True):
     values: NotRequired[
         "capo_elastic_load_balancing_v2.types.list_of_string.ListOfString"
     ]
-    r"""<p>The source IP addresses, in CIDR format. You can use both IPv4 and IPv6 addresses. Wildcards are not supported.</p> <p>If you specify multiple addresses, the condition is satisfied if the source IP address of the request matches one of the CIDR blocks. This condition is not satisfied by the addresses in the X-Forwarded-For header. To search for addresses in the X-Forwarded-For header, use an <a href=\"https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#http-header-conditions\">HTTP header condition</a>.</p> <p>The total number of values must be less than, or equal to five.</p>"""
+    """<p>The source IP addresses, in CIDR format. You can use both IPv4 and IPv6 addresses. Wildcards are not supported.</p> <p>If you specify multiple addresses, the condition is satisfied if the source IP address of the request matches one of the CIDR blocks. This condition is not satisfied by the addresses in the X-Forwarded-For header. To search for addresses in the X-Forwarded-For header, use an <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#http-header-conditions">HTTP header condition</a>.</p> <p>The total number of values must be less than, or equal to five.</p>"""
     ip_address_type: NotRequired[
         "capo_elastic_load_balancing_v2.types.source_ip_address_type_enum.SourceIpAddressTypeEnum"
     ]

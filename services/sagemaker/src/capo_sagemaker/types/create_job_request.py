@@ -29,7 +29,7 @@ class CreateJobRequest(TypedDict, closed=True):
     ]
     """<p>The JSON configuration document for the job. The document must conform to the schema specified by <code>JobConfigSchemaVersion</code>. Use <code>DescribeJobSchemaVersion</code> to retrieve the schema for validation.</p>"""
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>An array of key-value pairs to apply to the job as tags. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services Resources</a>.</p>"""
+    """<p>An array of key-value pairs to apply to the job as tags. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

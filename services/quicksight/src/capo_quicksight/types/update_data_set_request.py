@@ -57,7 +57,7 @@ class UpdateDataSetRequest(TypedDict, closed=True):
     column_level_permission_rules: NotRequired[
         "capo_quicksight.types.column_level_permission_rule_list.ColumnLevelPermissionRuleList"
     ]
-    r"""<p>A set of one or more definitions of a <code> <a href=\"https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnLevelPermissionRule.html\">ColumnLevelPermissionRule</a> </code>.</p>"""
+    """<p>A set of one or more definitions of a <code> <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnLevelPermissionRule.html">ColumnLevelPermissionRule</a> </code>.</p>"""
     data_set_usage_configuration: NotRequired[
         "capo_quicksight.types.data_set_usage_configuration.DataSetUsageConfiguration"
     ]

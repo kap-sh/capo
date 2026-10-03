@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class StartSimulationOutput(TypedDict, closed=True):
     arn: NotRequired["capo_simspaceweaver.types.sim_space_weaver_arn.SimSpaceWeaverArn"]
-    r"""<p>The Amazon Resource Name (ARN) of the simulation. For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the simulation. For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     execution_id: NotRequired["capo_simspaceweaver.types.uuid.UUID"]
     """<p>A universally unique identifier (UUID) for this simulation.</p>"""
     creation_time: NotRequired["capo_simspaceweaver.types.timestamp.Timestamp"]

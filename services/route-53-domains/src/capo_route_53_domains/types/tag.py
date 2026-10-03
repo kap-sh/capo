@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class Tag(TypedDict, closed=True):
     key: NotRequired["capo_route_53_domains.types.tag_key.TagKey"]
-    r"""<p>The key (name) of a tag.</p> <p>Valid values: A-Z, a-z, 0-9, space, \".:/=+\-@\"</p> <p>Constraints: Each key can be 1-128 characters long.</p>"""
+    r"""<p>The key (name) of a tag.</p> <p>Valid values: A-Z, a-z, 0-9, space, ".:/=+\-@"</p> <p>Constraints: Each key can be 1-128 characters long.</p>"""
     value: NotRequired["capo_route_53_domains.types.tag_value.TagValue"]
-    r"""<p>The value of a tag.</p> <p>Valid values: A-Z, a-z, 0-9, space, \".:/=+\-@\"</p> <p>Constraints: Each value can be 0-256 characters long.</p>"""
+    r"""<p>The value of a tag.</p> <p>Valid values: A-Z, a-z, 0-9, space, ".:/=+\-@"</p> <p>Constraints: Each value can be 0-256 characters long.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

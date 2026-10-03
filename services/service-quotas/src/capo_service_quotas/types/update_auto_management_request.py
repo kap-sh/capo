@@ -16,7 +16,7 @@ class UpdateAutoManagementRequest(TypedDict, closed=True):
     notification_arn: NotRequired[
         "capo_service_quotas.types.amazon_resource_name.AmazonResourceName"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/resource-level-permissions.html#rlp-table\">User Notifications</a> Amazon Resource Name (ARN) for Automatic Management notifications you want to update.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/notifications/latest/userguide/resource-level-permissions.html#rlp-table">User Notifications</a> Amazon Resource Name (ARN) for Automatic Management notifications you want to update.</p>"""
     exclusion_list: NotRequired[
         "capo_service_quotas.types.exclusion_list.ExclusionList"
     ]

@@ -16,7 +16,7 @@ class NotificationAction(TypedDict, closed=True):
     action: (
         "capo_iot_events.types.notification_target_actions.NotificationTargetActions"
     )
-    r"""<p>Specifies an AWS Lambda function to manage alarm notifications. You can create one or use the <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/lambda-support.html\">AWS Lambda function provided by AWS IoT Events</a>.</p>"""
+    """<p>Specifies an AWS Lambda function to manage alarm notifications. You can create one or use the <a href="https://docs.aws.amazon.com/iotevents/latest/developerguide/lambda-support.html">AWS Lambda function provided by AWS IoT Events</a>.</p>"""
     sms_configurations: NotRequired[
         "capo_iot_events.types.sms_configurations.SMSConfigurations"
     ]

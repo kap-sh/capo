@@ -15,7 +15,7 @@ class PostCallAnalyticsSettings(TypedDict, closed=True):
     output_location: "capo_chime_sdk_media_pipelines.types.string.String"
     """<p>The URL of the Amazon S3 bucket that contains the post-call data.</p>"""
     data_access_role_arn: "capo_chime_sdk_media_pipelines.types.string.String"
-    r"""<p>The ARN of the role used by Amazon Web Services Transcribe to upload your post call analysis. For more information, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/tca-post-call.html\">Post-call analytics with real-time transcriptions</a> in the <i>Amazon Transcribe Developer Guide</i>.</p>"""
+    """<p>The ARN of the role used by Amazon Web Services Transcribe to upload your post call analysis. For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/tca-post-call.html">Post-call analytics with real-time transcriptions</a> in the <i>Amazon Transcribe Developer Guide</i>.</p>"""
     content_redaction_output: NotRequired[
         "capo_chime_sdk_media_pipelines.types.content_redaction_output.ContentRedactionOutput"
     ]

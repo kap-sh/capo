@@ -31,7 +31,7 @@ class S3GlueParquetTarget(TypedDict, closed=True):
     compression: NotRequired[
         "capo_glue.types.parquet_compression_type.ParquetCompressionType"
     ]
-    r"""<p>Specifies how the data is compressed. This is generally not necessary if the data has a standard file extension. Possible values are <code>\"gzip\"</code> and <code>\"bzip\"</code>).</p>"""
+    """<p>Specifies how the data is compressed. This is generally not necessary if the data has a standard file extension. Possible values are <code>"gzip"</code> and <code>"bzip"</code>).</p>"""
     number_target_partitions: NotRequired[
         "capo_glue.types.number_target_partitions_string.NumberTargetPartitionsString"
     ]

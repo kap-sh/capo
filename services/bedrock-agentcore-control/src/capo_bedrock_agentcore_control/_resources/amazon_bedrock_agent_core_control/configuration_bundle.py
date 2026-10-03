@@ -81,10 +81,10 @@ class ConfigurationBundle:
         ] = None,
         tags: Optional["capo_bedrock_agentcore_control.types.tags_map.TagsMap"] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_configuration_bundle_response.CreateConfigurationBundleResponse":
-        r"""<p>Creates a new configuration bundle resource. A configuration bundle stores versioned component configurations for agent evaluation workflows.</p>
+        """<p>Creates a new configuration bundle resource. A configuration bundle stores versioned component configurations for agent evaluation workflows.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             bundle_name: <p>The name for the configuration bundle. Names must be unique within your account.</p>
             description: <p>The description for the configuration bundle.</p>
             components: <p>A map of component identifiers to their configurations. Each component represents a configurable element within the bundle.</p>
@@ -229,10 +229,10 @@ class ConfigurationBundle:
             "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
         ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_configuration_bundle_response.UpdateConfigurationBundleResponse":
-        r"""<p>Updates a configuration bundle by creating a new version with the specified changes. Each update creates a new version in the version history.</p>
+        """<p>Updates a configuration bundle by creating a new version with the specified changes. Each update creates a new version in the version history.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             bundle_id: <p>The unique identifier of the configuration bundle to update.</p>
             bundle_name: <p>The updated name for the configuration bundle.</p>
             description: <p>The updated description for the configuration bundle.</p>
@@ -536,10 +536,10 @@ class AsyncConfigurationBundle:
         ] = None,
         tags: Optional["capo_bedrock_agentcore_control.types.tags_map.TagsMap"] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_configuration_bundle_response.CreateConfigurationBundleResponse":
-        r"""<p>Creates a new configuration bundle resource. A configuration bundle stores versioned component configurations for agent evaluation workflows.</p>
+        """<p>Creates a new configuration bundle resource. A configuration bundle stores versioned component configurations for agent evaluation workflows.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             bundle_name: <p>The name for the configuration bundle. Names must be unique within your account.</p>
             description: <p>The description for the configuration bundle.</p>
             components: <p>A map of component identifiers to their configurations. Each component represents a configurable element within the bundle.</p>
@@ -686,10 +686,10 @@ class AsyncConfigurationBundle:
             "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
         ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_configuration_bundle_response.UpdateConfigurationBundleResponse":
-        r"""<p>Updates a configuration bundle by creating a new version with the specified changes. Each update creates a new version in the version history.</p>
+        """<p>Updates a configuration bundle by creating a new version with the specified changes. Each update creates a new version in the version history.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             bundle_id: <p>The unique identifier of the configuration bundle to update.</p>
             bundle_name: <p>The updated name for the configuration bundle.</p>
             description: <p>The updated description for the configuration bundle.</p>

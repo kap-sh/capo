@@ -16,7 +16,7 @@ class AwsKmsKeyDetails(TypedDict, closed=True):
     ]
     """<p>The twelve-digit account ID of the Amazon Web Services account that owns the KMS key.</p>"""
     creation_date: NotRequired["capo_securityhub.types.double.Double"]
-    r"""<p>Indicates when the KMS key was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the KMS key was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     key_id: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The globally unique identifier for the KMS key.</p>"""
     key_manager: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

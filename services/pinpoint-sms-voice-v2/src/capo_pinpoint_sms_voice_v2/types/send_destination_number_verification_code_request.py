@@ -40,7 +40,7 @@ class SendDestinationNumberVerificationCodeRequest(TypedDict, closed=True):
     destination_country_parameters: NotRequired[
         "capo_pinpoint_sms_voice_v2.types.destination_country_parameters.DestinationCountryParameters"
     ]
-    r"""<p>This field is used for any country-specific registration requirements. Currently, this setting is only used when you send messages to recipients in India using a sender ID. For more information see <a href=\"https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-senderid-india.html\">Special requirements for sending SMS messages to recipients in India</a>. </p>"""
+    """<p>This field is used for any country-specific registration requirements. Currently, this setting is only used when you send messages to recipients in India using a sender ID. For more information see <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-senderid-india.html">Special requirements for sending SMS messages to recipients in India</a>. </p>"""
 
 
 # --- awsJson1_0 ser/de ---

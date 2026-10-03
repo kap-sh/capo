@@ -15,9 +15,9 @@ class ComputeConfig(TypedDict, closed=True):
     availability_zone: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>The Availability Zone where the DMS Serverless replication using this configuration will run. The default value is a random, system-chosen Availability Zone in the configuration's Amazon Web Services Region, for example, <code>\"us-west-2\"</code>. You can't set this parameter if the <code>MultiAZ</code> parameter is set to <code>true</code>.</p>"""
+    """<p>The Availability Zone where the DMS Serverless replication using this configuration will run. The default value is a random, system-chosen Availability Zone in the configuration's Amazon Web Services Region, for example, <code>"us-west-2"</code>. You can't set this parameter if the <code>MultiAZ</code> parameter is set to <code>true</code>.</p>"""
     dns_name_servers: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>A list of custom DNS name servers supported for the DMS Serverless replication to access your source or target database. This list overrides the default name servers supported by the DMS Serverless replication. You can specify a comma-separated list of internet addresses for up to four DNS name servers. For example: <code>\"1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4\"</code> </p>"""
+    """<p>A list of custom DNS name servers supported for the DMS Serverless replication to access your source or target database. This list overrides the default name servers supported by the DMS Serverless replication. You can specify a comma-separated list of internet addresses for up to four DNS name servers. For example: <code>"1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4"</code> </p>"""
     kms_key_id: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>An Key Management Service (KMS) key Amazon Resource Name (ARN) that is used to encrypt the data during DMS Serverless replication.</p> <p>If you don't specify a value for the <code>KmsKeyId</code> parameter, DMS uses your default encryption key.</p> <p>KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services account has a different default encryption key for each Amazon Web Services Region.</p>"""
     max_capacity_units: NotRequired[

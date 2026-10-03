@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class Ec2RecommendationsExportPreferences(TypedDict, closed=True):
     enabled: "capo_application_discovery_service.types.export_enabled.ExportEnabled"
-    r"""<p> If set to true, the export <a href=\"https://docs.aws.amazon.com/application-discovery/latest/APIReference/API_StartExportTask.html#API_StartExportTask_RequestSyntax\">preferences</a> is set to <code>Ec2RecommendationsExportPreferences</code>. </p>"""
+    """<p> If set to true, the export <a href="https://docs.aws.amazon.com/application-discovery/latest/APIReference/API_StartExportTask.html#API_StartExportTask_RequestSyntax">preferences</a> is set to <code>Ec2RecommendationsExportPreferences</code>. </p>"""
     cpu_performance_metric_basis: NotRequired[
         "capo_application_discovery_service.types.usage_metric_basis.UsageMetricBasis"
     ]
@@ -33,7 +33,7 @@ class Ec2RecommendationsExportPreferences(TypedDict, closed=True):
     preferred_region: NotRequired[
         "capo_application_discovery_service.types.user_preferred_region.UserPreferredRegion"
     ]
-    r"""<p> The target Amazon Web Services Region for the recommendations. You can use any of the Region codes available for the chosen service, as listed in <a href=\"https://docs.aws.amazon.com/general/latest/gr/rande.html\">Amazon Web Services service endpoints</a> in the <i>Amazon Web Services General Reference</i>. </p>"""
+    """<p> The target Amazon Web Services Region for the recommendations. You can use any of the Region codes available for the chosen service, as listed in <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Amazon Web Services service endpoints</a> in the <i>Amazon Web Services General Reference</i>. </p>"""
     reserved_instance_options: NotRequired[
         "capo_application_discovery_service.types.reserved_instance_options.ReservedInstanceOptions"
     ]

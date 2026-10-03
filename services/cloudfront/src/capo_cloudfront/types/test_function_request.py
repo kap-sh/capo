@@ -22,7 +22,7 @@ class TestFunctionRequest(TypedDict, closed=True):
     stage: NotRequired["capo_cloudfront.types.function_stage.FunctionStage"]
     """<p>The stage of the function that you are testing, either <code>DEVELOPMENT</code> or <code>LIVE</code>.</p>"""
     event_object: "capo_cloudfront.types.function_event_object.FunctionEventObject"
-    r"""<p>The event object to test the function with. For more information about the structure of the event object, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/managing-functions.html#test-function\">Testing functions</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
+    """<p>The event object to test the function with. For more information about the structure of the event object, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/managing-functions.html#test-function">Testing functions</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
 
 
 # --- restXml ser/de ---

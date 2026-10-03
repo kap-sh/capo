@@ -24,7 +24,7 @@ class DatasetSummary(TypedDict, closed=True):
     creation_time: NotRequired["capo_forecast.types.timestamp.Timestamp"]
     """<p>When the dataset was created.</p>"""
     last_modification_time: NotRequired["capo_forecast.types.timestamp.Timestamp"]
-    r"""<p>When you create a dataset, <code>LastModificationTime</code> is the same as <code>CreationTime</code>. While data is being imported to the dataset, <code>LastModificationTime</code> is the current time of the <code>ListDatasets</code> call. After a <a href=\"https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDatasetImportJob.html\">CreateDatasetImportJob</a> operation has finished, <code>LastModificationTime</code> is when the import job completed or failed.</p>"""
+    """<p>When you create a dataset, <code>LastModificationTime</code> is the same as <code>CreationTime</code>. While data is being imported to the dataset, <code>LastModificationTime</code> is the current time of the <code>ListDatasets</code> call. After a <a href="https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDatasetImportJob.html">CreateDatasetImportJob</a> operation has finished, <code>LastModificationTime</code> is when the import job completed or failed.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

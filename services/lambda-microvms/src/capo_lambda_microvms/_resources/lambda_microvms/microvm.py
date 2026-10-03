@@ -82,7 +82,7 @@ class Microvm:
         maximum_duration_in_seconds: Optional[int] = None,
         client_token: Optional[str] = None,
     ) -> "capo_lambda_microvms.types.run_microvm_response.RunMicrovmResponse":
-        r"""<p>Runs a new MicroVM from the specified image. The MicroVM starts in PENDING state and transitions to RUNNING once provisioning completes. To connect, generate an authentication token using CreateMicrovmAuthToken.</p>
+        """<p>Runs a new MicroVM from the specified image. The MicroVM starts in PENDING state and transitions to RUNNING once provisioning completes. To connect, generate an authentication token using CreateMicrovmAuthToken.</p>
 
         Args:
             ingress_network_connectors: <p>The list of ingress network connectors to configure for the MicroVM.</p>
@@ -91,7 +91,7 @@ class Microvm:
             image_version: <p>The version of the MicroVM image to run.</p>
             execution_role_arn: <p>The ARN of the IAM role to be assumed by the MicroVM during execution.</p>
             idle_policy: <p>Configuration to control auto-suspend and auto-resume behavior.</p>
-            logging: <p>The logging configuration for this MicroVM instance. Specify {\"cloudWatch\": {\"logGroup\": \"...\"}} to stream application logs to a custom CloudWatch log group, or {\"disabled\": {}} to turn off logging.</p>
+            logging: <p>The logging configuration for this MicroVM instance. Specify {"cloudWatch": {"logGroup": "..."}} to stream application logs to a custom CloudWatch log group, or {"disabled": {}} to turn off logging.</p>
             run_hook_payload: <p>Per-MicroVM initialization data delivered as the request body of the /run lifecycle hook. Use to pass tenant-specific configuration such as session IDs or secret references. Maximum: 16,384 bytes.</p>
             maximum_duration_in_seconds: <p>The maximum duration in seconds that the MicroVM can exist before being terminated by the platform. Valid range: 1–28,800 (8 hours).</p>
             client_token: <p>A unique, case-sensitive identifier you provide to ensure the idempotency of the request.</p>
@@ -543,7 +543,7 @@ class AsyncMicrovm:
         maximum_duration_in_seconds: Optional[int] = None,
         client_token: Optional[str] = None,
     ) -> "capo_lambda_microvms.types.run_microvm_response.RunMicrovmResponse":
-        r"""<p>Runs a new MicroVM from the specified image. The MicroVM starts in PENDING state and transitions to RUNNING once provisioning completes. To connect, generate an authentication token using CreateMicrovmAuthToken.</p>
+        """<p>Runs a new MicroVM from the specified image. The MicroVM starts in PENDING state and transitions to RUNNING once provisioning completes. To connect, generate an authentication token using CreateMicrovmAuthToken.</p>
 
         Args:
             ingress_network_connectors: <p>The list of ingress network connectors to configure for the MicroVM.</p>
@@ -552,7 +552,7 @@ class AsyncMicrovm:
             image_version: <p>The version of the MicroVM image to run.</p>
             execution_role_arn: <p>The ARN of the IAM role to be assumed by the MicroVM during execution.</p>
             idle_policy: <p>Configuration to control auto-suspend and auto-resume behavior.</p>
-            logging: <p>The logging configuration for this MicroVM instance. Specify {\"cloudWatch\": {\"logGroup\": \"...\"}} to stream application logs to a custom CloudWatch log group, or {\"disabled\": {}} to turn off logging.</p>
+            logging: <p>The logging configuration for this MicroVM instance. Specify {"cloudWatch": {"logGroup": "..."}} to stream application logs to a custom CloudWatch log group, or {"disabled": {}} to turn off logging.</p>
             run_hook_payload: <p>Per-MicroVM initialization data delivered as the request body of the /run lifecycle hook. Use to pass tenant-specific configuration such as session IDs or secret references. Maximum: 16,384 bytes.</p>
             maximum_duration_in_seconds: <p>The maximum duration in seconds that the MicroVM can exist before being terminated by the platform. Valid range: 1–28,800 (8 hours).</p>
             client_token: <p>A unique, case-sensitive identifier you provide to ensure the idempotency of the request.</p>

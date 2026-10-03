@@ -24,7 +24,7 @@ class OrganizationEventFilter(TypedDict, closed=True):
     ]
     """<p>A list of actionability values to filter events. Use this to filter events based on whether they require action (<code>ACTION_REQUIRED</code>), may require action (<code>ACTION_MAY_BE_REQUIRED</code>) or are informational (<code>INFORMATIONAL</code>).</p>"""
     event_type_codes: NotRequired["capo_health.types.event_type_list2.eventTypeList2"]
-    r"""<p>A list of unique identifiers for event types. For example, <code>\"AWS_EC2_SYSTEM_MAINTENANCE_EVENT\",\"AWS_RDS_MAINTENANCE_SCHEDULED\".</code> </p>"""
+    """<p>A list of unique identifiers for event types. For example, <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code> </p>"""
     aws_account_ids: NotRequired[
         "capo_health.types.aws_account_ids_list.awsAccountIdsList"
     ]

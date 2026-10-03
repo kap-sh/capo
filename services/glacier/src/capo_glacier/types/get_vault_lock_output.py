@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class GetVaultLockOutput(TypedDict, closed=True):
     policy: NotRequired["capo_glacier.types.string.string"]
-    r"""<p>The vault lock policy as a JSON string, which uses \"\\" as an escape character.</p>"""
+    r"""<p>The vault lock policy as a JSON string, which uses "\" as an escape character.</p>"""
     state: NotRequired["capo_glacier.types.string.string"]
     """<p>The state of the vault lock. <code>InProgress</code> or <code>Locked</code>.</p>"""
     expiration_date: NotRequired["capo_glacier.types.string.string"]

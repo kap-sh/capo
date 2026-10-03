@@ -52,12 +52,12 @@ class AddonSubscriptionResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_addon_subscription_response.CreateAddonSubscriptionResponse":
-        r"""<p>Creates a subscription for an Add On representing the acceptance of its terms of use and additional pricing. The subscription can then be used to create an instance for use in rule sets or traffic policies.</p>
+        """<p>Creates a subscription for an Add On representing the acceptance of its terms of use and additional pricing. The subscription can then be used to create an instance for use in rule sets or traffic policies.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             addon_name: <p>The name of the Add On to subscribe to. You can only have one subscription for each Add On name.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -251,12 +251,12 @@ class AsyncAddonSubscriptionResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_addon_subscription_response.CreateAddonSubscriptionResponse":
-        r"""<p>Creates a subscription for an Add On representing the acceptance of its terms of use and additional pricing. The subscription can then be used to create an instance for use in rule sets or traffic policies.</p>
+        """<p>Creates a subscription for an Add On representing the acceptance of its terms of use and additional pricing. The subscription can then be used to create an instance for use in rule sets or traffic policies.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             addon_name: <p>The name of the Add On to subscribe to. You can only have one subscription for each Add On name.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>

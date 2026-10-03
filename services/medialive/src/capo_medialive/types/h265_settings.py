@@ -52,7 +52,7 @@ class H265Settings(TypedDict, closed=True):
     ]
     """Enables or disables adaptive quantization (AQ), which is a technique MediaLive can apply to video on a frame-by-frame basis to produce more compression without losing quality. There are three types of adaptive quantization: spatial, temporal, and flicker. Flicker is the only type that you can customize. We recommend that you set the field to Auto. For more information about all the options, see the topic about video adaptive quantization in the MediaLive user guide."""
     afd_signaling: NotRequired["capo_medialive.types.afd_signaling.AfdSignaling"]
-    r"""Indicates that AFD values will be written into the output stream. If afdSignaling is \"auto\", the system will try to preserve the input AFD value (in cases where multiple AFD values are valid). If set to \"fixed\", the AFD value will be the value configured in the fixedAfd parameter."""
+    """Indicates that AFD values will be written into the output stream. If afdSignaling is "auto", the system will try to preserve the input AFD value (in cases where multiple AFD values are valid). If set to "fixed", the AFD value will be the value configured in the fixedAfd parameter."""
     alternative_transfer_function: NotRequired[
         "capo_medialive.types.h265_alternative_transfer_function.H265AlternativeTransferFunction"
     ]
@@ -146,17 +146,17 @@ class H265Settings(TypedDict, closed=True):
     mv_over_picture_boundaries: NotRequired[
         "capo_medialive.types.h265_mv_over_picture_boundaries.H265MvOverPictureBoundaries"
     ]
-    r"""If you are setting up the picture as a tile, you must set this to \"disabled\". In all other configurations, you typically enter \"enabled\"."""
+    """If you are setting up the picture as a tile, you must set this to "disabled". In all other configurations, you typically enter "enabled"."""
     mv_temporal_predictor: NotRequired[
         "capo_medialive.types.h265_mv_temporal_predictor.H265MvTemporalPredictor"
     ]
-    r"""If you are setting up the picture as a tile, you must set this to \"disabled\". In other configurations, you typically enter \"enabled\"."""
+    """If you are setting up the picture as a tile, you must set this to "disabled". In other configurations, you typically enter "enabled"."""
     tile_height: NotRequired[
         "capo_medialive.types.__integer_min64_max2160.__integerMin64Max2160"
     ]
     """Set this field to set up the picture as a tile. You must also set tileWidth. The tile height must result in 22 or fewer rows in the frame. The tile width must result in 20 or fewer columns in the frame. And finally, the product of the column count and row count must be 64 of less. If the tile width and height are specified, MediaLive will override the video codec slices field with a value that MediaLive calculates"""
     tile_padding: NotRequired["capo_medialive.types.h265_tile_padding.H265TilePadding"]
-    r"""Set to \"padded\" to force MediaLive to add padding to the frame, to obtain a frame that is a whole multiple of the tile size. If you are setting up the picture as a tile, you must enter \"padded\". In all other configurations, you typically enter \"none\"."""
+    """Set to "padded" to force MediaLive to add padding to the frame, to obtain a frame that is a whole multiple of the tile size. If you are setting up the picture as a tile, you must enter "padded". In all other configurations, you typically enter "none"."""
     tile_width: NotRequired[
         "capo_medialive.types.__integer_min256_max3840.__integerMin256Max3840"
     ]
@@ -164,7 +164,7 @@ class H265Settings(TypedDict, closed=True):
     treeblock_size: NotRequired[
         "capo_medialive.types.h265_treeblock_size.H265TreeblockSize"
     ]
-    r"""Select the tree block size used for encoding. If you enter \"auto\", the encoder will pick the best size. If you are setting up the picture as a tile, you must set this to 32x32. In all other configurations, you typically enter \"auto\"."""
+    """Select the tree block size used for encoding. If you enter "auto", the encoder will pick the best size. If you are setting up the picture as a tile, you must set this to 32x32. In all other configurations, you typically enter "auto"."""
     min_qp: NotRequired["capo_medialive.types.__integer_min1_max51.__integerMin1Max51"]
     """Sets the minimum QP. If you aren't familiar with quantization adjustment, leave the field empty. MediaLive will apply an appropriate value."""
     deblocking: NotRequired["capo_medialive.types.h265_deblocking.H265Deblocking"]

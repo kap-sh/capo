@@ -31,7 +31,7 @@ class CustomModelSummary(TypedDict, closed=True):
     customization_type: NotRequired[
         "capo_bedrock.types.customization_type.CustomizationType"
     ]
-    r"""<p>Specifies whether to carry out continued pre-training of a model or whether to fine-tune it. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models.html\">Custom models</a>.</p>"""
+    """<p>Specifies whether to carry out continued pre-training of a model or whether to fine-tune it. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models.html">Custom models</a>.</p>"""
     owner_account_id: NotRequired["capo_bedrock.types.account_id.AccountId"]
     """<p>The unique identifier of the account that owns the model.</p>"""
     model_status: NotRequired["capo_bedrock.types.model_status.ModelStatus"]

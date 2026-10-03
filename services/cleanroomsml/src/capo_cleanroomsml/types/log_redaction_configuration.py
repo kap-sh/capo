@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class LogRedactionConfiguration(TypedDict, closed=True):
     entities_to_redact: "capo_cleanroomsml.types.entity_type_list.EntityTypeList"
-    r"""<p>Specifies the entities to be redacted from logs. Entities to redact are \"ALL_PERSONALLY_IDENTIFIABLE_INFORMATION\", \"NUMBERS\",\"CUSTOM\". If CUSTOM is supplied or configured, custom patterns (customDataIdentifiers) should be provided, and the patterns will be redacted in logs or error messages.</p>"""
+    """<p>Specifies the entities to be redacted from logs. Entities to redact are "ALL_PERSONALLY_IDENTIFIABLE_INFORMATION", "NUMBERS","CUSTOM". If CUSTOM is supplied or configured, custom patterns (customDataIdentifiers) should be provided, and the patterns will be redacted in logs or error messages.</p>"""
     custom_entity_config: NotRequired[
         "capo_cleanroomsml.types.custom_entity_config.CustomEntityConfig"
     ]

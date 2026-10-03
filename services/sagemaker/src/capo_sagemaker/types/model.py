@@ -41,7 +41,7 @@ class Model(TypedDict, closed=True):
     enable_network_isolation: NotRequired["capo_sagemaker.types.boolean.Boolean"]
     """<p>Isolates the model container. No inbound or outbound network calls can be made to or from the model container.</p>"""
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>A list of key-value pairs associated with the model. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services resources</a> in the <i>Amazon Web Services General Reference Guide</i>.</p>"""
+    """<p>A list of key-value pairs associated with the model. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a> in the <i>Amazon Web Services General Reference Guide</i>.</p>"""
     deployment_recommendation: NotRequired[
         "capo_sagemaker.types.deployment_recommendation.DeploymentRecommendation"
     ]

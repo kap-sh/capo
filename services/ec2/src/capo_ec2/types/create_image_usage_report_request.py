@@ -35,7 +35,7 @@ class CreateImageUsageReportRequest(TypedDict, closed=True):
     tag_specifications: NotRequired[
         "capo_ec2.types.tag_specification_list.TagSpecificationList"
     ]
-    r"""<p>The tags to apply to the report on creation. The <code>ResourceType</code> must be set to <code>image-usage-report</code>; any other value will cause the report creation to fail.</p> <p>To tag a report after it has been created, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html\">CreateTags</a>.</p>"""
+    """<p>The tags to apply to the report on creation. The <code>ResourceType</code> must be set to <code>image-usage-report</code>; any other value will cause the report creation to fail.</p> <p>To tag a report after it has been created, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.</p>"""
 
 
 # --- ec2Query ser/de ---

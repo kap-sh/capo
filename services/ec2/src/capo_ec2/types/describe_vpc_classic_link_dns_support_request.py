@@ -18,7 +18,7 @@ class DescribeVpcClassicLinkDnsSupportRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_vpc_classic_link_dns_support_max_results.DescribeVpcClassicLinkDnsSupportMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     next_token: NotRequired[
         "capo_ec2.types.describe_vpc_classic_link_dns_support_next_token.DescribeVpcClassicLinkDnsSupportNextToken"
     ]

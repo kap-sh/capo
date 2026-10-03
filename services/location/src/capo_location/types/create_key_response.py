@@ -15,13 +15,13 @@ if TYPE_CHECKING:
 
 class CreateKeyResponse(TypedDict, closed=True):
     key: "capo_location.types.api_key.ApiKey"
-    r"""<p>The key value/string of an API key. This value is used when making API calls to authorize the call. For example, see <a href=\"https://docs.aws.amazon.com/location/previous/APIReference/API_GetMapGlyphs.html\">GetMapGlyphs</a>.</p>"""
+    """<p>The key value/string of an API key. This value is used when making API calls to authorize the call. For example, see <a href="https://docs.aws.amazon.com/location/previous/APIReference/API_GetMapGlyphs.html">GetMapGlyphs</a>.</p>"""
     key_arn: "capo_location.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) for the API key resource. Used when you need to specify a resource across all Amazon Web Services.</p> <ul> <li> <p>Format example: <code>arn:aws:geo:region:account-id:key/ExampleKey</code> </p> </li> </ul>"""
     key_name: "capo_location.types.resource_name.ResourceName"
     """<p>The name of the API key resource.</p>"""
     create_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp for when the API key resource was created in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp for when the API key resource was created in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
 
 
 # --- restJson1 ser/de ---

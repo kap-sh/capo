@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class CertificateSettings(TypedDict, closed=True):
     type: "capo_amplify.types.certificate_type.CertificateType"
-    r"""<p>The certificate type.</p> <p>Specify <code>AMPLIFY_MANAGED</code> to use the default certificate that Amplify provisions for you.</p> <p>Specify <code>CUSTOM</code> to use your own certificate that you have already added to Certificate Manager in your Amazon Web Services account. Make sure you request (or import) the certificate in the US East (N. Virginia) Region (us-east-1). For more information about using ACM, see <a href=\"https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html\">Importing certificates into Certificate Manager</a> in the <i>ACM User guide</i>.</p>"""
+    """<p>The certificate type.</p> <p>Specify <code>AMPLIFY_MANAGED</code> to use the default certificate that Amplify provisions for you.</p> <p>Specify <code>CUSTOM</code> to use your own certificate that you have already added to Certificate Manager in your Amazon Web Services account. Make sure you request (or import) the certificate in the US East (N. Virginia) Region (us-east-1). For more information about using ACM, see <a href="https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html">Importing certificates into Certificate Manager</a> in the <i>ACM User guide</i>.</p>"""
     custom_certificate_arn: NotRequired[
         "capo_amplify.types.certificate_arn.CertificateArn"
     ]

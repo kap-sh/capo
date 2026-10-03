@@ -18,7 +18,7 @@ class UpdateServiceInput(TypedDict, closed=True):
     description: NotRequired["capo_proton.types.description.Description"]
     """<p>The edited service description.</p>"""
     spec: NotRequired["capo_proton.types.spec_contents.SpecContents"]
-    r"""<p>Lists the service instances to add and the existing service instances to remain. Omit the existing service instances to delete from the list. <i>Don't</i> include edits to the existing service instances or pipeline. For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-svc-update.html\">Edit a service</a> in the <i>Proton User Guide</i>.</p>"""
+    """<p>Lists the service instances to add and the existing service instances to remain. Omit the existing service instances to delete from the list. <i>Don't</i> include edits to the existing service instances or pipeline. For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-svc-update.html">Edit a service</a> in the <i>Proton User Guide</i>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

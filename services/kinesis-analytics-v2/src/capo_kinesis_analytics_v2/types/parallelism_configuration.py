@@ -23,7 +23,7 @@ class ParallelismConfiguration(TypedDict, closed=True):
     parallelism_per_kpu: NotRequired[
         "capo_kinesis_analytics_v2.types.parallelism_per_kpu.ParallelismPerKPU"
     ]
-    r"""<p>Describes the number of parallel tasks that a Managed Service for Apache Flink application can perform per Kinesis Processing Unit (KPU) used by the application. For more information about KPUs, see <a href=\"http://aws.amazon.com/kinesis/data-analytics/pricing/\">Amazon Managed Service for Apache Flink Pricing</a>.</p>"""
+    """<p>Describes the number of parallel tasks that a Managed Service for Apache Flink application can perform per Kinesis Processing Unit (KPU) used by the application. For more information about KPUs, see <a href="http://aws.amazon.com/kinesis/data-analytics/pricing/">Amazon Managed Service for Apache Flink Pricing</a>.</p>"""
     auto_scaling_enabled: NotRequired[
         "capo_kinesis_analytics_v2.types.boolean_object.BooleanObject"
     ]

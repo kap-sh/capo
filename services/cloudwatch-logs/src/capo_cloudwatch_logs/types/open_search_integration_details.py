@@ -19,7 +19,7 @@ class OpenSearchIntegrationDetails(TypedDict, closed=True):
     data_source: NotRequired[
         "capo_cloudwatch_logs.types.open_search_data_source.OpenSearchDataSource"
     ]
-    r"""<p>This structure contains information about the OpenSearch Service data source used for this integration. This data source was created as part of the integration setup. An OpenSearch Service data source defines the source and destination for OpenSearch Service queries. It includes the role required to execute queries and write to collections.</p> <p>For more information about OpenSearch Service data sources , see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3-creating.html\">Creating OpenSearch Service data source integrations with Amazon S3.</a> </p>"""
+    """<p>This structure contains information about the OpenSearch Service data source used for this integration. This data source was created as part of the integration setup. An OpenSearch Service data source defines the source and destination for OpenSearch Service queries. It includes the role required to execute queries and write to collections.</p> <p>For more information about OpenSearch Service data sources , see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/direct-query-s3-creating.html">Creating OpenSearch Service data source integrations with Amazon S3.</a> </p>"""
     application: NotRequired[
         "capo_cloudwatch_logs.types.open_search_application.OpenSearchApplication"
     ]
@@ -27,27 +27,27 @@ class OpenSearchIntegrationDetails(TypedDict, closed=True):
     collection: NotRequired[
         "capo_cloudwatch_logs.types.open_search_collection.OpenSearchCollection"
     ]
-    r"""<p>This structure contains information about the OpenSearch Service collection used for this integration. This collection was created as part of the integration setup. An OpenSearch Service collection is a logical grouping of one or more indexes that represent an analytics workload. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-collections.html\">Creating and managing OpenSearch Service Serverless collections</a>.</p>"""
+    """<p>This structure contains information about the OpenSearch Service collection used for this integration. This collection was created as part of the integration setup. An OpenSearch Service collection is a logical grouping of one or more indexes that represent an analytics workload. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-collections.html">Creating and managing OpenSearch Service Serverless collections</a>.</p>"""
     workspace: NotRequired[
         "capo_cloudwatch_logs.types.open_search_workspace.OpenSearchWorkspace"
     ]
-    r"""<p>This structure contains information about the OpenSearch Service workspace used for this integration. An OpenSearch Service workspace is the collection of dashboards along with other OpenSearch Service tools. This workspace was created automatically as part of the integration setup. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/application.html\">Centralized OpenSearch user interface (Dashboards) with OpenSearch Service</a>.</p>"""
+    """<p>This structure contains information about the OpenSearch Service workspace used for this integration. An OpenSearch Service workspace is the collection of dashboards along with other OpenSearch Service tools. This workspace was created automatically as part of the integration setup. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/application.html">Centralized OpenSearch user interface (Dashboards) with OpenSearch Service</a>.</p>"""
     encryption_policy: NotRequired[
         "capo_cloudwatch_logs.types.open_search_encryption_policy.OpenSearchEncryptionPolicy"
     ]
-    r"""<p>This structure contains information about the OpenSearch Service encryption policy used for this integration. The encryption policy was created automatically when you created the integration. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-encryption.html#serverless-encryption-policies\">Encryption policies</a> in the OpenSearch Service Developer Guide. </p>"""
+    """<p>This structure contains information about the OpenSearch Service encryption policy used for this integration. The encryption policy was created automatically when you created the integration. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-encryption.html#serverless-encryption-policies">Encryption policies</a> in the OpenSearch Service Developer Guide. </p>"""
     network_policy: NotRequired[
         "capo_cloudwatch_logs.types.open_search_network_policy.OpenSearchNetworkPolicy"
     ]
-    r"""<p>This structure contains information about the OpenSearch Service network policy used for this integration. The network policy assigns network access settings to collections. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html#serverless-network-policies\">Network policies</a> in the OpenSearch Service Developer Guide.</p>"""
+    """<p>This structure contains information about the OpenSearch Service network policy used for this integration. The network policy assigns network access settings to collections. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html#serverless-network-policies">Network policies</a> in the OpenSearch Service Developer Guide.</p>"""
     access_policy: NotRequired[
         "capo_cloudwatch_logs.types.open_search_data_access_policy.OpenSearchDataAccessPolicy"
     ]
-    r"""<p>This structure contains information about the OpenSearch Service data access policy used for this integration. The access policy defines the access controls for the collection. This data access policy was automatically created as part of the integration setup. For more information about OpenSearch Service data access policies, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a> in the OpenSearch Service Developer Guide.</p>"""
+    """<p>This structure contains information about the OpenSearch Service data access policy used for this integration. The access policy defines the access controls for the collection. This data access policy was automatically created as part of the integration setup. For more information about OpenSearch Service data access policies, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a> in the OpenSearch Service Developer Guide.</p>"""
     lifecycle_policy: NotRequired[
         "capo_cloudwatch_logs.types.open_search_lifecycle_policy.OpenSearchLifecyclePolicy"
     ]
-    r"""<p>This structure contains information about the OpenSearch Service data lifecycle policy used for this integration. The lifecycle policy determines the lifespan of the data in the collection. It was automatically created as part of the integration setup.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html\">Using data lifecycle policies with OpenSearch Service Serverless</a> in the OpenSearch Service Developer Guide.</p>"""
+    """<p>This structure contains information about the OpenSearch Service data lifecycle policy used for this integration. The lifecycle policy determines the lifespan of the data in the collection. It was automatically created as part of the integration setup.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html">Using data lifecycle policies with OpenSearch Service Serverless</a> in the OpenSearch Service Developer Guide.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

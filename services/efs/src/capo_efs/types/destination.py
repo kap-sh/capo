@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 class Destination(TypedDict, closed=True):
     status: "capo_efs.types.replication_status.ReplicationStatus"
-    r"""<p>Describes the status of the replication configuration. For more information about replication status, see <a href=\"https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#restoring-backup-efsmonitoring-replication-status.html\">Viewing replication details</a> in the <i>Amazon EFS User Guide</i>. </p>"""
+    """<p>Describes the status of the replication configuration. For more information about replication status, see <a href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#restoring-backup-efsmonitoring-replication-status.html">Viewing replication details</a> in the <i>Amazon EFS User Guide</i>. </p>"""
     file_system_id: "capo_efs.types.file_system_id.FileSystemId"
     """<p>The ID of the destination Amazon EFS file system.</p>"""
     region: "capo_efs.types.region_name.RegionName"
@@ -28,7 +28,7 @@ class Destination(TypedDict, closed=True):
     owner_id: NotRequired["capo_efs.types.aws_account_id.AwsAccountId"]
     """<p>ID of the Amazon Web Services account in which the destination file system resides.</p>"""
     status_message: NotRequired["capo_efs.types.status_message.StatusMessage"]
-    r"""<p>Message that provides details about the <code>PAUSED</code> or <code>ERRROR</code> state of the replication destination configuration. For more information about replication status messages, see <a href=\"https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#restoring-backup-efsmonitoring-replication-status.html\">Viewing replication details</a> in the <i>Amazon EFS User Guide</i>. </p>"""
+    """<p>Message that provides details about the <code>PAUSED</code> or <code>ERRROR</code> state of the replication destination configuration. For more information about replication status messages, see <a href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#restoring-backup-efsmonitoring-replication-status.html">Viewing replication details</a> in the <i>Amazon EFS User Guide</i>. </p>"""
     role_arn: NotRequired["capo_efs.types.role_arn.RoleArn"]
     """<p>Amazon Resource Name (ARN) of the IAM role in the source account that allows Amazon EFS to perform replication on its behalf. This is optional for same-account replication and required for cross-account replication.</p>"""
 

@@ -18,7 +18,7 @@ class UpdateVariableRequest(TypedDict, closed=True):
     description: NotRequired["capo_frauddetector.types.string.string"]
     """<p>The new description.</p>"""
     variable_type: NotRequired["capo_frauddetector.types.string.string"]
-    r"""<p>The variable type. For more information see <a href=\"https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types\">Variable types</a>.</p>"""
+    """<p>The variable type. For more information see <a href="https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types">Variable types</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

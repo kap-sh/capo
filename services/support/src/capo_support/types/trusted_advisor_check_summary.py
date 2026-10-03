@@ -19,7 +19,7 @@ class TrustedAdvisorCheckSummary(TypedDict, closed=True):
     timestamp: "capo_support.types.string.String"
     """<p>The time of the last refresh of the check.</p>"""
     status: "capo_support.types.string.String"
-    r"""<p>The alert status of the check: \"ok\" (green), \"warning\" (yellow), \"error\" (red), or \"not_available\".</p>"""
+    """<p>The alert status of the check: "ok" (green), "warning" (yellow), "error" (red), or "not_available".</p>"""
     has_flagged_resources: "capo_support.types.boolean.Boolean"
     """<p>Specifies whether the Trusted Advisor check has flagged resources.</p>"""
     resources_summary: "capo_support.types.trusted_advisor_resources_summary.TrustedAdvisorResourcesSummary"

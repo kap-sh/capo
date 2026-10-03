@@ -27,7 +27,7 @@ class FlinkApplicationConfigurationDescription(TypedDict, closed=True):
     job_plan_description: NotRequired[
         "capo_kinesis_analytics_v2.types.job_plan_description.JobPlanDescription"
     ]
-    r"""<p>The job plan for an application. For more information about the job plan, see <a href=\"https://nightlies.apache.org/flink/flink-docs-release-2.3/internals/job_scheduling.html\">Jobs and Scheduling</a> in the <a href=\"https://nightlies.apache.org/flink/flink-docs-release-2.3/\">Apache Flink Documentation</a>. To retrieve the job plan for the application, use the <a>DescribeApplicationRequest$IncludeAdditionalDetails</a> parameter of the <a>DescribeApplication</a> operation.</p>"""
+    """<p>The job plan for an application. For more information about the job plan, see <a href="https://nightlies.apache.org/flink/flink-docs-release-2.3/internals/job_scheduling.html">Jobs and Scheduling</a> in the <a href="https://nightlies.apache.org/flink/flink-docs-release-2.3/">Apache Flink Documentation</a>. To retrieve the job plan for the application, use the <a>DescribeApplicationRequest$IncludeAdditionalDetails</a> parameter of the <a>DescribeApplication</a> operation.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

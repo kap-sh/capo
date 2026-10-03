@@ -24,7 +24,7 @@ class ConfluenceConfiguration(TypedDict, closed=True):
     server_url: "capo_kendra.types.url.Url"
     """<p>The URL of your Confluence instance. Use the full URL of the server. For example, <i>https://server.example.com:port/</i>. You can also use an IP address, for example, <i>https://192.168.1.113/</i>.</p>"""
     secret_arn: "capo_kendra.types.secret_arn.SecretArn"
-    r"""<p>The Amazon Resource Name (ARN) of an Secrets Manager secret that contains the user name and password required to connect to the Confluence instance. If you use Confluence Cloud, you use a generated API token as the password.</p> <p>You can also provide authentication credentials in the form of a personal access token. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/data-source-confluence.html\">Using a Confluence data source</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an Secrets Manager secret that contains the user name and password required to connect to the Confluence instance. If you use Confluence Cloud, you use a generated API token as the password.</p> <p>You can also provide authentication credentials in the form of a personal access token. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-confluence.html">Using a Confluence data source</a>.</p>"""
     version: "capo_kendra.types.confluence_version.ConfluenceVersion"
     """<p>The version or the type of Confluence installation to connect to.</p>"""
     space_configuration: NotRequired[
@@ -46,7 +46,7 @@ class ConfluenceConfiguration(TypedDict, closed=True):
     vpc_configuration: NotRequired[
         "capo_kendra.types.data_source_vpc_configuration.DataSourceVpcConfiguration"
     ]
-    r"""<p>Configuration information for an Amazon Virtual Private Cloud to connect to your Confluence. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html\">Configuring a VPC</a>.</p>"""
+    """<p>Configuration information for an Amazon Virtual Private Cloud to connect to your Confluence. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html">Configuring a VPC</a>.</p>"""
     inclusion_patterns: NotRequired[
         "capo_kendra.types.data_source_inclusions_exclusions_strings.DataSourceInclusionsExclusionsStrings"
     ]
@@ -58,7 +58,7 @@ class ConfluenceConfiguration(TypedDict, closed=True):
     proxy_configuration: NotRequired[
         "capo_kendra.types.proxy_configuration.ProxyConfiguration"
     ]
-    r"""<p>Configuration information to connect to your Confluence URL instance via a web proxy. You can use this option for Confluence Server.</p> <p>You must provide the website host name and port number. For example, the host name of <i>https://a.example.com/page1.html</i> is \"a.example.com\" and the port is 443, the standard port for HTTPS.</p> <p>Web proxy credentials are optional and you can use them to connect to a web proxy server that requires basic authentication of user name and password. To store web proxy credentials, you use a secret in Secrets Manager.</p> <p>It is recommended that you follow best security practices when configuring your web proxy. This includes setting up throttling, setting up logging and monitoring, and applying security patches on a regular basis. If you use your web proxy with multiple data sources, sync jobs that occur at the same time could strain the load on your proxy. It is recommended you prepare your proxy beforehand for any security and load requirements.</p>"""
+    """<p>Configuration information to connect to your Confluence URL instance via a web proxy. You can use this option for Confluence Server.</p> <p>You must provide the website host name and port number. For example, the host name of <i>https://a.example.com/page1.html</i> is "a.example.com" and the port is 443, the standard port for HTTPS.</p> <p>Web proxy credentials are optional and you can use them to connect to a web proxy server that requires basic authentication of user name and password. To store web proxy credentials, you use a secret in Secrets Manager.</p> <p>It is recommended that you follow best security practices when configuring your web proxy. This includes setting up throttling, setting up logging and monitoring, and applying security patches on a regular basis. If you use your web proxy with multiple data sources, sync jobs that occur at the same time could strain the load on your proxy. It is recommended you prepare your proxy beforehand for any security and load requirements.</p>"""
     authentication_type: NotRequired[
         "capo_kendra.types.confluence_authentication_type.ConfluenceAuthenticationType"
     ]

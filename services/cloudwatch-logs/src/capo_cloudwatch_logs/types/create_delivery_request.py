@@ -33,7 +33,7 @@ class CreateDeliveryRequest(TypedDict, closed=True):
     ]
     """<p>This structure contains parameters that are valid only when the delivery's delivery destination is an S3 bucket.</p>"""
     tags: NotRequired["capo_cloudwatch_logs.types.tags.Tags"]
-    r"""<p>An optional list of key-value pairs to associate with the resource.</p> <p>For more information about tagging, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services resources</a> </p>"""
+    """<p>An optional list of key-value pairs to associate with the resource.</p> <p>For more information about tagging, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

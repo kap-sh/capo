@@ -46,7 +46,7 @@ class SynthesisTask(TypedDict, closed=True):
     output_format: NotRequired["capo_polly.types.output_format.OutputFormat"]
     """<p>The format in which the returned output will be encoded. For audio stream, this will be mp3, ogg_vorbis, ogg_opus, mu-law, a-law, or pcm. For speech marks, this will be json. </p>"""
     sample_rate: NotRequired["capo_polly.types.sample_rate.SampleRate"]
-    r"""<p>The audio frequency specified in Hz.</p> <p>The valid values for mp3 and ogg_vorbis are \"8000\", \"16000\", \"22050\", and \"24000\". The default value for standard voices is \"22050\". The default value for neural voices is \"24000\". The default value for long-form voices is \"24000\". The default value for generative voices is \"24000\".</p> <p>Valid values for pcm are \"8000\" and \"16000\" The default value is \"16000\". </p> <p>Valid value for ogg_opus is \"48000\". </p> <p>Valid value for mu-law and a-law is \"8000\". </p>"""
+    """<p>The audio frequency specified in Hz.</p> <p>The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard voices is "22050". The default value for neural voices is "24000". The default value for long-form voices is "24000". The default value for generative voices is "24000".</p> <p>Valid values for pcm are "8000" and "16000" The default value is "16000". </p> <p>Valid value for ogg_opus is "48000". </p> <p>Valid value for mu-law and a-law is "8000". </p>"""
     speech_mark_types: NotRequired[
         "capo_polly.types.speech_mark_type_list.SpeechMarkTypeList"
     ]
@@ -56,7 +56,7 @@ class SynthesisTask(TypedDict, closed=True):
     voice_id: NotRequired["capo_polly.types.voice_id.VoiceId"]
     """<p>Voice ID to use for the synthesis. </p>"""
     language_code: NotRequired["capo_polly.types.language_code.LanguageCode"]
-    r"""<p>Optional language code for a synthesis task. This is only necessary if using a bilingual voice, such as Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN). </p> <p>If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of the bilingual voice. The default language for any voice is the one returned by the <a href=\"https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html\">DescribeVoices</a> operation for the <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use Indian English rather than Hindi.</p>"""
+    """<p>Optional language code for a synthesis task. This is only necessary if using a bilingual voice, such as Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN). </p> <p>If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of the bilingual voice. The default language for any voice is the one returned by the <a href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation for the <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use Indian English rather than Hindi.</p>"""
 
 
 # --- restJson1 ser/de ---

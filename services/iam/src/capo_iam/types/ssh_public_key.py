@@ -28,7 +28,7 @@ class SSHPublicKey(TypedDict, closed=True):
     status: "capo_iam.types.status_type.statusType"
     """<p>The status of the SSH public key. <code>Active</code> means that the key can be used for authentication with an CodeCommit repository. <code>Inactive</code> means that the key cannot be used.</p>"""
     upload_date: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the SSH public key was uploaded.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the SSH public key was uploaded.</p>"""
 
 
 # --- awsQuery ser/de ---

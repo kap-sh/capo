@@ -20,7 +20,7 @@ class TelemetryDestinationConfiguration(TypedDict, closed=True):
     destination_type: NotRequired[
         "capo_observabilityadmin.types.destination_type.DestinationType"
     ]
-    r"""<p> The type of destination for the telemetry data (e.g., \"Amazon CloudWatch Logs\", \"S3\"). </p>"""
+    """<p> The type of destination for the telemetry data (e.g., "Amazon CloudWatch Logs", "S3"). </p>"""
     destination_pattern: NotRequired["str"]
     """<p> The pattern used to generate the destination path or name, supporting macros like &lt;resourceId&gt; and &lt;accountId&gt;. </p>"""
     retention_in_days: NotRequired[

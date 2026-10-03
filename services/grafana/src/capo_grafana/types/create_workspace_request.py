@@ -38,7 +38,7 @@ class CreateWorkspaceRequest(TypedDict, closed=True):
     ]
     """<p>The name of an IAM role that already exists to use with Organizations to access Amazon Web Services data sources and notification channels in other accounts in an organization.</p>"""
     permission_type: "capo_grafana.types.permission_type.PermissionType"
-    r"""<p>When creating a workspace through the Amazon Web Services API, CLI or Amazon Web Services CloudFormation, you must manage IAM roles and provision the permissions that the workspace needs to use Amazon Web Services data sources and notification channels.</p> <p>You must also specify a <code>workspaceRoleArn</code> for a role that you will manage for the workspace to use when accessing those datasources and notification channels.</p> <p>The ability for Amazon Managed Grafana to create and update IAM roles on behalf of the user is supported only in the Amazon Managed Grafana console, where this value may be set to <code>SERVICE_MANAGED</code>.</p> <note> <p>Use only the <code>CUSTOMER_MANAGED</code> permission type when creating a workspace with the API, CLI or Amazon Web Services CloudFormation. </p> </note> <p>For more information, see <a href=\"https://docs.aws.amazon.com/grafana/latest/userguide/AMG-manage-permissions.html\">Amazon Managed Grafana permissions and policies for Amazon Web Services data sources and notification channels</a>.</p>"""
+    """<p>When creating a workspace through the Amazon Web Services API, CLI or Amazon Web Services CloudFormation, you must manage IAM roles and provision the permissions that the workspace needs to use Amazon Web Services data sources and notification channels.</p> <p>You must also specify a <code>workspaceRoleArn</code> for a role that you will manage for the workspace to use when accessing those datasources and notification channels.</p> <p>The ability for Amazon Managed Grafana to create and update IAM roles on behalf of the user is supported only in the Amazon Managed Grafana console, where this value may be set to <code>SERVICE_MANAGED</code>.</p> <note> <p>Use only the <code>CUSTOMER_MANAGED</code> permission type when creating a workspace with the API, CLI or Amazon Web Services CloudFormation. </p> </note> <p>For more information, see <a href="https://docs.aws.amazon.com/grafana/latest/userguide/AMG-manage-permissions.html">Amazon Managed Grafana permissions and policies for Amazon Web Services data sources and notification channels</a>.</p>"""
     stack_set_name: NotRequired["capo_grafana.types.stack_set_name.StackSetName"]
     """<p>The name of the CloudFormation stack set to use to generate IAM roles to be used for this workspace.</p>"""
     workspace_data_sources: NotRequired[
@@ -62,7 +62,7 @@ class CreateWorkspaceRequest(TypedDict, closed=True):
     authentication_providers: (
         "capo_grafana.types.authentication_providers.AuthenticationProviders"
     )
-    r"""<p>Specifies whether this workspace uses SAML 2.0, IAM Identity Center, or both to authenticate users for using the Grafana console within a workspace. For more information, see <a href=\"https://docs.aws.amazon.com/grafana/latest/userguide/authentication-in-AMG.html\">User authentication in Amazon Managed Grafana</a>.</p>"""
+    """<p>Specifies whether this workspace uses SAML 2.0, IAM Identity Center, or both to authenticate users for using the Grafana console within a workspace. For more information, see <a href="https://docs.aws.amazon.com/grafana/latest/userguide/authentication-in-AMG.html">User authentication in Amazon Managed Grafana</a>.</p>"""
     tags: NotRequired["capo_grafana.types.tag_map.TagMap"]
     """<p>The list of tags associated with the workspace.</p>"""
     vpc_configuration: NotRequired[
@@ -72,7 +72,7 @@ class CreateWorkspaceRequest(TypedDict, closed=True):
     configuration: NotRequired[
         "capo_grafana.types.overridable_configuration_json.OverridableConfigurationJson"
     ]
-    r"""<p>The configuration string for the workspace that you create. For more information about the format and configuration options available, see <a href=\"https://docs.aws.amazon.com/grafana/latest/userguide/AMG-configure-workspace.html\">Working in your Grafana workspace</a>.</p>"""
+    """<p>The configuration string for the workspace that you create. For more information about the format and configuration options available, see <a href="https://docs.aws.amazon.com/grafana/latest/userguide/AMG-configure-workspace.html">Working in your Grafana workspace</a>.</p>"""
     network_access_control: NotRequired[
         "capo_grafana.types.network_access_configuration.NetworkAccessConfiguration"
     ]
@@ -80,7 +80,7 @@ class CreateWorkspaceRequest(TypedDict, closed=True):
     grafana_version: NotRequired["capo_grafana.types.grafana_version.GrafanaVersion"]
     """<p>Specifies the version of Grafana to support in the new workspace. If not specified, defaults to the latest version (for example, 10.4).</p> <p>To get a list of supported versions, use the <code>ListVersions</code> operation.</p>"""
     ip_address_type: NotRequired["capo_grafana.types.ip_address_type.IPAddressType"]
-    r"""<p>Specifies whether the workspace supports IPv4 only, or IPv4 and IPv6. Valid values are <code>IPv4</code> and <code>DualStack</code>. For more information about IP address types, see <a href=\"https://docs.aws.amazon.com/grafana/latest/userguide/AMG-configure-nac.html\">Network access control</a>.</p>"""
+    """<p>Specifies whether the workspace supports IPv4 only, or IPv4 and IPv6. Valid values are <code>IPv4</code> and <code>DualStack</code>. For more information about IP address types, see <a href="https://docs.aws.amazon.com/grafana/latest/userguide/AMG-configure-nac.html">Network access control</a>.</p>"""
     kms_key_id: NotRequired["capo_grafana.types.kms_key_id.KmsKeyId"]
     """<p>The ID or ARN of the Key Management Service key to use for encrypting workspace data.</p>"""
 

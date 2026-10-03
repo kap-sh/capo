@@ -30,13 +30,13 @@ class GetEngagementResponse(TypedDict, closed=True):
     ]
     """<p>A more detailed description of the engagement. This provides additional context or information about the engagement's purpose or scope.</p>"""
     created_at: NotRequired["capo_partnercentral_selling.types.date_time.DateTime"]
-    r"""<p>The date and time when the Engagement was created, presented in ISO 8601 format (UTC). For example: \"2023-05-01T20:37:46Z\". This timestamp helps track the lifecycle of the Engagement.</p>"""
+    """<p>The date and time when the Engagement was created, presented in ISO 8601 format (UTC). For example: "2023-05-01T20:37:46Z". This timestamp helps track the lifecycle of the Engagement.</p>"""
     created_by: NotRequired["capo_partnercentral_selling.types.aws_account.AwsAccount"]
     """<p>The AWS account ID of the user who originally created the engagement. This field helps in tracking the origin of the engagement.</p>"""
     member_count: NotRequired["int"]
     """<p>Specifies the current count of members participating in the Engagement. This count includes all active members regardless of their roles or permissions within the Engagement.</p>"""
     modified_at: NotRequired["capo_partnercentral_selling.types.date_time.DateTime"]
-    r"""<p>The timestamp indicating when the engagement was last modified, in ISO 8601 format (UTC). Example: \"2023-05-01T20:37:46Z\". This helps track the most recent changes to the engagement.</p>"""
+    """<p>The timestamp indicating when the engagement was last modified, in ISO 8601 format (UTC). Example: "2023-05-01T20:37:46Z". This helps track the most recent changes to the engagement.</p>"""
     modified_by: NotRequired["capo_partnercentral_selling.types.aws_account.AwsAccount"]
     """<p>The AWS account ID of the user who last modified the engagement. This field helps track who made the most recent changes to the engagement.</p>"""
     contexts: NotRequired[

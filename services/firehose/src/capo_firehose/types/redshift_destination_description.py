@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 class RedshiftDestinationDescription(TypedDict, closed=True):
     role_arn: "capo_firehose.types.role_arn.RoleARN"
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon Web Services credentials. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon Web Services credentials. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
     cluster_jdbcurl: "capo_firehose.types.cluster_jdbcurl.ClusterJDBCURL"
     """<p>The database connection string.</p>"""
     copy_command: "capo_firehose.types.copy_command.CopyCommand"

@@ -32,7 +32,7 @@ class AllocateAddressRequest(TypedDict, closed=True):
     ]
     """<p>The tags to assign to the Elastic IP address.</p>"""
     ipam_pool_id: NotRequired["capo_ec2.types.ipam_pool_id.IpamPoolId"]
-    r"""<p>The ID of an IPAM pool which has an Amazon-provided or BYOIP public IPv4 CIDR provisioned to it. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/ipam/tutorials-eip-pool.html\">Allocate sequential Elastic IP addresses from an IPAM pool</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
+    """<p>The ID of an IPAM pool which has an Amazon-provided or BYOIP public IPv4 CIDR provisioned to it. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/tutorials-eip-pool.html">Allocate sequential Elastic IP addresses from an IPAM pool</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
 

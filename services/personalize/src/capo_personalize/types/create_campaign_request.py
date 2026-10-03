@@ -18,7 +18,7 @@ class CreateCampaignRequest(TypedDict, closed=True):
     name: "capo_personalize.types.name.Name"
     """<p>A name for the new campaign. The campaign name must be unique within your account.</p>"""
     solution_version_arn: "capo_personalize.types.arn.Arn"
-    r"""<p>The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest solution version of your solution, specify the ARN of your <i>solution</i> in <code>SolutionArn/$LATEST</code> format. You must use this format if you set <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html\">CampaignConfig</a>. </p> <p> To deploy a model that isn't the latest solution version of your solution, specify the ARN of the solution version. </p> <p> For more information about automatic campaign updates, see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update\">Enabling automatic campaign updates</a>. </p>"""
+    """<p>The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest solution version of your solution, specify the ARN of your <i>solution</i> in <code>SolutionArn/$LATEST</code> format. You must use this format if you set <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html">CampaignConfig</a>. </p> <p> To deploy a model that isn't the latest solution version of your solution, specify the ARN of the solution version. </p> <p> For more information about automatic campaign updates, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update">Enabling automatic campaign updates</a>. </p>"""
     min_provisioned_tps: NotRequired[
         "capo_personalize.types.transactions_per_second.TransactionsPerSecond"
     ]
@@ -28,7 +28,7 @@ class CreateCampaignRequest(TypedDict, closed=True):
     ]
     """<p>The configuration details of a campaign.</p>"""
     tags: NotRequired["capo_personalize.types.tags.Tags"]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html\">tags</a> to apply to the campaign.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to the campaign.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

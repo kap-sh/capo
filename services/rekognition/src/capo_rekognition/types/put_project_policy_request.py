@@ -25,7 +25,7 @@ class PutProjectPolicyRequest(TypedDict, closed=True):
     policy_document: (
         "capo_rekognition.types.project_policy_document.ProjectPolicyDocument"
     )
-    r"""<p>A resource policy to add to the model. The policy is a JSON structure that contains one or more statements that define the policy. The policy must follow the IAM syntax. For more information about the contents of a JSON policy document, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html\">IAM JSON policy reference</a>. </p>"""
+    """<p>A resource policy to add to the model. The policy is a JSON structure that contains one or more statements that define the policy. The policy must follow the IAM syntax. For more information about the contents of a JSON policy document, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html">IAM JSON policy reference</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

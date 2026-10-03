@@ -17,13 +17,13 @@ class CreateGroupOutput(TypedDict, closed=True):
     resource_query: NotRequired[
         "capo_resource_groups.types.resource_query.ResourceQuery"
     ]
-    r"""<p>The resource query associated with the group. For more information about resource queries, see <a href=\"https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag\">Create a tag-based group in Resource Groups</a>. </p>"""
+    """<p>The resource query associated with the group. For more information about resource queries, see <a href="https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag">Create a tag-based group in Resource Groups</a>. </p>"""
     tags: NotRequired["capo_resource_groups.types.tags.Tags"]
     """<p>The tags associated with the group.</p>"""
     group_configuration: NotRequired[
         "capo_resource_groups.types.group_configuration.GroupConfiguration"
     ]
-    r"""<p>The service configuration associated with the resource group. For details about the syntax of a service configuration, see <a href=\"https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html\">Service configurations for Resource Groups</a>.</p>"""
+    """<p>The service configuration associated with the resource group. For details about the syntax of a service configuration, see <a href="https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html">Service configurations for Resource Groups</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

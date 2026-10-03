@@ -22,7 +22,7 @@ class CreateLoadBalancerRequest(TypedDict, closed=True):
     instance_port: "capo_lightsail.types.port.Port"
     """<p>The instance port where you're creating your load balancer.</p>"""
     health_check_path: NotRequired["capo_lightsail.types.string.string"]
-    r"""<p>The path you provided to perform the load balancer health check. If you didn't specify a health check path, Lightsail uses the root path of your website (<code>\"/\"</code>).</p> <p>You may want to specify a custom health check path other than the root of your application if your home page loads slowly or has a lot of media or scripting on it.</p>"""
+    """<p>The path you provided to perform the load balancer health check. If you didn't specify a health check path, Lightsail uses the root path of your website (<code>"/"</code>).</p> <p>You may want to specify a custom health check path other than the root of your application if your home page loads slowly or has a lot of media or scripting on it.</p>"""
     certificate_name: NotRequired["capo_lightsail.types.resource_name.ResourceName"]
     """<p>The name of the SSL/TLS certificate.</p> <p>If you specify <code>certificateName</code>, then <code>certificateDomainName</code> is required (and vice-versa).</p>"""
     certificate_domain_name: NotRequired["capo_lightsail.types.domain_name.DomainName"]
@@ -36,7 +36,7 @@ class CreateLoadBalancerRequest(TypedDict, closed=True):
     ip_address_type: NotRequired["capo_lightsail.types.ip_address_type.IpAddressType"]
     """<p>The IP address type for the load balancer.</p> <p>The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and <code>dualstack</code> for IPv4 and IPv6.</p> <p>The default value is <code>dualstack</code>.</p>"""
     tls_policy_name: NotRequired["capo_lightsail.types.string.string"]
-    r"""<p>The name of the TLS policy to apply to the load balancer.</p> <p>Use the <a href=\"https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html\">GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.</p> <p>For more information about load balancer TLS policies, see <a href=\"https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configure-load-balancer-tls-security-policy\">Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>"""
+    """<p>The name of the TLS policy to apply to the load balancer.</p> <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html">GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.</p> <p>For more information about load balancer TLS policies, see <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configure-load-balancer-tls-security-policy">Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

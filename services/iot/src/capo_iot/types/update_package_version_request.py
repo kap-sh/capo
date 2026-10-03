@@ -29,7 +29,7 @@ class UpdatePackageVersionRequest(TypedDict, closed=True):
     ]
     """<p>The various components that make up a software package version.</p>"""
     action: NotRequired["capo_iot.types.package_version_action.PackageVersionAction"]
-    r"""<p>The status that the package version should be assigned. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p>"""
+    """<p>The status that the package version should be assigned. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p>"""
     recipe: NotRequired["capo_iot.types.package_version_recipe.PackageVersionRecipe"]
     """<p>The inline job document associated with a software package version used for a quick job deployment.</p>"""
     client_token: NotRequired["capo_iot.types.client_token.ClientToken"]

@@ -36,7 +36,7 @@ class RunMicrovmRequest(TypedDict, closed=True):
     idle_policy: NotRequired["capo_lambda_microvms.types.idle_policy.IdlePolicy"]
     """<p>Configuration to control auto-suspend and auto-resume behavior.</p>"""
     logging: NotRequired["capo_lambda_microvms.types.logging.Logging"]
-    r"""<p>The logging configuration for this MicroVM instance. Specify {\"cloudWatch\": {\"logGroup\": \"...\"}} to stream application logs to a custom CloudWatch log group, or {\"disabled\": {}} to turn off logging.</p>"""
+    """<p>The logging configuration for this MicroVM instance. Specify {"cloudWatch": {"logGroup": "..."}} to stream application logs to a custom CloudWatch log group, or {"disabled": {}} to turn off logging.</p>"""
     run_hook_payload: NotRequired[
         "capo_lambda_microvms.types.run_hook_payload.RunHookPayload"
     ]

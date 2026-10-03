@@ -62,7 +62,7 @@ class TrafficPolicyResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_traffic_policy_response.CreateTrafficPolicyResponse":
-        r"""<p>Provision a new traffic policy resource.</p>
+        """<p>Provision a new traffic policy resource.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -70,7 +70,7 @@ class TrafficPolicyResource:
             policy_statements: <p>Conditional statements for filtering email traffic.</p>
             default_action: <p>Default action instructs the traﬃc policy to either Allow or Deny (block) messages that fall outside of (or not addressed by) the conditions of your policy statements</p>
             max_message_size_bytes: <p>The maximum message size in bytes of email which is allowed in by this traffic policy—anything larger will be blocked.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -379,7 +379,7 @@ class AsyncTrafficPolicyResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_traffic_policy_response.CreateTrafficPolicyResponse":
-        r"""<p>Provision a new traffic policy resource.</p>
+        """<p>Provision a new traffic policy resource.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -387,7 +387,7 @@ class AsyncTrafficPolicyResource:
             policy_statements: <p>Conditional statements for filtering email traffic.</p>
             default_action: <p>Default action instructs the traﬃc policy to either Allow or Deny (block) messages that fall outside of (or not addressed by) the conditions of your policy statements</p>
             max_message_size_bytes: <p>The maximum message size in bytes of email which is allowed in by this traffic policy—anything larger will be blocked.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>

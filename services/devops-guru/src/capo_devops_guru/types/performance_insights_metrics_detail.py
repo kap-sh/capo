@@ -24,11 +24,11 @@ class PerformanceInsightsMetricsDetail(TypedDict, closed=True):
     metric_query: NotRequired[
         "capo_devops_guru.types.performance_insights_metric_query.PerformanceInsightsMetricQuery"
     ]
-    r"""<p>A single query to be processed for the metric. For more information, see <code> <a href=\"https://docs.aws.amazon.com/devops-guru/latest/APIReference/API_PerformanceInsightsMetricQuery.html\">PerformanceInsightsMetricQuery</a> </code>.</p>"""
+    """<p>A single query to be processed for the metric. For more information, see <code> <a href="https://docs.aws.amazon.com/devops-guru/latest/APIReference/API_PerformanceInsightsMetricQuery.html">PerformanceInsightsMetricQuery</a> </code>.</p>"""
     reference_data: NotRequired[
         "capo_devops_guru.types.performance_insights_reference_data_list.PerformanceInsightsReferenceDataList"
     ]
-    r"""<p> For more information, see <code> <a href=\"https://docs.aws.amazon.com/devops-guru/latest/APIReference/API_PerformanceInsightsReferenceData.html\">PerformanceInsightsReferenceData</a> </code>. </p>"""
+    """<p> For more information, see <code> <a href="https://docs.aws.amazon.com/devops-guru/latest/APIReference/API_PerformanceInsightsReferenceData.html">PerformanceInsightsReferenceData</a> </code>. </p>"""
     stats_at_anomaly: NotRequired[
         "capo_devops_guru.types.performance_insights_stats.PerformanceInsightsStats"
     ]

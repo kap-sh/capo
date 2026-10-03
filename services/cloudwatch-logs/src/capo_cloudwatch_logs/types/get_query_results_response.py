@@ -17,7 +17,7 @@ class GetQueryResultsResponse(TypedDict, closed=True):
     query_language: NotRequired[
         "capo_cloudwatch_logs.types.query_language.QueryLanguage"
     ]
-    r"""<p>The query language used for this query. For more information about the query languages that CloudWatch Logs supports, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_AnalyzeLogData_Languages.html\">Supported query languages</a>.</p>"""
+    """<p>The query language used for this query. For more information about the query languages that CloudWatch Logs supports, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_AnalyzeLogData_Languages.html">Supported query languages</a>.</p>"""
     results: NotRequired["capo_cloudwatch_logs.types.query_results.QueryResults"]
     """<p>The log events that matched the query criteria during the most recent time it ran.</p> <p>The <code>results</code> value is an array of arrays. Each log event is one object in the top-level array. Each of these log event objects is an array of <code>field</code>/<code>value</code> pairs.</p>"""
     statistics: NotRequired[
@@ -29,7 +29,7 @@ class GetQueryResultsResponse(TypedDict, closed=True):
     encryption_key: NotRequired[
         "capo_cloudwatch_logs.types.encryption_key.EncryptionKey"
     ]
-    r"""<p>If you associated an KMS key with the CloudWatch Logs Insights query results in this account, this field displays the ARN of the key that's used to encrypt the query results when <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_StartQuery.html\">StartQuery</a> stores them.</p>"""
+    """<p>If you associated an KMS key with the CloudWatch Logs Insights query results in this account, this field displays the ARN of the key that's used to encrypt the query results when <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_StartQuery.html">StartQuery</a> stores them.</p>"""
     next_token: NotRequired[
         "capo_cloudwatch_logs.types.get_query_results_next_token.GetQueryResultsNextToken"
     ]

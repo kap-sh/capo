@@ -29,7 +29,7 @@ class GetSAMLProviderResponse(TypedDict, closed=True):
     valid_until: NotRequired["capo_iam.types.date_type.dateType"]
     """<p>The expiration date and time for the SAML provider.</p>"""
     tags: NotRequired["capo_iam.types.tag_list_type.tagListType"]
-    r"""<p>A list of tags that are attached to the specified IAM SAML provider. The returned list of tags is sorted by tag key. For more information about tagging, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html\">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>A list of tags that are attached to the specified IAM SAML provider. The returned list of tags is sorted by tag key. For more information about tagging, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
     assertion_encryption_mode: NotRequired[
         "capo_iam.types.assertion_encryption_mode_type.assertionEncryptionModeType"
     ]

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class UntagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_cost_explorer.types.arn.Arn"
-    r"""<p>The Amazon Resource Name (ARN) of the resource. For a list of supported resources, see <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_ResourceTag.html\">ResourceTag</a>. </p>"""
+    """<p>The Amazon Resource Name (ARN) of the resource. For a list of supported resources, see <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_ResourceTag.html">ResourceTag</a>. </p>"""
     resource_tag_keys: (
         "capo_cost_explorer.types.resource_tag_key_list.ResourceTagKeyList"
     )

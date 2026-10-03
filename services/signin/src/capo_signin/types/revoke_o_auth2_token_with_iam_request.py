@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class RevokeOAuth2TokenWithIAMRequest(TypedDict, closed=True):
     token: "capo_signin.types.revocation_token.RevocationToken"
-    r"""The refresh_token to revoke. Must be a refresh_token issued by AWS Sign-In (prefix \"ASOR\"); access_tokens are not accepted for revocation."""
+    """The refresh_token to revoke. Must be a refresh_token issued by AWS Sign-In (prefix "ASOR"); access_tokens are not accepted for revocation."""
 
 
 # --- restJson1 ser/de ---

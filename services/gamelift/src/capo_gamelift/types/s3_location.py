@@ -14,7 +14,7 @@ class S3Location(TypedDict, closed=True):
     key: NotRequired["capo_gamelift.types.non_empty_string.NonEmptyString"]
     """<p>The name of the zip file that contains the build files or script files. </p>"""
     role_arn: NotRequired["capo_gamelift.types.non_empty_string.NonEmptyString"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) for an IAM role that allows Amazon GameLift Servers to access the S3 bucket.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for an IAM role that allows Amazon GameLift Servers to access the S3 bucket.</p>"""
     object_version: NotRequired["capo_gamelift.types.non_empty_string.NonEmptyString"]
     """<p>The version of the file, if object versioning is turned on for the bucket. Amazon GameLift Servers uses this information when retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the file. If not set, the latest version of the file is retrieved. </p>"""
 

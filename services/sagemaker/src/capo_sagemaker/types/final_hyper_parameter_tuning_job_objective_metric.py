@@ -16,7 +16,7 @@ class FinalHyperParameterTuningJobObjectiveMetric(TypedDict, closed=True):
     ]
     """<p>Select if you want to minimize or maximize the objective metric during hyperparameter tuning. </p>"""
     metric_name: NotRequired["capo_sagemaker.types.metric_name.MetricName"]
-    r"""<p>The name of the objective metric. For SageMaker built-in algorithms, metrics are defined per algorithm. See the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/xgboost-tuning.html\">metrics for XGBoost</a> as an example. You can also use a custom algorithm for training and define your own metrics. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html\">Define metrics and environment variables</a>.</p>"""
+    """<p>The name of the objective metric. For SageMaker built-in algorithms, metrics are defined per algorithm. See the <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/xgboost-tuning.html">metrics for XGBoost</a> as an example. You can also use a custom algorithm for training and define your own metrics. For more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html">Define metrics and environment variables</a>.</p>"""
     value: NotRequired["capo_sagemaker.types.metric_value.MetricValue"]
     """<p>The value of the objective metric.</p>"""
 

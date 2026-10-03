@@ -28,7 +28,7 @@ class CreateCloudVmClusterInput(TypedDict, closed=True):
     gi_version: "str"
     """<p>A valid software version of Oracle Grid Infrastructure (GI). To get the list of valid values, use the <code>ListGiVersions</code> operation and specify the shape of the Exadata infrastructure.</p> <p>Example: <code>19.0.0.0</code> </p>"""
     hostname: "capo_odb.types.hostname.Hostname"
-    r"""<p>The host name for the VM cluster.</p> <p>Constraints:</p> <ul> <li> <p>Can't be \"localhost\" or \"hostname\".</p> </li> <li> <p>Can't contain \"-version\".</p> </li> <li> <p>The maximum length of the combined hostname and domain is 63 characters.</p> </li> <li> <p>The hostname must be unique within the subnet.</p> </li> </ul>"""
+    """<p>The host name for the VM cluster.</p> <p>Constraints:</p> <ul> <li> <p>Can't be "localhost" or "hostname".</p> </li> <li> <p>Can't contain "-version".</p> </li> <li> <p>The maximum length of the combined hostname and domain is 63 characters.</p> </li> <li> <p>The hostname must be unique within the subnet.</p> </li> </ul>"""
     ssh_public_keys: "capo_odb.types.string_list.StringList"
     """<p>The public key portion of one or more key pairs used for SSH access to the VM cluster.</p>"""
     odb_network_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn"

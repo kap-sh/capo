@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class IPRange(TypedDict, closed=True):
     status: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The status of the IP range. Status can be \"authorizing\", \"authorized\", \"revoking\", and \"revoked\".</p>"""
+    """<p>The status of the IP range. Status can be "authorizing", "authorized", "revoking", and "revoked".</p>"""
     cidrip: NotRequired["capo_rds.types.string.String"]
     """<p>The IP range.</p>"""
 

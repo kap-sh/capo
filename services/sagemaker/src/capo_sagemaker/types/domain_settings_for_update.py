@@ -23,7 +23,7 @@ class DomainSettingsForUpdate(TypedDict, closed=True):
     execution_role_identity_config: NotRequired[
         "capo_sagemaker.types.execution_role_identity_config.ExecutionRoleIdentityConfig"
     ]
-    r"""<p>The configuration for attaching a SageMaker AI user profile name to the execution role as a <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html\">sts:SourceIdentity key</a>. This configuration can only be modified if there are no apps in the <code>InService</code> or <code>Pending</code> state.</p>"""
+    """<p>The configuration for attaching a SageMaker AI user profile name to the execution role as a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html">sts:SourceIdentity key</a>. This configuration can only be modified if there are no apps in the <code>InService</code> or <code>Pending</code> state.</p>"""
     security_group_ids: NotRequired[
         "capo_sagemaker.types.domain_security_group_ids.DomainSecurityGroupIds"
     ]

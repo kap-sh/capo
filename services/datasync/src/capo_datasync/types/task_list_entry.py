@@ -19,7 +19,7 @@ class TaskListEntry(TypedDict, closed=True):
     name: NotRequired["capo_datasync.types.tag_value.TagValue"]
     """<p>The name of the task.</p>"""
     task_mode: NotRequired["capo_datasync.types.task_mode.TaskMode"]
-    r"""<p>The task mode that you're using. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/choosing-task-mode.html\">Choosing a task mode for your data transfer</a>.</p>"""
+    """<p>The task mode that you're using. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/choosing-task-mode.html">Choosing a task mode for your data transfer</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -17,7 +17,7 @@ class CreateRuleRequest(TypedDict, closed=True):
     name: "capo_waf_regional.types.resource_name.ResourceName"
     """<p>A friendly name or description of the <a>Rule</a>. You can't change the name of a <code>Rule</code> after you create it.</p>"""
     metric_name: "capo_waf_regional.types.metric_name.MetricName"
-    r"""<p>A friendly name or description for the metrics for this <code>Rule</code>. The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including \"All\" and \"Default_Action.\" You can't change the name of the metric after you create the <code>Rule</code>.</p>"""
+    """<p>A friendly name or description for the metrics for this <code>Rule</code>. The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including "All" and "Default_Action." You can't change the name of the metric after you create the <code>Rule</code>.</p>"""
     change_token: "capo_waf_regional.types.change_token.ChangeToken"
     """<p>The value returned by the most recent call to <a>GetChangeToken</a>.</p>"""
     tags: NotRequired["capo_waf_regional.types.tag_list.TagList"]

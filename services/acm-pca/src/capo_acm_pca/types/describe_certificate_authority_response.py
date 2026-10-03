@@ -12,7 +12,7 @@ class DescribeCertificateAuthorityResponse(TypedDict, closed=True):
     certificate_authority: NotRequired[
         "capo_acm_pca.types.certificate_authority.CertificateAuthority"
     ]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/privateca/latest/APIReference/API_CertificateAuthority.html\">CertificateAuthority</a> structure that contains information about your private CA.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CertificateAuthority.html">CertificateAuthority</a> structure that contains information about your private CA.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

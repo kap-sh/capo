@@ -32,7 +32,7 @@ class CreateDeploymentConfigInput(TypedDict, closed=True):
     ]
     """<p>The destination platform type for the deployment (<code>Lambda</code>, <code>Server</code>, or <code>ECS</code>).</p>"""
     zonal_config: NotRequired["capo_codedeploy.types.zonal_config.ZonalConfig"]
-    r"""<p>Configure the <code>ZonalConfig</code> object if you want CodeDeploy to deploy your application to one <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones\">Availability Zone</a> at a time, within an Amazon Web Services Region.</p> <p>For more information about the zonal configuration feature, see <a href=\"https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations-create.html#zonal-config\">zonal configuration</a> in the <i>CodeDeploy User Guide</i>.</p>"""
+    """<p>Configure the <code>ZonalConfig</code> object if you want CodeDeploy to deploy your application to one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones">Availability Zone</a> at a time, within an Amazon Web Services Region.</p> <p>For more information about the zonal configuration feature, see <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations-create.html#zonal-config">zonal configuration</a> in the <i>CodeDeploy User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

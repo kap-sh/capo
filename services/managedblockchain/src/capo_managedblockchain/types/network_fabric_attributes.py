@@ -13,7 +13,7 @@ class NetworkFabricAttributes(TypedDict, closed=True):
     ordering_service_endpoint: NotRequired["capo_managedblockchain.types.string.String"]
     """<p>The endpoint of the ordering service for the network.</p>"""
     edition: NotRequired["capo_managedblockchain.types.edition.Edition"]
-    r"""<p>The edition of Amazon Managed Blockchain that Hyperledger Fabric uses. For more information, see <a href=\"http://aws.amazon.com/managed-blockchain/pricing/\">Amazon Managed Blockchain Pricing</a>.</p>"""
+    """<p>The edition of Amazon Managed Blockchain that Hyperledger Fabric uses. For more information, see <a href="http://aws.amazon.com/managed-blockchain/pricing/">Amazon Managed Blockchain Pricing</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

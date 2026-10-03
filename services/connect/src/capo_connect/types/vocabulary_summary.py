@@ -24,7 +24,7 @@ class VocabularySummary(TypedDict, closed=True):
     arn: "capo_connect.types.arn.ARN"
     """<p>The Amazon Resource Name (ARN) of the custom vocabulary.</p>"""
     language_code: "capo_connect.types.vocabulary_language_code.VocabularyLanguageCode"
-    r"""<p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html\">What is Amazon Transcribe?</a> </p>"""
+    """<p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html">What is Amazon Transcribe?</a> </p>"""
     state: "capo_connect.types.vocabulary_state.VocabularyState"
     """<p>The current state of the custom vocabulary.</p>"""
     last_modified_time: (

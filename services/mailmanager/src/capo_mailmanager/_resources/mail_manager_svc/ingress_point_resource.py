@@ -72,7 +72,7 @@ class IngressPointResource:
         tls_policy: Optional["capo_mailmanager.types.tls_policy.TlsPolicy"] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_ingress_point_response.CreateIngressPointResponse":
-        r"""<p>Provision a new ingress endpoint resource.</p>
+        """<p>Provision a new ingress endpoint resource.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -83,7 +83,7 @@ class IngressPointResource:
             ingress_point_configuration: <p>If you choose an Authenticated ingress endpoint, you must configure either an SMTP password or a secret ARN.</p>
             network_configuration: <p>Specifies the network configuration for the ingress point. This allows you to create an IPv4-only, Dual-Stack, or PrivateLink type of ingress point. If not specified, the default network type is IPv4-only. </p>
             tls_policy: <p>The Transport Layer Security (TLS) policy for the ingress point. The FIPS value is only valid in US and Canada regions.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -430,7 +430,7 @@ class AsyncIngressPointResource:
         tls_policy: Optional["capo_mailmanager.types.tls_policy.TlsPolicy"] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_ingress_point_response.CreateIngressPointResponse":
-        r"""<p>Provision a new ingress endpoint resource.</p>
+        """<p>Provision a new ingress endpoint resource.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -441,7 +441,7 @@ class AsyncIngressPointResource:
             ingress_point_configuration: <p>If you choose an Authenticated ingress endpoint, you must configure either an SMTP password or a secret ARN.</p>
             network_configuration: <p>Specifies the network configuration for the ingress point. This allows you to create an IPv4-only, Dual-Stack, or PrivateLink type of ingress point. If not specified, the default network type is IPv4-only. </p>
             tls_policy: <p>The Transport Layer Security (TLS) policy for the ingress point. The FIPS value is only valid in US and Canada regions.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>

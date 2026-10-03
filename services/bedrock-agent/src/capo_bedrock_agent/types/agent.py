@@ -40,7 +40,7 @@ class Agent(TypedDict, closed=True):
     agent_version: "capo_bedrock_agent.types.draft_version.DraftVersion"
     """<p>The version of the agent.</p>"""
     client_token: NotRequired["capo_bedrock_agent.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     instruction: NotRequired["capo_bedrock_agent.types.instruction.Instruction"]
     """<p>Instructions that tell the agent what it should do and how it should interact with users.</p>"""
     agent_status: "capo_bedrock_agent.types.agent_status.AgentStatus"
@@ -84,7 +84,7 @@ class Agent(TypedDict, closed=True):
     prompt_override_configuration: NotRequired[
         "capo_bedrock_agent.types.prompt_override_configuration.PromptOverrideConfiguration"
     ]
-    r"""<p>Contains configurations to override prompt templates in different parts of an agent sequence. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompts.html\">Advanced prompts</a>.</p>"""
+    """<p>Contains configurations to override prompt templates in different parts of an agent sequence. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompts.html">Advanced prompts</a>.</p>"""
     guardrail_configuration: NotRequired[
         "capo_bedrock_agent.types.guardrail_configuration.GuardrailConfiguration"
     ]

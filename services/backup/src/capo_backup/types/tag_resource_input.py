@@ -15,7 +15,7 @@ class TagResourceInput(TypedDict, closed=True):
     resource_arn: "capo_backup.types.arn.ARN"
     """<p>The ARN that uniquely identifies the resource.</p>"""
     tags: "capo_backup.types.tags.Tags"
-    r"""<p>Key-value pairs that are used to help organize your resources. You can assign your own metadata to the resources you create. For clarity, this is the structure to assign tags: <code>[{\"Key\":\"string\",\"Value\":\"string\"}]</code>.</p>"""
+    """<p>Key-value pairs that are used to help organize your resources. You can assign your own metadata to the resources you create. For clarity, this is the structure to assign tags: <code>[{"Key":"string","Value":"string"}]</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

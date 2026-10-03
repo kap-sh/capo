@@ -17,7 +17,7 @@ class CodeArtifacts(TypedDict, closed=True):
     build_artifacts_object_key: NotRequired[
         "capo_codeguru_reviewer.types.build_artifacts_object_key.BuildArtifactsObjectKey"
     ]
-    r"""<p>The S3 object key for a build artifacts .zip file that contains .jar or .class files. This is required for a code review with security analysis. For more information, see <a href=\"https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/working-with-cicd.html\">Create code reviews with GitHub Actions</a> in the <i>Amazon CodeGuru Reviewer User Guide</i>.</p>"""
+    """<p>The S3 object key for a build artifacts .zip file that contains .jar or .class files. This is required for a code review with security analysis. For more information, see <a href="https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/working-with-cicd.html">Create code reviews with GitHub Actions</a> in the <i>Amazon CodeGuru Reviewer User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

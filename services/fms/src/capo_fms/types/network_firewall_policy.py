@@ -12,7 +12,7 @@ class NetworkFirewallPolicy(TypedDict, closed=True):
     firewall_deployment_model: NotRequired[
         "capo_fms.types.firewall_deployment_model.FirewallDeploymentModel"
     ]
-    r"""<p>Defines the deployment model to use for the firewall policy. To use a distributed model, set <a href=\"https://docs.aws.amazon.com/fms/2018-01-01/APIReference/API_PolicyOption.html\">PolicyOption</a> to <code>NULL</code>.</p>"""
+    """<p>Defines the deployment model to use for the firewall policy. To use a distributed model, set <a href="https://docs.aws.amazon.com/fms/2018-01-01/APIReference/API_PolicyOption.html">PolicyOption</a> to <code>NULL</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

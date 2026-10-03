@@ -17,7 +17,7 @@ class Trace(TypedDict, closed=True):
     duration: NotRequired["capo_xray.types.nullable_double.NullableDouble"]
     """<p>The length of time in seconds between the start time of the earliest segment that started and the end time of the last segment that completed.</p>"""
     limit_exceeded: NotRequired["capo_xray.types.nullable_boolean.NullableBoolean"]
-    r"""<p>LimitExceeded is set to true when the trace has exceeded the <code>Trace document size</code> limit. For more information about this limit and other X-Ray limits and quotas, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/xray.html\">Amazon Web Services X-Ray endpoints and quotas</a>.</p>"""
+    """<p>LimitExceeded is set to true when the trace has exceeded the <code>Trace document size</code> limit. For more information about this limit and other X-Ray limits and quotas, see <a href="https://docs.aws.amazon.com/general/latest/gr/xray.html">Amazon Web Services X-Ray endpoints and quotas</a>.</p>"""
     segments: NotRequired["capo_xray.types.segment_list.SegmentList"]
     """<p>Segment documents for the segments and subsegments that comprise the trace.</p>"""
 

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class TrimmedDataAccessException_(TypedDict, closed=True):
     message: NotRequired["capo_dynamodb_streams.types.error_message.ErrorMessage"]
-    r"""<p>\"The data you are trying to access has been trimmed.</p>"""
+    """<p>"The data you are trying to access has been trimmed.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

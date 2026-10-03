@@ -14,7 +14,7 @@ class EncryptionConfiguration(TypedDict, closed=True):
     replica_kms_key_id: NotRequired[
         "capo_s3_control.types.replica_kms_key_id.ReplicaKmsKeyID"
     ]
-    r"""<p>Specifies the ID of the customer managed KMS key that's stored in Key Management Service (KMS) for the destination bucket. This ID is either the Amazon Resource Name (ARN) for the KMS key or the alias ARN for the KMS key. Amazon S3 uses this KMS key to encrypt replica objects. Amazon S3 supports only symmetric encryption KMS keys. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#symmetric-cmks\">Symmetric encryption KMS keys</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>"""
+    """<p>Specifies the ID of the customer managed KMS key that's stored in Key Management Service (KMS) for the destination bucket. This ID is either the Amazon Resource Name (ARN) for the KMS key or the alias ARN for the KMS key. Amazon S3 uses this KMS key to encrypt replica objects. Amazon S3 supports only symmetric encryption KMS keys. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#symmetric-cmks">Symmetric encryption KMS keys</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>"""
 
 
 # --- restXml ser/de ---

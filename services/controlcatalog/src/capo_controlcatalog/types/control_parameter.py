@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ControlParameter(TypedDict, closed=True):
     name: "str"
-    r"""<p>The parameter name. This name is the parameter <code>key</code> when you call <a href=\"https://docs.aws.amazon.com/controltower/latest/APIReference/API_EnableControl.html\"> <code>EnableControl</code> </a> or <a href=\"https://docs.aws.amazon.com/controltower/latest/APIReference/API_UpdateEnabledControl.html\"> <code>UpdateEnabledControl</code> </a>.</p>"""
+    """<p>The parameter name. This name is the parameter <code>key</code> when you call <a href="https://docs.aws.amazon.com/controltower/latest/APIReference/API_EnableControl.html"> <code>EnableControl</code> </a> or <a href="https://docs.aws.amazon.com/controltower/latest/APIReference/API_UpdateEnabledControl.html"> <code>UpdateEnabledControl</code> </a>.</p>"""
     requirement: NotRequired[
         "capo_controlcatalog.types.control_parameter_requirement.ControlParameterRequirement"
     ]

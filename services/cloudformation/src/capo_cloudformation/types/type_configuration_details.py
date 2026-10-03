@@ -32,7 +32,7 @@ class TypeConfigurationDetails(TypedDict, closed=True):
     last_updated: NotRequired["capo_cloudformation.types.timestamp.Timestamp"]
     """<p>When the configuration data was last updated for this extension.</p> <p>If a configuration hasn't been set for a specified extension, CloudFormation returns <code>null</code>.</p>"""
     type_arn: NotRequired["capo_cloudformation.types.type_arn.TypeArn"]
-    r"""<p>The ARN for the extension, in this account and Region.</p> <p>For public extensions, this will be the ARN assigned when you call the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html\">ActivateType</a> API operation in this account and Region. For private extensions, this will be the ARN assigned when you call the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html\">RegisterType</a> API operation in this account and Region.</p>"""
+    """<p>The ARN for the extension, in this account and Region.</p> <p>For public extensions, this will be the ARN assigned when you call the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html">ActivateType</a> API operation in this account and Region. For private extensions, this will be the ARN assigned when you call the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html">RegisterType</a> API operation in this account and Region.</p>"""
     type_name: NotRequired["capo_cloudformation.types.type_name.TypeName"]
     """<p>The name of the extension.</p>"""
     is_default_configuration: NotRequired[

@@ -1030,7 +1030,7 @@ class AsyncPinpointEmailClient:
     async def get_deliverability_dashboard_options(
         self, *, config_overrides: Optional[AsyncPinpointEmailClientConfig] = None
     ) -> "capo_pinpoint_email.types.get_deliverability_dashboard_options_response.GetDeliverabilityDashboardOptionsResponse":
-        r"""<p>Retrieve information about the status of the Deliverability dashboard for your Amazon Pinpoint account. When the Deliverability dashboard is enabled, you gain access to reputation, deliverability, and other metrics for the domains that you use to send email using Amazon Pinpoint. You also gain the ability to perform predictive inbox placement tests.</p> <p>When you use the Deliverability dashboard, you pay a monthly subscription charge, in addition to any other fees that you accrue by using Amazon Pinpoint. For more information about the features and cost of a Deliverability dashboard subscription, see <a href=\"http://aws.amazon.com/pinpoint/pricing/\">Amazon Pinpoint Pricing</a>.</p>
+        """<p>Retrieve information about the status of the Deliverability dashboard for your Amazon Pinpoint account. When the Deliverability dashboard is enabled, you gain access to reputation, deliverability, and other metrics for the domains that you use to send email using Amazon Pinpoint. You also gain the ability to perform predictive inbox placement tests.</p> <p>When you use the Deliverability dashboard, you pay a monthly subscription charge, in addition to any other fees that you accrue by using Amazon Pinpoint. For more information about the features and cost of a Deliverability dashboard subscription, see <a href="http://aws.amazon.com/pinpoint/pricing/">Amazon Pinpoint Pricing</a>.</p>
 
         Raises:
             capo_pinpoint_email.errors.bad_request_exception.BadRequestException: <p>The input you provided is invalid.</p>
@@ -2070,7 +2070,7 @@ class AsyncPinpointEmailClient:
             "capo_pinpoint_email.types.domain_deliverability_tracking_options.DomainDeliverabilityTrackingOptions"
         ] = None,
     ) -> "capo_pinpoint_email.types.put_deliverability_dashboard_option_response.PutDeliverabilityDashboardOptionResponse":
-        r"""<p>Enable or disable the Deliverability dashboard for your Amazon Pinpoint account. When you enable the Deliverability dashboard, you gain access to reputation, deliverability, and other metrics for the domains that you use to send email using Amazon Pinpoint. You also gain the ability to perform predictive inbox placement tests.</p> <p>When you use the Deliverability dashboard, you pay a monthly subscription charge, in addition to any other fees that you accrue by using Amazon Pinpoint. For more information about the features and cost of a Deliverability dashboard subscription, see <a href=\"http://aws.amazon.com/pinpoint/pricing/\">Amazon Pinpoint Pricing</a>.</p>
+        """<p>Enable or disable the Deliverability dashboard for your Amazon Pinpoint account. When you enable the Deliverability dashboard, you gain access to reputation, deliverability, and other metrics for the domains that you use to send email using Amazon Pinpoint. You also gain the ability to perform predictive inbox placement tests.</p> <p>When you use the Deliverability dashboard, you pay a monthly subscription charge, in addition to any other fees that you accrue by using Amazon Pinpoint. For more information about the features and cost of a Deliverability dashboard subscription, see <a href="http://aws.amazon.com/pinpoint/pricing/">Amazon Pinpoint Pricing</a>.</p>
 
         Args:
             dashboard_enabled: <p>Specifies whether to enable the Deliverability dashboard for your Amazon Pinpoint account. To enable the dashboard, set this value to <code>true</code>.</p>
@@ -2229,11 +2229,11 @@ class AsyncPinpointEmailClient:
             "capo_pinpoint_email.types.behavior_on_mx_failure.BehaviorOnMxFailure"
         ] = None,
     ) -> "capo_pinpoint_email.types.put_email_identity_mail_from_attributes_response.PutEmailIdentityMailFromAttributesResponse":
-        r"""<p>Used to enable or disable the custom Mail-From domain configuration for an email identity.</p>
+        """<p>Used to enable or disable the custom Mail-From domain configuration for an email identity.</p>
 
         Args:
             email_identity: <p>The verified email identity that you want to set up the custom MAIL FROM domain for.</p>
-            mail_from_domain: <p> The custom MAIL FROM domain that you want the verified identity to use. The MAIL FROM domain must meet the following criteria:</p> <ul> <li> <p>It has to be a subdomain of the verified identity.</p> </li> <li> <p>It can't be used to receive email.</p> </li> <li> <p>It can't be used in a \"From\" address if the MAIL FROM domain is a destination for feedback forwarding emails.</p> </li> </ul>
+            mail_from_domain: <p> The custom MAIL FROM domain that you want the verified identity to use. The MAIL FROM domain must meet the following criteria:</p> <ul> <li> <p>It has to be a subdomain of the verified identity.</p> </li> <li> <p>It can't be used to receive email.</p> </li> <li> <p>It can't be used in a "From" address if the MAIL FROM domain is a destination for feedback forwarding emails.</p> </li> </ul>
             behavior_on_mx_failure: <p>The action that you want Amazon Pinpoint to take if it can't read the required MX record when you send an email. When you set this value to <code>UseDefaultValue</code>, Amazon Pinpoint uses <i>amazonses.com</i> as the MAIL FROM domain. When you set this value to <code>RejectMessage</code>, Amazon Pinpoint returns a <code>MailFromDomainNotVerified</code> error, and doesn't attempt to deliver the email.</p> <p>These behaviors are taken when the custom MAIL FROM domain configuration is in the <code>Pending</code>, <code>Failed</code>, and <code>TemporaryFailure</code> states.</p>
 
         Raises:
@@ -2297,12 +2297,12 @@ class AsyncPinpointEmailClient:
             "capo_pinpoint_email.types.configuration_set_name.ConfigurationSetName"
         ] = None,
     ) -> "capo_pinpoint_email.types.send_email_response.SendEmailResponse":
-        r"""<p>Sends an email message. You can use the Amazon Pinpoint Email API to send two types of messages:</p> <ul> <li> <p> <b>Simple</b> – A standard email message. When you create this type of message, you specify the sender, the recipient, and the message body, and Amazon Pinpoint assembles the message for you.</p> </li> <li> <p> <b>Raw</b> – A raw, MIME-formatted email message. When you send this type of email, you have to specify all of the message headers, as well as the message body. You can use this message type to send messages that contain attachments. The message that you specify has to be a valid MIME message.</p> </li> </ul>
+        """<p>Sends an email message. You can use the Amazon Pinpoint Email API to send two types of messages:</p> <ul> <li> <p> <b>Simple</b> – A standard email message. When you create this type of message, you specify the sender, the recipient, and the message body, and Amazon Pinpoint assembles the message for you.</p> </li> <li> <p> <b>Raw</b> – A raw, MIME-formatted email message. When you send this type of email, you have to specify all of the message headers, as well as the message body. You can use this message type to send messages that contain attachments. The message that you specify has to be a valid MIME message.</p> </li> </ul>
 
         Args:
-            from_email_address: <p>The email address that you want to use as the \"From\" address for the email. The address that you specify has to be verified. </p>
+            from_email_address: <p>The email address that you want to use as the "From" address for the email. The address that you specify has to be verified. </p>
             destination: <p>An object that contains the recipients of the email message.</p>
-            reply_to_addresses: <p>The \"Reply-to\" email addresses for the message. When the recipient replies to the message, each Reply-to address receives the reply.</p>
+            reply_to_addresses: <p>The "Reply-to" email addresses for the message. When the recipient replies to the message, each Reply-to address receives the reply.</p>
             feedback_forwarding_email_address: <p>The address that Amazon Pinpoint should send bounce and complaint notifications to.</p>
             content: <p>An object that contains the body of the message. You can send either a Simple message or a Raw message.</p>
             email_tags: <p>A list of tags, in the form of name/value pairs, to apply to an email that you send using the <code>SendEmail</code> operation. Tags correspond to characteristics of the email that you define, so that you can publish email sending events. </p>

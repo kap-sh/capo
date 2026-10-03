@@ -28,7 +28,7 @@ class StartOutboundVoiceContactRequest(TypedDict, closed=True):
     name: NotRequired["capo_connect.types.name.Name"]
     """<p>The name of a voice contact that is shown to an agent in the Contact Control Panel (CCP).</p>"""
     description: NotRequired["capo_connect.types.description.Description"]
-    r"""<p>A description of the voice contact that appears in the agent's snapshot in the CCP logs. For more information about CCP logs, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/download-ccp-logs.html\">Download and review CCP logs</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>A description of the voice contact that appears in the agent's snapshot in the CCP logs. For more information about CCP logs, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/download-ccp-logs.html">Download and review CCP logs</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
     references: NotRequired["capo_connect.types.contact_references.ContactReferences"]
     """<p>A formatted URL that is shown to an agent in the Contact Control Panel (CCP). Contacts can have the following reference types at the time of creation: <code>URL</code> | <code>NUMBER</code> | <code>STRING</code> | <code>DATE</code> | <code>EMAIL</code>. <code>ATTACHMENT</code> is not a supported reference type during voice contact creation.</p>"""
     related_contact_id: NotRequired["capo_connect.types.contact_id.ContactId"]
@@ -38,9 +38,9 @@ class StartOutboundVoiceContactRequest(TypedDict, closed=True):
     contact_flow_id: "capo_connect.types.contact_flow_id.ContactFlowId"
     """<p>The identifier of the flow for the outbound call. To see the ContactFlowId in the Connect Customer admin website, on the navigation menu go to <b>Routing</b>, <b>Contact Flows</b>. Choose the flow. On the flow page, under the name of the flow, choose <b>Show additional flow information</b>. The ContactFlowId is the last part of the ARN, shown here in bold: </p> <p>arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/contact-flow/<b>846ec553-a005-41c0-8341-xxxxxxxxxxxx</b> </p>"""
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     client_token: NotRequired["capo_connect.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>. The token is valid for 7 days after creation. If a contact is already started, the contact ID is returned. </p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>. The token is valid for 7 days after creation. If a contact is already started, the contact ID is returned. </p>"""
     source_phone_number: NotRequired["capo_connect.types.phone_number.PhoneNumber"]
     """<p>The phone number associated with the Connect Customer instance, in E.164 format. If you do not specify a source phone number, you must specify a queue.</p>"""
     queue_id: NotRequired["capo_connect.types.queue_id.QueueId"]

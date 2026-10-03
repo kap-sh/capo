@@ -23,9 +23,9 @@ class ReplicationRule(TypedDict, closed=True):
     id: NotRequired["capo_s3.types.id.ID"]
     """<p>A unique identifier for the rule. The maximum value is 255 characters.</p>"""
     priority: NotRequired["capo_s3.types.priority.Priority"]
-    r"""<p>The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will attempt to replicate objects according to all replication rules. However, if there are two or more rules with the same destination bucket, then objects will be replicated according to the rule with the highest priority. The higher the number, the higher the priority. </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html\">Replication</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will attempt to replicate objects according to all replication rules. However, if there are two or more rules with the same destination bucket, then objects will be replicated according to the rule with the highest priority. The higher the number, the higher the priority. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html">Replication</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     prefix: NotRequired["capo_s3.types.prefix.Prefix"]
-    r"""<p>An object key name prefix that identifies the object or objects to which the rule applies. The maximum prefix length is 1,024 characters. To include all objects in a bucket, specify an empty string. </p> <important> <p>Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints\"> XML related object key constraints</a>.</p> </important>"""
+    """<p>An object key name prefix that identifies the object or objects to which the rule applies. The maximum prefix length is 1,024 characters. To include all objects in a bucket, specify an empty string. </p> <important> <p>Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints"> XML related object key constraints</a>.</p> </important>"""
     filter: NotRequired["capo_s3.types.replication_rule_filter.ReplicationRuleFilter"]
     status: "capo_s3.types.replication_rule_status.ReplicationRuleStatus"
     """<p>Specifies whether the rule is enabled.</p>"""
@@ -36,7 +36,7 @@ class ReplicationRule(TypedDict, closed=True):
     existing_object_replication: NotRequired[
         "capo_s3.types.existing_object_replication.ExistingObjectReplication"
     ]
-    r"""<p>Optional configuration to replicate existing source bucket objects. </p> <note> <p>This parameter is no longer supported. To replicate existing objects, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-batch-replication-batch.html\">Replicating existing objects with S3 Batch Replication</a> in the <i>Amazon S3 User Guide</i>.</p> </note>"""
+    """<p>Optional configuration to replicate existing source bucket objects. </p> <note> <p>This parameter is no longer supported. To replicate existing objects, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-batch-replication-batch.html">Replicating existing objects with S3 Batch Replication</a> in the <i>Amazon S3 User Guide</i>.</p> </note>"""
     destination: "capo_s3.types.destination.Destination"
     """<p>A container for information about the replication destination and its configurations including enabling the S3 Replication Time Control (S3 RTC).</p>"""
     delete_marker_replication: NotRequired[

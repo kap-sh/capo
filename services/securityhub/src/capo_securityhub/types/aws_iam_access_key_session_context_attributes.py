@@ -13,7 +13,7 @@ class AwsIamAccessKeySessionContextAttributes(TypedDict, closed=True):
     mfa_authenticated: NotRequired["capo_securityhub.types.boolean.Boolean"]
     """<p>Indicates whether the session used multi-factor authentication (MFA).</p>"""
     creation_date: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the session was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the session was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -20,9 +20,9 @@ class QnAKendraConfiguration(TypedDict, closed=True):
     query_filter_string: NotRequired[
         "capo_lex_models_v2.types.query_filter_string.QueryFilterString"
     ]
-    r"""<p>Contains the Amazon Kendra filter string to use if enabled. For more information on the Amazon Kendra search filter JSON format, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/filtering.html#search-filtering\">Using document attributes to filter search results</a>.</p>"""
+    """<p>Contains the Amazon Kendra filter string to use if enabled. For more information on the Amazon Kendra search filter JSON format, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/filtering.html#search-filtering">Using document attributes to filter search results</a>.</p>"""
     exact_response: "capo_lex_models_v2.types.boolean.Boolean"
-    r"""<p>Specifies whether to return an exact response from the Amazon Kendra index or to let the Amazon Bedrock model you select generate a response based on the results. To use this feature, you must first add FAQ questions to your index by following the steps at <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/in-creating-faq.html\">Adding frequently asked questions (FAQs) to an index</a>.</p>"""
+    """<p>Specifies whether to return an exact response from the Amazon Kendra index or to let the Amazon Bedrock model you select generate a response based on the results. To use this feature, you must first add FAQ questions to your index by following the steps at <a href="https://docs.aws.amazon.com/kendra/latest/dg/in-creating-faq.html">Adding frequently asked questions (FAQs) to an index</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

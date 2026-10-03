@@ -14,7 +14,7 @@ class CrossAccountResource(TypedDict, closed=True):
     ]
     """<p>The endpoint ID for the endpoint that is listed in a cross-account attachment and can be added to an accelerator by specified principals.</p>"""
     cidr: NotRequired["capo_global_accelerator.types.generic_string.GenericString"]
-    r"""<p>An IP address range, in CIDR format, that is specified as an Amazon Web Services resource. The address must be provisioned and advertised in Global Accelerator by following the bring your own IP address (BYOIP) process for Global Accelerator.</p> <p> For more information, see <a href=\"https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html\">Bring your own IP addresses (BYOIP)</a> in the Global Accelerator Developer Guide.</p>"""
+    """<p>An IP address range, in CIDR format, that is specified as an Amazon Web Services resource. The address must be provisioned and advertised in Global Accelerator by following the bring your own IP address (BYOIP) process for Global Accelerator.</p> <p> For more information, see <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html">Bring your own IP addresses (BYOIP)</a> in the Global Accelerator Developer Guide.</p>"""
     attachment_arn: NotRequired[
         "capo_global_accelerator.types.generic_string.GenericString"
     ]

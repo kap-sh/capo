@@ -22,7 +22,7 @@ class LexConfiguration(TypedDict, closed=True):
     lex_bot_alias_arn: "capo_chime_sdk_identity.types.lex_bot_alias_arn.LexBotAliasArn"
     """<p>The ARN of the Amazon Lex V2 bot's alias. The ARN uses this format: <code>arn:aws:lex:REGION:ACCOUNT:bot-alias/MYBOTID/MYBOTALIAS</code> </p>"""
     locale_id: "capo_chime_sdk_identity.types.string.String"
-    r"""<p>Identifies the Amazon Lex V2 bot's language and locale. The string must match one of the supported locales in Amazon Lex V2. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a> in the <i>Amazon Lex V2 Developer Guide</i>.</p>"""
+    """<p>Identifies the Amazon Lex V2 bot's language and locale. The string must match one of the supported locales in Amazon Lex V2. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a> in the <i>Amazon Lex V2 Developer Guide</i>.</p>"""
     welcome_intent: NotRequired[
         "capo_chime_sdk_identity.types.lex_intent_name.LexIntentName"
     ]

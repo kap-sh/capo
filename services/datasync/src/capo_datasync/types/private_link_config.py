@@ -15,7 +15,7 @@ class PrivateLinkConfig(TypedDict, closed=True):
     vpc_endpoint_id: NotRequired["capo_datasync.types.vpc_endpoint_id.VpcEndpointId"]
     """<p>Specifies the ID of the VPC endpoint that your agent connects to.</p>"""
     private_link_endpoint: NotRequired["capo_datasync.types.endpoint.Endpoint"]
-    r"""<p>Specifies the VPC endpoint provided by <a href=\"https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html\">Amazon Web Services PrivateLink</a> that your agent connects to.</p>"""
+    """<p>Specifies the VPC endpoint provided by <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html">Amazon Web Services PrivateLink</a> that your agent connects to.</p>"""
     subnet_arns: NotRequired["capo_datasync.types.pl_subnet_arn_list.PLSubnetArnList"]
     """<p>Specifies the ARN of the subnet where your VPC endpoint is located. You can only specify one ARN.</p>"""
     security_group_arns: NotRequired[

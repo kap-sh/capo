@@ -15,11 +15,11 @@ class RestoreTestingRecoveryPointSelection(TypedDict, closed=True):
     algorithm: NotRequired[
         "capo_backup.types.restore_testing_recovery_point_selection_algorithm.RestoreTestingRecoveryPointSelectionAlgorithm"
     ]
-    r"""<p>Acceptable values include \"LATEST_WITHIN_WINDOW\" or \"RANDOM_WITHIN_WINDOW\"</p>"""
+    """<p>Acceptable values include "LATEST_WITHIN_WINDOW" or "RANDOM_WITHIN_WINDOW"</p>"""
     exclude_vaults: NotRequired["capo_backup.types.string_list.stringList"]
     """<p>Accepted values include specific ARNs or list of selectors. Defaults to empty list if not listed.</p>"""
     include_vaults: NotRequired["capo_backup.types.string_list.stringList"]
-    r"""<p>Accepted values include wildcard [\"*\"] or by specific ARNs or ARN wilcard replacement [\"arn:aws:backup:us-west-2:123456789012:backup-vault:asdf\", ...] [\"arn:aws:backup:*:*:backup-vault:asdf-*\", ...]</p>"""
+    """<p>Accepted values include wildcard ["*"] or by specific ARNs or ARN wilcard replacement ["arn:aws:backup:us-west-2:123456789012:backup-vault:asdf", ...] ["arn:aws:backup:*:*:backup-vault:asdf-*", ...]</p>"""
     recovery_point_types: NotRequired[
         "capo_backup.types.restore_testing_recovery_point_type_list.RestoreTestingRecoveryPointTypeList"
     ]

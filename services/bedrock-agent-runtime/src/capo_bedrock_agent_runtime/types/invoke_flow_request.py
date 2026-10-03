@@ -24,7 +24,7 @@ class InvokeFlowRequest(TypedDict, closed=True):
     inputs: "capo_bedrock_agent_runtime.types.flow_inputs.FlowInputs"
     """<p>A list of objects, each containing information about an input into the flow.</p>"""
     enable_trace: NotRequired["bool"]
-    r"""<p>Specifies whether to return the trace for the flow or not. Traces track inputs and outputs for nodes in the flow. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/flows-trace.html\">Track each step in your prompt flow by viewing its trace in Amazon Bedrock</a>.</p>"""
+    """<p>Specifies whether to return the trace for the flow or not. Traces track inputs and outputs for nodes in the flow. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/flows-trace.html">Track each step in your prompt flow by viewing its trace in Amazon Bedrock</a>.</p>"""
     model_performance_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.model_performance_configuration.ModelPerformanceConfiguration"
     ]

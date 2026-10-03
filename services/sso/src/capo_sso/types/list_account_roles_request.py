@@ -17,7 +17,7 @@ class ListAccountRolesRequest(TypedDict, closed=True):
     max_results: NotRequired["capo_sso.types.max_result_type.MaxResultType"]
     """<p>The number of items that clients can request per page.</p>"""
     access_token: "capo_sso.types.access_token_type.AccessTokenType"
-    r"""<p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html\">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>"""
+    """<p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>"""
     account_id: "capo_sso.types.account_id_type.AccountIdType"
     """<p>The identifier for the AWS account that is assigned to the user.</p>"""
 

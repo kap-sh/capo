@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""OTel dimension key on an operation identifier set (e.g. \"http.request.method\")."""
+"""OTel dimension key on an operation identifier set (e.g. "http.request.method")."""
 OperationIdentifierKey: TypeAlias = str

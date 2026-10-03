@@ -15,7 +15,7 @@ class SizeConstraintSetUpdate(TypedDict, closed=True):
     action: "capo_waf_regional.types.change_action.ChangeAction"
     """<p>Specify <code>INSERT</code> to add a <a>SizeConstraintSetUpdate</a> to a <a>SizeConstraintSet</a>. Use <code>DELETE</code> to remove a <code>SizeConstraintSetUpdate</code> from a <code>SizeConstraintSet</code>.</p>"""
     size_constraint: "capo_waf_regional.types.size_constraint.SizeConstraint"
-    r"""<p>Specifies a constraint on the size of a part of the web request. AWS WAF uses the <code>Size</code>, <code>ComparisonOperator</code>, and <code>FieldToMatch</code> to build an expression in the form of \"<code>Size</code> <code>ComparisonOperator</code> size in bytes of <code>FieldToMatch</code>\". If that expression is true, the <code>SizeConstraint</code> is considered to match.</p>"""
+    """<p>Specifies a constraint on the size of a part of the web request. AWS WAF uses the <code>Size</code>, <code>ComparisonOperator</code>, and <code>FieldToMatch</code> to build an expression in the form of "<code>Size</code> <code>ComparisonOperator</code> size in bytes of <code>FieldToMatch</code>". If that expression is true, the <code>SizeConstraint</code> is considered to match.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

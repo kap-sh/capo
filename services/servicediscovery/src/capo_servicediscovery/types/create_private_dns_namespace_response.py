@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreatePrivateDnsNamespaceResponse(TypedDict, closed=True):
     operation_id: NotRequired["capo_servicediscovery.types.operation_id.OperationId"]
-    r"""<p>A value that you can use to determine whether the request completed successfully. To get the status of the operation, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/api/API_GetOperation.html\">GetOperation</a>.</p>"""
+    """<p>A value that you can use to determine whether the request completed successfully. To get the status of the operation, see <a href="https://docs.aws.amazon.com/cloud-map/latest/api/API_GetOperation.html">GetOperation</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

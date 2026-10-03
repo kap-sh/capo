@@ -19,7 +19,7 @@ class IcebergSchema(TypedDict, closed=True):
     identifier_field_ids: NotRequired["capo_glue.types.integer_list.IntegerList"]
     """<p>The list of field identifiers that uniquely identify records in the table, used for row-level operations and deduplication.</p>"""
     type: NotRequired["capo_glue.types.iceberg_struct_type_enum.IcebergStructTypeEnum"]
-    r"""<p>The root type of the schema structure, typically \"struct\" for Iceberg table schemas.</p>"""
+    """<p>The root type of the schema structure, typically "struct" for Iceberg table schemas.</p>"""
     fields: "capo_glue.types.iceberg_struct_field_list.IcebergStructFieldList"
     """<p>The list of field definitions that make up the table schema, including field names, types, and metadata.</p>"""
 

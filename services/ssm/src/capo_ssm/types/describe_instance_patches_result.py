@@ -13,7 +13,7 @@ class DescribeInstancePatchesResult(TypedDict, closed=True):
     patches: NotRequired[
         "capo_ssm.types.patch_compliance_data_list.PatchComplianceDataList"
     ]
-    r"""<p>Each entry in the array is a structure containing:</p> <ul> <li> <p>Title (string)</p> </li> <li> <p>KBId (string)</p> </li> <li> <p>Classification (string)</p> </li> <li> <p>Severity (string)</p> </li> <li> <p>State (string, such as \"INSTALLED\" or \"FAILED\")</p> </li> <li> <p>InstalledTime (DateTime)</p> </li> <li> <p>InstalledBy (string)</p> </li> </ul>"""
+    """<p>Each entry in the array is a structure containing:</p> <ul> <li> <p>Title (string)</p> </li> <li> <p>KBId (string)</p> </li> <li> <p>Classification (string)</p> </li> <li> <p>Severity (string)</p> </li> <li> <p>State (string, such as "INSTALLED" or "FAILED")</p> </li> <li> <p>InstalledTime (DateTime)</p> </li> <li> <p>InstalledBy (string)</p> </li> </ul>"""
     next_token: NotRequired["capo_ssm.types.next_token.NextToken"]
     """<p>The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.</p>"""
 

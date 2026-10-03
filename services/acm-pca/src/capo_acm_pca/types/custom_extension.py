@@ -16,7 +16,7 @@ class CustomExtension(TypedDict, closed=True):
     object_identifier: (
         "capo_acm_pca.types.custom_object_identifier.CustomObjectIdentifier"
     )
-    r"""<p/> <p>Specifies the object identifier (OID) of the X.509 extension. For more information, see the <a href=\"https://oidref.com/2.5.29\">Global OID reference database.</a> </p>"""
+    """<p/> <p>Specifies the object identifier (OID) of the X.509 extension. For more information, see the <a href="https://oidref.com/2.5.29">Global OID reference database.</a> </p>"""
     value: "capo_acm_pca.types.base64_string1_to4096.Base64String1To4096"
     """<p/> <p>Specifies the base64-encoded value of the X.509 extension.</p>"""
     critical: NotRequired["capo_acm_pca.types.boolean.Boolean"]

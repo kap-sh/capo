@@ -16,7 +16,7 @@ class TagResourceRequest(TypedDict, closed=True):
     service_type: "capo_pi.types.service_type.ServiceType"
     """<p>The Amazon Web Services service for which Performance Insights returns metrics. Valid value is <code>RDS</code>.</p>"""
     resource_arn: "capo_pi.types.amazon_resource_name.AmazonResourceName"
-    r"""<p>The Amazon RDS Performance Insights resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing\"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>"""
+    """<p>The Amazon RDS Performance Insights resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>"""
     tags: "capo_pi.types.tag_list.TagList"
     """<p>The metadata assigned to an Amazon RDS resource consisting of a key-value pair.</p>"""
 

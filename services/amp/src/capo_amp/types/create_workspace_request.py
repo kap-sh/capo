@@ -19,7 +19,7 @@ class CreateWorkspaceRequest(TypedDict, closed=True):
     tags: NotRequired["capo_amp.types.tag_map.TagMap"]
     """<p>The list of tag keys and values to associate with the workspace.</p>"""
     kms_key_arn: NotRequired["capo_amp.types.kms_key_arn.KmsKeyArn"]
-    r"""<p>(optional) The ARN for a customer managed KMS key to use for encrypting data within your workspace. For more information about using your own key in your workspace, see <a href=\"https://docs.aws.amazon.com/prometheus/latest/userguide/encryption-at-rest-Amazon-Service-Prometheus.html\">Encryption at rest</a> in the <i>Amazon Managed Service for Prometheus User Guide</i>.</p>"""
+    """<p>(optional) The ARN for a customer managed KMS key to use for encrypting data within your workspace. For more information about using your own key in your workspace, see <a href="https://docs.aws.amazon.com/prometheus/latest/userguide/encryption-at-rest-Amazon-Service-Prometheus.html">Encryption at rest</a> in the <i>Amazon Managed Service for Prometheus User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

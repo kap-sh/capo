@@ -26,7 +26,7 @@ class CreateAccessGrantsInstanceResult(TypedDict, closed=True):
     access_grants_instance_arn: NotRequired[
         "capo_s3_control.types.access_grants_instance_arn.AccessGrantsInstanceArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon Web Services IAM Identity Center instance that you are associating with your S3 Access Grants instance. An IAM Identity Center instance is your corporate identity directory that you added to the IAM Identity Center. You can use the <a href=\"https://docs.aws.amazon.com/singlesignon/latest/APIReference/API_ListInstances.html\">ListInstances</a> API operation to retrieve a list of your Identity Center instances and their ARNs.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon Web Services IAM Identity Center instance that you are associating with your S3 Access Grants instance. An IAM Identity Center instance is your corporate identity directory that you added to the IAM Identity Center. You can use the <a href="https://docs.aws.amazon.com/singlesignon/latest/APIReference/API_ListInstances.html">ListInstances</a> API operation to retrieve a list of your Identity Center instances and their ARNs.</p>"""
     identity_center_arn: NotRequired[
         "capo_s3_control.types.identity_center_arn.IdentityCenterArn"
     ]
@@ -34,7 +34,7 @@ class CreateAccessGrantsInstanceResult(TypedDict, closed=True):
     identity_center_instance_arn: NotRequired[
         "capo_s3_control.types.identity_center_arn.IdentityCenterArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon Web Services IAM Identity Center instance that you are associating with your S3 Access Grants instance. An IAM Identity Center instance is your corporate identity directory that you added to the IAM Identity Center. You can use the <a href=\"https://docs.aws.amazon.com/singlesignon/latest/APIReference/API_ListInstances.html\">ListInstances</a> API operation to retrieve a list of your Identity Center instances and their ARNs.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon Web Services IAM Identity Center instance that you are associating with your S3 Access Grants instance. An IAM Identity Center instance is your corporate identity directory that you added to the IAM Identity Center. You can use the <a href="https://docs.aws.amazon.com/singlesignon/latest/APIReference/API_ListInstances.html">ListInstances</a> API operation to retrieve a list of your Identity Center instances and their ARNs.</p>"""
     identity_center_application_arn: NotRequired[
         "capo_s3_control.types.identity_center_application_arn.IdentityCenterApplicationArn"
     ]

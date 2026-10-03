@@ -24,7 +24,7 @@ class ComplianceItemEntry(TypedDict, closed=True):
     status: "capo_ssm.types.compliance_status.ComplianceStatus"
     """<p>The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.</p>"""
     details: NotRequired["capo_ssm.types.compliance_item_details.ComplianceItemDetails"]
-    r"""<p>A \"Key\": \"Value\" tag combination for the compliance item.</p>"""
+    """<p>A "Key": "Value" tag combination for the compliance item.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

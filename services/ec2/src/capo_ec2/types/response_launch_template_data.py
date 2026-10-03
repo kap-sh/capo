@@ -55,7 +55,7 @@ class ResponseLaunchTemplateData(TypedDict, closed=True):
     ]
     """<p>The network interfaces.</p>"""
     image_id: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of the AMI at instance launch.</p> <p>The value depends on what you specified in the request. The possible values are:</p> <ul> <li> <p>If an AMI ID was specified in the request, then this is the AMI ID.</p> </li> <li> <p>If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.</p> </li> <li> <p>If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as <code>false</code>, then this is the parameter value.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id\">Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of the AMI at instance launch.</p> <p>The value depends on what you specified in the request. The possible values are:</p> <ul> <li> <p>If an AMI ID was specified in the request, then this is the AMI ID.</p> </li> <li> <p>If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.</p> </li> <li> <p>If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as <code>false</code>, then this is the parameter value.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id">Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     instance_type: NotRequired["capo_ec2.types.instance_type.InstanceType"]
     """<p>The instance type.</p>"""
     key_name: NotRequired["capo_ec2.types.string.String"]
@@ -105,7 +105,7 @@ class ResponseLaunchTemplateData(TypedDict, closed=True):
     cpu_options: NotRequired[
         "capo_ec2.types.launch_template_cpu_options.LaunchTemplateCpuOptions"
     ]
-    r"""<p>The CPU options for the instance. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html\">CPU options for Amazon EC2 instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The CPU options for the instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">CPU options for Amazon EC2 instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     capacity_reservation_specification: NotRequired[
         "capo_ec2.types.launch_template_capacity_reservation_specification_response.LaunchTemplateCapacityReservationSpecificationResponse"
     ]
@@ -117,11 +117,11 @@ class ResponseLaunchTemplateData(TypedDict, closed=True):
     hibernation_options: NotRequired[
         "capo_ec2.types.launch_template_hibernation_options.LaunchTemplateHibernationOptions"
     ]
-    r"""<p>Indicates whether an instance is configured for hibernation. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html\">Hibernate your Amazon EC2 instance</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Indicates whether an instance is configured for hibernation. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     metadata_options: NotRequired[
         "capo_ec2.types.launch_template_instance_metadata_options.LaunchTemplateInstanceMetadataOptions"
     ]
-    r"""<p>The metadata options for the instance. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html\">Configure the Instance Metadata Service options</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The metadata options for the instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html">Configure the Instance Metadata Service options</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     enclave_options: NotRequired[
         "capo_ec2.types.launch_template_enclave_options.LaunchTemplateEnclaveOptions"
     ]
@@ -139,7 +139,7 @@ class ResponseLaunchTemplateData(TypedDict, closed=True):
     ]
     """<p>The maintenance options for your instance.</p>"""
     disable_api_stop: NotRequired["capo_ec2.types.boolean.Boolean"]
-    r"""<p>Indicates whether the instance is enabled for stop protection. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html\">Enable stop protection for your EC2 instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Indicates whether the instance is enabled for stop protection. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for your EC2 instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     operator: NotRequired["capo_ec2.types.operator_response.OperatorResponse"]
     """<p>The entity that manages the launch template.</p>"""
     network_performance_options: NotRequired[

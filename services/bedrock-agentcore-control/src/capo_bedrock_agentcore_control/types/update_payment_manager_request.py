@@ -36,7 +36,7 @@ class UpdatePaymentManagerRequest(TypedDict, closed=True):
     client_token: NotRequired[
         "capo_bedrock_agentcore_control.types.client_token.ClientToken"
     ]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     kms_key_arn: NotRequired[
         "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
     ]

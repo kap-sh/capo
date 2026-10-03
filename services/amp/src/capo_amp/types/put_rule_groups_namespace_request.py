@@ -19,7 +19,7 @@ class PutRuleGroupsNamespaceRequest(TypedDict, closed=True):
     name: "capo_amp.types.rule_groups_namespace_name.RuleGroupsNamespaceName"
     """<p>The name of the rule groups namespace that you are updating.</p>"""
     data: "capo_amp.types.rule_groups_namespace_data.RuleGroupsNamespaceData"
-    r"""<p>The new rules file to use in the namespace. A base64-encoded version of the YAML rule groups file.</p> <p>For details about the rule groups namespace structure, see <a href=\"https://docs.aws.amazon.com/prometheus/latest/APIReference/yaml-RuleGroupsNamespaceData.html\">RuleGroupsNamespaceData</a>.</p>"""
+    """<p>The new rules file to use in the namespace. A base64-encoded version of the YAML rule groups file.</p> <p>For details about the rule groups namespace structure, see <a href="https://docs.aws.amazon.com/prometheus/latest/APIReference/yaml-RuleGroupsNamespaceData.html">RuleGroupsNamespaceData</a>.</p>"""
     client_token: NotRequired["capo_amp.types.idempotency_token.IdempotencyToken"]
     """<p>A unique identifier that you can provide to ensure the idempotency of the request. Case-sensitive.</p>"""
 

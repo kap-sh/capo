@@ -12,7 +12,7 @@ class DirectPutSourceDescription(TypedDict, closed=True):
     throughput_hint_in_m_bs: NotRequired[
         "capo_firehose.types.throughput_hint_in_m_bs.ThroughputHintInMBs"
     ]
-    r"""<p> The value that you configure for this parameter is for information purpose only and does not affect Firehose delivery throughput limit. You can use the <a href=\"https://support.console.aws.amazon.com/support/home#/case/create%3FissueType=service-limit-increase%26limitType=kinesis-firehose-limits\">Firehose Limits form</a> to request a throughput limit increase. </p>"""
+    """<p> The value that you configure for this parameter is for information purpose only and does not affect Firehose delivery throughput limit. You can use the <a href="https://support.console.aws.amazon.com/support/home#/case/create%3FissueType=service-limit-increase%26limitType=kinesis-firehose-limits">Firehose Limits form</a> to request a throughput limit increase. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

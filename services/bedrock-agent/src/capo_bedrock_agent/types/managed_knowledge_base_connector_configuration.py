@@ -20,7 +20,7 @@ class ManagedKnowledgeBaseConnectorConfiguration(TypedDict, closed=True):
     ]
     """<p>Configuration for extracting media (images, audio, video) from data source files.</p>"""
     connector_parameters: NotRequired["object"]
-    r"""<p>Connector-specific parameters. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-connect-ds.html\">Connect a data source</a>.</p>"""
+    """<p>Connector-specific parameters. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-connect-ds.html">Connect a data source</a>.</p>"""
     sync_schedule: NotRequired["capo_bedrock_agent.types.sync_schedule.SyncSchedule"]
     """<p>The recurring schedule on which the connector automatically syncs this data source. If not specified, the data source is not synced automatically and you start each sync yourself. Not supported for the Custom connector.</p>"""
 

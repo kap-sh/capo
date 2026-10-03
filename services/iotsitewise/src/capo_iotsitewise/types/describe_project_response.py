@@ -18,7 +18,7 @@ class DescribeProjectResponse(TypedDict, closed=True):
     project_id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the project.</p>"""
     project_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the project, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:project/${ProjectId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the project, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:project/${ProjectId}</code> </p>"""
     project_name: "capo_iotsitewise.types.name.Name"
     """<p>The name of the project.</p>"""
     portal_id: "capo_iotsitewise.types.id.ID"

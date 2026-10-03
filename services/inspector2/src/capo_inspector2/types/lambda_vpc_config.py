@@ -16,7 +16,7 @@ class LambdaVpcConfig(TypedDict, closed=True):
     security_group_ids: NotRequired[
         "capo_inspector2.types.security_group_id_list.SecurityGroupIdList"
     ]
-    r"""<p>The VPC security groups and subnets that are attached to an Amazon Web Services Lambda function. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html\">VPC Settings</a>.</p>"""
+    """<p>The VPC security groups and subnets that are attached to an Amazon Web Services Lambda function. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html">VPC Settings</a>.</p>"""
     vpc_id: NotRequired["capo_inspector2.types.vpc_id.VpcId"]
     """<p>The ID of the VPC.</p>"""
 

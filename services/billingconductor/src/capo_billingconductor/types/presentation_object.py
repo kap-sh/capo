@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class PresentationObject(TypedDict, closed=True):
     service: "capo_billingconductor.types.service.Service"
-    r"""<p> The service under which the custom line item charges will be presented. Must be a string between 1 and 128 characters matching the pattern \"<code>^[a-zA-Z0-9]+$</code>\". </p>"""
+    """<p> The service under which the custom line item charges will be presented. Must be a string between 1 and 128 characters matching the pattern "<code>^[a-zA-Z0-9]+$</code>". </p>"""
 
 
 # --- restJson1 ser/de ---

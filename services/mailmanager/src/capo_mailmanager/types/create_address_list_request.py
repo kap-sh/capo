@@ -20,7 +20,7 @@ class CreateAddressListRequest(TypedDict, closed=True):
     address_list_name: "capo_mailmanager.types.address_list_name.AddressListName"
     """<p>A user-friendly name for the address list.</p>"""
     tags: NotRequired["capo_mailmanager.types.tag_list.TagList"]
-    r"""<p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

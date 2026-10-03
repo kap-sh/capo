@@ -15,7 +15,7 @@ class ModifyConversionConfigurationMessage(TypedDict, closed=True):
     migration_project_identifier: "capo_database_migration_service.types.migration_project_identifier.MigrationProjectIdentifier"
     """<p>The migration project name or Amazon Resource Name (ARN).</p>"""
     conversion_configuration: "capo_database_migration_service.types.string.String"
-    r"""<p>A JSON string that contains the schema conversion settings to update. For the format and available settings, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/schema-conversion-settings.html\">Specifying schema conversion settings for migration projects</a>.</p> <p>Usage:</p> <ul> <li> <p>Include only the sections and keys to change. The operation merges supplied values with the existing configuration.</p> </li> </ul>"""
+    """<p>A JSON string that contains the schema conversion settings to update. For the format and available settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/schema-conversion-settings.html">Specifying schema conversion settings for migration projects</a>.</p> <p>Usage:</p> <ul> <li> <p>Include only the sections and keys to change. The operation merges supplied values with the existing configuration.</p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---

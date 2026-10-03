@@ -41,7 +41,7 @@ class GetDashboardEmbedUrlRequest(TypedDict, closed=True):
     additional_dashboard_ids: NotRequired[
         "capo_quicksight.types.additional_dashboard_id_list.AdditionalDashboardIdList"
     ]
-    r"""<p>A list of one or more dashboard IDs that you want anonymous users to have tempporary access to. Currently, the <code>IdentityType</code> parameter must be set to <code>ANONYMOUS</code> because other identity types authenticate as Quick or IAM users. For example, if you set \"<code>--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS</code>\", the session can access all three dashboards.</p>"""
+    """<p>A list of one or more dashboard IDs that you want anonymous users to have tempporary access to. Currently, the <code>IdentityType</code> parameter must be set to <code>ANONYMOUS</code> because other identity types authenticate as Quick or IAM users. For example, if you set "<code>--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS</code>", the session can access all three dashboards.</p>"""
 
 
 # --- restJson1 ser/de ---

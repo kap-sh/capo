@@ -16,7 +16,7 @@ class GenerationConfiguration(TypedDict, closed=True):
     prompt_template: NotRequired[
         "capo_bedrock_agent_runtime.types.prompt_template.PromptTemplate"
     ]
-    r"""<p>Contains the template for the prompt that's sent to the model for response generation. Generation prompts must include the <code>$search_results$</code> variable. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-placeholders.html\">Use placeholder variables</a> in the user guide.</p>"""
+    """<p>Contains the template for the prompt that's sent to the model for response generation. Generation prompts must include the <code>$search_results$</code> variable. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-placeholders.html">Use placeholder variables</a> in the user guide.</p>"""
     guardrail_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.guardrail_configuration.GuardrailConfiguration"
     ]

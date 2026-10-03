@@ -28,11 +28,11 @@ class Name(TypedDict, closed=True):
     honorific_prefix: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>The honorific prefix of the user. For example, \"Dr.\"</p>"""
+    """<p>The honorific prefix of the user. For example, "Dr."</p>"""
     honorific_suffix: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>The honorific suffix of the user. For example, \"M.D.\"</p>"""
+    """<p>The honorific suffix of the user. For example, "M.D."</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -481,7 +481,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.associate_connection_alias_result.AssociateConnectionAliasResult":
-        r"""<p>Associates the specified connection alias with the specified directory to enable cross-Region redirection. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html\"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p> <note> <p>Before performing this operation, call <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html\"> DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>.</p> </note>
+        """<p>Associates the specified connection alias with the specified directory to enable cross-Region redirection. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p> <note> <p>Before performing this operation, call <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html"> DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>.</p> </note>
 
         Args:
             alias_id: <p>The identifier of the connection alias.</p>
@@ -697,7 +697,7 @@ class AsyncWorkSpacesClient:
         ] = None,
         tags: Optional["capo_workspaces.types.tag_list.TagList"] = None,
     ) -> "capo_workspaces.types.copy_workspace_image_result.CopyWorkspaceImageResult":
-        r"""<p>Copies the specified image from the specified Region to the current Region. For more information about copying images, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/copy-custom-image.html\"> Copy a Custom WorkSpaces Image</a>.</p> <p>In the China (Ningxia) Region, you can copy images only within the same Region.</p> <p>In Amazon Web Services GovCloud (US), to copy images to and from other Regions, contact Amazon Web Services Support.</p> <important> <p>Before copying a shared image, be sure to verify that it has been shared from the correct Amazon Web Services account. To determine if an image has been shared and to see the ID of the Amazon Web Services account that owns an image, use the <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html\">DescribeWorkSpaceImages</a> and <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImagePermissions.html\">DescribeWorkspaceImagePermissions</a> API operations. </p> </important>
+        """<p>Copies the specified image from the specified Region to the current Region. For more information about copying images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/copy-custom-image.html"> Copy a Custom WorkSpaces Image</a>.</p> <p>In the China (Ningxia) Region, you can copy images only within the same Region.</p> <p>In Amazon Web Services GovCloud (US), to copy images to and from other Regions, contact Amazon Web Services Support.</p> <important> <p>Before copying a shared image, be sure to verify that it has been shared from the correct Amazon Web Services account. To determine if an image has been shared and to see the ID of the Amazon Web Services account that owns an image, use the <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html">DescribeWorkSpaceImages</a> and <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImagePermissions.html">DescribeWorkspaceImagePermissions</a> API operations. </p> </important>
 
         Args:
             name: <p>The name of the image.</p>
@@ -863,7 +863,7 @@ class AsyncWorkSpacesClient:
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
         tags: Optional["capo_workspaces.types.tag_list.TagList"] = None,
     ) -> "capo_workspaces.types.create_connection_alias_result.CreateConnectionAliasResult":
-        r"""<p>Creates the specified connection alias for use with cross-Region redirection. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html\"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p>
+        """<p>Creates the specified connection alias for use with cross-Region redirection. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p>
 
         Args:
             connection_string: <p>A connection string in the form of a fully qualified domain name (FQDN), such as <code>www.example.com</code>.</p> <important> <p>After you create a connection string, it is always associated to your Amazon Web Services account. You cannot recreate the same connection string with a different account, even if you delete all instances of it from the original account. The connection string is globally reserved for your account.</p> </important>
@@ -1078,7 +1078,7 @@ class AsyncWorkSpacesClient:
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
         tags: Optional["capo_workspaces.types.tag_list.TagList"] = None,
     ) -> "capo_workspaces.types.create_updated_workspace_image_result.CreateUpdatedWorkspaceImageResult":
-        r"""<p>Creates a new updated WorkSpace image based on the specified source image. The new updated WorkSpace image has the latest drivers and other updates required by the Amazon WorkSpaces components.</p> <p>To determine which WorkSpace images need to be updated with the latest Amazon WorkSpaces requirements, use <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html\"> DescribeWorkspaceImages</a>.</p> <note> <ul> <li> <p>Only Windows 10, Windows Server 2016, and Windows Server 2019 WorkSpace images can be programmatically updated at this time.</p> </li> <li> <p>Microsoft Windows updates and other application updates are not included in the update process.</p> </li> <li> <p>The source WorkSpace image is not deleted. You can delete the source image after you've verified your new updated image and created a new bundle. </p> </li> </ul> </note>
+        """<p>Creates a new updated WorkSpace image based on the specified source image. The new updated WorkSpace image has the latest drivers and other updates required by the Amazon WorkSpaces components.</p> <p>To determine which WorkSpace images need to be updated with the latest Amazon WorkSpaces requirements, use <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html"> DescribeWorkspaceImages</a>.</p> <note> <ul> <li> <p>Only Windows 10, Windows Server 2016, and Windows Server 2019 WorkSpace images can be programmatically updated at this time.</p> </li> <li> <p>Microsoft Windows updates and other application updates are not included in the update process.</p> </li> <li> <p>The source WorkSpace image is not deleted. You can delete the source image after you've verified your new updated image and created a new bundle. </p> </li> </ul> </note>
 
         Args:
             name: <p>The name of the new updated WorkSpace image.</p>
@@ -1141,7 +1141,7 @@ class AsyncWorkSpacesClient:
         root_storage: Optional["capo_workspaces.types.root_storage.RootStorage"] = None,
         tags: Optional["capo_workspaces.types.tag_list.TagList"] = None,
     ) -> "capo_workspaces.types.create_workspace_bundle_result.CreateWorkspaceBundleResult":
-        r"""<p>Creates the specified WorkSpace bundle. For more information about creating WorkSpace bundles, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/create-custom-bundle.html\"> Create a Custom WorkSpaces Image and Bundle</a>.</p>
+        """<p>Creates the specified WorkSpace bundle. For more information about creating WorkSpace bundles, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/create-custom-bundle.html"> Create a Custom WorkSpaces Image and Bundle</a>.</p>
 
         Args:
             bundle_name: <p>The name of the bundle.</p>
@@ -1263,7 +1263,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.create_workspaces_result.CreateWorkspacesResult":
-        r"""<p>Creates one or more WorkSpaces.</p> <p>This operation is asynchronous and returns before the WorkSpaces are created.</p> <note> <ul> <li> <p>The <code>MANUAL</code> running mode value is only supported by Amazon WorkSpaces Core. Contact your account team to be allow-listed to use this value. For more information, see <a href=\"http://aws.amazon.com/workspaces/core/\">Amazon WorkSpaces Core</a>.</p> </li> <li> <p>You don't need to specify the <code>PCOIP</code> protocol for Linux bundles because <code>DCV</code> (formerly WSP) is the default protocol for those bundles.</p> </li> <li> <p>User-decoupled WorkSpaces are only supported by Amazon WorkSpaces Core.</p> </li> <li> <p>Review your running mode to ensure you are using one that is optimal for your needs and budget. For more information on switching running modes, see <a href=\"http://aws.amazon.com/workspaces-family/workspaces/faqs/#:~:text=Can%20I%20switch%20between%20hourly%20and%20monthly%20billing%20on%20WorkSpaces%20Personal%3F\"> Can I switch between hourly and monthly billing?</a> </p> </li> </ul> </note>
+        """<p>Creates one or more WorkSpaces.</p> <p>This operation is asynchronous and returns before the WorkSpaces are created.</p> <note> <ul> <li> <p>The <code>MANUAL</code> running mode value is only supported by Amazon WorkSpaces Core. Contact your account team to be allow-listed to use this value. For more information, see <a href="http://aws.amazon.com/workspaces/core/">Amazon WorkSpaces Core</a>.</p> </li> <li> <p>You don't need to specify the <code>PCOIP</code> protocol for Linux bundles because <code>DCV</code> (formerly WSP) is the default protocol for those bundles.</p> </li> <li> <p>User-decoupled WorkSpaces are only supported by Amazon WorkSpaces Core.</p> </li> <li> <p>Review your running mode to ensure you are using one that is optimal for your needs and budget. For more information on switching running modes, see <a href="http://aws.amazon.com/workspaces-family/workspaces/faqs/#:~:text=Can%20I%20switch%20between%20hourly%20and%20monthly%20billing%20on%20WorkSpaces%20Personal%3F"> Can I switch between hourly and monthly billing?</a> </p> </li> </ul> </note>
 
         Args:
             workspaces: <p>The WorkSpaces to create. You can specify up to 25 WorkSpaces.</p>
@@ -1324,7 +1324,7 @@ class AsyncWorkSpacesClient:
     ) -> (
         "capo_workspaces.types.create_workspaces_pool_result.CreateWorkspacesPoolResult"
     ):
-        r"""<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html\">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Creates a pool of WorkSpaces.</p>
+        """<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Creates a pool of WorkSpaces.</p>
 
         Args:
             pool_name: <p>The name of the pool.</p>
@@ -1545,7 +1545,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.delete_connection_alias_result.DeleteConnectionAliasResult":
-        r"""<p>Deletes the specified connection alias. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html\"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p> <important> <p> <b>If you will no longer be using a fully qualified domain name (FQDN) as the registration code for your WorkSpaces users, you must take certain precautions to prevent potential security issues.</b> For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html#cross-region-redirection-security-considerations\"> Security Considerations if You Stop Using Cross-Region Redirection</a>.</p> </important> <note> <p>To delete a connection alias that has been shared, the shared account must first disassociate the connection alias from any directories it has been associated with. Then you must unshare the connection alias from the account it has been shared with. You can delete a connection alias only after it is no longer shared with any accounts or associated with any directories.</p> </note>
+        """<p>Deletes the specified connection alias. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p> <important> <p> <b>If you will no longer be using a fully qualified domain name (FQDN) as the registration code for your WorkSpaces users, you must take certain precautions to prevent potential security issues.</b> For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html#cross-region-redirection-security-considerations"> Security Considerations if You Stop Using Cross-Region Redirection</a>.</p> </important> <note> <p>To delete a connection alias that has been shared, the shared account must first disassociate the connection alias from any directories it has been associated with. Then you must unshare the connection alias from the account it has been shared with. You can delete a connection alias only after it is no longer shared with any accounts or associated with any directories.</p> </note>
 
         Args:
             alias_id: <p>The identifier of the connection alias to delete.</p>
@@ -1689,7 +1689,7 @@ class AsyncWorkSpacesClient:
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
         bundle_id: Optional["capo_workspaces.types.bundle_id.BundleId"] = None,
     ) -> "capo_workspaces.types.delete_workspace_bundle_result.DeleteWorkspaceBundleResult":
-        r"""<p>Deletes the specified WorkSpace bundle. For more information about deleting WorkSpace bundles, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/delete_bundle.html\"> Delete a Custom WorkSpaces Bundle or Image</a>.</p>
+        """<p>Deletes the specified WorkSpace bundle. For more information about deleting WorkSpace bundles, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete_bundle.html"> Delete a Custom WorkSpaces Bundle or Image</a>.</p>
 
         Args:
             bundle_id: <p>The identifier of the bundle.</p>
@@ -1837,7 +1837,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.deregister_workspace_directory_result.DeregisterWorkspaceDirectoryResult":
-        r"""<p>Deregisters the specified directory. This operation is asynchronous and returns before the WorkSpace directory is deregistered. If any WorkSpaces are registered to this directory, you must remove them before you can deregister the directory.</p> <note> <p>Simple AD and AD Connector are made available to you free of charge to use with WorkSpaces. If there are no WorkSpaces being used with your Simple AD or AD Connector directory for 30 consecutive days, this directory will be automatically deregistered for use with Amazon WorkSpaces, and you will be charged for this directory as per the <a href=\"http://aws.amazon.com/directoryservice/pricing/\">Directory Service pricing terms</a>.</p> <p>To delete empty directories, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html\"> Delete the Directory for Your WorkSpaces</a>. If you delete your Simple AD or AD Connector directory, you can always create a new one when you want to start using WorkSpaces again.</p> </note>
+        """<p>Deregisters the specified directory. This operation is asynchronous and returns before the WorkSpace directory is deregistered. If any WorkSpaces are registered to this directory, you must remove them before you can deregister the directory.</p> <note> <p>Simple AD and AD Connector are made available to you free of charge to use with WorkSpaces. If there are no WorkSpaces being used with your Simple AD or AD Connector directory for 30 consecutive days, this directory will be automatically deregistered for use with Amazon WorkSpaces, and you will be charged for this directory as per the <a href="http://aws.amazon.com/directoryservice/pricing/">Directory Service pricing terms</a>.</p> <p>To delete empty directories, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html"> Delete the Directory for Your WorkSpaces</a>. If you delete your Simple AD or AD Connector directory, you can always create a new one when you want to start using WorkSpaces again.</p> </note>
 
         Args:
             directory_id: <p>The identifier of the directory. If any WorkSpaces are registered to this directory, you must remove them before you deregister the directory, or you will receive an OperationNotSupportedException error.</p>
@@ -2385,7 +2385,7 @@ class AsyncWorkSpacesClient:
             "capo_workspaces.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_workspaces.types.describe_connection_aliases_result.DescribeConnectionAliasesResult":
-        r"""<p>Retrieves a list that describes the connection aliases used for cross-Region redirection. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html\"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p>
+        """<p>Retrieves a list that describes the connection aliases used for cross-Region redirection. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p>
 
         Args:
             alias_ids: <p>The identifiers of the connection aliases to describe.</p>
@@ -2444,7 +2444,7 @@ class AsyncWorkSpacesClient:
         ] = None,
         max_results: Optional["capo_workspaces.types.limit.Limit"] = None,
     ) -> "capo_workspaces.types.describe_connection_alias_permissions_result.DescribeConnectionAliasPermissionsResult":
-        r"""<p>Describes the permissions that the owner of a connection alias has granted to another Amazon Web Services account for the specified connection alias. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html\"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p>
+        """<p>Describes the permissions that the owner of a connection alias has granted to another Amazon Web Services account for the specified connection alias. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p>
 
         Args:
             alias_id: <p>The identifier of the connection alias.</p>
@@ -3264,7 +3264,7 @@ class AsyncWorkSpacesClient:
             "capo_workspaces.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_workspaces.types.describe_workspaces_pools_result.DescribeWorkspacesPoolsResult":
-        r"""<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html\">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Describes the specified WorkSpaces Pools.</p>
+        """<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Describes the specified WorkSpaces Pools.</p>
 
         Args:
             pool_ids: <p>The identifier of the WorkSpaces Pools.</p>
@@ -3326,7 +3326,7 @@ class AsyncWorkSpacesClient:
             "capo_workspaces.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_workspaces.types.describe_workspaces_pool_sessions_result.DescribeWorkspacesPoolSessionsResult":
-        r"""<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html\">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Retrieves a list that describes the streaming sessions for a specified pool.</p>
+        """<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Retrieves a list that describes the streaming sessions for a specified pool.</p>
 
         Args:
             pool_id: <p>The identifier of the pool.</p>
@@ -3381,7 +3381,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.disassociate_connection_alias_result.DisassociateConnectionAliasResult":
-        r"""<p>Disassociates a connection alias from a directory. Disassociating a connection alias disables cross-Region redirection between two directories in different Regions. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html\"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p> <note> <p>Before performing this operation, call <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html\"> DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>.</p> </note>
+        """<p>Disassociates a connection alias from a directory. Disassociating a connection alias disables cross-Region redirection between two directories in different Regions. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p> <note> <p>Before performing this operation, call <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html"> DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>.</p> </note>
 
         Args:
             alias_id: <p>The identifier of the connection alias to disassociate.</p>
@@ -3679,7 +3679,7 @@ class AsyncWorkSpacesClient:
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
         tags: Optional["capo_workspaces.types.tag_list.TagList"] = None,
     ) -> "capo_workspaces.types.import_custom_workspace_image_result.ImportCustomWorkspaceImageResult":
-        r"""<p>Imports the specified Windows 10 or 11 Bring Your Own License (BYOL) image into Amazon WorkSpaces using EC2 Image Builder. The image must be an already licensed image that is in your Amazon Web Services account, and you must own the image. For more information about creating BYOL images, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html\"> Bring Your Own Windows Desktop Licenses</a>. </p>
+        """<p>Imports the specified Windows 10 or 11 Bring Your Own License (BYOL) image into Amazon WorkSpaces using EC2 Image Builder. The image must be an already licensed image that is in your Amazon Web Services account, and you must own the image. For more information about creating BYOL images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html"> Bring Your Own Windows Desktop Licenses</a>. </p>
 
         Args:
             image_name: <p>The name of the WorkSpace image.</p>
@@ -3754,15 +3754,15 @@ class AsyncWorkSpacesClient:
     ) -> (
         "capo_workspaces.types.import_workspace_image_result.ImportWorkspaceImageResult"
     ):
-        r"""<p>Imports the specified Windows 10 or 11 Bring Your Own License (BYOL) image into Amazon WorkSpaces. The image must be an already licensed Amazon EC2 image that is in your Amazon Web Services account, and you must own the image. For more information about creating BYOL images, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html\"> Bring Your Own Windows Desktop Licenses</a>.</p>
+        """<p>Imports the specified Windows 10 or 11 Bring Your Own License (BYOL) image into Amazon WorkSpaces. The image must be an already licensed Amazon EC2 image that is in your Amazon Web Services account, and you must own the image. For more information about creating BYOL images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html"> Bring Your Own Windows Desktop Licenses</a>.</p>
 
         Args:
             ec2_image_id: <p>The identifier of the EC2 image.</p>
-            ingestion_process: <p>The ingestion process to be used when importing the image, depending on which protocol you want to use for your BYOL Workspace image, either PCoIP, WSP, or bring your own protocol (BYOP). To use DCV, specify a value that ends in <code>_WSP</code>. To use PCoIP, specify a value that does not end in <code>_WSP</code>. To use BYOP, specify a value that ends in <code>_BYOP</code>.</p> <p>For non-GPU-enabled bundles (bundles other than Graphics or GraphicsPro), specify <code>BYOL_REGULAR</code>, <code>BYOL_REGULAR_WSP</code>, or <code>BYOL_REGULAR_BYOP</code>, depending on the protocol.</p> <note> <p>The <code>BYOL_REGULAR_BYOP</code> and <code>BYOL_GRAPHICS_G4DN_BYOP</code> values are only supported by Amazon WorkSpaces Core. Contact your account team to be allow-listed to use these values. For more information, see <a href=\"http://aws.amazon.com/workspaces/core/\">Amazon WorkSpaces Core</a>.</p> </note>
+            ingestion_process: <p>The ingestion process to be used when importing the image, depending on which protocol you want to use for your BYOL Workspace image, either PCoIP, WSP, or bring your own protocol (BYOP). To use DCV, specify a value that ends in <code>_WSP</code>. To use PCoIP, specify a value that does not end in <code>_WSP</code>. To use BYOP, specify a value that ends in <code>_BYOP</code>.</p> <p>For non-GPU-enabled bundles (bundles other than Graphics or GraphicsPro), specify <code>BYOL_REGULAR</code>, <code>BYOL_REGULAR_WSP</code>, or <code>BYOL_REGULAR_BYOP</code>, depending on the protocol.</p> <note> <p>The <code>BYOL_REGULAR_BYOP</code> and <code>BYOL_GRAPHICS_G4DN_BYOP</code> values are only supported by Amazon WorkSpaces Core. Contact your account team to be allow-listed to use these values. For more information, see <a href="http://aws.amazon.com/workspaces/core/">Amazon WorkSpaces Core</a>.</p> </note>
             image_name: <p>The name of the WorkSpace image.</p>
             image_description: <p>The description of the WorkSpace image.</p>
             tags: <p>The tags. Each WorkSpaces resource can have a maximum of 50 tags.</p>
-            applications: <p>If specified, the version of Microsoft Office to subscribe to. Valid only for Windows 10 and 11 BYOL images. For more information about subscribing to Office for BYOL images, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html\"> Bring Your Own Windows Desktop Licenses</a>.</p> <note> <ul> <li> <p>Although this parameter is an array, only one item is allowed at this time.</p> </li> <li> <p>During the image import process, non-GPU DCV (formerly WSP) WorkSpaces with Windows 11 support only <code>Microsoft_Office_2019</code>. GPU DCV (formerly WSP) WorkSpaces with Windows 11 do not support Office installation.</p> </li> </ul> </note>
+            applications: <p>If specified, the version of Microsoft Office to subscribe to. Valid only for Windows 10 and 11 BYOL images. For more information about subscribing to Office for BYOL images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html"> Bring Your Own Windows Desktop Licenses</a>.</p> <note> <ul> <li> <p>Although this parameter is an array, only one item is allowed at this time.</p> </li> <li> <p>During the image import process, non-GPU DCV (formerly WSP) WorkSpaces with Windows 11 support only <code>Microsoft_Office_2019</code>. GPU DCV (formerly WSP) WorkSpaces with Windows 11 do not support Office installation.</p> </li> </ul> </note>
 
         Raises:
             capo_workspaces.errors.access_denied_exception.AccessDeniedException: <p>The user is not authorized to access a resource.</p>
@@ -3958,7 +3958,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.migrate_workspace_result.MigrateWorkspaceResult":
-        r"""<p>Migrates a WorkSpace from one operating system or bundle type to another, while retaining the data on the user volume.</p> <p>The migration process recreates the WorkSpace by using a new root volume from the target bundle image and the user volume from the last available snapshot of the original WorkSpace. During migration, the original <code>D:\Users\%USERNAME%</code> user profile folder is renamed to <code>D:\Users\%USERNAME%MMddyyTHHmmss%.NotMigrated</code>. A new <code>D:\Users\%USERNAME%\</code> folder is generated by the new OS. Certain files in the old user profile are moved to the new user profile.</p> <p>For available migration scenarios, details about what happens during migration, and best practices, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/migrate-workspaces.html\">Migrate a WorkSpace</a>.</p> <note> <p>If the source WorkSpace has nested virtualization enabled and the target bundle does not support nested virtualization, the migration fails.</p> </note>
+        r"""<p>Migrates a WorkSpace from one operating system or bundle type to another, while retaining the data on the user volume.</p> <p>The migration process recreates the WorkSpace by using a new root volume from the target bundle image and the user volume from the last available snapshot of the original WorkSpace. During migration, the original <code>D:\Users\%USERNAME%</code> user profile folder is renamed to <code>D:\Users\%USERNAME%MMddyyTHHmmss%.NotMigrated</code>. A new <code>D:\Users\%USERNAME%\</code> folder is generated by the new OS. Certain files in the old user profile are moved to the new user profile.</p> <p>For available migration scenarios, details about what happens during migration, and best practices, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/migrate-workspaces.html">Migrate a WorkSpace</a>.</p> <note> <p>If the source WorkSpace has nested virtualization enabled and the target bundle does not support nested virtualization, the migration fails.</p> </note>
 
         Args:
             source_workspace_id: <p>The identifier of the WorkSpace to migrate from.</p>
@@ -4289,7 +4289,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.modify_selfservice_permissions_result.ModifySelfservicePermissionsResult":
-        r"""<p>Modifies the self-service WorkSpace management capabilities for your users. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/enable-user-self-service-workspace-management.html\">Enable Self-Service WorkSpace Management Capabilities for Your Users</a>.</p>
+        """<p>Modifies the self-service WorkSpace management capabilities for your users. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/enable-user-self-service-workspace-management.html">Enable Self-Service WorkSpace Management Capabilities for Your Users</a>.</p>
 
         Args:
             resource_id: <p>The identifier of the directory.</p>
@@ -4392,7 +4392,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.modify_workspace_access_properties_result.ModifyWorkspaceAccessPropertiesResult":
-        r"""<p>Specifies which devices and operating systems users can use to access their WorkSpaces. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/update-directory-details.html#control-device-access\"> Control Device Access</a>.</p>
+        """<p>Specifies which devices and operating systems users can use to access their WorkSpaces. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/update-directory-details.html#control-device-access"> Control Device Access</a>.</p>
 
         Args:
             resource_id: <p>The identifier of the directory.</p>
@@ -4498,7 +4498,7 @@ class AsyncWorkSpacesClient:
             "capo_workspaces.types.data_replication.DataReplication"
         ] = None,
     ) -> "capo_workspaces.types.modify_workspace_properties_result.ModifyWorkspacePropertiesResult":
-        r"""<p>Modifies the specified WorkSpace properties. For important information about how to modify the size of the root and user volumes, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html\"> Modify a WorkSpace</a>. </p> <note> <p>The <code>MANUAL</code> running mode value is only supported by Amazon WorkSpaces Core. Contact your account team to be allow-listed to use this value. For more information, see <a href=\"http://aws.amazon.com/workspaces/core/\">Amazon WorkSpaces Core</a>.</p> </note>
+        """<p>Modifies the specified WorkSpace properties. For important information about how to modify the size of the root and user volumes, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html"> Modify a WorkSpace</a>. </p> <note> <p>The <code>MANUAL</code> running mode value is only supported by Amazon WorkSpaces Core. Contact your account team to be allow-listed to use this value. For more information, see <a href="http://aws.amazon.com/workspaces/core/">Amazon WorkSpaces Core</a>.</p> </note>
 
         Args:
             workspace_id: <p>The identifier of the WorkSpace.</p>
@@ -4512,7 +4512,7 @@ class AsyncWorkSpacesClient:
             capo_workspaces.errors.operation_in_progress_exception.OperationInProgressException: <p>The properties of this WorkSpace are currently being modified. Try again in a moment.</p>
             capo_workspaces.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
             capo_workspaces.errors.resource_unavailable_exception.ResourceUnavailableException: <p>The specified resource is not available.</p>
-            capo_workspaces.errors.unsupported_workspace_configuration_exception.UnsupportedWorkspaceConfigurationException: <p>The configuration of this WorkSpace is not supported for this operation. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/required-service-components.html\">Required Configuration and Service Components for WorkSpaces </a>.</p>
+            capo_workspaces.errors.unsupported_workspace_configuration_exception.UnsupportedWorkspaceConfigurationException: <p>The configuration of this WorkSpace is not supported for this operation. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/required-service-components.html">Required Configuration and Service Components for WorkSpaces </a>.</p>
             capo_workspaces.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4650,7 +4650,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.rebuild_workspaces_result.RebuildWorkspacesResult":
-        r"""<p>Rebuilds the specified WorkSpace.</p> <p>You cannot rebuild a WorkSpace unless its state is <code>AVAILABLE</code>, <code>ERROR</code>, <code>UNHEALTHY</code>, <code>STOPPED</code>, or <code>REBOOTING</code>.</p> <p>Rebuilding a WorkSpace is a potentially destructive action that can result in the loss of data. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/reset-workspace.html\">Rebuild a WorkSpace</a>.</p> <p>This operation is asynchronous and returns before the WorkSpaces have been completely rebuilt.</p>
+        """<p>Rebuilds the specified WorkSpace.</p> <p>You cannot rebuild a WorkSpace unless its state is <code>AVAILABLE</code>, <code>ERROR</code>, <code>UNHEALTHY</code>, <code>STOPPED</code>, or <code>REBOOTING</code>.</p> <p>Rebuilding a WorkSpace is a potentially destructive action that can result in the loss of data. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/reset-workspace.html">Rebuild a WorkSpace</a>.</p> <p>This operation is asynchronous and returns before the WorkSpaces have been completely rebuilt.</p>
 
         Args:
             rebuild_workspace_requests: <p>The WorkSpace to rebuild. You can specify a single WorkSpace.</p>
@@ -4719,13 +4719,13 @@ class AsyncWorkSpacesClient:
             "capo_workspaces.types.active_directory_config.ActiveDirectoryConfig"
         ] = None,
     ) -> "capo_workspaces.types.register_workspace_directory_result.RegisterWorkspaceDirectoryResult":
-        r"""<p>Registers the specified directory. This operation is asynchronous and returns before the WorkSpace directory is registered. If this is the first time you are registering a directory, you will need to create the workspaces_DefaultRole role before you can register a directory. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role\"> Creating the workspaces_DefaultRole Role</a>.</p>
+        """<p>Registers the specified directory. This operation is asynchronous and returns before the WorkSpace directory is registered. If this is the first time you are registering a directory, you will need to create the workspaces_DefaultRole role before you can register a directory. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role"> Creating the workspaces_DefaultRole Role</a>.</p>
 
         Args:
             directory_id: <p>The identifier of the directory. You cannot register a directory if it does not have a status of Active. If the directory does not have a status of Active, you will receive an InvalidResourceStateException error. If you have already registered the maximum number of directories that you can register with Amazon WorkSpaces, you will receive a ResourceLimitExceededException error. Deregister directories that you are not using for WorkSpaces, and try again.</p>
             subnet_ids: <p>The identifiers of the subnets for your virtual private cloud (VPC). Make sure that the subnets are in supported Availability Zones. The subnets must also be in separate Availability Zones. If these conditions are not met, you will receive an OperationNotSupportedException error.</p>
             enable_self_service: <p>Indicates whether self-service capabilities are enabled or disabled.</p>
-            tenancy: <p>Indicates whether your WorkSpace directory is dedicated or shared. To use Bring Your Own License (BYOL) images, this value must be set to <code>DEDICATED</code> and your Amazon Web Services account must be enabled for BYOL. If your account has not been enabled for BYOL, you will receive an InvalidParameterValuesException error. For more information about BYOL images, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html\">Bring Your Own Windows Desktop Images</a>.</p>
+            tenancy: <p>Indicates whether your WorkSpace directory is dedicated or shared. To use Bring Your Own License (BYOL) images, this value must be set to <code>DEDICATED</code> and your Amazon Web Services account must be enabled for BYOL. If your account has not been enabled for BYOL, you will receive an InvalidParameterValuesException error. For more information about BYOL images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows Desktop Images</a>.</p>
             tags: <p>The tags associated with the directory.</p>
             workspace_directory_name: <p>The name of the directory to register.</p>
             workspace_directory_description: <p>Description of the directory to register.</p>
@@ -4743,8 +4743,8 @@ class AsyncWorkSpacesClient:
             capo_workspaces.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The specified resource already exists.</p>
             capo_workspaces.errors.resource_limit_exceeded_exception.ResourceLimitExceededException: <p>Your resource limits have been exceeded.</p>
             capo_workspaces.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
-            capo_workspaces.errors.unsupported_network_configuration_exception.UnsupportedNetworkConfigurationException: <p>The configuration of this network is not supported for this operation, or your network configuration conflicts with the Amazon WorkSpaces management network IP range. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html\"> Configure a VPC for Amazon WorkSpaces</a>.</p>
-            capo_workspaces.errors.workspaces_default_role_not_found_exception.WorkspacesDefaultRoleNotFoundException: <p>The workspaces_DefaultRole role could not be found. If this is the first time you are registering a directory, you will need to create the workspaces_DefaultRole role before you can register a directory. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role\">Creating the workspaces_DefaultRole Role</a>.</p>
+            capo_workspaces.errors.unsupported_network_configuration_exception.UnsupportedNetworkConfigurationException: <p>The configuration of this network is not supported for this operation, or your network configuration conflicts with the Amazon WorkSpaces management network IP range. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html"> Configure a VPC for Amazon WorkSpaces</a>.</p>
+            capo_workspaces.errors.workspaces_default_role_not_found_exception.WorkspacesDefaultRoleNotFoundException: <p>The workspaces_DefaultRole role could not be found. If this is the first time you are registering a directory, you will need to create the workspaces_DefaultRole role before you can register a directory. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role">Creating the workspaces_DefaultRole Role</a>.</p>
             capo_workspaces.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4856,7 +4856,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.restore_workspace_result.RestoreWorkspaceResult":
-        r"""<p>Restores the specified WorkSpace to its last known healthy state.</p> <p>You cannot restore a WorkSpace unless its state is <code> AVAILABLE</code>, <code>ERROR</code>, <code>UNHEALTHY</code>, or <code>STOPPED</code>.</p> <p>Restoring a WorkSpace is a potentially destructive action that can result in the loss of data. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/restore-workspace.html\">Restore a WorkSpace</a>.</p> <p>This operation is asynchronous and returns before the WorkSpace is completely restored.</p>
+        """<p>Restores the specified WorkSpace to its last known healthy state.</p> <p>You cannot restore a WorkSpace unless its state is <code> AVAILABLE</code>, <code>ERROR</code>, <code>UNHEALTHY</code>, or <code>STOPPED</code>.</p> <p>Restoring a WorkSpace is a potentially destructive action that can result in the loss of data. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/restore-workspace.html">Restore a WorkSpace</a>.</p> <p>This operation is asynchronous and returns before the WorkSpace is completely restored.</p>
 
         Args:
             workspace_id: <p>The identifier of the WorkSpace.</p>
@@ -4996,7 +4996,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.start_workspaces_pool_result.StartWorkspacesPoolResult":
-        r"""<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html\">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Starts the specified pool.</p> <p>You cannot start a pool unless it has a running mode of <code>AutoStop</code> and a state of <code>STOPPED</code>.</p>
+        """<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Starts the specified pool.</p> <p>You cannot start a pool unless it has a running mode of <code>AutoStop</code> and a state of <code>STOPPED</code>.</p>
 
         Args:
             pool_id: <p>The identifier of the pool.</p>
@@ -5089,7 +5089,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.stop_workspaces_pool_result.StopWorkspacesPoolResult":
-        r"""<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html\">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Stops the specified pool.</p> <p>You cannot stop a WorkSpace pool unless it has a running mode of <code>AutoStop</code> and a state of <code>AVAILABLE</code>, <code>IMPAIRED</code>, <code>UNHEALTHY</code>, or <code>ERROR</code>.</p>
+        """<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Stops the specified pool.</p> <p>You cannot stop a WorkSpace pool unless it has a running mode of <code>AutoStop</code> and a state of <code>AVAILABLE</code>, <code>IMPAIRED</code>, <code>UNHEALTHY</code>, or <code>ERROR</code>.</p>
 
         Args:
             pool_id: <p>The identifier of the pool.</p>
@@ -5137,7 +5137,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.terminate_workspaces_result.TerminateWorkspacesResult":
-        r"""<p>Terminates the specified WorkSpaces.</p> <important> <p>Terminating a WorkSpace is a permanent action and cannot be undone. The user's data is destroyed. If you need to archive any user data, contact Amazon Web Services Support before terminating the WorkSpace.</p> </important> <p>You can terminate a WorkSpace that is in any state except <code>SUSPENDED</code>.</p> <p>This operation is asynchronous and returns before the WorkSpaces have been completely terminated. After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated, check for the WorkSpace ID by using <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html\"> DescribeWorkSpaces</a>. If the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.</p> <note> <p>Simple AD and AD Connector are made available to you free of charge to use with WorkSpaces. If there are no WorkSpaces being used with your Simple AD or AD Connector directory for 30 consecutive days, this directory will be automatically deregistered for use with Amazon WorkSpaces, and you will be charged for this directory as per the <a href=\"http://aws.amazon.com/directoryservice/pricing/\">Directory Service pricing terms</a>.</p> <p>To delete empty directories, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html\"> Delete the Directory for Your WorkSpaces</a>. If you delete your Simple AD or AD Connector directory, you can always create a new one when you want to start using WorkSpaces again.</p> </note>
+        """<p>Terminates the specified WorkSpaces.</p> <important> <p>Terminating a WorkSpace is a permanent action and cannot be undone. The user's data is destroyed. If you need to archive any user data, contact Amazon Web Services Support before terminating the WorkSpace.</p> </important> <p>You can terminate a WorkSpace that is in any state except <code>SUSPENDED</code>.</p> <p>This operation is asynchronous and returns before the WorkSpaces have been completely terminated. After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated, check for the WorkSpace ID by using <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.</p> <note> <p>Simple AD and AD Connector are made available to you free of charge to use with WorkSpaces. If there are no WorkSpaces being used with your Simple AD or AD Connector directory for 30 consecutive days, this directory will be automatically deregistered for use with Amazon WorkSpaces, and you will be charged for this directory as per the <a href="http://aws.amazon.com/directoryservice/pricing/">Directory Service pricing terms</a>.</p> <p>To delete empty directories, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html"> Delete the Directory for Your WorkSpaces</a>. If you delete your Simple AD or AD Connector directory, you can always create a new one when you want to start using WorkSpaces again.</p> </note>
 
         Args:
             terminate_workspace_requests: <p>The WorkSpaces to terminate. You can specify up to 25 WorkSpaces.</p>
@@ -5180,7 +5180,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.terminate_workspaces_pool_result.TerminateWorkspacesPoolResult":
-        r"""<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html\">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Terminates the specified pool.</p>
+        """<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Terminates the specified pool.</p>
 
         Args:
             pool_id: <p>The identifier of the pool.</p>
@@ -5228,7 +5228,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.terminate_workspaces_pool_session_result.TerminateWorkspacesPoolSessionResult":
-        r"""<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html\">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Terminates the pool session.</p>
+        """<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Terminates the pool session.</p>
 
         Args:
             session_id: <p>The identifier of the pool session.</p>
@@ -5334,7 +5334,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.update_connection_alias_permission_result.UpdateConnectionAliasPermissionResult":
-        r"""<p>Shares or unshares a connection alias with one account by specifying whether that account has permission to associate the connection alias with a directory. If the association permission is granted, the connection alias is shared with that account. If the association permission is revoked, the connection alias is unshared with the account. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html\"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p> <note> <ul> <li> <p>Before performing this operation, call <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html\"> DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>.</p> </li> <li> <p>To delete a connection alias that has been shared, the shared account must first disassociate the connection alias from any directories it has been associated with. Then you must unshare the connection alias from the account it has been shared with. You can delete a connection alias only after it is no longer shared with any accounts or associated with any directories.</p> </li> </ul> </note>
+        """<p>Shares or unshares a connection alias with one account by specifying whether that account has permission to associate the connection alias with a directory. If the association permission is granted, the connection alias is shared with that account. If the association permission is revoked, the connection alias is unshared with the account. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region Redirection for Amazon WorkSpaces</a>.</p> <note> <ul> <li> <p>Before performing this operation, call <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html"> DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>.</p> </li> <li> <p>To delete a connection alias that has been shared, the shared account must first disassociate the connection alias from any directories it has been associated with. Then you must unshare the connection alias from the account it has been shared with. You can delete a connection alias only after it is no longer shared with any accounts or associated with any directories.</p> </li> </ul> </note>
 
         Args:
             alias_id: <p>The identifier of the connection alias that you want to update permissions for.</p>
@@ -5440,7 +5440,7 @@ class AsyncWorkSpacesClient:
             "capo_workspaces.types.workspace_image_id.WorkspaceImageId"
         ] = None,
     ) -> "capo_workspaces.types.update_workspace_bundle_result.UpdateWorkspaceBundleResult":
-        r"""<p>Updates a WorkSpace bundle with a new image. For more information about updating WorkSpace bundles, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/update-custom-bundle.html\"> Update a Custom WorkSpaces Bundle</a>.</p> <important> <p>Existing WorkSpaces aren't automatically updated when you update the bundle that they're based on. To update existing WorkSpaces that are based on a bundle that you've updated, you must either rebuild the WorkSpaces or delete and recreate them.</p> </important>
+        """<p>Updates a WorkSpace bundle with a new image. For more information about updating WorkSpace bundles, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/update-custom-bundle.html"> Update a Custom WorkSpaces Bundle</a>.</p> <important> <p>Existing WorkSpaces aren't automatically updated when you update the bundle that they're based on. To update existing WorkSpaces that are based on a bundle that you've updated, you must either rebuild the WorkSpaces or delete and recreate them.</p> </important>
 
         Args:
             bundle_id: <p>The identifier of the bundle.</p>
@@ -5493,7 +5493,7 @@ class AsyncWorkSpacesClient:
         *,
         config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
     ) -> "capo_workspaces.types.update_workspace_image_permission_result.UpdateWorkspaceImagePermissionResult":
-        r"""<p>Shares or unshares an image with one account in the same Amazon Web Services Region by specifying whether that account has permission to copy the image. If the copy image permission is granted, the image is shared with that account. If the copy image permission is revoked, the image is unshared with the account.</p> <p>After an image has been shared, the recipient account can copy the image to other Regions as needed.</p> <p>In the China (Ningxia) Region, you can copy images only within the same Region.</p> <p>In Amazon Web Services GovCloud (US), to copy images to and from other Regions, contact Amazon Web Services Support.</p> <p>For more information about sharing images, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/share-custom-image.html\"> Share or Unshare a Custom WorkSpaces Image</a>.</p> <note> <ul> <li> <p>To delete an image that has been shared, you must unshare the image before you delete it.</p> </li> <li> <p>Sharing Bring Your Own License (BYOL) images across Amazon Web Services accounts isn't supported at this time in Amazon Web Services GovCloud (US). To share BYOL images across accounts in Amazon Web Services GovCloud (US), contact Amazon Web Services Support.</p> </li> </ul> </note>
+        """<p>Shares or unshares an image with one account in the same Amazon Web Services Region by specifying whether that account has permission to copy the image. If the copy image permission is granted, the image is shared with that account. If the copy image permission is revoked, the image is unshared with the account.</p> <p>After an image has been shared, the recipient account can copy the image to other Regions as needed.</p> <p>In the China (Ningxia) Region, you can copy images only within the same Region.</p> <p>In Amazon Web Services GovCloud (US), to copy images to and from other Regions, contact Amazon Web Services Support.</p> <p>For more information about sharing images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/share-custom-image.html"> Share or Unshare a Custom WorkSpaces Image</a>.</p> <note> <ul> <li> <p>To delete an image that has been shared, you must unshare the image before you delete it.</p> </li> <li> <p>Sharing Bring Your Own License (BYOL) images across Amazon Web Services accounts isn't supported at this time in Amazon Web Services GovCloud (US). To share BYOL images across accounts in Amazon Web Services GovCloud (US), contact Amazon Web Services Support.</p> </li> </ul> </note>
 
         Args:
             image_id: <p>The identifier of the image.</p>
@@ -5562,7 +5562,7 @@ class AsyncWorkSpacesClient:
     ) -> (
         "capo_workspaces.types.update_workspaces_pool_result.UpdateWorkspacesPoolResult"
     ):
-        r"""<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html\">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Updates the specified pool.</p>
+        """<note> <p>End of support notice: On December 31, 2027, Amazon Web Services will end support for Amazon WorkSpaces Pools. After December 31, 2027, you will no longer be able to access the Amazon WorkSpaces Pools console or Amazon WorkSpaces Pools resources. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp-pools-end-of-support.html">Amazon WorkSpaces Pools end of support</a>. </p> </note> <p>Updates the specified pool.</p>
 
         Args:
             pool_id: <p>The identifier of the specified pool to update.</p>

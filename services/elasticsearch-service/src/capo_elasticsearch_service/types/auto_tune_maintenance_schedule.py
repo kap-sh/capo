@@ -14,11 +14,11 @@ class AutoTuneMaintenanceSchedule(TypedDict, closed=True):
     start_at: NotRequired["capo_elasticsearch_service.types.start_at.StartAt"]
     """<p>Specifies timestamp at which Auto-Tune maintenance schedule start. </p>"""
     duration: NotRequired["capo_elasticsearch_service.types.duration.Duration"]
-    r"""<p>Specifies maintenance schedule duration: duration value and duration unit. See the <a href=\"https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html\" target=\"_blank\">Developer Guide</a> for more information.</p>"""
+    """<p>Specifies maintenance schedule duration: duration value and duration unit. See the <a href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html" target="_blank">Developer Guide</a> for more information.</p>"""
     cron_expression_for_recurrence: NotRequired[
         "capo_elasticsearch_service.types.string.String"
     ]
-    r"""<p>Specifies cron expression for a recurring maintenance schedule. See the <a href=\"https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html\" target=\"_blank\">Developer Guide</a> for more information.</p>"""
+    """<p>Specifies cron expression for a recurring maintenance schedule. See the <a href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html" target="_blank">Developer Guide</a> for more information.</p>"""
 
 
 # --- restJson1 ser/de ---

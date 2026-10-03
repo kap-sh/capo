@@ -12,7 +12,7 @@ class ReverseGeocodeFilter(TypedDict, closed=True):
     include_place_types: NotRequired[
         "capo_geo_places.types.reverse_geocode_filter_place_type_list.ReverseGeocodeFilterPlaceTypeList"
     ]
-    r"""<p> The included place types. For <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers, <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions support only <code>Street</code> and <code>PointAddress</code> values. </p>"""
+    """<p> The included place types. For <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers, <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions support only <code>Street</code> and <code>PointAddress</code> values. </p>"""
 
 
 # --- restJson1 ser/de ---

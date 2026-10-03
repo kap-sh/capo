@@ -29,7 +29,7 @@ class RelationalDatabaseSnapshot(TypedDict, closed=True):
     resource_type: NotRequired["capo_lightsail.types.resource_type.ResourceType"]
     """<p>The Lightsail resource type.</p>"""
     tags: NotRequired["capo_lightsail.types.tag_list.TagList"]
-    r"""<p>The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a href=\"https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags\">Amazon Lightsail Developer Guide</a>.</p>"""
+    """<p>The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>"""
     engine: NotRequired["capo_lightsail.types.non_empty_string.NonEmptyString"]
     """<p>The software of the database snapshot (for example, <code>MySQL</code>)</p>"""
     engine_version: NotRequired["capo_lightsail.types.non_empty_string.NonEmptyString"]

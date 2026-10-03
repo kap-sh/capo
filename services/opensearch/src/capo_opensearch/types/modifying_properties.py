@@ -19,7 +19,7 @@ class ModifyingProperties(TypedDict, closed=True):
     value_type: NotRequired[
         "capo_opensearch.types.property_value_type.PropertyValueType"
     ]
-    r"""<p>The type of value that is currently being modified. Properties can have two types:</p> <ul> <li> <p> <code>PLAIN_TEXT</code>: Contain direct values such as \"1\", \"True\", or \"c5.large.search\".</p> </li> <li> <p> <code>STRINGIFIED_JSON</code>: Contain content in JSON format, such as {\"Enabled\":\"True\"}\".</p> </li> </ul>"""
+    """<p>The type of value that is currently being modified. Properties can have two types:</p> <ul> <li> <p> <code>PLAIN_TEXT</code>: Contain direct values such as "1", "True", or "c5.large.search".</p> </li> <li> <p> <code>STRINGIFIED_JSON</code>: Contain content in JSON format, such as {"Enabled":"True"}".</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

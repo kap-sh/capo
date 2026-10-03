@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class AdvancedEventSelector(TypedDict, closed=True):
     name: NotRequired["capo_cloudtrail.types.selector_name.SelectorName"]
-    r"""<p>An optional, descriptive name for an advanced event selector, such as \"Log data events for only two S3 buckets\".</p>"""
+    """<p>An optional, descriptive name for an advanced event selector, such as "Log data events for only two S3 buckets".</p>"""
     field_selectors: (
         "capo_cloudtrail.types.advanced_field_selectors.AdvancedFieldSelectors"
     )

@@ -16,7 +16,7 @@ class UntagResourceRequest(TypedDict, closed=True):
     service_type: "capo_pi.types.service_type.ServiceType"
     """<p>List the tags for the Amazon Web Services service for which Performance Insights returns metrics. Valid value is <code>RDS</code>.</p>"""
     resource_arn: "capo_pi.types.amazon_resource_name.AmazonResourceName"
-    r"""<p>The Amazon RDS Performance Insights resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing\"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>"""
+    """<p>The Amazon RDS Performance Insights resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>"""
     tag_keys: "capo_pi.types.tag_key_list.TagKeyList"
     """<p>The metadata assigned to an Amazon RDS Performance Insights resource consisting of a key-value pair.</p>"""
 

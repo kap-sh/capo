@@ -29,7 +29,7 @@ class RetrainingSchedulerSummary(TypedDict, closed=True):
     retraining_frequency: NotRequired[
         "capo_lookoutequipment.types.retraining_frequency.RetrainingFrequency"
     ]
-    r"""<p>The frequency at which the model retraining is set. This follows the <a href=\"https://en.wikipedia.org/wiki/ISO_8601#Durations\">ISO 8601</a> guidelines.</p>"""
+    """<p>The frequency at which the model retraining is set. This follows the <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601</a> guidelines.</p>"""
     lookback_window: NotRequired[
         "capo_lookoutequipment.types.lookback_window.LookbackWindow"
     ]

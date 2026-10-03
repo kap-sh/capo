@@ -39,7 +39,7 @@ class Notification(TypedDict, closed=True):
     last_modified_region: NotRequired["capo_connect.types.region_name.RegionName"]
     """<p>The AWS Region where the notification was last modified.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, <code>{ "Tags": {"key1":"value1", "key2":"value2"} }</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -15,9 +15,9 @@ if TYPE_CHECKING:
 
 class EnableControlInput(TypedDict, closed=True):
     control_identifier: "capo_controltower.types.control_identifier.ControlIdentifier"
-    r"""<p>The ARN of the control. Only <b>Strongly recommended</b> and <b>Elective</b> controls are permitted, with the exception of the <b>Region deny</b> control. For information on how to find the <code>controlIdentifier</code>, see <a href=\"https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html\">the overview page</a>.</p>"""
+    """<p>The ARN of the control. Only <b>Strongly recommended</b> and <b>Elective</b> controls are permitted, with the exception of the <b>Region deny</b> control. For information on how to find the <code>controlIdentifier</code>, see <a href="https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html">the overview page</a>.</p>"""
     target_identifier: "capo_controltower.types.target_identifier.TargetIdentifier"
-    r"""<p>The ARN of the organizational unit. For information on how to find the <code>targetIdentifier</code>, see <a href=\"https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html\">the overview page</a>.</p>"""
+    """<p>The ARN of the organizational unit. For information on how to find the <code>targetIdentifier</code>, see <a href="https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html">the overview page</a>.</p>"""
     tags: NotRequired["capo_controltower.types.tag_map.TagMap"]
     """<p>Tags to be applied to the <code>EnabledControl</code> resource.</p>"""
     parameters: NotRequired[

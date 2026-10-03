@@ -29,7 +29,7 @@ class SharePointSourceConfiguration(TypedDict, closed=True):
     auth_type: "capo_bedrock_agent.types.share_point_auth_type.SharePointAuthType"
     """<p>The supported authentication type to authenticate and connect to your SharePoint site/sites.</p>"""
     credentials_secret_arn: "capo_bedrock_agent.types.secret_arn.SecretArn"
-    r"""<p>The Amazon Resource Name of an Secrets Manager secret that stores your authentication credentials for your SharePoint site/sites. For more information on the key-value pairs that must be included in your secret, depending on your authentication type, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/sharepoint-data-source-connector.html#configuration-sharepoint-connector\">SharePoint connection configuration</a>.</p>"""
+    """<p>The Amazon Resource Name of an Secrets Manager secret that stores your authentication credentials for your SharePoint site/sites. For more information on the key-value pairs that must be included in your secret, depending on your authentication type, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/sharepoint-data-source-connector.html#configuration-sharepoint-connector">SharePoint connection configuration</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

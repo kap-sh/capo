@@ -24,7 +24,7 @@ class Stream(TypedDict, closed=True):
     start_time: NotRequired["capo_ivs.types.stream_start_time.StreamStartTime"]
     """<p>Time of the stream’s start. This is an ISO 8601 timestamp; <i>note that this is returned as a string</i>.</p>"""
     state: NotRequired["capo_ivs.types.stream_state.StreamState"]
-    r"""<p>The stream’s state. Do not rely on the <code>OFFLINE</code> state, as the API may not return it; instead, a \"NotBroadcasting\" error will indicate that the stream is not live.</p>"""
+    """<p>The stream’s state. Do not rely on the <code>OFFLINE</code> state, as the API may not return it; instead, a "NotBroadcasting" error will indicate that the stream is not live.</p>"""
     health: NotRequired["capo_ivs.types.stream_health.StreamHealth"]
     """<p>The stream’s health.</p>"""
     viewer_count: "capo_ivs.types.stream_viewer_count.StreamViewerCount"

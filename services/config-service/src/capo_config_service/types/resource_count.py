@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ResourceCount(TypedDict, closed=True):
     resource_type: NotRequired["capo_config_service.types.resource_type.ResourceType"]
-    r"""<p>The resource type (for example, <code>\"AWS::EC2::Instance\"</code>).</p>"""
+    """<p>The resource type (for example, <code>"AWS::EC2::Instance"</code>).</p>"""
     count: "capo_config_service.types.long.Long"
     """<p>The number of resources.</p>"""
 

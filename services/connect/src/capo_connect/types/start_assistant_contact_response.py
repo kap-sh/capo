@@ -18,7 +18,7 @@ class StartAssistantContactResponse(TypedDict, closed=True):
     participant_token: NotRequired[
         "capo_connect.types.participant_token.ParticipantToken"
     ]
-    r"""<p>The token that the chat participant uses with the <a href=\"https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html\">CreateParticipantConnection</a> operation. The token remains valid for the lifetime of the chat participant.</p>"""
+    """<p>The token that the chat participant uses with the <a href="https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html">CreateParticipantConnection</a> operation. The token remains valid for the lifetime of the chat participant.</p>"""
     continued_from_contact_id: NotRequired["capo_connect.types.contact_id.ContactId"]
     """<p>The identifier of the contact from which the chat continues, returned only for persistent chats.</p>"""
 

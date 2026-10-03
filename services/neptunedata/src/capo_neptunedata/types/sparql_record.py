@@ -17,7 +17,7 @@ class SparqlRecord(TypedDict, closed=True):
     event_id: "capo_neptunedata.types.string_valued_map.StringValuedMap"
     """<p>The sequence identifier of the stream change record.</p>"""
     data: "capo_neptunedata.types.sparql_data.SparqlData"
-    r"""<p>The serialized SPARQL change record. The serialization formats of each record are described in more detail in <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/streams-change-formats.html\">Serialization Formats in Neptune Streams</a>.</p>"""
+    """<p>The serialized SPARQL change record. The serialization formats of each record are described in more detail in <a href="https://docs.aws.amazon.com/neptune/latest/userguide/streams-change-formats.html">Serialization Formats in Neptune Streams</a>.</p>"""
     op: "str"
     """<p>The operation that created the change.</p>"""
     is_last_op: NotRequired["bool"]

@@ -24,7 +24,7 @@ class ExecuteTransactionInput(TypedDict, closed=True):
     return_consumed_capacity: NotRequired[
         "capo_dynamodb.types.return_consumed_capacity.ReturnConsumedCapacity"
     ]
-    r"""<p>Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItems.html\">TransactGetItems</a> and <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html\">TransactWriteItems</a>.</p>"""
+    """<p>Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response. For more information, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItems.html">TransactGetItems</a> and <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html">TransactWriteItems</a>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

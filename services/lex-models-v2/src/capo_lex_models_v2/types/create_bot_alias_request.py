@@ -25,7 +25,7 @@ class CreateBotAliasRequest(TypedDict, closed=True):
     bot_version: NotRequired[
         "capo_lex_models_v2.types.numerical_bot_version.NumericalBotVersion"
     ]
-    r"""<p>The version of the bot that this alias points to. You can use the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_UpdateBotAlias.html\">UpdateBotAlias</a> operation to change the bot version associated with the alias.</p>"""
+    """<p>The version of the bot that this alias points to. You can use the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_UpdateBotAlias.html">UpdateBotAlias</a> operation to change the bot version associated with the alias.</p>"""
     bot_alias_locale_settings: NotRequired[
         "capo_lex_models_v2.types.bot_alias_locale_settings_map.BotAliasLocaleSettingsMap"
     ]

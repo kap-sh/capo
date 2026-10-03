@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DelegationPermission(TypedDict, closed=True):
     policy_template_arn: NotRequired["capo_iam.types.arn_type.arnType"]
-    r"""<p>This ARN maps to a pre-registered policy content for this partner. See the <a href=\"\">partner onboarding documentation</a> to understand how to create a delegation template.</p>"""
+    """<p>This ARN maps to a pre-registered policy content for this partner. See the <a href="">partner onboarding documentation</a> to understand how to create a delegation template.</p>"""
     parameters: NotRequired[
         "capo_iam.types.policy_parameter_list_type.policyParameterListType"
     ]

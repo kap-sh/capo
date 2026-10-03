@@ -19,17 +19,17 @@ if TYPE_CHECKING:
 
 class RecipientDsnFields(TypedDict, closed=True):
     final_recipient: NotRequired["capo_ses.types.address.Address"]
-    r"""<p>The email address that the message was ultimately delivered to. This corresponds to the <code>Final-Recipient</code> in the DSN. If not specified, <code>FinalRecipient</code> is set to the <code>Recipient</code> specified in the <code>BouncedRecipientInfo</code> structure. Either <code>FinalRecipient</code> or the recipient in <code>BouncedRecipientInfo</code> must be a recipient of the original bounced message.</p> <note> <p>Do not prepend the <code>FinalRecipient</code> email address with <code>rfc 822;</code>, as described in <a href=\"https://tools.ietf.org/html/rfc3798\">RFC 3798</a>.</p> </note>"""
+    """<p>The email address that the message was ultimately delivered to. This corresponds to the <code>Final-Recipient</code> in the DSN. If not specified, <code>FinalRecipient</code> is set to the <code>Recipient</code> specified in the <code>BouncedRecipientInfo</code> structure. Either <code>FinalRecipient</code> or the recipient in <code>BouncedRecipientInfo</code> must be a recipient of the original bounced message.</p> <note> <p>Do not prepend the <code>FinalRecipient</code> email address with <code>rfc 822;</code>, as described in <a href="https://tools.ietf.org/html/rfc3798">RFC 3798</a>.</p> </note>"""
     action: "capo_ses.types.dsn_action.DsnAction"
-    r"""<p>The action performed by the reporting mail transfer agent (MTA) as a result of its attempt to deliver the message to the recipient address. This is required by <a href=\"https://tools.ietf.org/html/rfc3464\">RFC 3464</a>.</p>"""
+    """<p>The action performed by the reporting mail transfer agent (MTA) as a result of its attempt to deliver the message to the recipient address. This is required by <a href="https://tools.ietf.org/html/rfc3464">RFC 3464</a>.</p>"""
     remote_mta: NotRequired["capo_ses.types.remote_mta.RemoteMta"]
-    r"""<p>The MTA to which the remote MTA attempted to deliver the message, formatted as specified in <a href=\"https://tools.ietf.org/html/rfc3464\">RFC 3464</a> (<code>mta-name-type; mta-name</code>). This parameter typically applies only to propagating synchronous bounces.</p>"""
+    """<p>The MTA to which the remote MTA attempted to deliver the message, formatted as specified in <a href="https://tools.ietf.org/html/rfc3464">RFC 3464</a> (<code>mta-name-type; mta-name</code>). This parameter typically applies only to propagating synchronous bounces.</p>"""
     status: "capo_ses.types.dsn_status.DsnStatus"
-    r"""<p>The status code that indicates what went wrong. This is required by <a href=\"https://tools.ietf.org/html/rfc3464\">RFC 3464</a>.</p>"""
+    """<p>The status code that indicates what went wrong. This is required by <a href="https://tools.ietf.org/html/rfc3464">RFC 3464</a>.</p>"""
     diagnostic_code: NotRequired["capo_ses.types.diagnostic_code.DiagnosticCode"]
-    r"""<p>An extended explanation of what went wrong; this is usually an SMTP response. See <a href=\"https://tools.ietf.org/html/rfc3463\">RFC 3463</a> for the correct formatting of this parameter.</p>"""
+    """<p>An extended explanation of what went wrong; this is usually an SMTP response. See <a href="https://tools.ietf.org/html/rfc3463">RFC 3463</a> for the correct formatting of this parameter.</p>"""
     last_attempt_date: NotRequired["capo_ses.types.last_attempt_date.LastAttemptDate"]
-    r"""<p>The time the final delivery attempt was made, in <a href=\"https://www.ietf.org/rfc/rfc0822.txt\">RFC 822</a> date-time format.</p>"""
+    """<p>The time the final delivery attempt was made, in <a href="https://www.ietf.org/rfc/rfc0822.txt">RFC 822</a> date-time format.</p>"""
     extension_fields: NotRequired[
         "capo_ses.types.extension_field_list.ExtensionFieldList"
     ]

@@ -19,7 +19,7 @@ class SearchDashboardsRequest(TypedDict, closed=True):
     filters: (
         "capo_quicksight.types.dashboard_search_filter_list.DashboardSearchFilterList"
     )
-    r"""<p>The filters to apply to the search. Currently, you can search only by user name, for example, <code>\"Filters\": [ { \"Name\": \"QUICKSIGHT_USER\", \"Operator\": \"StringEquals\", \"Value\": \"arn:aws:quicksight:us-east-1:1:user/default/UserName1\" } ]</code> </p>"""
+    """<p>The filters to apply to the search. Currently, you can search only by user name, for example, <code>"Filters": [ { "Name": "QUICKSIGHT_USER", "Operator": "StringEquals", "Value": "arn:aws:quicksight:us-east-1:1:user/default/UserName1" } ]</code> </p>"""
     next_token: NotRequired["capo_quicksight.types.string.String"]
     """<p>The token for the next set of results, or null if there are no more results.</p>"""
     max_results: NotRequired["capo_quicksight.types.max_results.MaxResults"]

@@ -42,7 +42,7 @@ class ComplianceItem(TypedDict, closed=True):
     ]
     """<p>A summary for the compliance item. The summary includes an execution ID, the execution type (for example, command), and the execution time.</p> <important> <p>For State Manager associations, the <code>ExecutionTime</code> value represents when the compliance status was captured and aggregated by the Systems Manager service, not necessarily when the underlying association was executed on the managed node. State Manager updates compliance status for all associations on an instance whenever any association executes, which means multiple associations may show the same execution time even if they were executed at different times.</p> </important>"""
     details: NotRequired["capo_ssm.types.compliance_item_details.ComplianceItemDetails"]
-    r"""<p>A \"Key\": \"Value\" tag combination for the compliance item.</p>"""
+    """<p>A "Key": "Value" tag combination for the compliance item.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

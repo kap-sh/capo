@@ -19,7 +19,7 @@ class CreateOAuth2TokenRequestBody(TypedDict, closed=True):
     client_id: "capo_signin.types.client_id.ClientId"
     """The client identifier (ARN) used during Sign-In onboarding Required for both authorization code and refresh token flows"""
     grant_type: "capo_signin.types.grant_type.GrantType"
-    r"""OAuth 2.0 grant type - determines which flow is used Must be \"authorization_code\" or \"refresh_token\""""
+    """OAuth 2.0 grant type - determines which flow is used Must be \"authorization_code\" or \"refresh_token\""""
     code: NotRequired["capo_signin.types.authorization_code.AuthorizationCode"]
     """The authorization code received from /v1/authorize Required only when grant_type=authorization_code"""
     redirect_uri: NotRequired["capo_signin.types.redirect_uri.RedirectUri"]

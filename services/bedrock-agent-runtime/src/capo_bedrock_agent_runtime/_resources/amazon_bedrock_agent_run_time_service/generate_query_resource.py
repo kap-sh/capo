@@ -41,7 +41,7 @@ class GenerateQueryResource:
     ) -> (
         "capo_bedrock_agent_runtime.types.generate_query_response.GenerateQueryResponse"
     ):
-        r"""<p>Generates an SQL query from a natural language query. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-generate-query.html\">Generate a query for structured data</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Generates an SQL query from a natural language query. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-generate-query.html">Generate a query for structured data</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             query_generation_input: <p>Specifies information about a natural language query to transform into SQL.</p>
@@ -102,7 +102,7 @@ class AsyncGenerateQueryResource:
     ) -> (
         "capo_bedrock_agent_runtime.types.generate_query_response.GenerateQueryResponse"
     ):
-        r"""<p>Generates an SQL query from a natural language query. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-generate-query.html\">Generate a query for structured data</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Generates an SQL query from a natural language query. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-generate-query.html">Generate a query for structured data</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             query_generation_input: <p>Specifies information about a natural language query to transform into SQL.</p>

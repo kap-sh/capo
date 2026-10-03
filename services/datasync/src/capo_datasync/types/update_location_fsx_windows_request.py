@@ -26,7 +26,7 @@ class UpdateLocationFsxWindowsRequest(TypedDict, closed=True):
     domain: NotRequired["capo_datasync.types.update_smb_domain.UpdateSmbDomain"]
     """<p>Specifies the name of the Windows domain that your FSx for Windows File Server file system belongs to.</p> <p>If you have multiple Active Directory domains in your environment, configuring this parameter makes sure that DataSync connects to the right file system.</p>"""
     user: NotRequired["capo_datasync.types.smb_user.SmbUser"]
-    r"""<p>Specifies the user with the permissions to mount and access the files, folders, and file metadata in your FSx for Windows File Server file system.</p> <p>For information about choosing a user with the right level of access for your transfer, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-fsx-location.html#create-fsx-windows-location-permissions\">required permissions</a> for FSx for Windows File Server locations.</p>"""
+    """<p>Specifies the user with the permissions to mount and access the files, folders, and file metadata in your FSx for Windows File Server file system.</p> <p>For information about choosing a user with the right level of access for your transfer, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-fsx-location.html#create-fsx-windows-location-permissions">required permissions</a> for FSx for Windows File Server locations.</p>"""
     password: NotRequired["capo_datasync.types.smb_password.SmbPassword"]
     """<p>Specifies the password of the user with the permissions to mount and access the files, folders, and file metadata in your FSx for Windows File Server file system.</p>"""
     cmk_secret_config: NotRequired[

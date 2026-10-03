@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class EC2SecurityGroup(TypedDict, closed=True):
     status: NotRequired["capo_rds.types.string.String"]
-    r"""<p>Provides the status of the EC2 security group. Status can be \"authorizing\", \"authorized\", \"revoking\", and \"revoked\".</p>"""
+    """<p>Provides the status of the EC2 security group. Status can be "authorizing", "authorized", "revoking", and "revoked".</p>"""
     ec2_security_group_name: NotRequired["capo_rds.types.string.String"]
     """<p>Specifies the name of the EC2 security group.</p>"""
     ec2_security_group_id: NotRequired["capo_rds.types.string.String"]

@@ -56,13 +56,13 @@ class RuleSetResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_rule_set_response.CreateRuleSetResponse":
-        r"""<p>Provision a new rule set.</p>
+        """<p>Provision a new rule set.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             rule_set_name: <p>A user-friendly name for the rule set.</p>
             rules: <p>Conditional rules that are evaluated for determining actions on email.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -312,13 +312,13 @@ class AsyncRuleSetResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_rule_set_response.CreateRuleSetResponse":
-        r"""<p>Provision a new rule set.</p>
+        """<p>Provision a new rule set.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             rule_set_name: <p>A user-friendly name for the rule set.</p>
             rules: <p>Conditional rules that are evaluated for determining actions on email.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>

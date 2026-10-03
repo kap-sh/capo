@@ -4,7 +4,7 @@ from typing import Literal, TypeAlias, cast
 
 from capo_cloudsearch._protocol.xml import Element
 
-"""<p>An <a href=\"http://tools.ietf.org/html/rfc4646\" target=\"_blank\">IETF RFC 4646</a> language code or <code>mul</code> for multiple languages.</p>"""
+"""<p>An <a href="http://tools.ietf.org/html/rfc4646" target="_blank">IETF RFC 4646</a> language code or <code>mul</code> for multiple languages.</p>"""
 AnalysisSchemeLanguage: TypeAlias = Literal[
     "ar",
     "bg",

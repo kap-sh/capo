@@ -14,7 +14,7 @@ class ModelExplainabilityAppSpecification(TypedDict, closed=True):
     image_uri: NotRequired["capo_sagemaker.types.image_uri.ImageUri"]
     """<p>The container image to be run by the model explainability job.</p>"""
     config_uri: NotRequired["capo_sagemaker.types.s3_uri.S3Uri"]
-    r"""<p>JSON formatted Amazon S3 file that defines explainability parameters. For more information on this JSON configuration file, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-config-json-monitor-model-explainability-parameters.html\">Configure model explainability parameters</a>.</p>"""
+    """<p>JSON formatted Amazon S3 file that defines explainability parameters. For more information on this JSON configuration file, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-config-json-monitor-model-explainability-parameters.html">Configure model explainability parameters</a>.</p>"""
     environment: NotRequired[
         "capo_sagemaker.types.monitoring_environment_map.MonitoringEnvironmentMap"
     ]

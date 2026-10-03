@@ -19,7 +19,7 @@ class User(TypedDict, closed=True):
     user_name: NotRequired["capo_elasticache.types.string.String"]
     """<p>The username of the user.</p>"""
     status: NotRequired["capo_elasticache.types.string.String"]
-    r"""<p>Indicates the user status. Can be \"active\", \"modifying\" or \"deleting\".</p>"""
+    """<p>Indicates the user status. Can be "active", "modifying" or "deleting".</p>"""
     engine: NotRequired["capo_elasticache.types.engine_type.EngineType"]
     """<p>The options are valkey or redis.</p>"""
     minimum_engine_version: NotRequired["capo_elasticache.types.string.String"]

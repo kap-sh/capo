@@ -21,9 +21,9 @@ class ServiceQuotaExceededException_(TypedDict, closed=True):
     resource_id: NotRequired["capo_notifications.types.resource_id.ResourceId"]
     """<p>The ID of the resource that exceeds the service quota.</p>"""
     service_code: NotRequired["capo_notifications.types.service_code.ServiceCode"]
-    r"""<p>The code for the service quota exceeded in <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html\">Service Quotas</a>.</p>"""
+    """<p>The code for the service quota exceeded in <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">Service Quotas</a>.</p>"""
     quota_code: NotRequired["capo_notifications.types.quota_code.QuotaCode"]
-    r"""<p>The code for the service quota in <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html\">Service Quotas</a>.</p>"""
+    """<p>The code for the service quota in <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">Service Quotas</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

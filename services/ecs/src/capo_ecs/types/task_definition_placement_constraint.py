@@ -15,7 +15,7 @@ class TaskDefinitionPlacementConstraint(TypedDict, closed=True):
     ]
     """<p>The type of constraint. The <code>MemberOf</code> constraint restricts selection to be from a group of valid candidates.</p>"""
     expression: NotRequired["capo_ecs.types.string.String"]
-    r"""<p>A cluster query language expression to apply to the constraint. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html\">Cluster query language</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
+    """<p>A cluster query language expression to apply to the constraint. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster query language</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

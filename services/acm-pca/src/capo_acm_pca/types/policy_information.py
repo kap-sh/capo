@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class PolicyInformation(TypedDict, closed=True):
     cert_policy_id: "capo_acm_pca.types.custom_object_identifier.CustomObjectIdentifier"
-    r"""<p>Specifies the object identifier (OID) of the certificate policy under which the certificate was issued. For more information, see NIST's definition of <a href=\"https://csrc.nist.gov/glossary/term/Object_Identifier\">Object Identifier (OID)</a>.</p>"""
+    """<p>Specifies the object identifier (OID) of the certificate policy under which the certificate was issued. For more information, see NIST's definition of <a href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.</p>"""
     policy_qualifiers: NotRequired[
         "capo_acm_pca.types.policy_qualifier_info_list.PolicyQualifierInfoList"
     ]

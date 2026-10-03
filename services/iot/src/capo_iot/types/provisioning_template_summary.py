@@ -27,7 +27,7 @@ class ProvisioningTemplateSummary(TypedDict, closed=True):
     enabled: NotRequired["capo_iot.types.enabled2.Enabled2"]
     """<p>True if the fleet provision template is enabled, otherwise false.</p>"""
     type: NotRequired["capo_iot.types.template_type.TemplateType"]
-    r"""<p>The type you define in a provisioning template. You can create a template with only one type. You can't change the template type after its creation. The default value is <code>FLEET_PROVISIONING</code>. For more information about provisioning template, see: <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html\">Provisioning template</a>. </p>"""
+    """<p>The type you define in a provisioning template. You can create a template with only one type. You can't change the template type after its creation. The default value is <code>FLEET_PROVISIONING</code>. For more information about provisioning template, see: <a href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html">Provisioning template</a>. </p>"""
 
 
 # --- restJson1 ser/de ---

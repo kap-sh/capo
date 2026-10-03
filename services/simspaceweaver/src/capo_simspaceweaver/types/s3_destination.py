@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 
 class S3Destination(TypedDict, closed=True):
     bucket_name: "capo_simspaceweaver.types.bucket_name.BucketName"
-    r"""<p>The name of an Amazon S3 bucket. For more information about buckets, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html\">Creating, configuring, and working with Amazon S3 buckets</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>"""
+    """<p>The name of an Amazon S3 bucket. For more information about buckets, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html">Creating, configuring, and working with Amazon S3 buckets</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>"""
     object_key_prefix: NotRequired[
         "capo_simspaceweaver.types.object_key_prefix.ObjectKeyPrefix"
     ]
-    r"""<p>A string prefix for an Amazon S3 object key. It's usually a folder name. For more information about folders in Amazon S3, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-folders.html\">Organizing objects in the Amazon S3 console using folders</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>"""
+    """<p>A string prefix for an Amazon S3 object key. It's usually a folder name. For more information about folders in Amazon S3, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-folders.html">Organizing objects in the Amazon S3 console using folders</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

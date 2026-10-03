@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class DescribeWorkspaceConfigurationRequest(TypedDict, closed=True):
     workspace_id: "capo_amp.types.workspace_id.WorkspaceId"
-    r"""<p>The ID of the workspace that you want to retrieve information for. To find the IDs of your workspaces, use the <a href=\"https://docs.aws.amazon.com/prometheus/latest/APIReference/API_ListWorkspaces.htm\">ListWorkspaces</a> operation.</p>"""
+    """<p>The ID of the workspace that you want to retrieve information for. To find the IDs of your workspaces, use the <a href="https://docs.aws.amazon.com/prometheus/latest/APIReference/API_ListWorkspaces.htm">ListWorkspaces</a> operation.</p>"""
 
 
 # --- restJson1 ser/de ---

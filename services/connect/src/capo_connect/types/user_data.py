@@ -36,7 +36,7 @@ class UserData(TypedDict, closed=True):
     max_slots_by_channel: NotRequired[
         "capo_connect.types.channel_to_count_map.ChannelToCountMap"
     ]
-    r"""<p>A map of maximum slots by channel. The key is a channel name. The value is an integer: the maximum number of slots. This is calculated from <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_MediaConcurrency.html\">MediaConcurrency</a> of the <code>RoutingProfile</code> assigned to the agent. </p>"""
+    """<p>A map of maximum slots by channel. The key is a channel name. The value is an integer: the maximum number of slots. This is calculated from <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_MediaConcurrency.html">MediaConcurrency</a> of the <code>RoutingProfile</code> assigned to the agent. </p>"""
     active_slots_by_channel: NotRequired[
         "capo_connect.types.channel_to_count_map.ChannelToCountMap"
     ]

@@ -20,7 +20,7 @@ class AwsCertificateManagerCertificateDetails(TypedDict, closed=True):
     ]
     """<p>The ARN of the private certificate authority (CA) that will be used to issue the certificate.</p>"""
     created_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the certificate was requested.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the certificate was requested.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     domain_name: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The fully qualified domain name (FQDN), such as www.example.com, that is secured by the certificate.</p>"""
     domain_validation_options: NotRequired[
@@ -36,11 +36,11 @@ class AwsCertificateManagerCertificateDetails(TypedDict, closed=True):
     ]
     """<p>For a failed certificate request, the reason for the failure.</p> <p>Valid values: <code>NO_AVAILABLE_CONTACTS</code> | <code>ADDITIONAL_VERIFICATION_REQUIRED</code> | <code>DOMAIN_NOT_ALLOWED</code> | <code>INVALID_PUBLIC_DOMAIN</code> | <code>DOMAIN_VALIDATION_DENIED</code> | <code>CAA_ERROR</code> | <code>PCA_LIMIT_EXCEEDED</code> | <code>PCA_INVALID_ARN</code> | <code>PCA_INVALID_STATE</code> | <code>PCA_REQUEST_FAILED</code> | <code>PCA_NAME_CONSTRAINTS_VALIDATION</code> | <code>PCA_RESOURCE_NOT_FOUND</code> | <code>PCA_INVALID_ARGS</code> | <code>PCA_INVALID_DURATION</code> | <code>PCA_ACCESS_DENIED</code> | <code>SLR_NOT_FOUND</code> | <code>OTHER</code> </p>"""
     imported_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the certificate was imported. Provided if the certificate type is <code>IMPORTED</code>.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the certificate was imported. Provided if the certificate type is <code>IMPORTED</code>.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     in_use_by: NotRequired["capo_securityhub.types.string_list.StringList"]
     """<p>The list of ARNs for the Amazon Web Services resources that use the certificate.</p>"""
     issued_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the certificate was issued. Provided if the certificate type is <code>AMAZON_ISSUED</code>.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the certificate was issued. Provided if the certificate type is <code>AMAZON_ISSUED</code>.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     issuer: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The name of the certificate authority that issued and signed the certificate.</p>"""
     key_algorithm: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
@@ -50,9 +50,9 @@ class AwsCertificateManagerCertificateDetails(TypedDict, closed=True):
     ]
     """<p>A list of key usage X.509 v3 extension objects.</p>"""
     not_after: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>The time after which the certificate becomes invalid.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>The time after which the certificate becomes invalid.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     not_before: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>The time before which the certificate is not valid.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>The time before which the certificate is not valid.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     options: NotRequired[
         "capo_securityhub.types.aws_certificate_manager_certificate_options.AwsCertificateManagerCertificateOptions"
     ]

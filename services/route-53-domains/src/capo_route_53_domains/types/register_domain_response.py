@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class RegisterDomainResponse(TypedDict, closed=True):
     operation_id: NotRequired["capo_route_53_domains.types.operation_id.OperationId"]
-    r"""<p>Identifier for tracking the progress of the request. To query the operation status, use <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html\">GetOperationDetail</a>.</p>"""
+    """<p>Identifier for tracking the progress of the request. To query the operation status, use <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">GetOperationDetail</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

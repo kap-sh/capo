@@ -20,7 +20,7 @@ class GenerateDataKeyPairWithoutPlaintextResponse(TypedDict, closed=True):
     public_key: NotRequired["capo_kms.types.public_key_type.PublicKeyType"]
     """<p>The public key (in plaintext). When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded. Otherwise, it is not Base64-encoded.</p>"""
     key_id: NotRequired["capo_kms.types.key_id_type.KeyIdType"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">key ARN</a>) of the KMS key that encrypted the private key.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS key that encrypted the private key.</p>"""
     key_pair_spec: NotRequired["capo_kms.types.data_key_pair_spec.DataKeyPairSpec"]
     """<p>The type of data key pair that was generated.</p>"""
     key_material_id: NotRequired["capo_kms.types.backing_key_id_type.BackingKeyIdType"]

@@ -21,7 +21,7 @@ class ConnectorDataTarget(TypedDict, closed=True):
     )
     """<p>The <code>connectionType</code>, as provided to the underlying Glue library. This node type supports the following connection types: </p> <ul> <li> <p> <code>opensearch</code> </p> </li> <li> <p> <code>azuresql</code> </p> </li> <li> <p> <code>azurecosmos</code> </p> </li> <li> <p> <code>bigquery</code> </p> </li> <li> <p> <code>saphana</code> </p> </li> <li> <p> <code>teradata</code> </p> </li> <li> <p> <code>vertica</code> </p> </li> </ul>"""
     data: "capo_glue.types.connector_options.ConnectorOptions"
-    r"""<p>A map specifying connection options for the node. You can find standard connection options for the corresponding connection type in the <a href=\"https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-connect.html\"> Connection parameters</a> section of the Glue documentation.</p>"""
+    """<p>A map specifying connection options for the node. You can find standard connection options for the corresponding connection type in the <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-connect.html"> Connection parameters</a> section of the Glue documentation.</p>"""
     inputs: NotRequired["capo_glue.types.one_input.OneInput"]
     """<p>The nodes that are inputs to the data target.</p>"""
 

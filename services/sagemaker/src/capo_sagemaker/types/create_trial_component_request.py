@@ -47,7 +47,7 @@ class CreateTrialComponentRequest(TypedDict, closed=True):
         "capo_sagemaker.types.metadata_properties.MetadataProperties"
     ]
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>A list of tags to associate with the component. You can use <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html\">Search</a> API to search on the tags.</p>"""
+    """<p>A list of tags to associate with the component. You can use <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html">Search</a> API to search on the tags.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class RoleCredentials(TypedDict, closed=True):
     access_key_id: NotRequired["capo_sso.types.access_key_type.AccessKeyType"]
-    r"""<p>The identifier used for the temporary security credentials. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html\">Using Temporary Security Credentials to Request Access to AWS Resources</a> in the <i>AWS IAM User Guide</i>.</p>"""
+    """<p>The identifier used for the temporary security credentials. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html">Using Temporary Security Credentials to Request Access to AWS Resources</a> in the <i>AWS IAM User Guide</i>.</p>"""
     secret_access_key: NotRequired[
         "capo_sso.types.secret_access_key_type.SecretAccessKeyType"
     ]
-    r"""<p>The key that is used to sign the request. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html\">Using Temporary Security Credentials to Request Access to AWS Resources</a> in the <i>AWS IAM User Guide</i>.</p>"""
+    """<p>The key that is used to sign the request. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html">Using Temporary Security Credentials to Request Access to AWS Resources</a> in the <i>AWS IAM User Guide</i>.</p>"""
     session_token: NotRequired["capo_sso.types.session_token_type.SessionTokenType"]
-    r"""<p>The token used for temporary credentials. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html\">Using Temporary Security Credentials to Request Access to AWS Resources</a> in the <i>AWS IAM User Guide</i>.</p>"""
+    """<p>The token used for temporary credentials. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html">Using Temporary Security Credentials to Request Access to AWS Resources</a> in the <i>AWS IAM User Guide</i>.</p>"""
     expiration: "capo_sso.types.expiration_timestamp_type.ExpirationTimestampType"
     """<p>The date on which temporary security credentials expire.</p>"""
 

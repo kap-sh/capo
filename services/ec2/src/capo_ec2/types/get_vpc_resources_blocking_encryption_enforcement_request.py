@@ -19,7 +19,7 @@ class GetVpcResourcesBlockingEncryptionEnforcementRequest(TypedDict, closed=True
     max_results: NotRequired[
         "capo_ec2.types.get_vpc_resources_blocking_encryption_enforcement_max_results.GetVpcResourcesBlockingEncryptionEnforcementMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     next_token: NotRequired["capo_ec2.types.string.String"]
     """<p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]

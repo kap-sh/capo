@@ -18,7 +18,7 @@ class AuditCheckDetails(TypedDict, closed=True):
     check_run_status: NotRequired[
         "capo_iot.types.audit_check_run_status.AuditCheckRunStatus"
     ]
-    r"""<p>The completion status of this check. One of \"IN_PROGRESS\", \"WAITING_FOR_DATA_COLLECTION\", \"CANCELED\", \"COMPLETED_COMPLIANT\", \"COMPLETED_NON_COMPLIANT\", or \"FAILED\".</p>"""
+    """<p>The completion status of this check. One of "IN_PROGRESS", "WAITING_FOR_DATA_COLLECTION", "CANCELED", "COMPLETED_COMPLIANT", "COMPLETED_NON_COMPLIANT", or "FAILED".</p>"""
     check_compliant: NotRequired["capo_iot.types.check_compliant.CheckCompliant"]
     """<p>True if the check is complete and found all resources compliant.</p>"""
     total_resources_count: NotRequired[
@@ -34,7 +34,7 @@ class AuditCheckDetails(TypedDict, closed=True):
     ]
     """<p> Describes how many of the non-compliant resources created during the evaluation of an audit check were marked as suppressed. </p>"""
     error_code: NotRequired["capo_iot.types.error_code.ErrorCode"]
-    r"""<p>The code of any error encountered when this check is performed during this audit. One of \"INSUFFICIENT_PERMISSIONS\" or \"AUDIT_CHECK_DISABLED\".</p>"""
+    """<p>The code of any error encountered when this check is performed during this audit. One of "INSUFFICIENT_PERMISSIONS" or "AUDIT_CHECK_DISABLED".</p>"""
     message: NotRequired["capo_iot.types.error_message.ErrorMessage"]
     """<p>The message associated with any error encountered when this check is performed during this audit.</p>"""
 

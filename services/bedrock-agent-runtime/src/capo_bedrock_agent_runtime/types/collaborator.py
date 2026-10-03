@@ -50,7 +50,7 @@ class Collaborator(TypedDict, closed=True):
     prompt_override_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.prompt_override_configuration.PromptOverrideConfiguration"
     ]
-    r"""<p> Contains configurations to override prompt templates in different parts of an inline collaborator sequence. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompts.html\">Advanced prompts</a>. </p>"""
+    """<p> Contains configurations to override prompt templates in different parts of an inline collaborator sequence. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompts.html">Advanced prompts</a>. </p>"""
     agent_collaboration: NotRequired[
         "capo_bedrock_agent_runtime.types.agent_collaboration.AgentCollaboration"
     ]

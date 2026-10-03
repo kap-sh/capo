@@ -12,7 +12,7 @@ class EcrRepositoryConfiguration(TypedDict, closed=True):
     repository_policy: NotRequired[
         "capo_accessanalyzer.types.ecr_repository_policy.EcrRepositoryPolicy"
     ]
-    r"""<p>The JSON repository policy text to apply to the Amazon ECR repository. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policy-examples.html\">Private repository policy examples</a> in the <i>Amazon ECR User Guide</i>.</p>"""
+    """<p>The JSON repository policy text to apply to the Amazon ECR repository. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policy-examples.html">Private repository policy examples</a> in the <i>Amazon ECR User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

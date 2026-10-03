@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class StartMetricStreamsInput(TypedDict, closed=True):
     names: NotRequired["capo_cloudwatch.types.metric_stream_names.MetricStreamNames"]
-    r"""<p>The array of the names of metric streams to start streaming.</p> <p>This is an \"all or nothing\" operation. If you do not have permission to access all of the metric streams that you list here, then none of the streams that you list in the operation will start streaming.</p>"""
+    """<p>The array of the names of metric streams to start streaming.</p> <p>This is an "all or nothing" operation. If you do not have permission to access all of the metric streams that you list here, then none of the streams that you list in the operation will start streaming.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

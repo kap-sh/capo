@@ -13,7 +13,7 @@ class AwsOpportunityProject(TypedDict, closed=True):
     expected_customer_spend: NotRequired[
         "capo_partnercentral_selling.types.expected_customer_spend_list.ExpectedCustomerSpendList"
     ]
-    r"""<p>Indicates the expected spending by the customer over the course of the project. This value helps partners and AWS estimate the financial impact of the opportunity. Use the <a href=\"https://calculator.aws/#/\">AWS Pricing Calculator</a> to create an estimate of the customer’s total spend. If only annual recurring revenue (ARR) is available, distribute it across 12 months to provide an average monthly value.</p>"""
+    """<p>Indicates the expected spending by the customer over the course of the project. This value helps partners and AWS estimate the financial impact of the opportunity. Use the <a href="https://calculator.aws/#/">AWS Pricing Calculator</a> to create an estimate of the customer’s total spend. If only annual recurring revenue (ARR) is available, distribute it across 12 months to provide an average monthly value.</p>"""
     aws_partition: NotRequired[
         "capo_partnercentral_selling.types.aws_partition.AwsPartition"
     ]

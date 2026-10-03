@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class HttpEndpointConfiguration(TypedDict, closed=True):
     url: "capo_firehose.types.http_endpoint_url.HttpEndpointUrl"
-    r"""<p>The URL of the HTTP endpoint selected as the destination.</p> <important> <p>If you choose an HTTP endpoint as your destination, review and follow the instructions in the <a href=\"https://docs.aws.amazon.com/firehose/latest/dev/httpdeliveryrequestresponse.html\">Appendix - HTTP Endpoint Delivery Request and Response Specifications</a>.</p> </important>"""
+    """<p>The URL of the HTTP endpoint selected as the destination.</p> <important> <p>If you choose an HTTP endpoint as your destination, review and follow the instructions in the <a href="https://docs.aws.amazon.com/firehose/latest/dev/httpdeliveryrequestresponse.html">Appendix - HTTP Endpoint Delivery Request and Response Specifications</a>.</p> </important>"""
     name: NotRequired["capo_firehose.types.http_endpoint_name.HttpEndpointName"]
     """<p>The name of the HTTP endpoint selected as the destination.</p>"""
     access_key: NotRequired[

@@ -23,7 +23,7 @@ class PipelineDescription(TypedDict, closed=True):
     description: NotRequired["capo_data_pipeline.types.string.string"]
     """<p>Description of the pipeline.</p>"""
     tags: NotRequired["capo_data_pipeline.types.tag_list.tagList"]
-    r"""<p>A list of tags to associated with a pipeline. Tags let you control access to pipelines. For more information, see <a href=\"http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html\">Controlling User Access to Pipelines</a> in the <i>AWS Data Pipeline Developer Guide</i>.</p>"""
+    """<p>A list of tags to associated with a pipeline. Tags let you control access to pipelines. For more information, see <a href="http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html">Controlling User Access to Pipelines</a> in the <i>AWS Data Pipeline Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

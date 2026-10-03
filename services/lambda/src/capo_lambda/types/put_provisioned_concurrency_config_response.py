@@ -32,7 +32,7 @@ class PutProvisionedConcurrencyConfigResponse(TypedDict, closed=True):
     status_reason: NotRequired["capo_lambda.types.string.String"]
     """<p>For failed allocations, the reason that provisioned concurrency could not be allocated.</p>"""
     last_modified: NotRequired["capo_lambda.types.timestamp.Timestamp"]
-    r"""<p>The date and time that a user last updated the configuration, in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601 format</a>.</p>"""
+    """<p>The date and time that a user last updated the configuration, in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601 format</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class BatchPutMessageErrorEntry(TypedDict, closed=True):
     message_id: NotRequired["capo_iot_events_data.types.message_id.MessageId"]
-    r"""<p>The ID of the message that caused the error. (See the value corresponding to the <code>\"messageId\"</code> key in the <code>\"message\"</code> object.)</p>"""
+    """<p>The ID of the message that caused the error. (See the value corresponding to the <code>"messageId"</code> key in the <code>"message"</code> object.)</p>"""
     error_code: NotRequired["capo_iot_events_data.types.error_code.ErrorCode"]
     """<p>The error code.</p>"""
     error_message: NotRequired["capo_iot_events_data.types.error_message.ErrorMessage"]

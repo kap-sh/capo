@@ -18,7 +18,7 @@ class RevokeGrantRequest(TypedDict, closed=True):
     grant_id: "capo_kms.types.grant_id_type.GrantIdType"
     """<p>Identifies the grant to revoke. To get the grant ID, use <a>CreateGrant</a>, <a>ListGrants</a>, or <a>ListRetirableGrants</a>.</p>"""
     dry_run: NotRequired["capo_kms.types.nullable_boolean_type.NullableBooleanType"]
-    r"""<p>Checks if your request will succeed. <code>DryRun</code> is an optional parameter. </p> <p>To learn more about how to use this parameter, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/testing-permissions.html\">Testing your permissions</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>Checks if your request will succeed. <code>DryRun</code> is an optional parameter. </p> <p>To learn more about how to use this parameter, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/testing-permissions.html">Testing your permissions</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

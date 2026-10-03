@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class NodeConfigurationOption(TypedDict, closed=True):
     node_type: NotRequired["capo_redshift.types.string.String"]
-    r"""<p>The node type, such as, \"ra3.4xlarge\".</p>"""
+    """<p>The node type, such as, "ra3.4xlarge".</p>"""
     number_of_nodes: NotRequired["capo_redshift.types.integer.Integer"]
     """<p>The number of nodes.</p>"""
     estimated_disk_utilization_percent: NotRequired[

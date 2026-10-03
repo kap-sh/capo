@@ -24,7 +24,7 @@ class ReplaceNetworkAclEntryRequest(TypedDict, closed=True):
     rule_number: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>The rule number of the entry to replace.</p>"""
     protocol: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The protocol number. A value of \"-1\" means all protocols. If you specify \"-1\" or a protocol number other than \"6\" (TCP), \"17\" (UDP), or \"1\" (ICMP), traffic on all ports is allowed, regardless of any ports or ICMP types or codes that you specify. If you specify protocol \"58\" (ICMPv6) and specify an IPv4 CIDR block, traffic for all ICMP types and codes allowed, regardless of any that you specify. If you specify protocol \"58\" (ICMPv6) and specify an IPv6 CIDR block, you must specify an ICMP type and code.</p>"""
+    """<p>The protocol number. A value of "-1" means all protocols. If you specify "-1" or a protocol number other than "6" (TCP), "17" (UDP), or "1" (ICMP), traffic on all ports is allowed, regardless of any ports or ICMP types or codes that you specify. If you specify protocol "58" (ICMPv6) and specify an IPv4 CIDR block, traffic for all ICMP types and codes allowed, regardless of any that you specify. If you specify protocol "58" (ICMPv6) and specify an IPv6 CIDR block, you must specify an ICMP type and code.</p>"""
     rule_action: NotRequired["capo_ec2.types.rule_action.RuleAction"]
     """<p>Indicates whether to allow or deny the traffic that matches the rule.</p>"""
     egress: NotRequired["capo_ec2.types.boolean.Boolean"]

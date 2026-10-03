@@ -42,7 +42,7 @@ class CreateFileCacheRequest(TypedDict, closed=True):
     ]
     """<p>A boolean flag indicating whether tags for the cache should be copied to data repository associations. This value defaults to false.</p>"""
     kms_key_id: NotRequired["capo_fsx.types.kms_key_id.KmsKeyId"]
-    r"""<p>Specifies the ID of the Key Management Service (KMS) key to use for encrypting data on an Amazon File Cache. If a <code>KmsKeyId</code> isn't specified, the Amazon FSx-managed KMS key for your account is used. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html\">Encrypt</a> in the <i>Key Management Service API Reference</i>.</p>"""
+    """<p>Specifies the ID of the Key Management Service (KMS) key to use for encrypting data on an Amazon File Cache. If a <code>KmsKeyId</code> isn't specified, the Amazon FSx-managed KMS key for your account is used. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html">Encrypt</a> in the <i>Key Management Service API Reference</i>.</p>"""
     lustre_configuration: NotRequired[
         "capo_fsx.types.create_file_cache_lustre_configuration.CreateFileCacheLustreConfiguration"
     ]

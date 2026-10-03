@@ -65,12 +65,12 @@ class ConnectionResource:
         tags: Optional["capo_interconnect.types.tag_map.TagMap"] = None,
         client_token: Optional[str] = None,
     ) -> "capo_interconnect.types.create_connection_response.CreateConnectionResponse":
-        r"""<p>Initiates the process to create a Connection across the specified Environment. </p> <p>The Environment dictates the specified partner and location to which the other end of the connection should attach. You can see a list of the available Environments by calling <a>ListEnvironments</a> </p> <p>The Attach Point specifies where within the AWS Network your connection will logically connect.</p> <p>After a successful call to this method, the resulting <a>Connection</a> will return an Activation Key which will need to be brought to the specific partner's portal to confirm the <a>Connection</a> on both sides. (See <a>Environment$activationPageUrl</a> for a direct link to the partner portal). </p>
+        """<p>Initiates the process to create a Connection across the specified Environment. </p> <p>The Environment dictates the specified partner and location to which the other end of the connection should attach. You can see a list of the available Environments by calling <a>ListEnvironments</a> </p> <p>The Attach Point specifies where within the AWS Network your connection will logically connect.</p> <p>After a successful call to this method, the resulting <a>Connection</a> will return an Activation Key which will need to be brought to the specific partner's portal to confirm the <a>Connection</a> on both sides. (See <a>Environment$activationPageUrl</a> for a direct link to the partner portal). </p>
 
         Args:
             description: <p>A description to distinguish this <a>Connection</a>.</p>
             bandwidth: <p>The desired bandwidth of the requested <a>Connection</a> </p>
-            attach_point: <p>The Attach Point to which the connection should be associated.\"</p>
+            attach_point: <p>The Attach Point to which the connection should be associated."</p>
             environment_id: <p>The identifier of the <a>Environment</a> across which this <a>Connection</a> should be created.</p> <p>The available <a>Environment</a> objects can be determined using <a>ListEnvironments</a>.</p>
             remote_account: <p>Account and/or principal identifying information that can be verified by the partner of this specific Environment.</p>
             tags: <p>The tag to associate with the resulting <a>Connection</a>.</p>
@@ -424,12 +424,12 @@ class AsyncConnectionResource:
         tags: Optional["capo_interconnect.types.tag_map.TagMap"] = None,
         client_token: Optional[str] = None,
     ) -> "capo_interconnect.types.create_connection_response.CreateConnectionResponse":
-        r"""<p>Initiates the process to create a Connection across the specified Environment. </p> <p>The Environment dictates the specified partner and location to which the other end of the connection should attach. You can see a list of the available Environments by calling <a>ListEnvironments</a> </p> <p>The Attach Point specifies where within the AWS Network your connection will logically connect.</p> <p>After a successful call to this method, the resulting <a>Connection</a> will return an Activation Key which will need to be brought to the specific partner's portal to confirm the <a>Connection</a> on both sides. (See <a>Environment$activationPageUrl</a> for a direct link to the partner portal). </p>
+        """<p>Initiates the process to create a Connection across the specified Environment. </p> <p>The Environment dictates the specified partner and location to which the other end of the connection should attach. You can see a list of the available Environments by calling <a>ListEnvironments</a> </p> <p>The Attach Point specifies where within the AWS Network your connection will logically connect.</p> <p>After a successful call to this method, the resulting <a>Connection</a> will return an Activation Key which will need to be brought to the specific partner's portal to confirm the <a>Connection</a> on both sides. (See <a>Environment$activationPageUrl</a> for a direct link to the partner portal). </p>
 
         Args:
             description: <p>A description to distinguish this <a>Connection</a>.</p>
             bandwidth: <p>The desired bandwidth of the requested <a>Connection</a> </p>
-            attach_point: <p>The Attach Point to which the connection should be associated.\"</p>
+            attach_point: <p>The Attach Point to which the connection should be associated."</p>
             environment_id: <p>The identifier of the <a>Environment</a> across which this <a>Connection</a> should be created.</p> <p>The available <a>Environment</a> objects can be determined using <a>ListEnvironments</a>.</p>
             remote_account: <p>Account and/or principal identifying information that can be verified by the partner of this specific Environment.</p>
             tags: <p>The tag to associate with the resulting <a>Connection</a>.</p>

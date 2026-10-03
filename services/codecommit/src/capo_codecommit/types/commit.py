@@ -24,7 +24,7 @@ class Commit(TypedDict, closed=True):
     author: NotRequired["capo_codecommit.types.user_info.UserInfo"]
     """<p>Information about the author of the specified commit. Information includes the date in timestamp format with GMT offset, the name of the author, and the email address for the author, as configured in Git.</p>"""
     committer: NotRequired["capo_codecommit.types.user_info.UserInfo"]
-    r"""<p>Information about the person who committed the specified commit, also known as the committer. Information includes the date in timestamp format with GMT offset, the name of the committer, and the email address for the committer, as configured in Git.</p> <p>For more information about the difference between an author and a committer in Git, see <a href=\"http://git-scm.com/book/ch2-3.html\">Viewing the Commit History</a> in Pro Git by Scott Chacon and Ben Straub.</p>"""
+    """<p>Information about the person who committed the specified commit, also known as the committer. Information includes the date in timestamp format with GMT offset, the name of the committer, and the email address for the committer, as configured in Git.</p> <p>For more information about the difference between an author and a committer in Git, see <a href="http://git-scm.com/book/ch2-3.html">Viewing the Commit History</a> in Pro Git by Scott Chacon and Ben Straub.</p>"""
     additional_data: NotRequired["capo_codecommit.types.additional_data.AdditionalData"]
     """<p>Any other data associated with the specified commit.</p>"""
 

@@ -65,7 +65,7 @@ class ComponentResource:
         tags: Optional["capo_proton.types.tag_list.TagList"] = None,
         client_token: Optional["capo_proton.types.client_token.ClientToken"] = None,
     ) -> "capo_proton.types.create_component_output.CreateComponentOutput":
-        r"""<p>Create an Proton component. A component is an infrastructure extension for a service instance.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>Create an Proton component. A component is an infrastructure extension for a service instance.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             name: <p>The customer-provided name of the component.</p>
@@ -76,7 +76,7 @@ class ComponentResource:
             template_file: <p>A path to the Infrastructure as Code (IaC) file describing infrastructure that a custom component provisions.</p> <note> <p>Components support a single IaC file, even if you use Terraform as your template language.</p> </note>
             manifest: <p>A path to a manifest file that lists the Infrastructure as Code (IaC) file, template language, and rendering engine for infrastructure that a custom component provisions.</p>
             service_spec: <p>The service spec that you want the component to use to access service inputs. Set this only when you attach the component to a service instance.</p>
-            tags: <p>An optional list of metadata items that you can associate with the Proton component. A tag is a key-value pair.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>
+            tags: <p>An optional list of metadata items that you can associate with the Proton component. A tag is a key-value pair.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/resources.html">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>
             client_token: <p>The client token for the created component.</p>
 
         Raises:
@@ -84,7 +84,7 @@ class ComponentResource:
             capo_proton.errors.conflict_exception.ConflictException: <p>The request <i>couldn't</i> be made due to a conflicting operation or resource.</p>
             capo_proton.errors.internal_server_exception.InternalServerException: <p>The request failed to register with the service.</p>
             capo_proton.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource <i>wasn't</i> found.</p>
-            capo_proton.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A quota was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html\">Proton Quotas</a> in the <i>Proton User Guide</i>.</p>
+            capo_proton.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A quota was exceeded. For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html">Proton Quotas</a> in the <i>Proton User Guide</i>.</p>
             capo_proton.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
             capo_proton.errors.validation_exception.ValidationException: <p>The input is invalid or an out-of-range value was supplied for the input parameter.</p>
             capo_proton.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -140,7 +140,7 @@ class ComponentResource:
         *,
         config_overrides: Optional[ProtonClientConfig] = None,
     ) -> "capo_proton.types.get_component_output.GetComponentOutput":
-        r"""<p>Get detailed data for a component.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>Get detailed data for a component.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             name: <p>The name of the component that you want to get the detailed data for.</p>
@@ -198,7 +198,7 @@ class ComponentResource:
         ] = None,
         client_token: Optional["capo_proton.types.client_token.ClientToken"] = None,
     ) -> "capo_proton.types.update_component_output.UpdateComponentOutput":
-        r"""<p>Update a component.</p> <p>There are a few modes for updating a component. The <code>deploymentType</code> field defines the mode.</p> <note> <p>You can't update a component while its deployment status, or the deployment status of a service instance attached to it, is <code>IN_PROGRESS</code>.</p> </note> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>Update a component.</p> <p>There are a few modes for updating a component. The <code>deploymentType</code> field defines the mode.</p> <note> <p>You can't update a component while its deployment status, or the deployment status of a service instance attached to it, is <code>IN_PROGRESS</code>.</p> </note> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             name: <p>The name of the component to update.</p>
@@ -215,7 +215,7 @@ class ComponentResource:
             capo_proton.errors.conflict_exception.ConflictException: <p>The request <i>couldn't</i> be made due to a conflicting operation or resource.</p>
             capo_proton.errors.internal_server_exception.InternalServerException: <p>The request failed to register with the service.</p>
             capo_proton.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource <i>wasn't</i> found.</p>
-            capo_proton.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A quota was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html\">Proton Quotas</a> in the <i>Proton User Guide</i>.</p>
+            capo_proton.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A quota was exceeded. For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html">Proton Quotas</a> in the <i>Proton User Guide</i>.</p>
             capo_proton.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
             capo_proton.errors.validation_exception.ValidationException: <p>The input is invalid or an out-of-range value was supplied for the input parameter.</p>
             capo_proton.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -268,7 +268,7 @@ class ComponentResource:
         *,
         config_overrides: Optional[ProtonClientConfig] = None,
     ) -> "capo_proton.types.delete_component_output.DeleteComponentOutput":
-        r"""<p>Delete an Proton component resource.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>Delete an Proton component resource.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             name: <p>The name of the component to delete.</p>
@@ -326,7 +326,7 @@ class ComponentResource:
             "capo_proton.types.max_page_results.MaxPageResults"
         ] = None,
     ) -> "capo_proton.types.list_components_output.ListComponentsOutput":
-        r"""<p>List components with summary data. You can filter the result list by environment, service, or a single service instance.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>List components with summary data. You can filter the result list by environment, service, or a single service instance.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             next_token: <p>A token that indicates the location of the next component in the array of components, after the list of components that was previously requested.</p>
@@ -402,7 +402,7 @@ class AsyncComponentResource:
         tags: Optional["capo_proton.types.tag_list.TagList"] = None,
         client_token: Optional["capo_proton.types.client_token.ClientToken"] = None,
     ) -> "capo_proton.types.create_component_output.CreateComponentOutput":
-        r"""<p>Create an Proton component. A component is an infrastructure extension for a service instance.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>Create an Proton component. A component is an infrastructure extension for a service instance.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             name: <p>The customer-provided name of the component.</p>
@@ -413,7 +413,7 @@ class AsyncComponentResource:
             template_file: <p>A path to the Infrastructure as Code (IaC) file describing infrastructure that a custom component provisions.</p> <note> <p>Components support a single IaC file, even if you use Terraform as your template language.</p> </note>
             manifest: <p>A path to a manifest file that lists the Infrastructure as Code (IaC) file, template language, and rendering engine for infrastructure that a custom component provisions.</p>
             service_spec: <p>The service spec that you want the component to use to access service inputs. Set this only when you attach the component to a service instance.</p>
-            tags: <p>An optional list of metadata items that you can associate with the Proton component. A tag is a key-value pair.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>
+            tags: <p>An optional list of metadata items that you can associate with the Proton component. A tag is a key-value pair.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/resources.html">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>
             client_token: <p>The client token for the created component.</p>
 
         Raises:
@@ -421,7 +421,7 @@ class AsyncComponentResource:
             capo_proton.errors.conflict_exception.ConflictException: <p>The request <i>couldn't</i> be made due to a conflicting operation or resource.</p>
             capo_proton.errors.internal_server_exception.InternalServerException: <p>The request failed to register with the service.</p>
             capo_proton.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource <i>wasn't</i> found.</p>
-            capo_proton.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A quota was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html\">Proton Quotas</a> in the <i>Proton User Guide</i>.</p>
+            capo_proton.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A quota was exceeded. For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html">Proton Quotas</a> in the <i>Proton User Guide</i>.</p>
             capo_proton.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
             capo_proton.errors.validation_exception.ValidationException: <p>The input is invalid or an out-of-range value was supplied for the input parameter.</p>
             capo_proton.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -478,7 +478,7 @@ class AsyncComponentResource:
         *,
         config_overrides: Optional[AsyncProtonClientConfig] = None,
     ) -> "capo_proton.types.get_component_output.GetComponentOutput":
-        r"""<p>Get detailed data for a component.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>Get detailed data for a component.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             name: <p>The name of the component that you want to get the detailed data for.</p>
@@ -537,7 +537,7 @@ class AsyncComponentResource:
         ] = None,
         client_token: Optional["capo_proton.types.client_token.ClientToken"] = None,
     ) -> "capo_proton.types.update_component_output.UpdateComponentOutput":
-        r"""<p>Update a component.</p> <p>There are a few modes for updating a component. The <code>deploymentType</code> field defines the mode.</p> <note> <p>You can't update a component while its deployment status, or the deployment status of a service instance attached to it, is <code>IN_PROGRESS</code>.</p> </note> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>Update a component.</p> <p>There are a few modes for updating a component. The <code>deploymentType</code> field defines the mode.</p> <note> <p>You can't update a component while its deployment status, or the deployment status of a service instance attached to it, is <code>IN_PROGRESS</code>.</p> </note> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             name: <p>The name of the component to update.</p>
@@ -554,7 +554,7 @@ class AsyncComponentResource:
             capo_proton.errors.conflict_exception.ConflictException: <p>The request <i>couldn't</i> be made due to a conflicting operation or resource.</p>
             capo_proton.errors.internal_server_exception.InternalServerException: <p>The request failed to register with the service.</p>
             capo_proton.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource <i>wasn't</i> found.</p>
-            capo_proton.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A quota was exceeded. For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html\">Proton Quotas</a> in the <i>Proton User Guide</i>.</p>
+            capo_proton.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A quota was exceeded. For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html">Proton Quotas</a> in the <i>Proton User Guide</i>.</p>
             capo_proton.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
             capo_proton.errors.validation_exception.ValidationException: <p>The input is invalid or an out-of-range value was supplied for the input parameter.</p>
             capo_proton.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -608,7 +608,7 @@ class AsyncComponentResource:
         *,
         config_overrides: Optional[AsyncProtonClientConfig] = None,
     ) -> "capo_proton.types.delete_component_output.DeleteComponentOutput":
-        r"""<p>Delete an Proton component resource.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>Delete an Proton component resource.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             name: <p>The name of the component to delete.</p>
@@ -667,7 +667,7 @@ class AsyncComponentResource:
             "capo_proton.types.max_page_results.MaxPageResults"
         ] = None,
     ) -> "capo_proton.types.list_components_output.ListComponentsOutput":
-        r"""<p>List components with summary data. You can filter the result list by environment, service, or a single service instance.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>
+        """<p>List components with summary data. You can filter the result list by environment, service, or a single service instance.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>
 
         Args:
             next_token: <p>A token that indicates the location of the next component in the array of components, after the list of components that was previously requested.</p>

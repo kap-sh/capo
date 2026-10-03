@@ -13,7 +13,7 @@ class ListDomainsResult(TypedDict, closed=True):
     domains: NotRequired[
         "capo_codeartifact.types.domain_summary_list.DomainSummaryList"
     ]
-    r"""<p> The returned list of <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_DomainSummary.html\">DomainSummary</a> objects. </p>"""
+    """<p> The returned list of <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_DomainSummary.html">DomainSummary</a> objects. </p>"""
     next_token: NotRequired["capo_codeartifact.types.pagination_token.PaginationToken"]
     """<p> The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results. </p>"""
 

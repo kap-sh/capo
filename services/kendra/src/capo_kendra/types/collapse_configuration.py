@@ -18,7 +18,7 @@ class CollapseConfiguration(TypedDict, closed=True):
     document_attribute_key: (
         "capo_kendra.types.document_attribute_key.DocumentAttributeKey"
     )
-    r"""<p>The document attribute used to group search results. You can use any attribute that has the <code>Sortable</code> flag set to true. You can also sort by any of the following built-in attributes:\"_category\",\"_created_at\", \"_last_updated_at\", \"_version\", \"_view_count\".</p>"""
+    """<p>The document attribute used to group search results. You can use any attribute that has the <code>Sortable</code> flag set to true. You can also sort by any of the following built-in attributes:"_category","_created_at", "_last_updated_at", "_version", "_view_count".</p>"""
     sorting_configurations: NotRequired[
         "capo_kendra.types.sorting_configuration_list.SortingConfigurationList"
     ]

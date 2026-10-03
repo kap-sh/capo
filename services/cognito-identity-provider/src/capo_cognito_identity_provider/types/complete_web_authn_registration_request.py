@@ -15,7 +15,7 @@ class CompleteWebAuthnRegistrationRequest(TypedDict, closed=True):
     access_token: "capo_cognito_identity_provider.types.token_model_type.TokenModelType"
     """<p>A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for <code>aws.cognito.signin.user.admin</code>.</p>"""
     credential: "capo_cognito_identity_provider.types.document.Document"
-    r"""<p>A <a href=\"https://www.w3.org/TR/WebAuthn-3/#dictdef-registrationresponsejson\">RegistrationResponseJSON</a> public-key credential response from the user's passkey provider.</p>"""
+    """<p>A <a href="https://www.w3.org/TR/WebAuthn-3/#dictdef-registrationresponsejson">RegistrationResponseJSON</a> public-key credential response from the user's passkey provider.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

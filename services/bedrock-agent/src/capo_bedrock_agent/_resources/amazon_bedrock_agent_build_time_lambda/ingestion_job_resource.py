@@ -181,12 +181,12 @@ class IngestionJobResource:
             "capo_bedrock_agent.types.description.Description"
         ] = None,
     ) -> "capo_bedrock_agent.types.start_ingestion_job_response.StartIngestionJobResponse":
-        r"""<p>Begins a data ingestion job. Data sources are ingested into your knowledge base so that Large Language Models (LLMs) can use your data.</p>
+        """<p>Begins a data ingestion job. Data sources are ingested into your knowledge base so that Large Language Models (LLMs) can use your data.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base for the data ingestion job.</p>
             data_source_id: <p>The unique identifier of the data source you want to ingest into your knowledge base.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             description: <p>A description of the data ingestion job.</p>
 
         Raises:
@@ -432,12 +432,12 @@ class AsyncIngestionJobResource:
             "capo_bedrock_agent.types.description.Description"
         ] = None,
     ) -> "capo_bedrock_agent.types.start_ingestion_job_response.StartIngestionJobResponse":
-        r"""<p>Begins a data ingestion job. Data sources are ingested into your knowledge base so that Large Language Models (LLMs) can use your data.</p>
+        """<p>Begins a data ingestion job. Data sources are ingested into your knowledge base so that Large Language Models (LLMs) can use your data.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base for the data ingestion job.</p>
             data_source_id: <p>The unique identifier of the data source you want to ingest into your knowledge base.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             description: <p>A description of the data ingestion job.</p>
 
         Raises:

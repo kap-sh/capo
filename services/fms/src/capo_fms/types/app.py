@@ -16,7 +16,7 @@ class App(TypedDict, closed=True):
     app_name: "capo_fms.types.resource_name.ResourceName"
     """<p>The application's name.</p>"""
     protocol: "capo_fms.types.protocol.Protocol"
-    r"""<p>The IP protocol name or number. The name can be one of <code>tcp</code>, <code>udp</code>, or <code>icmp</code>. For information on possible numbers, see <a href=\"https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml\">Protocol Numbers</a>.</p>"""
+    """<p>The IP protocol name or number. The name can be one of <code>tcp</code>, <code>udp</code>, or <code>icmp</code>. For information on possible numbers, see <a href="https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol Numbers</a>.</p>"""
     port: "capo_fms.types.ip_port_number.IPPortNumber"
     """<p>The application's port number, for example <code>80</code>.</p>"""
 

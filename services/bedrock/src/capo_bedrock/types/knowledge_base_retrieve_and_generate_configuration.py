@@ -18,7 +18,7 @@ class KnowledgeBaseRetrieveAndGenerateConfiguration(TypedDict, closed=True):
     knowledge_base_id: "capo_bedrock.types.knowledge_base_id.KnowledgeBaseId"
     """<p>The unique identifier of the knowledge base.</p>"""
     model_arn: "capo_bedrock.types.bedrock_model_arn.BedrockModelArn"
-    r"""<p>The Amazon Resource Name (ARN) of the foundation model or <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html\">inference profile</a> used to generate responses.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the foundation model or <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html">inference profile</a> used to generate responses.</p>"""
     retrieval_configuration: NotRequired[
         "capo_bedrock.types.knowledge_base_retrieval_configuration.KnowledgeBaseRetrievalConfiguration"
     ]

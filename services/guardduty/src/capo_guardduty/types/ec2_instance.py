@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 
 class Ec2Instance(TypedDict, closed=True):
     availability_zone: NotRequired["capo_guardduty.types.string.String"]
-    r"""<p>The availability zone of the Amazon EC2 instance. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones\">Availability zones</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The availability zone of the Amazon EC2 instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones">Availability zones</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     image_description: NotRequired["capo_guardduty.types.string.String"]
     """<p>The image description of the Amazon EC2 instance.</p>"""
     instance_state: NotRequired["capo_guardduty.types.string.String"]
-    r"""<p>The state of the Amazon EC2 instance. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html\">Amazon EC2 instance state changes</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The state of the Amazon EC2 instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html">Amazon EC2 instance state changes</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     iam_instance_profile: NotRequired[
         "capo_guardduty.types.iam_instance_profile.IamInstanceProfile"
     ]

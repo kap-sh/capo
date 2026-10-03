@@ -20,7 +20,7 @@ class BlockDeviceMapping(TypedDict, closed=True):
     device_name: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]
-    r"""<p>The device name assigned to the volume (for example, <code>/dev/sdh</code> or <code>xvdh</code>). For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html\">Device naming on Linux instances</a> in the <i>Amazon EC2 User Guide</i>.</p> <note> <p>To define a block device mapping, set the device name and exactly one of the following properties: <code>Ebs</code>, <code>NoDevice</code>, or <code>VirtualName</code>.</p> </note>"""
+    """<p>The device name assigned to the volume (for example, <code>/dev/sdh</code> or <code>xvdh</code>). For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html">Device naming on Linux instances</a> in the <i>Amazon EC2 User Guide</i>.</p> <note> <p>To define a block device mapping, set the device name and exactly one of the following properties: <code>Ebs</code>, <code>NoDevice</code>, or <code>VirtualName</code>.</p> </note>"""
     ebs: NotRequired["capo_auto_scaling.types.ebs.Ebs"]
     """<p>Information to attach an EBS volume to an instance at launch.</p>"""
     no_device: NotRequired["capo_auto_scaling.types.no_device.NoDevice"]

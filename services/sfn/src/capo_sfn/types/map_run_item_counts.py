@@ -25,7 +25,7 @@ class MapRunItemCounts(TypedDict, closed=True):
     total: "capo_sfn.types.unsigned_long.UnsignedLong"
     """<p>The total number of items processed in all the child workflow executions started by a Map Run.</p>"""
     results_written: "capo_sfn.types.unsigned_long.UnsignedLong"
-    r"""<p>Returns the count of items whose results were written by <code>ResultWriter</code>. For more information, see <a href=\"https://docs.aws.amazon.com/step-functions/latest/dg/input-output-resultwriter.html\">ResultWriter</a> in the <i>Step Functions Developer Guide</i>.</p>"""
+    """<p>Returns the count of items whose results were written by <code>ResultWriter</code>. For more information, see <a href="https://docs.aws.amazon.com/step-functions/latest/dg/input-output-resultwriter.html">ResultWriter</a> in the <i>Step Functions Developer Guide</i>.</p>"""
     failures_not_redrivable: NotRequired["capo_sfn.types.long_object.LongObject"]
     """<p>The number of <code>FAILED</code>, <code>ABORTED</code>, or <code>TIMED_OUT</code> items in child workflow executions that cannot be redriven because the execution status of those child workflows is terminal. For example, child workflows with an execution status of <code>FAILED</code>, <code>ABORTED</code>, or <code>TIMED_OUT</code> and a <code>redriveStatus</code> of <code>NOT_REDRIVABLE</code>.</p>"""
     pending_redrive: NotRequired["capo_sfn.types.long_object.LongObject"]

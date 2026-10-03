@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""The source of an event, e.g. \"myapp.orders\"."""
+"""The source of an event, e.g. "myapp.orders"."""
 Source: TypeAlias = str

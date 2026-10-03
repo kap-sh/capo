@@ -132,7 +132,7 @@ class AutoScalingGroup(TypedDict, closed=True):
     status: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]
-    r"""<p>The current state of the Auto Scaling group when the <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DeleteAutoScalingGroup.html\">DeleteAutoScalingGroup</a> operation is in progress.</p>"""
+    """<p>The current state of the Auto Scaling group when the <a href="https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DeleteAutoScalingGroup.html">DeleteAutoScalingGroup</a> operation is in progress.</p>"""
     tags: NotRequired["capo_auto_scaling.types.tag_description_list.TagDescriptionList"]
     """<p>The tags for the Auto Scaling group.</p>"""
     termination_policies: NotRequired[
@@ -142,7 +142,7 @@ class AutoScalingGroup(TypedDict, closed=True):
     new_instances_protected_from_scale_in: NotRequired[
         "capo_auto_scaling.types.instance_protected.InstanceProtected"
     ]
-    r"""<p>Indicates whether newly launched EC2 instances are protected from termination when scaling in for the Auto Scaling group.</p> <p> For more information about preventing instances from terminating on scale in, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-instance-protection.html\">Use instance scale-in protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>"""
+    """<p>Indicates whether newly launched EC2 instances are protected from termination when scaling in for the Auto Scaling group.</p> <p> For more information about preventing instances from terminating on scale in, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-instance-protection.html">Use instance scale-in protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>"""
     service_linked_role_arn: NotRequired[
         "capo_auto_scaling.types.resource_name.ResourceName"
     ]

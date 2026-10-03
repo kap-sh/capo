@@ -33,13 +33,13 @@ class CreateFeaturedResultsSetRequest(TypedDict, closed=True):
     status: NotRequired[
         "capo_kendra.types.featured_results_set_status.FeaturedResultsSetStatus"
     ]
-    r"""<p>The current status of the set of featured results. When the value is <code>ACTIVE</code>, featured results are ready for use. You can still configure your settings before setting the status to <code>ACTIVE</code>. You can set the status to <code>ACTIVE</code> or <code>INACTIVE</code> using the <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateFeaturedResultsSet.html\">UpdateFeaturedResultsSet</a> API. The queries you specify for featured results must be unique per featured results set for each index, whether the status is <code>ACTIVE</code> or <code>INACTIVE</code>.</p>"""
+    """<p>The current status of the set of featured results. When the value is <code>ACTIVE</code>, featured results are ready for use. You can still configure your settings before setting the status to <code>ACTIVE</code>. You can set the status to <code>ACTIVE</code> or <code>INACTIVE</code> using the <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateFeaturedResultsSet.html">UpdateFeaturedResultsSet</a> API. The queries you specify for featured results must be unique per featured results set for each index, whether the status is <code>ACTIVE</code> or <code>INACTIVE</code>.</p>"""
     query_texts: NotRequired["capo_kendra.types.query_text_list.QueryTextList"]
-    r"""<p>A list of queries for featuring results. For more information on the list of queries, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html\">FeaturedResultsSet</a>.</p>"""
+    """<p>A list of queries for featuring results. For more information on the list of queries, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html">FeaturedResultsSet</a>.</p>"""
     featured_documents: NotRequired[
         "capo_kendra.types.featured_document_list.FeaturedDocumentList"
     ]
-    r"""<p>A list of document IDs for the documents you want to feature at the top of the search results page. For more information on the list of documents, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html\">FeaturedResultsSet</a>.</p>"""
+    """<p>A list of document IDs for the documents you want to feature at the top of the search results page. For more information on the list of documents, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html">FeaturedResultsSet</a>.</p>"""
     tags: NotRequired["capo_kendra.types.tag_list.TagList"]
     """<p>A list of key-value pairs that identify or categorize the featured results set. You can also use tags to help control access to the featured results set. Tag keys and values can consist of Unicode letters, digits, white space, and any of the following symbols:_ . : / = + - @.</p>"""
 

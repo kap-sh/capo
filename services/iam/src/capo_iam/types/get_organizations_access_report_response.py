@@ -21,9 +21,9 @@ class GetOrganizationsAccessReportResponse(TypedDict, closed=True):
     job_status: "capo_iam.types.job_status_type.jobStatusType"
     """<p>The status of the job.</p>"""
     job_creation_date: "capo_iam.types.date_type.dateType"
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the report job was created.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the report job was created.</p>"""
     job_completion_date: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the generated report job was completed or failed.</p> <p>This field is null if the job is still in progress, as indicated by a job status value of <code>IN_PROGRESS</code>.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the generated report job was completed or failed.</p> <p>This field is null if the job is still in progress, as indicated by a job status value of <code>IN_PROGRESS</code>.</p>"""
     number_of_services_accessible: NotRequired[
         "capo_iam.types.integer_type.integerType"
     ]

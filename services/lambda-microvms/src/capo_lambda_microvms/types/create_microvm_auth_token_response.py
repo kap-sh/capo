@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class CreateMicrovmAuthTokenResponse(TypedDict, closed=True):
     auth_token: "capo_lambda_microvms.types.token_parts.TokenParts"
-    r"""<p>A map containing the authentication token. Use the value at key \"X-aws-proxy-auth\" as the header value when connecting to the MicroVM endpoint.</p>"""
+    """<p>A map containing the authentication token. Use the value at key "X-aws-proxy-auth" as the header value when connecting to the MicroVM endpoint.</p>"""
 
 
 # --- restJson1 ser/de ---

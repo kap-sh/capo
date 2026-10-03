@@ -23,7 +23,7 @@ class UpdateVehicleRequest(TypedDict, closed=True):
     decoder_manifest_arn: NotRequired["capo_iotfleetwise.types.arn.arn"]
     """<p>The ARN of the decoder manifest associated with this vehicle.</p>"""
     attributes: NotRequired["capo_iotfleetwise.types.attributes_map.attributesMap"]
-    r"""<p>Static information about a vehicle in a key-value pair. For example:</p> <p> <code>\"engineType\"</code> : <code>\"1.3 L R2\"</code> </p>"""
+    """<p>Static information about a vehicle in a key-value pair. For example:</p> <p> <code>"engineType"</code> : <code>"1.3 L R2"</code> </p>"""
     attribute_update_mode: NotRequired["capo_iotfleetwise.types.update_mode.UpdateMode"]
     """<p>The method the specified attributes will update the existing attributes on the vehicle. Use<code>Overwite</code> to replace the vehicle attributes with the specified attributes. Or use <code>Merge</code> to combine all attributes.</p> <p>This is required if attributes are present in the input.</p>"""
     state_templates_to_add: NotRequired[

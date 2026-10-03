@@ -20,7 +20,7 @@ class LaunchTemplateCpuOptionsRequest(TypedDict, closed=True):
     amd_sev_snp: NotRequired[
         "capo_ec2.types.amd_sev_snp_specification.AmdSevSnpSpecification"
     ]
-    r"""<p>Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a instance types only. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html\">AMD SEV-SNP for Amazon EC2 instances</a>.</p>"""
+    """<p>Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a instance types only. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP for Amazon EC2 instances</a>.</p>"""
     nested_virtualization: NotRequired[
         "capo_ec2.types.nested_virtualization_specification.NestedVirtualizationSpecification"
     ]

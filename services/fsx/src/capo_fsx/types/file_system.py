@@ -54,7 +54,7 @@ class FileSystem(TypedDict, closed=True):
     network_interface_ids: NotRequired[
         "capo_fsx.types.network_interface_ids.NetworkInterfaceIds"
     ]
-    r"""<p>The IDs of the elastic network interfaces from which a specific file system is accessible. The elastic network interface is automatically created in the same virtual private cloud (VPC) that the Amazon FSx file system was created in. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html\">Elastic Network Interfaces</a> in the <i>Amazon EC2 User Guide.</i> </p> <p>For an Amazon FSx for Windows File Server file system, you can have one network interface ID. For an Amazon FSx for Lustre file system, you can have more than one.</p>"""
+    """<p>The IDs of the elastic network interfaces from which a specific file system is accessible. The elastic network interface is automatically created in the same virtual private cloud (VPC) that the Amazon FSx file system was created in. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html">Elastic Network Interfaces</a> in the <i>Amazon EC2 User Guide.</i> </p> <p>For an Amazon FSx for Windows File Server file system, you can have one network interface ID. For an Amazon FSx for Lustre file system, you can have more than one.</p>"""
     dns_name: NotRequired["capo_fsx.types.dns_name.DNSName"]
     """<p>The Domain Name System (DNS) name for the file system.</p>"""
     kms_key_id: NotRequired["capo_fsx.types.kms_key_id.KmsKeyId"]
@@ -62,7 +62,7 @@ class FileSystem(TypedDict, closed=True):
     resource_arn: NotRequired["capo_fsx.types.resource_arn.ResourceARN"]
     """<p>The Amazon Resource Name (ARN) of the file system resource.</p>"""
     tags: NotRequired["capo_fsx.types.tags.Tags"]
-    r"""<p>The tags to associate with the file system. For more information, see <a href=\"https://docs.aws.amazon.com/fsx/latest/LustreGuide/tag-resources.html\">Tagging your Amazon FSx resources</a> in the <i>Amazon FSx for Lustre User Guide</i>.</p>"""
+    """<p>The tags to associate with the file system. For more information, see <a href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/tag-resources.html">Tagging your Amazon FSx resources</a> in the <i>Amazon FSx for Lustre User Guide</i>.</p>"""
     windows_configuration: NotRequired[
         "capo_fsx.types.windows_file_system_configuration.WindowsFileSystemConfiguration"
     ]

@@ -23,7 +23,7 @@ class DescribeGroupRequest(TypedDict, closed=True):
     other_attributes: NotRequired[
         "capo_directory_service_data.types.ldap_display_name_list.LdapDisplayNameList"
     ]
-    r"""<p> One or more attributes to be returned for the group. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p>"""
+    """<p> One or more attributes to be returned for the group. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p>"""
 
 
 # --- restJson1 ser/de ---

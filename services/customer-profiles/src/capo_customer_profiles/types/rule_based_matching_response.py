@@ -31,7 +31,7 @@ class RuleBasedMatchingResponse(TypedDict, closed=True):
     max_allowed_rule_level_for_merging: NotRequired[
         "capo_customer_profiles.types.max_allowed_rule_level_for_merging.MaxAllowedRuleLevelForMerging"
     ]
-    r"""<p> <a href=\"https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_MatchingRule.html\">MatchingRule</a> </p>"""
+    """<p> <a href="https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_MatchingRule.html">MatchingRule</a> </p>"""
     max_allowed_rule_level_for_matching: NotRequired[
         "capo_customer_profiles.types.max_allowed_rule_level_for_matching.MaxAllowedRuleLevelForMatching"
     ]

@@ -26,11 +26,11 @@ class PendingUpdate(TypedDict, closed=True):
     number_of_approvers: NotRequired["int"]
     """<p>Total number of approvers in the team.</p>"""
     status: NotRequired["capo_mpa.types.approval_team_status.ApprovalTeamStatus"]
-    r"""<p>Status for the team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html\">Team health</a> in the <i>Multi-party approval User Guide</i>.</p>"""
+    """<p>Status for the team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html">Team health</a> in the <i>Multi-party approval User Guide</i>.</p>"""
     status_code: NotRequired[
         "capo_mpa.types.approval_team_status_code.ApprovalTeamStatusCode"
     ]
-    r"""<p>Status code for the update. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html\">Team health</a> in the <i>Multi-party approval User Guide</i>.</p>"""
+    """<p>Status code for the update. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html">Team health</a> in the <i>Multi-party approval User Guide</i>.</p>"""
     status_message: NotRequired["capo_mpa.types.message.Message"]
     """<p>Message describing the status for the team.</p>"""
     approvers: NotRequired[

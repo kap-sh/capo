@@ -22,7 +22,7 @@ class UpdateLandingZoneInput(TypedDict, closed=True):
     landing_zone_identifier: "str"
     """<p>The unique identifier of the landing zone.</p>"""
     manifest: NotRequired["capo_controltower.types.manifest.Manifest"]
-    r"""<p>The manifest file (JSON) is a text file that describes your Amazon Web Services resources. For an example, review <a href=\"https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch\">Launch your landing zone</a>. The example manifest file contains each of the available parameters. The schema for the landing zone's JSON manifest file is not published, by design.</p>"""
+    """<p>The manifest file (JSON) is a text file that describes your Amazon Web Services resources. For an example, review <a href="https://docs.aws.amazon.com/controltower/latest/userguide/lz-api-launch">Launch your landing zone</a>. The example manifest file contains each of the available parameters. The schema for the landing zone's JSON manifest file is not published, by design.</p>"""
 
 
 # --- restJson1 ser/de ---

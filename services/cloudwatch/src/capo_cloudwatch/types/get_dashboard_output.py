@@ -16,7 +16,7 @@ class GetDashboardOutput(TypedDict, closed=True):
     dashboard_arn: NotRequired["capo_cloudwatch.types.dashboard_arn.DashboardArn"]
     """<p>The Amazon Resource Name (ARN) of the dashboard.</p>"""
     dashboard_body: NotRequired["capo_cloudwatch.types.dashboard_body.DashboardBody"]
-    r"""<p>The detailed information about the dashboard, including what widgets are included and their location on the dashboard. For more information about the <code>DashboardBody</code> syntax, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Dashboard-Body-Structure.html\">Dashboard Body Structure and Syntax</a>. </p>"""
+    """<p>The detailed information about the dashboard, including what widgets are included and their location on the dashboard. For more information about the <code>DashboardBody</code> syntax, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Dashboard-Body-Structure.html">Dashboard Body Structure and Syntax</a>. </p>"""
     dashboard_name: NotRequired["capo_cloudwatch.types.dashboard_name.DashboardName"]
     """<p>The name of the dashboard.</p>"""
 

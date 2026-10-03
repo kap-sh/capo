@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class DeleteImportedKeyMaterialResponse(TypedDict, closed=True):
     key_id: NotRequired["capo_kms.types.key_id_type.KeyIdType"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">key ARN</a>) of the KMS key from which the key material was deleted.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS key from which the key material was deleted.</p>"""
     key_material_id: NotRequired[
         "capo_kms.types.backing_key_id_response_type.BackingKeyIdResponseType"
     ]

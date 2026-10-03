@@ -30,7 +30,7 @@ class GatewaySummary(TypedDict, closed=True):
     gateway_capability_summaries: NotRequired[
         "capo_iotsitewise.types.gateway_capability_summaries.GatewayCapabilitySummaries"
     ]
-    r"""<p>A list of gateway capability summaries that each contain a namespace and status. Each gateway capability defines data sources for the gateway. To retrieve a capability configuration's definition, use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeGatewayCapabilityConfiguration.html\">DescribeGatewayCapabilityConfiguration</a>.</p>"""
+    """<p>A list of gateway capability summaries that each contain a namespace and status. Each gateway capability defines data sources for the gateway. To retrieve a capability configuration's definition, use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeGatewayCapabilityConfiguration.html">DescribeGatewayCapabilityConfiguration</a>.</p>"""
     creation_date: "capo_iotsitewise.types.timestamp.Timestamp"
     """<p>The date the gateway was created, in Unix epoch time.</p>"""
     last_update_date: "capo_iotsitewise.types.timestamp.Timestamp"

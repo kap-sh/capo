@@ -24,7 +24,7 @@ class FileSystemAssociationInfo(TypedDict, closed=True):
     location_arn: NotRequired[
         "capo_storage_gateway.types.file_system_location_arn.FileSystemLocationARN"
     ]
-    r"""<p>The ARN of the backend Amazon FSx file system used for storing file data. For information, see <a href=\"https://docs.aws.amazon.com/fsx/latest/APIReference/API_FileSystem.html\">FileSystem</a> in the <i>Amazon FSx API Reference</i>.</p>"""
+    """<p>The ARN of the backend Amazon FSx file system used for storing file data. For information, see <a href="https://docs.aws.amazon.com/fsx/latest/APIReference/API_FileSystem.html">FileSystem</a> in the <i>Amazon FSx API Reference</i>.</p>"""
     file_system_association_status: NotRequired[
         "capo_storage_gateway.types.file_system_association_status.FileSystemAssociationStatus"
     ]

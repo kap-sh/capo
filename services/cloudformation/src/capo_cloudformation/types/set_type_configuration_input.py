@@ -16,11 +16,11 @@ if TYPE_CHECKING:
 
 class SetTypeConfigurationInput(TypedDict, closed=True):
     type_arn: NotRequired["capo_cloudformation.types.type_arn.TypeArn"]
-    r"""<p>The Amazon Resource Name (ARN) for the extension in this account and Region.</p> <p>For public extensions, this will be the ARN assigned when you call the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html\">ActivateType</a> API operation in this account and Region. For private extensions, this will be the ARN assigned when you call the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html\">RegisterType</a> API operation in this account and Region.</p> <p>Do not include the extension versions suffix at the end of the ARN. You can set the configuration for an extension, but not for a specific extension version.</p>"""
+    """<p>The Amazon Resource Name (ARN) for the extension in this account and Region.</p> <p>For public extensions, this will be the ARN assigned when you call the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html">ActivateType</a> API operation in this account and Region. For private extensions, this will be the ARN assigned when you call the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html">RegisterType</a> API operation in this account and Region.</p> <p>Do not include the extension versions suffix at the end of the ARN. You can set the configuration for an extension, but not for a specific extension version.</p>"""
     configuration: NotRequired[
         "capo_cloudformation.types.type_configuration.TypeConfiguration"
     ]
-    r"""<p>The configuration data for the extension in this account and Region.</p> <p>The configuration data must be formatted as JSON and validate against the extension's schema returned in the <code>Schema</code> response element of <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html\">DescribeType</a>.</p>"""
+    """<p>The configuration data for the extension in this account and Region.</p> <p>The configuration data must be formatted as JSON and validate against the extension's schema returned in the <code>Schema</code> response element of <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html">DescribeType</a>.</p>"""
     configuration_alias: NotRequired[
         "capo_cloudformation.types.type_configuration_alias.TypeConfigurationAlias"
     ]

@@ -19,7 +19,7 @@ class CreateFargateProfileRequest(TypedDict, closed=True):
     cluster_name: "capo_eks.types.string.String"
     """<p>The name of your cluster.</p>"""
     pod_execution_role_arn: "capo_eks.types.string.String"
-    r"""<p>The Amazon Resource Name (ARN) of the <code>Pod</code> execution role to use for a <code>Pod</code> that matches the selectors in the Fargate profile. The <code>Pod</code> execution role allows Fargate infrastructure to register with your cluster as a node, and it provides read access to Amazon ECR image repositories. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html\"> <code>Pod</code> execution role</a> in the <i>Amazon EKS User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the <code>Pod</code> execution role to use for a <code>Pod</code> that matches the selectors in the Fargate profile. The <code>Pod</code> execution role allows Fargate infrastructure to register with your cluster as a node, and it provides read access to Amazon ECR image repositories. For more information, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html"> <code>Pod</code> execution role</a> in the <i>Amazon EKS User Guide</i>.</p>"""
     subnets: NotRequired["capo_eks.types.string_list.StringList"]
     """<p>The IDs of subnets to launch a <code>Pod</code> into. A <code>Pod</code> running on Fargate isn't assigned a public IP address, so only private subnets (with no direct route to an Internet Gateway) are accepted for this parameter.</p>"""
     selectors: NotRequired[

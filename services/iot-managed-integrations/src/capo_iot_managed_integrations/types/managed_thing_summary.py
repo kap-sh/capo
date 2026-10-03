@@ -73,7 +73,7 @@ class ManagedThingSummary(TypedDict, closed=True):
     provisioning_status: NotRequired[
         "capo_iot_managed_integrations.types.provisioning_status.ProvisioningStatus"
     ]
-    r"""<p>The provisioning status of the device in the provisioning workflow for onboarding to IoT managed integrations. For more information, see <a href=\"https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html\">Device Provisioning</a>.</p>"""
+    """<p>The provisioning status of the device in the provisioning workflow for onboarding to IoT managed integrations. For more information, see <a href="https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html">Device Provisioning</a>.</p>"""
     role: NotRequired["capo_iot_managed_integrations.types.role.Role"]
     """<p>The type of device used. This will be the Amazon Web Services hub controller, cloud device, or IoT device.</p>"""
     serial_number: NotRequired[

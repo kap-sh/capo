@@ -22,7 +22,7 @@ class ProactiveInsightSummary(TypedDict, closed=True):
     name: NotRequired["capo_devops_guru.types.insight_name.InsightName"]
     """<p>The name of the proactive insight. </p>"""
     severity: NotRequired["capo_devops_guru.types.insight_severity.InsightSeverity"]
-    r"""<p>The severity of the insight. For more information, see <a href=\"https://docs.aws.amazon.com/devops-guru/latest/userguide/working-with-insights.html#understanding-insights-severities\">Understanding insight severities</a> in the <i>Amazon DevOps Guru User Guide</i>.</p>"""
+    """<p>The severity of the insight. For more information, see <a href="https://docs.aws.amazon.com/devops-guru/latest/userguide/working-with-insights.html#understanding-insights-severities">Understanding insight severities</a> in the <i>Amazon DevOps Guru User Guide</i>.</p>"""
     status: NotRequired["capo_devops_guru.types.insight_status.InsightStatus"]
     """<p>The status of the proactive insight. </p>"""
     insight_time_range: NotRequired[

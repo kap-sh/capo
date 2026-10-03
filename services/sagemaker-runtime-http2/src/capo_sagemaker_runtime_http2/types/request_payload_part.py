@@ -16,9 +16,9 @@ class RequestPayloadPart(TypedDict, closed=True):
     ]
     """<p>The payload bytes.</p>"""
     data_type: NotRequired["str"]
-    r"""<p>Data type header. Can be one of these possible values: \"UTF8\", \"BINARY\".</p>"""
+    """<p>Data type header. Can be one of these possible values: "UTF8", "BINARY".</p>"""
     completion_state: NotRequired["str"]
-    r"""<p>Completion state header. Can be one of these possible values: \"PARTIAL\", \"COMPLETE\".</p>"""
+    """<p>Completion state header. Can be one of these possible values: "PARTIAL", "COMPLETE".</p>"""
     p: NotRequired["str"]
     """<p>Padding string for alignment.</p>"""
 

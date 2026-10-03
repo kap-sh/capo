@@ -29,7 +29,7 @@ class EcsParameters(TypedDict, closed=True):
     task_count: NotRequired["capo_scheduler.types.task_count.TaskCount"]
     """<p>The number of tasks to create based on <code>TaskDefinition</code>. The default is <code>1</code>.</p>"""
     launch_type: NotRequired["capo_scheduler.types.launch_type.LaunchType"]
-    r"""<p>Specifies the launch type on which your task is running. The launch type that you specify here must match one of the launch type (compatibilities) of the target task. The <code>FARGATE</code> value is supported only in the Regions where Fargate with Amazon ECS is supported. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html\">AWS Fargate on Amazon ECS</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
+    """<p>Specifies the launch type on which your task is running. The launch type that you specify here must match one of the launch type (compatibilities) of the target task. The <code>FARGATE</code> value is supported only in the Regions where Fargate with Amazon ECS is supported. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html">AWS Fargate on Amazon ECS</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
     network_configuration: NotRequired[
         "capo_scheduler.types.network_configuration.NetworkConfiguration"
     ]
@@ -47,7 +47,7 @@ class EcsParameters(TypedDict, closed=True):
     enable_ecs_managed_tags: NotRequired[
         "capo_scheduler.types.enable_ecs_managed_tags.EnableECSManagedTags"
     ]
-    r"""<p>Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html\">Tagging Your Amazon ECS Resources</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
+    """<p>Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS Resources</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
     enable_execute_command: NotRequired[
         "capo_scheduler.types.enable_execute_command.EnableExecuteCommand"
     ]
@@ -61,11 +61,11 @@ class EcsParameters(TypedDict, closed=True):
     ]
     """<p>The task placement strategy for a task or service.</p>"""
     propagate_tags: NotRequired["capo_scheduler.types.propagate_tags.PropagateTags"]
-    r"""<p>Specifies whether to propagate the tags from the task definition to the task. If no value is specified, the tags are not propagated. Tags can only be propagated to the task during task creation. To add tags to a task after task creation, use Amazon ECS's <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TagResource.html\"> <code>TagResource</code> </a> API action. </p>"""
+    """<p>Specifies whether to propagate the tags from the task definition to the task. If no value is specified, the tags are not propagated. Tags can only be propagated to the task during task creation. To add tags to a task after task creation, use Amazon ECS's <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TagResource.html"> <code>TagResource</code> </a> API action. </p>"""
     reference_id: NotRequired["capo_scheduler.types.reference_id.ReferenceId"]
     """<p>The reference ID to use for the task.</p>"""
     tags: NotRequired["capo_scheduler.types.tags.Tags"]
-    r"""<p>The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html\"> <code>RunTask</code> </a> in the <i>Amazon ECS API Reference</i>.</p>"""
+    """<p>The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html"> <code>RunTask</code> </a> in the <i>Amazon ECS API Reference</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

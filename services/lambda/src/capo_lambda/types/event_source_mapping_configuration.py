@@ -59,23 +59,23 @@ class EventSourceMappingConfiguration(TypedDict, closed=True):
     event_source_arn: NotRequired["capo_lambda.types.arn.Arn"]
     """<p>The Amazon Resource Name (ARN) of the event source.</p>"""
     filter_criteria: NotRequired["capo_lambda.types.filter_criteria.FilterCriteria"]
-    r"""<p>An object that defines the filter criteria that determine whether Lambda should process an event. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html\">Lambda event filtering</a>.</p> <p>If filter criteria is encrypted, this field shows up as <code>null</code> in the response of ListEventSourceMapping API calls. You can view this field in plaintext in the response of GetEventSourceMapping and DeleteEventSourceMapping calls if you have <code>kms:Decrypt</code> permissions for the correct KMS key.</p>"""
+    """<p>An object that defines the filter criteria that determine whether Lambda should process an event. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html">Lambda event filtering</a>.</p> <p>If filter criteria is encrypted, this field shows up as <code>null</code> in the response of ListEventSourceMapping API calls. You can view this field in plaintext in the response of GetEventSourceMapping and DeleteEventSourceMapping calls if you have <code>kms:Decrypt</code> permissions for the correct KMS key.</p>"""
     filter_criteria_error: NotRequired[
         "capo_lambda.types.filter_criteria_error.FilterCriteriaError"
     ]
     """<p>An object that contains details about an error related to filter criteria encryption.</p>"""
     kms_key_arn: NotRequired["capo_lambda.types.kms_key_arn.KMSKeyArn"]
-    r"""<p> The ARN of the Key Management Service (KMS) customer managed key that Lambda uses to encrypt your function's <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics\">filter criteria</a>.</p>"""
+    """<p> The ARN of the Key Management Service (KMS) customer managed key that Lambda uses to encrypt your function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics">filter criteria</a>.</p>"""
     metrics_config: NotRequired[
         "capo_lambda.types.event_source_mapping_metrics_config.EventSourceMappingMetricsConfig"
     ]
-    r"""<p>The metrics configuration for your event source. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics\">Event source mapping metrics</a>.</p>"""
+    """<p>The metrics configuration for your event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics">Event source mapping metrics</a>.</p>"""
     logging_config: NotRequired[
         "capo_lambda.types.event_source_mapping_logging_config.EventSourceMappingLoggingConfig"
     ]
-    r"""<p>(Amazon MSK, and self-managed Apache Kafka only) The logging configuration for your event source. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/esm-logging.html\">Event source mapping logging</a>.</p>"""
+    """<p>(Amazon MSK, and self-managed Apache Kafka only) The logging configuration for your event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/esm-logging.html">Event source mapping logging</a>.</p>"""
     scaling_config: NotRequired["capo_lambda.types.scaling_config.ScalingConfig"]
-    r"""<p>(Amazon SQS only) The scaling configuration for the event source. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency\">Configuring maximum concurrency for Amazon SQS event sources</a>.</p>"""
+    """<p>(Amazon SQS only) The scaling configuration for the event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency">Configuring maximum concurrency for Amazon SQS event sources</a>.</p>"""
     function_arn: NotRequired["capo_lambda.types.function_arn.FunctionArn"]
     """<p>The ARN of the Lambda function.</p>"""
     last_modified: NotRequired["capo_lambda.types.date.Date"]
@@ -141,7 +141,7 @@ class EventSourceMappingConfiguration(TypedDict, closed=True):
     provisioned_poller_config: NotRequired[
         "capo_lambda.types.provisioned_poller_config.ProvisionedPollerConfig"
     ]
-    r"""<p>(Amazon SQS, Amazon MSK, and self-managed Apache Kafka only) The provisioned mode configuration for the event source. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode\">provisioned mode</a>.</p>"""
+    """<p>(Amazon SQS, Amazon MSK, and self-managed Apache Kafka only) The provisioned mode configuration for the event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode">provisioned mode</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

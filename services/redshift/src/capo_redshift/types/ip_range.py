@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class IPRange(TypedDict, closed=True):
     status: NotRequired["capo_redshift.types.string.String"]
-    r"""<p>The status of the IP range, for example, \"authorized\".</p>"""
+    """<p>The status of the IP range, for example, "authorized".</p>"""
     cidrip: NotRequired["capo_redshift.types.string.String"]
     """<p>The IP range in Classless Inter-Domain Routing (CIDR) notation.</p>"""
     tags: NotRequired["capo_redshift.types.tag_list.TagList"]

@@ -21,7 +21,7 @@ class JourneyExecutionActivityMetricsResponse(TypedDict, closed=True):
     last_evaluated_time: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The date and time, in ISO 8601 format, when Amazon Pinpoint last evaluated the execution status of the activity and updated the data for the metric.</p>"""
     metrics: NotRequired["capo_pinpoint.types.map_of__string.MapOf__string"]
-    r"""<p>A JSON object that contains the results of the query. The results vary depending on the type of activity (ActivityType). For information about the structure and contents of the results, see the <a href=\"https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html\">Amazon Pinpoint Developer Guide</a>.</p>"""
+    """<p>A JSON object that contains the results of the query. The results vary depending on the type of activity (ActivityType). For information about the structure and contents of the results, see the <a href="https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html">Amazon Pinpoint Developer Guide</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

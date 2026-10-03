@@ -161,7 +161,7 @@ class IoTJobsDataPlaneClient:
             "capo_iot_jobs_data_plane.types.execution_number.ExecutionNumber"
         ] = None,
     ) -> "capo_iot_jobs_data_plane.types.describe_job_execution_response.DescribeJobExecutionResponse":
-        r"""<p>Gets details of a job execution.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeJobExecution</a> action.</p>
+        """<p>Gets details of a job execution.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeJobExecution</a> action.</p>
 
         Args:
             job_id: <p>The unique identifier assigned to this job when it was created.</p>
@@ -217,7 +217,7 @@ class IoTJobsDataPlaneClient:
         *,
         config_overrides: Optional[IoTJobsDataPlaneClientConfig] = None,
     ) -> "capo_iot_jobs_data_plane.types.get_pending_job_executions_response.GetPendingJobExecutionsResponse":
-        r"""<p>Gets the list of all jobs for a thing that are not in a terminal status.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetPendingJobExecutions</a> action.</p>
+        """<p>Gets the list of all jobs for a thing that are not in a terminal status.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetPendingJobExecutions</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing that is executing the job.</p>
@@ -340,7 +340,7 @@ class IoTJobsDataPlaneClient:
             "capo_iot_jobs_data_plane.types.step_timeout_in_minutes.StepTimeoutInMinutes"
         ] = None,
     ) -> "capo_iot_jobs_data_plane.types.start_next_pending_job_execution_response.StartNextPendingJobExecutionResponse":
-        r"""<p>Gets and starts the next pending (status IN_PROGRESS or QUEUED) job execution for a thing.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">StartNextPendingJobExecution</a> action.</p>
+        """<p>Gets and starts the next pending (status IN_PROGRESS or QUEUED) job execution for a thing.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">StartNextPendingJobExecution</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing associated with the device.</p>
@@ -413,7 +413,7 @@ class IoTJobsDataPlaneClient:
             "capo_iot_jobs_data_plane.types.execution_number.ExecutionNumber"
         ] = None,
     ) -> "capo_iot_jobs_data_plane.types.update_job_execution_response.UpdateJobExecutionResponse":
-        r"""<p>Updates the status of a job execution.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotjobsdataplane.html\">UpdateJobExecution</a> action.</p>
+        """<p>Updates the status of a job execution.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotjobsdataplane.html">UpdateJobExecution</a> action.</p>
 
         Args:
             job_id: <p>The unique identifier assigned to this job when it was created.</p>

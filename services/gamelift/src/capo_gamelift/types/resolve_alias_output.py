@@ -13,7 +13,7 @@ class ResolveAliasOutput(TypedDict, closed=True):
     fleet_id: NotRequired["capo_gamelift.types.fleet_id.FleetId"]
     """<p>The fleet identifier that the alias is pointing to.</p>"""
     fleet_arn: NotRequired["capo_gamelift.types.fleet_arn.FleetArn"]
-    r"""<p> The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) associated with the GameLift fleet resource that this alias points to. </p>"""
+    """<p> The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) associated with the GameLift fleet resource that this alias points to. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

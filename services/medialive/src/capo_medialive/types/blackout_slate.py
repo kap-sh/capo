@@ -19,7 +19,7 @@ class BlackoutSlate(TypedDict, closed=True):
     network_end_blackout: NotRequired[
         "capo_medialive.types.blackout_slate_network_end_blackout.BlackoutSlateNetworkEndBlackout"
     ]
-    r"""Setting to enabled causes the encoder to blackout the video, audio, and captions, and raise the \"Network Blackout Image\" slate when an SCTE104/35 Network End Segmentation Descriptor is encountered. The blackout will be lifted when the Network Start Segmentation Descriptor is encountered. The Network End and Network Start descriptors must contain a network ID that matches the value entered in \"Network ID\"."""
+    """Setting to enabled causes the encoder to blackout the video, audio, and captions, and raise the "Network Blackout Image" slate when an SCTE104/35 Network End Segmentation Descriptor is encountered. The blackout will be lifted when the Network Start Segmentation Descriptor is encountered. The Network End and Network Start descriptors must contain a network ID that matches the value entered in "Network ID"."""
     network_end_blackout_image: NotRequired[
         "capo_medialive.types.input_location.InputLocation"
     ]
@@ -27,7 +27,7 @@ class BlackoutSlate(TypedDict, closed=True):
     network_id: NotRequired[
         "capo_medialive.types.__string_min34_max34.__stringMin34Max34"
     ]
-    r"""Provides Network ID that matches EIDR ID format (e.g., \"10.XXXX/XXXX-XXXX-XXXX-XXXX-XXXX-C\")."""
+    """Provides Network ID that matches EIDR ID format (e.g., "10.XXXX/XXXX-XXXX-XXXX-XXXX-XXXX-C")."""
     state: NotRequired["capo_medialive.types.blackout_slate_state.BlackoutSlateState"]
     """When set to enabled, causes video, audio and captions to be blanked when indicated by program metadata."""
 

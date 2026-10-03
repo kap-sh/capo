@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 class CustomizedMetricSpecification(TypedDict, closed=True):
     metric_name: NotRequired["capo_auto_scaling.types.metric_name.MetricName"]
-    r"""<p>The name of the metric. To get the exact metric name, namespace, and dimensions, inspect the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Metric.html\">Metric</a> object that is returned by a call to <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html\">ListMetrics</a>.</p>"""
+    """<p>The name of the metric. To get the exact metric name, namespace, and dimensions, inspect the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Metric.html">Metric</a> object that is returned by a call to <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html">ListMetrics</a>.</p>"""
     namespace: NotRequired["capo_auto_scaling.types.metric_namespace.MetricNamespace"]
     """<p>The namespace of the metric.</p>"""
     dimensions: NotRequired[
@@ -28,11 +28,11 @@ class CustomizedMetricSpecification(TypedDict, closed=True):
     statistic: NotRequired["capo_auto_scaling.types.metric_statistic.MetricStatistic"]
     """<p>The statistic of the metric.</p>"""
     unit: NotRequired["capo_auto_scaling.types.metric_unit.MetricUnit"]
-    r"""<p>The unit of the metric. For a complete list of the units that CloudWatch supports, see the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html\">MetricDatum</a> data type in the <i>Amazon CloudWatch API Reference</i>.</p>"""
+    """<p>The unit of the metric. For a complete list of the units that CloudWatch supports, see the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html">MetricDatum</a> data type in the <i>Amazon CloudWatch API Reference</i>.</p>"""
     period: NotRequired[
         "capo_auto_scaling.types.metric_granularity_in_seconds.MetricGranularityInSeconds"
     ]
-    r"""<p> The period of the metric in seconds. The default value is 60. Accepted values are 10, 30, and 60. For high resolution metric, set the value to less than 60. For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/policy-creating-high-resolution-metrics.html\">Create a target tracking policy using high-resolution metrics for faster response</a>. </p>"""
+    """<p> The period of the metric in seconds. The default value is 60. Accepted values are 10, 30, and 60. For high resolution metric, set the value to less than 60. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/policy-creating-high-resolution-metrics.html">Create a target tracking policy using high-resolution metrics for faster response</a>. </p>"""
     metrics: NotRequired[
         "capo_auto_scaling.types.target_tracking_metric_data_queries.TargetTrackingMetricDataQueries"
     ]

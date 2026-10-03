@@ -15,7 +15,7 @@ class RestoreTestingSelectionForUpdate(TypedDict, closed=True):
     iam_role_arn: NotRequired["str"]
     """<p>The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for example: <code>arn:aws:iam::123456789012:role/S3Access</code>.</p>"""
     protected_resource_arns: NotRequired["capo_backup.types.string_list.stringList"]
-    r"""<p>You can include a list of specific ARNs, such as <code>ProtectedResourceArns: [\"arn:aws:...\", \"arn:aws:...\"]</code> or you can include a wildcard: <code>ProtectedResourceArns: [\"*\"]</code>, but not both.</p>"""
+    """<p>You can include a list of specific ARNs, such as <code>ProtectedResourceArns: ["arn:aws:...", "arn:aws:..."]</code> or you can include a wildcard: <code>ProtectedResourceArns: ["*"]</code>, but not both.</p>"""
     protected_resource_conditions: NotRequired[
         "capo_backup.types.protected_resource_conditions.ProtectedResourceConditions"
     ]
@@ -23,7 +23,7 @@ class RestoreTestingSelectionForUpdate(TypedDict, closed=True):
     restore_metadata_overrides: NotRequired[
         "capo_backup.types.sensitive_string_map.SensitiveStringMap"
     ]
-    r"""<p>You can override certain restore metadata keys by including the parameter <code>RestoreMetadataOverrides</code> in the body of <code>RestoreTestingSelection</code>. Key values are not case sensitive.</p> <p>See the complete list of <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing-inferred-metadata.html\">restore testing inferred metadata</a>.</p>"""
+    """<p>You can override certain restore metadata keys by including the parameter <code>RestoreMetadataOverrides</code> in the body of <code>RestoreTestingSelection</code>. Key values are not case sensitive.</p> <p>See the complete list of <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing-inferred-metadata.html">restore testing inferred metadata</a>.</p>"""
     validation_window_hours: "capo_backup.types.integer.integer"
     """<p>This value represents the time, in hours, data is retained after a restore test so that optional validation can be completed.</p> <p>Accepted value is an integer between 0 and 168 (the hourly equivalent of seven days).</p>"""
 

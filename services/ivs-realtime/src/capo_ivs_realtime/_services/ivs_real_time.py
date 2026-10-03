@@ -269,12 +269,12 @@ class IVSRealTimeClient:
         video: Optional["capo_ivs_realtime.types.video.Video"] = None,
         tags: Optional["capo_ivs_realtime.types.tags.Tags"] = None,
     ) -> "capo_ivs_realtime.types.create_encoder_configuration_response.CreateEncoderConfigurationResponse":
-        r"""<p>Creates an EncoderConfiguration object.</p>
+        """<p>Creates an EncoderConfiguration object.</p>
 
         Args:
             name: <p>Optional name to identify the resource.</p>
             video: <p>Video configuration. Default: video resolution 1280x720, bitrate 2500 kbps, 30 fps.</p>
-            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
+            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
 
         Raises:
             capo_ivs_realtime.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -341,7 +341,7 @@ class IVSRealTimeClient:
         ] = None,
         tags: Optional["capo_ivs_realtime.types.tags.Tags"] = None,
     ) -> "capo_ivs_realtime.types.create_ingest_configuration_response.CreateIngestConfigurationResponse":
-        r"""<p>Creates a new IngestConfiguration resource, used to specify the ingest protocol for a stage.</p>
+        """<p>Creates a new IngestConfiguration resource, used to specify the ingest protocol for a stage.</p>
 
         Args:
             name: <p>Optional name that can be specified for the IngestConfiguration being created.</p>
@@ -351,7 +351,7 @@ class IVSRealTimeClient:
             ingest_protocol: <p>Type of ingest protocol that the user employs to broadcast. If this is set to <code>RTMP</code>, <code>insecureIngest</code> must be set to <code>true</code>.</p>
             insecure_ingest: <p>Whether the stage allows insecure RTMP ingest. This must be set to <code>true</code>, if <code>ingestProtocol</code> is set to <code>RTMP</code>. Default: <code>false</code>. </p>
             redundant_ingest: <p>Indicates whether redundant ingest is enabled for the ingest configuration. Default: <code>false</code>. </p>
-            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
+            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
 
         Raises:
             capo_ivs_realtime.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -486,12 +486,12 @@ class IVSRealTimeClient:
             "capo_ivs_realtime.types.auto_participant_recording_configuration.AutoParticipantRecordingConfiguration"
         ] = None,
     ) -> "capo_ivs_realtime.types.create_stage_response.CreateStageResponse":
-        r"""<p>Creates a new stage (and optionally participant tokens).</p>
+        """<p>Creates a new stage (and optionally participant tokens).</p>
 
         Args:
             name: <p>Optional name that can be specified for the stage being created.</p>
             participant_token_configurations: <p>Array of participant token configuration objects to attach to the new stage.</p>
-            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there. </p>
+            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there. </p>
             auto_participant_recording_configuration: <p>Configuration object for individual participant recording, to attach to the new stage.</p>
 
         Raises:
@@ -549,12 +549,12 @@ class IVSRealTimeClient:
         ] = None,
         tags: Optional["capo_ivs_realtime.types.tags.Tags"] = None,
     ) -> "capo_ivs_realtime.types.create_storage_configuration_response.CreateStorageConfigurationResponse":
-        r"""<p>Creates a new storage configuration, used to enable recording to Amazon S3. When a StorageConfiguration is created, IVS will modify the S3 bucketPolicy of the provided bucket. This will ensure that IVS has sufficient permissions to write content to the provided bucket.</p>
+        """<p>Creates a new storage configuration, used to enable recording to Amazon S3. When a StorageConfiguration is created, IVS will modify the S3 bucketPolicy of the provided bucket. This will ensure that IVS has sufficient permissions to write content to the provided bucket.</p>
 
         Args:
             name: <p>Storage configuration name. The value does not need to be unique.</p>
             s3: <p>A complex type that contains a storage configuration for where recorded video will be stored.</p>
-            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
+            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
 
         Raises:
             capo_ivs_realtime.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -1278,12 +1278,12 @@ class IVSRealTimeClient:
         name: Optional["capo_ivs_realtime.types.public_key_name.PublicKeyName"] = None,
         tags: Optional["capo_ivs_realtime.types.tags.Tags"] = None,
     ) -> "capo_ivs_realtime.types.import_public_key_response.ImportPublicKeyResponse":
-        r"""<p>Import a public key to be used for signing stage participant tokens.</p>
+        """<p>Import a public key to be used for signing stage participant tokens.</p>
 
         Args:
             public_key_material: <p>The content of the public key to be imported.</p>
             name: <p>Name of the public key to be imported.</p>
-            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
+            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
 
         Raises:
             capo_ivs_realtime.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -1704,11 +1704,11 @@ class IVSRealTimeClient:
             "capo_ivs_realtime.types.max_participant_replica_results.MaxParticipantReplicaResults"
         ] = None,
     ) -> "capo_ivs_realtime.types.list_participant_replicas_response.ListParticipantReplicasResponse":
-        r"""<p>Lists all the replicas for a participant from a source stage.</p>
+        """<p>Lists all the replicas for a participant from a source stage.</p>
 
         Args:
             source_stage_arn: <p>ARN of the stage where the participant is publishing.</p>
-            participant_id: <p>Participant ID of the publisher that has been replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href=\"https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed\">create a self signed token</a>.</p>
+            participant_id: <p>Participant ID of the publisher that has been replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href="https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed">create a self signed token</a>.</p>
             next_token: <p>The first participant to retrieve. This is used for pagination; see the <code>nextToken</code> response field.</p>
             max_results: <p>Maximum number of results to return. Default: 50.</p>
 
@@ -2274,14 +2274,14 @@ class IVSRealTimeClient:
         ] = None,
         tags: Optional["capo_ivs_realtime.types.tags.Tags"] = None,
     ) -> "capo_ivs_realtime.types.start_composition_response.StartCompositionResponse":
-        r"""<p>Starts a Composition from a stage based on the configuration provided in the request.</p> <p>A Composition is an ephemeral resource that exists after this operation returns successfully. Composition stops and the resource is deleted:</p> <ul> <li> <p>When <a>StopComposition</a> is called.</p> </li> <li> <p>After a 1-minute timeout, when all participants are disconnected from the stage.</p> </li> <li> <p>After a 1-minute timeout, if there are no participants in the stage when StartComposition is called.</p> </li> <li> <p>When broadcasting to the IVS channel fails and all retries are exhausted.</p> </li> <li> <p>When broadcasting is disconnected and all attempts to reconnect are exhausted.</p> </li> </ul>
+        """<p>Starts a Composition from a stage based on the configuration provided in the request.</p> <p>A Composition is an ephemeral resource that exists after this operation returns successfully. Composition stops and the resource is deleted:</p> <ul> <li> <p>When <a>StopComposition</a> is called.</p> </li> <li> <p>After a 1-minute timeout, when all participants are disconnected from the stage.</p> </li> <li> <p>After a 1-minute timeout, if there are no participants in the stage when StartComposition is called.</p> </li> <li> <p>When broadcasting to the IVS channel fails and all retries are exhausted.</p> </li> <li> <p>When broadcasting is disconnected and all attempts to reconnect are exhausted.</p> </li> </ul>
 
         Args:
             stage_arn: <p>ARN of the stage to be used for compositing.</p>
             idempotency_token: <p>Idempotency token.</p>
             layout: <p>Layout object to configure composition parameters.</p>
             destinations: <p>Array of destination configuration.</p>
-            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
+            tags: <p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
 
         Raises:
             capo_ivs_realtime.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -2343,12 +2343,12 @@ class IVSRealTimeClient:
             "capo_ivs_realtime.types.participant_attributes.ParticipantAttributes"
         ] = None,
     ) -> "capo_ivs_realtime.types.start_participant_replication_response.StartParticipantReplicationResponse":
-        r"""<p>Starts replicating a publishing participant from a source stage to a destination stage.</p>
+        """<p>Starts replicating a publishing participant from a source stage to a destination stage.</p>
 
         Args:
             source_stage_arn: <p>ARN of the stage where the participant is publishing.</p>
             destination_stage_arn: <p>ARN of the stage to which the participant will be replicated.</p>
-            participant_id: <p>Participant ID of the publisher that will be replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href=\"https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed\">create a self signed token</a>. </p>
+            participant_id: <p>Participant ID of the publisher that will be replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href="https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed">create a self signed token</a>. </p>
             reconnect_window_seconds: <p>If the participant disconnects and then reconnects within the specified interval, replication will continue to be <code>ACTIVE</code>. Default: 0.</p>
             attributes: <p>Application-provided attributes to set on the replicated participant in the destination stage. Map keys and values can contain UTF-8 encoded text. The maximum length of this field is 1 KB total. <i>This field is exposed to all stage participants and should not be used for personally identifying, confidential, or sensitive information.</i> </p> <p>These attributes are merged with any attributes set for this participant when creating the token. If there is overlap in keys, the values in these attributes are replaced.</p>
 
@@ -2452,12 +2452,12 @@ class IVSRealTimeClient:
         *,
         config_overrides: Optional[IVSRealTimeClientConfig] = None,
     ) -> "capo_ivs_realtime.types.stop_participant_replication_response.StopParticipantReplicationResponse":
-        r"""<p>Stops a replicated participant session.</p>
+        """<p>Stops a replicated participant session.</p>
 
         Args:
             source_stage_arn: <p>ARN of the stage where the participant is publishing.</p>
             destination_stage_arn: <p>ARN of the stage where the participant has been replicated.</p>
-            participant_id: <p>Participant ID of the publisher that has been replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href=\"https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed\"> create a self signed token</a>.</p>
+            participant_id: <p>Participant ID of the publisher that has been replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href="https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed"> create a self signed token</a>.</p>
 
         Raises:
             capo_ivs_realtime.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -2503,11 +2503,11 @@ class IVSRealTimeClient:
         *,
         config_overrides: Optional[IVSRealTimeClientConfig] = None,
     ) -> "capo_ivs_realtime.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds or updates tags for the AWS resource with the specified ARN.</p>
+        """<p>Adds or updates tags for the AWS resource with the specified ARN.</p>
 
         Args:
             resource_arn: <p>The ARN of the resource to be tagged. The ARN must be URL-encoded.</p>
-            tags: <p>Array of tags to be added or updated. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
+            tags: <p>Array of tags to be added or updated. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
 
         Raises:
             capo_ivs_realtime.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
@@ -2551,11 +2551,11 @@ class IVSRealTimeClient:
         *,
         config_overrides: Optional[IVSRealTimeClientConfig] = None,
     ) -> "capo_ivs_realtime.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Removes tags from the resource with the specified ARN.</p>
+        """<p>Removes tags from the resource with the specified ARN.</p>
 
         Args:
             resource_arn: <p>The ARN of the resource to be untagged. The ARN must be URL-encoded.</p>
-            tag_keys: <p>Array of tag keys (strings) for the tags to be removed. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
+            tag_keys: <p>Array of tag keys (strings) for the tags to be removed. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>
 
         Raises:
             capo_ivs_realtime.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>

@@ -18,19 +18,19 @@ class FindingHistoryRecord(TypedDict, closed=True):
         "capo_securityhub.types.aws_security_finding_identifier.AwsSecurityFindingIdentifier"
     ]
     update_time: NotRequired["capo_securityhub.types.timestamp.Timestamp"]
-    r"""<p> A timestamp that indicates when Security Hub CSPM processed the updated finding record.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p> A timestamp that indicates when Security Hub CSPM processed the updated finding record.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     finding_created: NotRequired["capo_securityhub.types.boolean.Boolean"]
     """<p> Identifies whether the event marks the creation of a new finding. A value of <code>True</code> means that the finding is newly created. A value of <code>False</code> means that the finding isn’t newly created. </p>"""
     update_source: NotRequired[
         "capo_securityhub.types.finding_history_update_source.FindingHistoryUpdateSource"
     ]
-    r"""<p> Identifies the source of the event that changed the finding. For example, an integrated Amazon Web Services service or third-party partner integration may call <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchImportFindings.html\"> <code>BatchImportFindings</code> </a>, or an Security Hub CSPM customer may call <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateFindings.html\"> <code>BatchUpdateFindings</code> </a>. </p>"""
+    """<p> Identifies the source of the event that changed the finding. For example, an integrated Amazon Web Services service or third-party partner integration may call <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchImportFindings.html"> <code>BatchImportFindings</code> </a>, or an Security Hub CSPM customer may call <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateFindings.html"> <code>BatchUpdateFindings</code> </a>. </p>"""
     updates: NotRequired[
         "capo_securityhub.types.finding_history_updates_list.FindingHistoryUpdatesList"
     ]
     """<p> An array of objects that provides details about the finding change event, including the Amazon Web Services Security Finding Format (ASFF) field that changed, the value of the field before the change, and the value of the field after the change. </p>"""
     next_token: NotRequired["capo_securityhub.types.next_token.NextToken"]
-    r"""<p> A token for pagination purposes. Provide this token in the subsequent request to <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_GetFindingsHistory.html\"> <code>GetFindingsHistory</code> </a> to get up to an additional 100 results of history for the same finding that you specified in your initial request. </p>"""
+    """<p> A token for pagination purposes. Provide this token in the subsequent request to <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_GetFindingsHistory.html"> <code>GetFindingsHistory</code> </a> to get up to an additional 100 results of history for the same finding that you specified in your initial request. </p>"""
 
 
 # --- restJson1 ser/de ---

@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 class ConfigurationTemplate(TypedDict, closed=True):
     service: NotRequired["capo_cloudwatch_logs.types.service.Service"]
-    r"""<p>A string specifying which service this configuration template applies to. For more information about supported services see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html\">Enable logging from Amazon Web Services services.</a>.</p>"""
+    """<p>A string specifying which service this configuration template applies to. For more information about supported services see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html">Enable logging from Amazon Web Services services.</a>.</p>"""
     log_type: NotRequired["capo_cloudwatch_logs.types.log_type.LogType"]
     """<p>A string specifying which log type this configuration template applies to.</p>"""
     resource_type: NotRequired["capo_cloudwatch_logs.types.resource_type.ResourceType"]
@@ -37,7 +37,7 @@ class ConfigurationTemplate(TypedDict, closed=True):
     allowed_fields: NotRequired[
         "capo_cloudwatch_logs.types.allowed_fields.AllowedFields"
     ]
-    r"""<p>The allowed fields that a caller can use in the <code>recordFields</code> parameter of a <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_CreateDelivery.html\">CreateDelivery</a> or <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateDeliveryConfiguration.html\">UpdateDeliveryConfiguration</a> operation.</p>"""
+    """<p>The allowed fields that a caller can use in the <code>recordFields</code> parameter of a <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_CreateDelivery.html">CreateDelivery</a> or <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateDeliveryConfiguration.html">UpdateDeliveryConfiguration</a> operation.</p>"""
     allowed_output_formats: NotRequired[
         "capo_cloudwatch_logs.types.output_formats.OutputFormats"
     ]
@@ -45,11 +45,11 @@ class ConfigurationTemplate(TypedDict, closed=True):
     allowed_action_for_allow_vended_logs_delivery_for_resource: NotRequired[
         "capo_cloudwatch_logs.types.allowed_action_for_allow_vended_logs_delivery_for_resource.AllowedActionForAllowVendedLogsDeliveryForResource"
     ]
-    r"""<p>The action permissions that a caller needs to have to be able to successfully create a delivery source on the desired resource type when calling <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDeliverySource.html\">PutDeliverySource</a>.</p>"""
+    """<p>The action permissions that a caller needs to have to be able to successfully create a delivery source on the desired resource type when calling <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDeliverySource.html">PutDeliverySource</a>.</p>"""
     allowed_field_delimiters: NotRequired[
         "capo_cloudwatch_logs.types.allowed_field_delimiters.AllowedFieldDelimiters"
     ]
-    r"""<p>The valid values that a caller can use as field delimiters when calling <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_CreateDelivery.html\">CreateDelivery</a> or <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateDeliveryConfiguration.html\">UpdateDeliveryConfiguration</a> on a delivery that delivers in <code>Plain</code>, <code>W3C</code>, or <code>Raw</code> format.</p>"""
+    """<p>The valid values that a caller can use as field delimiters when calling <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_CreateDelivery.html">CreateDelivery</a> or <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_UpdateDeliveryConfiguration.html">UpdateDeliveryConfiguration</a> on a delivery that delivers in <code>Plain</code>, <code>W3C</code>, or <code>Raw</code> format.</p>"""
     allowed_suffix_path_fields: NotRequired[
         "capo_cloudwatch_logs.types.record_fields.RecordFields"
     ]
@@ -57,7 +57,7 @@ class ConfigurationTemplate(TypedDict, closed=True):
     delivery_source_configuration: NotRequired[
         "capo_cloudwatch_logs.types.delivery_source_configuration_schemas.DeliverySourceConfigurationSchemas"
     ]
-    r"""<p>The schema of the delivery source configuration that is available for this log type. Each element describes a configuration that can be set when calling <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDeliverySource.html\">PutDeliverySource</a>, including the configuration name, type, and default value.</p>"""
+    """<p>The schema of the delivery source configuration that is available for this log type. Each element describes a configuration that can be set when calling <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDeliverySource.html">PutDeliverySource</a>, including the configuration name, type, and default value.</p>"""
     s3_tables_integration: NotRequired[
         "capo_cloudwatch_logs.types.s3_tables_integration.S3TablesIntegration"
     ]

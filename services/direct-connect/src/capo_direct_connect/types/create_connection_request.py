@@ -33,7 +33,7 @@ class CreateConnectionRequest(TypedDict, closed=True):
     request_mac_sec: NotRequired[
         "capo_direct_connect.types.request_mac_sec.RequestMACSec"
     ]
-    r"""<p>Indicates whether you want the connection to support MAC Security (MACsec).</p> <p>MAC Security (MACsec) is unavailable on hosted connections. For information about MAC Security (MACsec) prerequisites, see <a href=\"https://docs.aws.amazon.com/directconnect/latest/UserGuide/MACSec.html\">MAC Security in Direct Connect</a> in the <i>Direct Connect User Guide</i>.</p>"""
+    """<p>Indicates whether you want the connection to support MAC Security (MACsec).</p> <p>MAC Security (MACsec) is unavailable on hosted connections. For information about MAC Security (MACsec) prerequisites, see <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/MACSec.html">MAC Security in Direct Connect</a> in the <i>Direct Connect User Guide</i>.</p>"""
     billing_mode: NotRequired[
         "capo_direct_connect.types.request_billing_mode.RequestBillingMode"
     ]

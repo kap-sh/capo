@@ -59,7 +59,7 @@ class IpamDiscoveredPublicAddress(TypedDict, closed=True):
     tags: NotRequired["capo_ec2.types.ipam_public_address_tags.IpamPublicAddressTags"]
     """<p>Tags associated with the IP address.</p>"""
     network_border_group: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The Availability Zone (AZ) or Local Zone (LZ) network border group that the resource that the IP address is assigned to is in. Defaults to an AZ network border group. For more information on available Local Zones, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html#byoip-zone-avail\">Local Zone availability</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The Availability Zone (AZ) or Local Zone (LZ) network border group that the resource that the IP address is assigned to is in. Defaults to an AZ network border group. For more information on available Local Zones, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html#byoip-zone-avail">Local Zone availability</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     security_groups: NotRequired[
         "capo_ec2.types.ipam_public_address_security_group_list.IpamPublicAddressSecurityGroupList"
     ]

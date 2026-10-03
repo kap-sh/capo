@@ -59,7 +59,7 @@ class AnnotationStore:
         sse_config: Optional["capo_omics.types.sse_config.SseConfig"] = None,
         store_options: Optional["capo_omics.types.store_options.StoreOptions"] = None,
     ) -> "capo_omics.types.create_annotation_store_response.CreateAnnotationStoreResponse":
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Creates an annotation store.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Creates an annotation store.</p>
 
         Args:
             reference: <p>The genome reference for the store's annotations.</p>
@@ -126,7 +126,7 @@ class AnnotationStore:
     def read(
         self, name: str, *, config_overrides: Optional[OmicsClientConfig] = None
     ) -> "capo_omics.types.get_annotation_store_response.GetAnnotationStoreResponse":
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Gets information about an annotation store.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Gets information about an annotation store.</p>
 
         Args:
             name: <p>The store's name.</p>
@@ -174,7 +174,7 @@ class AnnotationStore:
         config_overrides: Optional[OmicsClientConfig] = None,
         description: Optional["capo_omics.types.description.Description"] = None,
     ) -> "capo_omics.types.update_annotation_store_response.UpdateAnnotationStoreResponse":
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Updates an annotation store.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Updates an annotation store.</p>
 
         Args:
             name: <p>A name for the store.</p>
@@ -225,7 +225,7 @@ class AnnotationStore:
         config_overrides: Optional[OmicsClientConfig] = None,
         force: Optional[bool] = None,
     ) -> "capo_omics.types.delete_annotation_store_response.DeleteAnnotationStoreResponse":
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Deletes an annotation store.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Deletes an annotation store.</p>
 
         Args:
             name: <p>The store's name.</p>
@@ -283,7 +283,7 @@ class AnnotationStore:
     ) -> (
         "capo_omics.types.list_annotation_stores_response.ListAnnotationStoresResponse"
     ):
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Retrieves a list of annotation stores.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Retrieves a list of annotation stores.</p>
 
         Args:
             ids: <p>IDs of stores to list.</p>
@@ -351,7 +351,7 @@ class AsyncAnnotationStore:
         sse_config: Optional["capo_omics.types.sse_config.SseConfig"] = None,
         store_options: Optional["capo_omics.types.store_options.StoreOptions"] = None,
     ) -> "capo_omics.types.create_annotation_store_response.CreateAnnotationStoreResponse":
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Creates an annotation store.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Creates an annotation store.</p>
 
         Args:
             reference: <p>The genome reference for the store's annotations.</p>
@@ -419,7 +419,7 @@ class AsyncAnnotationStore:
     async def read(
         self, name: str, *, config_overrides: Optional[AsyncOmicsClientConfig] = None
     ) -> "capo_omics.types.get_annotation_store_response.GetAnnotationStoreResponse":
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Gets information about an annotation store.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Gets information about an annotation store.</p>
 
         Args:
             name: <p>The store's name.</p>
@@ -468,7 +468,7 @@ class AsyncAnnotationStore:
         config_overrides: Optional[AsyncOmicsClientConfig] = None,
         description: Optional["capo_omics.types.description.Description"] = None,
     ) -> "capo_omics.types.update_annotation_store_response.UpdateAnnotationStoreResponse":
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Updates an annotation store.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Updates an annotation store.</p>
 
         Args:
             name: <p>A name for the store.</p>
@@ -520,7 +520,7 @@ class AsyncAnnotationStore:
         config_overrides: Optional[AsyncOmicsClientConfig] = None,
         force: Optional[bool] = None,
     ) -> "capo_omics.types.delete_annotation_store_response.DeleteAnnotationStoreResponse":
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Deletes an annotation store.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Deletes an annotation store.</p>
 
         Args:
             name: <p>The store's name.</p>
@@ -579,7 +579,7 @@ class AsyncAnnotationStore:
     ) -> (
         "capo_omics.types.list_annotation_stores_response.ListAnnotationStoresResponse"
     ):
-        r"""<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html\"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Retrieves a list of annotation stores.</p>
+        """<important> <p>Amazon Web Services HealthOmics variant stores and annotation stores are no longer open to new customers. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/variant-store-availability-change.html"> Amazon Web Services HealthOmics variant store and annotation store availability change</a>.</p> </important> <p>Retrieves a list of annotation stores.</p>
 
         Args:
             ids: <p>IDs of stores to list.</p>

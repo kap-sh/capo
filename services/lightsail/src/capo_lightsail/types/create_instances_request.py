@@ -18,9 +18,9 @@ if TYPE_CHECKING:
 
 class CreateInstancesRequest(TypedDict, closed=True):
     instance_names: "capo_lightsail.types.string_list.StringList"
-    r"""<p>The names to use for your new Lightsail instances. Separate multiple values using quotation marks and commas, for example: <code>[\"MyFirstInstance\",\"MySecondInstance\"]</code> </p>"""
+    """<p>The names to use for your new Lightsail instances. Separate multiple values using quotation marks and commas, for example: <code>["MyFirstInstance","MySecondInstance"]</code> </p>"""
     availability_zone: "capo_lightsail.types.string.string"
-    r"""<p>The Availability Zone in which to create your instance. Use the following format: <code>us-east-2a</code> (case sensitive). You can get a list of Availability Zones by using the <a href=\"http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html\">get regions</a> operation. Be sure to add the <code>include Availability Zones</code> parameter to your request.</p>"""
+    """<p>The Availability Zone in which to create your instance. Use the following format: <code>us-east-2a</code> (case sensitive). You can get a list of Availability Zones by using the <a href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get regions</a> operation. Be sure to add the <code>include Availability Zones</code> parameter to your request.</p>"""
     custom_image_name: NotRequired["capo_lightsail.types.resource_name.ResourceName"]
     """<p>(Discontinued) The name for your custom image.</p> <note> <p>In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.</p> </note>"""
     blueprint_id: "capo_lightsail.types.non_empty_string.NonEmptyString"
@@ -28,7 +28,7 @@ class CreateInstancesRequest(TypedDict, closed=True):
     bundle_id: "capo_lightsail.types.non_empty_string.NonEmptyString"
     """<p>The bundle of specification information for your virtual private server (or <i>instance</i>), including the pricing plan (<code>medium_x_x</code>).</p>"""
     user_data: NotRequired["capo_lightsail.types.string.string"]
-    r"""<p>A launch script you can create that configures a server with additional user data. For example, you might want to run <code>apt-get -y update</code>.</p> <note> <p>Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the <a href=\"https://docs.aws.amazon.com/lightsail/latest/userguide/compare-options-choose-lightsail-instance-image\">Amazon Lightsail Developer Guide</a>.</p> </note>"""
+    """<p>A launch script you can create that configures a server with additional user data. For example, you might want to run <code>apt-get -y update</code>.</p> <note> <p>Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/compare-options-choose-lightsail-instance-image">Amazon Lightsail Developer Guide</a>.</p> </note>"""
     key_pair_name: NotRequired["capo_lightsail.types.resource_name.ResourceName"]
     """<p>The name of your key pair.</p>"""
     tags: NotRequired["capo_lightsail.types.tag_list.TagList"]

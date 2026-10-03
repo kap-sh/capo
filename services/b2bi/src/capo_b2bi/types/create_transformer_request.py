@@ -29,7 +29,7 @@ class CreateTransformerRequest(TypedDict, closed=True):
     file_format: NotRequired["capo_b2bi.types.file_format.FileFormat"]
     """<p>Specifies that the currently supported file formats for EDI transformations are <code>JSON</code> and <code>XML</code>.</p>"""
     mapping_template: NotRequired["capo_b2bi.types.mapping_template.MappingTemplate"]
-    r"""<p>Specifies the mapping template for the transformer. This template is used to map the parsed EDI file using JSONata or XSLT.</p> <note> <p>This parameter is available for backwards compatibility. Use the <a href=\"https://docs.aws.amazon.com/b2bi/latest/APIReference/API_Mapping.html\">Mapping</a> data type instead.</p> </note>"""
+    """<p>Specifies the mapping template for the transformer. This template is used to map the parsed EDI file using JSONata or XSLT.</p> <note> <p>This parameter is available for backwards compatibility. Use the <a href="https://docs.aws.amazon.com/b2bi/latest/APIReference/API_Mapping.html">Mapping</a> data type instead.</p> </note>"""
     edi_type: NotRequired["capo_b2bi.types.edi_type.EdiType"]
     """<p>Specifies the details for the EDI standard that is being used for the transformer. Currently, only X12 is supported. X12 is a set of standards and corresponding messages that define specific business documents.</p>"""
     sample_document: NotRequired["capo_b2bi.types.file_location.FileLocation"]

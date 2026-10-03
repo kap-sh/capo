@@ -23,7 +23,7 @@ class DescribeReservedDBInstancesOfferingsMessage(TypedDict, closed=True):
     product_description: NotRequired["capo_rds.types.string.String"]
     """<p>Product description filter value. Specify this parameter to show only the available offerings that contain the specified product description.</p> <note> <p>The results show offerings that partially match the filter value.</p> </note>"""
     offering_type: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The offering type filter value. Specify this parameter to show only the available offerings matching the specified offering type.</p> <p>Valid Values: <code>\"Partial Upfront\" | \"All Upfront\" | \"No Upfront\" </code> </p>"""
+    """<p>The offering type filter value. Specify this parameter to show only the available offerings matching the specified offering type.</p> <p>Valid Values: <code>"Partial Upfront" | "All Upfront" | "No Upfront" </code> </p>"""
     multi_az: NotRequired["capo_rds.types.boolean_optional.BooleanOptional"]
     """<p>Specifies whether to show only those reservations that support Multi-AZ.</p>"""
     filters: NotRequired["capo_rds.types.filter_list.FilterList"]

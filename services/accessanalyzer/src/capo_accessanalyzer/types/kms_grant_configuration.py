@@ -24,11 +24,11 @@ class KmsGrantConfiguration(TypedDict, closed=True):
     retiring_principal: NotRequired[
         "capo_accessanalyzer.types.retiring_principal.RetiringPrincipal"
     ]
-    r"""<p>The principal that is given permission to retire the grant by using <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html\">RetireGrant</a> operation.</p>"""
+    """<p>The principal that is given permission to retire the grant by using <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html">RetireGrant</a> operation.</p>"""
     constraints: NotRequired[
         "capo_accessanalyzer.types.kms_grant_constraints.KmsGrantConstraints"
     ]
-    r"""<p>Use this structure to propose allowing <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations\">cryptographic operations</a> in the grant only when the operation request includes the specified <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context\">encryption context</a>.</p>"""
+    """<p>Use this structure to propose allowing <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic operations</a> in the grant only when the operation request includes the specified <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">encryption context</a>.</p>"""
     issuing_account: "capo_accessanalyzer.types.issuing_account.IssuingAccount"
     """<p> The Amazon Web Services account under which the grant was issued. The account is used to propose KMS grants issued by accounts other than the owner of the key.</p>"""
 

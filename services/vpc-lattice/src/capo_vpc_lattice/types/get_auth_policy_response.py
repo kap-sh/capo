@@ -14,7 +14,7 @@ class GetAuthPolicyResponse(TypedDict, closed=True):
     policy: NotRequired["capo_vpc_lattice.types.auth_policy_string.AuthPolicyString"]
     """<p>The auth policy.</p>"""
     state: NotRequired["capo_vpc_lattice.types.auth_policy_state.AuthPolicyState"]
-    r"""<p>The state of the auth policy. The auth policy is only active when the auth type is set to <code>AWS_IAM</code>. If you provide a policy, then authentication and authorization decisions are made based on this policy and the client's IAM policy. If the auth type is <code>NONE</code>, then any auth policy that you provide remains inactive. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#create-service-network\">Create a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>"""
+    """<p>The state of the auth policy. The auth policy is only active when the auth type is set to <code>AWS_IAM</code>. If you provide a policy, then authentication and authorization decisions are made based on this policy and the client's IAM policy. If the auth type is <code>NONE</code>, then any auth policy that you provide remains inactive. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#create-service-network">Create a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>"""
     created_at: NotRequired["capo_vpc_lattice.types.timestamp.Timestamp"]
     """<p>The date and time that the auth policy was created, in ISO-8601 format.</p>"""
     last_updated_at: NotRequired["capo_vpc_lattice.types.timestamp.Timestamp"]

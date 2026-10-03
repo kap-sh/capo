@@ -13,7 +13,7 @@ class VoiceMessage(TypedDict, closed=True):
     body: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The text of the script to use for the voice message.</p>"""
     language_code: NotRequired["capo_pinpoint.types.__string.__string"]
-    r"""<p>The code for the language to use when synthesizing the text of the message script. For a list of supported languages and the code for each one, see the <a href=\"https://docs.aws.amazon.com/polly/latest/dg/what-is.html\">Amazon Polly Developer Guide</a>.</p>"""
+    """<p>The code for the language to use when synthesizing the text of the message script. For a list of supported languages and the code for each one, see the <a href="https://docs.aws.amazon.com/polly/latest/dg/what-is.html">Amazon Polly Developer Guide</a>.</p>"""
     origination_number: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The long code to send the voice message from. This value should be one of the dedicated long codes that's assigned to your AWS account. Although it isn't required, we recommend that you specify the long code in E.164 format, for example +12065550100, to ensure prompt and accurate delivery of the message.</p>"""
     substitutions: NotRequired[
@@ -21,7 +21,7 @@ class VoiceMessage(TypedDict, closed=True):
     ]
     """<p>The default message variables to use in the voice message. You can override the default variables with individual address variables.</p>"""
     voice_id: NotRequired["capo_pinpoint.types.__string.__string"]
-    r"""<p>The name of the voice to use when delivering the message. For a list of supported voices, see the <a href=\"https://docs.aws.amazon.com/polly/latest/dg/what-is.html\">Amazon Polly Developer Guide</a>.</p>"""
+    """<p>The name of the voice to use when delivering the message. For a list of supported voices, see the <a href="https://docs.aws.amazon.com/polly/latest/dg/what-is.html">Amazon Polly Developer Guide</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

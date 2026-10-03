@@ -20,7 +20,7 @@ class InventoryFilter(TypedDict, closed=True):
     type: NotRequired[
         "capo_ssm.types.inventory_query_operator_type.InventoryQueryOperatorType"
     ]
-    r"""<p>The type of filter.</p> <note> <p>The <code>Exists</code> filter must be used with aggregators. For more information, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/inventory-aggregate.html\">Aggregating inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> </note>"""
+    """<p>The type of filter.</p> <note> <p>The <code>Exists</code> filter must be used with aggregators. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/inventory-aggregate.html">Aggregating inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---

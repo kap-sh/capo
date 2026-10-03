@@ -20,7 +20,7 @@ class ClarifyShapConfig(TypedDict, closed=True):
     number_of_samples: NotRequired[
         "capo_sagemaker.types.clarify_shap_number_of_samples.ClarifyShapNumberOfSamples"
     ]
-    r"""<p>The number of samples to be used for analysis by the Kernal SHAP algorithm. </p> <note> <p>The number of samples determines the size of the synthetic dataset, which has an impact on latency of explainability requests. For more information, see the <b>Synthetic data</b> of <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-create-endpoint.html\">Configure and create an endpoint</a>.</p> </note>"""
+    """<p>The number of samples to be used for analysis by the Kernal SHAP algorithm. </p> <note> <p>The number of samples determines the size of the synthetic dataset, which has an impact on latency of explainability requests. For more information, see the <b>Synthetic data</b> of <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-create-endpoint.html">Configure and create an endpoint</a>.</p> </note>"""
     use_logit: NotRequired[
         "capo_sagemaker.types.clarify_shap_use_logit.ClarifyShapUseLogit"
     ]

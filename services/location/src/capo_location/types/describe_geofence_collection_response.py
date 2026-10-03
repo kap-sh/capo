@@ -28,13 +28,13 @@ class DescribeGeofenceCollectionResponse(TypedDict, closed=True):
     pricing_plan_data_source: NotRequired["str"]
     """<p>No longer used. Always returns an empty string.</p>"""
     kms_key_id: NotRequired["capo_location.types.kms_key_id.KmsKeyId"]
-    r"""<p>A key identifier for an <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html\">Amazon Web Services KMS customer managed key</a> assigned to the Amazon Location resource</p>"""
+    """<p>A key identifier for an <a href="https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html">Amazon Web Services KMS customer managed key</a> assigned to the Amazon Location resource</p>"""
     tags: NotRequired["capo_location.types.tag_map.TagMap"]
     """<p>Displays the key, value pairs of tags associated with this resource.</p>"""
     create_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp for when the geofence resource was created in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code> </p>"""
+    """<p>The timestamp for when the geofence resource was created in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code> </p>"""
     update_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp for when the geofence collection was last updated in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code> </p>"""
+    """<p>The timestamp for when the geofence collection was last updated in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code> </p>"""
     geofence_count: NotRequired["int"]
     """<p>The number of geofences in the geofence collection.</p>"""
 

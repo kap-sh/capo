@@ -15,7 +15,7 @@ class OpenZFSClientConfiguration(TypedDict, closed=True):
     options: NotRequired[
         "capo_fsx.types.open_zfs_nfs_export_options.OpenZFSNfsExportOptions"
     ]
-    r"""<p>The options to use when mounting the file system. For a list of options that you can use with Network File System (NFS), see the <a href=\"https://linux.die.net/man/5/exports\">exports(5) - Linux man page</a>. When choosing your options, consider the following:</p> <ul> <li> <p> <code>crossmnt</code> is used by default. If you don't specify <code>crossmnt</code> when changing the client configuration, you won't be able to see or access snapshots in your file system's snapshot directory.</p> </li> <li> <p> <code>sync</code> is used by default. If you instead specify <code>async</code>, the system acknowledges writes before writing to disk. If the system crashes before the writes are finished, you lose the unwritten data. </p> </li> </ul>"""
+    """<p>The options to use when mounting the file system. For a list of options that you can use with Network File System (NFS), see the <a href="https://linux.die.net/man/5/exports">exports(5) - Linux man page</a>. When choosing your options, consider the following:</p> <ul> <li> <p> <code>crossmnt</code> is used by default. If you don't specify <code>crossmnt</code> when changing the client configuration, you won't be able to see or access snapshots in your file system's snapshot directory.</p> </li> <li> <p> <code>sync</code> is used by default. If you instead specify <code>async</code>, the system acknowledges writes before writing to disk. If the system crashes before the writes are finished, you lose the unwritten data. </p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---

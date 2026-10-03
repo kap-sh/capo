@@ -30,7 +30,7 @@ class Object(TypedDict, closed=True):
     ]
     """<p>The algorithm that was used to create a checksum of the object.</p>"""
     checksum_type: NotRequired["capo_s3.types.checksum_type.ChecksumType"]
-    r"""<p>The checksum type that is used to calculate the object’s checksum value. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The checksum type that is used to calculate the object’s checksum value. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     size: NotRequired["capo_s3.types.size.Size"]
     """<p>Size in bytes of the object</p>"""
     storage_class: NotRequired["capo_s3.types.object_storage_class.ObjectStorageClass"]
@@ -38,7 +38,7 @@ class Object(TypedDict, closed=True):
     owner: NotRequired["capo_s3.types.owner.Owner"]
     """<p>The owner of the object</p> <note> <p> <b>Directory buckets</b> - The bucket owner is returned as the object owner.</p> </note>"""
     restore_status: NotRequired["capo_s3.types.restore_status.RestoreStatus"]
-    r"""<p>Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be retrieved. For more information about these storage classes and how to work with archived objects, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html\"> Working with archived objects</a> in the <i>Amazon S3 User Guide</i>.</p> <note> <p>This functionality is not supported for directory buckets. Directory buckets only support <code>EXPRESS_ONEZONE</code> (the S3 Express One Zone storage class) in Availability Zones and <code>ONEZONE_IA</code> (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.</p> </note>"""
+    """<p>Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be retrieved. For more information about these storage classes and how to work with archived objects, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html"> Working with archived objects</a> in the <i>Amazon S3 User Guide</i>.</p> <note> <p>This functionality is not supported for directory buckets. Directory buckets only support <code>EXPRESS_ONEZONE</code> (the S3 Express One Zone storage class) in Availability Zones and <code>ONEZONE_IA</code> (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.</p> </note>"""
 
 
 # --- restXml ser/de ---

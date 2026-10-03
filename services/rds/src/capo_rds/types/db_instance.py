@@ -50,7 +50,7 @@ class DBInstance(TypedDict, closed=True):
     engine: NotRequired["capo_rds.types.string.String"]
     """<p>The database engine used for this DB instance.</p>"""
     db_instance_status: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The current state of this database.</p> <p>For information about DB instance statuses, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/accessing-monitoring.html#Overview.DBInstance.Status\">Viewing DB instance status</a> in the <i>Amazon RDS User Guide.</i> </p>"""
+    """<p>The current state of this database.</p> <p>For information about DB instance statuses, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/accessing-monitoring.html#Overview.DBInstance.Status">Viewing DB instance status</a> in the <i>Amazon RDS User Guide.</i> </p>"""
     master_username: NotRequired["capo_rds.types.string.String"]
     """<p>The master username for the DB instance.</p>"""
     db_name: NotRequired["capo_rds.types.string.String"]
@@ -98,7 +98,7 @@ class DBInstance(TypedDict, closed=True):
     engine_version: NotRequired["capo_rds.types.string.String"]
     """<p>The version of the database engine.</p>"""
     auto_minor_version_upgrade: NotRequired["capo_rds.types.boolean.Boolean"]
-    r"""<p>Indicates whether minor version patches are applied automatically.</p> <p>For more information about automatic minor version upgrades, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Upgrading.html#USER_UpgradeDBInstance.Upgrading.AutoMinorVersionUpgrades\">Automatically upgrading the minor engine version</a>.</p>"""
+    """<p>Indicates whether minor version patches are applied automatically.</p> <p>For more information about automatic minor version upgrades, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Upgrading.html#USER_UpgradeDBInstance.Upgrading.AutoMinorVersionUpgrades">Automatically upgrading the minor engine version</a>.</p>"""
     read_replica_source_db_instance_identifier: NotRequired[
         "capo_rds.types.string.String"
     ]
@@ -112,7 +112,7 @@ class DBInstance(TypedDict, closed=True):
     ]
     """<p>The identifiers of Aurora DB clusters to which the RDS DB instance is replicated as a read replica. For example, when you create an Aurora read replica of an RDS for MySQL DB instance, the Aurora MySQL DB cluster for the Aurora read replica is shown. This output doesn't contain information about cross-Region Aurora read replicas.</p> <note> <p>Currently, each RDS DB instance can have only one Aurora read replica.</p> </note>"""
     replica_mode: NotRequired["capo_rds.types.replica_mode.ReplicaMode"]
-    r"""<p>The open mode of a Db2 or an Oracle read replica. The default is <code>open-read-only</code>. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-replication.html\">Working with replicas for Amazon RDS for Db2</a> and <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/oracle-read-replicas.html\">Working with read replicas for Amazon RDS for Oracle</a> in the <i>Amazon RDS User Guide</i>. </p> <note> <p>This attribute is only supported in RDS for Db2, RDS for Oracle, and RDS Custom for Oracle.</p> </note>"""
+    """<p>The open mode of a Db2 or an Oracle read replica. The default is <code>open-read-only</code>. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-replication.html">Working with replicas for Amazon RDS for Db2</a> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/oracle-read-replicas.html">Working with read replicas for Amazon RDS for Oracle</a> in the <i>Amazon RDS User Guide</i>. </p> <note> <p>This attribute is only supported in RDS for Db2, RDS for Oracle, and RDS Custom for Oracle.</p> </note>"""
     license_model: NotRequired["capo_rds.types.string.String"]
     """<p>The license model information for this DB instance. This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.</p>"""
     iops: NotRequired["capo_rds.types.integer_optional.IntegerOptional"]
@@ -154,7 +154,7 @@ class DBInstance(TypedDict, closed=True):
     dbi_resource_id: NotRequired["capo_rds.types.string.String"]
     """<p>The Amazon Web Services Region-unique, immutable identifier for the DB instance. This identifier is found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key for the DB instance is accessed.</p>"""
     ca_certificate_identifier: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The identifier of the CA certificate for this DB instance.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html\">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html\"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
+    """<p>The identifier of the CA certificate for this DB instance.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
     domain_memberships: NotRequired[
         "capo_rds.types.domain_membership_list.DomainMembershipList"
     ]
@@ -168,13 +168,13 @@ class DBInstance(TypedDict, closed=True):
     monitoring_role_arn: NotRequired["capo_rds.types.string.String"]
     """<p>The ARN for the IAM role that permits RDS to send Enhanced Monitoring metrics to Amazon CloudWatch Logs.</p>"""
     promotion_tier: NotRequired["capo_rds.types.integer_optional.IntegerOptional"]
-    r"""<p>The order of priority in which an Aurora Replica is promoted to the primary instance after a failure of the existing primary instance. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.AuroraHighAvailability.html#Aurora.Managing.FaultTolerance\"> Fault Tolerance for an Aurora DB Cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
+    """<p>The order of priority in which an Aurora Replica is promoted to the primary instance after a failure of the existing primary instance. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.AuroraHighAvailability.html#Aurora.Managing.FaultTolerance"> Fault Tolerance for an Aurora DB Cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
     db_instance_arn: NotRequired["capo_rds.types.string.String"]
     """<p>The Amazon Resource Name (ARN) for the DB instance.</p>"""
     timezone: NotRequired["capo_rds.types.string.String"]
     """<p>The time zone of the DB instance. In most cases, the <code>Timezone</code> element is empty. <code>Timezone</code> content appears only for RDS for Db2 and RDS for SQL Server DB instances that were created with a time zone specified.</p>"""
     iam_database_authentication_enabled: NotRequired["capo_rds.types.boolean.Boolean"]
-    r"""<p>Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database accounts is enabled for the DB instance.</p> <p>For a list of engine versions that support IAM database authentication, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RDS_Fea_Regions_DB-eng.Feature.IamDatabaseAuthentication.html\">IAM database authentication</a> in the <i>Amazon RDS User Guide</i> and <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.Aurora_Fea_Regions_DB-eng.Feature.IAMdbauth.html\">IAM database authentication in Aurora</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
+    """<p>Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database accounts is enabled for the DB instance.</p> <p>For a list of engine versions that support IAM database authentication, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RDS_Fea_Regions_DB-eng.Feature.IamDatabaseAuthentication.html">IAM database authentication</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.Aurora_Fea_Regions_DB-eng.Feature.IAMdbauth.html">IAM database authentication in Aurora</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
     database_insights_mode: NotRequired[
         "capo_rds.types.database_insights_mode.DatabaseInsightsMode"
     ]
@@ -192,13 +192,13 @@ class DBInstance(TypedDict, closed=True):
     enabled_cloudwatch_logs_exports: NotRequired[
         "capo_rds.types.log_type_list.LogTypeList"
     ]
-    r"""<p>A list of log types that this DB instance is configured to export to CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the log types for each DB engine, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html\">Monitoring Amazon RDS log files</a> in the <i>Amazon RDS User Guide.</i> </p>"""
+    """<p>A list of log types that this DB instance is configured to export to CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the log types for each DB engine, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Monitoring Amazon RDS log files</a> in the <i>Amazon RDS User Guide.</i> </p>"""
     processor_features: NotRequired[
         "capo_rds.types.processor_feature_list.ProcessorFeatureList"
     ]
     """<p>The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.</p>"""
     deletion_protection: NotRequired["capo_rds.types.boolean.Boolean"]
-    r"""<p>Indicates whether the DB instance has deletion protection enabled. The database can't be deleted when deletion protection is enabled. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html\"> Deleting a DB Instance</a>.</p>"""
+    """<p>Indicates whether the DB instance has deletion protection enabled. The database can't be deleted when deletion protection is enabled. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB Instance</a>.</p>"""
     associated_roles: NotRequired["capo_rds.types.db_instance_roles.DBInstanceRoles"]
     """<p>The Amazon Web Services Identity and Access Management (IAM) roles associated with the DB instance.</p>"""
     listener_endpoint: NotRequired["capo_rds.types.endpoint.Endpoint"]
@@ -215,9 +215,9 @@ class DBInstance(TypedDict, closed=True):
     customer_owned_ip_enabled: NotRequired[
         "capo_rds.types.boolean_optional.BooleanOptional"
     ]
-    r"""<p>Indicates whether a customer-owned IP address (CoIP) is enabled for an RDS on Outposts DB instance.</p> <p>A <i>CoIP </i>provides local or external connectivity to resources in your Outpost subnets through your on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB instance from outside of its virtual private cloud (VPC) on your local network.</p> <p>For more information about RDS on Outposts, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html\">Working with Amazon RDS on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.</p> <p>For more information about CoIPs, see <a href=\"https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing\">Customer-owned IP addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.</p>"""
+    """<p>Indicates whether a customer-owned IP address (CoIP) is enabled for an RDS on Outposts DB instance.</p> <p>A <i>CoIP </i>provides local or external connectivity to resources in your Outpost subnets through your on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB instance from outside of its virtual private cloud (VPC) on your local network.</p> <p>For more information about RDS on Outposts, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.</p> <p>For more information about CoIPs, see <a href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.</p>"""
     network_type: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The network type of the DB instance.</p> <p>The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html\"> Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide</i> and <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html\"> Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i> </p> <p>Valid Values: <code>IPV4 | DUAL</code> </p>"""
+    """<p>The network type of the DB instance.</p> <p>The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i> </p> <p>Valid Values: <code>IPV4 | DUAL</code> </p>"""
     activity_stream_status: NotRequired[
         "capo_rds.types.activity_stream_status.ActivityStreamStatus"
     ]
@@ -245,7 +245,7 @@ class DBInstance(TypedDict, closed=True):
     automatic_restart_time: NotRequired["capo_rds.types.t_stamp.TStamp"]
     """<p>The time when a stopped DB instance is restarted automatically.</p>"""
     custom_iam_instance_profile: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The instance profile must meet the following requirements:</p> <ul> <li> <p>The profile must exist in your account.</p> </li> <li> <p>The profile must have an IAM role that Amazon EC2 has permissions to assume.</p> </li> <li> <p>The instance profile name and the associated IAM role name must start with the prefix <code>AWSRDSCustom</code>.</p> </li> </ul> <p>For the list of permissions required for the IAM role, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc\"> Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.</p>"""
+    """<p>The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The instance profile must meet the following requirements:</p> <ul> <li> <p>The profile must exist in your account.</p> </li> <li> <p>The profile must have an IAM role that Amazon EC2 has permissions to assume.</p> </li> <li> <p>The instance profile name and the associated IAM role name must start with the prefix <code>AWSRDSCustom</code>.</p> </li> </ul> <p>For the list of permissions required for the IAM role, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc"> Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.</p>"""
     activity_stream_policy_status: NotRequired[
         "capo_rds.types.activity_stream_policy_status.ActivityStreamPolicyStatus"
     ]
@@ -259,7 +259,7 @@ class DBInstance(TypedDict, closed=True):
     master_user_secret: NotRequired[
         "capo_rds.types.master_user_secret.MasterUserSecret"
     ]
-    r"""<p>The secret managed by RDS in Amazon Web Services Secrets Manager for the master user password.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html\">Password management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i> </p>"""
+    """<p>The secret managed by RDS in Amazon Web Services Secrets Manager for the master user password.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i> </p>"""
     read_replica_source_db_cluster_identifier: NotRequired[
         "capo_rds.types.string.String"
     ]
@@ -273,7 +273,7 @@ class DBInstance(TypedDict, closed=True):
     is_storage_config_upgrade_available: NotRequired[
         "capo_rds.types.boolean_optional.BooleanOptional"
     ]
-    r"""<p>Indicates whether an upgrade is recommended for the storage file system configuration on the DB instance. To migrate to the preferred configuration, you can either create a blue/green deployment, or create a read replica from the DB instance. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.UpgradeFileSystem\">Upgrading the storage file system for a DB instance</a>.</p>"""
+    """<p>Indicates whether an upgrade is recommended for the storage file system configuration on the DB instance. To migrate to the preferred configuration, you can either create a blue/green deployment, or create a read replica from the DB instance. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.UpgradeFileSystem">Upgrading the storage file system for a DB instance</a>.</p>"""
     engine_lifecycle_support: NotRequired["capo_rds.types.string.String"]
     """<p>The lifecycle type for the DB instance.</p> <p>For more information, see CreateDBInstance.</p>"""
     additional_storage_volumes: NotRequired[

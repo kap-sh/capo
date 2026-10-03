@@ -34,7 +34,7 @@ class Schedule(TypedDict, closed=True):
     resource_arn: NotRequired["capo_databrew.types.arn.Arn"]
     """<p>The Amazon Resource Name (ARN) of the schedule.</p>"""
     cron_expression: NotRequired["capo_databrew.types.cron_expression.CronExpression"]
-    r"""<p>The dates and times when the job is to run. For more information, see <a href=\"https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html\">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>"""
+    """<p>The dates and times when the job is to run. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/jobs.cron.html">Cron expressions</a> in the <i>Glue DataBrew Developer Guide</i>.</p>"""
     tags: NotRequired["capo_databrew.types.tag_map.TagMap"]
     """<p>Metadata tags that have been applied to the schedule.</p>"""
     name: "capo_databrew.types.schedule_name.ScheduleName"

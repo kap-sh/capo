@@ -14,7 +14,7 @@ class MetadataConfiguration(TypedDict, closed=True):
     non_filterable_metadata_keys: (
         "capo_s3vectors.types.non_filterable_metadata_keys.NonFilterableMetadataKeys"
     )
-    r"""<p>Non-filterable metadata keys allow you to enrich vectors with additional context during storage and retrieval. Unlike default metadata keys, these keys can’t be used as query filters. Non-filterable metadata keys can be retrieved but can’t be searched, queried, or filtered. You can access non-filterable metadata keys of your vectors after finding the vectors. For more information about non-filterable metadata keys, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-vectors.html\">Vectors</a> and <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-limitations.html\">Limitations and restrictions</a> in the <i>Amazon S3 User Guide</i>. </p>"""
+    """<p>Non-filterable metadata keys allow you to enrich vectors with additional context during storage and retrieval. Unlike default metadata keys, these keys can’t be used as query filters. Non-filterable metadata keys can be retrieved but can’t be searched, queried, or filtered. You can access non-filterable metadata keys of your vectors after finding the vectors. For more information about non-filterable metadata keys, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-vectors.html">Vectors</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-limitations.html">Limitations and restrictions</a> in the <i>Amazon S3 User Guide</i>. </p>"""
 
 
 # --- restJson1 ser/de ---

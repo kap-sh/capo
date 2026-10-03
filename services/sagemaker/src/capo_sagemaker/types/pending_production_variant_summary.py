@@ -26,11 +26,11 @@ class PendingProductionVariantSummary(TypedDict, closed=True):
     current_weight: NotRequired["capo_sagemaker.types.variant_weight.VariantWeight"]
     """<p>The weight associated with the variant.</p>"""
     desired_weight: NotRequired["capo_sagemaker.types.variant_weight.VariantWeight"]
-    r"""<p>The requested weight for the variant in this deployment, as specified in the endpoint configuration for the endpoint. The value is taken from the request to the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html\">CreateEndpointConfig</a> operation.</p>"""
+    """<p>The requested weight for the variant in this deployment, as specified in the endpoint configuration for the endpoint. The value is taken from the request to the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">CreateEndpointConfig</a> operation.</p>"""
     current_instance_count: NotRequired["capo_sagemaker.types.task_count.TaskCount"]
     """<p>The number of instances associated with the variant.</p>"""
     desired_instance_count: NotRequired["capo_sagemaker.types.task_count.TaskCount"]
-    r"""<p>The number of instances requested in this deployment, as specified in the endpoint configuration for the endpoint. The value is taken from the request to the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html\">CreateEndpointConfig</a> operation.</p>"""
+    """<p>The number of instances requested in this deployment, as specified in the endpoint configuration for the endpoint. The value is taken from the request to the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">CreateEndpointConfig</a> operation.</p>"""
     instance_type: NotRequired[
         "capo_sagemaker.types.production_variant_instance_type.ProductionVariantInstanceType"
     ]

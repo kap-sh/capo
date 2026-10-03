@@ -15,7 +15,7 @@ class GetDatasetRequest(TypedDict, closed=True):
     dataset_version: NotRequired[
         "capo_bedrock_agentcore_control.types.dataset_version.DatasetVersion"
     ]
-    r"""<p> Version to retrieve: \"DRAFT\" or a version number. Defaults to DRAFT if absent. </p>"""
+    """<p> Version to retrieve: "DRAFT" or a version number. Defaults to DRAFT if absent. </p>"""
 
 
 # --- restJson1 ser/de ---

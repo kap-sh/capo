@@ -34,7 +34,7 @@ class BillingViewElement(TypedDict, closed=True):
     source_account_id: NotRequired["capo_billing.types.account_id.AccountId"]
     """<p> The Amazon Web Services account ID that owns the source billing view, if this is a derived billing view. </p>"""
     data_filter_expression: NotRequired["capo_billing.types.expression.Expression"]
-    r"""<p> See <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html\">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>"""
+    """<p> See <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>"""
     created_at: NotRequired["datetime.datetime"]
     """<p>The time when the billing view was created. </p>"""
     updated_at: NotRequired["datetime.datetime"]

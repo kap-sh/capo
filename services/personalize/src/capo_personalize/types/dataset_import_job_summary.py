@@ -27,7 +27,7 @@ class DatasetImportJobSummary(TypedDict, closed=True):
     failure_reason: NotRequired["capo_personalize.types.failure_reason.FailureReason"]
     """<p>If a dataset import job fails, the reason behind the failure.</p>"""
     import_mode: NotRequired["capo_personalize.types.import_mode.ImportMode"]
-    r"""<p>The import mode the dataset import job used to update the data in the dataset. For more information see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html\">Updating existing bulk data</a>. </p>"""
+    """<p>The import mode the dataset import job used to update the data in the dataset. For more information see <a href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating existing bulk data</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

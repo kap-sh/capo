@@ -18,7 +18,7 @@ class ListConfigurationCheckOperationsInput(TypedDict, closed=True):
     application_id: "capo_ssm_sap.types.application_id.ApplicationId"
     """<p>The ID of the application.</p>"""
     list_mode: "capo_ssm_sap.types.configuration_check_operation_listing_mode.ConfigurationCheckOperationListingMode"
-    r"""<p>The mode for listing configuration check operations. Defaults to \"LATEST_PER_CHECK\".</p> <ul> <li> <p>LATEST_PER_CHECK - Will list the latest configuration check operation per check type.</p> </li> <li> <p>ALL_OPERATIONS - Will list all configuration check operations performed on the application.</p> </li> </ul>"""
+    """<p>The mode for listing configuration check operations. Defaults to "LATEST_PER_CHECK".</p> <ul> <li> <p>LATEST_PER_CHECK - Will list the latest configuration check operation per check type.</p> </li> <li> <p>ALL_OPERATIONS - Will list all configuration check operations performed on the application.</p> </li> </ul>"""
     max_results: NotRequired["capo_ssm_sap.types.max_results.MaxResults"]
     """<p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned nextToken value.</p>"""
     next_token: NotRequired["capo_ssm_sap.types.next_token.NextToken"]

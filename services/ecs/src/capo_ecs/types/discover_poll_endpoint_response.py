@@ -14,7 +14,7 @@ class DiscoverPollEndpointResponse(TypedDict, closed=True):
     telemetry_endpoint: NotRequired["capo_ecs.types.string.String"]
     """<p>The telemetry endpoint for the Amazon ECS agent.</p>"""
     service_connect_endpoint: NotRequired["capo_ecs.types.string.String"]
-    r"""<p>The endpoint for the Amazon ECS agent to poll for Service Connect configuration. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html\">Service Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
+    """<p>The endpoint for the Amazon ECS agent to poll for Service Connect configuration. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

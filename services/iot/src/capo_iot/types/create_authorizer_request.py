@@ -31,7 +31,7 @@ class CreateAuthorizerRequest(TypedDict, closed=True):
     status: NotRequired["capo_iot.types.authorizer_status.AuthorizerStatus"]
     """<p>The status of the create authorizer request.</p>"""
     tags: NotRequired["capo_iot.types.tag_list.TagList"]
-    r"""<p>Metadata which can be used to manage the custom authorizer.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags \"key1=value1&key2=value2...\"</p> <p>For the cli-input-json file use format: \"tags\": \"key1=value1&key2=value2...\"</p> </note>"""
+    """<p>Metadata which can be used to manage the custom authorizer.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags "key1=value1&key2=value2..."</p> <p>For the cli-input-json file use format: "tags": "key1=value1&key2=value2..."</p> </note>"""
     signing_disabled: NotRequired["capo_iot.types.boolean_key.BooleanKey"]
     """<p>Specifies whether IoT validates the token signature in an authorization request.</p>"""
     enable_caching_for_http: NotRequired[

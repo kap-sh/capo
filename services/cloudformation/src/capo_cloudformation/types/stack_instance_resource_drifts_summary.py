@@ -33,7 +33,7 @@ class StackInstanceResourceDriftsSummary(TypedDict, closed=True):
     ]
     """<p>Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses context key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely identify that resource. Each context key-value pair specifies a unique resource that contains the targeted resource.</p>"""
     resource_type: NotRequired["capo_cloudformation.types.resource_type.ResourceType"]
-    r"""<p>Type of resource. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html\">Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>Type of resource. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.</p>"""
     property_differences: NotRequired[
         "capo_cloudformation.types.property_differences.PropertyDifferences"
     ]

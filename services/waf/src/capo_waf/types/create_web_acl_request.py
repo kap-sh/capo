@@ -18,7 +18,7 @@ class CreateWebACLRequest(TypedDict, closed=True):
     name: "capo_waf.types.resource_name.ResourceName"
     """<p>A friendly name or description of the <a>WebACL</a>. You can't change <code>Name</code> after you create the <code>WebACL</code>.</p>"""
     metric_name: "capo_waf.types.metric_name.MetricName"
-    r"""<p>A friendly name or description for the metrics for this <code>WebACL</code>.The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including \"All\" and \"Default_Action.\" You can't change <code>MetricName</code> after you create the <code>WebACL</code>.</p>"""
+    """<p>A friendly name or description for the metrics for this <code>WebACL</code>.The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including "All" and "Default_Action." You can't change <code>MetricName</code> after you create the <code>WebACL</code>.</p>"""
     default_action: "capo_waf.types.waf_action.WafAction"
     """<p>The action that you want AWS WAF to take when a request doesn't match the criteria specified in any of the <code>Rule</code> objects that are associated with the <code>WebACL</code>.</p>"""
     change_token: "capo_waf.types.change_token.ChangeToken"

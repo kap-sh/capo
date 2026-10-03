@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class GetCallerIdentityResponse(TypedDict, closed=True):
     user_id: NotRequired["capo_sts.types.user_id_type.userIdType"]
-    r"""<p>The unique identifier of the calling entity. The exact value depends on the type of entity that is making the call. The values returned are those listed in the <b>aws:userid</b> column in the <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable\">Principal table</a> found on the <b>Policy Variables</b> reference page in the <i>IAM User Guide</i>.</p>"""
+    """<p>The unique identifier of the calling entity. The exact value depends on the type of entity that is making the call. The values returned are those listed in the <b>aws:userid</b> column in the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable">Principal table</a> found on the <b>Policy Variables</b> reference page in the <i>IAM User Guide</i>.</p>"""
     account: NotRequired["capo_sts.types.account_type.accountType"]
     """<p>The Amazon Web Services account ID number of the account that owns or contains the calling entity.</p>"""
     arn: NotRequired["capo_sts.types.arn_type.arnType"]

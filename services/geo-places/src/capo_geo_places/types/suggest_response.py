@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class SuggestResponse(TypedDict, closed=True):
     pricing_bucket: "str"
-    r"""<p>The pricing bucket for which the query is charged at.</p> <p>For more information on pricing, please visit <a href=\"https://aws.amazon.com/location/pricing/\">Amazon Location Service Pricing</a>.</p>"""
+    """<p>The pricing bucket for which the query is charged at.</p> <p>For more information on pricing, please visit <a href="https://aws.amazon.com/location/pricing/">Amazon Location Service Pricing</a>.</p>"""
     result_items: NotRequired[
         "capo_geo_places.types.suggest_result_item_list.SuggestResultItemList"
     ]
@@ -19,7 +19,7 @@ class SuggestResponse(TypedDict, closed=True):
     query_refinements: NotRequired[
         "capo_geo_places.types.query_refinement_list.QueryRefinementList"
     ]
-    r"""<p> Maximum number of query terms to be returned for use with a search text query. Not available in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p>"""
+    """<p> Maximum number of query terms to be returned for use with a search text query. Not available in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p>"""
 
 
 # --- restJson1 ser/de ---

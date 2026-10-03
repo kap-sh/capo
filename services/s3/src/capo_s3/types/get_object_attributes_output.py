@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class GetObjectAttributesOutput(TypedDict, closed=True):
     delete_marker: NotRequired["capo_s3.types.delete_marker.DeleteMarker"]
-    r"""<p>Specifies whether the object retrieved was (<code>true</code>) or was not (<code>false</code>) a delete marker. If <code>false</code>, this response header does not appear in the response. To learn more about delete markers, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeleteMarker.html\">Working with delete markers</a>.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
+    """<p>Specifies whether the object retrieved was (<code>true</code>) or was not (<code>false</code>) a delete marker. If <code>false</code>, this response header does not appear in the response. To learn more about delete markers, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeleteMarker.html">Working with delete markers</a>.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
     last_modified: NotRequired["capo_s3.types.last_modified.LastModified"]
     """<p>Date and time when the object was last modified.</p>"""
     version_id: NotRequired["capo_s3.types.object_version_id.ObjectVersionId"]
@@ -35,7 +35,7 @@ class GetObjectAttributesOutput(TypedDict, closed=True):
     ]
     """<p>A collection of parts associated with a multipart upload.</p>"""
     storage_class: NotRequired["capo_s3.types.storage_class.StorageClass"]
-    r"""<p>Provides the storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html\">Storage Classes</a>.</p> <note> <p> <b>Directory buckets</b> - Directory buckets only support <code>EXPRESS_ONEZONE</code> (the S3 Express One Zone storage class) in Availability Zones and <code>ONEZONE_IA</code> (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.</p> </note>"""
+    """<p>Provides the storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html">Storage Classes</a>.</p> <note> <p> <b>Directory buckets</b> - Directory buckets only support <code>EXPRESS_ONEZONE</code> (the S3 Express One Zone storage class) in Availability Zones and <code>ONEZONE_IA</code> (the S3 One Zone-Infrequent Access storage class) in Dedicated Local Zones.</p> </note>"""
     object_size: NotRequired["capo_s3.types.object_size.ObjectSize"]
     """<p>The size of the object in bytes.</p>"""
 

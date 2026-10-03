@@ -27,7 +27,7 @@ class OidcIdentityProviderConfigRequest(TypedDict, closed=True):
     groups_prefix: NotRequired["capo_eks.types.string.String"]
     """<p>The prefix that is prepended to group claims to prevent clashes with existing names (such as <code>system:</code> groups). For example, the value<code> oidc:</code> will create group names like <code>oidc:engineering</code> and <code>oidc:infra</code>.</p>"""
     required_claims: NotRequired["capo_eks.types.required_claims_map.requiredClaimsMap"]
-    r"""<p>The key value pairs that describe required claims in the identity token. If set, each claim is verified to be present in the token with a matching value. For the maximum number of claims that you can require, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/service-quotas.html\">Amazon EKS service quotas</a> in the <i>Amazon EKS User Guide</i>.</p>"""
+    """<p>The key value pairs that describe required claims in the identity token. If set, each claim is verified to be present in the token with a matching value. For the maximum number of claims that you can require, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/service-quotas.html">Amazon EKS service quotas</a> in the <i>Amazon EKS User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

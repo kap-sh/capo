@@ -47,11 +47,11 @@ class Canary(TypedDict, closed=True):
     success_retention_period_in_days: NotRequired[
         "capo_synthetics.types.max_size1024.MaxSize1024"
     ]
-    r"""<p>The number of days to retain data about successful runs of this canary.</p> <p>This setting affects the range of information returned by <a href=\"https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_GetCanaryRuns.html\">GetCanaryRuns</a>, as well as the range of information displayed in the Synthetics console. </p>"""
+    """<p>The number of days to retain data about successful runs of this canary.</p> <p>This setting affects the range of information returned by <a href="https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_GetCanaryRuns.html">GetCanaryRuns</a>, as well as the range of information displayed in the Synthetics console. </p>"""
     failure_retention_period_in_days: NotRequired[
         "capo_synthetics.types.max_size1024.MaxSize1024"
     ]
-    r"""<p>The number of days to retain data about failed runs of this canary.</p> <p>This setting affects the range of information returned by <a href=\"https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_GetCanaryRuns.html\">GetCanaryRuns</a>, as well as the range of information displayed in the Synthetics console. </p>"""
+    """<p>The number of days to retain data about failed runs of this canary.</p> <p>This setting affects the range of information returned by <a href="https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_GetCanaryRuns.html">GetCanaryRuns</a>, as well as the range of information displayed in the Synthetics console. </p>"""
     status: NotRequired["capo_synthetics.types.canary_status.CanaryStatus"]
     """<p>A structure that contains information about the canary's status.</p>"""
     timeline: NotRequired["capo_synthetics.types.canary_timeline.CanaryTimeline"]
@@ -59,9 +59,9 @@ class Canary(TypedDict, closed=True):
     artifact_s3_location: NotRequired["capo_synthetics.types.string.String"]
     """<p>The location in Amazon S3 where Synthetics stores artifacts from the runs of this canary. Artifacts include the log file, screenshots, and HAR files.</p>"""
     engine_arn: NotRequired["capo_synthetics.types.function_arn.FunctionArn"]
-    r"""<p>The ARN of the Lambda function that is used as your canary's engine. For more information about Lambda ARN format, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/lambda-api-permissions-ref.html\">Resources and Conditions for Lambda Actions</a>.</p>"""
+    """<p>The ARN of the Lambda function that is used as your canary's engine. For more information about Lambda ARN format, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-api-permissions-ref.html">Resources and Conditions for Lambda Actions</a>.</p>"""
     runtime_version: NotRequired["capo_synthetics.types.string.String"]
-    r"""<p>Specifies the runtime version to use for the canary. For more information about runtime versions, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Library.html\"> Canary Runtime Versions</a>.</p>"""
+    """<p>Specifies the runtime version to use for the canary. For more information about runtime versions, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Library.html"> Canary Runtime Versions</a>.</p>"""
     vpc_config: NotRequired["capo_synthetics.types.vpc_config_output.VpcConfigOutput"]
     visual_reference: NotRequired[
         "capo_synthetics.types.visual_reference_output.VisualReferenceOutput"
@@ -70,7 +70,7 @@ class Canary(TypedDict, closed=True):
     provisioned_resource_cleanup: NotRequired[
         "capo_synthetics.types.provisioned_resource_cleanup_setting.ProvisionedResourceCleanupSetting"
     ]
-    r"""<p>Specifies whether to also delete the Lambda functions and layers used by this canary when the canary is deleted. If it is <code>AUTOMATIC</code>, the Lambda functions and layers will be deleted when the canary is deleted.</p> <p>If the value of this parameter is <code>OFF</code>, then the value of the <code>DeleteLambda</code> parameter of the <a href=\"https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_DeleteCanary.html\">DeleteCanary</a> operation determines whether the Lambda functions and layers will be deleted.</p>"""
+    """<p>Specifies whether to also delete the Lambda functions and layers used by this canary when the canary is deleted. If it is <code>AUTOMATIC</code>, the Lambda functions and layers will be deleted when the canary is deleted.</p> <p>If the value of this parameter is <code>OFF</code>, then the value of the <code>DeleteLambda</code> parameter of the <a href="https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_DeleteCanary.html">DeleteCanary</a> operation determines whether the Lambda functions and layers will be deleted.</p>"""
     browser_configs: NotRequired["capo_synthetics.types.browser_configs.BrowserConfigs"]
     """<p>A structure that specifies the browser type to use for a canary run. CloudWatch Synthetics supports running canaries on both <code>CHROME</code> and <code>FIREFOX</code> browsers.</p> <note> <p>If not specified, <code>browserConfigs</code> defaults to Chrome.</p> </note>"""
     engine_configs: NotRequired["capo_synthetics.types.engine_configs.EngineConfigs"]

@@ -27,7 +27,7 @@ class RegistrationAttachmentsInformation(TypedDict, closed=True):
     ]
     """<p>A description of why the upload didn't successfully complete.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the registration attachment was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration attachment was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     attachment_url: NotRequired["str"]
     """<p>The URL to the document that's associated with the registration attachment.</p>"""
 

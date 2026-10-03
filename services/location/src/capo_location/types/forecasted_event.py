@@ -29,7 +29,7 @@ class ForecastedEvent(TypedDict, closed=True):
     )
     """<p>The event type, forecasting three states for which a device can be in relative to a geofence:</p> <p> <code>ENTER</code>: If a device is outside of a geofence, but would breach the fence if the device is moving at its current speed within time horizon window.</p> <p> <code>EXIT</code>: If a device is inside of a geofence, but would breach the fence if the device is moving at its current speed within time horizon window.</p> <p> <code>IDLE</code>: If a device is inside of a geofence, and the device is not moving.</p>"""
     forecasted_breach_time: NotRequired["capo_location.types.timestamp.Timestamp"]
-    r"""<p>The forecasted time the device will breach the geofence in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code> </p>"""
+    """<p>The forecasted time the device will breach the geofence in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code> </p>"""
     geofence_properties: NotRequired["capo_location.types.property_map.PropertyMap"]
     """<p>The geofence properties.</p>"""
 

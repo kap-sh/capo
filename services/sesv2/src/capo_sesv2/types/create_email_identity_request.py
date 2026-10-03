@@ -21,7 +21,7 @@ class CreateEmailIdentityRequest(TypedDict, closed=True):
     dkim_signing_attributes: NotRequired[
         "capo_sesv2.types.dkim_signing_attributes.DkimSigningAttributes"
     ]
-    r"""<p>If your request includes this object, Amazon SES configures the identity to use Bring Your Own DKIM (BYODKIM) for DKIM authentication purposes, or, configures the key length to be used for <a href=\"https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html\">Easy DKIM</a>.</p> <p>You can only specify this object if the email identity is a domain, as opposed to an address.</p>"""
+    """<p>If your request includes this object, Amazon SES configures the identity to use Bring Your Own DKIM (BYODKIM) for DKIM authentication purposes, or, configures the key length to be used for <a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html">Easy DKIM</a>.</p> <p>You can only specify this object if the email identity is a domain, as opposed to an address.</p>"""
     configuration_set_name: NotRequired[
         "capo_sesv2.types.configuration_set_name.ConfigurationSetName"
     ]

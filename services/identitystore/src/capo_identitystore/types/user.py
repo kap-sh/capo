@@ -38,7 +38,7 @@ class User(TypedDict, closed=True):
     display_name: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string containing the name of the user that is formatted for display when the user is referenced. For example, \"John Doe.\"</p> <p>Prefix search supports a maximum of 1,000 characters for the string.</p>"""
+    """<p>A string containing the name of the user that is formatted for display when the user is referenced. For example, "John Doe."</p> <p>Prefix search supports a maximum of 1,000 characters for the string.</p>"""
     nick_name: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
@@ -64,7 +64,7 @@ class User(TypedDict, closed=True):
     preferred_language: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string containing the preferred language of the user. For example, \"American English\" or \"en-us.\"</p>"""
+    """<p>A string containing the preferred language of the user. For example, "American English" or "en-us."</p>"""
     locale: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]

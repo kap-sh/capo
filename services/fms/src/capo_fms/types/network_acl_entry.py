@@ -21,7 +21,7 @@ class NetworkAclEntry(TypedDict, closed=True):
     ]
     """<p>ICMP protocol: The ICMP type and code.</p>"""
     protocol: "capo_fms.types.length_bounded_string.LengthBoundedString"
-    r"""<p>The protocol number. A value of \"-1\" means all protocols. </p>"""
+    """<p>The protocol number. A value of "-1" means all protocols. </p>"""
     port_range: NotRequired["capo_fms.types.network_acl_port_range.NetworkAclPortRange"]
     """<p>TCP or UDP protocols: The range of ports the rule applies to.</p>"""
     cidr_block: NotRequired[

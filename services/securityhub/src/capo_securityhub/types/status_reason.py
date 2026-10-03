@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class StatusReason(TypedDict, closed=True):
     reason_code: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>A code that represents a reason for the control status. For the list of status reason codes and their meanings, see <a href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/controls-findings-create-update.html#control-findings-asff-compliance\">Compliance details for control findings</a> in the <i>Security Hub CSPM User Guide</i>. </p>"""
+    """<p>A code that represents a reason for the control status. For the list of status reason codes and their meanings, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/controls-findings-create-update.html#control-findings-asff-compliance">Compliance details for control findings</a> in the <i>Security Hub CSPM User Guide</i>. </p>"""
     description: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The corresponding description for the status reason code.</p>"""
 

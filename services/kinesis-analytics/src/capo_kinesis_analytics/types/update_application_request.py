@@ -18,7 +18,7 @@ class UpdateApplicationRequest(TypedDict, closed=True):
     current_application_version_id: (
         "capo_kinesis_analytics.types.application_version_id.ApplicationVersionId"
     )
-    r"""<p>The current application version ID. You can use the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html\">DescribeApplication</a> operation to get this value.</p>"""
+    """<p>The current application version ID. You can use the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a> operation to get this value.</p>"""
     application_update: (
         "capo_kinesis_analytics.types.application_update.ApplicationUpdate"
     )

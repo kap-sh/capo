@@ -1371,10 +1371,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.activate_evaluation_form_response.ActivateEvaluationFormResponse":
-        r"""<p>Activates an evaluation form in the specified Connect Customer instance. After the evaluation form is activated, it is available to start new evaluations based on the form. </p>
+        """<p>Activates an evaluation form in the specified Connect Customer instance. After the evaluation form is activated, it is available to start new evaluations based on the form. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_form_id: <p>The unique identifier for the evaluation form.</p>
             evaluation_form_version: <p>The version of the evaluation form to activate. If the version property is not provided, the latest version of the evaluation form is activated.</p>
 
@@ -1426,10 +1426,10 @@ class ConnectClient:
             "capo_connect.types.aws_account_id.AWSAccountId"
         ] = None,
     ) -> "capo_connect.types.associate_analytics_data_set_response.AssociateAnalyticsDataSetResponse":
-        r"""<p>Associates the specified dataset for a Connect Customer instance with the target account. You can associate only one dataset in a single call.</p>
+        """<p>Associates the specified dataset for a Connect Customer instance with the target account. You can associate only one dataset in a single call.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             data_set_id: <p>The identifier of the dataset to associate with the target account.</p>
             target_account_id: <p>The identifier of the target account. Use to associate a dataset to a different account than the one containing the Connect Customer instance. If not specified, by default this value is the Amazon Web Services account that has the Connect Customer instance.</p>
 
@@ -1480,12 +1480,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Associates an approved origin to an Connect Customer instance.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Associates an approved origin to an Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             origin: <p>The domain to add to your allow list.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -1536,12 +1536,12 @@ class ConnectClient:
         lex_v2_bot: Optional["capo_connect.types.lex_v2_bot.LexV2Bot"] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Allows the specified Connect Customer instance to access the specified Amazon Lex or Amazon Lex V2 bot.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Allows the specified Connect Customer instance to access the specified Amazon Lex or Amazon Lex V2 bot.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             lex_v2_bot: <p>The Amazon Lex V2 bot to associate with the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -1594,10 +1594,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.associate_contact_with_user_response.AssociateContactWithUserResponse":
-        r"""<p>Associates a queued contact with an agent.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Programmatically assign queued contacts to available users.</p> </li> <li> <p>Leverage the IAM context key <code>connect:PreferredUserArn</code> to restrict contact association to specific preferred user.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>Use this API with chat, email, task, and voice contacts. For voice callbacks, this API does not support customer-first mode.</p> </li> <li> <p>This API can be used to offer a contact to an agent even if the agent is currently at maximum concurrency for the channel.</p> </li> <li> <p>Use it to associate contacts with users regardless of their current state, including custom states. Ensure your application logic accounts for user availability before making associations.</p> </li> <li> <p>It honors the IAM context key <code>connect:PreferredUserArn</code> to prevent unauthorized contact associations.</p> </li> <li> <p>It respects the IAM context key <code>connect:PreferredUserArn</code> to enforce authorization controls and prevent unauthorized contact associations. Verify that your IAM policies are properly configured to support your intended use cases.</p> </li> <li> <p>The service quota <i>Queues per routing profile per instance</i> applies to manually assigned queues, too. For more information about this quota, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas\">Connect Customer quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Associates a queued contact with an agent.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Programmatically assign queued contacts to available users.</p> </li> <li> <p>Leverage the IAM context key <code>connect:PreferredUserArn</code> to restrict contact association to specific preferred user.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>Use this API with chat, email, task, and voice contacts. For voice callbacks, this API does not support customer-first mode.</p> </li> <li> <p>This API can be used to offer a contact to an agent even if the agent is currently at maximum concurrency for the channel.</p> </li> <li> <p>Use it to associate contacts with users regardless of their current state, including custom states. Ensure your application logic accounts for user availability before making associations.</p> </li> <li> <p>It honors the IAM context key <code>connect:PreferredUserArn</code> to prevent unauthorized contact associations.</p> </li> <li> <p>It respects the IAM context key <code>connect:PreferredUserArn</code> to enforce authorization controls and prevent unauthorized contact associations. Verify that your IAM policies are properly configured to support your intended use cases.</p> </li> <li> <p>The service quota <i>Queues per routing profile per instance</i> applies to manually assigned queues, too. For more information about this quota, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas">Connect Customer quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             user_id: <p>The identifier for the user. This can be the ID or the ARN of the user.</p>
 
@@ -1648,11 +1648,11 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         vocabulary_id: Optional["capo_connect.types.vocabulary_id.VocabularyId"] = None,
     ) -> "capo_connect.types.associate_default_vocabulary_response.AssociateDefaultVocabularyResponse":
-        r"""<p>Associates an existing vocabulary as the default. Contact Lens for Connect Customer uses the vocabulary in post-call and real-time analysis sessions for the given language.</p>
+        """<p>Associates an existing vocabulary as the default. Contact Lens for Connect Customer uses the vocabulary in post-call and real-time analysis sessions for the given language.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            language_code: <p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html\">What is Amazon Transcribe?</a> </p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            language_code: <p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html">What is Amazon Transcribe?</a> </p>
             vocabulary_id: <p>The identifier of the custom vocabulary. If this is empty, the default is set to none.</p>
 
         Raises:
@@ -1703,13 +1703,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.associate_email_address_alias_response.AssociateEmailAddressAliasResponse":
-        r"""<p>Associates an email address alias with an existing email address in an Connect Customer instance. This creates a forwarding relationship where emails sent to the alias email address are automatically forwarded to the primary email address. </p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p> <b>Unified customer support</b>: Create multiple entry points (for example, support@example.com, help@example.com, customercare@example.com) that all forward to a single agent queue for streamlined management.</p> </li> <li> <p> <b>Department consolidation</b>: Forward emails from legacy department addresses (for example, sales@example.com, info@example.com) to a centralized customer service email during organizational restructuring.</p> </li> <li> <p> <b>Brand management</b>: Enable you to use familiar brand-specific email addresses that forward to the appropriate Connect Customer instance email address.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>Each email address can have a maximum of one alias. You cannot create multiple aliases for the same email address. </p> </li> <li> <p>If the alias email address already receives direct emails, it continues to receive direct emails plus forwarded emails.</p> </li> <li> <p>You cannot chain email aliases together (that is, create an alias of an alias).</p> </li> </ul> <p> <code>AssociateEmailAddressAlias</code> does not return the following information:</p> <ul> <li> <p>A confirmation of the alias relationship details (you must call <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeEmailAddress.html\">DescribeEmailAddress</a> to verify).</p> </li> <li> <p>The timestamp of when the association occurred.</p> </li> <li> <p>The status of the forwarding configuration.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p> <p> <b>Related operations</b> </p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DisassociateEmailAddressAlias.html\">DisassociateEmailAddressAlias</a>: Removes the alias association between two email addresses in an Connect Customer instance.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeEmailAddress.html\">DescribeEmailAddress</a>: View current alias configurations for an email address.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchEmailAddresses.html\">SearchEmailAddresses</a>: Find email addresses and their alias relationships across an instance.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_CreateEmailAddress.html\">CreateEmailAddress</a>: Create new email addresses that can participate in alias relationships.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteEmailAddress.html\">DeleteEmailAddress</a>: Remove email addresses (automatically removes any alias relationships).</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_UpdateEmailAddressMetadata.html\">UpdateEmailAddressMetadata</a>: Modify email address properties (does not affect alias relationships).</p> </li> </ul>
+        """<p>Associates an email address alias with an existing email address in an Connect Customer instance. This creates a forwarding relationship where emails sent to the alias email address are automatically forwarded to the primary email address. </p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p> <b>Unified customer support</b>: Create multiple entry points (for example, support@example.com, help@example.com, customercare@example.com) that all forward to a single agent queue for streamlined management.</p> </li> <li> <p> <b>Department consolidation</b>: Forward emails from legacy department addresses (for example, sales@example.com, info@example.com) to a centralized customer service email during organizational restructuring.</p> </li> <li> <p> <b>Brand management</b>: Enable you to use familiar brand-specific email addresses that forward to the appropriate Connect Customer instance email address.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>Each email address can have a maximum of one alias. You cannot create multiple aliases for the same email address. </p> </li> <li> <p>If the alias email address already receives direct emails, it continues to receive direct emails plus forwarded emails.</p> </li> <li> <p>You cannot chain email aliases together (that is, create an alias of an alias).</p> </li> </ul> <p> <code>AssociateEmailAddressAlias</code> does not return the following information:</p> <ul> <li> <p>A confirmation of the alias relationship details (you must call <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeEmailAddress.html">DescribeEmailAddress</a> to verify).</p> </li> <li> <p>The timestamp of when the association occurred.</p> </li> <li> <p>The status of the forwarding configuration.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p> <p> <b>Related operations</b> </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DisassociateEmailAddressAlias.html">DisassociateEmailAddressAlias</a>: Removes the alias association between two email addresses in an Connect Customer instance.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeEmailAddress.html">DescribeEmailAddress</a>: View current alias configurations for an email address.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchEmailAddresses.html">SearchEmailAddresses</a>: Find email addresses and their alias relationships across an instance.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_CreateEmailAddress.html">CreateEmailAddress</a>: Create new email addresses that can participate in alias relationships.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteEmailAddress.html">DeleteEmailAddress</a>: Remove email addresses (automatically removes any alias relationships).</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_UpdateEmailAddressMetadata.html">UpdateEmailAddressMetadata</a>: Modify email address properties (does not affect alias relationships).</p> </li> </ul>
 
         Args:
             email_address_id: <p>The identifier of the email address.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             alias_configuration: <p>Configuration object that specifies which email address will serve as the alias. The specified email address must already exist in the Connect Customer instance and cannot already be configured as an alias or have an alias of its own.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -1764,10 +1764,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.associate_flow_response.AssociateFlowResponse":
-        r"""<p>Associates a connect resource to a flow.</p>
+        """<p>Associates a connect resource to a flow.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             resource_id: <p>The identifier of the resource.</p> <ul> <li> <p>Amazon Web Services End User Messaging SMS phone number ARN when using <code>SMS_PHONE_NUMBER</code> </p> </li> <li> <p>Amazon Web Services End User Messaging Social phone number ARN when using <code>WHATSAPP_MESSAGING_PHONE_NUMBER</code> </p> </li> </ul>
             flow_id: <p>The identifier of the flow.</p>
             resource_type: <p>A valid resource type.</p>
@@ -1820,10 +1820,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Associates a set of hours of operations with another hours of operation. For more information about inheriting overrides from parent hours of operation, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html\">Hours of operation overrides</a> in the Administrator Guide.</p>
+        """<p>Associates a set of hours of operations with another hours of operation. For more information about inheriting overrides from parent hours of operation, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html">Hours of operation overrides</a> in the Administrator Guide.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             hours_of_operation_id: <p>The identifier of the child hours of operation.</p>
             parent_hours_of_operation_configs: <p>The Amazon Resource Names (ARNs) of the parent hours of operation resources to associate with the child hours of operation resource.</p>
 
@@ -1874,13 +1874,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.associate_instance_storage_config_response.AssociateInstanceStorageConfigResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Associates a storage resource type for the first time. You can only associate one type of storage configuration in a single call. This means, for example, that you can't define an instance with multiple S3 buckets for storing chat transcripts.</p> <p>This API does not create a resource that doesn't exist. It only associates it to the instance. Ensure that the resource being specified in the storage configuration, like an S3 bucket, exists when being used for association.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Associates a storage resource type for the first time. You can only associate one type of storage configuration in a single call. This means, for example, that you can't define an instance with multiple S3 buckets for storing chat transcripts.</p> <p>This API does not create a resource that doesn't exist. It only associates it to the instance. Ensure that the resource being specified in the storage configuration, like an S3 bucket, exists when being used for association.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            resource_type: <p>A valid resource type. To <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-contact-analysis-segment-streams.html\">enable streaming for real-time analysis of contacts</a>, use the following types:</p> <ul> <li> <p>For chat contacts, use <code>REAL_TIME_CONTACT_ANALYSIS_CHAT_SEGMENTS</code>.</p> </li> <li> <p>For voice contacts, use <code>REAL_TIME_CONTACT_ANALYSIS_VOICE_SEGMENTS</code>.</p> </li> </ul> <note> <p> <code>REAL_TIME_CONTACT_ANALYSIS_SEGMENTS</code> is deprecated, but it is still supported and will apply only to VOICE channel contacts. Use <code>REAL_TIME_CONTACT_ANALYSIS_VOICE_SEGMENTS</code> for voice contacts moving forward.</p> <p>If you have previously associated a stream with <code>REAL_TIME_CONTACT_ANALYSIS_SEGMENTS</code>, no action is needed to update the stream to <code>REAL_TIME_CONTACT_ANALYSIS_VOICE_SEGMENTS</code>.</p> </note>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            resource_type: <p>A valid resource type. To <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-contact-analysis-segment-streams.html">enable streaming for real-time analysis of contacts</a>, use the following types:</p> <ul> <li> <p>For chat contacts, use <code>REAL_TIME_CONTACT_ANALYSIS_CHAT_SEGMENTS</code>.</p> </li> <li> <p>For voice contacts, use <code>REAL_TIME_CONTACT_ANALYSIS_VOICE_SEGMENTS</code>.</p> </li> </ul> <note> <p> <code>REAL_TIME_CONTACT_ANALYSIS_SEGMENTS</code> is deprecated, but it is still supported and will apply only to VOICE channel contacts. Use <code>REAL_TIME_CONTACT_ANALYSIS_VOICE_SEGMENTS</code> for voice contacts moving forward.</p> <p>If you have previously associated a stream with <code>REAL_TIME_CONTACT_ANALYSIS_SEGMENTS</code>, no action is needed to update the stream to <code>REAL_TIME_CONTACT_ANALYSIS_VOICE_SEGMENTS</code>.</p> </note>
             storage_config: <p>A valid storage type.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -1932,12 +1932,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Allows the specified Connect Customer instance to access the specified Lambda function.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Allows the specified Connect Customer instance to access the specified Lambda function.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             function_arn: <p>The Amazon Resource Name (ARN) for the Lambda function being associated. Maximum number of characters allowed is 140.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -1987,12 +1987,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Allows the specified Connect Customer instance to access the specified Amazon Lex V1 bot. This API only supports the association of Amazon Lex V1 bots.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Allows the specified Connect Customer instance to access the specified Amazon Lex V1 bot. This API only supports the association of Amazon Lex V1 bots.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             lex_bot: <p>The Amazon Lex bot to associate with the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -2042,11 +2042,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Associates a flow with a phone number claimed to your Connect Customer instance.</p> <important> <p>If the number is claimed to a traffic distribution group, and you are calling this API using an instance in the Amazon Web Services Region where the traffic distribution group was created, you can use either a full phone number ARN or UUID value for the <code>PhoneNumberId</code> URI request parameter. However, if the number is claimed to a traffic distribution group and you are calling this API using an instance in the alternate Amazon Web Services Region associated with the traffic distribution group, you must provide a full phone number ARN. If a UUID is provided in this scenario, you will receive a <code>ResourceNotFoundException</code>.</p> </important>
+        """<p>Associates a flow with a phone number claimed to your Connect Customer instance.</p> <important> <p>If the number is claimed to a traffic distribution group, and you are calling this API using an instance in the Amazon Web Services Region where the traffic distribution group was created, you can use either a full phone number ARN or UUID value for the <code>PhoneNumberId</code> URI request parameter. However, if the number is claimed to a traffic distribution group and you are calling this API using an instance in the alternate Amazon Web Services Region associated with the traffic distribution group, you must provide a full phone number ARN. If a UUID is provided in this scenario, you will receive a <code>ResourceNotFoundException</code>.</p> </important>
 
         Args:
             phone_number_id: <p>A unique identifier for the phone number.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_id: <p>The identifier of the flow.</p>
 
         Raises:
@@ -2094,13 +2094,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>Associates a set of email addresses with a queue to enable agents to select different \"From\" (system) email addresses when replying to inbound email contacts or initiating outbound email contacts. This allows agents to handle email contacts across different brands and business units within the same queue.</p> <p> <b>Important things to know</b> </p> <ul> <li> <p>You can associate up to 49 additional email addresses with a single queue, plus 1 default outbound email address, for a total of 50.</p> </li> <li> <p>The email addresses must already exist in the Connect Customer instance before they can be associated with a queue.</p> </li> <li> <p>Agents will be able to select from these associated email addresses when handling email contacts in the queue.</p> </li> <li> <p>For inbound email contacts, agents can select from email addresses associated with the queue where the contact was accepted.</p> </li> <li> <p>For outbound email contacts, agents can select from email addresses associated with their default outbound queue configured in their routing profile.</p> </li> </ul>
+        """<p>Associates a set of email addresses with a queue to enable agents to select different "From" (system) email addresses when replying to inbound email contacts or initiating outbound email contacts. This allows agents to handle email contacts across different brands and business units within the same queue.</p> <p> <b>Important things to know</b> </p> <ul> <li> <p>You can associate up to 49 additional email addresses with a single queue, plus 1 default outbound email address, for a total of 50.</p> </li> <li> <p>The email addresses must already exist in the Connect Customer instance before they can be associated with a queue.</p> </li> <li> <p>Agents will be able to select from these associated email addresses when handling email contacts in the queue.</p> </li> <li> <p>For inbound email contacts, agents can select from email addresses associated with the queue where the contact was accepted.</p> </li> <li> <p>For outbound email contacts, agents can select from email addresses associated with their default outbound queue configured in their routing profile.</p> </li> </ul>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             email_addresses_config: <p>Configuration list containing the email addresses to associate with the queue. Each configuration specifies an email address ID that should be linked to this queue for routing purposes.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -2151,10 +2151,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Associates a set of quick connects with a queue.</p>
+        """<p>Associates a set of quick connects with a queue.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             quick_connect_ids: <p>The quick connects to associate with this queue.</p>
 
@@ -2208,10 +2208,10 @@ class ConnectClient:
             "capo_connect.types.routing_profile_manual_assignment_queue_config_list.RoutingProfileManualAssignmentQueueConfigList"
         ] = None,
     ) -> None:
-        r"""<p>Associates a set of queues with a routing profile.</p>
+        """<p>Associates a set of queues with a routing profile.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             queue_configs: <p>The queues to associate with this routing profile.</p>
             manual_assignment_queue_configs: <p>The manual assignment queues to associate with this routing profile.</p> <note> <p>For voice contacts, manual assignment supports only agent-first callback contacts. Chat, email, and task contacts are fully supported.</p> </note>
@@ -2263,12 +2263,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.associate_security_key_response.AssociateSecurityKeyResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Associates a security key to the instance.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Associates a security key to the instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             key: <p>A valid security key in PEM format as a String.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -2376,12 +2376,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.associate_traffic_distribution_group_user_response.AssociateTrafficDistributionGroupUserResponse":
-        r"""<p>Associates an agent with a traffic distribution group. This API can be called only in the Region where the traffic distribution group is created.</p>
+        """<p>Associates an agent with a traffic distribution group. This API can be called only in the Region where the traffic distribution group is created.</p>
 
         Args:
             traffic_distribution_group_id: <p>The identifier of the traffic distribution group. This can be the ID or the ARN of the traffic distribution group.</p>
             user_id: <p>The identifier of the user account. This can be the ID or the ARN of the user. </p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -2481,10 +2481,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.associate_workspace_response.AssociateWorkspaceResponse":
-        r"""<p>Associates a workspace with one or more users or routing profiles, allowing them to access the workspace's configured views and pages.</p>
+        """<p>Associates a workspace with one or more users or routing profiles, allowing them to access the workspace's configured views and pages.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             resource_arns: <p>The Amazon Resource Names (ARNs) of the resources to associate with the workspace. Valid resource types are users and routing profiles.</p>
 
@@ -2538,10 +2538,10 @@ class ConnectClient:
             "capo_connect.types.aws_account_id.AWSAccountId"
         ] = None,
     ) -> "capo_connect.types.batch_associate_analytics_data_set_response.BatchAssociateAnalyticsDataSetResponse":
-        r"""<p>Associates a list of analytics datasets for a given Connect Customer instance to a target account. You can associate multiple datasets in a single call.</p>
+        """<p>Associates a list of analytics datasets for a given Connect Customer instance to a target account. You can associate multiple datasets in a single call.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             data_set_ids: <p>An array of dataset identifiers to associate.</p>
             target_account_id: <p>The identifier of the target account. Use to associate a dataset to a different account than the one containing the Connect Customer instance. If not specified, by default this value is the Amazon Web Services account that has the Connect Customer instance.</p>
 
@@ -2704,7 +2704,7 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.batch_describe_data_table_value_response.BatchDescribeDataTableValueResponse":
-        r"""<p>Retrieves multiple values from a data table without evaluating expressions. Returns the raw stored values along with metadata such as lock versions and modification timestamps. \"Describe\" is a deprecated term but is allowed to maintain consistency with existing operations.</p>
+        """<p>Retrieves multiple values from a data table without evaluating expressions. Returns the raw stored values along with metadata such as lock versions and modification timestamps. "Describe" is a deprecated term but is allowed to maintain consistency with existing operations.</p>
 
         Args:
             instance_id: <p>The unique identifier for the Amazon Connect instance.</p>
@@ -2760,10 +2760,10 @@ class ConnectClient:
             "capo_connect.types.aws_account_id.AWSAccountId"
         ] = None,
     ) -> "capo_connect.types.batch_disassociate_analytics_data_set_response.BatchDisassociateAnalyticsDataSetResponse":
-        r"""<p>Removes a list of analytics datasets associated with a given Connect Customer instance. You can disassociate multiple datasets in a single call.</p>
+        """<p>Removes a list of analytics datasets associated with a given Connect Customer instance. You can disassociate multiple datasets in a single call.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             data_set_ids: <p>An array of associated dataset identifiers to remove.</p>
             target_account_id: <p>The identifier of the target account. Use to disassociate a dataset from a different account than the one containing the Connect Customer instance. If not specified, by default this value is the Amazon Web Services account that has the Connect Customer instance.</p>
 
@@ -2814,12 +2814,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.batch_get_attached_file_metadata_response.BatchGetAttachedFileMetadataResponse":
-        r"""<p>Allows you to retrieve metadata about multiple attached files on an associated resource. Each attached file provided in the input list must be associated with the input AssociatedResourceArn.</p>
+        """<p>Allows you to retrieve metadata about multiple attached files on an associated resource. Each attached file provided in the input list must be associated with the input AssociatedResourceArn.</p>
 
         Args:
             file_ids: <p>The unique identifiers of the attached file resource.</p>
             instance_id: <p>The unique identifier of the Connect instance.</p>
-            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/cases.html\">Cases</a>, <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html\">Email</a>, and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html\">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
+            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href="https://docs.aws.amazon.com/connect/latest/adminguide/cases.html">Cases</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Email</a>, and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -2869,10 +2869,10 @@ class ConnectClient:
             "capo_connect.types.list_flow_association_resource_type.ListFlowAssociationResourceType"
         ] = None,
     ) -> "capo_connect.types.batch_get_flow_association_response.BatchGetFlowAssociationResponse":
-        r"""<p>Retrieve the flow associations for the given resources.</p>
+        """<p>Retrieve the flow associations for the given resources.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             resource_ids: <p>A list of resource identifiers to retrieve flow associations.</p> <ul> <li> <p>Amazon Web Services End User Messaging SMS phone number ARN when using <code>SMS_PHONE_NUMBER</code> </p> </li> <li> <p>Amazon Web Services End User Messaging Social phone number ARN when using <code>WHATSAPP_MESSAGING_PHONE_NUMBER</code> </p> </li> </ul>
             resource_type: <p>The type of resource association.</p>
 
@@ -2924,11 +2924,11 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.batch_put_contact_response.BatchPutContactResponse":
-        r"""<note> <p>Only the Connect Customer outbound campaigns service principal is allowed to assume a role in your account and call this API.</p> </note> <p>Allows you to create a batch of contacts in Connect Customer. The outbound campaigns capability ingests dial requests via the <a href=\"https://docs.aws.amazon.com/connect-outbound/latest/APIReference/API_PutDialRequestBatch.html\">PutDialRequestBatch</a> API. It then uses BatchPutContact to create contacts corresponding to those dial requests. If agents are available, the dial requests are dialed out, which results in a voice call. The resulting voice call uses the same contactId that was created by BatchPutContact. </p>
+        """<note> <p>Only the Connect Customer outbound campaigns service principal is allowed to assume a role in your account and call this API.</p> </note> <p>Allows you to create a batch of contacts in Connect Customer. The outbound campaigns capability ingests dial requests via the <a href="https://docs.aws.amazon.com/connect-outbound/latest/APIReference/API_PutDialRequestBatch.html">PutDialRequestBatch</a> API. It then uses BatchPutContact to create contacts corresponding to those dial requests. If agents are available, the dial requests are dialed out, which results in a voice call. The resulting voice call uses the same contactId that was created by BatchPutContact. </p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_data_request_list: <p>List of individual contact requests.</p>
 
         Raises:
@@ -3040,15 +3040,15 @@ class ConnectClient:
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.claim_phone_number_response.ClaimPhoneNumberResponse":
-        r"""<p>Claims an available phone number to your Connect Customer instance or traffic distribution group. You can call this API only in the same Amazon Web Services Region where the Connect Customer instance or traffic distribution group was created.</p> <p>For more information about how to use this operation, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/claim-phone-number.html\">Claim a phone number in your country</a> and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/claim-phone-numbers-traffic-distribution-groups.html\">Claim phone numbers to traffic distribution groups</a> in the <i>Connect Customer Administrator Guide</i>. </p> <important> <p>You can call the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchAvailablePhoneNumbers.html\">SearchAvailablePhoneNumbers</a> API for available phone numbers that you can claim. Call the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribePhoneNumber.html\">DescribePhoneNumber</a> API to verify the status of a previous <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ClaimPhoneNumber.html\">ClaimPhoneNumber</a> operation.</p> </important> <p>If you plan to claim and release numbers frequently, contact us for a service quota exception. Otherwise, it is possible you will be blocked from claiming and releasing any more numbers until up to 180 days past the oldest number released has expired.</p> <p>By default you can claim and release up to 200% of your maximum number of active phone numbers. If you claim and release phone numbers using the UI or API during a rolling 180 day cycle that exceeds 200% of your phone number service level quota, you will be blocked from claiming any more numbers until 180 days past the oldest number released has expired. </p> <p>For example, if you already have 99 claimed numbers and a service level quota of 99 phone numbers, and in any 180 day period you release 99, claim 99, and then release 99, you will have exceeded the 200% limit. At that point you are blocked from claiming any more numbers until you open an Amazon Web Services support ticket.</p>
+        """<p>Claims an available phone number to your Connect Customer instance or traffic distribution group. You can call this API only in the same Amazon Web Services Region where the Connect Customer instance or traffic distribution group was created.</p> <p>For more information about how to use this operation, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/claim-phone-number.html">Claim a phone number in your country</a> and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/claim-phone-numbers-traffic-distribution-groups.html">Claim phone numbers to traffic distribution groups</a> in the <i>Connect Customer Administrator Guide</i>. </p> <important> <p>You can call the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchAvailablePhoneNumbers.html">SearchAvailablePhoneNumbers</a> API for available phone numbers that you can claim. Call the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribePhoneNumber.html">DescribePhoneNumber</a> API to verify the status of a previous <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ClaimPhoneNumber.html">ClaimPhoneNumber</a> operation.</p> </important> <p>If you plan to claim and release numbers frequently, contact us for a service quota exception. Otherwise, it is possible you will be blocked from claiming and releasing any more numbers until up to 180 days past the oldest number released has expired.</p> <p>By default you can claim and release up to 200% of your maximum number of active phone numbers. If you claim and release phone numbers using the UI or API during a rolling 180 day cycle that exceeds 200% of your phone number service level quota, you will be blocked from claiming any more numbers until 180 days past the oldest number released has expired. </p> <p>For example, if you already have 99 claimed numbers and a service level quota of 99 phone numbers, and in any 180 day period you release 99, claim 99, and then release 99, you will have exceeded the 200% limit. At that point you are blocked from claiming any more numbers until you open an Amazon Web Services support ticket.</p>
 
         Args:
             target_arn: <p>The Amazon Resource Name (ARN) for Connect Customer instances or traffic distribution groups that phone number inbound traffic is routed through. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
-            instance_id: <p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
+            instance_id: <p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
             phone_number: <p>The phone number you want to claim. Phone numbers are formatted <code>[+] [country code] [subscriber number including area code]</code>.</p>
             phone_number_description: <p>The description of the phone number.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p> <p>Pattern: <code>^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$</code> </p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p> <p>Pattern: <code>^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$</code> </p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -3106,12 +3106,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.complete_attached_file_upload_response.CompleteAttachedFileUploadResponse":
-        r"""<p>Allows you to confirm that the attached file has been uploaded using the pre-signed URL provided in the StartAttachedFileUpload API.</p>
+        """<p>Allows you to confirm that the attached file has been uploaded using the pre-signed URL provided in the StartAttachedFileUpload API.</p>
 
         Args:
             instance_id: <p>The unique identifier of the Connect Customer instance.</p>
             file_id: <p>The unique identifier of the attached file resource.</p>
-            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/cases.html\">Cases</a>, <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html\">Email</a>, and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html\">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
+            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href="https://docs.aws.amazon.com/connect/latest/adminguide/cases.html">Cases</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Email</a>, and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -3166,15 +3166,15 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_agent_status_response.CreateAgentStatusResponse":
-        r"""<p>Creates an agent status for the specified Connect Customer instance.</p>
+        """<p>Creates an agent status for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the status.</p>
             description: <p>The description of the status.</p>
             state: <p>The state of the status.</p>
             display_order: <p>The display order of the status.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -3233,15 +3233,15 @@ class ConnectClient:
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_attached_file_response.CreateAttachedFileResponse":
-        r"""<p>Creates an attached file for a completed voice contact by copying a recording from a source S3 URI into Connect Customer managed storage. Use this API to attach voice recordings to contacts for downstream processing such as conversational analytics.</p> <important> <p>The <code>AssociatedResourceArn</code> must be the ARN of a completed voice contact, <code>FileUseCaseType</code> must be set to <code>VOICE_RECORDING</code>, and <code>FileSourceUri</code> must be a valid S3 URI.</p> </important> <note> <p>For example, you can call <code>CreateContact</code>, then <code>CreateAttachedFile</code>, then <code>StartContactConversationalAnalyticsJob</code> to create a contact, attach a recording, and run post-call analytics.</p> </note>
+        """<p>Creates an attached file for a completed voice contact by copying a recording from a source S3 URI into Connect Customer managed storage. Use this API to attach voice recordings to contacts for downstream processing such as conversational analytics.</p> <important> <p>The <code>AssociatedResourceArn</code> must be the ARN of a completed voice contact, <code>FileUseCaseType</code> must be set to <code>VOICE_RECORDING</code>, and <code>FileSourceUri</code> must be a valid S3 URI.</p> </important> <note> <p>For example, you can call <code>CreateContact</code>, then <code>CreateAttachedFile</code>, then <code>StartContactConversationalAnalyticsJob</code> to create a contact, attach a recording, and run post-call analytics.</p> </note>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             file_use_case_type: <p>The use case for the file.</p> <important> <p>Only <code>VOICE_RECORDING</code> is supported.</p> </important>
             file_source_uri: <p>The S3 URI of the file to be attached. Only S3 source URIs are supported.</p>
             associated_resource_arn: <p>The ARN of the completed voice contact to attach the file to. Only voice contacts with Telephony subtype are supported.</p> <note> <p>This value must be a valid ARN.</p> </note>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ "Tags": {"key1":"value1", "key2":"value2"} }</code>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -3299,10 +3299,10 @@ class ConnectClient:
             "capo_connect.types.max_session_duration_minutes.MaxSessionDurationMinutes"
         ] = None,
     ) -> "capo_connect.types.create_auth_code_response.CreateAuthCodeResponse":
-        r"""<p>Creates an authorization code for the specified Connect Customer instance. The authorization code can be used to establish a session with scoped permissions defined by the specified scope parameters.</p>
+        """<p>Creates an authorization code for the specified Connect Customer instance. The authorization code can be used to establish a session with scoped permissions defined by the specified scope parameters.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             scope: <p>The scope for the authorization code. Defines the permissions and access boundaries for the session.</p>
             max_session_duration_minutes: <p>The maximum duration of the session, in minutes. Minimum value of 1440 (24 hours). Maximum value of 43200 (30 days). If no value is provided, the session will expire after 400 days.</p>
             session_inactivity_duration_minutes: <p>The duration of inactivity, in minutes, after which the session expires. Minimum value of 1440 (24 hours). Maximum value of 20160 (14 days).</p>
@@ -3373,11 +3373,11 @@ class ConnectClient:
         ] = None,
         previous_contact_id: Optional["capo_connect.types.contact_id.ContactId"] = None,
     ) -> "capo_connect.types.create_contact_response.CreateContactResponse":
-        r"""<important> <p>Only the VOICE, EMAIL, and TASK channels are supported. </p> <ul> <li> <p>For VOICE: The supported initiation method is <code>TRANSFER</code>. The contacts created with this initiation method have a subtype <code>connect:ExternalAudio</code>. </p> </li> <li> <p>For EMAIL: The supported initiation methods are <code>OUTBOUND</code>, <code>AGENT_REPLY</code>, and <code>FLOW</code>. </p> </li> <li> <p>For TASK: The supported initiation method is <code>API</code>. Contacts created with this API have a sub-type of <code>connect:ExternalTask</code>.</p> </li> </ul> </important> <p>Creates a new VOICE, EMAIL, or TASK contact. </p> <p>After a contact is created, you can move it to the desired state by using the <code>InitiateAs</code> parameter. While you can use API to create task contacts that are in the <code>COMPLETED</code> state, you must contact Amazon Web Services Support before using it for bulk import use cases. Bulk import causes your requests to be throttled or fail if your CreateContact limits aren't high enough. </p>
+        """<important> <p>Only the VOICE, EMAIL, and TASK channels are supported. </p> <ul> <li> <p>For VOICE: The supported initiation method is <code>TRANSFER</code>. The contacts created with this initiation method have a subtype <code>connect:ExternalAudio</code>. </p> </li> <li> <p>For EMAIL: The supported initiation methods are <code>OUTBOUND</code>, <code>AGENT_REPLY</code>, and <code>FLOW</code>. </p> </li> <li> <p>For TASK: The supported initiation method is <code>API</code>. Contacts created with this API have a sub-type of <code>connect:ExternalTask</code>.</p> </li> </ul> </important> <p>Creates a new VOICE, EMAIL, or TASK contact. </p> <p>After a contact is created, you can move it to the desired state by using the <code>InitiateAs</code> parameter. While you can use API to create task contacts that are in the <code>COMPLETED</code> state, you must contact Amazon Web Services Support before using it for bulk import use cases. Bulk import causes your requests to be throttled or fail if your CreateContact limits aren't high enough. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             related_contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             attributes: <p>A custom key-value pair using an attribute map. The attributes are standard Connect Customer attributes, and can be accessed in flows just like any other contact attributes.</p> <p>There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only alphanumeric, dash, and underscore characters.</p>
             references: <p>A formatted URL that is shown to an agent in the Contact Control Panel (CCP). Tasks can have the following reference types at the time of creation: <code>URL</code> | <code>NUMBER</code> | <code>STRING</code> | <code>DATE</code> | <code>EMAIL</code> | <code>ATTACHMENT</code>.</p>
@@ -3388,8 +3388,8 @@ class ConnectClient:
             initiate_as: <p>Initial state of the contact when it's created. Only TASK channel contacts can be initiated with <code>COMPLETED</code> state.</p>
             name: <p>The name of a the contact.</p>
             description: <p>A description of the contact.</p>
-            segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments (unique contact ID) using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to set Segment Contact Expiry as a duration in minutes.</p> <note> <p>To set contact expiry, a ValueMap must be specified containing the integer number of minutes the contact will be active for before expiring, with <code>SegmentAttributes</code> like { <code> \"connect:ContactExpiry\": {\"ValueMap\" : { \"ExpiryDuration\": { \"ValueInteger\": 135}}}}</code>. </p> </note>
-            previous_contact_id: <p>The ID of the previous contact when creating a transfer contact. This value can be provided only for external audio contacts. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html\">Integrate Connect Customer Contact Lens with external voice systems</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+            segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments (unique contact ID) using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to set Segment Contact Expiry as a duration in minutes.</p> <note> <p>To set contact expiry, a ValueMap must be specified containing the integer number of minutes the contact will be active for before expiring, with <code>SegmentAttributes</code> like { <code> "connect:ContactExpiry": {"ValueMap" : { "ExpiryDuration": { "ValueInteger": 135}}}}</code>. </p> </note>
+            previous_contact_id: <p>The ID of the previous contact when creating a transfer contact. This value can be provided only for external audio contacts. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Integrate Connect Customer Contact Lens with external voice systems</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -3472,16 +3472,16 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_contact_flow_response.CreateContactFlowResponse":
-        r"""<p>Creates a flow for the specified Connect Customer instance.</p> <p>You can also create and update flows using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html\">Connect Customer Flow language</a>.</p>
+        """<p>Creates a flow for the specified Connect Customer instance.</p> <p>You can also create and update flows using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html">Connect Customer Flow language</a>.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance.</p>
             name: <p>The name of the flow.</p>
-            type: <p>The type of the flow. For descriptions of the available types, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types\">Choose a flow type</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+            type: <p>The type of the flow. For descriptions of the available types, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types">Choose a flow type</a> in the <i>Connect Customer Administrator Guide</i>.</p>
             description: <p>The description of the flow. </p>
-            content: <p>The JSON string that represents the content of the flow. For an example, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html\">Example flow in Connect Customer Flow language</a>. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 256000.</p>
+            content: <p>The JSON string that represents the content of the flow. For an example, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html">Example flow in Connect Customer Flow language</a>. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 256000.</p>
             status: <p>Indicates the flow status as either <code>SAVED</code> or <code>PUBLISHED</code>. The <code>PUBLISHED</code> status will initiate validation on the content. the <code>SAVED</code> status does not initiate validation of the content. <code>SAVED</code> | <code>PUBLISHED</code>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -3550,15 +3550,15 @@ class ConnectClient:
             "capo_connect.types.external_invocation_configuration.ExternalInvocationConfiguration"
         ] = None,
     ) -> "capo_connect.types.create_contact_flow_module_response.CreateContactFlowModuleResponse":
-        r"""<p>Creates a flow module for the specified Connect Customer instance. </p>
+        """<p>Creates a flow module for the specified Connect Customer instance. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the flow module.</p>
             description: <p>The description of the flow module. </p>
-            content: <p>The JSON string that represents the content of the flow. For an example, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html\">Example flow in Connect Customer Flow language</a>. </p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            content: <p>The JSON string that represents the content of the flow. For an example, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html">Example flow in Connect Customer Flow language</a>. </p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             settings: <p>The configuration settings for the flow module.</p>
             external_invocation_configuration: <p>The external invocation configuration for the flow module.</p>
 
@@ -3630,10 +3630,10 @@ class ConnectClient:
             "capo_connect.types.contact_flow_description.ContactFlowDescription"
         ] = None,
     ) -> "capo_connect.types.create_contact_flow_module_alias_response.CreateContactFlowModuleAliasResponse":
-        r"""<p>Creates a named alias that points to a specific version of a contact flow module.</p>
+        """<p>Creates a named alias that points to a specific version of a contact flow module.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             description: <p>The description of the alias.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             contact_flow_module_version: <p>The version of the flow module.</p>
@@ -3696,10 +3696,10 @@ class ConnectClient:
             "capo_connect.types.flow_module_content_sha256.FlowModuleContentSha256"
         ] = None,
     ) -> "capo_connect.types.create_contact_flow_module_version_response.CreateContactFlowModuleVersionResponse":
-        r"""<p>Creates an immutable snapshot of a contact flow module, preserving its content and settings at a specific point in time for version control and rollback capabilities.</p>
+        """<p>Creates an immutable snapshot of a contact flow module, preserving its content and settings at a specific point in time for version control and rollback capabilities.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             description: <p>The description of the flow module version.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             flow_module_content_sha256: <p>Indicates the checksum value of the flow module content.</p>
@@ -3987,15 +3987,15 @@ class ConnectClient:
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.create_email_address_response.CreateEmailAddressResponse":
-        r"""<p>Create new email address in the specified Connect Customer instance. For more information about email addresses, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-email-address1.html\">Create email addresses</a> in the Connect Customer Administrator Guide.</p>
+        """<p>Create new email address in the specified Connect Customer instance. For more information about email addresses, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-email-address1.html">Create email addresses</a> in the Connect Customer Administrator Guide.</p>
 
         Args:
             description: <p>The description of the email address.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             email_address: <p>The email address, including the domain.</p>
             display_name: <p>The display name of email address</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -4079,18 +4079,18 @@ class ConnectClient:
             "capo_connect.types.evaluation_form_ai_version.EvaluationFormAIVersion"
         ] = None,
     ) -> "capo_connect.types.create_evaluation_form_response.CreateEvaluationFormResponse":
-        r"""<p>Creates an evaluation form in the specified Connect Customer instance. The form can be used to define questions related to agent performance, and create sections to organize such questions. Question and section identifiers cannot be duplicated within the same evaluation form.</p>
+        """<p>Creates an evaluation form in the specified Connect Customer instance. The form can be used to define questions related to agent performance, and create sections to organize such questions. Question and section identifiers cannot be duplicated within the same evaluation form.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             title: <p>A title of the evaluation form.</p>
             description: <p>The description of the evaluation form.</p>
             items: <p>Items that are part of the evaluation form. The total number of sections and questions must not exceed 100 each. Questions must be contained in a section.</p>
             scoring_strategy: <p>A scoring strategy of the evaluation form.</p>
             auto_evaluation_configuration: <p>Configuration information about automated evaluations.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             as_draft: <p>A boolean flag indicating whether to create evaluation form in draft state.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
             review_configuration: <p>Configuration information about evaluation reviews.</p>
             target_configuration: <p>Configuration that specifies the target for the evaluation form.</p>
             language_configuration: <p>Configuration for language settings of the evaluation form.</p>
@@ -4169,11 +4169,11 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_extraction_definition_response.CreateExtractionDefinitionResponse":
-        r"""<p>Creates an extraction definition in the specified Connect Customer instance. An extraction definition specifies how structured data is extracted from customer interactions using generative AI, including the prompt hint that guides extraction and the behavior when a value cannot be found.</p>
+        """<p>Creates an extraction definition in the specified Connect Customer instance. An extraction definition specifies how structured data is extracted from customer interactions using generative AI, including the prompt hint that guides extraction and the behavior when a value cannot be found.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>A unique name of the extraction definition.</p>
             extraction_configuration: <p>The configuration that defines how data is extracted, including the prompt hint and not-found behavior.</p>
             display: <p>The display settings for the extraction definition, including the label shown in the agent workspace.</p>
@@ -4242,16 +4242,16 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_hours_of_operation_response.CreateHoursOfOperationResponse":
-        r"""<p>Creates hours of operation. </p>
+        """<p>Creates hours of operation. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the hours of operation.</p>
             description: <p>The description of the hours of operation.</p>
             time_zone: <p>The time zone of the hours of operation.</p>
             config: <p>Configuration information for the hours of operation: day, start time, and end time.</p>
-            parent_hours_of_operation_configs: <p>Configuration for parent hours of operations. Eg: ResourceArn. </p> <p>For more information about parent hours of operations, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html\">Link overrides from different hours of operation</a> in the <i> Administrator Guide</i>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            parent_hours_of_operation_configs: <p>Configuration for parent hours of operations. Eg: ResourceArn. </p> <p>For more information about parent hours of operations, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html">Link overrides from different hours of operation</a> in the <i> Administrator Guide</i>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -4321,7 +4321,7 @@ class ConnectClient:
         ] = None,
         override_type: Optional["capo_connect.types.override_type.OverrideType"] = None,
     ) -> "capo_connect.types.create_hours_of_operation_override_response.CreateHoursOfOperationOverrideResponse":
-        r"""<p>Creates an hours of operation override in an Connect Customer hours of operation resource.</p>
+        """<p>Creates an hours of operation override in an Connect Customer hours of operation resource.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance.</p>
@@ -4332,7 +4332,7 @@ class ConnectClient:
             effective_from: <p>The date from when the hours of operation override is effective.</p>
             effective_till: <p>The date until when the hours of operation override is effective.</p>
             recurrence_config: <p>Configuration for a recurring event.</p>
-            override_type: <p>Whether the override will be defined as a <i>standard</i> or as a <i>recurring event</i>.</p> <p>For more information about how override types are applied, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html\">Build your list of overrides</a> in the <i> Administrator Guide</i>.</p>
+            override_type: <p>Whether the override will be defined as a <i>standard</i> or as a <i>recurring event</i>.</p> <p>For more information about how override types are applied, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html">Build your list of overrides</a> in the <i> Administrator Guide</i>.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -4397,7 +4397,7 @@ class ConnectClient:
         directory_id: Optional["capo_connect.types.directory_id.DirectoryId"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_instance_response.CreateInstanceResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Initiates an Connect Customer instance with all the supported channels enabled. It does not attach any storage, such as Amazon Simple Storage Service (Amazon S3) or Amazon Kinesis. It also does not allow for any configurations on features, such as Contact Lens for Connect Customer. </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-instances.html\">Create an Connect Customer instance</a> in the <i>Connect Customer Administrator Guide</i>.</p> <p>Connect Customer enforces a limit on the total number of instances that you can create or delete in 30 days. If you exceed this limit, you will get an error message indicating there has been an excessive number of attempts at creating or deleting instances. You must wait 30 days before you can restart creating and deleting instances in your account.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Initiates an Connect Customer instance with all the supported channels enabled. It does not attach any storage, such as Amazon Simple Storage Service (Amazon S3) or Amazon Kinesis. It also does not allow for any configurations on features, such as Contact Lens for Connect Customer. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-instances.html">Create an Connect Customer instance</a> in the <i>Connect Customer Administrator Guide</i>.</p> <p>Connect Customer enforces a limit on the total number of instances that you can create or delete in 30 days. If you exceed this limit, you will get an error message indicating there has been an excessive number of attempts at creating or deleting instances. You must wait 30 days before you can restart creating and deleting instances in your account.</p>
 
         Args:
             client_token: <p>The idempotency token.</p>
@@ -4406,7 +4406,7 @@ class ConnectClient:
             directory_id: <p>The identifier for the directory.</p>
             inbound_calls_enabled: <p>Your contact center handles incoming contacts.</p>
             outbound_calls_enabled: <p>Your contact center allows outbound calls.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ "tags": {"key1":"value1", "key2":"value2"} }</code>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -4469,16 +4469,16 @@ class ConnectClient:
         source_type: Optional["capo_connect.types.source_type.SourceType"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_integration_association_response.CreateIntegrationAssociationResponse":
-        r"""<p>Creates an Amazon Web Services resource association with an Connect Customer instance.</p>
+        """<p>Creates an Amazon Web Services resource association with an Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             integration_type: <p>The type of information to be ingested.</p>
             integration_arn: <p>The Amazon Resource Name (ARN) of the integration.</p> <note> <p>When integrating with Amazon Web Services End User Messaging, the Connect Customer and Amazon Web Services End User Messaging instances must be in the same account.</p> </note>
             source_application_url: <p>The URL for the external application. This field is only required for the EVENT integration type.</p>
             source_application_name: <p>The name of the external application. This field is only required for the EVENT integration type.</p>
             source_type: <p>The type of the data source. This field is only required for the EVENT integration type.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -4544,18 +4544,18 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_metric_response.CreateMetricResponse":
-        r"""<p>Creates a new metric definition for the specified Connect Customer instance. You can create custom metrics that use formulas referencing existing Amazon Web Services-managed metrics, optionally with filters applied.</p>
+        """<p>Creates a new metric definition for the specified Connect Customer instance. You can create custom metrics that use formulas referencing existing Amazon Web Services-managed metrics, optionally with filters applied.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the metric.</p>
             metric_calculation: <p>The calculation definition for the metric, including the formula expression and the component metrics it references.</p>
             unit: <p>The display unit for the metric's data.</p>
             status: <p>The publish status of the metric. Set to <code>PUBLISHED</code> to make the metric available for use in dashboards and reports, or <code>SAVED</code> to keep it in draft state.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             description: <p>The description of the metric.</p>
             positive_trend_indicator: <p>How an increase in the metric value should be interpreted. Valid values: <code>POSITIVE</code>, <code>NEUTRAL</code>, <code>NEGATIVE</code>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -4627,16 +4627,16 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.create_notification_response.CreateNotificationResponse":
-        r"""<p>Creates a new notification to be delivered to specified recipients. Notifications can include localized content with links, and an optional expiration time. Recipients can be specified as individual user ARNs or instance ARNs to target all users in an instance.</p>
+        """<p>Creates a new notification to be delivered to specified recipients. Notifications can include localized content with links, and an optional expiration time. Recipients can be specified as individual user ARNs or instance ARNs to target all users in an instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             expires_at: <p>The timestamp when the notification should expire and no longer be displayed to users. If not specified, defaults to one week from creation.</p>
             recipients: <p>A list of Amazon Resource Names (ARNs) identifying the recipients of the notification. Can include user ARNs or instance ARNs to target all users in an instance. Maximum of 200 recipients.</p>
             priority: <p>The priority level of the notification. Valid values are HIGH and LOW. High priority notifications are displayed above low priority notifications.</p>
             content: <p>The localized content of the notification. A map where keys are locale codes and values are the notification text in that locale. Content supports links. Maximum 250 characters per locale.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ "Tags": {"key1":"value1", "key2":"value2"} }</code>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -4698,12 +4698,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.create_participant_response.CreateParticipantResponse":
-        r"""<p>Adds a new participant into an on-going chat contact or webRTC call. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/chat-customize-flow.html\">Customize chat flow experiences by integrating custom participants</a> or <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-multiuser-inapp.html\">Enable multi-user web, in-app, and video calling</a>.</p>
+        """<p>Adds a new participant into an on-going chat contact or webRTC call. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/chat-customize-flow.html">Customize chat flow experiences by integrating custom participants</a> or <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-multiuser-inapp.html">Enable multi-user web, in-app, and video calling</a>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. </p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. </p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. Supports contacts in the CHAT channel and VOICE (WebRTC) channels. For WebRTC calls, this should be the initial contact ID that was generated when the contact was first created (from the StartWebRTCContact API) in the VOICE channel</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             participant_details: <p>Information identifying the participant.</p> <important> <p>The only valid value for <code>ParticipantRole</code> is <code>CUSTOM_BOT</code> for chat contact and <code>CUSTOMER</code> for voice contact.</p> </important>
 
         Raises:
@@ -4758,14 +4758,14 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.create_persistent_contact_association_response.CreatePersistentContactAssociationResponse":
-        r"""<p>Enables rehydration of chats for the lifespan of a contact. For more information about chat rehydration, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/chat-persistence.html\">Enable persistent chat</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+        """<p>Enables rehydration of chats for the lifespan of a contact. For more information about chat rehydration, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/chat-persistence.html">Enable persistent chat</a> in the <i>Connect Customer Administrator Guide</i>. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             initial_contact_id: <p>This is the contactId of the current contact that the <code>CreatePersistentContactAssociation</code> API is being called from.</p>
-            rehydration_type: <p>The contactId chosen for rehydration depends on the type chosen.</p> <ul> <li> <p> <code>ENTIRE_PAST_SESSION</code>: Rehydrates a chat from the most recently terminated past chat contact of the specified past ended chat session. To use this type, provide the <code>initialContactId</code> of the past ended chat session in the <code>sourceContactId</code> field. In this type, Connect Customer determines what the most recent chat contact on the past ended chat session and uses it to start a persistent chat. </p> </li> <li> <p> <code>FROM_SEGMENT</code>: Rehydrates a chat from the specified past chat contact provided in the <code>sourceContactId</code> field. </p> </li> </ul> <p>The actual contactId used for rehydration is provided in the response of this API.</p> <p>To illustrate how to use rehydration type, consider the following example: A customer starts a chat session. Agent a1 accepts the chat and a conversation starts between the customer and Agent a1. This first contact creates a contact ID <b>C1</b>. Agent a1 then transfers the chat to Agent a2. This creates another contact ID <b>C2</b>. At this point Agent a2 ends the chat. The customer is forwarded to the disconnect flow for a post chat survey that creates another contact ID <b>C3</b>. After the chat survey, the chat session ends. Later, the customer returns and wants to resume their past chat session. At this point, the customer can have following use cases: </p> <ul> <li> <p> <b>Use Case 1</b>: The customer wants to continue the past chat session but they want to hide the post chat survey. For this they will use the following configuration:</p> <ul> <li> <p> <b>Configuration</b> </p> <ul> <li> <p>SourceContactId = \"C2\"</p> </li> <li> <p>RehydrationType = \"FROM_SEGMENT\"</p> </li> </ul> </li> <li> <p> <b>Expected behavior</b> </p> <ul> <li> <p>This starts a persistent chat session from the specified past ended contact (C2). Transcripts of past chat sessions C2 and C1 are accessible in the current persistent chat session. Note that chat segment C3 is dropped from the persistent chat session.</p> </li> </ul> </li> </ul> </li> <li> <p> <b>Use Case 2</b>: The customer wants to continue the past chat session and see the transcript of the entire past engagement, including the post chat survey. For this they will use the following configuration:</p> <ul> <li> <p> <b>Configuration</b> </p> <ul> <li> <p>SourceContactId = \"C1\"</p> </li> <li> <p>RehydrationType = \"ENTIRE_PAST_SESSION\"</p> </li> </ul> </li> <li> <p> <b>Expected behavior</b> </p> <ul> <li> <p>This starts a persistent chat session from the most recently ended chat contact (C3). Transcripts of past chat sessions C3, C2 and C1 are accessible in the current persistent chat session.</p> </li> </ul> </li> </ul> </li> </ul>
+            rehydration_type: <p>The contactId chosen for rehydration depends on the type chosen.</p> <ul> <li> <p> <code>ENTIRE_PAST_SESSION</code>: Rehydrates a chat from the most recently terminated past chat contact of the specified past ended chat session. To use this type, provide the <code>initialContactId</code> of the past ended chat session in the <code>sourceContactId</code> field. In this type, Connect Customer determines what the most recent chat contact on the past ended chat session and uses it to start a persistent chat. </p> </li> <li> <p> <code>FROM_SEGMENT</code>: Rehydrates a chat from the specified past chat contact provided in the <code>sourceContactId</code> field. </p> </li> </ul> <p>The actual contactId used for rehydration is provided in the response of this API.</p> <p>To illustrate how to use rehydration type, consider the following example: A customer starts a chat session. Agent a1 accepts the chat and a conversation starts between the customer and Agent a1. This first contact creates a contact ID <b>C1</b>. Agent a1 then transfers the chat to Agent a2. This creates another contact ID <b>C2</b>. At this point Agent a2 ends the chat. The customer is forwarded to the disconnect flow for a post chat survey that creates another contact ID <b>C3</b>. After the chat survey, the chat session ends. Later, the customer returns and wants to resume their past chat session. At this point, the customer can have following use cases: </p> <ul> <li> <p> <b>Use Case 1</b>: The customer wants to continue the past chat session but they want to hide the post chat survey. For this they will use the following configuration:</p> <ul> <li> <p> <b>Configuration</b> </p> <ul> <li> <p>SourceContactId = "C2"</p> </li> <li> <p>RehydrationType = "FROM_SEGMENT"</p> </li> </ul> </li> <li> <p> <b>Expected behavior</b> </p> <ul> <li> <p>This starts a persistent chat session from the specified past ended contact (C2). Transcripts of past chat sessions C2 and C1 are accessible in the current persistent chat session. Note that chat segment C3 is dropped from the persistent chat session.</p> </li> </ul> </li> </ul> </li> <li> <p> <b>Use Case 2</b>: The customer wants to continue the past chat session and see the transcript of the entire past engagement, including the post chat survey. For this they will use the following configuration:</p> <ul> <li> <p> <b>Configuration</b> </p> <ul> <li> <p>SourceContactId = "C1"</p> </li> <li> <p>RehydrationType = "ENTIRE_PAST_SESSION"</p> </li> </ul> </li> <li> <p> <b>Expected behavior</b> </p> <ul> <li> <p>This starts a persistent chat session from the most recently ended chat contact (C3). Transcripts of past chat sessions C3, C2 and C1 are accessible in the current persistent chat session.</p> </li> </ul> </li> </ul> </li> </ul>
             source_contact_id: <p>The contactId from which a persistent chat session must be started.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -4825,7 +4825,7 @@ class ConnectClient:
             "capo_connect.types.input_predefined_attribute_configuration.InputPredefinedAttributeConfiguration"
         ] = None,
     ) -> None:
-        r"""<p>Creates a new predefined attribute for the specified Connect Customer instance. A <i>predefined attribute</i> is made up of a name and a value.</p> <p>For the predefined attributes per instance quota, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas\">Connect Customer quotas</a>.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Create an attribute for routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html\">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Create an attribute for business unit name that has a list of predefined business unit names used in your organization. This is a use case where information for a contact varies between transfers or conferences. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html\">Use contact segment attributes</a>.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Creates a new predefined attribute for the specified Connect Customer instance. A <i>predefined attribute</i> is made up of a name and a value.</p> <p>For the predefined attributes per instance quota, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas">Connect Customer quotas</a>.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Create an attribute for routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Create an attribute for business unit name that has a list of predefined business unit names used in your organization. This is a use case where information for a contact varies between transfers or conferences. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html">Use contact segment attributes</a>.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instance ID in the Amazon Resource Name (ARN) of the instance.</p>
@@ -4889,14 +4889,14 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_prompt_response.CreatePromptResponse":
-        r"""<p>Creates a prompt. For more information about prompts, such as supported file types and maximum length, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/prompts.html\">Create prompts</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Creates a prompt. For more information about prompts, such as supported file types and maximum length, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/prompts.html">Create prompts</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the prompt.</p>
             description: <p>The description of the prompt.</p>
-            s3_uri: <p>The URI for the S3 bucket where the prompt is stored. You can provide S3 pre-signed URLs returned by the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_GetPromptFile.html\">GetPromptFile</a> API instead of providing S3 URIs.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            s3_uri: <p>The URI for the S3 bucket where the prompt is stored. You can provide S3 pre-signed URLs returned by the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_GetPromptFile.html">GetPromptFile</a> API instead of providing S3 URIs.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -4952,11 +4952,11 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.create_push_notification_registration_response.CreatePushNotificationRegistrationResponse":
-        r"""<p>Creates registration for a device token and a chat contact to receive real-time push notifications. For more information about push notifications, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-push-notifications-for-mobile-chat.html\">Set up push notifications in Connect Customer for mobile chat</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Creates registration for a device token and a chat contact to receive real-time push notifications. For more information about push notifications, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-push-notifications-for-mobile-chat.html">Set up push notifications in Connect Customer for mobile chat</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             pinpoint_app_arn: <p>The Amazon Resource Name (ARN) of the Pinpoint application.</p>
             device_token: <p>The push notification token issued by the Apple or Google gateways.</p>
             device_type: <p>The device type to use when sending the message.</p>
@@ -5033,10 +5033,10 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_queue_response.CreateQueueResponse":
-        r"""<p>Creates a new queue for the specified Connect Customer instance.</p> <important> <ul> <li> <p>If the phone number is claimed to a traffic distribution group that was created in the same Region as the Connect Customer instance where you are calling this API, then you can use a full phone number ARN or a UUID for <code>OutboundCallerIdNumberId</code>. However, if the phone number is claimed to a traffic distribution group that is in one Region, and you are calling this API from an instance in another Amazon Web Services Region that is associated with the traffic distribution group, you must provide a full phone number ARN. If a UUID is provided in this scenario, you will receive a <code>ResourceNotFoundException</code>.</p> </li> <li> <p>Only use the phone number ARN format that doesn't contain <code>instance</code> in the path, for example, <code>arn:aws:connect:us-east-1:1234567890:phone-number/uuid</code>. This is the same ARN format that is returned when you call the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html\">ListPhoneNumbersV2</a> API.</p> </li> <li> <p>If you plan to use IAM policies to allow/deny access to this API for phone number resources claimed to a traffic distribution group, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security_iam_resource-level-policy-examples.html#allow-deny-queue-actions-replica-region\">Allow or Deny queue API actions for phone numbers in a replica Region</a>.</p> </li> </ul> </important>
+        """<p>Creates a new queue for the specified Connect Customer instance.</p> <important> <ul> <li> <p>If the phone number is claimed to a traffic distribution group that was created in the same Region as the Connect Customer instance where you are calling this API, then you can use a full phone number ARN or a UUID for <code>OutboundCallerIdNumberId</code>. However, if the phone number is claimed to a traffic distribution group that is in one Region, and you are calling this API from an instance in another Amazon Web Services Region that is associated with the traffic distribution group, you must provide a full phone number ARN. If a UUID is provided in this scenario, you will receive a <code>ResourceNotFoundException</code>.</p> </li> <li> <p>Only use the phone number ARN format that doesn't contain <code>instance</code> in the path, for example, <code>arn:aws:connect:us-east-1:1234567890:phone-number/uuid</code>. This is the same ARN format that is returned when you call the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html">ListPhoneNumbersV2</a> API.</p> </li> <li> <p>If you plan to use IAM policies to allow/deny access to this API for phone number resources claimed to a traffic distribution group, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security_iam_resource-level-policy-examples.html#allow-deny-queue-actions-replica-region">Allow or Deny queue API actions for phone numbers in a replica Region</a>.</p> </li> </ul> </important>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the queue.</p>
             description: <p>The description of the queue.</p>
             outbound_caller_config: <p>The outbound caller ID name, number, and outbound whisper flow.</p>
@@ -5045,7 +5045,7 @@ class ConnectClient:
             max_contacts: <p>The maximum number of contacts that can be in the queue before it is considered full.</p>
             quick_connect_ids: <p>The quick connects available to agents who are working the queue.</p>
             email_addresses_config: <p>Configuration list containing the email addresses to associate with the queue during creation. Each configuration specifies an email address ID that agents can select when handling email contacts in this queue.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -5113,14 +5113,14 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_quick_connect_response.CreateQuickConnectResponse":
-        r"""<p>Creates a quick connect for the specified Connect Customer instance.</p>
+        """<p>Creates a quick connect for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>A unique name of the quick connect.</p>
             description: <p>The description of the quick connect.</p>
             quick_connect_config: <p>Configuration settings for the quick connect.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -5186,17 +5186,17 @@ class ConnectClient:
             "capo_connect.types.agent_availability_timer.AgentAvailabilityTimer"
         ] = None,
     ) -> "capo_connect.types.create_routing_profile_response.CreateRoutingProfileResponse":
-        r"""<p>Creates a new routing profile.</p>
+        """<p>Creates a new routing profile.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the routing profile. Must not be more than 127 characters.</p>
             description: <p>Description of the routing profile. Must not be more than 250 characters.</p>
             default_outbound_queue_id: <p>The default outbound queue for the routing profile.</p>
-            queue_configs: <p>The inbound queues associated with the routing profile. If no queue is added, the agent can make only outbound calls.</p> <p>The limit of 10 array members applies to the maximum number of <code>RoutingProfileQueueConfig</code> objects that can be passed during a CreateRoutingProfile API request. It is different from the quota of 50 queues per routing profile per instance that is listed in <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html\">Connect Customer service quotas</a>. </p>
+            queue_configs: <p>The inbound queues associated with the routing profile. If no queue is added, the agent can make only outbound calls.</p> <p>The limit of 10 array members applies to the maximum number of <code>RoutingProfileQueueConfig</code> objects that can be passed during a CreateRoutingProfile API request. It is different from the quota of 50 queues per routing profile per instance that is listed in <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer service quotas</a>. </p>
             manual_assignment_queue_configs: <p>The manual assignment queues associated with the routing profile. If no queue is added, agents and supervisors can't pick or assign any contacts from this routing profile. The limit of 10 array members applies to the maximum number of RoutingProfileManualAssignmentQueueConfig objects that can be passed during a CreateRoutingProfile API request. It is different from the quota of 50 queues per routing profile per instance that is listed in Connect Customer service quotas.</p> <note> <p>For voice contacts, manual assignment supports only agent-first callback contacts. Chat, email, and task contacts are fully supported.</p> </note>
             media_concurrencies: <p>The channels that agents can handle in the Contact Control Panel (CCP) for this routing profile.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
             agent_availability_timer: <p>Whether agents with this routing profile will have their routing order calculated based on <i>longest idle time</i> or <i>time since their last inbound contact</i>. </p>
 
         Raises:
@@ -5265,18 +5265,18 @@ class ConnectClient:
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_rule_response.CreateRuleResponse":
-        r"""<p>Creates a rule for the specified Connect Customer instance.</p> <p>Use the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/connect-rules-language.html\">Rules Function language</a> to code conditions for the rule. </p>
+        """<p>Creates a rule for the specified Connect Customer instance.</p> <p>Use the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/connect-rules-language.html">Rules Function language</a> to code conditions for the rule. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>A unique name for the rule.</p>
             trigger_event_source: <p>The event source to trigger the rule.</p>
             function: <p>The conditions of the rule.</p>
             actions: <p>A list of actions to be run when the rule is triggered.</p>
             publish_status: <p>The publish status of the rule.</p>
             pre_evaluation_filters: <p>The pre-evaluation filters for the rule, that restrict the rule to be applied to only certain resources based on the resource's attributes, such as tags assigned to a contact. The pre-evaluation filters are applied even before rule conditions are evaluated and are used to enforce tag-based-access-control while applying rules.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -5364,16 +5364,16 @@ class ConnectClient:
             "capo_connect.types.granular_access_control_configuration.GranularAccessControlConfiguration"
         ] = None,
     ) -> "capo_connect.types.create_security_profile_response.CreateSecurityProfileResponse":
-        r"""<p>Creates a security profile.</p> <p>For information about security profiles, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html\">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>. </p>
+        """<p>Creates a security profile.</p> <p>For information about security profiles, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>. </p>
 
         Args:
             security_profile_name: <p>The name of the security profile.</p>
             description: <p>The description of the security profile.</p>
-            permissions: <p>Permissions assigned to the security profile. For a list of valid permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>. </p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            permissions: <p>Permissions assigned to the security profile. For a list of valid permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>. </p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
             allowed_access_control_tags: <p>The list of tags that a security profile uses to restrict access to resources in Connect Customer.</p>
-            tag_restricted_resources: <p>The list of resources that a security profile applies tag restrictions to in Connect Customer. For a list of Connect Customer resources that you can tag, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/tagging.html\">Add tags to resources in Connect Customer</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+            tag_restricted_resources: <p>The list of resources that a security profile applies tag restrictions to in Connect Customer. For a list of Connect Customer resources that you can tag, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/tagging.html">Add tags to resources in Connect Customer</a> in the <i>Connect Customer Administrator Guide</i>. </p>
             applications: <p>A list of third-party applications or MCP Servers that the security profile will give access to.</p>
             hierarchy_restricted_resources: <p>The list of resources that a security profile applies hierarchy restrictions to in Connect Customer. Following are acceptable ResourceNames: <code>User</code>.</p>
             allowed_access_control_hierarchy_group_id: <p>The identifier of the hierarchy group that a security profile uses to restrict access to resources in Connect Customer.</p>
@@ -5473,10 +5473,10 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.create_task_template_response.CreateTaskTemplateResponse":
-        r"""<p>Creates a new task template in the specified Connect Customer instance.</p>
+        """<p>Creates a new task template in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the task template.</p>
             description: <p>The description of the task template.</p>
             contact_flow_id: <p>The identifier of the flow that runs by default when a task is created by referencing this template.</p> <p>Although this parameter is marked as optional, the request must contain either a <code>ContactFlowId</code> or a field of type <code>QUICK_CONNECT</code>.</p>
@@ -5485,7 +5485,7 @@ class ConnectClient:
             defaults: <p>The default values for fields when a task is created by referencing this template.</p>
             status: <p>Marks a template as <code>ACTIVE</code> or <code>INACTIVE</code> for a task to refer to it. Tasks can only be created from <code>ACTIVE</code> templates. If a template is marked as <code>INACTIVE</code>, then a task that refers to this template cannot be created. </p>
             fields: <p>Fields that are part of the template.</p> <p>The request must contain exactly one field of type <code>NAME</code>. This field must also be listed in the <code>RequiredFields</code> array within the <code>Constraints</code> parameter.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -5652,14 +5652,14 @@ class ConnectClient:
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_traffic_distribution_group_response.CreateTrafficDistributionGroupResponse":
-        r"""<p>Creates a traffic distribution group given an Connect Customer instance that has been replicated.</p> <note> <p>The <code>SignInConfig</code> distribution is available only on a default <code>TrafficDistributionGroup</code> (see the <code>IsDefault</code> parameter in the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_TrafficDistributionGroup.html\">TrafficDistributionGroup</a> data type). If you call <code>UpdateTrafficDistribution</code> with a modified <code>SignInConfig</code> and a non-default <code>TrafficDistributionGroup</code>, an <code>InvalidRequestException</code> is returned.</p> </note> <p>For more information about creating traffic distribution groups, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-traffic-distribution-groups.html\">Set up traffic distribution groups</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+        """<p>Creates a traffic distribution group given an Connect Customer instance that has been replicated.</p> <note> <p>The <code>SignInConfig</code> distribution is available only on a default <code>TrafficDistributionGroup</code> (see the <code>IsDefault</code> parameter in the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_TrafficDistributionGroup.html">TrafficDistributionGroup</a> data type). If you call <code>UpdateTrafficDistribution</code> with a modified <code>SignInConfig</code> and a non-default <code>TrafficDistributionGroup</code>, an <code>InvalidRequestException</code> is returned.</p> </note> <p>For more information about creating traffic distribution groups, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-traffic-distribution-groups.html">Set up traffic distribution groups</a> in the <i>Connect Customer Administrator Guide</i>. </p>
 
         Args:
             name: <p>The name for the traffic distribution group. </p>
             description: <p>A description for the traffic distribution group.</p>
             instance_id: <p>The identifier of the Connect Customer instance that has been replicated. You can find the <code>instanceId</code> in the ARN of the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -5717,13 +5717,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_use_case_response.CreateUseCaseResponse":
-        r"""<p>Creates a use case for an integration association.</p>
+        """<p>Creates a use case for an integration association.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             integration_association_id: <p>The identifier for the integration association.</p>
             use_case_type: <p>The type of use case to associate to the integration association. Each integration association can have only one of each use case type.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -5803,7 +5803,7 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_user_response.CreateUserResponse":
-        r"""<p>Creates a user account for the specified Connect Customer instance.</p> <important> <p>Certain <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_UserIdentityInfo.html\">UserIdentityInfo</a> parameters are required in some situations. For example, <code>Email</code>, <code>FirstName</code> and <code>LastName</code> are required if you are using Connect Customer or SAML for identity management.</p> </important> <note> <p>Fields in <code>PhoneConfig</code> cannot be set simultaneously with their corresponding channel-specific configuration parameters. Specifically:</p> <ul> <li> <p> <code>PhoneConfig.AutoAccept</code> conflicts with <code>AutoAcceptConfigs</code> </p> </li> <li> <p> <code>PhoneConfig.AfterContactWorkTimeLimit</code> conflicts with <code>AfterContactWorkConfigs</code> </p> </li> <li> <p> <code>PhoneConfig.PhoneType</code> and <code>PhoneConfig.PhoneNumber</code> conflict with <code>PhoneNumberConfigs</code> </p> </li> <li> <p> <code>PhoneConfig.PersistentConnection</code> conflicts with <code>PersistentConnectionConfigs</code> </p> </li> </ul> <p>We recommend using channel-specific parameters such as <code>AutoAcceptConfigs</code>, <code>AfterContactWorkConfigs</code>, <code>PhoneNumberConfigs</code>, <code>PersistentConnectionConfigs</code>, and <code>VoiceEnhancementConfigs</code> for per-channel configuration.</p> </note> <p>For information about how to create users using the Connect Customer admin website, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/user-management.html\">Add Users</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        r"""<p>Creates a user account for the specified Connect Customer instance.</p> <important> <p>Certain <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_UserIdentityInfo.html">UserIdentityInfo</a> parameters are required in some situations. For example, <code>Email</code>, <code>FirstName</code> and <code>LastName</code> are required if you are using Connect Customer or SAML for identity management.</p> </important> <note> <p>Fields in <code>PhoneConfig</code> cannot be set simultaneously with their corresponding channel-specific configuration parameters. Specifically:</p> <ul> <li> <p> <code>PhoneConfig.AutoAccept</code> conflicts with <code>AutoAcceptConfigs</code> </p> </li> <li> <p> <code>PhoneConfig.AfterContactWorkTimeLimit</code> conflicts with <code>AfterContactWorkConfigs</code> </p> </li> <li> <p> <code>PhoneConfig.PhoneType</code> and <code>PhoneConfig.PhoneNumber</code> conflict with <code>PhoneNumberConfigs</code> </p> </li> <li> <p> <code>PhoneConfig.PersistentConnection</code> conflicts with <code>PersistentConnectionConfigs</code> </p> </li> </ul> <p>We recommend using channel-specific parameters such as <code>AutoAcceptConfigs</code>, <code>AfterContactWorkConfigs</code>, <code>PhoneNumberConfigs</code>, <code>PersistentConnectionConfigs</code>, and <code>VoiceEnhancementConfigs</code> for per-channel configuration.</p> </note> <p>For information about how to create users using the Connect Customer admin website, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/user-management.html">Add Users</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
             username: <p>The user name for the account. For instances not using SAML for identity management, the user name can include up to 20 characters. If you are using SAML for identity management, the user name can include up to 64 characters from [a-zA-Z0-9_-.\@]+.</p> <p>Username can include @ only if used in an email format. For example:</p> <ul> <li> <p>Correct: testuser</p> </li> <li> <p>Correct: testuser@example.com</p> </li> <li> <p>Incorrect: testuser@example</p> </li> </ul>
@@ -5814,13 +5814,13 @@ class ConnectClient:
             security_profile_ids: <p>The identifier of the security profile for the user.</p>
             routing_profile_id: <p>The identifier of the routing profile for the user.</p>
             hierarchy_group_id: <p>The identifier of the hierarchy group for the user.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             auto_accept_configs: <p>The list of auto-accept configuration settings for each channel.</p>
             after_contact_work_configs: <p>The list of after contact work (ACW) timeout configuration settings for each channel.</p>
             phone_number_configs: <p>The list of phone number configuration settings for each channel.</p>
             persistent_connection_configs: <p>The list of persistent connection configuration settings for each channel.</p>
             voice_enhancement_configs: <p>The list of voice enhancement configuration settings for each channel.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -5896,13 +5896,13 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_user_hierarchy_group_response.CreateUserHierarchyGroupResponse":
-        r"""<p>Creates a new user hierarchy group.</p>
+        """<p>Creates a new user hierarchy group.</p>
 
         Args:
             name: <p>The name of the user hierarchy group. Must not be more than 100 characters.</p>
             parent_group_id: <p>The identifier for the parent hierarchy group. The user hierarchy is created at level one if the parent group ID is null.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -5963,7 +5963,7 @@ class ConnectClient:
         ] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_view_response.CreateViewResponse":
-        r"""<p>Creates a new view with the possible status of <code>SAVED</code> or <code>PUBLISHED</code>.</p> <p>The views will have a unique name for each connect instance.</p> <p>It performs basic content validation if the status is <code>SAVED</code> or full content validation if the status is set to <code>PUBLISHED</code>. An error is returned if validation fails. It associates either the <code>$SAVED</code> qualifier or both of the <code>$SAVED</code> and <code>$LATEST</code> qualifiers with the provided view content based on the status. The view is idempotent if ClientToken is provided.</p>
+        """<p>Creates a new view with the possible status of <code>SAVED</code> or <code>PUBLISHED</code>.</p> <p>The views will have a unique name for each connect instance.</p> <p>It performs basic content validation if the status is <code>SAVED</code> or full content validation if the status is set to <code>PUBLISHED</code>. An error is returned if validation fails. It associates either the <code>$SAVED</code> qualifier or both of the <code>$SAVED</code> and <code>$LATEST</code> qualifiers with the provided view content based on the status. The view is idempotent if ClientToken is provided.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instanceId in the ARN of the instance.</p>
@@ -5972,7 +5972,7 @@ class ConnectClient:
             content: <p>View content containing all content necessary to render a view except for runtime input data.</p> <p>The total uncompressed content has a maximum file size of 400kB.</p>
             description: <p>The description of the view.</p>
             name: <p>The name of the view.</p>
-            tags: <p>The tags associated with the view resource (not specific to view version).These tags can be used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags associated with the view resource (not specific to view version).These tags can be used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -6099,15 +6099,15 @@ class ConnectClient:
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_vocabulary_response.CreateVocabularyResponse":
-        r"""<p>Creates a custom vocabulary associated with your Connect Customer instance. You can set a custom vocabulary to be your default vocabulary for a given language. Contact Lens for Connect Customer uses the default vocabulary in post-call and real-time contact analysis sessions for that language.</p>
+        """<p>Creates a custom vocabulary associated with your Connect Customer instance. You can set a custom vocabulary to be your default vocabulary for a given language. Contact Lens for Connect Customer uses the default vocabulary in post-call and real-time contact analysis sessions for that language.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>. If a create request is received more than once with same client token, subsequent requests return the previous response without creating a vocabulary again.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>. If a create request is received more than once with same client token, subsequent requests return the previous response without creating a vocabulary again.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             vocabulary_name: <p>A unique name of the custom vocabulary.</p>
-            language_code: <p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html\">What is Amazon Transcribe?</a> </p>
-            content: <p>The content of the custom vocabulary in plain-text format with a table of values. Each row in the table represents a word or a phrase, described with <code>Phrase</code>, <code>IPA</code>, <code>SoundsLike</code>, and <code>DisplayAs</code> fields. Separate the fields with TAB characters. The size limit is 50KB. For more information, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/custom-vocabulary.html#create-vocabulary-table\">Create a custom vocabulary using a table</a>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            language_code: <p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html">What is Amazon Transcribe?</a> </p>
+            content: <p>The content of the custom vocabulary in plain-text format with a table of values. Each row in the table represents a word or a phrase, described with <code>Phrase</code>, <code>IPA</code>, <code>SoundsLike</code>, and <code>DisplayAs</code> fields. Separate the fields with TAB characters. The size limit is 50KB. For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/custom-vocabulary.html#create-vocabulary-table">Create a custom vocabulary using a table</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -6168,15 +6168,15 @@ class ConnectClient:
         title: Optional["capo_connect.types.workspace_title.WorkspaceTitle"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.create_workspace_response.CreateWorkspaceResponse":
-        r"""<p>Creates a workspace that defines the user experience by mapping views to pages. Workspaces can be assigned to users or routing profiles.</p>
+        """<p>Creates a workspace that defines the user experience by mapping views to pages. Workspaces can be assigned to users or routing profiles.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the workspace. Must be unique within the instance and can contain 1-127 characters.</p>
             description: <p>The description of the workspace. Maximum length is 250 characters.</p>
             theme: <p>The theme configuration for the workspace, including colors and styling.</p>
             title: <p>The title displayed for the workspace.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ "Tags": {"key1":"value1", "key2":"value2"} }</code>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -6240,10 +6240,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.create_workspace_page_response.CreateWorkspacePageResponse"
     ):
-        r"""<p>Associates a view with a page in a workspace, defining what users see when they navigate to that page.</p>
+        """<p>Associates a view with a page in a workspace, defining what users see when they navigate to that page.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             resource_arn: <p>The Amazon Resource Name (ARN) of the view to associate with the page.</p>
             page: <p>The page identifier. Valid system pages include <code>HOME</code> and <code>AGENT_EXPERIENCE</code>. Custom pages cannot use the <code>aws:</code> or <code>connect:</code> prefixes.</p>
@@ -6306,10 +6306,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.deactivate_evaluation_form_response.DeactivateEvaluationFormResponse":
-        r"""<p>Deactivates an evaluation form in the specified Connect Customer instance. After a form is deactivated, it is no longer available for users to start new evaluations based on the form. </p>
+        """<p>Deactivates an evaluation form in the specified Connect Customer instance. After a form is deactivated, it is no longer available for users to start new evaluations based on the form. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_form_id: <p>The unique identifier for the evaluation form.</p>
             evaluation_form_version: <p>A version of the evaluation form. If the version property is not provided, the latest version of the evaluation form is deactivated.</p>
 
@@ -6359,12 +6359,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_attached_file_response.DeleteAttachedFileResponse":
-        r"""<p>Deletes an attached file along with the underlying S3 Object.</p> <important> <p>The attached file is <b>permanently deleted</b> if S3 bucket versioning is not enabled.</p> </important>
+        """<p>Deletes an attached file along with the underlying S3 Object.</p> <important> <p>The attached file is <b>permanently deleted</b> if S3 bucket versioning is not enabled.</p> </important>
 
         Args:
             instance_id: <p>The unique identifier of the Connect instance.</p>
             file_id: <p>The unique identifier of the attached file resource.</p>
-            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/cases.html\">Cases</a>, <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html\">Email</a>, and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html\">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
+            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href="https://docs.aws.amazon.com/connect/latest/adminguide/cases.html">Cases</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Email</a>, and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -6412,10 +6412,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_contact_data_response.DeleteContactDataResponse":
-        r"""<p>Deletes the specified fields containing personally identifiable information (PII) from a contact in the specified Connect Customer instance. We redact PII (such as customer endpoints, additional email recipients, and the email subject) from the contact and its associated contact trace record (CTR). The contact must be in a terminated state.</p> <important> <p> <b>This deletion is permanent and cannot be undone.</b> Performing this operation permanently deletes the specified PII. There is no retention period; you cannot recover the data after deletion. We remove only the fields that Connect Customer identifies and stores as PII. Any PII that you place in fields outside the scope of this operation remains your responsibility to remove.</p> </important>
+        """<p>Deletes the specified fields containing personally identifiable information (PII) from a contact in the specified Connect Customer instance. We redact PII (such as customer endpoints, additional email recipients, and the email subject) from the contact and its associated contact trace record (CTR). The contact must be in a terminated state.</p> <important> <p> <b>This deletion is permanent and cannot be undone.</b> Performing this operation permanently deletes the specified PII. There is no retention period; you cannot recover the data after deletion. We remove only the fields that Connect Customer identifies and stores as PII. Any PII that you place in fields outside the scope of this operation remains your responsibility to remove.</p> </important>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact. You can delete PII only from a contact that has been disconnected (is in a terminated state).</p>
             contact_fields: <p>The categories of PII to redact from the contact. Specify one or more of the following values:</p> <ul> <li> <p> <code>CUSTOMER_ENDPOINT</code> – The customer's contact endpoint.</p> </li> <li> <p> <code>ADDITIONAL_EMAIL_RECIPIENTS</code> – Additional recipients on an email contact (email channel only).</p> </li> <li> <p> <code>EMAIL_SUBJECT</code> – The subject line of an email contact (email channel only).</p> </li> </ul>
 
@@ -6465,10 +6465,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a contact evaluation in the specified Connect Customer instance.</p>
+        """<p>Deletes a contact evaluation in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_id: <p>A unique identifier for the contact evaluation.</p>
 
         Raises:
@@ -6513,10 +6513,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_contact_flow_response.DeleteContactFlowResponse":
-        r"""<p>Deletes a flow for the specified Connect Customer instance.</p>
+        """<p>Deletes a flow for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_id: <p>The identifier of the flow.</p>
 
         Raises:
@@ -6564,10 +6564,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_contact_flow_module_response.DeleteContactFlowModuleResponse":
-        r"""<p>Deletes the specified flow module.</p>
+        """<p>Deletes the specified flow module.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
 
         Raises:
@@ -6616,10 +6616,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_contact_flow_module_alias_response.DeleteContactFlowModuleAliasResponse":
-        r"""<p>Removes an alias reference, breaking the named connection to the underlying module version without affecting the version itself.</p>
+        """<p>Removes an alias reference, breaking the named connection to the underlying module version without affecting the version itself.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             alias_id: <p>The identifier of the alias.</p>
 
@@ -6670,10 +6670,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_contact_flow_module_version_response.DeleteContactFlowModuleVersionResponse":
-        r"""<p>Removes a specific version of a contact flow module.</p>
+        """<p>Removes a specific version of a contact flow module.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             contact_flow_module_version: <p>The version of the flow module to delete.</p>
 
@@ -6724,10 +6724,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_contact_flow_version_response.DeleteContactFlowVersionResponse":
-        r"""<p>Deletes the particular version specified in flow version identifier.</p>
+        """<p>Deletes the particular version specified in flow version identifier.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_id: <p>The identifier of the flow.</p>
             contact_flow_version: <p>The identifier of the flow version.</p>
 
@@ -6884,10 +6884,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_email_address_response.DeleteEmailAddressResponse":
-        r"""<p>Deletes email address from the specified Connect Customer instance.</p>
+        """<p>Deletes email address from the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             email_address_id: <p>The identifier of the email address.</p>
 
         Raises:
@@ -6939,10 +6939,10 @@ class ConnectClient:
             "capo_connect.types.version_number.VersionNumber"
         ] = None,
     ) -> None:
-        r"""<p>Deletes an evaluation form in the specified Connect Customer instance. </p> <ul> <li> <p>If the version property is provided, only the specified version of the evaluation form is deleted.</p> </li> <li> <p>If no version is provided, then the full form (all versions) is deleted.</p> </li> </ul>
+        """<p>Deletes an evaluation form in the specified Connect Customer instance. </p> <ul> <li> <p>If the version property is provided, only the specified version of the evaluation form is deleted.</p> </li> <li> <p>If no version is provided, then the full form (all versions) is deleted.</p> </li> </ul>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_form_id: <p>The unique identifier for the evaluation form.</p>
             evaluation_form_version: <p>The unique identifier for the evaluation form.</p>
 
@@ -6990,10 +6990,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_extraction_definition_response.DeleteExtractionDefinitionResponse":
-        r"""<p>Deletes an extraction definition from the specified Connect Customer instance.</p>
+        """<p>Deletes an extraction definition from the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             extraction_definition_id: <p>The identifier of the extraction definition to delete.</p>
 
         Raises:
@@ -7040,10 +7040,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes an hours of operation.</p>
+        """<p>Deletes an hours of operation.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             hours_of_operation_id: <p>The identifier for the hours of operation.</p>
 
         Raises:
@@ -7139,11 +7139,11 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Deletes the Connect Customer instance. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/delete-connect-instance.html\">Delete your Connect Customer instance</a> in the <i>Connect Customer Administrator Guide</i>.</p> <p>Connect Customer enforces a limit on the total number of instances that you can create or delete in 30 days. If you exceed this limit, you will get an error message indicating there has been an excessive number of attempts at creating or deleting instances. You must wait 30 days before you can restart creating and deleting instances in your account.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Deletes the Connect Customer instance. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/delete-connect-instance.html">Delete your Connect Customer instance</a> in the <i>Connect Customer Administrator Guide</i>.</p> <p>Connect Customer enforces a limit on the total number of instances that you can create or delete in 30 days. If you exceed this limit, you will get an error message indicating there has been an excessive number of attempts at creating or deleting instances. You must wait 30 days before you can restart creating and deleting instances in your account.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -7187,10 +7187,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes an Amazon Web Services resource association from an Connect Customer instance. The association must not have any use cases associated with it.</p>
+        """<p>Deletes an Amazon Web Services resource association from an Connect Customer instance. The association must not have any use cases associated with it.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             integration_association_id: <p>The identifier for the integration association.</p>
 
         Raises:
@@ -7234,10 +7234,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_metric_response.DeleteMetricResponse":
-        r"""<p>Deletes an existing metric from the specified Connect Customer instance. This operation fails with <code>ResourceConflictException</code> if the metric is currently in use in a dashboard.</p>
+        """<p>Deletes an existing metric from the specified Connect Customer instance. This operation fails with <code>ResourceConflictException</code> if the metric is currently in use in a dashboard.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             metric_id: <p>The identifier of the metric to delete.</p>
 
         Raises:
@@ -7286,10 +7286,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_notification_response.DeleteNotificationResponse":
-        r"""<p>Deletes a notification. Once deleted, the notification is no longer visible to all users and cannot be managed through the Admin Website or APIs.</p>
+        """<p>Deletes a notification. Once deleted, the notification is no longer visible to all users and cannot be managed through the Admin Website or APIs.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             notification_id: <p>The unique identifier for the notification to delete.</p>
 
         Raises:
@@ -7386,10 +7386,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a prompt.</p>
+        """<p>Deletes a prompt.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             prompt_id: <p>A unique identifier for the prompt.</p>
 
         Raises:
@@ -7435,10 +7435,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_push_notification_registration_response.DeletePushNotificationRegistrationResponse":
-        r"""<p>Deletes registration for a device token and a chat contact.</p>
+        """<p>Deletes registration for a device token and a chat contact.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             registration_id: <p>The identifier for the registration.</p>
             contact_id: <p>The identifier of the contact within the Connect Customer instance.</p>
 
@@ -7487,10 +7487,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a queue.</p>
+        """<p>Deletes a queue.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
 
         Raises:
@@ -7536,10 +7536,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a quick connect. </p> <important> <p>After calling <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteUser.html\">DeleteUser</a>, it's important to call <code>DeleteQuickConnect</code> to delete any records related to the deleted users. This will help you:</p> <ul> <li> <p>Avoid dangling resources that impact your service quotas.</p> </li> <li> <p>Remove deleted users so they don't appear to agents as transfer options.</p> </li> <li> <p>Avoid the disruption of other Connect Customer processes, such as instance replication and syncing if you're using <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html\">Connect Customer Global Resiliency</a>. </p> </li> </ul> </important>
+        """<p>Deletes a quick connect. </p> <important> <p>After calling <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteUser.html">DeleteUser</a>, it's important to call <code>DeleteQuickConnect</code> to delete any records related to the deleted users. This will help you:</p> <ul> <li> <p>Avoid dangling resources that impact your service quotas.</p> </li> <li> <p>Remove deleted users so they don't appear to agents as transfer options.</p> </li> <li> <p>Avoid the disruption of other Connect Customer processes, such as instance replication and syncing if you're using <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html">Connect Customer Global Resiliency</a>. </p> </li> </ul> </important>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             quick_connect_id: <p>The identifier for the quick connect.</p>
 
         Raises:
@@ -7584,10 +7584,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a routing profile.</p>
+        """<p>Deletes a routing profile.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
 
         Raises:
@@ -7633,10 +7633,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a rule for the specified Connect Customer instance.</p>
+        """<p>Deletes a rule for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             rule_id: <p>A unique identifier for the rule.</p>
 
         Raises:
@@ -7681,10 +7681,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a security profile.</p>
+        """<p>Deletes a security profile.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             security_profile_id: <p>The identifier for the security profle.</p>
 
         Raises:
@@ -7731,10 +7731,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_session_response.DeleteSessionResponse":
-        r"""<p>Deletes a session for the specified Connect Customer instance.</p>
+        """<p>Deletes a session for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             session_id: <p>The identifier of the session to delete.</p>
 
         Raises:
@@ -7782,10 +7782,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_task_template_response.DeleteTaskTemplateResponse":
-        r"""<p>Deletes the task template.</p>
+        """<p>Deletes the task template.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             task_template_id: <p>A unique identifier for the task template.</p>
 
         Raises:
@@ -7882,7 +7882,7 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_traffic_distribution_group_response.DeleteTrafficDistributionGroupResponse":
-        r"""<p>Deletes a traffic distribution group. This API can be called only in the Region where the traffic distribution group is created.</p> <p>For more information about deleting traffic distribution groups, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/delete-traffic-distribution-groups.html\">Delete traffic distribution groups</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Deletes a traffic distribution group. This API can be called only in the Region where the traffic distribution group is created.</p> <p>For more information about deleting traffic distribution groups, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/delete-traffic-distribution-groups.html">Delete traffic distribution groups</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
             traffic_distribution_group_id: <p>The identifier of the traffic distribution group. This can be the ID or the ARN of the traffic distribution group.</p>
@@ -7931,10 +7931,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a use case from an integration association.</p>
+        """<p>Deletes a use case from an integration association.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             integration_association_id: <p>The identifier for the integration association.</p>
             use_case_id: <p>The identifier for the use case.</p>
 
@@ -7980,10 +7980,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a user account from the specified Connect Customer instance.</p> <p>For information about what happens to a user's data when their account is deleted, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/delete-users.html\">Delete Users from Your Connect Customer Instance</a> in the <i>Connect Customer Administrator Guide</i>.</p> <important> <p>After calling DeleteUser, call <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteQuickConnect.html\">DeleteQuickConnect</a> to delete any records related to the deleted users. This will help you:</p> <ul> <li> <p>Avoid dangling resources that impact your service quotas.</p> </li> <li> <p>Remove deleted users so they don't appear to agents as transfer options.</p> </li> <li> <p>Avoid the disruption of other Connect Customer processes, such as instance replication and syncing if you're using <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html\">Connect Customer Global Resiliency</a>. </p> </li> </ul> </important>
+        """<p>Deletes a user account from the specified Connect Customer instance.</p> <p>For information about what happens to a user's data when their account is deleted, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/delete-users.html">Delete Users from Your Connect Customer Instance</a> in the <i>Connect Customer Administrator Guide</i>.</p> <important> <p>After calling DeleteUser, call <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteQuickConnect.html">DeleteQuickConnect</a> to delete any records related to the deleted users. This will help you:</p> <ul> <li> <p>Avoid dangling resources that impact your service quotas.</p> </li> <li> <p>Remove deleted users so they don't appear to agents as transfer options.</p> </li> <li> <p>Avoid the disruption of other Connect Customer processes, such as instance replication and syncing if you're using <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html">Connect Customer Global Resiliency</a>. </p> </li> </ul> </important>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             user_id: <p>The identifier of the user.</p>
 
         Raises:
@@ -8028,11 +8028,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes an existing user hierarchy group. It must not be associated with any agents or have any active child groups.</p>
+        """<p>Deletes an existing user hierarchy group. It must not be associated with any agents or have any active child groups.</p>
 
         Args:
             hierarchy_group_id: <p>The identifier of the hierarchy group.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -8184,10 +8184,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_vocabulary_response.DeleteVocabularyResponse":
-        r"""<p>Deletes the vocabulary that has the given identifier.</p>
+        """<p>Deletes the vocabulary that has the given identifier.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             vocabulary_id: <p>The identifier of the custom vocabulary.</p>
 
         Raises:
@@ -8235,10 +8235,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_workspace_response.DeleteWorkspaceResponse":
-        r"""<p>Deletes a workspace and removes all associated view and resource assignments.</p>
+        """<p>Deletes a workspace and removes all associated view and resource assignments.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
 
         Raises:
@@ -8287,10 +8287,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.delete_workspace_media_response.DeleteWorkspaceMediaResponse":
-        r"""<p>Deletes a media asset (such as a logo) from a workspace.</p>
+        """<p>Deletes a media asset (such as a logo) from a workspace.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             media_type: <p>The type of media to delete. Valid values are: <code>IMAGE_LOGO_FAVICON</code> and <code>IMAGE_LOGO_HORIZONTAL</code>.</p>
 
@@ -8342,10 +8342,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.delete_workspace_page_response.DeleteWorkspacePageResponse"
     ):
-        r"""<p>Removes the association between a view and a page in a workspace. The page will display the default view after deletion.</p>
+        """<p>Removes the association between a view and a page in a workspace. The page will display the default view after deletion.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             page: <p>The page identifier.</p>
 
@@ -8398,10 +8398,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.describe_agent_status_response.DescribeAgentStatusResponse"
     ):
-        r"""<p>Describes an agent status.</p>
+        """<p>Describes an agent status.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             agent_status_id: <p>The identifier for the agent status.</p>
 
         Raises:
@@ -8448,10 +8448,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_attached_files_configuration_response.DescribeAttachedFilesConfigurationResponse":
-        r"""<p>Describes the attached files configuration for the specified Connect Customer instance and attachment scope.</p> <p>If a custom configuration exists for the specified attachment scope, the custom configuration is returned. If no custom configuration exists, the default configuration values for that attachment scope are returned.</p>
+        """<p>Describes the attached files configuration for the specified Connect Customer instance and attachment scope.</p> <p>If a custom configuration exists for the specified attachment scope, the custom configuration is returned. If no custom configuration exists, the default configuration values for that attachment scope are returned.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             attachment_scope: <p>The scope of the attachment. Valid values are <code>EMAIL</code>, <code>CHAT</code>, <code>CASE</code>, and <code>TASK</code>.</p>
 
         Raises:
@@ -8498,11 +8498,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_authentication_profile_response.DescribeAuthenticationProfileResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change. To request access to this API, contact Amazon Web Services Support.</p> <p>Describes the target authentication profile.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change. To request access to this API, contact Amazon Web Services Support.</p> <p>Describes the target authentication profile.</p>
 
         Args:
             authentication_profile_id: <p>A unique identifier for the authentication profile. </p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -8548,10 +8548,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_contact_response.DescribeContactResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Describes the specified contact. </p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Retrieve contact information such as the caller's phone number and the specific number the caller dialed to integrate into custom monitoring or custom agent experience solutions.</p> </li> <li> <p>Detect when a customer chat session disconnects due to a network issue on the agent's end. Use the DisconnectReason field in the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/ctr-data-model.html#ctr-ContactTraceRecord\">ContactTraceRecord</a> to detect this event and then re-queue the chat for followup.</p> </li> <li> <p>Identify after contact work (ACW) duration and call recordings information when a COMPLETED event is received by using the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html\">contact event stream</a>. </p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p> <code>SystemEndpoint</code> is not populated for contacts with initiation method of MONITOR, QUEUE_TRANSFER, or CALLBACK</p> </li> <li> <p>Contact information remains available in Connect Customer for 24 months from the <code>InitiationTimestamp</code>, and then it is deleted. Only contact information that is available in Connect Customer is returned by this API.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Describes the specified contact. </p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Retrieve contact information such as the caller's phone number and the specific number the caller dialed to integrate into custom monitoring or custom agent experience solutions.</p> </li> <li> <p>Detect when a customer chat session disconnects due to a network issue on the agent's end. Use the DisconnectReason field in the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/ctr-data-model.html#ctr-ContactTraceRecord">ContactTraceRecord</a> to detect this event and then re-queue the chat for followup.</p> </li> <li> <p>Identify after contact work (ACW) duration and call recordings information when a COMPLETED event is received by using the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html">contact event stream</a>. </p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p> <code>SystemEndpoint</code> is not populated for contacts with initiation method of MONITOR, QUEUE_TRANSFER, or CALLBACK</p> </li> <li> <p>Contact information remains available in Connect Customer for 24 months from the <code>InitiationTimestamp</code>, and then it is deleted. Only contact information that is available in Connect Customer is returned by this API.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact.</p>
 
         Raises:
@@ -8598,10 +8598,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_contact_evaluation_response.DescribeContactEvaluationResponse":
-        r"""<p>Describes a contact evaluation in the specified Connect Customer instance.</p>
+        """<p>Describes a contact evaluation in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_id: <p>A unique identifier for the contact evaluation.</p>
 
         Raises:
@@ -8649,7 +8649,7 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.describe_contact_flow_response.DescribeContactFlowResponse"
     ):
-        r"""<p>Describes the specified flow.</p> <p>You can also create and update flows using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html\">Connect Customer Flow language</a>.</p> <p>Use the <code>$SAVED</code> alias in the request to describe the <code>SAVED</code> content of a Flow. For example, <code>arn:aws:.../contact-flow/{id}:$SAVED</code>. After a flow is published, <code>$SAVED</code> needs to be supplied to view saved content that has not been published.</p> <p>Use <code>arn:aws:.../contact-flow/{id}:{version}</code> to retrieve the content of a specific flow version.</p> <p>In the response, <b>Status</b> indicates the flow status as either <code>SAVED</code> or <code>PUBLISHED</code>. The <code>PUBLISHED</code> status will initiate validation on the content. <code>SAVED</code> does not initiate validation of the content. <code>SAVED</code> | <code>PUBLISHED</code> </p>
+        """<p>Describes the specified flow.</p> <p>You can also create and update flows using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html">Connect Customer Flow language</a>.</p> <p>Use the <code>$SAVED</code> alias in the request to describe the <code>SAVED</code> content of a Flow. For example, <code>arn:aws:.../contact-flow/{id}:$SAVED</code>. After a flow is published, <code>$SAVED</code> needs to be supplied to view saved content that has not been published.</p> <p>Use <code>arn:aws:.../contact-flow/{id}:{version}</code> to retrieve the content of a specific flow version.</p> <p>In the response, <b>Status</b> indicates the flow status as either <code>SAVED</code> or <code>PUBLISHED</code>. The <code>PUBLISHED</code> status will initiate validation on the content. <code>SAVED</code> does not initiate validation of the content. <code>SAVED</code> | <code>PUBLISHED</code> </p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance.</p>
@@ -8700,10 +8700,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_contact_flow_module_response.DescribeContactFlowModuleResponse":
-        r"""<p>Describes the specified flow module.</p> <p>Use the <code>$SAVED</code> alias in the request to describe the <code>SAVED</code> content of a Flow. For example, <code>arn:aws:.../contact-flow/{id}:$SAVED</code>. After a flow is published, <code>$SAVED</code> needs to be supplied to view saved content that has not been published.</p>
+        """<p>Describes the specified flow module.</p> <p>Use the <code>$SAVED</code> alias in the request to describe the <code>SAVED</code> content of a Flow. For example, <code>arn:aws:.../contact-flow/{id}:$SAVED</code>. After a flow is published, <code>$SAVED</code> needs to be supplied to view saved content that has not been published.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
 
         Raises:
@@ -8752,10 +8752,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_contact_flow_module_alias_response.DescribeContactFlowModuleAliasResponse":
-        r"""<p>Retrieves detailed information about a specific alias, including which version it currently points to and its metadata.</p>
+        """<p>Retrieves detailed information about a specific alias, including which version it currently points to and its metadata.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             alias_id: <p>The identifier of the alias.</p>
 
@@ -8805,7 +8805,7 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_data_table_response.DescribeDataTableResponse":
-        r"""<p>Returns all properties for a data table except for attributes and values. All properties from CreateDataTable are returned as well as properties for region replication, versioning, and system tables. \"Describe\" is a deprecated term but is allowed to maintain consistency with existing operations.</p>
+        """<p>Returns all properties for a data table except for attributes and values. All properties from CreateDataTable are returned as well as properties for region replication, versioning, and system tables. "Describe" is a deprecated term but is allowed to maintain consistency with existing operations.</p>
 
         Args:
             instance_id: <p>The unique identifier for the Amazon Connect instance.</p>
@@ -8857,7 +8857,7 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_data_table_attribute_response.DescribeDataTableAttributeResponse":
-        r"""<p>Returns detailed information for a specific data table attribute including its configuration, validation rules, and metadata. \"Describe\" is a deprecated term but is allowed to maintain consistency with existing operations.</p>
+        """<p>Returns detailed information for a specific data table attribute including its configuration, validation rules, and metadata. "Describe" is a deprecated term but is allowed to maintain consistency with existing operations.</p>
 
         Args:
             instance_id: <p>The unique identifier for the Amazon Connect instance.</p>
@@ -8910,10 +8910,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_email_address_response.DescribeEmailAddressResponse":
-        r"""<p>Describe email address form the specified Connect Customer instance.</p>
+        """<p>Describe email address form the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             email_address_id: <p>The identifier of the email address.</p>
 
         Raises:
@@ -8964,10 +8964,10 @@ class ConnectClient:
             "capo_connect.types.version_number.VersionNumber"
         ] = None,
     ) -> "capo_connect.types.describe_evaluation_form_response.DescribeEvaluationFormResponse":
-        r"""<p>Describes an evaluation form in the specified Connect Customer instance. If the version property is not provided, the latest version of the evaluation form is described.</p>
+        """<p>Describes an evaluation form in the specified Connect Customer instance. If the version property is not provided, the latest version of the evaluation form is described.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_form_id: <p>A unique identifier for the contact evaluation.</p>
             evaluation_form_version: <p>A version of the evaluation form.</p>
 
@@ -9016,10 +9016,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_extraction_definition_response.DescribeExtractionDefinitionResponse":
-        r"""<p>Describes an extraction definition in the specified Connect Customer instance.</p>
+        """<p>Describes an extraction definition in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             extraction_definition_id: <p>The identifier of the extraction definition to describe.</p>
 
         Raises:
@@ -9066,10 +9066,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_hours_of_operation_response.DescribeHoursOfOperationResponse":
-        r"""<p>Describes the hours of operation.</p>
+        """<p>Describes the hours of operation.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             hours_of_operation_id: <p>The identifier for the hours of operation.</p>
 
         Raises:
@@ -9168,10 +9168,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_instance_response.DescribeInstanceResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns the current state of the specified instance identifier. It tracks the instance while it is being created and returns an error status, if applicable. </p> <p>If an instance is not created successfully, the instance status reason field returns details relevant to the reason. The instance in a failed state is returned only for 24 hours after the CreateInstance API was invoked.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns the current state of the specified instance identifier. It tracks the instance while it is being created and returns an error status, if applicable. </p> <p>If an instance is not created successfully, the instance status reason field returns details relevant to the reason. The instance in a failed state is returned only for 24 hours after the CreateInstance API was invoked.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -9214,10 +9214,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_instance_attribute_response.DescribeInstanceAttributeResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Describes the specified instance attribute.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Describes the specified instance attribute.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             attribute_type: <p>The type of attribute.</p>
 
         Raises:
@@ -9265,10 +9265,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_instance_storage_config_response.DescribeInstanceStorageConfigResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Retrieves the current storage configurations for the specified resource type, association ID, and instance ID.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Retrieves the current storage configurations for the specified resource type, association ID, and instance ID.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             association_id: <p>The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.</p>
             resource_type: <p>A valid resource type.</p>
 
@@ -9317,10 +9317,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_metric_response.DescribeMetricResponse":
-        r"""<p>Retrieves the full definition of an existing metric from the specified Connect Customer instance.</p>
+        """<p>Retrieves the full definition of an existing metric from the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             metric_id: <p>The identifier of the metric to describe. Adding the <code>$SAVED</code> qualifier will describe the saved version of the metric. Adding <code>$LATEST</code> or omitting a qualifier will describe the published version.</p>
 
         Raises:
@@ -9370,10 +9370,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.describe_notification_response.DescribeNotificationResponse"
     ):
-        r"""<p>Retrieves detailed information about a specific notification, including its content, priority, recipients, and metadata.</p>
+        """<p>Retrieves detailed information about a specific notification, including its content, priority, recipients, and metadata.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             notification_id: <p>The unique identifier for the notification.</p>
 
         Raises:
@@ -9470,7 +9470,7 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_predefined_attribute_response.DescribePredefinedAttributeResponse":
-        r"""<p>Describes a predefined attribute for the specified Connect Customer instance. A <i>predefined attribute</i> is made up of a name and a value. You can use predefined attributes for:</p> <ul> <li> <p>Routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html\">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Contact information that varies between transfers or conferences, such as the name of the business unit handling the contact. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html\">Use contact segment attributes</a>.</p> </li> </ul> <p>For the predefined attributes per instance quota, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas\">Connect Customer quotas</a>.</p> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Describes a predefined attribute for the specified Connect Customer instance. A <i>predefined attribute</i> is made up of a name and a value. You can use predefined attributes for:</p> <ul> <li> <p>Routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Contact information that varies between transfers or conferences, such as the name of the business unit handling the contact. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html">Use contact segment attributes</a>.</p> </li> </ul> <p>For the predefined attributes per instance quota, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas">Connect Customer quotas</a>.</p> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instance ID in the Amazon Resource Name (ARN) of the instance.</p>
@@ -9520,10 +9520,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_prompt_response.DescribePromptResponse":
-        r"""<p>Describes the prompt.</p>
+        """<p>Describes the prompt.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             prompt_id: <p>A unique identifier for the prompt.</p>
 
         Raises:
@@ -9570,10 +9570,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_queue_response.DescribeQueueResponse":
-        r"""<p>Describes the specified queue.</p>
+        """<p>Describes the specified queue.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
 
         Raises:
@@ -9620,10 +9620,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_quick_connect_response.DescribeQuickConnectResponse":
-        r"""<p>Describes the quick connect.</p>
+        """<p>Describes the quick connect.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             quick_connect_id: <p>The identifier for the quick connect.</p>
 
         Raises:
@@ -9670,10 +9670,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_routing_profile_response.DescribeRoutingProfileResponse":
-        r"""<p>Describes the specified routing profile.</p> <note> <p> <code>DescribeRoutingProfile</code> does not populate AssociatedQueueIds in its response. The example Response Syntax shown on this page is incorrect; we are working to update it. <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchRoutingProfiles.html\">SearchRoutingProfiles</a> does include AssociatedQueueIds.</p> </note>
+        """<p>Describes the specified routing profile.</p> <note> <p> <code>DescribeRoutingProfile</code> does not populate AssociatedQueueIds in its response. The example Response Syntax shown on this page is incorrect; we are working to update it. <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchRoutingProfiles.html">SearchRoutingProfiles</a> does include AssociatedQueueIds.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
 
         Raises:
@@ -9720,10 +9720,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_rule_response.DescribeRuleResponse":
-        r"""<p>Describes a rule for the specified Connect Customer instance.</p>
+        """<p>Describes a rule for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             rule_id: <p>A unique identifier for the rule.</p>
 
         Raises:
@@ -9770,11 +9770,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_security_profile_response.DescribeSecurityProfileResponse":
-        r"""<p>Gets basic information about the security profile.</p> <p>For information about security profiles, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html\">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>. </p>
+        """<p>Gets basic information about the security profile.</p> <p>For information about security profiles, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>. </p>
 
         Args:
             security_profile_id: <p>The identifier for the security profle.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -9922,11 +9922,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_user_response.DescribeUserResponse":
-        r"""<p>Describes the specified user. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID in the Connect Customer console</a> (it’s the final part of the ARN). The console does not display the user IDs. Instead, list the users and note the IDs provided in the output.</p>
+        """<p>Describes the specified user. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID in the Connect Customer console</a> (it’s the final part of the ARN). The console does not display the user IDs. Instead, list the users and note the IDs provided in the output.</p>
 
         Args:
             user_id: <p>The identifier of the user account.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -9972,11 +9972,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_user_hierarchy_group_response.DescribeUserHierarchyGroupResponse":
-        r"""<p>Describes the specified hierarchy group.</p>
+        """<p>Describes the specified hierarchy group.</p>
 
         Args:
             hierarchy_group_id: <p>The identifier of the hierarchy group.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -10021,10 +10021,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_user_hierarchy_structure_response.DescribeUserHierarchyStructureResponse":
-        r"""<p>Describes the hierarchy structure of the specified Connect Customer instance.</p>
+        """<p>Describes the hierarchy structure of the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -10120,10 +10120,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_vocabulary_response.DescribeVocabularyResponse":
-        r"""<p>Describes the specified vocabulary.</p>
+        """<p>Describes the specified vocabulary.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             vocabulary_id: <p>The identifier of the custom vocabulary.</p>
 
         Raises:
@@ -10170,10 +10170,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.describe_workspace_response.DescribeWorkspaceResponse":
-        r"""<p>Retrieves details about a workspace, including its configuration and metadata.</p>
+        """<p>Retrieves details about a workspace, including its configuration and metadata.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
 
         Raises:
@@ -10224,10 +10224,10 @@ class ConnectClient:
             "capo_connect.types.aws_account_id.AWSAccountId"
         ] = None,
     ) -> None:
-        r"""<p>Removes the dataset ID associated with a given Connect Customer instance.</p>
+        """<p>Removes the dataset ID associated with a given Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             data_set_id: <p>The identifier of the dataset to remove.</p>
             target_account_id: <p>The identifier of the target account. Use to associate a dataset to a different account than the one containing the Connect Customer instance. If not specified, by default this value is the Amazon Web Services account that has the Connect Customer instance.</p>
 
@@ -10276,12 +10276,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Revokes access to integrated applications from Connect Customer.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Revokes access to integrated applications from Connect Customer.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             origin: <p>The domain URL of the integrated application.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -10330,12 +10330,12 @@ class ConnectClient:
         lex_v2_bot: Optional["capo_connect.types.lex_v2_bot.LexV2Bot"] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Revokes authorization from the specified instance to access the specified Amazon Lex or Amazon Lex V2 bot. </p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Revokes authorization from the specified instance to access the specified Amazon Lex or Amazon Lex V2 bot. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             lex_v2_bot: <p>The Amazon Lex V2 bot to disassociate from the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -10386,13 +10386,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.disassociate_email_address_alias_response.DisassociateEmailAddressAliasResponse":
-        r"""<p>Removes the alias association between two email addresses in an Connect Customer instance. After disassociation, emails sent to the former alias email address are no longer forwarded to the primary email address. Both email addresses continue to exist independently and can receive emails directly.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p> <b>Department separation</b>: Remove alias relationships when splitting a consolidated support queue back into separate department-specific queues.</p> </li> <li> <p> <b>Email address retirement</b>: Cleanly remove forwarding relationships before decommissioning old email addresses.</p> </li> <li> <p> <b>Organizational restructuring</b>: Reconfigure email routing when business processes change and aliases are no longer needed.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>Concurrent operations: This API uses distributed locking, so concurrent operations on the same email addresses may be temporarily blocked.</p> </li> <li> <p>Emails sent to the former alias address are still delivered directly to that address if it exists.</p> </li> <li> <p>You do not need to delete the email addresses after disassociation. Both addresses remain active independently.</p> </li> <li> <p>After a successful disassociation, you can immediately create a new alias relationship with the same addresses.</p> </li> <li> <p>200 status means alias was successfully disassociated.</p> </li> </ul> <p> <code>DisassociateEmailAddressAlias</code> does not return the following information:</p> <ul> <li> <p>Details in the response about the email that was disassociated. The response returns an empty body.</p> </li> <li> <p>The timestamp of when the disassociation occurred.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p> <p> <b>Related operations</b> </p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_AssociateEmailAddressAlias.html\">AssociateEmailAddressAlias</a>: Associates an email address alias with an existing email address in an Connect Customer instance.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeEmailAddress.html\">DescribeEmailAddress</a>: View current alias configurations for an email address.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchEmailAddresses.html\">SearchEmailAddresses</a>: Find email addresses and their alias relationships across an instance.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_CreateEmailAddress.html\">CreateEmailAddress</a>: Create new email addresses that can participate in alias relationships.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteEmailAddress.html\">DeleteEmailAddress</a>: Remove email addresses (automatically removes any alias relationships).</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_UpdateEmailAddressMetadata.html\">UpdateEmailAddressMetadata</a>: Modify email address properties (does not affect alias relationships).</p> </li> </ul>
+        """<p>Removes the alias association between two email addresses in an Connect Customer instance. After disassociation, emails sent to the former alias email address are no longer forwarded to the primary email address. Both email addresses continue to exist independently and can receive emails directly.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p> <b>Department separation</b>: Remove alias relationships when splitting a consolidated support queue back into separate department-specific queues.</p> </li> <li> <p> <b>Email address retirement</b>: Cleanly remove forwarding relationships before decommissioning old email addresses.</p> </li> <li> <p> <b>Organizational restructuring</b>: Reconfigure email routing when business processes change and aliases are no longer needed.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>Concurrent operations: This API uses distributed locking, so concurrent operations on the same email addresses may be temporarily blocked.</p> </li> <li> <p>Emails sent to the former alias address are still delivered directly to that address if it exists.</p> </li> <li> <p>You do not need to delete the email addresses after disassociation. Both addresses remain active independently.</p> </li> <li> <p>After a successful disassociation, you can immediately create a new alias relationship with the same addresses.</p> </li> <li> <p>200 status means alias was successfully disassociated.</p> </li> </ul> <p> <code>DisassociateEmailAddressAlias</code> does not return the following information:</p> <ul> <li> <p>Details in the response about the email that was disassociated. The response returns an empty body.</p> </li> <li> <p>The timestamp of when the disassociation occurred.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p> <p> <b>Related operations</b> </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_AssociateEmailAddressAlias.html">AssociateEmailAddressAlias</a>: Associates an email address alias with an existing email address in an Connect Customer instance.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeEmailAddress.html">DescribeEmailAddress</a>: View current alias configurations for an email address.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchEmailAddresses.html">SearchEmailAddresses</a>: Find email addresses and their alias relationships across an instance.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_CreateEmailAddress.html">CreateEmailAddress</a>: Create new email addresses that can participate in alias relationships.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteEmailAddress.html">DeleteEmailAddress</a>: Remove email addresses (automatically removes any alias relationships).</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_UpdateEmailAddressMetadata.html">UpdateEmailAddressMetadata</a>: Modify email address properties (does not affect alias relationships).</p> </li> </ul>
 
         Args:
             email_address_id: <p>The identifier of the email address.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             alias_configuration: <p>Configuration object that specifies which alias relationship to remove. The alias association must currently exist between the primary email address and the specified alias email address.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -10445,10 +10445,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.disassociate_flow_response.DisassociateFlowResponse":
-        r"""<p>Disassociates a connect resource from a flow.</p>
+        """<p>Disassociates a connect resource from a flow.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             resource_id: <p>The identifier of the resource.</p> <ul> <li> <p>Amazon Web Services End User Messaging SMS phone number ARN when using <code>SMS_PHONE_NUMBER</code> </p> </li> <li> <p>Amazon Web Services End User Messaging Social phone number ARN when using <code>WHATSAPP_MESSAGING_PHONE_NUMBER</code> </p> </li> </ul>
             resource_type: <p>A valid resource type.</p>
 
@@ -10499,10 +10499,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Disassociates a set of hours of operations with another hours of operation. For more information about inheriting overrides from parent hours of operation, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html\">Hours of operation overrides</a> in the Administrator Guide.</p>
+        """<p>Disassociates a set of hours of operations with another hours of operation. For more information about inheriting overrides from parent hours of operation, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html">Hours of operation overrides</a> in the Administrator Guide.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             hours_of_operation_id: <p>The identifier of the child hours of operation.</p>
             parent_hours_of_operation_ids: <p>The Amazon Resource Names (ARNs) of the parent hours of operation resources to disassociate with the child hours of operation resource.</p>
 
@@ -10552,13 +10552,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Removes the storage type configurations for the specified resource type and association ID.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Removes the storage type configurations for the specified resource type and association ID.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             association_id: <p>The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.</p>
             resource_type: <p>A valid resource type.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -10607,12 +10607,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Remove the Lambda function from the dropdown options available in the relevant flow blocks.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Remove the Lambda function from the dropdown options available in the relevant flow blocks.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance..</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance..</p>
             function_arn: <p>The Amazon Resource Name (ARN) of the Lambda function being disassociated.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -10661,13 +10661,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Revokes authorization from the specified instance to access the specified Amazon Lex bot.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Revokes authorization from the specified instance to access the specified Amazon Lex bot.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             bot_name: <p>The name of the Amazon Lex bot. Maximum character limit of 50.</p>
             lex_region: <p>The Amazon Web Services Region in which the Amazon Lex bot has been created.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -10715,11 +10715,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Removes the flow association from a phone number claimed to your Connect Customer instance.</p> <important> <p>If the number is claimed to a traffic distribution group, and you are calling this API using an instance in the Amazon Web Services Region where the traffic distribution group was created, you can use either a full phone number ARN or UUID value for the <code>PhoneNumberId</code> URI request parameter. However, if the number is claimed to a traffic distribution group and you are calling this API using an instance in the alternate Amazon Web Services Region associated with the traffic distribution group, you must provide a full phone number ARN. If a UUID is provided in this scenario, you will receive a <code>ResourceNotFoundException</code>.</p> </important>
+        """<p>Removes the flow association from a phone number claimed to your Connect Customer instance.</p> <important> <p>If the number is claimed to a traffic distribution group, and you are calling this API using an instance in the Amazon Web Services Region where the traffic distribution group was created, you can use either a full phone number ARN or UUID value for the <code>PhoneNumberId</code> URI request parameter. However, if the number is claimed to a traffic distribution group and you are calling this API using an instance in the alternate Amazon Web Services Region associated with the traffic distribution group, you must provide a full phone number ARN. If a UUID is provided in this scenario, you will receive a <code>ResourceNotFoundException</code>.</p> </important>
 
         Args:
             phone_number_id: <p>A unique identifier for the phone number.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -10765,13 +10765,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>Removes the association between a set of email addresses and a queue. After disassociation, agents will no longer be able to select these email addresses as \"From\" addresses when replying to inbound email contacts or initiating outbound email contacts in this queue.</p> <p> <b>Important things to know</b> </p> <ul> <li> <p>Agents will no longer see these email addresses in their \"From\" address selection options for this queue.</p> </li> <li> <p>The email addresses themselves are not deleted from the instance, only their availability for agent selection in this queue is removed.</p> </li> <li> <p>Changes take effect immediately and will affect the agent experience in the Contact Control Panel (CCP).</p> </li> </ul>
+        """<p>Removes the association between a set of email addresses and a queue. After disassociation, agents will no longer be able to select these email addresses as "From" addresses when replying to inbound email contacts or initiating outbound email contacts in this queue.</p> <p> <b>Important things to know</b> </p> <ul> <li> <p>Agents will no longer see these email addresses in their "From" address selection options for this queue.</p> </li> <li> <p>The email addresses themselves are not deleted from the instance, only their availability for agent selection in this queue is removed.</p> </li> <li> <p>Changes take effect immediately and will affect the agent experience in the Contact Control Panel (CCP).</p> </li> </ul>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             email_addresses_id: <p>List of email address identifiers to disassociate from the queue. These are the unique identifiers of email addresses that should no longer be routed to this queue.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -10821,10 +10821,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Disassociates a set of quick connects from a queue.</p>
+        """<p>Disassociates a set of quick connects from a queue.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             quick_connect_ids: <p>The quick connects to disassociate from the queue.</p>
 
@@ -10877,10 +10877,10 @@ class ConnectClient:
             "capo_connect.types.routing_profile_queue_reference_list.RoutingProfileQueueReferenceList"
         ] = None,
     ) -> None:
-        r"""<p>Disassociates a set of queues from a routing profile.</p> <p>Up to 10 queue references can be disassociated in a single API call. More than 10 queue references results in a single call results in an InvalidParameterException.</p>
+        """<p>Disassociates a set of queues from a routing profile.</p> <p>Up to 10 queue references can be disassociated in a single API call. More than 10 queue references results in a single call results in an InvalidParameterException.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             queue_references: <p>The queues to disassociate from this routing profile.</p>
             manual_assignment_queue_references: <p>The manual assignment queues to disassociate with this routing profile.</p>
@@ -10934,12 +10934,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Deletes the specified security key.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Deletes the specified security key.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             association_id: <p>The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -11043,12 +11043,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.disassociate_traffic_distribution_group_user_response.DisassociateTrafficDistributionGroupUserResponse":
-        r"""<p>Disassociates an agent from a traffic distribution group. This API can be called only in the Region where the traffic distribution group is created.</p>
+        """<p>Disassociates an agent from a traffic distribution group. This API can be called only in the Region where the traffic distribution group is created.</p>
 
         Args:
             traffic_distribution_group_id: <p>The identifier of the traffic distribution group. This can be the ID or the ARN of the traffic distribution group.</p>
             user_id: <p>The identifier for the user. This can be the ID or the ARN of the user.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -11148,10 +11148,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.disassociate_workspace_response.DisassociateWorkspaceResponse":
-        r"""<p>Removes the association between a workspace and one or more users or routing profiles.</p>
+        """<p>Removes the association between a workspace and one or more users or routing profiles.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             resource_arns: <p>The Amazon Resource Names (ARNs) of the resources to disassociate from the workspace.</p>
 
@@ -11202,7 +11202,7 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.dismiss_user_contact_response.DismissUserContactResponse":
-        r"""<p>Dismisses contacts from an agent’s CCP and returns the agent to an available state, which allows the agent to receive a new routed contact. Contacts can only be dismissed if they are in a <code>MISSED</code>, <code>ERROR</code>, <code>ENDED</code>, or <code>REJECTED</code> state in the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/about-contact-states.html\">Agent Event Stream</a>.</p>
+        """<p>Dismisses contacts from an agent’s CCP and returns the agent to an available state, which allows the agent to receive a new routed contact. Contacts can only be dismissed if they are in a <code>MISSED</code>, <code>ERROR</code>, <code>ENDED</code>, or <code>REJECTED</code> state in the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/about-contact-states.html">Agent Event Stream</a>.</p>
 
         Args:
             user_id: <p>The identifier of the user account.</p>
@@ -11259,7 +11259,7 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.evaluate_data_table_values_response.EvaluateDataTableValuesResponse":
-        r"""<p>Evaluates values at the time of the request and returns them. It considers the request's timezone or the table's timezone, in that order, when accessing time based tables. When a value is accessed, the accessor's identity and the time of access are saved alongside the value to help identify values that are actively in use. The term \"Batch\" is not included in the operation name since it does not meet all the criteria for a batch operation as specified in Batch Operations: Amazon Web Services API Standards.</p>
+        """<p>Evaluates values at the time of the request and returns them. It considers the request's timezone or the table's timezone, in that order, when accessing time based tables. When a value is accessed, the accessor's identity and the time of access are saved alongside the value to help identify values that are actively in use. The term "Batch" is not included in the operation name since it does not meet all the criteria for a batch operation as specified in Batch Operations: Amazon Web Services API Standards.</p>
 
         Args:
             instance_id: <p>The unique identifier for the Amazon Connect instance.</p>
@@ -11352,13 +11352,13 @@ class ConnectClient:
             "capo_connect.types.url_expiry_in_seconds.URLExpiryInSeconds"
         ] = None,
     ) -> "capo_connect.types.get_attached_file_response.GetAttachedFileResponse":
-        r"""<p>Provides a pre-signed URL for download of an approved attached file. This API also returns metadata about the attached file. It will only return a downloadURL if the status of the attached file is <code>APPROVED</code>.</p>
+        """<p>Provides a pre-signed URL for download of an approved attached file. This API also returns metadata about the attached file. It will only return a downloadURL if the status of the attached file is <code>APPROVED</code>.</p>
 
         Args:
             instance_id: <p>The unique identifier of the Connect Customer instance.</p>
             file_id: <p>The unique identifier of the attached file resource.</p>
             url_expiry_in_seconds: <p>Optional override for the expiry of the pre-signed S3 URL in seconds. The default value is 300.</p>
-            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/cases.html\">Cases</a>, <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html\">Email</a>, and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html\">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
+            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href="https://docs.aws.amazon.com/connect/latest/adminguide/cases.html">Cases</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Email</a>, and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -11456,10 +11456,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.get_contact_metrics_response.GetContactMetricsResponse":
-        r"""<p>Retrieves contact metric data for a specified contact.</p> <p> <b>Use cases</b> </p> <p>Following are common use cases for position in queue and estimated wait time:</p> <ul> <li> <p>Customer-Facing Wait Time Announcements - Display or announce the estimated wait time and position in queue to customers before or during their queue experience. </p> </li> <li> <p>Callback Offerings - Offer customers a callback option when the estimated wait time or position in queue exceeds a defined threshold. </p> </li> <li> <p>Queue Routing Decisions - Route incoming contacts to less congested queues by comparing estimated wait time and position in queue across multiple queues. </p> </li> <li> <p>Self-Service Deflection - Redirect customers to self-service options like chatbots or FAQs when estimated wait time is high or position in queue is unfavorable. </p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>Metrics are only available while the contact is actively in queue.</p> </li> <li> <p>For more information, see the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html\">Position in queue</a> metric in the <i>Connect Customer Administrator Guide</i>. </p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Retrieves contact metric data for a specified contact.</p> <p> <b>Use cases</b> </p> <p>Following are common use cases for position in queue and estimated wait time:</p> <ul> <li> <p>Customer-Facing Wait Time Announcements - Display or announce the estimated wait time and position in queue to customers before or during their queue experience. </p> </li> <li> <p>Callback Offerings - Offer customers a callback option when the estimated wait time or position in queue exceeds a defined threshold. </p> </li> <li> <p>Queue Routing Decisions - Route incoming contacts to less congested queues by comparing estimated wait time and position in queue across multiple queues. </p> </li> <li> <p>Self-Service Deflection - Redirect customers to self-service options like chatbots or FAQs when estimated wait time is high or position in queue is unfavorable. </p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>Metrics are only available while the contact is actively in queue.</p> </li> <li> <p>For more information, see the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html">Position in queue</a> metric in the <i>Connect Customer Administrator Guide</i>. </p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             metrics: <p>A list of contact level metrics to retrieve.Supported metrics include POSITION_IN_QUEUE (the contact's current position in the queue) and ESTIMATED_WAIT_TIME (the predicted time in seconds until the contact is connected to an agent)</p>
 
@@ -11508,10 +11508,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.get_cross_region_routing_response.GetCrossRegionRoutingResponse":
-        r"""<p>Retrieves the current cross-region routing configuration for an Amazon Connect Global Resiliency instance enabled for global routing. This operation returns whether cross-region routing is currently enabled or disabled (isolated) for the instance.</p> <note> <p>This operation is available only for Amazon Connect Global Resiliency instances enabled for global routing.</p> </note>
+        """<p>Retrieves the current cross-region routing configuration for an Amazon Connect Global Resiliency instance enabled for global routing. This operation returns whether cross-region routing is currently enabled or disabled (isolated) for the instance.</p> <note> <p>This operation is available only for Amazon Connect Global Resiliency instances enabled for global routing.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -11563,13 +11563,13 @@ class ConnectClient:
             "capo_connect.types.current_metric_sort_criteria_max_one.CurrentMetricSortCriteriaMaxOne"
         ] = None,
     ) -> "capo_connect.types.get_current_metric_data_response.GetCurrentMetricDataResponse":
-        r"""<p>Gets the real-time metric data from the specified Connect Customer instance.</p> <p>For a description of each metric, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html\">Metrics definitions</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>When you make a successful API request, you can expect the following metric values in the response:</p> <ol> <li> <p> <b>Metric value is null</b>: The calculation cannot be performed due to divide by zero or insufficient data</p> </li> <li> <p> <b>Metric value is a number (including 0) of defined type</b>: The number provided is the calculation result</p> </li> <li> <p> <b>MetricResult list is empty</b>: The request cannot find any data in the system</p> </li> </ol> <p>The following guidelines can help you work with the API:</p> <ul> <li> <p>Each dimension in the metric response must contain a value</p> </li> <li> <p>Each item in MetricResult must include all requested metrics</p> </li> <li> <p>If the response is slow due to large result sets, try these approaches:</p> <ul> <li> <p>Add filters to reduce the amount of data returned</p> </li> </ul> </li> </ul> </note>
+        """<p>Gets the real-time metric data from the specified Connect Customer instance.</p> <p>For a description of each metric, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html">Metrics definitions</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>When you make a successful API request, you can expect the following metric values in the response:</p> <ol> <li> <p> <b>Metric value is null</b>: The calculation cannot be performed due to divide by zero or insufficient data</p> </li> <li> <p> <b>Metric value is a number (including 0) of defined type</b>: The number provided is the calculation result</p> </li> <li> <p> <b>MetricResult list is empty</b>: The request cannot find any data in the system</p> </li> </ol> <p>The following guidelines can help you work with the API:</p> <ul> <li> <p>Each dimension in the metric response must contain a value</p> </li> <li> <p>Each item in MetricResult must include all requested metrics</p> </li> <li> <p>If the response is slow due to large result sets, try these approaches:</p> <ul> <li> <p>Add filters to reduce the amount of data returned</p> </li> </ul> </li> </ul> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             filters: <p>The filters to apply to returned metrics. You can filter up to the following limits:</p> <ul> <li> <p>Queues: 100</p> </li> <li> <p>Routing profiles: 100</p> </li> <li> <p>Channels: 3 (VOICE, CHAT, and TASK channels are supported.)</p> </li> <li> <p>RoutingStepExpressions: 50</p> </li> <li> <p>AgentStatuses: 50</p> </li> <li> <p>Subtypes: 10</p> </li> <li> <p>ValidationTestTypes: 10</p> </li> </ul> <p>Metric data is retrieved only for the resources associated with the queues or routing profiles, and by any channels included in the filter. (You cannot filter by both queue AND routing profile.) You can include both resource IDs and resource ARNs in the same request.</p> <p>When using <code>AgentStatuses</code> as filter make sure Queues is added as primary filter.</p> <p>When using <code>Subtypes</code> as filter make sure Queues is added as primary filter.</p> <p>When using <code>ValidationTestTypes</code> as filter make sure Queues is added as primary filter.</p> <p>When using the <code>RoutingStepExpression</code> filter, you need to pass exactly one <code>QueueId</code>. The filter is also case sensitive so when using the <code>RoutingStepExpression</code> filter, grouping by <code>ROUTING_STEP_EXPRESSION</code> is required.</p> <p>Currently tagging is only supported on the resources that are passed in the filter.</p>
             groupings: <p>Defines the level of aggregation for metrics data by a dimension(s). Its similar to sorting items into buckets based on a common characteristic, then counting or calculating something for each bucket. For example, when grouped by <code>QUEUE</code>, the metrics returned apply to each queue rather than aggregated for all queues. </p> <p>The grouping list is an ordered list, with the first item in the list defined as the primary grouping. If no grouping is included in the request, the aggregation happens at the instance-level.</p> <ul> <li> <p>If you group by <code>CHANNEL</code>, you should include a Channels filter. VOICE, CHAT, and TASK channels are supported.</p> </li> <li> <p>If you group by <code>AGENT_STATUS</code>, you must include the <code>QUEUE</code> as the primary grouping and use queue filter. When you group by <code>AGENT_STATUS</code>, the only metric available is the <code>AGENTS_ONLINE</code> metric.</p> </li> <li> <p>If you group by <code>SUBTYPE</code> or <code>VALIDATION_TEST_TYPE</code> as secondary grouping then you must include <code>QUEUE</code> as primary grouping and use Queue as filter</p> </li> <li> <p>If you group by <code>ROUTING_PROFILE</code>, you must include either a queue or routing profile filter. In addition, a routing profile filter is required for metrics <code>CONTACTS_SCHEDULED</code>, <code>CONTACTS_IN_QUEUE</code>, and <code> OLDEST_CONTACT_AGE</code>.</p> </li> <li> <p>When using the <code>RoutingStepExpression</code> filter, group by <code>ROUTING_STEP_EXPRESSION</code> is required.</p> </li> </ul>
-            current_metrics: <p>The metrics to retrieve. Specify the name or metricId, and unit for each metric. The following metrics are available. For a description of all the metrics, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html\">Metrics definitions</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p> MetricId should be used to reference custom metrics or out of the box metrics as Arn. If using MetricId, the limit is 10 MetricId per request.</p> </note> <dl> <dt>AGENTS_AFTER_CONTACT_WORK</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#aftercallwork-real-time\">ACW</a> </p> </dd> <dt>AGENTS_AVAILABLE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#available-real-time\">Available</a> </p> </dd> <dt>AGENTS_ERROR</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#error-real-time\">Error</a> </p> </dd> <dt>AGENTS_NON_PRODUCTIVE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#non-productive-time-real-time\">NPT (Non-Productive Time)</a> </p> </dd> <dt>AGENTS_ON_CALL</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#on-call-real-time\">On contact</a> </p> </dd> <dt>AGENTS_ON_CONTACT</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#on-call-real-time\">On contact</a> </p> </dd> <dt>AGENTS_ONLINE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#online-real-time\">Online</a> </p> </dd> <dt>AGENTS_STAFFED</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#staffed-real-time\">Staffed</a> </p> </dd> <dt>CONTACTS_IN_QUEUE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#in-queue-real-time\">In queue</a> </p> </dd> <dt>CONTACTS_SCHEDULED</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#scheduled-real-time\">Scheduled</a> </p> </dd> <dt>ESTIMATED_WAIT_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>This metric supports filter and grouping combination only used for core routing purpose. Valid filter and grouping use cases: </p> <ul> <li> <p>Filter by a list of [Queues] and a list of [Channels], group by [“QUEUE”, “CHANNEL”]</p> </li> <li> <p>Filter by a singleton list of [Queue], a singleton list of [Channel], a list of [RoutingStepExpression], group by [“ROUTING_STEP_EXPRESSION”].</p> </li> </ul> </dd> <dt>OLDEST_CONTACT_AGE</dt> <dd> <p>Unit: SECONDS</p> <p>When you use groupings, Unit says SECONDS and the Value is returned in SECONDS. </p> <p>When you do not use groupings, Unit says SECONDS but the Value is returned in MILLISECONDS. For example, if you get a response like this:</p> <p> <code>{ \"Metric\": { \"Name\": \"OLDEST_CONTACT_AGE\", \"Unit\": \"SECONDS\" }, \"Value\": 24113.0 </code>}</p> <p>The actual OLDEST_CONTACT_AGE is 24 seconds.</p> <p>When the filter <code>RoutingStepExpression</code> is used, this metric is still calculated from enqueue time. For example, if a contact that has been queued under <code><Expression 1></code> for 10 seconds has expired and <code><Expression 2></code> becomes active, then <code>OLDEST_CONTACT_AGE</code> for this queue will be counted starting from 10, not 0.</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#oldest-real-time\">Oldest</a> </p> </dd> <dt>SLOTS_ACTIVE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#active-real-time\">Active</a> </p> </dd> <dt>SLOTS_AVAILABLE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#availability-real-time\">Availability</a> </p> </dd> </dl>
+            current_metrics: <p>The metrics to retrieve. Specify the name or metricId, and unit for each metric. The following metrics are available. For a description of all the metrics, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html">Metrics definitions</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p> MetricId should be used to reference custom metrics or out of the box metrics as Arn. If using MetricId, the limit is 10 MetricId per request.</p> </note> <dl> <dt>AGENTS_AFTER_CONTACT_WORK</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#aftercallwork-real-time">ACW</a> </p> </dd> <dt>AGENTS_AVAILABLE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#available-real-time">Available</a> </p> </dd> <dt>AGENTS_ERROR</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#error-real-time">Error</a> </p> </dd> <dt>AGENTS_NON_PRODUCTIVE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#non-productive-time-real-time">NPT (Non-Productive Time)</a> </p> </dd> <dt>AGENTS_ON_CALL</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#on-call-real-time">On contact</a> </p> </dd> <dt>AGENTS_ON_CONTACT</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#on-call-real-time">On contact</a> </p> </dd> <dt>AGENTS_ONLINE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#online-real-time">Online</a> </p> </dd> <dt>AGENTS_STAFFED</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#staffed-real-time">Staffed</a> </p> </dd> <dt>CONTACTS_IN_QUEUE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#in-queue-real-time">In queue</a> </p> </dd> <dt>CONTACTS_SCHEDULED</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#scheduled-real-time">Scheduled</a> </p> </dd> <dt>ESTIMATED_WAIT_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>This metric supports filter and grouping combination only used for core routing purpose. Valid filter and grouping use cases: </p> <ul> <li> <p>Filter by a list of [Queues] and a list of [Channels], group by [“QUEUE”, “CHANNEL”]</p> </li> <li> <p>Filter by a singleton list of [Queue], a singleton list of [Channel], a list of [RoutingStepExpression], group by [“ROUTING_STEP_EXPRESSION”].</p> </li> </ul> </dd> <dt>OLDEST_CONTACT_AGE</dt> <dd> <p>Unit: SECONDS</p> <p>When you use groupings, Unit says SECONDS and the Value is returned in SECONDS. </p> <p>When you do not use groupings, Unit says SECONDS but the Value is returned in MILLISECONDS. For example, if you get a response like this:</p> <p> <code>{ "Metric": { "Name": "OLDEST_CONTACT_AGE", "Unit": "SECONDS" }, "Value": 24113.0 </code>}</p> <p>The actual OLDEST_CONTACT_AGE is 24 seconds.</p> <p>When the filter <code>RoutingStepExpression</code> is used, this metric is still calculated from enqueue time. For example, if a contact that has been queued under <code><Expression 1></code> for 10 seconds has expired and <code><Expression 2></code> becomes active, then <code>OLDEST_CONTACT_AGE</code> for this queue will be counted starting from 10, not 0.</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#oldest-real-time">Oldest</a> </p> </dd> <dt>SLOTS_ACTIVE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#active-real-time">Active</a> </p> </dd> <dt>SLOTS_AVAILABLE</dt> <dd> <p>Unit: COUNT</p> <p>Name in real-time metrics report: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#availability-real-time">Availability</a> </p> </dd> </dl>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p> <p>The token expires after 5 minutes from the time it is created. Subsequent requests that use the token must use the same request parameters as the request that generated the token.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             sort_criteria: <p>The way to sort the resulting response based on metrics. You can enter one sort criteria. By default resources are sorted based on <code>AGENTS_ONLINE</code>, <code>DESCENDING</code>. The metric collection is sorted based on the input metrics.</p> <p>Note the following:</p> <ul> <li> <p>Sorting on <code>SLOTS_ACTIVE</code> and <code>SLOTS_AVAILABLE</code> is not supported.</p> </li> </ul>
@@ -11660,10 +11660,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.get_current_user_data_response.GetCurrentUserDataResponse":
-        r"""<p>Gets the real-time active user data from the specified Connect Customer instance. </p>
+        """<p>Gets the real-time active user data from the specified Connect Customer instance. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             filters: <p>The filters to apply to returned user data. You can filter up to the following limits:</p> <ul> <li> <p>Queues: 100</p> </li> <li> <p>Routing profiles: 100</p> </li> <li> <p>Agents: 100</p> </li> <li> <p>Contact states: 9</p> </li> <li> <p>User hierarchy groups: 1</p> </li> </ul> <p> The user data is retrieved for only the specified values/resources in the filter. A maximum of one filter can be passed from queues, routing profiles, agents, and user hierarchy groups. </p> <p>Currently tagging is only supported on the resources that are passed in the filter.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -11798,10 +11798,10 @@ class ConnectClient:
             "capo_connect.types.version_number.VersionNumber"
         ] = None,
     ) -> "capo_connect.types.get_evaluation_form_validation_response.GetEvaluationFormValidationResponse":
-        r"""<p>Retrieves the status and results of a validation process started by <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_StartEvaluationFormValidation.html\">StartEvaluationFormValidation</a>. Returns the current execution status (<code>IN_PROGRESS</code>, <code>COMPLETED</code>, or <code>FAILED</code>), the validated form version, and when completed, a list of findings that identify structural issues and quality improvements for the evaluation form, and may include suggested fixes. If the validation failed, a reason is provided indicating the cause of the failure.</p>
+        """<p>Retrieves the status and results of a validation process started by <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_StartEvaluationFormValidation.html">StartEvaluationFormValidation</a>. Returns the current execution status (<code>IN_PROGRESS</code>, <code>COMPLETED</code>, or <code>FAILED</code>), the validated form version, and when completed, a list of findings that identify structural issues and quality improvements for the evaluation form, and may include suggested fixes. If the validation failed, a reason is provided indicating the cause of the failure.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_form_id: <p>The unique identifier for the evaluation form.</p>
             evaluation_form_version: <p>The version of the evaluation form to retrieve validation results for.</p>
 
@@ -11849,10 +11849,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.get_federation_token_response.GetFederationTokenResponse":
-        r"""<p>Supports SAML sign-in for Connect Customer. Retrieves a token for federation. The token is for the Connect Customer user which corresponds to the IAM credentials that were used to invoke this action. </p> <p>For more information about how SAML sign-in works in Connect Customer, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html \">Configure SAML with IAM for Connect Customer in the <i>Connect Customer Administrator Guide</i>.</a> </p> <note> <p>This API doesn't support root users. If you try to invoke GetFederationToken with root credentials, an error message similar to the following one appears: </p> <p> <code>Provided identity: Principal: .... User: .... cannot be used for federation with Connect Customer</code> </p> </note>
+        """<p>Supports SAML sign-in for Connect Customer. Retrieves a token for federation. The token is for the Connect Customer user which corresponds to the IAM credentials that were used to invoke this action. </p> <p>For more information about how SAML sign-in works in Connect Customer, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html ">Configure SAML with IAM for Connect Customer in the <i>Connect Customer Administrator Guide</i>.</a> </p> <note> <p>This API doesn't support root users. If you try to invoke GetFederationToken with root credentials, an error message similar to the following one appears: </p> <p> <code>Provided identity: Principal: .... User: .... cannot be used for federation with Connect Customer</code> </p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -11900,10 +11900,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.get_flow_association_response.GetFlowAssociationResponse":
-        r"""<p>Retrieves the flow associated for a given resource.</p>
+        """<p>Retrieves the flow associated for a given resource.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             resource_id: <p>The identifier of the resource.</p> <ul> <li> <p>Amazon Web Services End User Messaging SMS phone number ARN when using <code>SMS_PHONE_NUMBER</code> </p> </li> <li> <p>Amazon Web Services End User Messaging Social phone number ARN when using <code>WHATSAPP_MESSAGING_PHONE_NUMBER</code> </p> </li> </ul>
             resource_type: <p>A valid resource type.</p>
 
@@ -11959,15 +11959,15 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.get_metric_data_response.GetMetricDataResponse":
-        r"""<p>Gets historical metric data from the specified Connect Customer instance.</p> <p>For a description of each historical metric, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html\">Metrics definitions</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>We recommend using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_GetMetricDataV2.html\">GetMetricDataV2</a> API. It provides more flexibility, features, and the ability to query longer time ranges than <code>GetMetricData</code>. Use it to retrieve historical agent and contact metrics for the last 3 months, at varying intervals. You can also use it to build custom dashboards to measure historical queue and agent performance. For example, you can track the number of incoming contacts for the last 7 days, with data split by day, to see how contact volume changed per day of the week.</p> </note>
+        """<p>Gets historical metric data from the specified Connect Customer instance.</p> <p>For a description of each historical metric, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html">Metrics definitions</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>We recommend using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_GetMetricDataV2.html">GetMetricDataV2</a> API. It provides more flexibility, features, and the ability to query longer time ranges than <code>GetMetricData</code>. Use it to retrieve historical agent and contact metrics for the last 3 months, at varying intervals. You can also use it to build custom dashboards to measure historical queue and agent performance. For example, you can track the number of incoming contacts for the last 7 days, with data split by day, to see how contact volume changed per day of the week.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             start_time: <p>The timestamp, in UNIX Epoch time format, at which to start the reporting interval for the retrieval of historical metrics data. The time must be specified using a multiple of 5 minutes, such as 10:05, 10:10, 10:15.</p> <p>The start time cannot be earlier than 24 hours before the time of the request. Historical metrics are available only for 24 hours.</p>
             end_time: <p>The timestamp, in UNIX Epoch time format, at which to end the reporting interval for the retrieval of historical metrics data. The time must be specified using an interval of 5 minutes, such as 11:00, 11:05, 11:10, and must be later than the start time timestamp.</p> <p>The time range between the start and end time must be less than 24 hours.</p>
             filters: <p>The queues, up to 100, or channels, to use to filter the metrics returned. Metric data is retrieved only for the resources associated with the queues or channels included in the filter. You can include both queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK channels are supported.</p> <p>RoutingStepExpression is not a valid filter for GetMetricData and we recommend switching to GetMetricDataV2 for more up-to-date features.</p> <note> <p>To filter by <code>Queues</code>, enter the queue ID/ARN, not the name of the queue.</p> </note>
             groupings: <p>The grouping applied to the metrics returned. For example, when results are grouped by queue, the metrics returned are grouped by queue. The values returned apply to the metrics for each queue rather than aggregated for all queues.</p> <p>If no grouping is specified, a summary of metrics for all queues is returned.</p> <p>RoutingStepExpression is not a valid filter for GetMetricData and we recommend switching to GetMetricDataV2 for more up-to-date features.</p>
-            historical_metrics: <p>The metrics to retrieve. Specify the name, unit, and statistic for each metric. The following historical metrics are available. For a description of each metric, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html\">Metrics definition</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>This API does not support a contacts incoming metric (there's no CONTACTS_INCOMING metric missing from the documented list). </p> </note> <dl> <dt>ABANDON_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-abandon-time\">Average queue abandon time</a> </p> </dd> <dt>AFTER_CONTACT_WORK_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#after-contact-work-time\">After contact work time</a> </p> </dd> <dt>API_CONTACTS_HANDLED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#api-contacts-handled\">API contacts handled</a> </p> </dd> <dt>AVG_HOLD_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-hold-time\">Average customer hold time</a> </p> </dd> <dt>CALLBACK_CONTACTS_HANDLED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#callback-contacts-handled\">Callback contacts handled</a> </p> </dd> <dt>CONTACTS_ABANDONED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-abandoned\">Contacts abandoned</a> </p> </dd> <dt>CONTACTS_AGENT_HUNG_UP_FIRST</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-agent-hung-up-first\">Contacts agent hung up first</a> </p> </dd> <dt>CONTACTS_CONSULTED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-consulted\">Contacts consulted</a> </p> </dd> <dt>CONTACTS_HANDLED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled\">Contacts handled</a> </p> </dd> <dt>CONTACTS_HANDLED_INCOMING</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled-incoming\">Contacts handled incoming</a> </p> </dd> <dt>CONTACTS_HANDLED_OUTBOUND</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled-outbound\">Contacts handled outbound</a> </p> </dd> <dt>CONTACTS_HOLD_ABANDONS</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-hold-disconnect\">Contacts hold disconnect</a> </p> </dd> <dt>CONTACTS_MISSED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-non-response\">AGENT_NON_RESPONSE</a> </p> </dd> <dt>CONTACTS_QUEUED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-queued\">Contacts queued</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_IN</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-in\">Contacts transferred in</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_IN_FROM_QUEUE</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-queue\">Contacts transferred out queue</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out\">Contacts transferred out</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT_FROM_QUEUE</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-queue\">Contacts transferred out queue</a> </p> </dd> <dt>HANDLE_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-handle-time\">Average handle time</a> </p> </dd> <dt>INTERACTION_AND_HOLD_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interaction-and-customer-hold-time\">Average agent interaction and customer hold time</a> </p> </dd> <dt>INTERACTION_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#aaverage-agent-interaction-time\">Average agent interaction time</a> </p> </dd> <dt>OCCUPANCY</dt> <dd> <p>Unit: PERCENT</p> <p>Statistic: AVG</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#occupancy\">Occupancy</a> </p> </dd> <dt>QUEUE_ANSWER_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html##average-queue-answer-time\">Average queue answer time</a> </p> </dd> <dt>QUEUED_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: MAX</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#minimum-flow-time\">Minimum flow time</a> </p> </dd> <dt>SERVICE_LEVEL</dt> <dd> <p>You can include up to 20 SERVICE_LEVEL metrics in a request.</p> <p>Unit: PERCENT</p> <p>Statistic: AVG</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you must enter <code>LT</code> (for \"Less than\"). </p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-abandon-time\">Average queue abandon time</a> </p> </dd> </dl>
+            historical_metrics: <p>The metrics to retrieve. Specify the name, unit, and statistic for each metric. The following historical metrics are available. For a description of each metric, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html">Metrics definition</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>This API does not support a contacts incoming metric (there's no CONTACTS_INCOMING metric missing from the documented list). </p> </note> <dl> <dt>ABANDON_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-abandon-time">Average queue abandon time</a> </p> </dd> <dt>AFTER_CONTACT_WORK_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#after-contact-work-time">After contact work time</a> </p> </dd> <dt>API_CONTACTS_HANDLED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#api-contacts-handled">API contacts handled</a> </p> </dd> <dt>AVG_HOLD_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-hold-time">Average customer hold time</a> </p> </dd> <dt>CALLBACK_CONTACTS_HANDLED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#callback-contacts-handled">Callback contacts handled</a> </p> </dd> <dt>CONTACTS_ABANDONED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-abandoned">Contacts abandoned</a> </p> </dd> <dt>CONTACTS_AGENT_HUNG_UP_FIRST</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-agent-hung-up-first">Contacts agent hung up first</a> </p> </dd> <dt>CONTACTS_CONSULTED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-consulted">Contacts consulted</a> </p> </dd> <dt>CONTACTS_HANDLED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled">Contacts handled</a> </p> </dd> <dt>CONTACTS_HANDLED_INCOMING</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled-incoming">Contacts handled incoming</a> </p> </dd> <dt>CONTACTS_HANDLED_OUTBOUND</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled-outbound">Contacts handled outbound</a> </p> </dd> <dt>CONTACTS_HOLD_ABANDONS</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-hold-disconnect">Contacts hold disconnect</a> </p> </dd> <dt>CONTACTS_MISSED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-non-response">AGENT_NON_RESPONSE</a> </p> </dd> <dt>CONTACTS_QUEUED</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-queued">Contacts queued</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_IN</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-in">Contacts transferred in</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_IN_FROM_QUEUE</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-queue">Contacts transferred out queue</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out">Contacts transferred out</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT_FROM_QUEUE</dt> <dd> <p>Unit: COUNT</p> <p>Statistic: SUM</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-queue">Contacts transferred out queue</a> </p> </dd> <dt>HANDLE_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-handle-time">Average handle time</a> </p> </dd> <dt>INTERACTION_AND_HOLD_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interaction-and-customer-hold-time">Average agent interaction and customer hold time</a> </p> </dd> <dt>INTERACTION_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#aaverage-agent-interaction-time">Average agent interaction time</a> </p> </dd> <dt>OCCUPANCY</dt> <dd> <p>Unit: PERCENT</p> <p>Statistic: AVG</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#occupancy">Occupancy</a> </p> </dd> <dt>QUEUE_ANSWER_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: AVG</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html##average-queue-answer-time">Average queue answer time</a> </p> </dd> <dt>QUEUED_TIME</dt> <dd> <p>Unit: SECONDS</p> <p>Statistic: MAX</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#minimum-flow-time">Minimum flow time</a> </p> </dd> <dt>SERVICE_LEVEL</dt> <dd> <p>You can include up to 20 SERVICE_LEVEL metrics in a request.</p> <p>Unit: PERCENT</p> <p>Statistic: AVG</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you must enter <code>LT</code> (for "Less than"). </p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-abandon-time">Average queue abandon time</a> </p> </dd> </dl>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -12064,16 +12064,16 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token2500.NextToken2500"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.get_metric_data_v2_response.GetMetricDataV2Response":
-        r"""<p>Gets metric data from the specified Connect Customer instance. </p> <p> <code>GetMetricDataV2</code> offers more features than <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_GetMetricData.html\">GetMetricData</a>, the previous version of this API. It has new metrics, offers filtering at a metric level, and offers the ability to filter and group data by channels, queues, routing profiles, agents, and agent hierarchy levels. It can retrieve historical data for the last 3 months, at varying intervals. It does not support agent queues.</p> <p>For a description of the historical metrics that are supported by <code>GetMetricDataV2</code> and <code>GetMetricData</code>, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html\">Metrics definitions</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>When you make a successful API request, you can expect the following metric values in the response:</p> <ol> <li> <p> <b>Metric value is null</b>: The calculation cannot be performed due to divide by zero or insufficient data</p> </li> <li> <p> <b>Metric value is a number (including 0) of defined type</b>: The number provided is the calculation result</p> </li> <li> <p> <b>MetricResult list is empty</b>: The request cannot find any data in the system</p> </li> </ol> <p>The following guidelines can help you work with the API:</p> <ul> <li> <p>Each dimension in the metric response must contain a value</p> </li> <li> <p>Each item in MetricResult must include all requested metrics</p> </li> <li> <p>If the response is slow due to large result sets, try these approaches:</p> <ul> <li> <p>Narrow the time range of your request</p> </li> <li> <p>Add filters to reduce the amount of data returned</p> </li> </ul> </li> </ul> </note>
+        """<p>Gets metric data from the specified Connect Customer instance. </p> <p> <code>GetMetricDataV2</code> offers more features than <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_GetMetricData.html">GetMetricData</a>, the previous version of this API. It has new metrics, offers filtering at a metric level, and offers the ability to filter and group data by channels, queues, routing profiles, agents, and agent hierarchy levels. It can retrieve historical data for the last 3 months, at varying intervals. It does not support agent queues.</p> <p>For a description of the historical metrics that are supported by <code>GetMetricDataV2</code> and <code>GetMetricData</code>, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html">Metrics definitions</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>When you make a successful API request, you can expect the following metric values in the response:</p> <ol> <li> <p> <b>Metric value is null</b>: The calculation cannot be performed due to divide by zero or insufficient data</p> </li> <li> <p> <b>Metric value is a number (including 0) of defined type</b>: The number provided is the calculation result</p> </li> <li> <p> <b>MetricResult list is empty</b>: The request cannot find any data in the system</p> </li> </ol> <p>The following guidelines can help you work with the API:</p> <ul> <li> <p>Each dimension in the metric response must contain a value</p> </li> <li> <p>Each item in MetricResult must include all requested metrics</p> </li> <li> <p>If the response is slow due to large result sets, try these approaches:</p> <ul> <li> <p>Narrow the time range of your request</p> </li> <li> <p>Add filters to reduce the amount of data returned</p> </li> </ul> </li> </ul> </note>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource. This includes the <code>instanceId</code> an Connect Customer instance.</p>
             start_time: <p>The timestamp, in UNIX Epoch time format, at which to start the reporting interval for the retrieval of historical metrics data. The time must be before the end time timestamp. The start and end time depends on the <code>IntervalPeriod</code> selected. By default the time range between start and end time is 35 days. Historical metrics are available for 3 months.</p>
             end_time: <p>The timestamp, in UNIX Epoch time format, at which to end the reporting interval for the retrieval of historical metrics data. The time must be later than the start time timestamp. It cannot be later than the current timestamp.</p>
             interval: <p>The interval period and timezone to apply to returned metrics.</p> <ul> <li> <p> <code>IntervalPeriod</code>: An aggregated grouping applied to request metrics. Valid <code>IntervalPeriod</code> values are: <code>FIFTEEN_MIN</code> | <code>THIRTY_MIN</code> | <code>HOUR</code> | <code>DAY</code> | <code>WEEK</code> | <code>TOTAL</code>. </p> <p>For example, if <code>IntervalPeriod</code> is selected <code>THIRTY_MIN</code>, <code>StartTime</code> and <code>EndTime</code> differs by 1 day, then Connect Customer returns 48 results in the response. Each result is aggregated by the THIRTY_MIN period. By default Connect Customer aggregates results based on the <code>TOTAL</code> interval period. </p> <p>The following list describes restrictions on <code>StartTime</code> and <code>EndTime</code> based on which <code>IntervalPeriod</code> is requested. </p> <ul> <li> <p> <code>FIFTEEN_MIN</code>: The difference between <code>StartTime</code> and <code>EndTime</code> must be less than 3 days.</p> </li> <li> <p> <code>THIRTY_MIN</code>: The difference between <code>StartTime</code> and <code>EndTime</code> must be less than 3 days.</p> </li> <li> <p> <code>HOUR</code>: The difference between <code>StartTime</code> and <code>EndTime</code> must be less than 3 days.</p> </li> <li> <p> <code>DAY</code>: The difference between <code>StartTime</code> and <code>EndTime</code> must be less than 35 days.</p> </li> <li> <p> <code>WEEK</code>: The difference between <code>StartTime</code> and <code>EndTime</code> must be less than 35 days.</p> </li> <li> <p> <code>TOTAL</code>: The difference between <code>StartTime</code> and <code>EndTime</code> must be less than 35 days.</p> </li> </ul> </li> <li> <p> <code>TimeZone</code>: The timezone applied to requested metrics.</p> </li> </ul>
-            filters: <p>Filtering is an operation that selects records that match a set of specified criteria. By narrowing the dataset before aggregation, filters ensure that only relevant records are included in the computation.</p> <p> <b>Filter keys</b> </p> <p>The following are valid filter keys for a <code>GetMetricDataV2</code> request:</p> <p> <code>AGENT</code> | <code>AI_AGENT</code> | <code>AI_AGENT_ID</code> | <code>AI_AGENT_NAME</code> | <code>AI_AGENT_TYPE</code> | <code>AI_PROMPT</code> | <code>AI_PROMPT_ID</code> | <code>AI_PROMPT_NAME</code> | <code>AI_PROMPT_TYPE</code> | <code>AI_TOOL_ID</code> | <code>AI_TOOL_NAME</code> | <code>AI_TOOL_TYPE</code> | <code>AI_USE_CASE</code> | <code>AGENT_HIERARCHY_LEVEL_ONE</code> | <code>AGENT_HIERARCHY_LEVEL_TWO</code> | <code>AGENT_HIERARCHY_LEVEL_THREE</code> | <code>AGENT_HIERARCHY_LEVEL_FOUR</code> | <code>AGENT_HIERARCHY_LEVEL_FIVE</code> | <code>ANSWERING_MACHINE_DETECTION_STATUS</code> | <code>BOT_ALIAS</code> | <code>BOT_ID</code> | <code>BOT_INTENT_NAME</code> | <code>BOT_LOCALE</code> | <code>BOT_VERSION</code> | <code>BROWSER_NAME</code> | <code>CAMPAIGN</code> | <code>CAMPAIGN_DELIVERY_EVENT_TYPE</code> | <code>CAMPAIGN_EXCLUDED_EVENT_TYPE</code> | <code>CASE_STATUS</code> | <code>CASE_TEMPLATE_ARN</code> | <code>CHANNEL</code> | <code>contact/segmentAttributes/connect:Subtype</code> | <code>contact/segmentAttributes/connect:ValidationTestType</code> | <code>DEVICE_MODEL</code> | <code>DEVICE_TYPE</code> | <code>DISCONNECT_REASON</code> | <code>EVALUATION_FORM</code> | <code>EVALUATION_QUESTION</code> | <code>EVALUATION_SECTION</code> | <code>EVALUATION_SOURCE</code> | <code>EVALUATOR_ID</code> | <code>FEATURE</code> | <code>FLOW_ACTION_ID</code> | <code>FLOW_TYPE</code> | <code>FLOWS_MODULE_RESOURCE_ID</code> | <code>FLOWS_NEXT_RESOURCE_ID</code> | <code>FLOWS_NEXT_RESOURCE_QUEUE_ID</code> | <code>FLOWS_OUTCOME_TYPE</code> | <code>FLOWS_RESOURCE_ID</code> | <code>FORM_VERSION</code> | <code>INITIATING_FLOW</code> | <code>INITIATION_METHOD</code> | <code>INVOKING_RESOURCE_PUBLISHED_TIMESTAMP</code> | <code>INVOKING_RESOURCE_TYPE</code> | <code>KNOWLEDGE_BASE_NAME</code> | <code>PARENT_FLOWS_RESOURCE_ID</code> | <code>Q_CONNECT_ENABLED</code> | <code>QUEUE</code> | <code>RESOURCE_PUBLISHED_TIMESTAMP</code> | <code>ROUTING_PROFILE</code> | <code>ROUTING_STEP_EXPRESSION</code> | <code>SESSION_ID</code> | <code>TEST_CASE</code> | <code>TEST_CASE_EXECUTION_FAILURE_REASON</code> | <code>TEST_CASE_EXECUTION_RESULT</code> | <code>TEST_CASE_EXECUTION_STATE</code> | <code>WEB_NOTIFICATION_TYPE</code> </p> <note> <p>The following filter keys correspond to Connect Customer resources and are used for authorizing requests. A <code>GetMetricDataV2</code> request requires at least one of these filters:</p> <p> <code>QUEUE</code>, <code>ROUTING_PROFILE</code>, <code>AGENT</code>, <code>AGENT_HIERARCHY_LEVEL_ONE</code>, <code>AGENT_HIERARCHY_LEVEL_TWO</code>, <code>AGENT_HIERARCHY_LEVEL_THREE</code>, <code>AGENT_HIERARCHY_LEVEL_FOUR</code>, <code>AGENT_HIERARCHY_LEVEL_FIVE</code>, <code>CAMPAIGN</code>, <code>EVALUATION_FORM</code>, <code>EVALUATOR_ID</code> </p> <p>You can use up to 5 filter keys in a single request, and up to 100 filter values across all filter keys.</p> </note> <p> <b>Filter values</b> </p> <ul> <li> <p>VOICE, CHAT, TASK, and EMAIL are valid filter values for the <code>CHANNEL</code> filter key. They do not count towards the limit of 100 filter values. For example, a <code>GetMetricDataV2</code> request can filter by 50 queues, 35 agents, and 15 routing profiles for a total of 100 filter values, along with 4 channel filters.</p> </li> <li> <p> <code>contact_lens_conversational_analytics</code> is a valid filter value for the <code>FEATURE</code> filter key. It is available only for contacts analyzed by Contact Lens conversational analytics.</p> </li> <li> <p> <code>connect:Chat</code>, <code>connect:SMS</code>, <code>connect:Telephony</code>, and <code>connect:WebRTC</code> are valid filter value examples (not exhaustive) for the <code>contact/segmentAttributes/connect:Subtype</code> filter key.</p> </li> <li> <p> <code>ROUTING_STEP_EXPRESSION</code> accepts a filter value up to 3,000 characters in length. Filter values are case-sensitive. JSON object key order and whitespace may be arbitrary; array order and tree structure must be preserved.</p> </li> <li> <p>TRUE and FALSE are the only valid filter values for the <code>Q_CONNECT_ENABLED</code> filter key.</p> <ul> <li> <p>TRUE includes all contacts that had Connect AI Agents enabled as part of the flow.</p> </li> <li> <p>FALSE includes all contacts that did not have Connect AI Agents enabled as part of the flow.</p> </li> </ul> </li> <li> <p> <code>EXPERIENCE_VALIDATION</code> and <code>FLOW_VALIDATION</code> are the only valid filter values for the <code>contact/segmentAttributes/connect:ValidationTestType</code> filter key. This filter is available only for contact record-driven metrics.</p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-outbound-campaigns_Campaign.html\">Campaign</a> ARNs are valid filter values for the <code>CAMPAIGN</code> filter key.</p> </li> <li> <p>To filter by phone number, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-historical-metrics-report.html\">Create a historical metrics report</a> in the <i>Connect Customer Administrator Guide</i>.</p> </li> </ul>
+            filters: <p>Filtering is an operation that selects records that match a set of specified criteria. By narrowing the dataset before aggregation, filters ensure that only relevant records are included in the computation.</p> <p> <b>Filter keys</b> </p> <p>The following are valid filter keys for a <code>GetMetricDataV2</code> request:</p> <p> <code>AGENT</code> | <code>AI_AGENT</code> | <code>AI_AGENT_ID</code> | <code>AI_AGENT_NAME</code> | <code>AI_AGENT_TYPE</code> | <code>AI_PROMPT</code> | <code>AI_PROMPT_ID</code> | <code>AI_PROMPT_NAME</code> | <code>AI_PROMPT_TYPE</code> | <code>AI_TOOL_ID</code> | <code>AI_TOOL_NAME</code> | <code>AI_TOOL_TYPE</code> | <code>AI_USE_CASE</code> | <code>AGENT_HIERARCHY_LEVEL_ONE</code> | <code>AGENT_HIERARCHY_LEVEL_TWO</code> | <code>AGENT_HIERARCHY_LEVEL_THREE</code> | <code>AGENT_HIERARCHY_LEVEL_FOUR</code> | <code>AGENT_HIERARCHY_LEVEL_FIVE</code> | <code>ANSWERING_MACHINE_DETECTION_STATUS</code> | <code>BOT_ALIAS</code> | <code>BOT_ID</code> | <code>BOT_INTENT_NAME</code> | <code>BOT_LOCALE</code> | <code>BOT_VERSION</code> | <code>BROWSER_NAME</code> | <code>CAMPAIGN</code> | <code>CAMPAIGN_DELIVERY_EVENT_TYPE</code> | <code>CAMPAIGN_EXCLUDED_EVENT_TYPE</code> | <code>CASE_STATUS</code> | <code>CASE_TEMPLATE_ARN</code> | <code>CHANNEL</code> | <code>contact/segmentAttributes/connect:Subtype</code> | <code>contact/segmentAttributes/connect:ValidationTestType</code> | <code>DEVICE_MODEL</code> | <code>DEVICE_TYPE</code> | <code>DISCONNECT_REASON</code> | <code>EVALUATION_FORM</code> | <code>EVALUATION_QUESTION</code> | <code>EVALUATION_SECTION</code> | <code>EVALUATION_SOURCE</code> | <code>EVALUATOR_ID</code> | <code>FEATURE</code> | <code>FLOW_ACTION_ID</code> | <code>FLOW_TYPE</code> | <code>FLOWS_MODULE_RESOURCE_ID</code> | <code>FLOWS_NEXT_RESOURCE_ID</code> | <code>FLOWS_NEXT_RESOURCE_QUEUE_ID</code> | <code>FLOWS_OUTCOME_TYPE</code> | <code>FLOWS_RESOURCE_ID</code> | <code>FORM_VERSION</code> | <code>INITIATING_FLOW</code> | <code>INITIATION_METHOD</code> | <code>INVOKING_RESOURCE_PUBLISHED_TIMESTAMP</code> | <code>INVOKING_RESOURCE_TYPE</code> | <code>KNOWLEDGE_BASE_NAME</code> | <code>PARENT_FLOWS_RESOURCE_ID</code> | <code>Q_CONNECT_ENABLED</code> | <code>QUEUE</code> | <code>RESOURCE_PUBLISHED_TIMESTAMP</code> | <code>ROUTING_PROFILE</code> | <code>ROUTING_STEP_EXPRESSION</code> | <code>SESSION_ID</code> | <code>TEST_CASE</code> | <code>TEST_CASE_EXECUTION_FAILURE_REASON</code> | <code>TEST_CASE_EXECUTION_RESULT</code> | <code>TEST_CASE_EXECUTION_STATE</code> | <code>WEB_NOTIFICATION_TYPE</code> </p> <note> <p>The following filter keys correspond to Connect Customer resources and are used for authorizing requests. A <code>GetMetricDataV2</code> request requires at least one of these filters:</p> <p> <code>QUEUE</code>, <code>ROUTING_PROFILE</code>, <code>AGENT</code>, <code>AGENT_HIERARCHY_LEVEL_ONE</code>, <code>AGENT_HIERARCHY_LEVEL_TWO</code>, <code>AGENT_HIERARCHY_LEVEL_THREE</code>, <code>AGENT_HIERARCHY_LEVEL_FOUR</code>, <code>AGENT_HIERARCHY_LEVEL_FIVE</code>, <code>CAMPAIGN</code>, <code>EVALUATION_FORM</code>, <code>EVALUATOR_ID</code> </p> <p>You can use up to 5 filter keys in a single request, and up to 100 filter values across all filter keys.</p> </note> <p> <b>Filter values</b> </p> <ul> <li> <p>VOICE, CHAT, TASK, and EMAIL are valid filter values for the <code>CHANNEL</code> filter key. They do not count towards the limit of 100 filter values. For example, a <code>GetMetricDataV2</code> request can filter by 50 queues, 35 agents, and 15 routing profiles for a total of 100 filter values, along with 4 channel filters.</p> </li> <li> <p> <code>contact_lens_conversational_analytics</code> is a valid filter value for the <code>FEATURE</code> filter key. It is available only for contacts analyzed by Contact Lens conversational analytics.</p> </li> <li> <p> <code>connect:Chat</code>, <code>connect:SMS</code>, <code>connect:Telephony</code>, and <code>connect:WebRTC</code> are valid filter value examples (not exhaustive) for the <code>contact/segmentAttributes/connect:Subtype</code> filter key.</p> </li> <li> <p> <code>ROUTING_STEP_EXPRESSION</code> accepts a filter value up to 3,000 characters in length. Filter values are case-sensitive. JSON object key order and whitespace may be arbitrary; array order and tree structure must be preserved.</p> </li> <li> <p>TRUE and FALSE are the only valid filter values for the <code>Q_CONNECT_ENABLED</code> filter key.</p> <ul> <li> <p>TRUE includes all contacts that had Connect AI Agents enabled as part of the flow.</p> </li> <li> <p>FALSE includes all contacts that did not have Connect AI Agents enabled as part of the flow.</p> </li> </ul> </li> <li> <p> <code>EXPERIENCE_VALIDATION</code> and <code>FLOW_VALIDATION</code> are the only valid filter values for the <code>contact/segmentAttributes/connect:ValidationTestType</code> filter key. This filter is available only for contact record-driven metrics.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-outbound-campaigns_Campaign.html">Campaign</a> ARNs are valid filter values for the <code>CAMPAIGN</code> filter key.</p> </li> <li> <p>To filter by phone number, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-historical-metrics-report.html">Create a historical metrics report</a> in the <i>Connect Customer Administrator Guide</i>.</p> </li> </ul>
             groupings: <p>The grouping applied to the metrics that are returned. For example, when results are grouped by queue, the metrics returned are grouped by queue. The values that are returned apply to the metrics for each queue. They are not aggregated for all queues.</p> <p>If no grouping is specified, a summary of all metrics is returned.</p> <p>Valid grouping keys: <code>AGENT</code> | <code>AI_AGENT</code> | <code>AI_AGENT_ID</code> | <code>AI_AGENT_NAME</code> | <code>AI_AGENT_NAME_VERSION</code> | <code>AI_AGENT_TYPE</code> | <code>AI_PROMPT</code> | <code>AI_PROMPT_ID</code> | <code>AI_PROMPT_NAME</code> | <code>AI_PROMPT_NAME_VERSION</code> | <code>AI_PROMPT_TYPE</code> | <code>AI_TOOL_ID</code> | <code>AI_TOOL_NAME</code> | <code>AI_TOOL_TYPE</code> | <code>AI_USE_CASE</code> | <code>AGENT_HIERARCHY_LEVEL_ONE</code> | <code>AGENT_HIERARCHY_LEVEL_TWO</code> | <code>AGENT_HIERARCHY_LEVEL_THREE</code> | <code>AGENT_HIERARCHY_LEVEL_FOUR</code> | <code>AGENT_HIERARCHY_LEVEL_FIVE</code> | <code>ANSWERING_MACHINE_DETECTION_STATUS</code> | <code>BOT_ID</code> | <code>BOT_ALIAS</code> | <code>BOT_VERSION</code> | <code>BOT_LOCALE</code> | <code>BOT_INTENT_NAME</code> | <code>BROWSER_NAME</code> | <code>CAMPAIGN</code> | <code>CAMPAIGN_DELIVERY_EVENT_TYPE</code> | <code>CAMPAIGN_EXCLUDED_EVENT_TYPE</code> | <code>CAMPAIGN_EXECUTION_TIMESTAMP</code> | <code>CASE_TEMPLATE_ARN</code> | <code>CASE_STATUS</code> | <code>CHANNEL</code> | <code>contact/segmentAttributes/connect:Subtype</code> | <code>DEVICE_MODEL</code> | <code>DEVICE_TYPE</code> | <code>DISCONNECT_REASON</code> | <code>EVALUATION_FORM</code> | <code>EVALUATION_SECTION</code> | <code>EVALUATION_QUESTION</code> | <code>EVALUATION_SOURCE</code> | <code>EVALUATOR_ID</code> | <code>FLOWS_RESOURCE_ID</code> | <code>FLOWS_MODULE_RESOURCE_ID</code> | <code>FLOW_ACTION_ID</code> | <code>FLOW_TYPE</code> | <code>FLOWS_OUTCOME_TYPE</code> | <code>FORM_VERSION</code> | <code>INITIATION_METHOD</code> | <code>INVOKING_RESOURCE_PUBLISHED_TIMESTAMP</code> | <code>INVOKING_RESOURCE_TYPE</code> | <code>KNOWLEDGE_ARTICLE_NAME</code> | <code>KNOWLEDGE_BASE_NAME</code> | <code>PARENT_FLOWS_RESOURCE_ID</code> | <code>Q_CONNECT_ENABLED</code> | <code>QUEUE</code> | <code>RESOURCE_PUBLISHED_TIMESTAMP</code> | <code>ROUTING_PROFILE</code> | <code>ROUTING_STEP_EXPRESSION</code> | <code>SESSION_ID</code> | <code>TEST_CASE</code> | <code>TEST_CASE_EXECUTION_FAILURE_REASON</code> | <code>TEST_CASE_INVOCATION_METHOD</code> | <code>WEB_NOTIFICATION_TYPE</code> </p> <note> <p> <code>AI_AGENT_NAME_VERSION</code>, <code>AI_PROMPT_NAME_VERSION</code>, and <code>KNOWLEDGE_ARTICLE_NAME</code> are valid groupings but not valid filters.</p> </note> <p>API, SCHEDULE, and EVENT are the only valid filterValues for TEST_CASE_INVOCATION_METHOD.</p> <p>OBSERVE_EVENT, SEND_INSTRUCTION, ASSERT_DATA, and OVERRIDE_SYSTEM_BEHAVIOR are the only valid filterValues for TEST_CASE_EXECUTION_FAILURE_REASON</p> <p>Type: Array of strings</p> <p>Array Members: Maximum number of 4 items</p> <p>Required: No</p>
-            metrics: <p>The metrics to retrieve. Specify the name or metricId, groupings, and filters for each metric. The following historical metrics are available. For a description of each metric, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html\">Metrics definition</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>MetricId should be used to reference custom metrics or out of the box metrics as Arn. If using MetricId, the limit is 20 MetricId per request.</p> </note> <dl> <dt>ABANDONMENT_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#abandonment-rate\">Abandonment rate</a> </p> </dd> <dt>AGENT_ADHERENT_TIME</dt> <dd> <p>This metric is available only in Amazon Web Services Regions where <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/regions.html#optimization_region\">Forecasting, capacity planning, and scheduling</a> is available.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy </p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#adherent-time\">Adherent time</a> </p> </dd> <dt>AGENT_ANSWER_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-answer-rate\">Agent answer rate</a> </p> </dd> <dt>AGENT_NON_ADHERENT_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#non-adherent-time\">Non-adherent time</a> </p> </dd> <dt>AGENT_NON_RESPONSE</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy </p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-non-response\">Agent non-response</a> </p> </dd> <dt>AGENT_NON_RESPONSE_WITHOUT_CUSTOMER_ABANDONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>Data for this metric is available starting from October 1, 2023 0:00:00 GMT.</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-non-response-without-customer-abandons\">Agent non-response without customer abandons</a> </p> </dd> <dt>AGENT_OCCUPANCY</dt> <dd> <p>Unit: Percentage</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy </p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#occupancy\">Occupancy</a> </p> </dd> <dt>AGENT_SCHEDULE_ADHERENCE</dt> <dd> <p>This metric is available only in Amazon Web Services Regions where <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/regions.html#optimization_region\">Forecasting, capacity planning, and scheduling</a> is available.</p> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#adherence\">Adherence</a> </p> </dd> <dt>AGENT_SCHEDULED_TIME</dt> <dd> <p>This metric is available only in Amazon Web Services Regions where <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/regions.html#optimization_region\">Forecasting, capacity planning, and scheduling</a> is available.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#scheduled-time\">Scheduled time</a> </p> </dd> <dt>AVG_ABANDON_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-abandon-time\">Average queue abandon time</a> </p> </dd> <dt>AVG_ACTIVE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-active-time\">Average active time</a> </p> </dd> <dt>AVG_AFTER_CONTACT_WORK_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#after-contact-work-time\">Average after contact work time</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_AGENT_CONCURRENCY</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-concurrency\">Average agent concurrency</a> </p> </dd> <dt>AVG_AGENT_CONNECTING_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code>. For now, this metric only supports the following as <code>INITIATION_METHOD</code>: <code>INBOUND</code> | <code>OUTBOUND</code> | <code>CALLBACK</code> | <code>API</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-api-connecting-time\">Average agent API connecting time</a> </p> <note> <p>The <code>Negate</code> key in metric-level filters is not applicable for this metric.</p> </note> </dd> <dt>AVG_AGENT_PAUSE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-pause-time\">Average agent pause time</a> </p> </dd> <dt>AVG_BOT_CONVERSATION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#average-bot-conversation-time\">Average bot conversation time</a> </p> </dd> <dt>AVG_BOT_CONVERSATION_TURNS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#average-bot-conversation-turns\">Average bot conversation turns</a> </p> </dd> <dt>AVG_CASE_RELATED_CONTACTS</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-contacts-per-case\">Average contacts per case</a> </p> </dd> <dt>AVG_CASE_RESOLUTION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-case-resolution-time\">Average case resolution time</a> </p> </dd> <dt>AVG_CONTACT_DURATION</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-contact-duration\">Average contact duration</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_CONTACT_FIRST_RESPONSE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-average-contact-first-response-wait-time\">Agent average contact first response wait time</a> </p> </dd> <dt>AVG_CONVERSATION_CLOSE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-conversation-close-time\">Average conversation close time</a> </p> </dd> <dt>AVG_CONVERSATION_DURATION</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-conversation-duration\">Average conversation duration</a> </p> </dd> <dt>AVG_DIALS_PER_MINUTE</dt> <dd> <p>This metric is available only for outbound campaigns that use the agent assisted voice and automated voice delivery modes.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Campaign, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-dials-per-minute\">Average dials per minute</a> </p> </dd> <dt>AVG_EVALUATION_SCORE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, Evaluation Form ID, Evaluation Section ID, Evaluation Question ID, Evaluation Source, Form Version, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-evaluation-score\">Average evaluation score</a> </p> </dd> <dt>AVG_FIRST_RESPONSE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-first-response-time\">Average agent first response time</a> </p> </dd> <dt>AVG_FLOW_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-flow-time\">Average flow time</a> </p> </dd> <dt>AVG_GREETING_TIME_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-greeting-time\">Average agent greeting time</a> </p> </dd> <dt>AVG_HANDLE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, AI Use Case, Feature, contact/segmentAttributes/connect:Subtype, RoutingStepExpression</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-handle-time\">Average handle time</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>ACTIVE_AI_AGENTS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#active-ai-agents\">Active AI Agents</a> </p> </dd> <dt>AI_HANDOFF_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-handoff-rate\">AI Handoff Rate</a> </p> </dd> <dt>AI_HANDOFFS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-handoffs\">AI Handoff Count</a> </p> </dd> <dt>AI_AGENT_INVOCATION_SUCCESS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-invocation-success\">AI Agent Invocation Success</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_AGENT_INVOCATION_SUCCESS_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-invocation-success-rate\">AI Agent Invocation Success Rate</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_AGENT_INVOCATIONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Type, AI Agent Name Version, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-invocations\">AI Agent Invocation Count</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_AGENT_RESPONSE_HELPFUL</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-response-helpful\">AI Agent Response Helpful</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_AGENT_RESPONSE_NOT_HELPFUL</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-response-not-helpful\">AI Agent Response Not Helpful</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_RESPONSE_COMPLETION_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-response-completion-rate\">AI Response Completion Rate</a> </p> </dd> <dt>AI_INVOLVED_CONTACTS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-involved-contacts\">AI Involved Contacts</a> </p> </dd> <dt>AI_PROMPT_INVOCATION_SUCCESS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Prompt, AI Prompt ID, AI Prompt Name, AI Prompt Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-prompt-invocation-success\">AI Prompt Invocation Success</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_PROMPT_INVOCATION_SUCCESS_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Prompt, AI Prompt ID, AI Prompt Name, AI Prompt Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-prompt-invocation-success-rate\">AI Prompt Invocation Success Rate</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_PROMPT_INVOCATIONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Prompt, AI Prompt ID, AI Prompt Name, AI Prompt Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-prompt-invocations\">AI Prompt Invocations</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_INVOCATION_SUCCESS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-invocation-success\">AI Tool Invocation Success</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_INVOCATION_SUCCESS_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-invocation-success-rate\">AI Tool Invocation Success Rate</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_INVOCATIONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-invocations\">AI Tool Invocations</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AVG_AI_AGENT_CONVERSATION_TURNS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile </p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-ai-agent-conversation-turns\">Average AI Agent Conversation Turns</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AVG_AI_CONVERSATION_TURNS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-ai-conversation-turns\">Average AI Conversation Turns</a> </p> </dd> <dt>AVG_AI_PROMPT_INVOCATION_LATENCY</dt> <dd> <p>Unit: Milliseconds</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Prompt, AI Prompt ID, AI Prompt Name, AI Prompt Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-ai-prompt-invocation-latency\">Average AI Prompt Invocation Latency</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AVG_AI_TOOL_INVOCATION_LATENCY</dt> <dd> <p>Unit: Milliseconds</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-ai-tool-invocation-latency\">Average AI Tool Invocation Latency</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_PARAMETER_ACCURACY</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-parameter-accuracy\">AI Tool Parameter Accuracy</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_SELECTION_ACCURACY</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-selection-accuracy\">AI Tool Selection Accuracy</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_UTILIZATION_ACCURACY</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile, Session ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-utilization-accuracy\">AI Tool Utilization Accuracy</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>COMPLETENESS_SCORE</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile, Session ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#completeness-score\">Completeness Score</a> </p> </dd> <dt>FAITHFULNESS_SCORE</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile, Session ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#faithfulness-score\">Faithfulness Score</a> </p> </dd> <dt>GOAL_SUCCESS_RATE</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile, Session ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#goal-success-rate\">Goal Success Rate</a> </p> </dd> <dt>KNOWLEDGE_CONTENT_REFERENCES</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Type, AI Use Case, Channel, Knowledge Base Name, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#knowledge-content-references\">Knowledge Content References</a> </p> </dd> <dt>PROACTIVE_INTENT_ENGAGEMENT_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-engagement-rate\">Proactive Intent Engagement Rate</a> </p> </dd> <dt>PROACTIVE_INTENT_RESPONSE_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-response-rate\">Proactive Intent Response Rate</a> </p> </dd> <dt>PROACTIVE_INTENTS_ANSWERED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-answered\">Proactive Intents Answered</a> </p> </dd> <dt>PROACTIVE_INTENTS_DETECTED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-detected\">Proactive Intents Detected</a> </p> </dd> <dt>PROACTIVE_INTENTS_ENGAGED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-engaged\">Proactive Intents Engaged</a> </p> </dd> <dt>AVG_HOLD_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-hold-time\">Average customer hold time</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_HOLD_TIME_ALL_CONTACTS</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-hold-time-all-contacts\">Average customer hold time all contacts</a> </p> </dd> <dt>AVG_HOLDS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-holds\">Average holds</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_INTERACTION_AND_HOLD_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interaction-and-customer-hold-time\">Average agent interaction and customer hold time</a> </p> </dd> <dt>AVG_INTERACTION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interaction-time\">Average agent interaction time</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_INTERRUPTIONS_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interruptions\">Average agent interruptions</a> </p> </dd> <dt>AVG_INTERRUPTION_TIME_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interruption-time\">Average agent interruption time</a> </p> </dd> <dt>AVG_MESSAGE_LENGTH_AGENT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-message-length\">Average agent message length</a> </p> </dd> <dt>AVG_MESSAGE_LENGTH_CUSTOMER</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-message-length\">Average customer message length</a> </p> </dd> <dt>AVG_MESSAGES</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-messages\">Average messages</a> </p> </dd> <dt>AVG_MESSAGES_AGENT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-messages\">Average agent messages</a> </p> </dd> <dt>AVG_MESSAGES_BOT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-bot-messages\">Average bot messages</a> </p> </dd> <dt>AVG_MESSAGES_CUSTOMER</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-messages\">Average customer messages</a> </p> </dd> <dt>AVG_NON_TALK_TIME</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-non-talk-time\">Average non-talk time</a> </p> </dd> <dt>AVG_QUEUE_ANSWER_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-answer-time\">Average queue answer time</a> </p> <p>Valid metric level filters: <code>INITIATION_METHOD</code>, <code>FEATURE</code>, <code>DISCONNECT_REASON</code> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_QUEUE_ANSWER_TIME_CUSTOMER_FIRST_CALLBACK</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-answer-time-customer-first-callback\">Avg. queue answer time - customer first callback</a> </p> </dd> <dt>AVG_RESPONSE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-response-time-agent\">Average agent response time</a> </p> </dd> <dt>AVG_RESPONSE_TIME_CUSTOMER</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-time-agent\">Average customer response time</a> </p> </dd> <dt>AVG_RESOLUTION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-resolution-time\">Average resolution time</a> </p> </dd> <dt>AVG_TALK_TIME</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-talk-time\">Average talk time</a> </p> </dd> <dt>AVG_TALK_TIME_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-talk-time\">Average agent talk time</a> </p> </dd> <dt>AVG_TALK_TIME_CUSTOMER</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-talk-time\">Average customer talk time</a> </p> </dd> <dt>AVG_WAIT_TIME_AFTER_CUSTOMER_CONNECTION</dt> <dd> <p>This metric is available only for outbound campaigns that use the agent assisted voice and automated voice delivery modes.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Campaign</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-wait-time-after-customer-connection\">Average wait time after customer connection</a> </p> </dd> <dt>AVG_WAIT_TIME_AFTER_CUSTOMER_FIRST_CALLBACK_CONNECTION</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-wait-time-after-customer-connection-customer-first-callback\">Avg. wait time after customer connection - customer first callback</a> </p> </dd> <dt>AVG_WEIGHTED_EVALUATION_SCORE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, Evaluation Form Id, Evaluation Section ID, Evaluation Question ID, Evaluation Source, Form Version, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-weighted-evaluation-score\">Average weighted evaluation score</a> </p> </dd> <dt>BOT_CONVERSATIONS_COMPLETED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#bot-conversations-completed\">Bot conversations completed</a> </p> </dd> <dt>BOT_INTENTS_COMPLETED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Bot intent name, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#bot-intents-completed\">Bot intents completed</a> </p> </dd> <dt>CAMPAIGN_CONTACTS_ABANDONED_AFTER_X</dt> <dd> <p>This metric is available only for outbound campaigns using the agent assisted voice and automated voice delivery modes.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Campaign</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you must enter <code>GT</code> (for <i>Greater than</i>).</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-contacts-abandoned-after-x\">Campaign contacts abandoned after X</a> </p> </dd> <dt>CAMPAIGN_CONTACTS_ABANDONED_AFTER_X_RATE</dt> <dd> <p>This metric is available only for outbound campaigns using the agent assisted voice and automated voice delivery modes.</p> <p>Unit: Percent</p> <p>Valid groupings and filters: Agent, Campaign</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you must enter <code>GT</code> (for <i>Greater than</i>).</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-contacts-abandoned-after-x-rate\">Campaign contacts abandoned after X rate</a> </p> </dd> <dt>CAMPAIGN_INTERACTIONS</dt> <dd> <p>This metric is available only for outbound campaigns using the email, WhatsApp, and web notification delivery modes. </p> <p>Unit: Count</p> <p>Valid metric filter key: CAMPAIGN_INTERACTION_EVENT_TYPE</p> <p>Valid groupings and filters: Browser Name, Campaign, Channel, contact/segmentAttributes/connect:Subtype, Device Model, Device Type, Web Notification Type</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-interactions\">Campaign interactions</a> </p> </dd> <dt>CAMPAIGN_PROGRESS_RATE</dt> <dd> <p>This metric is only available for outbound campaigns initiated using a customer segment. It is not available for event triggered campaigns.</p> <p>Unit: Percent</p> <p>Valid groupings and filters: Campaign, Campaign Execution Timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-progress-rate\">Campaign progress rate</a> </p> </dd> <dt>CAMPAIGN_SEND_ATTEMPTS</dt> <dd> <p>This metric is available only for outbound campaigns.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Channel, contact/segmentAttributes/connect:Subtype </p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-send-attempts\">Campaign send attempts</a> </p> </dd> <dt>CAMPAIGN_SEND_EXCLUSIONS</dt> <dd> <p>This metric is available only for outbound campaigns.</p> <p>Valid metric filter key: CAMPAIGN_EXCLUDED_EVENT_TYPE</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Campaign Excluded Event Type, Campaign Execution Timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-send-exclusions\">Campaign send exclusions</a> </p> </dd> <dt>CASES_CREATED</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#cases-created\">Cases created</a> </p> </dd> <dt>CONTACTS_CREATED</dt> <dd> <p>Unit: Count</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-created\">Contacts created</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>CONTACTS_HANDLED</dt> <dd> <p>Unit: Count</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code>, <code>DISCONNECT_REASON</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, RoutingStepExpression, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled\">Contacts handled</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>CONTACTS_HANDLED_BY_CONNECTED_TO_AGENT</dt> <dd> <p>Unit: Count</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>Valid groupings and filters: Queue, Channel, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled-by-connected-to-agent-timestamp\">Contacts handled (connected to agent timestamp)</a> </p> </dd> <dt>CONTACTS_HOLD_ABANDONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-hold-disconnect\">Contacts hold disconnect</a> </p> </dd> <dt>CONTACTS_ON_HOLD_AGENT_DISCONNECT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-hold-agent-disconnect\">Contacts hold agent disconnect</a> </p> </dd> <dt>CONTACTS_ON_HOLD_CUSTOMER_DISCONNECT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-hold-customer-disconnect\">Contacts hold customer disconnect</a> </p> </dd> <dt>CONTACTS_PUT_ON_HOLD</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-put-on-hold\">Contacts put on hold</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT_EXTERNAL</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-external\">Contacts transferred out external</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT_INTERNAL</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-internal\">Contacts transferred out internal</a> </p> </dd> <dt>CONTACTS_QUEUED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-queued\">Contacts queued</a> </p> </dd> <dt>CONTACTS_QUEUED_BY_ENQUEUE</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-queued-by-enqueue\">Contacts queued (enqueue timestamp)</a> </p> </dd> <dt>CONTACTS_REMOVED_FROM_QUEUE_IN_X</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for \"Less than\") or <code>LTE</code> (for \"Less than equal\").</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-removed-from-queue\">Contacts removed from queue in X seconds</a> </p> </dd> <dt>CONTACTS_RESOLVED_IN_X</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for \"Less than\") or <code>LTE</code> (for \"Less than equal\").</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-resolved\">Contacts resolved in X</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out\">Contacts transferred out</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>CONTACTS_TRANSFERRED_OUT_BY_AGENT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-by-agent\">Contacts transferred out by agent</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT_FROM_QUEUE</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-queue\">Contacts transferred out queue</a> </p> </dd> <dt>CURRENT_CASES</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#current-cases\">Current cases</a> </p> </dd> <dt>CONVERSATIONS_ABANDONED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#conversations-abandoned\">Conversations abandoned</a> </p> </dd> <dt>DELIVERY_ATTEMPTS</dt> <dd> <p>This metric is available only for outbound campaigns.</p> <p>Unit: Count</p> <p>Valid metric filter key: <code>ANSWERING_MACHINE_DETECTION_STATUS</code>, <code>CAMPAIGN_DELIVERY_EVENT_TYPE</code>, <code>DISCONNECT_REASON</code> </p> <p>Valid groupings and filters: Agent, Answering Machine Detection Status, Browser Name, Campaign, Campaign Delivery EventType, Channel, contact/segmentAttributes/connect:Subtype, Device Model, Device Type, Disconnect Reason, Queue, Routing Profile, Web Notification Type</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#delivery-attempts\">Delivery attempts</a> </p> <note> <p>Campaign Delivery EventType filter and grouping are only available for SMS, Email, WhatsApp, and web notification campaign delivery modes. Agent, Queue, Routing Profile, Answering Machine Detection Status and Disconnect Reason are only available for agent assisted voice and automated voice delivery modes. </p> </note> </dd> <dt>DELIVERY_ATTEMPT_DISPOSITION_RATE</dt> <dd> <p>This metric is available only for outbound campaigns. Dispositions for the agent assisted voice and automated voice delivery modes are only available with answering machine detection enabled.</p> <p>Unit: Percent</p> <p>Valid metric filter key: <code>ANSWERING_MACHINE_DETECTION_STATUS</code>, <code>CAMPAIGN_DELIVERY_EVENT_TYPE</code>, <code>DISCONNECT_REASON</code> </p> <p>Valid groupings and filters: Agent, Answering Machine Detection Status, Browser Name, Campaign, Channel, contact/segmentAttributes/connect:Subtype, Device Model, Device Type, Disconnect Reason, Queue, Routing Profile, Web Notification Type</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#delivery-attempt-disposition-rate\">Delivery attempt disposition rate</a> </p> <note> <p>Campaign Delivery Event Type filter and grouping are only available for SMS, Email, WhatsApp, and web notification campaign delivery modes. Agent, Queue, Routing Profile, Answering Machine Detection Status and Disconnect Reason are only available for agent assisted voice and automated voice delivery modes. </p> </note> </dd> <dt>EVALUATIONS_PERFORMED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, Evaluation Form ID, Evaluation Source, Form Version, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#evaluations-performed\">Evaluations performed</a> </p> </dd> <dt>FLOWS_OUTCOME</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#flows-outcome\">Flows outcome</a> </p> </dd> <dt>FLOWS_STARTED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#flows-started\">Flows started</a> </p> </dd> <dt>HUMAN_ANSWERED_CALLS</dt> <dd> <p>This metric is available only for outbound campaigns. Dispositions for the agent assisted voice and automated voice delivery modes are only available with answering machine detection enabled. </p> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Campaign</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#human-answered\">Human answered</a> </p> </dd> <dt>MAX_FLOW_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#maximum-flow-time\">Maximum flow time</a> </p> </dd> <dt>MAX_QUEUED_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#maximum-queued-time\">Maximum queued time</a> </p> </dd> <dt>MIN_FLOW_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#minimum-flow-time\">Minimum flow time</a> </p> </dd> <dt>PERCENT_AUTOMATIC_FAILS</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, Evaluation Form ID, Evaluation Source, Form Version, Queue, Routing Profile</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#automatic-fails-percent\">Automatic fails percent</a> </p> </dd> <dt>PERCENT_BOT_CONVERSATIONS_OUTCOME</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#percent-bot-conversations-outcome\">Percent bot conversations outcome</a> </p> </dd> <dt>PERCENT_BOT_INTENTS_OUTCOME</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Bot intent name, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#percent-bot-intents-outcome\">Percent bot intents outcome</a> </p> </dd> <dt>PERCENT_CASES_FIRST_CONTACT_RESOLVED</dt> <dd> <p>Unit: Percent</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#cases-resolved-on-first-contact\">Cases resolved on first contact</a> </p> </dd> <dt>PERCENT_CONTACTS_STEP_EXPIRED</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, RoutingStepExpression</p> <p>UI name: This metric is available in Real-time Metrics UI but not on the Historical Metrics UI.</p> </dd> <dt>PERCENT_CONTACTS_STEP_JOINED</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, RoutingStepExpression</p> <p>UI name: This metric is available in Real-time Metrics UI but not on the Historical Metrics UI.</p> </dd> <dt>PERCENT_FLOWS_OUTCOME</dt> <dd> <p>Unit: Percent</p> <p>Valid metric filter key: <code>FLOWS_OUTCOME_TYPE</code> </p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#flows-outcome-percentage\">Flows outcome percentage</a>.</p> <note> <p>The <code>FLOWS_OUTCOME_TYPE</code> is not a valid grouping.</p> </note> </dd> <dt>PERCENT_NON_TALK_TIME</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Percentage</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#non-talk-time-percent\">Non-talk time percent</a> </p> </dd> <dt>PERCENT_TALK_TIME</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Percentage</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#talk-time-percent\">Talk time percent</a> </p> </dd> <dt>PERCENT_TALK_TIME_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Percentage</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-talk-time-percent\">Agent talk time percent</a> </p> </dd> <dt>PERCENT_TALK_TIME_CUSTOMER</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Percentage</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#customer-talk-time-percent\">Customer talk time percent</a> </p> </dd> <dt>RECIPIENTS_ATTEMPTED</dt> <dd> <p>This metric is only available for outbound campaigns initiated using a customer segment. It is not available for event triggered campaigns.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Campaign Execution Timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#recipients-attempted\">Recipients attempted</a> </p> </dd> <dt>RECIPIENTS_INTERACTED</dt> <dd> <p>This metric is only available for outbound campaigns initiated using a customer segment. It is not available for event triggered campaigns.</p> <p>Valid metric filter key: CAMPAIGN_INTERACTION_EVENT_TYPE</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Channel, contact/segmentAttributes/connect:Subtype, Campaign Execution Timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#recipients-interacted\">Recipients interacted</a> </p> </dd> <dt>RECIPIENTS_TARGETED</dt> <dd> <p>This metric is only available for outbound campaigns initiated using a customer segment. It is not available for event triggered campaigns.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Campaign Execution Timestamp</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#recipients-targeted\">Recipients targeted</a> </p> </dd> <dt>REOPENED_CASE_ACTIONS</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#cases-reopened\">Cases reopened</a> </p> </dd> <dt>RESOLVED_CASE_ACTIONS</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#cases-resolved\">Cases resolved</a> </p> </dd> <dt>SERVICE_LEVEL</dt> <dd> <p>You can include up to 20 SERVICE_LEVEL metrics in a request.</p> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for \"Less than\") or <code>LTE</code> (for \"Less than equal\").</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#service-level\">Service level X</a> </p> </dd> <dt>STEP_CONTACTS_QUEUED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, RoutingStepExpression</p> <p>UI name: This metric is available in Real-time Metrics UI but not on the Historical Metrics UI.</p> </dd> <dt>SUM_AFTER_CONTACT_WORK_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#after-contact-work-time\">After contact work time</a> </p> </dd> <dt>SUM_CONNECTING_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code>. This metric only supports the following filter keys as <code>INITIATION_METHOD</code>: <code>INBOUND</code> | <code>OUTBOUND</code> | <code>CALLBACK</code> | <code>API</code> | <code>CALLBACK_CUSTOMER_FIRST_DIALED</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-api-connecting-time\">Agent API connecting time</a> </p> <note> <p>The <code>Negate</code> key in metric-level filters is not applicable for this metric.</p> </note> </dd> <dt>CONTACTS_ABANDONED</dt> <dd> <p>Unit: Count</p> <p>Metric filter: </p> <ul> <li> <p>Valid values: <code>API</code>| <code>INCOMING</code> | <code>OUTBOUND</code> | <code>TRANSFER</code> | <code>CALLBACK</code> | <code>QUEUE_TRANSFER</code>| <code>Disconnect</code> | <code>CALLBACK_CUSTOMER_FIRST_DIALED</code> </p> </li> </ul> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, RoutingStepExpression, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-abandoned\">Contact abandoned</a> </p> </dd> <dt>SUM_CONTACTS_ABANDONED_IN_X</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for \"Less than\") or <code>LTE</code> (for \"Less than equal\").</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-abandoned-in-x-seconds\">Contacts abandoned in X seconds</a> </p> </dd> <dt>SUM_CONTACTS_ANSWERED_IN_X</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for \"Less than\") or <code>LTE</code> (for \"Less than equal\").</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-answered-in-x-seconds\">Contacts answered in X seconds</a> </p> </dd> <dt>SUM_CONTACT_FLOW_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contact-flow-time\">Contact flow time</a> </p> </dd> <dt>SUM_CONTACT_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-on-contact-time\">Agent on contact time</a> </p> </dd> <dt>SUM_CONTACTS_DISCONNECTED </dt> <dd> <p>Valid metric filter key: <code>DISCONNECT_REASON</code> </p> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contact-disconnected\">Contact disconnected</a> </p> </dd> <dt>SUM_ERROR_STATUS_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#error-status-time\">Error status time</a> </p> </dd> <dt>SUM_HANDLE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contact-handle-time\">Contact handle time</a> </p> </dd> <dt>SUM_HOLD_TIME</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#customer-hold-time\">Customer hold time</a> </p> </dd> <dt>SUM_IDLE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-idle-time\">Agent idle time</a> </p> </dd> <dt>SUM_INTERACTION_AND_HOLD_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-interaction-and-hold-time\">Agent interaction and hold time</a> </p> </dd> <dt>SUM_INTERACTION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-interaction-time\">Agent interaction time</a> </p> </dd> <dt>SUM_NON_PRODUCTIVE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-non-productive-time\">Agent non-productive time</a> </p> </dd> <dt>SUM_ONLINE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#online-time\">Online time</a> </p> </dd> <dt>SUM_RETRY_CALLBACK_ATTEMPTS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#callback-attempts\">Callback attempts</a> </p> </dd> </dl>
+            metrics: <p>The metrics to retrieve. Specify the name or metricId, groupings, and filters for each metric. The following historical metrics are available. For a description of each metric, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html">Metrics definition</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <p>MetricId should be used to reference custom metrics or out of the box metrics as Arn. If using MetricId, the limit is 20 MetricId per request.</p> </note> <dl> <dt>ABANDONMENT_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#abandonment-rate">Abandonment rate</a> </p> </dd> <dt>AGENT_ADHERENT_TIME</dt> <dd> <p>This metric is available only in Amazon Web Services Regions where <a href="https://docs.aws.amazon.com/connect/latest/adminguide/regions.html#optimization_region">Forecasting, capacity planning, and scheduling</a> is available.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy </p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#adherent-time">Adherent time</a> </p> </dd> <dt>AGENT_ANSWER_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-answer-rate">Agent answer rate</a> </p> </dd> <dt>AGENT_NON_ADHERENT_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#non-adherent-time">Non-adherent time</a> </p> </dd> <dt>AGENT_NON_RESPONSE</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy </p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-non-response">Agent non-response</a> </p> </dd> <dt>AGENT_NON_RESPONSE_WITHOUT_CUSTOMER_ABANDONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>Data for this metric is available starting from October 1, 2023 0:00:00 GMT.</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-non-response-without-customer-abandons">Agent non-response without customer abandons</a> </p> </dd> <dt>AGENT_OCCUPANCY</dt> <dd> <p>Unit: Percentage</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy </p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#occupancy">Occupancy</a> </p> </dd> <dt>AGENT_SCHEDULE_ADHERENCE</dt> <dd> <p>This metric is available only in Amazon Web Services Regions where <a href="https://docs.aws.amazon.com/connect/latest/adminguide/regions.html#optimization_region">Forecasting, capacity planning, and scheduling</a> is available.</p> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#adherence">Adherence</a> </p> </dd> <dt>AGENT_SCHEDULED_TIME</dt> <dd> <p>This metric is available only in Amazon Web Services Regions where <a href="https://docs.aws.amazon.com/connect/latest/adminguide/regions.html#optimization_region">Forecasting, capacity planning, and scheduling</a> is available.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#scheduled-time">Scheduled time</a> </p> </dd> <dt>AVG_ABANDON_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-abandon-time">Average queue abandon time</a> </p> </dd> <dt>AVG_ACTIVE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-active-time">Average active time</a> </p> </dd> <dt>AVG_AFTER_CONTACT_WORK_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#after-contact-work-time">Average after contact work time</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_AGENT_CONCURRENCY</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-concurrency">Average agent concurrency</a> </p> </dd> <dt>AVG_AGENT_CONNECTING_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code>. For now, this metric only supports the following as <code>INITIATION_METHOD</code>: <code>INBOUND</code> | <code>OUTBOUND</code> | <code>CALLBACK</code> | <code>API</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-api-connecting-time">Average agent API connecting time</a> </p> <note> <p>The <code>Negate</code> key in metric-level filters is not applicable for this metric.</p> </note> </dd> <dt>AVG_AGENT_PAUSE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-pause-time">Average agent pause time</a> </p> </dd> <dt>AVG_BOT_CONVERSATION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#average-bot-conversation-time">Average bot conversation time</a> </p> </dd> <dt>AVG_BOT_CONVERSATION_TURNS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#average-bot-conversation-turns">Average bot conversation turns</a> </p> </dd> <dt>AVG_CASE_RELATED_CONTACTS</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-contacts-per-case">Average contacts per case</a> </p> </dd> <dt>AVG_CASE_RESOLUTION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-case-resolution-time">Average case resolution time</a> </p> </dd> <dt>AVG_CONTACT_DURATION</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-contact-duration">Average contact duration</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_CONTACT_FIRST_RESPONSE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-average-contact-first-response-wait-time">Agent average contact first response wait time</a> </p> </dd> <dt>AVG_CONVERSATION_CLOSE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-conversation-close-time">Average conversation close time</a> </p> </dd> <dt>AVG_CONVERSATION_DURATION</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-conversation-duration">Average conversation duration</a> </p> </dd> <dt>AVG_DIALS_PER_MINUTE</dt> <dd> <p>This metric is available only for outbound campaigns that use the agent assisted voice and automated voice delivery modes.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Campaign, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-dials-per-minute">Average dials per minute</a> </p> </dd> <dt>AVG_EVALUATION_SCORE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, Evaluation Form ID, Evaluation Section ID, Evaluation Question ID, Evaluation Source, Form Version, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-evaluation-score">Average evaluation score</a> </p> </dd> <dt>AVG_FIRST_RESPONSE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-first-response-time">Average agent first response time</a> </p> </dd> <dt>AVG_FLOW_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-flow-time">Average flow time</a> </p> </dd> <dt>AVG_GREETING_TIME_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-greeting-time">Average agent greeting time</a> </p> </dd> <dt>AVG_HANDLE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, AI Use Case, Feature, contact/segmentAttributes/connect:Subtype, RoutingStepExpression</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-handle-time">Average handle time</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>ACTIVE_AI_AGENTS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#active-ai-agents">Active AI Agents</a> </p> </dd> <dt>AI_HANDOFF_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-handoff-rate">AI Handoff Rate</a> </p> </dd> <dt>AI_HANDOFFS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-handoffs">AI Handoff Count</a> </p> </dd> <dt>AI_AGENT_INVOCATION_SUCCESS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-invocation-success">AI Agent Invocation Success</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_AGENT_INVOCATION_SUCCESS_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-invocation-success-rate">AI Agent Invocation Success Rate</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_AGENT_INVOCATIONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Type, AI Agent Name Version, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-invocations">AI Agent Invocation Count</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_AGENT_RESPONSE_HELPFUL</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-response-helpful">AI Agent Response Helpful</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_AGENT_RESPONSE_NOT_HELPFUL</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-agent-response-not-helpful">AI Agent Response Not Helpful</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_RESPONSE_COMPLETION_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-response-completion-rate">AI Response Completion Rate</a> </p> </dd> <dt>AI_INVOLVED_CONTACTS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-involved-contacts">AI Involved Contacts</a> </p> </dd> <dt>AI_PROMPT_INVOCATION_SUCCESS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Prompt, AI Prompt ID, AI Prompt Name, AI Prompt Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-prompt-invocation-success">AI Prompt Invocation Success</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_PROMPT_INVOCATION_SUCCESS_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Prompt, AI Prompt ID, AI Prompt Name, AI Prompt Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-prompt-invocation-success-rate">AI Prompt Invocation Success Rate</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_PROMPT_INVOCATIONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Prompt, AI Prompt ID, AI Prompt Name, AI Prompt Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-prompt-invocations">AI Prompt Invocations</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_INVOCATION_SUCCESS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-invocation-success">AI Tool Invocation Success</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_INVOCATION_SUCCESS_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-invocation-success-rate">AI Tool Invocation Success Rate</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_INVOCATIONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-invocations">AI Tool Invocations</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AVG_AI_AGENT_CONVERSATION_TURNS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile </p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-ai-agent-conversation-turns">Average AI Agent Conversation Turns</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AVG_AI_CONVERSATION_TURNS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-ai-conversation-turns">Average AI Conversation Turns</a> </p> </dd> <dt>AVG_AI_PROMPT_INVOCATION_LATENCY</dt> <dd> <p>Unit: Milliseconds</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Prompt, AI Prompt ID, AI Prompt Name, AI Prompt Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-ai-prompt-invocation-latency">Average AI Prompt Invocation Latency</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AVG_AI_TOOL_INVOCATION_LATENCY</dt> <dd> <p>Unit: Milliseconds</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-ai-tool-invocation-latency">Average AI Tool Invocation Latency</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_PARAMETER_ACCURACY</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-parameter-accuracy">AI Tool Parameter Accuracy</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_SELECTION_ACCURACY</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-selection-accuracy">AI Tool Selection Accuracy</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>AI_TOOL_UTILIZATION_ACCURACY</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent, AI Agent ID, AI Agent Name, AI Agent Name Version, AI Agent Type, AI Tool ID, AI Tool Name, AI Tool Type, AI Use Case, Channel, Queue, Routing Profile, Session ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#ai-tool-utilization-accuracy">AI Tool Utilization Accuracy</a> </p> <note> <p>AI Agent Name Version is not a valid filter but a valid grouping.</p> </note> </dd> <dt>COMPLETENESS_SCORE</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile, Session ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#completeness-score">Completeness Score</a> </p> </dd> <dt>FAITHFULNESS_SCORE</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile, Session ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#faithfulness-score">Faithfulness Score</a> </p> </dd> <dt>GOAL_SUCCESS_RATE</dt> <dd> <p>Unit: Double</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile, Session ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#goal-success-rate">Goal Success Rate</a> </p> </dd> <dt>KNOWLEDGE_CONTENT_REFERENCES</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent, AI Agent Name, AI Agent Type, AI Use Case, Channel, Knowledge Base Name, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#knowledge-content-references">Knowledge Content References</a> </p> </dd> <dt>PROACTIVE_INTENT_ENGAGEMENT_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-engagement-rate">Proactive Intent Engagement Rate</a> </p> </dd> <dt>PROACTIVE_INTENT_RESPONSE_RATE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-response-rate">Proactive Intent Response Rate</a> </p> </dd> <dt>PROACTIVE_INTENTS_ANSWERED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-answered">Proactive Intents Answered</a> </p> </dd> <dt>PROACTIVE_INTENTS_DETECTED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-detected">Proactive Intents Detected</a> </p> </dd> <dt>PROACTIVE_INTENTS_ENGAGED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: AI Agent ID, AI Agent Name, AI Agent Type, AI Use Case, Channel, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#proactive-intents-engaged">Proactive Intents Engaged</a> </p> </dd> <dt>AVG_HOLD_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-hold-time">Average customer hold time</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_HOLD_TIME_ALL_CONTACTS</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-hold-time-all-contacts">Average customer hold time all contacts</a> </p> </dd> <dt>AVG_HOLDS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-holds">Average holds</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_INTERACTION_AND_HOLD_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interaction-and-customer-hold-time">Average agent interaction and customer hold time</a> </p> </dd> <dt>AVG_INTERACTION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interaction-time">Average agent interaction time</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_INTERRUPTIONS_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interruptions">Average agent interruptions</a> </p> </dd> <dt>AVG_INTERRUPTION_TIME_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-interruption-time">Average agent interruption time</a> </p> </dd> <dt>AVG_MESSAGE_LENGTH_AGENT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-message-length">Average agent message length</a> </p> </dd> <dt>AVG_MESSAGE_LENGTH_CUSTOMER</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-message-length">Average customer message length</a> </p> </dd> <dt>AVG_MESSAGES</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-messages">Average messages</a> </p> </dd> <dt>AVG_MESSAGES_AGENT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-messages">Average agent messages</a> </p> </dd> <dt>AVG_MESSAGES_BOT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-bot-messages">Average bot messages</a> </p> </dd> <dt>AVG_MESSAGES_CUSTOMER</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-messages">Average customer messages</a> </p> </dd> <dt>AVG_NON_TALK_TIME</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-non-talk-time">Average non-talk time</a> </p> </dd> <dt>AVG_QUEUE_ANSWER_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-answer-time">Average queue answer time</a> </p> <p>Valid metric level filters: <code>INITIATION_METHOD</code>, <code>FEATURE</code>, <code>DISCONNECT_REASON</code> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>AVG_QUEUE_ANSWER_TIME_CUSTOMER_FIRST_CALLBACK</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-queue-answer-time-customer-first-callback">Avg. queue answer time - customer first callback</a> </p> </dd> <dt>AVG_RESPONSE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-response-time-agent">Average agent response time</a> </p> </dd> <dt>AVG_RESPONSE_TIME_CUSTOMER</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-time-agent">Average customer response time</a> </p> </dd> <dt>AVG_RESOLUTION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-resolution-time">Average resolution time</a> </p> </dd> <dt>AVG_TALK_TIME</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-talk-time">Average talk time</a> </p> </dd> <dt>AVG_TALK_TIME_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-agent-talk-time">Average agent talk time</a> </p> </dd> <dt>AVG_TALK_TIME_CUSTOMER</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-customer-talk-time">Average customer talk time</a> </p> </dd> <dt>AVG_WAIT_TIME_AFTER_CUSTOMER_CONNECTION</dt> <dd> <p>This metric is available only for outbound campaigns that use the agent assisted voice and automated voice delivery modes.</p> <p>Unit: Seconds</p> <p>Valid groupings and filters: Campaign</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-wait-time-after-customer-connection">Average wait time after customer connection</a> </p> </dd> <dt>AVG_WAIT_TIME_AFTER_CUSTOMER_FIRST_CALLBACK_CONNECTION</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-wait-time-after-customer-connection-customer-first-callback">Avg. wait time after customer connection - customer first callback</a> </p> </dd> <dt>AVG_WEIGHTED_EVALUATION_SCORE</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, Evaluation Form Id, Evaluation Section ID, Evaluation Question ID, Evaluation Source, Form Version, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#average-weighted-evaluation-score">Average weighted evaluation score</a> </p> </dd> <dt>BOT_CONVERSATIONS_COMPLETED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#bot-conversations-completed">Bot conversations completed</a> </p> </dd> <dt>BOT_INTENTS_COMPLETED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Bot intent name, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#bot-intents-completed">Bot intents completed</a> </p> </dd> <dt>CAMPAIGN_CONTACTS_ABANDONED_AFTER_X</dt> <dd> <p>This metric is available only for outbound campaigns using the agent assisted voice and automated voice delivery modes.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Campaign</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you must enter <code>GT</code> (for <i>Greater than</i>).</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-contacts-abandoned-after-x">Campaign contacts abandoned after X</a> </p> </dd> <dt>CAMPAIGN_CONTACTS_ABANDONED_AFTER_X_RATE</dt> <dd> <p>This metric is available only for outbound campaigns using the agent assisted voice and automated voice delivery modes.</p> <p>Unit: Percent</p> <p>Valid groupings and filters: Agent, Campaign</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you must enter <code>GT</code> (for <i>Greater than</i>).</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-contacts-abandoned-after-x-rate">Campaign contacts abandoned after X rate</a> </p> </dd> <dt>CAMPAIGN_INTERACTIONS</dt> <dd> <p>This metric is available only for outbound campaigns using the email, WhatsApp, and web notification delivery modes. </p> <p>Unit: Count</p> <p>Valid metric filter key: CAMPAIGN_INTERACTION_EVENT_TYPE</p> <p>Valid groupings and filters: Browser Name, Campaign, Channel, contact/segmentAttributes/connect:Subtype, Device Model, Device Type, Web Notification Type</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-interactions">Campaign interactions</a> </p> </dd> <dt>CAMPAIGN_PROGRESS_RATE</dt> <dd> <p>This metric is only available for outbound campaigns initiated using a customer segment. It is not available for event triggered campaigns.</p> <p>Unit: Percent</p> <p>Valid groupings and filters: Campaign, Campaign Execution Timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-progress-rate">Campaign progress rate</a> </p> </dd> <dt>CAMPAIGN_SEND_ATTEMPTS</dt> <dd> <p>This metric is available only for outbound campaigns.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Channel, contact/segmentAttributes/connect:Subtype </p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-send-attempts">Campaign send attempts</a> </p> </dd> <dt>CAMPAIGN_SEND_EXCLUSIONS</dt> <dd> <p>This metric is available only for outbound campaigns.</p> <p>Valid metric filter key: CAMPAIGN_EXCLUDED_EVENT_TYPE</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Campaign Excluded Event Type, Campaign Execution Timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#campaign-send-exclusions">Campaign send exclusions</a> </p> </dd> <dt>CASES_CREATED</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#cases-created">Cases created</a> </p> </dd> <dt>CONTACTS_CREATED</dt> <dd> <p>Unit: Count</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-created">Contacts created</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>CONTACTS_HANDLED</dt> <dd> <p>Unit: Count</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code>, <code>DISCONNECT_REASON</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, RoutingStepExpression, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled">Contacts handled</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>CONTACTS_HANDLED_BY_CONNECTED_TO_AGENT</dt> <dd> <p>Unit: Count</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code> </p> <p>Valid groupings and filters: Queue, Channel, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-handled-by-connected-to-agent-timestamp">Contacts handled (connected to agent timestamp)</a> </p> </dd> <dt>CONTACTS_HOLD_ABANDONS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-hold-disconnect">Contacts hold disconnect</a> </p> </dd> <dt>CONTACTS_ON_HOLD_AGENT_DISCONNECT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-hold-agent-disconnect">Contacts hold agent disconnect</a> </p> </dd> <dt>CONTACTS_ON_HOLD_CUSTOMER_DISCONNECT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-hold-customer-disconnect">Contacts hold customer disconnect</a> </p> </dd> <dt>CONTACTS_PUT_ON_HOLD</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-put-on-hold">Contacts put on hold</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT_EXTERNAL</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-external">Contacts transferred out external</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT_INTERNAL</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-internal">Contacts transferred out internal</a> </p> </dd> <dt>CONTACTS_QUEUED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-queued">Contacts queued</a> </p> </dd> <dt>CONTACTS_QUEUED_BY_ENQUEUE</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-queued-by-enqueue">Contacts queued (enqueue timestamp)</a> </p> </dd> <dt>CONTACTS_REMOVED_FROM_QUEUE_IN_X</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for "Less than") or <code>LTE</code> (for "Less than equal").</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-removed-from-queue">Contacts removed from queue in X seconds</a> </p> </dd> <dt>CONTACTS_RESOLVED_IN_X</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for "Less than") or <code>LTE</code> (for "Less than equal").</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-resolved">Contacts resolved in X</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Feature, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out">Contacts transferred out</a> </p> <note> <p>Feature is a valid filter but not a valid grouping.</p> </note> </dd> <dt>CONTACTS_TRANSFERRED_OUT_BY_AGENT</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-by-agent">Contacts transferred out by agent</a> </p> </dd> <dt>CONTACTS_TRANSFERRED_OUT_FROM_QUEUE</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-transferred-out-queue">Contacts transferred out queue</a> </p> </dd> <dt>CURRENT_CASES</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#current-cases">Current cases</a> </p> </dd> <dt>CONVERSATIONS_ABANDONED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, contact/segmentAttributes/connect:Subtype, Disconnect Reason, Feature, RoutingStepExpression, Initiation method, Routing Profile, Queue, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#conversations-abandoned">Conversations abandoned</a> </p> </dd> <dt>DELIVERY_ATTEMPTS</dt> <dd> <p>This metric is available only for outbound campaigns.</p> <p>Unit: Count</p> <p>Valid metric filter key: <code>ANSWERING_MACHINE_DETECTION_STATUS</code>, <code>CAMPAIGN_DELIVERY_EVENT_TYPE</code>, <code>DISCONNECT_REASON</code> </p> <p>Valid groupings and filters: Agent, Answering Machine Detection Status, Browser Name, Campaign, Campaign Delivery EventType, Channel, contact/segmentAttributes/connect:Subtype, Device Model, Device Type, Disconnect Reason, Queue, Routing Profile, Web Notification Type</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#delivery-attempts">Delivery attempts</a> </p> <note> <p>Campaign Delivery EventType filter and grouping are only available for SMS, Email, WhatsApp, and web notification campaign delivery modes. Agent, Queue, Routing Profile, Answering Machine Detection Status and Disconnect Reason are only available for agent assisted voice and automated voice delivery modes. </p> </note> </dd> <dt>DELIVERY_ATTEMPT_DISPOSITION_RATE</dt> <dd> <p>This metric is available only for outbound campaigns. Dispositions for the agent assisted voice and automated voice delivery modes are only available with answering machine detection enabled.</p> <p>Unit: Percent</p> <p>Valid metric filter key: <code>ANSWERING_MACHINE_DETECTION_STATUS</code>, <code>CAMPAIGN_DELIVERY_EVENT_TYPE</code>, <code>DISCONNECT_REASON</code> </p> <p>Valid groupings and filters: Agent, Answering Machine Detection Status, Browser Name, Campaign, Channel, contact/segmentAttributes/connect:Subtype, Device Model, Device Type, Disconnect Reason, Queue, Routing Profile, Web Notification Type</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#delivery-attempt-disposition-rate">Delivery attempt disposition rate</a> </p> <note> <p>Campaign Delivery Event Type filter and grouping are only available for SMS, Email, WhatsApp, and web notification campaign delivery modes. Agent, Queue, Routing Profile, Answering Machine Detection Status and Disconnect Reason are only available for agent assisted voice and automated voice delivery modes. </p> </note> </dd> <dt>EVALUATIONS_PERFORMED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, Evaluation Form ID, Evaluation Source, Form Version, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#evaluations-performed">Evaluations performed</a> </p> </dd> <dt>FLOWS_OUTCOME</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#flows-outcome">Flows outcome</a> </p> </dd> <dt>FLOWS_STARTED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#flows-started">Flows started</a> </p> </dd> <dt>HUMAN_ANSWERED_CALLS</dt> <dd> <p>This metric is available only for outbound campaigns. Dispositions for the agent assisted voice and automated voice delivery modes are only available with answering machine detection enabled. </p> <p>Unit: Count</p> <p>Valid groupings and filters: Agent, Campaign</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#human-answered">Human answered</a> </p> </dd> <dt>MAX_FLOW_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#maximum-flow-time">Maximum flow time</a> </p> </dd> <dt>MAX_QUEUED_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#maximum-queued-time">Maximum queued time</a> </p> </dd> <dt>MIN_FLOW_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#minimum-flow-time">Minimum flow time</a> </p> </dd> <dt>PERCENT_AUTOMATIC_FAILS</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Agent, Agent Hierarchy, Channel, Evaluation Form ID, Evaluation Source, Form Version, Queue, Routing Profile</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#automatic-fails-percent">Automatic fails percent</a> </p> </dd> <dt>PERCENT_BOT_CONVERSATIONS_OUTCOME</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#percent-bot-conversations-outcome">Percent bot conversations outcome</a> </p> </dd> <dt>PERCENT_BOT_INTENTS_OUTCOME</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Bot ID, Bot alias, Bot version, Bot locale, Bot intent name, Flows resource ID, Flows module resource ID, Flow type, Flow action ID, Invoking resource published timestamp, Initiation method, Invoking resource type, Parent flows resource ID</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/bot-metrics.html#percent-bot-intents-outcome">Percent bot intents outcome</a> </p> </dd> <dt>PERCENT_CASES_FIRST_CONTACT_RESOLVED</dt> <dd> <p>Unit: Percent</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#cases-resolved-on-first-contact">Cases resolved on first contact</a> </p> </dd> <dt>PERCENT_CONTACTS_STEP_EXPIRED</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, RoutingStepExpression</p> <p>UI name: This metric is available in Real-time Metrics UI but not on the Historical Metrics UI.</p> </dd> <dt>PERCENT_CONTACTS_STEP_JOINED</dt> <dd> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, RoutingStepExpression</p> <p>UI name: This metric is available in Real-time Metrics UI but not on the Historical Metrics UI.</p> </dd> <dt>PERCENT_FLOWS_OUTCOME</dt> <dd> <p>Unit: Percent</p> <p>Valid metric filter key: <code>FLOWS_OUTCOME_TYPE</code> </p> <p>Valid groupings and filters: Channel, contact/segmentAttributes/connect:Subtype, Flow type, Flows module resource ID, Flows next resource ID, Flows next resource queue ID, Flows outcome type, Flows resource ID, Initiation method, Resource published timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#flows-outcome-percentage">Flows outcome percentage</a>.</p> <note> <p>The <code>FLOWS_OUTCOME_TYPE</code> is not a valid grouping.</p> </note> </dd> <dt>PERCENT_NON_TALK_TIME</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Percentage</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#non-talk-time-percent">Non-talk time percent</a> </p> </dd> <dt>PERCENT_TALK_TIME</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Percentage</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#talk-time-percent">Talk time percent</a> </p> </dd> <dt>PERCENT_TALK_TIME_AGENT</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Percentage</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-talk-time-percent">Agent talk time percent</a> </p> </dd> <dt>PERCENT_TALK_TIME_CUSTOMER</dt> <dd> <p>This metric is available only for contacts analyzed by Contact Lens conversational analytics.</p> <p>Unit: Percentage</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#customer-talk-time-percent">Customer talk time percent</a> </p> </dd> <dt>RECIPIENTS_ATTEMPTED</dt> <dd> <p>This metric is only available for outbound campaigns initiated using a customer segment. It is not available for event triggered campaigns.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Campaign Execution Timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#recipients-attempted">Recipients attempted</a> </p> </dd> <dt>RECIPIENTS_INTERACTED</dt> <dd> <p>This metric is only available for outbound campaigns initiated using a customer segment. It is not available for event triggered campaigns.</p> <p>Valid metric filter key: CAMPAIGN_INTERACTION_EVENT_TYPE</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Channel, contact/segmentAttributes/connect:Subtype, Campaign Execution Timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#recipients-interacted">Recipients interacted</a> </p> </dd> <dt>RECIPIENTS_TARGETED</dt> <dd> <p>This metric is only available for outbound campaigns initiated using a customer segment. It is not available for event triggered campaigns.</p> <p>Unit: Count</p> <p>Valid groupings and filters: Campaign, Campaign Execution Timestamp</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#recipients-targeted">Recipients targeted</a> </p> </dd> <dt>REOPENED_CASE_ACTIONS</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#cases-reopened">Cases reopened</a> </p> </dd> <dt>RESOLVED_CASE_ACTIONS</dt> <dd> <p>Unit: Count</p> <p>Required filter key: CASE_TEMPLATE_ARN</p> <p>Valid groupings and filters: CASE_TEMPLATE_ARN, CASE_STATUS</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#cases-resolved">Cases resolved</a> </p> </dd> <dt>SERVICE_LEVEL</dt> <dd> <p>You can include up to 20 SERVICE_LEVEL metrics in a request.</p> <p>Unit: Percent</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for "Less than") or <code>LTE</code> (for "Less than equal").</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#service-level">Service level X</a> </p> </dd> <dt>STEP_CONTACTS_QUEUED</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, RoutingStepExpression</p> <p>UI name: This metric is available in Real-time Metrics UI but not on the Historical Metrics UI.</p> </dd> <dt>SUM_AFTER_CONTACT_WORK_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#after-contact-work-time">After contact work time</a> </p> </dd> <dt>SUM_CONNECTING_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid metric filter key: <code>INITIATION_METHOD</code>. This metric only supports the following filter keys as <code>INITIATION_METHOD</code>: <code>INBOUND</code> | <code>OUTBOUND</code> | <code>CALLBACK</code> | <code>API</code> | <code>CALLBACK_CUSTOMER_FIRST_DIALED</code> </p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-api-connecting-time">Agent API connecting time</a> </p> <note> <p>The <code>Negate</code> key in metric-level filters is not applicable for this metric.</p> </note> </dd> <dt>CONTACTS_ABANDONED</dt> <dd> <p>Unit: Count</p> <p>Metric filter: </p> <ul> <li> <p>Valid values: <code>API</code>| <code>INCOMING</code> | <code>OUTBOUND</code> | <code>TRANSFER</code> | <code>CALLBACK</code> | <code>QUEUE_TRANSFER</code>| <code>Disconnect</code> | <code>CALLBACK_CUSTOMER_FIRST_DIALED</code> </p> </li> </ul> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, RoutingStepExpression, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-abandoned">Contact abandoned</a> </p> </dd> <dt>SUM_CONTACTS_ABANDONED_IN_X</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for "Less than") or <code>LTE</code> (for "Less than equal").</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-abandoned-in-x-seconds">Contacts abandoned in X seconds</a> </p> </dd> <dt>SUM_CONTACTS_ANSWERED_IN_X</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>Threshold: For <code>ThresholdValue</code>, enter any whole number from 1 to 604800 (inclusive), in seconds. For <code>Comparison</code>, you can use <code>LT</code> (for "Less than") or <code>LTE</code> (for "Less than equal").</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contacts-answered-in-x-seconds">Contacts answered in X seconds</a> </p> </dd> <dt>SUM_CONTACT_FLOW_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contact-flow-time">Contact flow time</a> </p> </dd> <dt>SUM_CONTACT_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-on-contact-time">Agent on contact time</a> </p> </dd> <dt>SUM_CONTACTS_DISCONNECTED </dt> <dd> <p>Valid metric filter key: <code>DISCONNECT_REASON</code> </p> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contact-disconnected">Contact disconnected</a> </p> </dd> <dt>SUM_ERROR_STATUS_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#error-status-time">Error status time</a> </p> </dd> <dt>SUM_HANDLE_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#contact-handle-time">Contact handle time</a> </p> </dd> <dt>SUM_HOLD_TIME</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#customer-hold-time">Customer hold time</a> </p> </dd> <dt>SUM_IDLE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-idle-time">Agent idle time</a> </p> </dd> <dt>SUM_INTERACTION_AND_HOLD_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-interaction-and-hold-time">Agent interaction and hold time</a> </p> </dd> <dt>SUM_INTERACTION_TIME</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-interaction-time">Agent interaction time</a> </p> </dd> <dt>SUM_NON_PRODUCTIVE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#agent-non-productive-time">Agent non-productive time</a> </p> </dd> <dt>SUM_ONLINE_TIME_AGENT</dt> <dd> <p>Unit: Seconds</p> <p>Valid groupings and filters: Routing Profile, Agent, Agent Hierarchy</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#online-time">Online time</a> </p> </dd> <dt>SUM_RETRY_CALLBACK_ATTEMPTS</dt> <dd> <p>Unit: Count</p> <p>Valid groupings and filters: Queue, Channel, Routing Profile, contact/segmentAttributes/connect:Subtype, Q in Connect</p> <p>UI name: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-definitions.html#callback-attempts">Callback attempts</a> </p> </dd> </dl>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -12167,10 +12167,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.get_prompt_file_response.GetPromptFileResponse":
-        r"""<p>Gets the prompt file.</p>
+        """<p>Gets the prompt file.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             prompt_id: <p>A unique identifier for the prompt.</p>
 
         Raises:
@@ -12220,10 +12220,10 @@ class ConnectClient:
             "capo_connect.types.snapshot_version.SnapshotVersion"
         ] = None,
     ) -> "capo_connect.types.get_task_template_response.GetTaskTemplateResponse":
-        r"""<p>Gets details about a specific task template in the specified Connect Customer instance.</p>
+        """<p>Gets details about a specific task template in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             task_template_id: <p>A unique identifier for the task template.</p>
             snapshot_version: <p>The system generated version of a task template that is associated with a task, when the task is created.</p>
 
@@ -12379,14 +12379,14 @@ class ConnectClient:
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.import_phone_number_response.ImportPhoneNumberResponse":
-        r"""<p>Imports a claimed phone number from an external service, such as Amazon Web Services End User Messaging, into an Connect Customer instance. You can call this API only in the same Amazon Web Services Region where the Connect Customer instance was created.</p> <important> <p>Call the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribePhoneNumber.html\">DescribePhoneNumber</a> API to verify the status of a previous <code>ImportPhoneNumber</code> operation. </p> </important> <p>If you plan to claim or import numbers and then release numbers frequently, contact us for a service quota exception. Otherwise, it is possible you will be blocked from claiming and releasing any more numbers until up to 180 days past the oldest number released has expired. </p> <p> By default you can claim or import and then release up to 200% of your maximum number of active phone numbers. If you claim or import and then release phone numbers using the UI or API during a rolling 180 day cycle that exceeds 200% of your phone number service level quota, you will be blocked from claiming or importing any more numbers until 180 days past the oldest number released has expired. </p> <p>For example, if you already have 99 claimed or imported numbers and a service level quota of 99 phone numbers, and in any 180 day period you release 99, claim 99, and then release 99, you will have exceeded the 200% limit. At that point you are blocked from claiming any more numbers until you open an Amazon Web Services Support ticket. </p>
+        """<p>Imports a claimed phone number from an external service, such as Amazon Web Services End User Messaging, into an Connect Customer instance. You can call this API only in the same Amazon Web Services Region where the Connect Customer instance was created.</p> <important> <p>Call the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribePhoneNumber.html">DescribePhoneNumber</a> API to verify the status of a previous <code>ImportPhoneNumber</code> operation. </p> </important> <p>If you plan to claim or import numbers and then release numbers frequently, contact us for a service quota exception. Otherwise, it is possible you will be blocked from claiming and releasing any more numbers until up to 180 days past the oldest number released has expired. </p> <p> By default you can claim or import and then release up to 200% of your maximum number of active phone numbers. If you claim or import and then release phone numbers using the UI or API during a rolling 180 day cycle that exceeds 200% of your phone number service level quota, you will be blocked from claiming or importing any more numbers until 180 days past the oldest number released has expired. </p> <p>For example, if you already have 99 claimed or imported numbers and a service level quota of 99 phone numbers, and in any 180 day period you release 99, claim 99, and then release 99, you will have exceeded the 200% limit. At that point you are blocked from claiming any more numbers until you open an Amazon Web Services Support ticket. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             source_phone_number_arn: <p>The claimed phone number ARN being imported from the external service, such as Amazon Web Services End User Messaging. If it is from Amazon Web Services End User Messaging, it looks like the ARN of the phone number to import from Amazon Web Services End User Messaging.</p>
             phone_number_description: <p>The description of the phone number.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -12442,10 +12442,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.import_workspace_media_response.ImportWorkspaceMediaResponse":
-        r"""<p>Imports a media asset (such as a logo) for use in a workspace.</p>
+        """<p>Imports a media asset (such as a logo) for use in a workspace.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             media_type: <p>The type of media. Valid values are: <code>IMAGE_LOGO_FAVICON</code> and <code>IMAGE_LOGO_HORIZONTAL</code>.</p>
             media_source: <p>The media source. Can be an S3 presigned URL or a base64-encoded string.</p>
@@ -12500,10 +12500,10 @@ class ConnectClient:
             "capo_connect.types.agent_status_types.AgentStatusTypes"
         ] = None,
     ) -> "capo_connect.types.list_agent_status_response.ListAgentStatusResponse":
-        r"""<p>Lists agent statuses.</p>
+        """<p>Lists agent statuses.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             agent_status_types: <p>Available agent status types.</p>
@@ -12586,10 +12586,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_analytics_data_associations_response.ListAnalyticsDataAssociationsResponse":
-        r"""<p>Lists the association status of requested dataset ID for a given Connect Customer instance.</p>
+        """<p>Lists the association status of requested dataset ID for a given Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             data_set_id: <p>The identifier of the dataset to get the association status.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -12644,10 +12644,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_analytics_data_lake_data_sets_response.ListAnalyticsDataLakeDataSetsResponse":
-        r"""<p>Lists the data lake datasets available to associate with for a given Connect Customer instance.</p>
+        """<p>Lists the data lake datasets available to associate with for a given Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -12701,10 +12701,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.list_approved_origins_response.ListApprovedOriginsResponse"
     ):
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all approved origins associated with the instance.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all approved origins associated with the instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -12782,10 +12782,10 @@ class ConnectClient:
         ] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_associated_contacts_response.ListAssociatedContactsResponse":
-        r"""<p>Provides information about contact tree, a list of associated contacts with a unique identifier.</p>
+        """<p>Provides information about contact tree, a list of associated contacts with a unique identifier.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             max_results: <p>The maximum number of results to return per page. </p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
@@ -12839,10 +12839,10 @@ class ConnectClient:
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_attached_files_configurations_response.ListAttachedFilesConfigurationsResponse":
-        r"""<p>Provides summary information about the attached files configurations for the specified Connect Customer instance.</p> <p>This API returns effective configurations (custom overrides or defaults) for each attachment scope. If no custom configuration exists for a scope, the default configuration values are returned.</p>
+        """<p>Provides summary information about the attached files configurations for the specified Connect Customer instance.</p> <p>This API returns effective configurations (custom overrides or defaults) for each attachment scope. If no custom configuration exists for a scope, the default configuration values are returned.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
 
@@ -12917,10 +12917,10 @@ class ConnectClient:
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_authentication_profiles_response.ListAuthenticationProfilesResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change. To request access to this API, contact Amazon Web Services Support.</p> <p>Provides summary information about the authentication profiles in a specified Connect Customer instance.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change. To request access to this API, contact Amazon Web Services Support.</p> <p>Provides summary information about the authentication profiles in a specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
 
@@ -12996,10 +12996,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result25.MaxResult25"] = None,
     ) -> "capo_connect.types.list_bots_response.ListBotsResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>For the specified version of Amazon Lex, returns a paginated list of all the Amazon Lex bots currently associated with the instance. Use this API to return both Amazon Lex V1 and V2 bots.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>For the specified version of Amazon Lex, returns a paginated list of all the Amazon Lex bots currently associated with the instance. Use this API to return both Amazon Lex V1 and V2 bots.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             lex_version: <p>The version of Amazon Lex or Amazon Lex V2.</p>
@@ -13078,10 +13078,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_child_hours_of_operations_response.ListChildHoursOfOperationsResponse":
-        r"""<p>Provides information about the child hours of operations for the specified parent hours of operation.</p> <p>For more information about child hours of operations, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html\">Link overrides from different hours of operation</a> in the <i> Administrator Guide</i>.</p>
+        """<p>Provides information about the child hours of operations for the specified parent hours of operation.</p> <p>For more information about child hours of operations, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html">Link overrides from different hours of operation</a> in the <i> Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             hours_of_operation_id: <p>The identifier of the parent hours of operation.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
@@ -13162,10 +13162,10 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_contact_evaluations_response.ListContactEvaluationsResponse":
-        r"""<p>Lists contact evaluations in the specified Connect Customer instance.</p>
+        """<p>Lists contact evaluations in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p> <important> <p>This is not expected to be set because the value returned in the previous response is always null.</p> </important>
 
@@ -13239,10 +13239,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_contact_flow_module_aliases_response.ListContactFlowModuleAliasesResponse":
-        r"""<p>Lists all aliases associated with a contact flow module, showing their current version mappings and metadata.</p>
+        """<p>Lists all aliases associated with a contact flow module, showing their current version mappings and metadata.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -13327,10 +13327,10 @@ class ConnectClient:
             "capo_connect.types.contact_flow_module_state.ContactFlowModuleState"
         ] = None,
     ) -> "capo_connect.types.list_contact_flow_modules_response.ListContactFlowModulesResponse":
-        r"""<p>Provides information about the flow modules for the specified Connect Customer instance.</p>
+        """<p>Provides information about the flow modules for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             contact_flow_module_state: <p>The state of the flow module.</p>
@@ -13414,10 +13414,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_contact_flow_module_versions_response.ListContactFlowModuleVersionsResponse":
-        r"""<p>Retrieves a paginated list of all versions for a specific contact flow module.</p>
+        """<p>Retrieves a paginated list of all versions for a specific contact flow module.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -13502,10 +13502,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_contact_flows_response.ListContactFlowsResponse":
-        r"""<p>Provides information about the flows for the specified Connect Customer instance.</p> <p>You can also create and update flows using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html\">Connect Customer Flow language</a>.</p> <p>For more information about flows, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-contact-flows.html\">Flows</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Provides information about the flows for the specified Connect Customer instance.</p> <p>You can also create and update flows using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html">Connect Customer Flow language</a>.</p> <p>For more information about flows, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-contact-flows.html">Flows</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_types: <p>The type of flow.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
@@ -13672,10 +13672,10 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_contact_references_response.ListContactReferencesResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>For the specified <code>referenceTypes</code>, returns a list of references associated with the contact. <i>References</i> are links to documents that are related to a contact, such as emails, attachments, or URLs.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>For the specified <code>referenceTypes</code>, returns a list of references associated with the contact. <i>References</i> are links to documents that are related to a contact, such as emails, attachments, or URLs.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the initial contact.</p>
             reference_types: <p>The type of reference.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p> <important> <p>This is not expected to be set, because the value returned in the previous response is always null.</p> </important>
@@ -14129,11 +14129,11 @@ class ConnectClient:
             "capo_connect.types.vocabulary_next_token.VocabularyNextToken"
         ] = None,
     ) -> "capo_connect.types.list_default_vocabularies_response.ListDefaultVocabulariesResponse":
-        r"""<p>Lists the default vocabularies for the specified Connect Customer instance.</p>
+        """<p>Lists the default vocabularies for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            language_code: <p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html\">What is Amazon Transcribe?</a> </p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            language_code: <p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html">What is Amazon Transcribe?</a> </p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
 
@@ -14304,10 +14304,10 @@ class ConnectClient:
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_evaluation_form_ai_versions_response.ListEvaluationFormAIVersionsResponse":
-        r"""<p>Lists the available AI versions for evaluation forms in the specified Connect Customer instance.</p>
+        """<p>Lists the available AI versions for evaluation forms in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_interaction_type: <p>The contact interaction type for the evaluation form.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
@@ -14362,10 +14362,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.list_evaluation_forms_response.ListEvaluationFormsResponse"
     ):
-        r"""<p>Lists evaluation forms in the specified Connect Customer instance.</p>
+        """<p>Lists evaluation forms in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
 
@@ -14440,10 +14440,10 @@ class ConnectClient:
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_evaluation_form_versions_response.ListEvaluationFormVersionsResponse":
-        r"""<p>Lists versions of an evaluation form in the specified Connect Customer instance.</p>
+        """<p>Lists versions of an evaluation form in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_form_id: <p>The unique identifier for the evaluation form.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
@@ -14521,10 +14521,10 @@ class ConnectClient:
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_extraction_definitions_response.ListExtractionDefinitionsResponse":
-        r"""<p>Lists extraction definitions in the specified Connect Customer instance.</p>
+        """<p>Lists extraction definitions in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
 
@@ -14602,10 +14602,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_flow_associations_response.ListFlowAssociationsResponse":
-        r"""<p>List the flow association based on the filters.</p>
+        """<p>List the flow association based on the filters.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             resource_type: <p>A valid resource type.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -14771,10 +14771,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_hours_of_operations_response.ListHoursOfOperationsResponse":
-        r"""<p>Provides information about the hours of operation for the specified Connect Customer instance.</p> <p>For more information about hours of operation, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html\">Set the Hours of Operation for a Queue</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Provides information about the hours of operation for the specified Connect Customer instance.</p> <p>For more information about hours of operation, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html">Set the Hours of Operation for a Queue</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
 
@@ -14849,10 +14849,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result7.MaxResult7"] = None,
     ) -> "capo_connect.types.list_instance_attributes_response.ListInstanceAttributesResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all attribute types for the given instance.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all attribute types for the given instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -14997,10 +14997,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result10.MaxResult10"] = None,
     ) -> "capo_connect.types.list_instance_storage_configs_response.ListInstanceStorageConfigsResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of storage configs for the identified instance and resource type.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of storage configs for the identified instance and resource type.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             resource_type: <p>A valid resource type.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -15083,10 +15083,10 @@ class ConnectClient:
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
         integration_arn: Optional["capo_connect.types.arn.ARN"] = None,
     ) -> "capo_connect.types.list_integration_associations_response.ListIntegrationAssociationsResponse":
-        r"""<p>Provides summary information about the Amazon Web Services resource associations for the specified Connect Customer instance.</p>
+        """<p>Provides summary information about the Amazon Web Services resource associations for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             integration_type: <p>The integration type.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -15174,10 +15174,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.list_lambda_functions_response.ListLambdaFunctionsResponse"
     ):
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all Lambda functions that display in the dropdown options in the relevant flow blocks.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all Lambda functions that display in the dropdown options in the relevant flow blocks.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -15252,10 +15252,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result25.MaxResult25"] = None,
     ) -> "capo_connect.types.list_lex_bots_response.ListLexBotsResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all the Amazon Lex V1 bots currently associated with the instance. To return both Amazon Lex V1 and V2 bots, use the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ListBots.html\">ListBots</a> API. </p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all the Amazon Lex V1 bots currently associated with the instance. To return both Amazon Lex V1 and V2 bots, use the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ListBots.html">ListBots</a> API. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. If no value is specified, the default is 10. </p>
 
@@ -15331,10 +15331,10 @@ class ConnectClient:
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_metrics_response.ListMetricsResponse":
-        r"""<p>Retrieves a paginated list of metric summaries for the specified Connect Customer instance. Use pagination to ensure that the operation returns quickly and successfully.</p>
+        """<p>Retrieves a paginated list of metric summaries for the specified Connect Customer instance. Use pagination to ensure that the operation returns quickly and successfully.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             type: <p>The type of metrics to list. Valid values: <code>AWS_MANAGED</code> | <code>CUSTOMER_MANAGED</code>.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
@@ -15415,10 +15415,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_notifications_response.ListNotificationsResponse":
-        r"""<p>Retrieves a paginated list of all notifications in the Amazon Connect instance.</p>
+        """<p>Retrieves a paginated list of all notifications in the Amazon Connect instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response to retrieve the next page of results.</p>
             max_results: <p>The maximum number of results to return per page. Valid range is 1-100.</p>
 
@@ -15477,11 +15477,11 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_phone_numbers_response.ListPhoneNumbersResponse":
-        r"""<p>Provides information about the phone numbers for the specified Connect Customer instance. </p> <p>For more information about phone numbers, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-center-phone-number.html\">Set Up Phone Numbers for Your Contact Center</a> in the <i>Connect Customer Administrator Guide</i>.</p> <important> <ul> <li> <p>We recommend using <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html\">ListPhoneNumbersV2</a> to return phone number types. ListPhoneNumbers doesn't support number types <code>UIFN</code>, <code>SHARED</code>, <code>THIRD_PARTY_TF</code>, and <code>THIRD_PARTY_DID</code>. While it returns numbers of those types, it incorrectly lists them as <code>TOLL_FREE</code> or <code>DID</code>. </p> </li> <li> <p>The phone number <code>Arn</code> value that is returned from each of the items in the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbers.html#connect-ListPhoneNumbers-response-PhoneNumberSummaryList\">PhoneNumberSummaryList</a> cannot be used to tag phone number resources. It will fail with a <code>ResourceNotFoundException</code>. Instead, use the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html\">ListPhoneNumbersV2</a> API. It returns the new phone number ARN that can be used to tag phone number resources.</p> </li> </ul> </important>
+        """<p>Provides information about the phone numbers for the specified Connect Customer instance. </p> <p>For more information about phone numbers, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-center-phone-number.html">Set Up Phone Numbers for Your Contact Center</a> in the <i>Connect Customer Administrator Guide</i>.</p> <important> <ul> <li> <p>We recommend using <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html">ListPhoneNumbersV2</a> to return phone number types. ListPhoneNumbers doesn't support number types <code>UIFN</code>, <code>SHARED</code>, <code>THIRD_PARTY_TF</code>, and <code>THIRD_PARTY_DID</code>. While it returns numbers of those types, it incorrectly lists them as <code>TOLL_FREE</code> or <code>DID</code>. </p> </li> <li> <p>The phone number <code>Arn</code> value that is returned from each of the items in the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbers.html#connect-ListPhoneNumbers-response-PhoneNumberSummaryList">PhoneNumberSummaryList</a> cannot be used to tag phone number resources. It will fail with a <code>ResourceNotFoundException</code>. Instead, use the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html">ListPhoneNumbersV2</a> API. It returns the new phone number ARN that can be used to tag phone number resources.</p> </li> </ul> </important>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            phone_number_types: <p>The type of phone number.</p> <note> <p>We recommend using <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html\">ListPhoneNumbersV2</a> to return phone number types. While ListPhoneNumbers returns number types <code>UIFN</code>, <code>SHARED</code>, <code>THIRD_PARTY_TF</code>, and <code>THIRD_PARTY_DID</code>, it incorrectly lists them as <code>TOLL_FREE</code> or <code>DID</code>. </p> </note>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            phone_number_types: <p>The type of phone number.</p> <note> <p>We recommend using <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html">ListPhoneNumbersV2</a> to return phone number types. While ListPhoneNumbers returns number types <code>UIFN</code>, <code>SHARED</code>, <code>THIRD_PARTY_TF</code>, and <code>THIRD_PARTY_DID</code>, it incorrectly lists them as <code>TOLL_FREE</code> or <code>DID</code>. </p> </note>
             phone_number_country_codes: <p>The ISO country code.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
@@ -15581,11 +15581,11 @@ class ConnectClient:
             "capo_connect.types.phone_number_prefix.PhoneNumberPrefix"
         ] = None,
     ) -> "capo_connect.types.list_phone_numbers_v2_response.ListPhoneNumbersV2Response":
-        r"""<p>Lists phone numbers claimed to your Connect Customer instance or traffic distribution group. If the provided <code>TargetArn</code> is a traffic distribution group, you can call this API in both Amazon Web Services Regions associated with traffic distribution group.</p> <p>For more information about phone numbers, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-center-phone-number.html\">Set Up Phone Numbers for Your Contact Center</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <ul> <li> <p>When given an instance ARN, <code>ListPhoneNumbersV2</code> returns only the phone numbers claimed to the instance.</p> </li> <li> <p>When given a traffic distribution group ARN <code>ListPhoneNumbersV2</code> returns only the phone numbers claimed to the traffic distribution group.</p> </li> </ul> </note>
+        """<p>Lists phone numbers claimed to your Connect Customer instance or traffic distribution group. If the provided <code>TargetArn</code> is a traffic distribution group, you can call this API in both Amazon Web Services Regions associated with traffic distribution group.</p> <p>For more information about phone numbers, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-center-phone-number.html">Set Up Phone Numbers for Your Contact Center</a> in the <i>Connect Customer Administrator Guide</i>.</p> <note> <ul> <li> <p>When given an instance ARN, <code>ListPhoneNumbersV2</code> returns only the phone numbers claimed to the instance.</p> </li> <li> <p>When given a traffic distribution group ARN <code>ListPhoneNumbersV2</code> returns only the phone numbers claimed to the traffic distribution group.</p> </li> </ul> </note>
 
         Args:
             target_arn: <p>The Amazon Resource Name (ARN) for Connect Customer instances or traffic distribution groups that phone number inbound traffic is routed through. If both <code>TargetArn</code> and <code>InstanceId</code> input are not provided, this API lists numbers claimed to all the Connect Customer instances belonging to your account in the same Amazon Web Services Region as the request.</p>
-            instance_id: <p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. If both <code>TargetArn</code> and <code>InstanceId</code> are not provided, this API lists numbers claimed to all the Connect Customer instances belonging to your account in the same Amazon Web Services Region as the request.</p>
+            instance_id: <p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. If both <code>TargetArn</code> and <code>InstanceId</code> are not provided, this API lists numbers claimed to all the Connect Customer instances belonging to your account in the same Amazon Web Services Region as the request.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             phone_number_country_codes: <p>The ISO country code.</p>
@@ -15687,7 +15687,7 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_predefined_attributes_response.ListPredefinedAttributesResponse":
-        r"""<p>Lists predefined attributes for the specified Connect Customer instance. A <i>predefined attribute</i> is made up of a name and a value. You can use predefined attributes for:</p> <ul> <li> <p>Routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html\">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Contact information that varies between transfers or conferences, such as the name of the business unit handling the contact. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html\">Use contact segment attributes</a>.</p> </li> </ul> <p>For the predefined attributes per instance quota, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas\">Connect Customer quotas</a>.</p> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Lists predefined attributes for the specified Connect Customer instance. A <i>predefined attribute</i> is made up of a name and a value. You can use predefined attributes for:</p> <ul> <li> <p>Routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Contact information that varies between transfers or conferences, such as the name of the business unit handling the contact. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html">Use contact segment attributes</a>.</p> </li> </ul> <p>For the predefined attributes per instance quota, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas">Connect Customer quotas</a>.</p> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instance ID in the Amazon Resource Name (ARN) of the instance.</p>
@@ -15844,10 +15844,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_queue_email_addresses_response.ListQueueEmailAddressesResponse":
-        r"""<p>Lists all email addresses that are currently associated with a specific queue, providing details about which \"From\" email addresses agents can select when handling email contacts. This helps administrators manage agent email address options and understand the available choices for different brands and business units.</p> <p> <b>Important things to know</b> </p> <ul> <li> <p>The response includes metadata about each email address available for agent selection, including whether it's configured as the default outbound email.</p> </li> <li> <p>Agents can select from these email addresses when replying to inbound contacts or initiating outbound contacts in this queue.</p> </li> <li> <p>The list includes both explicitly associated email addresses and any default outbound email address configured for the queue.</p> </li> <li> <p>Results are paginated to handle queues with many associated email addresses (up to 50 per queue).</p> </li> </ul>
+        """<p>Lists all email addresses that are currently associated with a specific queue, providing details about which "From" email addresses agents can select when handling email contacts. This helps administrators manage agent email address options and understand the available choices for different brands and business units.</p> <p> <b>Important things to know</b> </p> <ul> <li> <p>The response includes metadata about each email address available for agent selection, including whether it's configured as the default outbound email.</p> </li> <li> <p>Agents can select from these email addresses when replying to inbound contacts or initiating outbound contacts in this queue.</p> </li> <li> <p>The list includes both explicitly associated email addresses and any default outbound email address configured for the queue.</p> </li> <li> <p>Results are paginated to handle queues with many associated email addresses (up to 50 per queue).</p> </li> </ul>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -15903,10 +15903,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_queue_quick_connects_response.ListQueueQuickConnectsResponse":
-        r"""<p>Lists the quick connects associated with a queue.</p>
+        """<p>Lists the quick connects associated with a queue.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
@@ -15986,10 +15986,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_queues_response.ListQueuesResponse":
-        r"""<p>Provides information about the queues for the specified Connect Customer instance.</p> <p>If you do not specify a <code>QueueTypes</code> parameter, both standard and agent queues are returned. This might cause an unexpected truncation of results if you have more than 1000 agents and you limit the number of results of the API call in code.</p> <p>For more information about queues, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html\">Queues: Standard and Agent</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Provides information about the queues for the specified Connect Customer instance.</p> <p>If you do not specify a <code>QueueTypes</code> parameter, both standard and agent queues are returned. This might cause an unexpected truncation of results if you have more than 1000 agents and you limit the number of results of the API call in code.</p> <p>For more information about queues, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html">Queues: Standard and Agent</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_types: <p>The type of queue.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
@@ -16072,10 +16072,10 @@ class ConnectClient:
             "capo_connect.types.quick_connect_types.QuickConnectTypes"
         ] = None,
     ) -> "capo_connect.types.list_quick_connects_response.ListQuickConnectsResponse":
-        r"""<p>Provides information about the quick connects for the specified Connect Customer instance. </p>
+        """<p>Provides information about the quick connects for the specified Connect Customer instance. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. Both Instance ID and Instance ARN are supported input formats. </p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. Both Instance ID and Instance ARN are supported input formats. </p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
             quick_connect_types: <p>The type of quick connect. In the Connect Customer admin website, when you create a quick connect, you are prompted to assign one of the following types: Agent (USER), External (PHONE_NUMBER), or Queue (QUEUE).</p>
@@ -16162,10 +16162,10 @@ class ConnectClient:
             "capo_connect.types.large_next_token.LargeNextToken"
         ] = None,
     ) -> "capo_connect.types.list_realtime_contact_analysis_segments_v2_response.ListRealtimeContactAnalysisSegmentsV2Response":
-        r"""<p>Provides a list of analysis segments for a real-time chat analysis session. This API supports CHAT channels only. </p> <important> <p>This API does not support VOICE. If you attempt to use it for VOICE, an <code>InvalidRequestException</code> occurs.</p> </important>
+        """<p>Provides a list of analysis segments for a real-time chat analysis session. This API supports CHAT channels only. </p> <important> <p>This API does not support VOICE. If you attempt to use it for VOICE, an <code>InvalidRequestException</code> occurs.</p> </important>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
@@ -16254,10 +16254,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_routing_profile_manual_assignment_queues_response.ListRoutingProfileManualAssignmentQueuesResponse":
-        r"""<p>Lists the manual assignment queues associated with a routing profile.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>This API returns list of queues where contacts can be manually assigned or picked by an agent who has access to the Worklist app. The user can additionally filter on queues, if they have access to those queues (otherwise a invalid request exception will be thrown).</p> <p>For information about how manual contact assignment works in the agent workspace, see the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/worklist-app.html\">Access the Worklist app in the Connect Customer agent workspace</a> in the <i>Connect Customer Administrator Guide</i>. </p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>This API only returns the manual assignment queues associated with a routing profile. Use the ListRoutingProfileQueues API to list the auto assignment queues for the routing profile.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Lists the manual assignment queues associated with a routing profile.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>This API returns list of queues where contacts can be manually assigned or picked by an agent who has access to the Worklist app. The user can additionally filter on queues, if they have access to those queues (otherwise a invalid request exception will be thrown).</p> <p>For information about how manual contact assignment works in the agent workspace, see the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/worklist-app.html">Access the Worklist app in the Connect Customer agent workspace</a> in the <i>Connect Customer Administrator Guide</i>. </p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>This API only returns the manual assignment queues associated with a routing profile. Use the ListRoutingProfileQueues API to list the auto assignment queues for the routing profile.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -16340,10 +16340,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_routing_profile_queues_response.ListRoutingProfileQueuesResponse":
-        r"""<p>Lists the queues associated with a routing profile.</p>
+        """<p>Lists the queues associated with a routing profile.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
@@ -16426,10 +16426,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.list_routing_profiles_response.ListRoutingProfilesResponse"
     ):
-        r"""<p>Provides summary information about the routing profiles for the specified Connect Customer instance.</p> <p>For more information about routing profiles, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html\">Routing Profiles</a> and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/routing-profiles.html\">Create a Routing Profile</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Provides summary information about the routing profiles for the specified Connect Customer instance.</p> <p>For more information about routing profiles, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html">Routing Profiles</a> and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/routing-profiles.html">Create a Routing Profile</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
 
@@ -16510,10 +16510,10 @@ class ConnectClient:
         max_results: Optional["capo_connect.types.max_result200.MaxResult200"] = None,
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
     ) -> "capo_connect.types.list_rules_response.ListRulesResponse":
-        r"""<p>List all rules for the specified Connect Customer instance.</p>
+        """<p>List all rules for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             publish_status: <p>The publish status of the rule.</p>
             event_source_name: <p>The name of the event source.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -16602,10 +16602,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result2.MaxResult2"] = None,
     ) -> "capo_connect.types.list_security_keys_response.ListSecurityKeysResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all security keys associated with the instance.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Returns a paginated list of all security keys associated with the instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -16681,11 +16681,11 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_security_profile_ai_agents_response.ListSecurityProfileAIAgentsResponse":
-        r"""<p>Returns a list of the allowed AI agents in a specific security profile.</p>
+        """<p>Returns a list of the allowed AI agents in a specific security profile.</p>
 
         Args:
             security_profile_id: <p>The identifier for the security profle.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -16764,11 +16764,11 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_security_profile_applications_response.ListSecurityProfileApplicationsResponse":
-        r"""<p>Returns a list of third-party applications or MCP Servers in a specific security profile.</p>
+        """<p>Returns a list of third-party applications or MCP Servers in a specific security profile.</p>
 
         Args:
             security_profile_id: <p>The identifier for the security profle.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -16847,11 +16847,11 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_security_profile_flow_modules_response.ListSecurityProfileFlowModulesResponse":
-        r"""<p> A list of Flow Modules an AI Agent can invoke as a tool </p>
+        """<p> A list of Flow Modules an AI Agent can invoke as a tool </p>
 
         Args:
             security_profile_id: <p> The identifier for the security profile. </p>
-            instance_id: <p> The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p> The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p> The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results. </p>
             max_results: <p> The maximum number of results to return per page. The default MaxResult size is 100. </p>
 
@@ -16930,11 +16930,11 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_security_profile_permissions_response.ListSecurityProfilePermissionsResponse":
-        r"""<p>Lists the permissions granted to a security profile.</p> <p>For information about security profiles, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html\">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>. </p>
+        """<p>Lists the permissions granted to a security profile.</p> <p>For information about security profiles, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>. </p>
 
         Args:
             security_profile_id: <p>The identifier for the security profle.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -17012,10 +17012,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_security_profiles_response.ListSecurityProfilesResponse":
-        r"""<p>Provides summary information about the security profiles for the specified Connect Customer instance.</p> <p>For more information about security profiles, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html\">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>. </p>
+        """<p>Provides summary information about the security profiles for the specified Connect Customer instance.</p> <p>For more information about security profiles, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
 
@@ -17090,10 +17090,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.list_tags_for_resource_response.ListTagsForResourceResponse"
     ):
-        r"""<p>Lists the tags for the specified resource.</p> <p>For sample policies that use tags, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security_iam_id-based-policy-examples.html\">Connect Customer Identity-Based Policy Examples</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Lists the tags for the specified resource.</p> <p>For sample policies that use tags, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security_iam_id-based-policy-examples.html">Connect Customer Identity-Based Policy Examples</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            resource_arn: <p>The Amazon Resource Name (ARN) of the resource. All Connect Customer resources (instances, queues, flows, routing profiles, etc) have an ARN. To locate the ARN for an instance, for example, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">Find your Connect Customer instance ID/ARN</a>. </p>
+            resource_arn: <p>The Amazon Resource Name (ARN) of the resource. All Connect Customer resources (instances, queues, flows, routing profiles, etc) have an ARN. To locate the ARN for an instance, for example, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">Find your Connect Customer instance ID/ARN</a>. </p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -17143,10 +17143,10 @@ class ConnectClient:
         ] = None,
         name: Optional["capo_connect.types.task_template_name.TaskTemplateName"] = None,
     ) -> "capo_connect.types.list_task_templates_response.ListTaskTemplatesResponse":
-        r"""<p>Lists task templates for the specified Connect Customer instance.</p>
+        """<p>Lists task templates for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p> <important> <p>It is not expected that you set this because the value returned in the previous response is always null.</p> </important>
             max_results: <p>The maximum number of results to return per page.</p> <important> <p>It is not expected that you set this.</p> </important>
             status: <p>Marks a template as <code>ACTIVE</code> or <code>INACTIVE</code> for a task to refer to it. Tasks can only be created from <code>ACTIVE</code> templates. If a template is marked as <code>INACTIVE</code>, then a task that refers to this template cannot be created.</p>
@@ -17466,12 +17466,12 @@ class ConnectClient:
             "capo_connect.types.acgr_instance_id_or_arn.ACGRInstanceIdOrArn"
         ] = None,
     ) -> "capo_connect.types.list_traffic_distribution_groups_response.ListTrafficDistributionGroupsResponse":
-        r"""<p>Lists traffic distribution groups.</p>
+        """<p>Lists traffic distribution groups.</p>
 
         Args:
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -17628,10 +17628,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_use_cases_response.ListUseCasesResponse":
-        r"""<p>Lists the use cases for the integration association. </p>
+        """<p>Lists the use cases for the integration association. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             integration_association_id: <p>The identifier for the integration association.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -17709,10 +17709,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_user_hierarchy_groups_response.ListUserHierarchyGroupsResponse":
-        r"""<p>Provides summary information about the hierarchy groups for the specified Connect Customer instance.</p> <p>For more information about agent hierarchies, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/agent-hierarchy.html\">Set Up Agent Hierarchies</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Provides summary information about the hierarchy groups for the specified Connect Customer instance.</p> <p>For more information about agent hierarchies, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/agent-hierarchy.html">Set Up Agent Hierarchies</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
 
@@ -17788,10 +17788,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_user_notifications_response.ListUserNotificationsResponse":
-        r"""<p>Retrieves a paginated list of notifications for a specific user, including the notification status for that user.</p>
+        """<p>Retrieves a paginated list of notifications for a specific user, including the notification status for that user.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response to retrieve the next page of results.</p>
             max_results: <p>The maximum number of results to return per page. Valid range is 1-1000.</p>
             user_id: <p>The identifier of the user.</p>
@@ -17929,10 +17929,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
     ) -> "capo_connect.types.list_users_response.ListUsersResponse":
-        r"""<p>Provides summary information about the users for the specified Connect Customer instance.</p>
+        """<p>Provides summary information about the users for the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page. The default MaxResult size is 100.</p>
 
@@ -18183,10 +18183,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.list_workspace_media_response.ListWorkspaceMediaResponse":
-        r"""<p>Lists media assets (such as logos) associated with a workspace.</p>
+        """<p>Lists media assets (such as logos) associated with a workspace.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
 
         Raises:
@@ -18236,10 +18236,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_workspace_pages_response.ListWorkspacePagesResponse":
-        r"""<p>Lists the page configurations in a workspace, including the views assigned to each page.</p>
+        """<p>Lists the page configurations in a workspace, including the views assigned to each page.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
@@ -18319,10 +18319,10 @@ class ConnectClient:
         next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_connect.types.max_result100.MaxResult100"] = None,
     ) -> "capo_connect.types.list_workspaces_response.ListWorkspacesResponse":
-        r"""<p>Lists the workspaces in an Amazon Connect instance.</p>
+        """<p>Lists the workspaces in an Amazon Connect instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
 
@@ -18402,14 +18402,14 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.monitor_contact_response.MonitorContactResponse":
-        r"""<p>Initiates silent monitoring of a contact. The Contact Control Panel (CCP) of the user specified by <i>userId</i> will be set to silent monitoring mode on the contact.</p>
+        """<p>Initiates silent monitoring of a contact. The Contact Control Panel (CCP) of the user specified by <i>userId</i> will be set to silent monitoring mode on the contact.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instanceId in the ARN of the instance.</p>
             contact_id: <p>The identifier of the contact.</p>
             user_id: <p>The identifier of the user account.</p>
             allowed_monitor_capabilities: <p>Specify which monitoring actions the user is allowed to take. For example, whether the user is allowed to escalate from silent monitoring to barge. AllowedMonitorCapabilities is required if barge is enabled.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -18523,11 +18523,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.put_user_status_response.PutUserStatusResponse":
-        r"""<p>Changes the current status of a user or agent in Connect Customer. If the agent is currently handling a contact, this sets the agent's next status.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/metrics-agent-status.html\">Agent status</a> and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/set-next-status.html\">Set your next status</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Changes the current status of a user or agent in Connect Customer. If the agent is currently handling a contact, this sets the agent's next status.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/metrics-agent-status.html">Agent status</a> and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/set-next-status.html">Set your next status</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
             user_id: <p>The identifier of the user.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             agent_status_id: <p>The identifier of the agent status.</p>
 
         Raises:
@@ -18576,11 +18576,11 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>Releases a phone number previously claimed to an Connect Customer instance or traffic distribution group. You can call this API only in the Amazon Web Services Region where the number was claimed.</p> <important> <p>To release phone numbers from a traffic distribution group, use the <code>ReleasePhoneNumber</code> API, not the Connect Customer admin website.</p> <p>After releasing a phone number, the phone number enters into a cooldown period for up to 180 days. It cannot be searched for or claimed again until the period has ended. If you accidentally release a phone number, contact Amazon Web Services Support.</p> </important> <p>If you plan to claim and release numbers frequently, contact us for a service quota exception. Otherwise, it is possible you will be blocked from claiming and releasing any more numbers until up to 180 days past the oldest number released has expired.</p> <p>By default you can claim and release up to 200% of your maximum number of active phone numbers. If you claim and release phone numbers using the UI or API during a rolling 180 day cycle that exceeds 200% of your phone number service level quota, you will be blocked from claiming any more numbers until 180 days past the oldest number released has expired. </p> <p>For example, if you already have 99 claimed numbers and a service level quota of 99 phone numbers, and in any 180 day period you release 99, claim 99, and then release 99, you will have exceeded the 200% limit. At that point you are blocked from claiming any more numbers until you open an Amazon Web Services support ticket.</p>
+        """<p>Releases a phone number previously claimed to an Connect Customer instance or traffic distribution group. You can call this API only in the Amazon Web Services Region where the number was claimed.</p> <important> <p>To release phone numbers from a traffic distribution group, use the <code>ReleasePhoneNumber</code> API, not the Connect Customer admin website.</p> <p>After releasing a phone number, the phone number enters into a cooldown period for up to 180 days. It cannot be searched for or claimed again until the period has ended. If you accidentally release a phone number, contact Amazon Web Services Support.</p> </important> <p>If you plan to claim and release numbers frequently, contact us for a service quota exception. Otherwise, it is possible you will be blocked from claiming and releasing any more numbers until up to 180 days past the oldest number released has expired.</p> <p>By default you can claim and release up to 200% of your maximum number of active phone numbers. If you claim and release phone numbers using the UI or API during a rolling 180 day cycle that exceeds 200% of your phone number service level quota, you will be blocked from claiming any more numbers until 180 days past the oldest number released has expired. </p> <p>For example, if you already have 99 claimed numbers and a service level quota of 99 phone numbers, and in any 180 day period you release 99, claim 99, and then release 99, you will have exceeded the 200% limit. At that point you are blocked from claiming any more numbers until you open an Amazon Web Services support ticket.</p>
 
         Args:
             phone_number_id: <p>A unique identifier for the phone number.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -18632,12 +18632,12 @@ class ConnectClient:
             "capo_connect.types.directory_alias.DirectoryAlias"
         ] = None,
     ) -> "capo_connect.types.replicate_instance_response.ReplicateInstanceResponse":
-        r"""<p>Replicates an Connect Customer instance in the specified Amazon Web Services Region and copies configuration information for Connect Customer resources across Amazon Web Services Regions. </p> <p>For more information about replicating an Connect Customer instance, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html\">Create a replica of your existing Connect Customer instance</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Replicates an Connect Customer instance in the specified Amazon Web Services Region and copies configuration information for Connect Customer resources across Amazon Web Services Regions. </p> <p>For more information about replicating an Connect Customer instance, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html">Create a replica of your existing Connect Customer instance</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. You can provide the <code>InstanceId</code>, or the entire ARN.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. You can provide the <code>InstanceId</code>, or the entire ARN.</p>
             replica_region: <p>The Amazon Web Services Region where to replicate the Connect Customer instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             replica_alias: <p>The alias for the replicated instance. The <code>ReplicaAlias</code> must be unique.</p>
 
         Raises:
@@ -18754,10 +18754,10 @@ class ConnectClient:
             "capo_connect.types.contact_recording_type.ContactRecordingType"
         ] = None,
     ) -> "capo_connect.types.resume_contact_recording_response.ResumeContactRecordingResponse":
-        r"""<p>When a contact is being recorded, and the recording has been suspended using SuspendContactRecording, this API resumes recording whatever recording is selected in the flow configuration: call, screen, or both. If only call recording or only screen recording is enabled, then it would resume.</p> <p>Voice and screen recordings are supported.</p>
+        """<p>When a contact is being recorded, and the recording has been suspended using SuspendContactRecording, this API resumes recording whatever recording is selected in the flow configuration: call, screen, or both. If only call recording or only screen recording is enabled, then it would resume.</p> <p>Voice and screen recordings are supported.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact.</p>
             initial_contact_id: <p>The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.</p>
             contact_recording_type: <p>The type of recording being operated on.</p>
@@ -18917,11 +18917,11 @@ class ConnectClient:
             "capo_connect.types.large_next_token.LargeNextToken"
         ] = None,
     ) -> "capo_connect.types.search_available_phone_numbers_response.SearchAvailablePhoneNumbersResponse":
-        r"""<p>Searches for available phone numbers that you can claim to your Connect Customer instance or traffic distribution group. If the provided <code>TargetArn</code> is a traffic distribution group, you can call this API in both Amazon Web Services Regions associated with the traffic distribution group.</p>
+        """<p>Searches for available phone numbers that you can claim to your Connect Customer instance or traffic distribution group. If the provided <code>TargetArn</code> is a traffic distribution group, you can call this API in both Amazon Web Services Regions associated with the traffic distribution group.</p>
 
         Args:
             target_arn: <p>The Amazon Resource Name (ARN) for Connect Customer instances or traffic distribution groups that phone number inbound traffic is routed through. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
-            instance_id: <p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
+            instance_id: <p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
             phone_number_country_code: <p>The ISO country code.</p>
             phone_number_type: <p>The type of phone number.</p>
             phone_number_prefix: <p>The prefix of the phone number. If provided, it must contain <code>+</code> as part of the country code.</p>
@@ -19023,10 +19023,10 @@ class ConnectClient:
             "capo_connect.types.evaluation_search_filter.EvaluationSearchFilter"
         ] = None,
     ) -> "capo_connect.types.search_contact_evaluations_response.SearchContactEvaluationsResponse":
-        r"""<p>Searches contact evaluations in an Connect Customer instance, with optional filtering. </p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Find contact evaluations by using specific search criteria.</p> </li> <li> <p>Find contact evaluations that are tagged with a specific set of tags.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>A Search operation, unlike a List operation, takes time to index changes to resource (create, update or delete). If you don't see updated information for recently changed contact evaluations, try calling the API again in a few seconds.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Searches contact evaluations in an Connect Customer instance, with optional filtering. </p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Find contact evaluations by using specific search criteria.</p> </li> <li> <p>Find contact evaluations that are tagged with a specific set of tags.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>A Search operation, unlike a List operation, takes time to index changes to resource (create, update or delete). If you don't see updated information for recently changed contact evaluations, try calling the API again in a few seconds.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_criteria: <p>The search criteria to be used to return contact evaluations.</p>
@@ -19090,14 +19090,14 @@ class ConnectClient:
             "capo_connect.types.contact_flow_module_search_criteria.ContactFlowModuleSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_contact_flow_modules_response.SearchContactFlowModulesResponse":
-        r"""<p>Searches the flow modules in an Connect Customer instance, with optional filtering.</p>
+        """<p>Searches the flow modules in an Connect Customer instance, with optional filtering.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instance ID in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
-            search_criteria: <p>The search criteria to be used to return flow modules.</p> <note> <p>The <code>name</code> and <code>description</code> fields support \"contains\" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will result in invalid results.</p> </note>
+            search_criteria: <p>The search criteria to be used to return flow modules.</p> <note> <p>The <code>name</code> and <code>description</code> fields support "contains" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will result in invalid results.</p> </note>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -19188,14 +19188,14 @@ class ConnectClient:
             "capo_connect.types.contact_flow_search_criteria.ContactFlowSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_contact_flows_response.SearchContactFlowsResponse":
-        r"""<p>Searches the flows in an Connect Customer instance, with optional filtering.</p>
+        """<p>Searches the flows in an Connect Customer instance, with optional filtering.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instance ID in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
-            search_criteria: <p>The search criteria to be used to return flows.</p> <note> <p>The <code>name</code> and <code>description</code> fields support \"contains\" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will result in invalid results.</p> </note>
+            search_criteria: <p>The search criteria to be used to return flows.</p> <note> <p>The <code>name</code> and <code>description</code> fields support "contains" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will result in invalid results.</p> </note>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -19487,10 +19487,10 @@ class ConnectClient:
             "capo_connect.types.email_address_search_filter.EmailAddressSearchFilter"
         ] = None,
     ) -> "capo_connect.types.search_email_addresses_response.SearchEmailAddressesResponse":
-        r"""<p>Searches email address in an instance, with optional filtering.</p>
+        """<p>Searches email address in an instance, with optional filtering.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             search_criteria: <p>The search criteria to be used to return email addresses.</p>
@@ -19555,10 +19555,10 @@ class ConnectClient:
             "capo_connect.types.evaluation_form_search_filter.EvaluationFormSearchFilter"
         ] = None,
     ) -> "capo_connect.types.search_evaluation_forms_response.SearchEvaluationFormsResponse":
-        r"""<p>Searches evaluation forms in an Connect Customer instance, with optional filtering.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>List all evaluation forms in an instance.</p> </li> <li> <p>Find all evaluation forms that meet specific criteria, such as Title, Description, Status, and more.</p> </li> <li> <p>Find all evaluation forms that are tagged with a specific set of tags.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>A Search operation, unlike a List operation, takes time to index changes to resource (create, update or delete). If you don't see updated information for recently changed contact evaluations, try calling the API again in a few seconds.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Searches evaluation forms in an Connect Customer instance, with optional filtering.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>List all evaluation forms in an instance.</p> </li> <li> <p>Find all evaluation forms that meet specific criteria, such as Title, Description, Status, and more.</p> </li> <li> <p>Find all evaluation forms that are tagged with a specific set of tags.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>A Search operation, unlike a List operation, takes time to index changes to resource (create, update or delete). If you don't see updated information for recently changed contact evaluations, try calling the API again in a few seconds.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_criteria: <p>The search criteria to be used to return evaluation forms.</p>
@@ -19719,10 +19719,10 @@ class ConnectClient:
             "capo_connect.types.hours_of_operation_search_criteria.HoursOfOperationSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_hours_of_operations_response.SearchHoursOfOperationsResponse":
-        r"""<p>Searches the hours of operation in an Connect Customer instance, with optional filtering.</p>
+        """<p>Searches the hours of operation in an Connect Customer instance, with optional filtering.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
@@ -19817,10 +19817,10 @@ class ConnectClient:
             "capo_connect.types.metric_search_criteria.MetricSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_metrics_response.SearchMetricsResponse":
-        r"""<p>Searches for metrics in the specified Connect Customer instance using search criteria and optional tag-based filters. Use pagination to ensure that the operation returns quickly and successfully.</p>
+        """<p>Searches for metrics in the specified Connect Customer instance using search criteria and optional tag-based filters. Use pagination to ensure that the operation returns quickly and successfully.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
@@ -19916,10 +19916,10 @@ class ConnectClient:
             "capo_connect.types.notification_search_criteria.NotificationSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_notifications_response.SearchNotificationsResponse":
-        r"""<p>Searches for notifications based on specified criteria and filters. Returns a paginated list of notifications matching the search parameters, ordered by descending creation time. Supports filtering by content and tags.</p>
+        """<p>Searches for notifications based on specified criteria and filters. Returns a paginated list of notifications matching the search parameters, ordered by descending creation time. Supports filtering by content and tags.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response to retrieve the next page of results.</p>
             max_results: <p>The maximum number of results to return per page. Valid range is 1-100.</p>
             search_filter: <p>Filters to apply to the search results, such as tag-based filters.</p>
@@ -19981,7 +19981,7 @@ class ConnectClient:
             "capo_connect.types.predefined_attribute_search_criteria.PredefinedAttributeSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_predefined_attributes_response.SearchPredefinedAttributesResponse":
-        r"""<p>Searches predefined attributes that meet certain criteria. A <i>predefined attribute</i> is made up of a name and a value. You can use predefined attributes for:</p> <ul> <li> <p>Routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html\">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Contact information that varies between transfers or conferences, such as the name of the business unit handling the contact. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html\">Use contact segment attributes</a>.</p> </li> </ul> <p>For the predefined attributes per instance quota, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas\">Connect Customer quotas</a>.</p> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Searches predefined attributes that meet certain criteria. A <i>predefined attribute</i> is made up of a name and a value. You can use predefined attributes for:</p> <ul> <li> <p>Routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Contact information that varies between transfers or conferences, such as the name of the business unit handling the contact. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html">Use contact segment attributes</a>.</p> </li> </ul> <p>For the predefined attributes per instance quota, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas">Connect Customer quotas</a>.</p> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instance ID in the Amazon Resource Name (ARN) of the instance.</p>
@@ -20072,10 +20072,10 @@ class ConnectClient:
             "capo_connect.types.prompt_search_criteria.PromptSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_prompts_response.SearchPromptsResponse":
-        r"""<p>Searches prompts in an Connect Customer instance, with optional filtering.</p>
+        """<p>Searches prompts in an Connect Customer instance, with optional filtering.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
@@ -20170,14 +20170,14 @@ class ConnectClient:
             "capo_connect.types.queue_search_criteria.QueueSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_queues_response.SearchQueuesResponse":
-        r"""<p>Searches queues in an Connect Customer instance, with optional filtering.</p>
+        """<p>Searches queues in an Connect Customer instance, with optional filtering.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
-            search_criteria: <p>The search criteria to be used to return queues.</p> <note> <p>The <code>name</code> and <code>description</code> fields support \"contains\" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will throw invalid results. </p> </note>
+            search_criteria: <p>The search criteria to be used to return queues.</p> <note> <p>The <code>name</code> and <code>description</code> fields support "contains" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will throw invalid results. </p> </note>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -20270,10 +20270,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.search_quick_connects_response.SearchQuickConnectsResponse"
     ):
-        r"""<p>Searches quick connects in an Connect Customer instance, with optional filtering.</p>
+        """<p>Searches quick connects in an Connect Customer instance, with optional filtering.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
@@ -20368,11 +20368,11 @@ class ConnectClient:
             "capo_connect.types.resource_tags_search_criteria.ResourceTagsSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_resource_tags_response.SearchResourceTagsResponse":
-        r"""<p>Searches tags used in an Connect Customer instance using optional search criteria.</p>
+        """<p>Searches tags used in an Connect Customer instance using optional search criteria.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instanceId in the Amazon Resource Name (ARN) of the instance.</p>
-            resource_types: <p>The list of resource types to be used to search tags from. If not provided or if any empty list is provided, this API will search from all supported resource types. Note that lowercase and - are required.</p> <p class=\"title\"> <b>Supported resource types</b> </p> <ul> <li> <p>agent</p> </li> <li> <p>agent-state</p> </li> <li> <p>routing-profile</p> </li> <li> <p>standard-queue</p> </li> <li> <p>security-profile</p> </li> <li> <p>operating-hours</p> </li> <li> <p>prompt</p> </li> <li> <p>contact-flow</p> </li> <li> <p>flow- module</p> </li> <li> <p>transfer-destination (also known as quick connect)</p> </li> <li> <p>metric</p> </li> </ul>
+            resource_types: <p>The list of resource types to be used to search tags from. If not provided or if any empty list is provided, this API will search from all supported resource types. Note that lowercase and - are required.</p> <p class="title"> <b>Supported resource types</b> </p> <ul> <li> <p>agent</p> </li> <li> <p>agent-state</p> </li> <li> <p>routing-profile</p> </li> <li> <p>standard-queue</p> </li> <li> <p>security-profile</p> </li> <li> <p>operating-hours</p> </li> <li> <p>prompt</p> </li> <li> <p>contact-flow</p> </li> <li> <p>flow- module</p> </li> <li> <p>transfer-destination (also known as quick connect)</p> </li> <li> <p>metric</p> </li> </ul>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_criteria: <p>The search criteria to be used to return tags.</p>
@@ -20467,14 +20467,14 @@ class ConnectClient:
             "capo_connect.types.routing_profile_search_criteria.RoutingProfileSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_routing_profiles_response.SearchRoutingProfilesResponse":
-        r"""<p>Searches routing profiles in an Connect Customer instance, with optional filtering.</p> <note> <p> <code>SearchRoutingProfiles</code> does not populate LastModifiedRegion, LastModifiedTime, MediaConcurrencies.CrossChannelBehavior, and AgentAvailabilityTimer in its response, but <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeRoutingProfile.html\">DescribeRoutingProfile</a> does.</p> </note>
+        """<p>Searches routing profiles in an Connect Customer instance, with optional filtering.</p> <note> <p> <code>SearchRoutingProfiles</code> does not populate LastModifiedRegion, LastModifiedTime, MediaConcurrencies.CrossChannelBehavior, and AgentAvailabilityTimer in its response, but <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeRoutingProfile.html">DescribeRoutingProfile</a> does.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
-            search_criteria: <p>The search criteria to be used to return routing profiles.</p> <note> <p>The <code>name</code> and <code>description</code> fields support \"contains\" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will throw invalid results. </p> </note>
+            search_criteria: <p>The search criteria to be used to return routing profiles.</p> <note> <p>The <code>name</code> and <code>description</code> fields support "contains" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will throw invalid results. </p> </note>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -20565,10 +20565,10 @@ class ConnectClient:
             "capo_connect.types.rules_search_filter.RulesSearchFilter"
         ] = None,
     ) -> "capo_connect.types.search_rules_response.SearchRulesResponse":
-        r"""<p>Searches rules in an Connect Customer instance, with optional filtering.</p>
+        """<p>Searches rules in an Connect Customer instance, with optional filtering.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             search_criteria: <p>The search criteria to be used to return rules.</p>
@@ -20670,13 +20670,13 @@ class ConnectClient:
             "capo_connect.types.security_profiles_search_filter.SecurityProfilesSearchFilter"
         ] = None,
     ) -> "capo_connect.types.search_security_profiles_response.SearchSecurityProfilesResponse":
-        r"""<p>Searches security profiles in an Connect Customer instance, with optional filtering.</p> <p>For information about security profiles, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html\">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>. </p>
+        """<p>Searches security profiles in an Connect Customer instance, with optional filtering.</p> <p>For information about security profiles, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
-            search_criteria: <p>The search criteria to be used to return security profiles. </p> <note> <p>The <code>name</code> field support \"contains\" queries with a minimum of 2 characters and maximum of 25 characters. Any queries with character lengths outside of this range will throw invalid results.</p> </note> <note> <p>The currently supported value for <code>FieldName</code>: <code>name</code> </p> </note>
+            search_criteria: <p>The search criteria to be used to return security profiles. </p> <note> <p>The <code>name</code> field support "contains" queries with a minimum of 2 characters and maximum of 25 characters. Any queries with character lengths outside of this range will throw invalid results.</p> </note> <note> <p>The currently supported value for <code>FieldName</code>: <code>name</code> </p> </note>
             search_filter: <p>Filters to be applied to search results.</p>
 
         Raises:
@@ -20867,7 +20867,7 @@ class ConnectClient:
             "capo_connect.types.user_hierarchy_group_search_criteria.UserHierarchyGroupSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_user_hierarchy_groups_response.SearchUserHierarchyGroupsResponse":
-        r"""<p>Searches UserHierarchyGroups in an Connect Customer instance, with optional filtering.</p> <important> <p>The UserHierarchyGroup with <code>\"LevelId\": \"0\"</code> is the foundation for building levels on top of an instance. It is not user-definable, nor is it visible in the UI.</p> </important>
+        """<p>Searches UserHierarchyGroups in an Connect Customer instance, with optional filtering.</p> <important> <p>The UserHierarchyGroup with <code>"LevelId": "0"</code> is the foundation for building levels on top of an instance. It is not user-definable, nor is it visible in the UI.</p> </important>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instanceId in the ARN of the instance.</p>
@@ -20965,10 +20965,10 @@ class ConnectClient:
             "capo_connect.types.user_search_criteria.UserSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_users_response.SearchUsersResponse":
-        r"""<p>Searches users in an Connect Customer instance, with optional filtering. </p> <note> <p> <code>AfterContactWorkTimeLimit</code> is returned in milliseconds. </p> </note>
+        """<p>Searches users in an Connect Customer instance, with optional filtering. </p> <note> <p> <code>AfterContactWorkTimeLimit</code> is returned in milliseconds. </p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to be applied to search results.</p>
@@ -21062,10 +21062,10 @@ class ConnectClient:
             "capo_connect.types.view_search_criteria.ViewSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_views_response.SearchViewsResponse":
-        r"""<p>Searches views based on name, description, or tags.</p>
+        """<p>Searches views based on name, description, or tags.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to apply to the search, such as tag-based filters.</p>
@@ -21164,15 +21164,15 @@ class ConnectClient:
             "capo_connect.types.vocabulary_language_code.VocabularyLanguageCode"
         ] = None,
     ) -> "capo_connect.types.search_vocabularies_response.SearchVocabulariesResponse":
-        r"""<p>Searches for vocabularies within a specific Connect Customer instance using <code>State</code>, <code>NameStartsWith</code>, and <code>LanguageCode</code>.</p>
+        """<p>Searches for vocabularies within a specific Connect Customer instance using <code>State</code>, <code>NameStartsWith</code>, and <code>LanguageCode</code>.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             state: <p>The current state of the custom vocabulary.</p>
             name_starts_with: <p>The starting pattern of the name of the vocabulary.</p>
-            language_code: <p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html\">What is Amazon Transcribe?</a> </p>
+            language_code: <p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html">What is Amazon Transcribe?</a> </p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -21268,10 +21268,10 @@ class ConnectClient:
             "capo_connect.types.workspace_association_search_criteria.WorkspaceAssociationSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_workspace_associations_response.SearchWorkspaceAssociationsResponse":
-        r"""<p>Searches for workspace associations with users or routing profiles based on various criteria.</p>
+        """<p>Searches for workspace associations with users or routing profiles based on various criteria.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to apply to the search, such as tag-based filters.</p>
@@ -21367,10 +21367,10 @@ class ConnectClient:
             "capo_connect.types.workspace_search_criteria.WorkspaceSearchCriteria"
         ] = None,
     ) -> "capo_connect.types.search_workspaces_response.SearchWorkspacesResponse":
-        r"""<p>Searches workspaces based on name, description, visibility, or tags.</p>
+        """<p>Searches workspaces based on name, description, visibility, or tags.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
             search_filter: <p>Filters to apply to the search, such as tag-based filters.</p>
@@ -21464,12 +21464,12 @@ class ConnectClient:
             "capo_connect.types.new_session_details.NewSessionDetails"
         ] = None,
     ) -> "capo_connect.types.send_chat_integration_event_response.SendChatIntegrationEventResponse":
-        r"""<p>Processes chat integration events from Amazon Web Services or external integrations to Connect Customer. A chat integration event includes:</p> <ul> <li> <p>SourceId, DestinationId, and Subtype: a set of identifiers, uniquely representing a chat</p> </li> <li> <p> ChatEvent: details of the chat action to perform such as sending a message, event, or disconnecting from a chat</p> </li> </ul> <p>When a chat integration event is sent with chat identifiers that do not map to an active chat contact, a new chat contact is also created before handling chat action. </p> <p>Access to this API is currently restricted to Amazon Web Services End User Messaging for supporting SMS integration. </p>
+        """<p>Processes chat integration events from Amazon Web Services or external integrations to Connect Customer. A chat integration event includes:</p> <ul> <li> <p>SourceId, DestinationId, and Subtype: a set of identifiers, uniquely representing a chat</p> </li> <li> <p> ChatEvent: details of the chat action to perform such as sending a message, event, or disconnecting from a chat</p> </li> </ul> <p>When a chat integration event is sent with chat identifiers that do not map to an active chat contact, a new chat contact is also created before handling chat action. </p> <p>Access to this API is currently restricted to Amazon Web Services End User Messaging for supporting SMS integration. </p>
 
         Args:
             source_id: <p>External identifier of chat customer participant, used in part to uniquely identify a chat. For SMS, this is the E164 phone number of the chat customer participant.</p>
             destination_id: <p>Chat system identifier, used in part to uniquely identify chat. This is associated with the Connect Customer instance and flow to be used to start chats. For Server Migration Service, this is the phone number destination of inbound Server Migration Service messages represented by an Amazon Web Services End User Messaging phone number ARN.</p>
-            subtype: <p>Classification of a channel. This is used in part to uniquely identify chat. </p> <p>Valid value: <code>[\"connect:sms\", connect:\"WhatsApp\"]</code> </p>
+            subtype: <p>Classification of a channel. This is used in part to uniquely identify chat. </p> <p>Valid value: <code>["connect:sms", connect:"WhatsApp"]</code> </p>
             event: <p>Chat integration event payload</p>
             new_session_details: <p>Contact properties to apply when starting a new chat. If the integration event is handled with an existing chat, this is ignored.</p>
 
@@ -21532,17 +21532,17 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.send_outbound_email_response.SendOutboundEmailResponse":
-        r"""<p>Send outbound email for outbound campaigns. For more information about outbound campaigns, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-outbound-campaigns.html\">Set up Connect Customer outbound campaigns</a>.</p> <note> <p>Only the Connect Customer outbound campaigns service principal is allowed to assume a role in your account and call this API.</p> </note>
+        """<p>Send outbound email for outbound campaigns. For more information about outbound campaigns, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-outbound-campaigns.html">Set up Connect Customer outbound campaigns</a>.</p> <note> <p>Only the Connect Customer outbound campaigns service principal is allowed to assume a role in your account and call this API.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             from_email_address: <p>The email address to be used for sending email.</p>
             destination_email_address: <p>The email address to send the email to.</p>
             additional_recipients: <p>The additional recipients address of the email in CC.</p>
             email_message: <p>The email message body to be sent to the newly created email.</p>
             traffic_type: <p>Denotes the class of traffic.</p> <note> <p>Only the CAMPAIGN traffic type is supported.</p> </note>
             source_campaign: <p>A Campaign object need for Campaign traffic type.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -21606,11 +21606,11 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.send_outbound_web_notification_response.SendOutboundWebNotificationResponse":
-        r"""<p>Sends an outbound web notification to a customer's web browser for outbound campaigns. For more information about outbound campaigns, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-outbound-campaigns.html\">Set up Connect Customer outbound campaigns</a>.</p> <note> <p>Only the Connect Customer outbound campaigns service principal is allowed to assume a role in your account and call this API.</p> </note>
+        """<p>Sends an outbound web notification to a customer's web browser for outbound campaigns. For more information about outbound campaigns, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-outbound-campaigns.html">Set up Connect Customer outbound campaigns</a>.</p> <note> <p>Only the Connect Customer outbound campaigns service principal is allowed to assume a role in your account and call this API.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             browser_id: <p>A unique identifier for the customer's web browser instance to which the notification is being sent.</p>
             session_id: <p>A unique identifier for the customer's web session to which the notification is being sent.</p>
             expires_at: <p>The timestamp, in Unix epoch time format, at which the web notification expires. After this time, the notification is no longer delivered to the customer's browser.</p>
@@ -21678,16 +21678,16 @@ class ConnectClient:
         ] = None,
         related_contact_id: Optional["capo_connect.types.contact_id.ContactId"] = None,
     ) -> "capo_connect.types.start_assistant_contact_response.StartAssistantContactResponse":
-        r"""<p>Starts a chat contact with an AI agent.</p> <p>Use the returned <code>ParticipantToken</code> with the <a href=\"https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html\">CreateParticipantConnection</a> operation.</p> <p>For more information about chat, see the following topics in the <i>Connect Customer Administrator Guide</i>: </p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/web-and-mobile-chat.html\">Concepts: Web and mobile messaging capabilities in Connect Customer</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat\">Connect Customer Chat security best practices</a> </p> </li> </ul>
+        """<p>Starts a chat contact with an AI agent.</p> <p>Use the returned <code>ParticipantToken</code> with the <a href="https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html">CreateParticipantConnection</a> operation.</p> <p>For more information about chat, see the following topics in the <i>Connect Customer Administrator Guide</i>: </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/web-and-mobile-chat.html">Concepts: Web and mobile messaging capabilities in Connect Customer</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat">Connect Customer Chat security best practices</a> </p> </li> </ul>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             ai_agent: <p>The AI agent configuration for this contact.</p>
             participant_details: <p>The display name and other details that identify the chat participant.</p>
             initial_message: <p>The initial message to send to the newly created chat.</p>
             attributes: <p>A map of key-value pairs to associate with the contact. We make these attributes available to flows as standard contact attributes.</p> <p>You can provide up to 32,768 UTF-8 bytes across all key-value pairs for each contact.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            persistent_chat: <p>The configuration that enables persistent chat. For more information about persistent chat and its use cases, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/chat-persistence.html\">Enable persistent chat</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            persistent_chat: <p>The configuration that enables persistent chat. For more information about persistent chat and its use cases, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/chat-persistence.html">Enable persistent chat</a>.</p>
             related_contact_id: <p>The identifier of an Connect Customer contact related to the new assistant contact.</p> <note> <p>You cannot provide both <code>RelatedContactId</code> and <code>PersistentChat</code>.</p> </note>
 
         Raises:
@@ -21757,18 +21757,18 @@ class ConnectClient:
         created_by: Optional["capo_connect.types.created_by_info.CreatedByInfo"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.start_attached_file_upload_response.StartAttachedFileUploadResponse":
-        r"""<p>Provides a pre-signed Amazon S3 URL in response for uploading your content.</p> <important> <p>You may only use this API to upload attachments to a <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_CreateCase.html\">Connect Customer Case</a>, <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html\">Connect Customer Email</a>, or <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html\">Connect Customer Task</a>. </p> </important>
+        """<p>Provides a pre-signed Amazon S3 URL in response for uploading your content.</p> <important> <p>You may only use this API to upload attachments to a <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_CreateCase.html">Connect Customer Case</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Connect Customer Email</a>, or <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Connect Customer Task</a>. </p> </important>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             instance_id: <p>The unique identifier of the Connect Customer instance.</p>
             file_name: <p>A case-sensitive name of the attached file being uploaded.</p>
             file_size_in_bytes: <p>The size of the attached file in bytes.</p>
             url_expiry_in_seconds: <p>Optional override for the expiry of the pre-signed S3 URL in seconds. The default value is 300.</p>
             file_use_case_type: <p>The use case for the file.</p> <important> <p> Only <code>ATTACHMENTS</code> are supported.</p> </important>
-            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/cases.html\">Cases</a>, <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html\">Email</a>, and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html\">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
+            associated_resource_arn: <p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href="https://docs.aws.amazon.com/connect/latest/adminguide/cases.html">Cases</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Email</a>, and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>
             created_by: <p>Represents the identity that created the file.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, <code>{ "Tags": {"key1":"value1", "key2":"value2"} }</code>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -21853,21 +21853,21 @@ class ConnectClient:
             "capo_connect.types.disconnect_on_customer_exit.DisconnectOnCustomerExit"
         ] = None,
     ) -> "capo_connect.types.start_chat_contact_response.StartChatContactResponse":
-        r"""<p>Initiates a flow to start a new chat for the customer. Response of this API provides a token required to obtain credentials from the <a href=\"https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html\">CreateParticipantConnection</a> API in the Connect Customer Participant Service.</p> <p>When a new chat contact is successfully created, clients must subscribe to the participant’s connection for the created chat within 5 minutes. This is achieved by invoking <a href=\"https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html\">CreateParticipantConnection</a> with WEBSOCKET and CONNECTION_CREDENTIALS. </p> <p>A 429 error occurs in the following situations:</p> <ul> <li> <p>API rate limit is exceeded. API TPS throttling returns a <code>TooManyRequests</code> exception.</p> </li> <li> <p>The <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html\">quota for concurrent active chats</a> is exceeded. Active chat throttling returns a <code>LimitExceededException</code>.</p> </li> </ul> <p>If you use the <code>ChatDurationInMinutes</code> parameter and receive a 400 error, your account may not support the ability to configure custom chat durations. For more information, contact Amazon Web Services Support. </p> <p>For more information about chat, see the following topics in the <i>Connect Customer Administrator Guide</i>: </p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/web-and-mobile-chat.html\">Concepts: Web and mobile messaging capabilities in Connect Customer</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat\">Connect Customer Chat security best practices</a> </p> </li> </ul>
+        """<p>Initiates a flow to start a new chat for the customer. Response of this API provides a token required to obtain credentials from the <a href="https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html">CreateParticipantConnection</a> API in the Connect Customer Participant Service.</p> <p>When a new chat contact is successfully created, clients must subscribe to the participant’s connection for the created chat within 5 minutes. This is achieved by invoking <a href="https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html">CreateParticipantConnection</a> with WEBSOCKET and CONNECTION_CREDENTIALS. </p> <p>A 429 error occurs in the following situations:</p> <ul> <li> <p>API rate limit is exceeded. API TPS throttling returns a <code>TooManyRequests</code> exception.</p> </li> <li> <p>The <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">quota for concurrent active chats</a> is exceeded. Active chat throttling returns a <code>LimitExceededException</code>.</p> </li> </ul> <p>If you use the <code>ChatDurationInMinutes</code> parameter and receive a 400 error, your account may not support the ability to configure custom chat durations. For more information, contact Amazon Web Services Support. </p> <p>For more information about chat, see the following topics in the <i>Connect Customer Administrator Guide</i>: </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/web-and-mobile-chat.html">Concepts: Web and mobile messaging capabilities in Connect Customer</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat">Connect Customer Chat security best practices</a> </p> </li> </ul>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_id: <p>The identifier of the flow for initiating the chat. To see the ContactFlowId in the Connect Customer admin website, on the navigation menu go to <b>Routing</b>, <b>Flows</b>. Choose the flow. On the flow page, under the name of the flow, choose <b>Show additional flow information</b>. The ContactFlowId is the last part of the ARN, shown here in bold: </p> <p>arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/contact-flow/<b>846ec553-a005-41c0-8341-xxxxxxxxxxxx</b> </p>
             attributes: <p>A custom key-value pair using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows just like any other contact attributes. </p> <p>There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only alphanumeric, dash, and underscore characters.</p>
             participant_details: <p>Information identifying the participant.</p>
             participant_configuration: <p> The configuration of the participant. </p>
             initial_message: <p>The initial message to be sent to the newly created chat.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             chat_duration_in_minutes: <p>The total duration of the newly started chat session. If not specified, the chat session duration defaults to 25 hour. The minimum configurable time is 60 minutes. The maximum configurable time is 10,080 minutes (7 days).</p>
-            supported_messaging_content_types: <p>The supported chat message content types. Supported types are <code>text/plain</code>, <code>text/markdown</code>, <code>application/json</code>, <code>application/vnd.amazonaws.connect.message.interactive</code>, and <code>application/vnd.amazonaws.connect.message.interactive.response</code>. </p> <p>Content types must always contain <code>text/plain</code>. You can then put any other supported type in the list. For example, all the following lists are valid because they contain <code>text/plain</code>: <code>[text/plain, text/markdown, application/json]</code>, <code>[text/markdown, text/plain]</code>, <code>[text/plain, application/json, application/vnd.amazonaws.connect.message.interactive.response]</code>. </p> <note> <p>The type <code>application/vnd.amazonaws.connect.message.interactive</code> is required to use the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/show-view-block.html\">Show view</a> flow block.</p> </note>
-            persistent_chat: <p>Enable persistent chats. For more information about enabling persistent chat, and for example use cases and how to configure for them, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/chat-persistence.html\">Enable persistent chat</a>.</p>
+            supported_messaging_content_types: <p>The supported chat message content types. Supported types are <code>text/plain</code>, <code>text/markdown</code>, <code>application/json</code>, <code>application/vnd.amazonaws.connect.message.interactive</code>, and <code>application/vnd.amazonaws.connect.message.interactive.response</code>. </p> <p>Content types must always contain <code>text/plain</code>. You can then put any other supported type in the list. For example, all the following lists are valid because they contain <code>text/plain</code>: <code>[text/plain, text/markdown, application/json]</code>, <code>[text/markdown, text/plain]</code>, <code>[text/plain, application/json, application/vnd.amazonaws.connect.message.interactive.response]</code>. </p> <note> <p>The type <code>application/vnd.amazonaws.connect.message.interactive</code> is required to use the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/show-view-block.html">Show view</a> flow block.</p> </note>
+            persistent_chat: <p>Enable persistent chats. For more information about enabling persistent chat, and for example use cases and how to configure for them, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/chat-persistence.html">Enable persistent chat</a>.</p>
             related_contact_id: <p>The unique identifier for an Connect Customer contact. This identifier is related to the chat starting.</p> <note> <p>You cannot provide data for both RelatedContactId and PersistentChat. </p> </note>
-            segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to show channel subtype, such as <code>connect:Guide</code>.</p> <note> <p>The types <code>application/vnd.amazonaws.connect.message.interactive</code> and <code>application/vnd.amazonaws.connect.message.interactive.response</code> must be present in the SupportedMessagingContentTypes field of this API in order to set <code>SegmentAttributes</code> as {<code> \"connect:Subtype\": {\"valueString\" : \"connect:Guide\" }}</code>.</p> </note>
+            segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to show channel subtype, such as <code>connect:Guide</code>.</p> <note> <p>The types <code>application/vnd.amazonaws.connect.message.interactive</code> and <code>application/vnd.amazonaws.connect.message.interactive.response</code> must be present in the SupportedMessagingContentTypes field of this API in order to set <code>SegmentAttributes</code> as {<code> "connect:Subtype": {"valueString" : "connect:Guide" }}</code>.</p> </note>
             customer_id: <p>The customer's identification number. For example, the <code>CustomerId</code> may be a customer number from your CRM.</p>
             disconnect_on_customer_exit: <p>A list of participant types to automatically disconnect when the end customer ends the chat session, allowing them to continue through disconnect flows such as surveys or feedback forms.</p>
 
@@ -21944,14 +21944,14 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.start_contact_conversational_analytics_job_response.StartContactConversationalAnalyticsJobResponse":
-        r"""<p>Starts a Contact Lens post-call analytics job for the specified contact. This API runs Conversational Analytics post-contact analysis on a voice recording that is already attached to the contact, generating transcription, sentiment analysis, redaction, and summarization results based on the provided configuration.</p> <important> <p>A voice recording must already be attached to the contact before calling this API. Use <code>CreateAttachedFile</code> to attach a recording from an S3 source URI.</p> </important> <note> <p>For example, you can call <code>CreateContact</code>, then <code>CreateAttachedFile</code>, then <code>StartContactConversationalAnalyticsJob</code> to create a contact, attach a recording, and run post-call analytics.</p> </note>
+        """<p>Starts a Contact Lens post-call analytics job for the specified contact. This API runs Conversational Analytics post-contact analysis on a voice recording that is already attached to the contact, generating transcription, sentiment analysis, redaction, and summarization results based on the provided configuration.</p> <important> <p>A voice recording must already be attached to the contact before calling this API. Use <code>CreateAttachedFile</code> to attach a recording from an S3 source URI.</p> </important> <note> <p>For example, you can call <code>CreateContact</code>, then <code>CreateAttachedFile</code>, then <code>StartContactConversationalAnalyticsJob</code> to create a contact, attach a recording, and run post-call analytics.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             analytics_modes: <p>The analytics modes to run for the contact. Valid values: <code>PostContact</code>.</p>
             analytics_configuration: <p>The configuration for the conversational analytics job.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -22008,15 +22008,15 @@ class ConnectClient:
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
         tags: Optional["capo_connect.types.tag_map.TagMap"] = None,
     ) -> "capo_connect.types.start_contact_evaluation_response.StartContactEvaluationResponse":
-        r"""<p>Starts an empty evaluation in the specified Connect Customer instance, using the given evaluation form for the particular contact. The evaluation form version used for the contact evaluation corresponds to the currently activated version. If no version is activated for the evaluation form, the contact evaluation cannot be started. </p>
+        """<p>Starts an empty evaluation in the specified Connect Customer instance, using the given evaluation form for the particular contact. The evaluation form version used for the contact evaluation corresponds to the currently activated version. If no version is activated for the evaluation form, the contact evaluation cannot be started. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             evaluation_form_id: <p>The unique identifier for the evaluation form.</p>
             auto_evaluation_configuration: <p>Whether automated evaluations are enabled.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -22075,10 +22075,10 @@ class ConnectClient:
             "capo_connect.types.contact_media_processing_failure_mode.ContactMediaProcessingFailureMode"
         ] = None,
     ) -> "capo_connect.types.start_contact_media_processing_response.StartContactMediaProcessingResponse":
-        r"""<p> Enables in-flight message processing for an ongoing chat session. Message processing will stay active for the rest of the chat, even if an individual contact segment ends. </p>
+        """<p> Enables in-flight message processing for an ongoing chat session. Message processing will stay active for the rest of the chat, even if an individual contact segment ends. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact.</p>
             processor_arn: <p> The Amazon Resource Name (ARN) of the Lambda processor. You can find the Amazon Resource Name of the lambda in the lambda console. </p>
             failure_mode: <p> The desired behavior for failed message processing. </p>
@@ -22136,10 +22136,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.start_contact_recording_response.StartContactRecordingResponse":
-        r"""<p>Starts recording the contact: </p> <ul> <li> <p>If the API is called <i>before</i> the agent joins the call, recording starts when the agent joins the call.</p> </li> <li> <p>If the API is called <i>after</i> the agent joins the call, recording starts at the time of the API call.</p> </li> </ul> <p>StartContactRecording is a one-time action. For example, if you use StopContactRecording to stop recording an ongoing call, you can't use StartContactRecording to restart it. For scenarios where the recording has started and you want to suspend and resume it, such as when collecting sensitive information (for example, a credit card number), use SuspendContactRecording and ResumeContactRecording.</p> <p>You can use this API to override the recording behavior configured in the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html\">Set recording behavior</a> block.</p> <p>Only voice recordings are supported at this time.</p>
+        """<p>Starts recording the contact: </p> <ul> <li> <p>If the API is called <i>before</i> the agent joins the call, recording starts when the agent joins the call.</p> </li> <li> <p>If the API is called <i>after</i> the agent joins the call, recording starts at the time of the API call.</p> </li> </ul> <p>StartContactRecording is a one-time action. For example, if you use StopContactRecording to stop recording an ongoing call, you can't use StartContactRecording to restart it. For scenarios where the recording has started and you want to suspend and resume it, such as when collecting sensitive information (for example, a credit card number), use SuspendContactRecording and ResumeContactRecording.</p> <p>You can use this API to override the recording behavior configured in the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html">Set recording behavior</a> block.</p> <p>Only voice recordings are supported at this time.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact.</p>
             initial_contact_id: <p>The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.</p>
             voice_recording_configuration: <p>The person being recorded.</p>
@@ -22192,13 +22192,13 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.start_contact_streaming_response.StartContactStreamingResponse":
-        r"""<p> Initiates real-time message streaming for a new chat contact.</p> <p> For more information about message streaming, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/chat-message-streaming.html\">Enable real-time chat message streaming</a> in the <i>Connect Customer Administrator Guide</i>.</p> <p>For more information about chat, see the following topics in the <i>Connect Customer Administrator Guide</i>: </p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/web-and-mobile-chat.html\">Concepts: Web and mobile messaging capabilities in Connect Customer</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat\">Connect Customer Chat security best practices</a> </p> </li> </ul>
+        """<p> Initiates real-time message streaming for a new chat contact.</p> <p> For more information about message streaming, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/chat-message-streaming.html">Enable real-time chat message streaming</a> in the <i>Connect Customer Administrator Guide</i>.</p> <p>For more information about chat, see the following topics in the <i>Connect Customer Administrator Guide</i>: </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/web-and-mobile-chat.html">Concepts: Web and mobile messaging capabilities in Connect Customer</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat">Connect Customer Chat security best practices</a> </p> </li> </ul>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.</p>
             chat_streaming_configuration: <p>The streaming configuration, such as the Amazon SNS streaming endpoint.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -22268,10 +22268,10 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.start_email_contact_response.StartEmailContactResponse":
-        r"""<p>Creates an inbound email contact and initiates a flow to start the email contact for the customer. Response of this API provides the ContactId of the email contact created.</p>
+        """<p>Creates an inbound email contact and initiates a flow to start the email contact for the customer. Response of this API provides the ContactId of the email contact created.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             from_email_address: <p>The email address of the customer.</p>
             destination_email_address: <p>The email address associated with the Connect Customer instance.</p>
             description: <p>A description of the email contact.</p>
@@ -22283,8 +22283,8 @@ class ConnectClient:
             contact_flow_id: <p>The identifier of the flow for initiating the emails. To see the ContactFlowId in the Connect Customer admin website, on the navigation menu go to <b>Routing</b>, <b>Flows</b>. Choose the flow. On the flow page, under the name of the flow, choose <b>Show additional flow information</b>. The ContactFlowId is the last part of the ARN, shown here in bold: </p> <p>arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/contact-flow/<b>846ec553-a005-41c0-8341-xxxxxxxxxxxx</b> </p>
             related_contact_id: <p>The contactId that is related to this contact. Linking emails together by using <code>RelatedContactID</code> copies over contact attributes from the related email contact to the new email contact. All updates to user-defined attributes in the new email contact are limited to the individual contact ID. There are no limits to the number of contacts that can be linked by using <code>RelatedContactId</code>. </p>
             attributes: <p>A custom key-value pair using an attribute map. The attributes are standard Connect Customer attributes, and can be accessed in flows just like any other contact attributes.</p> <p>There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only alphanumeric, dash, and underscore characters.</p>
-            segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to show channel subtype, such as <code>connect:Guide</code>.</p> <note> <p>To set contact expiry, a <code>ValueMap</code> must be specified containing the integer number of minutes the contact will be active for before expiring, with <code>SegmentAttributes</code> like { <code> \"connect:ContactExpiry\": {\"ValueMap\" : { \"ExpiryDuration\": { \"ValueInteger\":135}}}}</code>.</p> </note>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to show channel subtype, such as <code>connect:Guide</code>.</p> <note> <p>To set contact expiry, a <code>ValueMap</code> must be specified containing the integer number of minutes the contact will be active for before expiring, with <code>SegmentAttributes</code> like { <code> "connect:ContactExpiry": {"ValueMap" : { "ExpiryDuration": { "ValueInteger":135}}}}</code>.</p> </note>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -22356,10 +22356,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.start_evaluation_form_validation_response.StartEvaluationFormValidationResponse":
-        r"""<p>Starts an asynchronous validation process for an evaluation form version in the specified Connect Customer instance. The validation first performs structural checks on the form content (such as verifying required fields, valid scoring configuration, and correct conditional logic), then asynchronously analyzes questions configured for generative AI evaluation against a set of best practices. Use <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_GetEvaluationFormValidation.html\">GetEvaluationFormValidation</a> to retrieve the status and results once the validation completes.</p>
+        """<p>Starts an asynchronous validation process for an evaluation form version in the specified Connect Customer instance. The validation first performs structural checks on the form content (such as verifying required fields, valid scoring configuration, and correct conditional logic), then asynchronously analyzes questions configured for generative AI evaluation against a set of best practices. Use <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_GetEvaluationFormValidation.html">GetEvaluationFormValidation</a> to retrieve the status and results once the validation completes.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_form_id: <p>The unique identifier for the evaluation form.</p>
             evaluation_form_version: <p>The version of the evaluation form to validate.</p>
 
@@ -22430,7 +22430,7 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.start_outbound_chat_contact_response.StartOutboundChatContactResponse":
-        r"""<p>Initiates a new outbound SMS or WhatsApp contact to a customer. Response of this API provides the <code>ContactId</code> of the outbound SMS or WhatsApp contact created.</p> <p> <b>SourceEndpoint</b> only supports Endpoints with <code>CONNECT_PHONENUMBER_ARN</code> as Type and <b>DestinationEndpoint</b> only supports Endpoints with <code>TELEPHONE_NUMBER</code> as Type. <b>ContactFlowId</b> initiates the flow to manage the new contact created.</p> <p>This API can be used to initiate outbound SMS or WhatsApp contacts for an agent, or it can also deflect an ongoing contact to an outbound SMS or WhatsApp contact by using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_StartOutboundChatContact.html\">StartOutboundChatContact</a> Flow Action.</p> <p>For more information about using SMS or WhatsApp in Connect Customer, see the following topics in the <i>Connect Customer Administrator Guide</i>:</p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-sms-messaging.html\">Set up SMS messaging</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/sms-number.html\">Request an SMS-enabled phone number through Amazon Web Services End User Messaging SMS</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/whatsapp-integration.html\">Set up WhatsApp Business messaging</a> </p> </li> </ul>
+        """<p>Initiates a new outbound SMS or WhatsApp contact to a customer. Response of this API provides the <code>ContactId</code> of the outbound SMS or WhatsApp contact created.</p> <p> <b>SourceEndpoint</b> only supports Endpoints with <code>CONNECT_PHONENUMBER_ARN</code> as Type and <b>DestinationEndpoint</b> only supports Endpoints with <code>TELEPHONE_NUMBER</code> as Type. <b>ContactFlowId</b> initiates the flow to manage the new contact created.</p> <p>This API can be used to initiate outbound SMS or WhatsApp contacts for an agent, or it can also deflect an ongoing contact to an outbound SMS or WhatsApp contact by using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_StartOutboundChatContact.html">StartOutboundChatContact</a> Flow Action.</p> <p>For more information about using SMS or WhatsApp in Connect Customer, see the following topics in the <i>Connect Customer Administrator Guide</i>:</p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-sms-messaging.html">Set up SMS messaging</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/sms-number.html">Request an SMS-enabled phone number through Amazon Web Services End User Messaging SMS</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/whatsapp-integration.html">Set up WhatsApp Business messaging</a> </p> </li> </ul>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instance ID in the Amazon Resource Name (ARN) of the instance.</p>
@@ -22440,7 +22440,7 @@ class ConnectClient:
             chat_duration_in_minutes: <p>The total duration of the newly started chat session. If not specified, the chat session duration defaults to 25 hour. The minimum configurable time is 60 minutes. The maximum configurable time is 10,080 minutes (7 days).</p>
             related_contact_id: <p>The unique identifier for an Connect Customer contact. This identifier is related to the contact starting.</p>
             supported_messaging_content_types: <p>The supported chat message content types. Supported types are:</p> <ul> <li> <p> <code>text/plain</code> </p> </li> <li> <p> <code>text/markdown</code> </p> </li> <li> <p> <code>application/json, application/vnd.amazonaws.connect.message.interactive</code> </p> </li> <li> <p> <code>application/vnd.amazonaws.connect.message.interactive.response</code> </p> </li> </ul> <p>Content types must always contain <code>text/plain</code>. You can then put any other supported type in the list. For example, all the following lists are valid because they contain <code>text/plain</code>:</p> <ul> <li> <p> <code>[text/plain, text/markdown, application/json]</code> </p> </li> <li> <p> <code>[text/markdown, text/plain]</code> </p> </li> <li> <p> <code>[text/plain, application/json, application/vnd.amazonaws.connect.message.interactive.response]</code> </p> </li> </ul>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>. The token is valid for 7 days after creation. If a contact is already started, the contact ID is returned.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>. The token is valid for 7 days after creation. If a contact is already started, the contact ID is returned.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -22521,16 +22521,16 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.start_outbound_email_contact_response.StartOutboundEmailContactResponse":
-        r"""<p>Initiates a flow to send an agent reply or outbound email contact (created from the CreateContact API) to a customer.</p>
+        """<p>Initiates a flow to send an agent reply or outbound email contact (created from the CreateContact API) to a customer.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             from_email_address: <p>The email address associated with the Connect Customer instance.</p>
             destination_email_address: <p>The email address of the customer.</p>
             additional_recipients: <p>The additional recipients address of email in CC.</p>
             email_message: <p>The email message body to be sent to the newly created email.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -22611,17 +22611,17 @@ class ConnectClient:
             "capo_connect.types.ring_timeout_in_seconds.RingTimeoutInSeconds"
         ] = None,
     ) -> "capo_connect.types.start_outbound_voice_contact_response.StartOutboundVoiceContactResponse":
-        r"""<p>Places an outbound call to a contact, and then initiates the flow. It performs the actions in the flow that's specified (in <code>ContactFlowId</code>).</p> <p>Agents do not initiate the outbound API, which means that they do not dial the contact. If the flow places an outbound call to a contact, and then puts the contact in queue, the call is then routed to the agent, like any other inbound case.</p> <p>Dialing timeout for this operation can be configured with the “RingTimeoutInSeconds” parameter. If not specified, the default dialing timeout will be 60 seconds which means if the call is not connected within 60 seconds, it fails.</p> <note> <p>UK numbers with a 447 prefix are not allowed by default. Before you can dial these UK mobile numbers, you must submit a service quota increase request. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html\">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>. </p> </note> <note> <p>Campaign calls are not allowed by default. Before you can make a call with <code>TrafficType</code> = <code>CAMPAIGN</code>, you must submit a service quota increase request to the quota <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#outbound-communications-quotas\">Connect Customer campaigns</a>. </p> </note> <note> <p>For Preview dialing mode, only the Amazon Connect outbound campaigns service principal is allowed to assume a role in your account and call this API with OutboundStrategy. </p> </note>
+        """<p>Places an outbound call to a contact, and then initiates the flow. It performs the actions in the flow that's specified (in <code>ContactFlowId</code>).</p> <p>Agents do not initiate the outbound API, which means that they do not dial the contact. If the flow places an outbound call to a contact, and then puts the contact in queue, the call is then routed to the agent, like any other inbound case.</p> <p>Dialing timeout for this operation can be configured with the “RingTimeoutInSeconds” parameter. If not specified, the default dialing timeout will be 60 seconds which means if the call is not connected within 60 seconds, it fails.</p> <note> <p>UK numbers with a 447 prefix are not allowed by default. Before you can dial these UK mobile numbers, you must submit a service quota increase request. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>. </p> </note> <note> <p>Campaign calls are not allowed by default. Before you can make a call with <code>TrafficType</code> = <code>CAMPAIGN</code>, you must submit a service quota increase request to the quota <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#outbound-communications-quotas">Connect Customer campaigns</a>. </p> </note> <note> <p>For Preview dialing mode, only the Amazon Connect outbound campaigns service principal is allowed to assume a role in your account and call this API with OutboundStrategy. </p> </note>
 
         Args:
             name: <p>The name of a voice contact that is shown to an agent in the Contact Control Panel (CCP).</p>
-            description: <p>A description of the voice contact that appears in the agent's snapshot in the CCP logs. For more information about CCP logs, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/download-ccp-logs.html\">Download and review CCP logs</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+            description: <p>A description of the voice contact that appears in the agent's snapshot in the CCP logs. For more information about CCP logs, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/download-ccp-logs.html">Download and review CCP logs</a> in the <i>Connect Customer Administrator Guide</i>.</p>
             references: <p>A formatted URL that is shown to an agent in the Contact Control Panel (CCP). Contacts can have the following reference types at the time of creation: <code>URL</code> | <code>NUMBER</code> | <code>STRING</code> | <code>DATE</code> | <code>EMAIL</code>. <code>ATTACHMENT</code> is not a supported reference type during voice contact creation.</p>
             related_contact_id: <p>The <code>contactId</code> that is related to this contact. Linking voice, task, or chat by using <code>RelatedContactID</code> copies over contact attributes from the related contact to the new contact. All updates to user-defined attributes in the new contact are limited to the individual contact ID. There are no limits to the number of contacts that can be linked by using <code>RelatedContactId</code>. </p>
             destination_phone_number: <p>The phone number of the customer, in E.164 format.</p>
             contact_flow_id: <p>The identifier of the flow for the outbound call. To see the ContactFlowId in the Connect Customer admin website, on the navigation menu go to <b>Routing</b>, <b>Contact Flows</b>. Choose the flow. On the flow page, under the name of the flow, choose <b>Show additional flow information</b>. The ContactFlowId is the last part of the ARN, shown here in bold: </p> <p>arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/contact-flow/<b>846ec553-a005-41c0-8341-xxxxxxxxxxxx</b> </p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>. The token is valid for 7 days after creation. If a contact is already started, the contact ID is returned. </p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>. The token is valid for 7 days after creation. If a contact is already started, the contact ID is returned. </p>
             source_phone_number: <p>The phone number associated with the Connect Customer instance, in E.164 format. If you do not specify a source phone number, you must specify a queue.</p>
             queue_id: <p>The queue for the call. If you specify a queue, the phone displayed for caller ID is the phone number specified in the queue. If you do not specify a queue, the queue defined in the flow is used. If you do not specify a queue, you must specify a source phone number.</p>
             attributes: <p>A custom key-value pair using an attribute map. The attributes are standard Connect Customer attributes, and can be accessed in flows just like any other contact attributes.</p> <p>There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only alphanumeric, dash, and underscore characters.</p>
@@ -22706,11 +22706,11 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.start_screen_sharing_response.StartScreenSharingResponse":
-        r"""<p>Starts screen sharing for a contact. For more information about screen sharing, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/inapp-calling.html\">Set up in-app, web, video calling, and screen sharing capabilities</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+        """<p>Starts screen sharing for a contact. For more information about screen sharing, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/inapp-calling.html">Set up in-app, web, video calling, and screen sharing capabilities</a> in the <i>Connect Customer Administrator Guide</i>. </p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
 
         Raises:
@@ -22785,22 +22785,22 @@ class ConnectClient:
             "capo_connect.types.task_attachments.TaskAttachments"
         ] = None,
     ) -> "capo_connect.types.start_task_contact_response.StartTaskContactResponse":
-        r"""<p>Initiates a flow to start a new task contact. For more information about task contacts, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/tasks.html\">Concepts: Tasks in Connect Customer</a> in the <i>Connect Customer Administrator Guide</i>. </p> <p>When using <code>PreviousContactId</code> and <code>RelatedContactId</code> input parameters, note the following:</p> <ul> <li> <p> <code>PreviousContactId</code> </p> <ul> <li> <p>Any updates to user-defined task contact attributes on any contact linked through the same <code>PreviousContactId</code> will affect every contact in the chain.</p> </li> <li> <p>There can be a maximum of 12 linked task contacts in a chain. That is, 12 task contacts can be created that share the same <code>PreviousContactId</code>.</p> </li> </ul> </li> <li> <p> <code>RelatedContactId</code> </p> <ul> <li> <p>Copies contact attributes from the related task contact to the new contact.</p> </li> <li> <p>Any update on attributes in a new task contact does not update attributes on previous contact.</p> </li> <li> <p>There’s no limit on the number of task contacts that can be created that use the same <code>RelatedContactId</code>.</p> </li> </ul> </li> </ul> <p>In addition, when calling StartTaskContact include only one of these parameters: <code>ContactFlowID</code>, <code>QuickConnectID</code>, or <code>TaskTemplateID</code>. Only one parameter is required as long as the task template has a flow configured to run it. If more than one parameter is specified, or only the <code>TaskTemplateID</code> is specified but it does not have a flow configured, the request returns an error because Connect Customer cannot identify the unique flow to run when the task is created.</p> <p>A <code>ServiceQuotaExceededException</code> occurs when the number of open tasks exceeds the active tasks quota or there are already 12 tasks referencing the same <code>PreviousContactId</code>. For more information about service quotas for task contacts, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html\">Connect Customer service quotas</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+        """<p>Initiates a flow to start a new task contact. For more information about task contacts, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/tasks.html">Concepts: Tasks in Connect Customer</a> in the <i>Connect Customer Administrator Guide</i>. </p> <p>When using <code>PreviousContactId</code> and <code>RelatedContactId</code> input parameters, note the following:</p> <ul> <li> <p> <code>PreviousContactId</code> </p> <ul> <li> <p>Any updates to user-defined task contact attributes on any contact linked through the same <code>PreviousContactId</code> will affect every contact in the chain.</p> </li> <li> <p>There can be a maximum of 12 linked task contacts in a chain. That is, 12 task contacts can be created that share the same <code>PreviousContactId</code>.</p> </li> </ul> </li> <li> <p> <code>RelatedContactId</code> </p> <ul> <li> <p>Copies contact attributes from the related task contact to the new contact.</p> </li> <li> <p>Any update on attributes in a new task contact does not update attributes on previous contact.</p> </li> <li> <p>There’s no limit on the number of task contacts that can be created that use the same <code>RelatedContactId</code>.</p> </li> </ul> </li> </ul> <p>In addition, when calling StartTaskContact include only one of these parameters: <code>ContactFlowID</code>, <code>QuickConnectID</code>, or <code>TaskTemplateID</code>. Only one parameter is required as long as the task template has a flow configured to run it. If more than one parameter is specified, or only the <code>TaskTemplateID</code> is specified but it does not have a flow configured, the request returns an error because Connect Customer cannot identify the unique flow to run when the task is created.</p> <p>A <code>ServiceQuotaExceededException</code> occurs when the number of open tasks exceeds the active tasks quota or there are already 12 tasks referencing the same <code>PreviousContactId</code>. For more information about service quotas for task contacts, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer service quotas</a> in the <i>Connect Customer Administrator Guide</i>. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             previous_contact_id: <p>The identifier of the previous chat, voice, or task contact. Any updates to user-defined attributes to task contacts linked using the same <code>PreviousContactID</code> will affect every contact in the chain. There can be a maximum of 12 linked task contacts in a chain.</p>
             contact_flow_id: <p>The identifier of the flow for initiating the tasks. To see the ContactFlowId in the Connect Customer admin website, on the navigation menu go to <b>Routing</b>, <b>Flows</b>. Choose the flow. On the flow page, under the name of the flow, choose <b>Show additional flow information</b>. The ContactFlowId is the last part of the ARN, shown here in bold: </p> <p>arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/contact-flow/<b>846ec553-a005-41c0-8341-xxxxxxxxxxxx</b> </p>
             attributes: <p>A custom key-value pair using an attribute map. The attributes are standard Connect Customer attributes, and can be accessed in flows just like any other contact attributes.</p> <p>There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only alphanumeric, dash, and underscore characters.</p>
             name: <p>The name of a task that is shown to an agent in the Contact Control Panel (CCP).</p>
             references: <p>A formatted URL that is shown to an agent in the Contact Control Panel (CCP). Tasks can have the following reference types at the time of creation: <code>URL</code> | <code>NUMBER</code> | <code>STRING</code> | <code>DATE</code> | <code>EMAIL</code>. <code>ATTACHMENT</code> is not a supported reference type during task creation.</p>
             description: <p>A description of the task that is shown to an agent in the Contact Control Panel (CCP).</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             scheduled_time: <p>The timestamp, in Unix Epoch seconds format, at which to start running the inbound flow. The scheduled time cannot be in the past. It must be within up to 6 days in future. </p>
-            task_template_id: <p>A unique identifier for the task template. For more information about task templates, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/task-templates.html\">Create task templates</a> in the <i>Connect Customer Administrator Guide</i>. </p>
-            quick_connect_id: <p>The identifier for the quick connect. Tasks that are created by using <code>QuickConnectId</code> will use the flow that is defined on agent or queue quick connect. For more information about quick connects, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html\">Create quick connects</a>.</p>
-            related_contact_id: <p>The contactId that is <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/tasks.html#linked-tasks\">related</a> to this contact. Linking tasks together by using <code>RelatedContactID</code> copies over contact attributes from the related task contact to the new task contact. All updates to user-defined attributes in the new task contact are limited to the individual contact ID, unlike what happens when tasks are linked by using <code>PreviousContactID</code>. There are no limits to the number of contacts that can be linked by using <code>RelatedContactId</code>. </p>
-            segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments (unique contact ID) using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to set Contact Expiry as a duration in minutes and set a UserId for the User who created a task.</p> <note> <p>To set contact expiry, a ValueMap must be specified containing the integer number of minutes the contact will be active for before expiring, with <code>SegmentAttributes</code> like { <code> \"connect:ContactExpiry\": {\"ValueMap\" : { \"ExpiryDuration\": { \"ValueInteger\": 135}}}}</code>. </p> <p>To set the created by user, a valid AgentResourceId must be supplied, with <code>SegmentAttributes</code> like { <code>\"connect:CreatedByUser\" { \"ValueString\": \"arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/agent/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"}}}</code>. </p> </note>
+            task_template_id: <p>A unique identifier for the task template. For more information about task templates, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/task-templates.html">Create task templates</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+            quick_connect_id: <p>The identifier for the quick connect. Tasks that are created by using <code>QuickConnectId</code> will use the flow that is defined on agent or queue quick connect. For more information about quick connects, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html">Create quick connects</a>.</p>
+            related_contact_id: <p>The contactId that is <a href="https://docs.aws.amazon.com/connect/latest/adminguide/tasks.html#linked-tasks">related</a> to this contact. Linking tasks together by using <code>RelatedContactID</code> copies over contact attributes from the related task contact to the new task contact. All updates to user-defined attributes in the new task contact are limited to the individual contact ID, unlike what happens when tasks are linked by using <code>PreviousContactID</code>. There are no limits to the number of contacts that can be linked by using <code>RelatedContactId</code>. </p>
+            segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments (unique contact ID) using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to set Contact Expiry as a duration in minutes and set a UserId for the User who created a task.</p> <note> <p>To set contact expiry, a ValueMap must be specified containing the integer number of minutes the contact will be active for before expiring, with <code>SegmentAttributes</code> like { <code> "connect:ContactExpiry": {"ValueMap" : { "ExpiryDuration": { "ValueInteger": 135}}}}</code>. </p> <p>To set the created by user, a valid AgentResourceId must be supplied, with <code>SegmentAttributes</code> like { <code>"connect:CreatedByUser" { "ValueString": "arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/agent/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}}}</code>. </p> </note>
             attachments: <p>List of S3 presigned URLs of task attachments and their file name. You can have a maximum of 5 attachments per task.</p>
 
         Raises:
@@ -22874,12 +22874,12 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.start_test_case_execution_response.StartTestCaseExecutionResponse":
-        r"""<p>Starts executing a published test case.</p>
+        """<p>Starts executing a published test case.</p>
 
         Args:
             instance_id: <p>The identifier of the Amazon Connect instance.</p>
             test_case_id: <p>The identifier of the test case to execute.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -22944,13 +22944,13 @@ class ConnectClient:
             "capo_connect.types.segment_attributes.SegmentAttributes"
         ] = None,
     ) -> "capo_connect.types.start_web_rtc_contact_response.StartWebRTCContactResponse":
-        r"""<p>Places an inbound in-app, web, or video call to a contact, and then initiates the flow. It performs the actions in the flow that are specified (in ContactFlowId) and present in the Connect Customer instance (specified as InstanceId).</p>
+        """<p>Places an inbound in-app, web, or video call to a contact, and then initiates the flow. It performs the actions in the flow that are specified (in ContactFlowId) and present in the Connect Customer instance (specified as InstanceId).</p>
 
         Args:
             attributes: <p>A custom key-value pair using an attribute map. The attributes are standard Connect Customer attributes, and can be accessed in flows just like any other contact attributes.</p> <p>There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only alphanumeric, -, and _ characters.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p> <p>The token is valid for 7 days after creation. If a contact is already started, the contact ID is returned.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p> <p>The token is valid for 7 days after creation. If a contact is already started, the contact ID is returned.</p>
             contact_flow_id: <p>The identifier of the flow for the call. To see the ContactFlowId in the Connect Customer admin website, on the navigation menu go to <b>Routing</b>, <b>Flows</b>. Choose the flow. On the flow page, under the name of the flow, choose <b>Show additional flow information</b>. The ContactFlowId is the last part of the ARN, shown here in bold: </p> <p>arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/contact-flow/<b>846ec553-a005-41c0-8341-xxxxxxxxxxxx</b> </p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             allowed_capabilities: <p>Information about the video sharing capabilities of the participants (customer, agent).</p>
             related_contact_id: <p>The unique identifier for an Connect Customer contact. This identifier is related to the contact starting.</p>
             references: <p>A formatted URL that is shown to an agent in the Contact Control Panel (CCP). Tasks can have the following reference types at the time of creation: <code>URL</code> | <code>NUMBER</code> | <code>STRING</code> | <code>DATE</code> | <code>EMAIL</code>. <code>ATTACHMENT</code> is not a supported reference type during task creation.</p>
@@ -23021,12 +23021,12 @@ class ConnectClient:
             "capo_connect.types.disconnect_reason.DisconnectReason"
         ] = None,
     ) -> "capo_connect.types.stop_contact_response.StopContactResponse":
-        r"""<p>Ends the specified contact. Use this API to stop queued callbacks. It does not work for voice contacts that use the following initiation methods:</p> <ul> <li> <p>DISCONNECT</p> </li> <li> <p>TRANSFER</p> </li> <li> <p>QUEUE_TRANSFER</p> </li> <li> <p>EXTERNAL_OUTBOUND</p> </li> <li> <p>MONITOR</p> </li> </ul> <p>Chat and task contacts can be terminated in any state, regardless of initiation method.</p>
+        """<p>Ends the specified contact. Use this API to stop queued callbacks. It does not work for voice contacts that use the following initiation methods:</p> <ul> <li> <p>DISCONNECT</p> </li> <li> <p>TRANSFER</p> </li> <li> <p>QUEUE_TRANSFER</p> </li> <li> <p>EXTERNAL_OUTBOUND</p> </li> <li> <p>MONITOR</p> </li> </ul> <p>Chat and task contacts can be terminated in any state, regardless of initiation method.</p>
 
         Args:
             contact_id: <p>The ID of the contact.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            disconnect_reason: <p>The reason a contact can be disconnected. Only Connect Customer outbound campaigns can provide this field. For a list and description of all the possible disconnect reasons by channel (including outbound campaign voice contacts) see DisconnectReason under <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/ctr-data-model.html#ctr-ContactTraceRecord\">ContactTraceRecord</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            disconnect_reason: <p>The reason a contact can be disconnected. Only Connect Customer outbound campaigns can provide this field. For a list and description of all the possible disconnect reasons by channel (including outbound campaign voice contacts) see DisconnectReason under <a href="https://docs.aws.amazon.com/connect/latest/adminguide/ctr-data-model.html#ctr-ContactTraceRecord">ContactTraceRecord</a> in the <i>Connect Customer Administrator Guide</i>. </p>
 
         Raises:
             capo_connect.errors.contact_not_found_exception.ContactNotFoundException: <p>The contact with the specified ID does not exist.</p>
@@ -23075,10 +23075,10 @@ class ConnectClient:
         instance_id: Optional["capo_connect.types.instance_id.InstanceId"] = None,
         contact_id: Optional["capo_connect.types.contact_id.ContactId"] = None,
     ) -> "capo_connect.types.stop_contact_media_processing_response.StopContactMediaProcessingResponse":
-        r"""<p> Stops in-flight message processing for an ongoing chat session. </p>
+        """<p> Stops in-flight message processing for an ongoing chat session. </p>
 
         Args:
-            instance_id: <p> The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. </p>
+            instance_id: <p> The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. </p>
             contact_id: <p> The identifier of the contact. </p>
 
         Raises:
@@ -23131,10 +23131,10 @@ class ConnectClient:
             "capo_connect.types.contact_recording_type.ContactRecordingType"
         ] = None,
     ) -> "capo_connect.types.stop_contact_recording_response.StopContactRecordingResponse":
-        r"""<p>Stops recording a call when a contact is being recorded. StopContactRecording is a one-time action. If you use StopContactRecording to stop recording an ongoing call, you can't use StartContactRecording to restart it. For scenarios where the recording has started and you want to suspend it for sensitive information (for example, to collect a credit card number), and then restart it, use SuspendContactRecording and ResumeContactRecording.</p> <p>Only voice recordings are supported at this time.</p>
+        """<p>Stops recording a call when a contact is being recorded. StopContactRecording is a one-time action. If you use StopContactRecording to stop recording an ongoing call, you can't use StartContactRecording to restart it. For scenarios where the recording has started and you want to suspend it for sensitive information (for example, to collect a credit card number), and then restart it, use SuspendContactRecording and ResumeContactRecording.</p> <p>Only voice recordings are supported at this time.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact.</p>
             initial_contact_id: <p>The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.</p>
             contact_recording_type: <p>The type of recording being operated on.</p>
@@ -23186,10 +23186,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.stop_contact_streaming_response.StopContactStreamingResponse":
-        r"""<p> Ends message streaming on a specified contact. To restart message streaming on that contact, call the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_StartContactStreaming.html\">StartContactStreaming</a> API. </p>
+        """<p> Ends message streaming on a specified contact. To restart message streaming on that contact, call the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_StartContactStreaming.html">StartContactStreaming</a> API. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact. This is the identifier of the contact that is associated with the first interaction with the contact center.</p>
             streaming_id: <p>The identifier of the streaming configuration enabled. </p>
 
@@ -23239,13 +23239,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.stop_test_case_execution_response.StopTestCaseExecutionResponse":
-        r"""<p>Stops a running test execution.</p>
+        """<p>Stops a running test execution.</p>
 
         Args:
             instance_id: <p>The identifier of the Amazon Connect instance.</p>
             test_case_execution_id: <p>The identifier of the test case execution to stop.</p>
             test_case_id: <p>The identifier of the test case.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -23305,10 +23305,10 @@ class ConnectClient:
             "capo_connect.types.evaluator_user_union.EvaluatorUserUnion"
         ] = None,
     ) -> "capo_connect.types.submit_contact_evaluation_response.SubmitContactEvaluationResponse":
-        r"""<p>Submits a contact evaluation in the specified Connect Customer instance. Answers included in the request are merged with existing answers for the given evaluation. If no answers or notes are passed, the evaluation is submitted with the existing answers and notes. You can delete an answer or note by passing an empty object (<code>{}</code>) to the question identifier. </p> <p>If a contact evaluation is already in submitted state, this operation will trigger a resubmission.</p>
+        """<p>Submits a contact evaluation in the specified Connect Customer instance. Answers included in the request are merged with existing answers for the given evaluation. If no answers or notes are passed, the evaluation is submitted with the existing answers and notes. You can delete an answer or note by passing an empty object (<code>{}</code>) to the question identifier. </p> <p>If a contact evaluation is already in submitted state, this operation will trigger a resubmission.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_id: <p>A unique identifier for the contact evaluation.</p>
             answers: <p>A map of question identifiers to answer value.</p>
             notes: <p>A map of question identifiers to note value.</p>
@@ -23368,10 +23368,10 @@ class ConnectClient:
             "capo_connect.types.contact_recording_type.ContactRecordingType"
         ] = None,
     ) -> "capo_connect.types.suspend_contact_recording_response.SuspendContactRecordingResponse":
-        r"""<p>When a contact is being recorded, this API suspends recording whatever is selected in the flow configuration: call (IVR or agent), screen, or both. If only call recording or only screen recording is enabled, then it would be suspended. For example, you might suspend the screen recording while collecting sensitive information, such as a credit card number. Then use <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ResumeContactRecording.html\">ResumeContactRecording</a> to restart recording the screen.</p> <p>The period of time that the recording is suspended is filled with silence in the final recording. </p> <p> Voice (IVR, agent) and screen recordings are supported.</p>
+        """<p>When a contact is being recorded, this API suspends recording whatever is selected in the flow configuration: call (IVR or agent), screen, or both. If only call recording or only screen recording is enabled, then it would be suspended. For example, you might suspend the screen recording while collecting sensitive information, such as a credit card number. Then use <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ResumeContactRecording.html">ResumeContactRecording</a> to restart recording the screen.</p> <p>The period of time that the recording is suspended is filled with silence in the final recording. </p> <p> Voice (IVR, agent) and screen recordings are supported.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact.</p>
             initial_contact_id: <p>The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.</p>
             contact_recording_type: <p>The type of recording being operated on.</p>
@@ -23423,12 +23423,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.tag_contact_response.TagContactResponse":
-        r"""<p>Adds the specified tags to the contact resource. For more information about this API is used, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/granular-billing.html\">Set up granular billing for a detailed view of your Connect Customer usage</a>. </p>
+        """<p>Adds the specified tags to the contact resource. For more information about this API is used, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/granular-billing.html">Set up granular billing for a detailed view of your Connect Customer usage</a>. </p>
 
         Args:
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            tags: <p>The tags to be assigned to the contact resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p> <note> <p>Authorization is not supported by this tag.</p> </note>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            tags: <p>The tags to be assigned to the contact resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p> <note> <p>Authorization is not supported by this tag.</p> </note>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -23476,11 +23476,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Adds the specified tags to the specified resource.</p> <p>Some of the supported resource types are agents, routing profiles, queues, quick connects, flows, agent statuses, hours of operation, phone numbers, security profiles, task templates, and custom metrics. For a complete list, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/tagging.html\">Tagging resources in Connect Customer</a>.</p> <p>For sample policies that use tags, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security_iam_id-based-policy-examples.html\">Connect Customer Identity-Based Policy Examples</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Adds the specified tags to the specified resource.</p> <p>Some of the supported resource types are agents, routing profiles, queues, quick connects, flows, agent statuses, hours of operation, phone numbers, security profiles, task templates, and custom metrics. For a complete list, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/tagging.html">Tagging resources in Connect Customer</a>.</p> <p>For sample policies that use tags, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security_iam_id-based-policy-examples.html">Connect Customer Identity-Based Policy Examples</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -23530,15 +23530,15 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.transfer_contact_response.TransferContactResponse":
-        r"""<p>Transfers <code>TASK</code> or <code>EMAIL</code> contacts from one agent or queue to another agent or queue at any point after a contact is created. You can transfer a contact to another queue by providing the flow which orchestrates the contact to the destination queue. This gives you more control over contact handling and helps you adhere to the service level agreement (SLA) guaranteed to your customers.</p> <p>Note the following requirements:</p> <ul> <li> <p>Transfer is only supported for <code>TASK</code> and <code>EMAIL</code> contacts.</p> </li> <li> <p>Do not use both <code>QueueId</code> and <code>UserId</code> in the same call.</p> </li> <li> <p>The following flow types are supported: Inbound flow, Transfer to agent flow, and Transfer to queue flow.</p> </li> <li> <p>The <code>TransferContact</code> API can be called only on active contacts.</p> </li> <li> <p>A contact cannot be transferred more than 11 times.</p> </li> </ul>
+        """<p>Transfers <code>TASK</code> or <code>EMAIL</code> contacts from one agent or queue to another agent or queue at any point after a contact is created. You can transfer a contact to another queue by providing the flow which orchestrates the contact to the destination queue. This gives you more control over contact handling and helps you adhere to the service level agreement (SLA) guaranteed to your customers.</p> <p>Note the following requirements:</p> <ul> <li> <p>Transfer is only supported for <code>TASK</code> and <code>EMAIL</code> contacts.</p> </li> <li> <p>Do not use both <code>QueueId</code> and <code>UserId</code> in the same call.</p> </li> <li> <p>The following flow types are supported: Inbound flow, Transfer to agent flow, and Transfer to queue flow.</p> </li> <li> <p>The <code>TransferContact</code> API can be called only on active contacts.</p> </li> <li> <p>A contact cannot be transferred more than 11 times.</p> </li> </ul>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             queue_id: <p>The identifier for the queue.</p>
             user_id: <p>The identifier for the user. This can be the ID or the ARN of the user.</p>
             contact_flow_id: <p>The identifier of the flow.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -23595,11 +23595,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.untag_contact_response.UntagContactResponse":
-        r"""<p>Removes the specified tags from the contact resource. For more information about this API is used, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/granular-billing.html\">Set up granular billing for a detailed view of your Connect Customer usage</a>.</p>
+        """<p>Removes the specified tags from the contact resource. For more information about this API is used, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/granular-billing.html">Set up granular billing for a detailed view of your Connect Customer usage</a>.</p>
 
         Args:
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             tag_keys: <p>A list of tag keys. Existing tags on the contact whose keys are members of this list will be removed.</p>
 
         Raises:
@@ -23707,10 +23707,10 @@ class ConnectClient:
         ] = None,
         reset_order_number: Optional["capo_connect.types.boolean.Boolean"] = None,
     ) -> None:
-        r"""<p>Updates agent status.</p>
+        """<p>Updates agent status.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             agent_status_id: <p>The identifier of the agent status.</p>
             name: <p>The name of the agent status.</p>
             description: <p>The description of the agent status.</p>
@@ -23778,10 +23778,10 @@ class ConnectClient:
             "capo_connect.types.extension_configuration.ExtensionConfiguration"
         ] = None,
     ) -> "capo_connect.types.update_attached_files_configuration_response.UpdateAttachedFilesConfigurationResponse":
-        r"""<p>Updates the attached files configuration for the specified Connect Customer instance and attachment scope.</p> <p>If no instance-specific configuration exists, this operation creates one. Partial updates are supported—only specified fields are updated, while unspecified fields retain their current values.</p>
+        """<p>Updates the attached files configuration for the specified Connect Customer instance and attachment scope.</p> <p>If no instance-specific configuration exists, this operation creates one. Partial updates are supported—only specified fields are updated, while unspecified fields retain their current values.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             attachment_scope: <p>The scope of the attachment. Valid values are <code>EMAIL</code>, <code>CHAT</code>, <code>CASE</code>, and <code>TASK</code>.</p>
             maximum_size_limit_in_bytes: <p>The maximum size limit for attached files in bytes. The minimum value is 1 and the maximum value is 104857600 (100 MB).</p>
             extension_configuration: <p>The configuration for allowed file extensions.</p>
@@ -23851,16 +23851,16 @@ class ConnectClient:
             "capo_connect.types.boolean.Boolean"
         ] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change. To request access to this API, contact Amazon Web Services Support.</p> <p>Updates the selected authentication profile.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change. To request access to this API, contact Amazon Web Services Support.</p> <p>Updates the selected authentication profile.</p>
 
         Args:
             authentication_profile_id: <p>A unique identifier for the authentication profile. </p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name for the authentication profile.</p>
             description: <p>The description for the authentication profile.</p>
-            allowed_ips: <p>A list of IP address range strings that are allowed to access the instance. For more information on how to configure IP addresses, see<a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts\">Configure session timeouts</a> in the <i>Connect Customer Administrator Guide</i>.</p>
-            blocked_ips: <p>A list of IP address range strings that are blocked from accessing the instance. For more information on how to configure IP addresses, For more information on how to configure IP addresses, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-ip-based-ac\">Configure IP-based access control</a> in the <i>Connect Customer Administrator Guide</i>. </p>
-            periodic_session_duration: <p>The short lived session duration configuration for users logged in to Connect Customer, in minutes. This value determines the maximum possible time before an agent is authenticated. For more information, For more information on how to configure IP addresses, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts\">Configure session timeouts</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+            allowed_ips: <p>A list of IP address range strings that are allowed to access the instance. For more information on how to configure IP addresses, see<a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts">Configure session timeouts</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+            blocked_ips: <p>A list of IP address range strings that are blocked from accessing the instance. For more information on how to configure IP addresses, For more information on how to configure IP addresses, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-ip-based-ac">Configure IP-based access control</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+            periodic_session_duration: <p>The short lived session duration configuration for users logged in to Connect Customer, in minutes. This value determines the maximum possible time before an agent is authenticated. For more information, For more information on how to configure IP addresses, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts">Configure session timeouts</a> in the <i>Connect Customer Administrator Guide</i>. </p>
             session_inactivity_duration: <p>The period, in minutes, before an agent is automatically signed out of the contact center when they go inactive.</p>
             session_inactivity_handling_enabled: <p>Determines if automatic logout on user inactivity is enabled.</p>
 
@@ -23936,19 +23936,19 @@ class ConnectClient:
         customer_endpoint: Optional["capo_connect.types.endpoint.Endpoint"] = None,
         system_endpoint: Optional["capo_connect.types.endpoint.Endpoint"] = None,
     ) -> "capo_connect.types.update_contact_response.UpdateContactResponse":
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Adds or updates user-defined contact information associated with the specified contact. At least one field to be updated must be present in the request.</p> <important> <p>You can add or update user-defined contact information for both ongoing and completed contacts.</p> </important>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Adds or updates user-defined contact information associated with the specified contact. At least one field to be updated must be present in the request.</p> <important> <p>You can add or update user-defined contact information for both ongoing and completed contacts.</p> </important>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact. This is the identifier of the contact associated with the first interaction with your contact center.</p>
             name: <p>The name of the contact.</p>
             description: <p>The description of the contact.</p>
             references: <p>Well-formed data on contact, shown to agents on Contact Control Panel (CCP).</p>
             segment_attributes: <p>A set of system defined key-value pairs stored on individual contact segments (unique contact ID) using an attribute map. The attributes are standard Connect Customer attributes. They can be accessed in flows.</p> <p>Attribute keys can include only alphanumeric, -, and _.</p> <p>This field can be used to show channel subtype, such as <code>connect:Guide</code>.</p> <p>Contact Expiry, and user-defined attributes (String - String) that are defined in predefined attributes, can be updated by using the UpdateContact API.</p>
-            queue_info: <p> Information about the queue associated with a contact. This parameter can only be updated for external audio contacts. It is used when you integrate third-party systems with Contact Lens for analytics. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html\">Connect Customer Contact Lens integration</a> in the <i> Connect Customer Administrator Guide</i>.</p>
-            user_info: <p>Information about the agent associated with a contact. This parameter can only be updated for external audio contacts. It is used when you integrate third-party systems with Contact Lens for analytics. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html\">Connect Customer Contact Lens integration</a> in the <i> Connect Customer Administrator Guide</i>.</p>
-            customer_endpoint: <p>The endpoint of the customer for which the contact was initiated. For external audio contacts, this is usually the end customer's phone number. This value can only be updated for external audio contacts. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html\">Connect Customer Contact Lens integration</a> in the <i>Connect Customer Administrator Guide</i>.</p>
-            system_endpoint: <p>External system endpoint for the contact was initiated. For external audio contacts, this is the phone number of the external system such as the contact center. This value can only be updated for external audio contacts. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html\">Connect Customer Contact Lens integration</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+            queue_info: <p> Information about the queue associated with a contact. This parameter can only be updated for external audio contacts. It is used when you integrate third-party systems with Contact Lens for analytics. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i> Connect Customer Administrator Guide</i>.</p>
+            user_info: <p>Information about the agent associated with a contact. This parameter can only be updated for external audio contacts. It is used when you integrate third-party systems with Contact Lens for analytics. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i> Connect Customer Administrator Guide</i>.</p>
+            customer_endpoint: <p>The endpoint of the customer for which the contact was initiated. For external audio contacts, this is usually the end customer's phone number. This value can only be updated for external audio contacts. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+            system_endpoint: <p>External system endpoint for the contact was initiated. For external audio contacts, this is the phone number of the external system such as the contact center. This value can only be updated for external audio contacts. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html">Connect Customer Contact Lens integration</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -24014,12 +24014,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.update_contact_attributes_response.UpdateContactAttributesResponse":
-        r"""<p>Creates or updates user-defined contact attributes associated with the specified contact.</p> <p>You can create or update user-defined attributes for both ongoing and completed contacts. For example, while the call is active, you can update the customer's name or the reason the customer called. You can add notes about steps that the agent took during the call that display to the next agent that takes the call. You can also update attributes for a contact using data from your CRM application and save the data with the contact in Connect Customer. You could also flag calls for additional analysis, such as legal review or to identify abusive callers.</p> <p>Contact attributes are available in Connect Customer for 24 months, and are then deleted. For information about contact record retention and the maximum size of the contact record attributes section, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#feature-limits\">Feature specifications</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+        """<p>Creates or updates user-defined contact attributes associated with the specified contact.</p> <p>You can create or update user-defined attributes for both ongoing and completed contacts. For example, while the call is active, you can update the customer's name or the reason the customer called. You can add notes about steps that the agent took during the call that display to the next agent that takes the call. You can also update attributes for a contact using data from your CRM application and save the data with the contact in Connect Customer. You could also flag calls for additional analysis, such as legal review or to identify abusive callers.</p> <p>Contact attributes are available in Connect Customer for 24 months, and are then deleted. For information about contact record retention and the maximum size of the contact record attributes section, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#feature-limits">Feature specifications</a> in the <i>Connect Customer Administrator Guide</i>. </p>
 
         Args:
             initial_contact_id: <p>The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            attributes: <p>The Connect Customer attributes. These attributes can be accessed in flows just like any other contact attributes.</p> <p>You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include only alphanumeric, dash, and underscore characters.</p> <p>In the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html\">Set contact attributes</a> block, when the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow. As a mitigation, consider the following options:</p> <ul> <li> <p>Remove unnecessary attributes by setting their values to empty.</p> </li> <li> <p>If the attributes are only used in one flow and don't need to be referred to outside of that flow (for example, by a Lambda or another flow), then use flow attributes. This way you aren't needlessly persisting the 32 KB of information from one flow to another. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html\">Flow block: Set contact attributes</a> in the <i>Connect Customer Administrator Guide</i>. </p> </li> </ul>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            attributes: <p>The Connect Customer attributes. These attributes can be accessed in flows just like any other contact attributes.</p> <p>You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include only alphanumeric, dash, and underscore characters.</p> <p>In the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Set contact attributes</a> block, when the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow. As a mitigation, consider the following options:</p> <ul> <li> <p>Remove unnecessary attributes by setting their values to empty.</p> </li> <li> <p>If the attributes are only used in one flow and don't need to be referred to outside of that flow (for example, by a Lambda or another flow), then use flow attributes. This way you aren't needlessly persisting the 32 KB of information from one flow to another. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Flow block: Set contact attributes</a> in the <i>Connect Customer Administrator Guide</i>. </p> </li> </ul>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -24075,10 +24075,10 @@ class ConnectClient:
             "capo_connect.types.evaluator_user_union.EvaluatorUserUnion"
         ] = None,
     ) -> "capo_connect.types.update_contact_evaluation_response.UpdateContactEvaluationResponse":
-        r"""<p>Updates details about a contact evaluation in the specified Connect Customer instance. A contact evaluation must be in draft state. Answers included in the request are merged with existing answers for the given evaluation. An answer or note can be deleted by passing an empty object (<code>{}</code>) to the question identifier. </p>
+        """<p>Updates details about a contact evaluation in the specified Connect Customer instance. A contact evaluation must be in draft state. Answers included in the request are merged with existing answers for the given evaluation. An answer or note can be deleted by passing an empty object (<code>{}</code>) to the question identifier. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_id: <p>A unique identifier for the contact evaluation.</p>
             answers: <p>A map of question identifiers to answer value.</p>
             notes: <p>A map of question identifiers to note value.</p>
@@ -24135,12 +24135,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.update_contact_flow_content_response.UpdateContactFlowContentResponse":
-        r"""<p>Updates the specified flow.</p> <p>You can also create and update flows using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html\">Connect Customer Flow language</a>.</p> <p>Use the <code>$SAVED</code> alias in the request to describe the <code>SAVED</code> content of a Flow. For example, <code>arn:aws:.../contact-flow/{id}:$SAVED</code>. After a flow is published, <code>$SAVED</code> needs to be supplied to view saved content that has not been published.</p>
+        """<p>Updates the specified flow.</p> <p>You can also create and update flows using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html">Connect Customer Flow language</a>.</p> <p>Use the <code>$SAVED</code> alias in the request to describe the <code>SAVED</code> content of a Flow. For example, <code>arn:aws:.../contact-flow/{id}:$SAVED</code>. After a flow is published, <code>$SAVED</code> needs to be supplied to view saved content that has not been published.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance.</p>
             contact_flow_id: <p>The identifier of the flow.</p>
-            content: <p>The JSON string that represents the content of the flow. For an example, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html\">Example flow in Connect Customer Flow language</a>. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 256000.</p>
+            content: <p>The JSON string that represents the content of the flow. For an example, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html">Example flow in Connect Customer Flow language</a>. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 256000.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -24195,10 +24195,10 @@ class ConnectClient:
             "capo_connect.types.contact_flow_state.ContactFlowState"
         ] = None,
     ) -> "capo_connect.types.update_contact_flow_metadata_response.UpdateContactFlowMetadataResponse":
-        r"""<p>Updates metadata about specified flow.</p>
+        """<p>Updates metadata about specified flow.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_id: <p>The identifier of the flow.</p>
             name: <p>The name of the flow.</p>
             description: <p>The description of the flow.</p>
@@ -24265,10 +24265,10 @@ class ConnectClient:
             "capo_connect.types.resource_version.ResourceVersion"
         ] = None,
     ) -> "capo_connect.types.update_contact_flow_module_alias_response.UpdateContactFlowModuleAliasResponse":
-        r"""<p>Updates a specific Aliases metadata, including the version it’s tied to, it’s name, and description.</p>
+        """<p>Updates a specific Aliases metadata, including the version it’s tied to, it’s name, and description.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             alias_id: <p>The identifier of the alias.</p>
             name: <p>The name of the alias.</p>
@@ -24335,12 +24335,12 @@ class ConnectClient:
             "capo_connect.types.flow_module_settings.FlowModuleSettings"
         ] = None,
     ) -> "capo_connect.types.update_contact_flow_module_content_response.UpdateContactFlowModuleContentResponse":
-        r"""<p>Updates specified flow module for the specified Connect Customer instance. </p> <p>Use the <code>$SAVED</code> alias in the request to describe the <code>SAVED</code> content of a Flow. For example, <code>arn:aws:.../contact-flow/{id}:$SAVED</code>. After a flow is published, <code>$SAVED</code> needs to be supplied to view saved content that has not been published.</p>
+        """<p>Updates specified flow module for the specified Connect Customer instance. </p> <p>Use the <code>$SAVED</code> alias in the request to describe the <code>SAVED</code> content of a Flow. For example, <code>arn:aws:.../contact-flow/{id}:$SAVED</code>. After a flow is published, <code>$SAVED</code> needs to be supplied to view saved content that has not been published.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
-            content: <p>The JSON string that represents the content of the flow. For an example, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html\">Example flow in Connect Customer Flow language</a>. </p>
+            content: <p>The JSON string that represents the content of the flow. For an example, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html">Example flow in Connect Customer Flow language</a>. </p>
             settings: <p>Serialized JSON string of the flow module Settings schema.</p>
 
         Raises:
@@ -24401,10 +24401,10 @@ class ConnectClient:
             "capo_connect.types.contact_flow_module_state.ContactFlowModuleState"
         ] = None,
     ) -> "capo_connect.types.update_contact_flow_module_metadata_response.UpdateContactFlowModuleMetadataResponse":
-        r"""<p>Updates metadata about specified flow module.</p>
+        """<p>Updates metadata about specified flow module.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_flow_module_id: <p>The identifier of the flow module.</p>
             name: <p>The name of the flow module.</p>
             description: <p>The description of the flow module.</p>
@@ -24466,7 +24466,7 @@ class ConnectClient:
             "capo_connect.types.contact_flow_description.ContactFlowDescription"
         ] = None,
     ) -> "capo_connect.types.update_contact_flow_name_response.UpdateContactFlowNameResponse":
-        r"""<p>The name of the flow.</p> <p>You can also create and update flows using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html\">Connect Customer Flow language</a>.</p>
+        """<p>The name of the flow.</p> <p>You can also create and update flows using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html">Connect Customer Flow language</a>.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance.</p>
@@ -24532,10 +24532,10 @@ class ConnectClient:
             "capo_connect.types.routing_criteria_input.RoutingCriteriaInput"
         ] = None,
     ) -> "capo_connect.types.update_contact_routing_data_response.UpdateContactRoutingDataResponse":
-        r"""<p>Updates routing priority and age on the contact (<b>QueuePriority</b> and <b>QueueTimeAdjustmentInSeconds</b>). These properties can be used to change a customer's position in the queue. For example, you can move a contact to the back of the queue by setting a lower routing priority relative to other contacts in queue; or you can move a contact to the front of the queue by increasing the routing age which will make the contact look artificially older and therefore higher up in the first-in-first-out routing order. Note that adjusting the routing age of a contact affects only its position in queue, and not its actual queue wait time as reported through metrics. These properties can also be updated by using <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/change-routing-priority.html\">the Set routing priority / age flow block</a>.</p> <note> <p>Either <b>QueuePriority</b> or <b>QueueTimeAdjustmentInSeconds</b> should be provided within the request body, but not both.</p> </note>
+        """<p>Updates routing priority and age on the contact (<b>QueuePriority</b> and <b>QueueTimeAdjustmentInSeconds</b>). These properties can be used to change a customer's position in the queue. For example, you can move a contact to the back of the queue by setting a lower routing priority relative to other contacts in queue; or you can move a contact to the front of the queue by increasing the routing age which will make the contact look artificially older and therefore higher up in the first-in-first-out routing order. Note that adjusting the routing age of a contact affects only its position in queue, and not its actual queue wait time as reported through metrics. These properties can also be updated by using <a href="https://docs.aws.amazon.com/connect/latest/adminguide/change-routing-priority.html">the Set routing priority / age flow block</a>.</p> <note> <p>Either <b>QueuePriority</b> or <b>QueueTimeAdjustmentInSeconds</b> should be provided within the request body, but not both.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             queue_time_adjustment_seconds: <p>The number of seconds to add or subtract from the contact's routing age. Contacts are routed to agents on a first-come, first-serve basis. This means that changing their amount of time in queue compared to others also changes their position in queue.</p>
             queue_priority: <p>Priority of the contact in the queue. The default priority for new contacts is 5. You can raise the priority of a contact compared to other contacts in the queue by assigning them a higher priority, such as 1 or 2.</p>
@@ -24594,10 +24594,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.update_contact_schedule_response.UpdateContactScheduleResponse":
-        r"""<p>Updates the scheduled time of a task contact that is already scheduled.</p>
+        """<p>Updates the scheduled time of a task contact that is already scheduled.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact.</p>
             scheduled_time: <p>The timestamp, in Unix Epoch seconds format, at which to start running the inbound flow. The scheduled time cannot be in the past. It must be within up to 6 days in future. </p>
 
@@ -24648,11 +24648,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.update_contact_task_template_response.UpdateContactTaskTemplateResponse":
-        r"""<p>Updates the task template association on an existing task contact. You can update the task template on a contact before assignment to support tasks that are created without a template (for example <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-rules.html\">Rules</a> or <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/set-disconnect-flow.html\">disconnect flows</a>) or change the agent interaction form to represent the latest task data (for example an initial request that was submitted as a refund gets updated to an account cancellation and requires a new template).</p> <p>This operation can only be used with task contacts that are in progress and not connected to an agent. A task template can be updated a maximum of 5 times per contact.</p> <p>The task's references must be compatible with the fields of the target task template. If the target template has a required field, the task must have a corresponding reference with a matching name and compatible type. The following task template field types map to reference types:</p> <ul> <li> <p> <code>TEXT</code>, <code>TEXT_AREA</code>, <code>BOOLEAN</code>, and <code>SINGLE_SELECT</code> map to references of type <code>STRING</code>.</p> </li> <li> <p> <code>NUMBER</code> maps to references of type <code>NUMBER</code>.</p> </li> <li> <p> <code>DATE_TIME</code> maps to references of type <code>DATE</code>.</p> </li> <li> <p> <code>URL</code> maps to references of type <code>URL</code>.</p> </li> <li> <p> <code>EMAIL</code> maps to references of type <code>EMAIL</code>.</p> </li> </ul> <p>References corresponding to <code>TEXT</code> fields must be fewer than 512 characters. <code>TEXT_AREA</code> fields must be fewer than 4,096 characters. <code>BOOLEAN</code> fields must have a value of <code>true</code> or <code>false</code>.</p> <p>An <code>InvalidRequestException</code> occurs when <code>UpdateContactTaskTemplate</code> is called on a connected or terminated task, when it is called on non-task contacts, and when the task contact already uses the provided task template. A <code>PropertyValidationException</code> occurs when the task's references conflict with the task template's fields, for example if the task is missing a reference that matches a required field, or if the task has a reference that matches a required field's name but not its datatype.</p>
+        """<p>Updates the task template association on an existing task contact. You can update the task template on a contact before assignment to support tasks that are created without a template (for example <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-rules.html">Rules</a> or <a href="https://docs.aws.amazon.com/connect/latest/adminguide/set-disconnect-flow.html">disconnect flows</a>) or change the agent interaction form to represent the latest task data (for example an initial request that was submitted as a refund gets updated to an account cancellation and requires a new template).</p> <p>This operation can only be used with task contacts that are in progress and not connected to an agent. A task template can be updated a maximum of 5 times per contact.</p> <p>The task's references must be compatible with the fields of the target task template. If the target template has a required field, the task must have a corresponding reference with a matching name and compatible type. The following task template field types map to reference types:</p> <ul> <li> <p> <code>TEXT</code>, <code>TEXT_AREA</code>, <code>BOOLEAN</code>, and <code>SINGLE_SELECT</code> map to references of type <code>STRING</code>.</p> </li> <li> <p> <code>NUMBER</code> maps to references of type <code>NUMBER</code>.</p> </li> <li> <p> <code>DATE_TIME</code> maps to references of type <code>DATE</code>.</p> </li> <li> <p> <code>URL</code> maps to references of type <code>URL</code>.</p> </li> <li> <p> <code>EMAIL</code> maps to references of type <code>EMAIL</code>.</p> </li> </ul> <p>References corresponding to <code>TEXT</code> fields must be fewer than 512 characters. <code>TEXT_AREA</code> fields must be fewer than 4,096 characters. <code>BOOLEAN</code> fields must have a value of <code>true</code> or <code>false</code>.</p> <p>An <code>InvalidRequestException</code> occurs when <code>UpdateContactTaskTemplate</code> is called on a connected or terminated task, when it is called on non-task contacts, and when the task contact already uses the provided task template. A <code>PropertyValidationException</code> occurs when the task's references conflict with the task template's fields, for example if the task is missing a reference that matches a required field, or if the task has a reference that matches a required field's name but not its datatype.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
-            task_template_id: <p>A unique identifier for the task template. For more information about task templates, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/task-templates.html\">Task templates</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            task_template_id: <p>A unique identifier for the task template. For more information about task templates, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/task-templates.html">Task templates</a> in the <i>Connect Customer Administrator Guide</i>.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
 
         Raises:
@@ -24702,10 +24702,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.update_cross_region_routing_response.UpdateCrossRegionRoutingResponse":
-        r"""<p>Updates the cross-region routing configuration for an Amazon Connect Global Resiliency instance enabled for global routing. When invoked with <code>IsolatedAll</code> set to <code>true</code>, this operation disables cross-region routing, meaning contacts originating in one Region will no longer be routed to agents in another Region.</p> <note> <p>This operation is available only for Amazon Connect Global Resiliency instances enabled for global routing. Reporting and contact search continue to operate globally after you use this operation.</p> </note>
+        """<p>Updates the cross-region routing configuration for an Amazon Connect Global Resiliency instance enabled for global routing. When invoked with <code>IsolatedAll</code> set to <code>true</code>, this operation disables cross-region routing, meaning contacts originating in one Region will no longer be routed to agents in another Region.</p> <note> <p>This operation is available only for Amazon Connect Global Resiliency instances enabled for global routing. Reporting and contact search continue to operate globally after you use this operation.</p> </note>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             isolated_all: <p>Set to <code>true</code> to disable cross-region routing for all Regions associated with this instance. Set to <code>false</code> to re-enable cross-region routing.</p>
 
         Raises:
@@ -24964,14 +24964,14 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.update_email_address_metadata_response.UpdateEmailAddressMetadataResponse":
-        r"""<p>Updates an email address metadata. For more information about email addresses, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-email-address1.html\">Create email addresses</a> in the Connect Customer Administrator Guide.</p>
+        """<p>Updates an email address metadata. For more information about email addresses, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-email-address1.html">Create email addresses</a> in the Connect Customer Administrator Guide.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             email_address_id: <p>The identifier of the email address.</p>
             description: <p>The description of the email address.</p>
             display_name: <p>The display name of email address.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -25054,10 +25054,10 @@ class ConnectClient:
             "capo_connect.types.evaluation_form_ai_version.EvaluationFormAIVersion"
         ] = None,
     ) -> "capo_connect.types.update_evaluation_form_response.UpdateEvaluationFormResponse":
-        r"""<p>Updates details about a specific evaluation form version in the specified Connect Customer instance. Question and section identifiers cannot be duplicated within the same evaluation form.</p> <p>This operation does not support partial updates. Instead it does a full update of evaluation form content.</p>
+        """<p>Updates details about a specific evaluation form version in the specified Connect Customer instance. Question and section identifiers cannot be duplicated within the same evaluation form.</p> <p>This operation does not support partial updates. Instead it does a full update of evaluation form content.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             evaluation_form_id: <p>The unique identifier for the evaluation form.</p>
             evaluation_form_version: <p>A version of the evaluation form to update.</p>
             create_new_version: <p>A flag indicating whether the operation must create a new version.</p>
@@ -25068,7 +25068,7 @@ class ConnectClient:
             auto_evaluation_configuration: <p>Whether automated evaluations are enabled.</p>
             review_configuration: <p>Configuration for evaluation review settings of the evaluation form.</p>
             as_draft: <p>A boolean flag indicating whether to update evaluation form to draft state.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             target_configuration: <p>Configuration that specifies the target for the evaluation form.</p>
             language_configuration: <p>Configuration for language settings of the evaluation form.</p>
             ai_version: <p>The AI version to use for the evaluation form. This specifies which AI model version is used for automated evaluations.</p>
@@ -25148,12 +25148,12 @@ class ConnectClient:
             "capo_connect.types.extraction_definition_display.ExtractionDefinitionDisplay"
         ] = None,
     ) -> "capo_connect.types.update_extraction_definition_response.UpdateExtractionDefinitionResponse":
-        r"""<p>Updates an extraction definition in the specified Connect Customer instance.</p>
+        """<p>Updates an extraction definition in the specified Connect Customer instance.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field.</p>
             extraction_definition_id: <p>The identifier of the extraction definition to update.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the extraction definition.</p>
             extraction_configuration: <p>The configuration that defines how data is extracted, including the prompt hint and not-found behavior.</p>
             display: <p>The display settings for the extraction definition.</p>
@@ -25220,10 +25220,10 @@ class ConnectClient:
             "capo_connect.types.hours_of_operation_config_list.HoursOfOperationConfigList"
         ] = None,
     ) -> None:
-        r"""<p>Updates the hours of operation.</p>
+        """<p>Updates the hours of operation.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             hours_of_operation_id: <p>The identifier of the hours of operation.</p>
             name: <p>The name of the hours of operation.</p>
             description: <p>The description of the hours of operation.</p>
@@ -25301,7 +25301,7 @@ class ConnectClient:
         ] = None,
         override_type: Optional["capo_connect.types.override_type.OverrideType"] = None,
     ) -> None:
-        r"""<p>Update the hours of operation override.</p>
+        """<p>Update the hours of operation override.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance.</p>
@@ -25313,7 +25313,7 @@ class ConnectClient:
             effective_from: <p>The date from when the hours of operation override would be effective.</p>
             effective_till: <p>The date until the hours of operation override is effective.</p>
             recurrence_config: <p>Configuration for a recurring event.</p>
-            override_type: <p>Whether the override will be defined as a <i>standard</i> or as a <i>recurring event</i>.</p> <p>For more information about how override types are applied, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html\">Build your list of overrides</a> in the <i> Administrator Guide</i>.</p>
+            override_type: <p>Whether the override will be defined as a <i>standard</i> or as a <i>recurring event</i>.</p> <p>For more information about how override types are applied, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/hours-of-operation-overrides.html">Build your list of overrides</a> in the <i> Administrator Guide</i>.</p>
 
         Raises:
             capo_connect.errors.conditional_operation_failed_exception.ConditionalOperationFailedException: <p>Request processing failed because dependent condition failed.</p>
@@ -25376,13 +25376,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Updates the value for the specified attribute type.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Updates the value for the specified attribute type.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             attribute_type: <p>The type of attribute.</p> <note> <p>Only allowlisted customers can consume USE_CUSTOM_TTS_VOICES. To access this feature, contact Amazon Web Services Support for allowlisting.</p> </note> <note> <p>If you set the attribute type as <code>MESSAGE_STREAMING</code>, you need to update the Lex bot alias resource based policy to include the <code>lex:RecognizeMessageAsync</code> action for the connect instance ARN resource.</p> </note> <note> <p>If you set the attribute type <code>AUTO_MUTE_AGENT_ON_HOLD</code> to <code>true</code>, the system automatically mutes agents while they're on hold and unmutes them when they resume the contact. Agents can't change their mute state while on hold.</p> </note>
             value: <p>The value for the attribute. Maximum character limit is 100. </p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -25433,13 +25433,13 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Updates an existing configuration for a resource type. This API is idempotent.</p>
+        """<p>This API is in preview release for Connect Customer and is subject to change.</p> <p>Updates an existing configuration for a resource type. This API is idempotent.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             association_id: <p>The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.</p>
             resource_type: <p>A valid resource type.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -25497,10 +25497,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.update_metric_content_response.UpdateMetricContentResponse"
     ):
-        r"""<p>Updates the calculation, unit, and/or trend indicator of an existing metric in the specified Connect Customer instance.</p>
+        """<p>Updates the calculation, unit, and/or trend indicator of an existing metric in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             metric_id: <p>The identifier of the metric to update. Adding the <code>$SAVED</code> qualifier will update the saved version of the metric. Adding <code>$LATEST</code> or omitting a qualifier will update the published version.</p>
             metric_calculation: <p>The updated calculation definition for the metric.</p>
             unit: <p>The updated display unit for the metric.</p>
@@ -25561,10 +25561,10 @@ class ConnectClient:
             "capo_connect.types.metric_description.MetricDescription"
         ] = None,
     ) -> "capo_connect.types.update_metric_metadata_response.UpdateMetricMetadataResponse":
-        r"""<p>Updates the name and/or description of an existing metric in the specified Connect Customer instance.</p>
+        """<p>Updates the name and/or description of an existing metric in the specified Connect Customer instance.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             metric_id: <p>The identifier of the metric to update. Adding the <code>$SAVED</code> qualifier will update the saved version of the metric. Adding <code>$LATEST</code> or omitting a qualifier will update the published version.</p>
             name: <p>The updated name of the metric.</p>
             description: <p>The updated description of the metric.</p>
@@ -25620,10 +25620,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.update_notification_content_response.UpdateNotificationContentResponse":
-        r"""<p>Updates the localized content of an existing notification. This operation applies to all users for whom the notification was sent.</p>
+        """<p>Updates the localized content of an existing notification. This operation applies to all users for whom the notification was sent.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             notification_id: <p>The unique identifier for the notification to update.</p>
             content: <p>The updated localized content of the notification. A map of locale codes and values. Maximum 500 characters per locale.</p>
 
@@ -25682,11 +25682,11 @@ class ConnectClient:
             "capo_connect.types.authentication_error_description.AuthenticationErrorDescription"
         ] = None,
     ) -> "capo_connect.types.update_participant_authentication_response.UpdateParticipantAuthenticationResponse":
-        r"""<p>Instructs Connect Customer to resume the authentication process. The subsequent actions depend on the request body contents:</p> <ul> <li> <p> <b>If a code is provided</b>: Connect retrieves the identity information from Amazon Cognito and imports it into Connect Customer Profiles.</p> </li> <li> <p> <b>If an error is provided</b>: The error branch of the Authenticate Customer block is executed.</p> </li> </ul> <note> <p>The API returns a success response to acknowledge the request. However, the interaction and exchange of identity information occur asynchronously after the response is returned.</p> </note>
+        """<p>Instructs Connect Customer to resume the authentication process. The subsequent actions depend on the request body contents:</p> <ul> <li> <p> <b>If a code is provided</b>: Connect retrieves the identity information from Amazon Cognito and imports it into Connect Customer Profiles.</p> </li> <li> <p> <b>If an error is provided</b>: The error branch of the Authenticate Customer block is executed.</p> </li> </ul> <note> <p>The API returns a success response to acknowledge the request. However, the interaction and exchange of identity information occur asynchronously after the response is returned.</p> </note>
 
         Args:
-            state: <p>The <code>state</code> query parameter that was provided by Cognito in the <code>redirectUri</code>. This will also match the <code>state</code> parameter provided in the <code>AuthenticationUrl</code> from the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_GetAuthenticationUrl.html\">GetAuthenticationUrl</a> response.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            state: <p>The <code>state</code> query parameter that was provided by Cognito in the <code>redirectUri</code>. This will also match the <code>state</code> parameter provided in the <code>AuthenticationUrl</code> from the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_GetAuthenticationUrl.html">GetAuthenticationUrl</a> response.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             code: <p>The <code>code</code> query parameter provided by Cognito in the <code>redirectUri</code>.</p>
             error: <p>The <code>error</code> query parameter provided by Cognito in the <code>redirectUri</code>.</p>
             error_description: <p>The <code>error_description</code> parameter provided by Cognito in the <code>redirectUri</code>.</p>
@@ -25743,10 +25743,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.update_participant_role_config_response.UpdateParticipantRoleConfigResponse":
-        r"""<p>Updates timeouts for when human chat participants are to be considered idle, and when agents are automatically disconnected from a chat due to idleness. You can set four timers:</p> <ul> <li> <p>Customer idle timeout</p> </li> <li> <p>Customer auto-disconnect timeout</p> </li> <li> <p>Agent idle timeout</p> </li> <li> <p>Agent auto-disconnect timeout</p> </li> </ul> <p>For more information about how chat timeouts work, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-chat-timeouts.html\">Set up chat timeouts for human participants</a>. </p>
+        """<p>Updates timeouts for when human chat participants are to be considered idle, and when agents are automatically disconnected from a chat due to idleness. You can set four timers:</p> <ul> <li> <p>Customer idle timeout</p> </li> <li> <p>Customer auto-disconnect timeout</p> </li> <li> <p>Agent idle timeout</p> </li> <li> <p>Agent auto-disconnect timeout</p> </li> </ul> <p>For more information about how chat timeouts work, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-chat-timeouts.html">Set up chat timeouts for human participants</a>. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             contact_id: <p>The identifier of the contact in this instance of Connect Customer. </p>
             channel_configuration: <p>The Connect Customer channel you want to configure.</p>
 
@@ -25798,13 +25798,13 @@ class ConnectClient:
         instance_id: Optional["capo_connect.types.instance_id.InstanceId"] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> "capo_connect.types.update_phone_number_response.UpdatePhoneNumberResponse":
-        r"""<p>Updates your claimed phone number from its current Connect Customer instance or traffic distribution group to another Connect Customer instance or traffic distribution group in the same Amazon Web Services Region.</p> <important> <p>After using this API, you must verify that the phone number is attached to the correct flow in the target instance or traffic distribution group. You need to do this because the API switches only the phone number to a new instance or traffic distribution group. It doesn't migrate the flow configuration of the phone number, too.</p> <p>You can call <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribePhoneNumber.html\">DescribePhoneNumber</a> API to verify the status of a previous <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_UpdatePhoneNumber.html\">UpdatePhoneNumber</a> operation.</p> </important>
+        """<p>Updates your claimed phone number from its current Connect Customer instance or traffic distribution group to another Connect Customer instance or traffic distribution group in the same Amazon Web Services Region.</p> <important> <p>After using this API, you must verify that the phone number is attached to the correct flow in the target instance or traffic distribution group. You need to do this because the API switches only the phone number to a new instance or traffic distribution group. It doesn't migrate the flow configuration of the phone number, too.</p> <p>You can call <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribePhoneNumber.html">DescribePhoneNumber</a> API to verify the status of a previous <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_UpdatePhoneNumber.html">UpdatePhoneNumber</a> operation.</p> </important>
 
         Args:
             phone_number_id: <p>A unique identifier for the phone number.</p>
             target_arn: <p>The Amazon Resource Name (ARN) for Connect Customer instances or traffic distribution groups that phone number inbound traffic is routed through. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
-            instance_id: <p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            instance_id: <p>The identifier of the Connect Customer instance that phone numbers are claimed to. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance. You must enter <code>InstanceId</code> or <code>TargetArn</code>. </p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -25861,12 +25861,12 @@ class ConnectClient:
         ] = None,
         client_token: Optional["capo_connect.types.client_token.ClientToken"] = None,
     ) -> None:
-        r"""<p>Updates a phone number’s metadata.</p> <important> <p>To verify the status of a previous UpdatePhoneNumberMetadata operation, call the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribePhoneNumber.html\">DescribePhoneNumber</a> API.</p> </important>
+        """<p>Updates a phone number’s metadata.</p> <important> <p>To verify the status of a previous UpdatePhoneNumberMetadata operation, call the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribePhoneNumber.html">DescribePhoneNumber</a> API.</p> </important>
 
         Args:
             phone_number_id: <p>The Amazon Resource Name (ARN) or resource ID of the phone number.</p>
             phone_number_description: <p>The description of the phone number.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
@@ -25926,7 +25926,7 @@ class ConnectClient:
             "capo_connect.types.input_predefined_attribute_configuration.InputPredefinedAttributeConfiguration"
         ] = None,
     ) -> None:
-        r"""<p>Updates a predefined attribute for the specified Connect Customer instance. A <i>predefined attribute</i> is made up of a name and a value.</p> <p>For the predefined attributes per instance quota, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas\">Connect Customer quotas</a>.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Update routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html\">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Update an attribute for business unit name that has a list of predefined business unit names used in your organization. This is a use case where information for a contact varies between transfers or conferences. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html\">Use contact segment attributes</a>.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href=\"https://docs.aws.amazon.com/general/latest/gr/connect_region.html\">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Updates a predefined attribute for the specified Connect Customer instance. A <i>predefined attribute</i> is made up of a name and a value.</p> <p>For the predefined attributes per instance quota, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#connect-quotas">Connect Customer quotas</a>.</p> <p> <b>Use cases</b> </p> <p>Following are common uses cases for this API:</p> <ul> <li> <p>Update routing proficiency (for example, agent certification) that has predefined values (for example, a list of possible certifications). For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/predefined-attributes.html">Create predefined attributes for routing contacts to agents</a>.</p> </li> <li> <p>Update an attribute for business unit name that has a list of predefined business unit names used in your organization. This is a use case where information for a contact varies between transfers or conferences. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/use-contact-segment-attributes.html">Use contact segment attributes</a>.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance. You can find the instance ID in the Amazon Resource Name (ARN) of the instance.</p>
@@ -25990,14 +25990,14 @@ class ConnectClient:
         ] = None,
         s3_uri: Optional["capo_connect.types.s3_uri.S3Uri"] = None,
     ) -> "capo_connect.types.update_prompt_response.UpdatePromptResponse":
-        r"""<p>Updates a prompt.</p>
+        """<p>Updates a prompt.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             prompt_id: <p>A unique identifier for the prompt.</p>
             name: <p>The name of the prompt.</p>
             description: <p>A description of the prompt.</p>
-            s3_uri: <p>The URI for the S3 bucket where the prompt is stored. You can provide S3 pre-signed URLs returned by the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_GetPromptFile.html\">GetPromptFile</a> API instead of providing S3 URIs.</p>
+            s3_uri: <p>The URI for the S3 bucket where the prompt is stored. You can provide S3 pre-signed URLs returned by the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_GetPromptFile.html">GetPromptFile</a> API instead of providing S3 URIs.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -26050,10 +26050,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the hours of operation for the specified queue.</p>
+        """<p>Updates the hours of operation for the specified queue.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             hours_of_operation_id: <p>The identifier for the hours of operation.</p>
 
@@ -26103,10 +26103,10 @@ class ConnectClient:
             "capo_connect.types.queue_max_contacts.QueueMaxContacts"
         ] = None,
     ) -> None:
-        r"""<p>Updates the maximum number of contacts allowed in a queue before it is considered full.</p>
+        """<p>Updates the maximum number of contacts allowed in a queue before it is considered full.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             max_contacts: <p>The maximum number of contacts that can be in the queue before it is considered full.</p>
 
@@ -26160,10 +26160,10 @@ class ConnectClient:
             "capo_connect.types.queue_description.QueueDescription"
         ] = None,
     ) -> None:
-        r"""<p>Updates the name and description of a queue. At least <code>Name</code> or <code>Description</code> must be provided.</p>
+        """<p>Updates the name and description of a queue. At least <code>Name</code> or <code>Description</code> must be provided.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             name: <p>The name of the queue.</p>
             description: <p>The description of the queue.</p>
@@ -26216,10 +26216,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the outbound caller ID name, number, and outbound whisper flow for a specified queue.</p> <important> <ul> <li> <p>If the phone number is claimed to a traffic distribution group that was created in the same Region as the Connect Customer instance where you are calling this API, then you can use a full phone number ARN or a UUID for <code>OutboundCallerIdNumberId</code>. However, if the phone number is claimed to a traffic distribution group that is in one Region, and you are calling this API from an instance in another Amazon Web Services Region that is associated with the traffic distribution group, you must provide a full phone number ARN. If a UUID is provided in this scenario, you will receive a <code>ResourceNotFoundException</code>.</p> </li> <li> <p>Only use the phone number ARN format that doesn't contain <code>instance</code> in the path, for example, <code>arn:aws:connect:us-east-1:1234567890:phone-number/uuid</code>. This is the same ARN format that is returned when you call the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html\">ListPhoneNumbersV2</a> API.</p> </li> <li> <p>If you plan to use IAM policies to allow/deny access to this API for phone number resources claimed to a traffic distribution group, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security_iam_resource-level-policy-examples.html#allow-deny-queue-actions-replica-region\">Allow or Deny queue API actions for phone numbers in a replica Region</a>.</p> </li> </ul> </important>
+        """<p>Updates the outbound caller ID name, number, and outbound whisper flow for a specified queue.</p> <important> <ul> <li> <p>If the phone number is claimed to a traffic distribution group that was created in the same Region as the Connect Customer instance where you are calling this API, then you can use a full phone number ARN or a UUID for <code>OutboundCallerIdNumberId</code>. However, if the phone number is claimed to a traffic distribution group that is in one Region, and you are calling this API from an instance in another Amazon Web Services Region that is associated with the traffic distribution group, you must provide a full phone number ARN. If a UUID is provided in this scenario, you will receive a <code>ResourceNotFoundException</code>.</p> </li> <li> <p>Only use the phone number ARN format that doesn't contain <code>instance</code> in the path, for example, <code>arn:aws:connect:us-east-1:1234567890:phone-number/uuid</code>. This is the same ARN format that is returned when you call the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPhoneNumbersV2.html">ListPhoneNumbersV2</a> API.</p> </li> <li> <p>If you plan to use IAM policies to allow/deny access to this API for phone number resources claimed to a traffic distribution group, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security_iam_resource-level-policy-examples.html#allow-deny-queue-actions-replica-region">Allow or Deny queue API actions for phone numbers in a replica Region</a>.</p> </li> </ul> </important>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             outbound_caller_config: <p>The outbound caller ID name, number, and outbound whisper flow.</p>
 
@@ -26267,10 +26267,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the outbound email address Id for a specified queue.</p>
+        """<p>Updates the outbound email address Id for a specified queue.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             outbound_email_config: <p>The outbound email address ID for a specified queue.</p>
 
@@ -26320,10 +26320,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the status of the queue.</p>
+        """<p>Updates the status of the queue.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             queue_id: <p>The identifier for the queue.</p>
             status: <p>The status of the queue.</p>
 
@@ -26371,10 +26371,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the configuration settings for the specified quick connect.</p>
+        """<p>Updates the configuration settings for the specified quick connect.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             quick_connect_id: <p>The identifier for the quick connect.</p>
             quick_connect_config: <p>Information about the configuration settings for the quick connect.</p>
 
@@ -26425,10 +26425,10 @@ class ConnectClient:
             "capo_connect.types.update_quick_connect_description.UpdateQuickConnectDescription"
         ] = None,
     ) -> None:
-        r"""<p>Updates the name and description of a quick connect. The request accepts the following data in JSON format. At least <code>Name</code> or <code>Description</code> must be provided.</p>
+        """<p>Updates the name and description of a quick connect. The request accepts the following data in JSON format. At least <code>Name</code> or <code>Description</code> must be provided.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             quick_connect_id: <p>The identifier for the quick connect.</p>
             name: <p>The name of the quick connect.</p>
             description: <p>The description of the quick connect.</p>
@@ -26480,10 +26480,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Whether agents with this routing profile will have their routing order calculated based on <i>time since their last inbound contact</i> or <i>longest idle time</i>. </p>
+        """<p>Whether agents with this routing profile will have their routing order calculated based on <i>time since their last inbound contact</i> or <i>longest idle time</i>. </p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             agent_availability_timer: <p>Whether agents with this routing profile will have their routing order calculated based on <i>time since their last inbound contact</i> or <i>longest idle time</i>. </p>
 
@@ -26531,10 +26531,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the channels that agents can handle in the Contact Control Panel (CCP) for a routing profile.</p>
+        """<p>Updates the channels that agents can handle in the Contact Control Panel (CCP) for a routing profile.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             media_concurrencies: <p>The channels that agents can handle in the Contact Control Panel (CCP).</p>
 
@@ -26582,10 +26582,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the default outbound queue of a routing profile.</p>
+        """<p>Updates the default outbound queue of a routing profile.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             default_outbound_queue_id: <p>The identifier for the default outbound queue.</p>
 
@@ -26638,10 +26638,10 @@ class ConnectClient:
             "capo_connect.types.routing_profile_description.RoutingProfileDescription"
         ] = None,
     ) -> None:
-        r"""<p>Updates the name and description of a routing profile. The request accepts the following data in JSON format. At least <code>Name</code> or <code>Description</code> must be provided.</p>
+        """<p>Updates the name and description of a routing profile. The request accepts the following data in JSON format. At least <code>Name</code> or <code>Description</code> must be provided.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             name: <p>The name of the routing profile. Must not be more than 127 characters.</p>
             description: <p>The description of the routing profile. Must not be more than 250 characters.</p>
@@ -26694,10 +26694,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the properties associated with a set of queues for a routing profile.</p>
+        """<p>Updates the properties associated with a set of queues for a routing profile.</p>
 
         Args:
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             routing_profile_id: <p>The identifier of the routing profile.</p>
             queue_configs: <p>The queues to be updated for this routing profile. Queues must first be associated to the routing profile. You can do this using AssociateRoutingProfileQueues.</p>
 
@@ -26751,11 +26751,11 @@ class ConnectClient:
             "capo_connect.types.pre_evaluation_filters.PreEvaluationFilters"
         ] = None,
     ) -> None:
-        r"""<p>Updates a rule for the specified Connect Customer instance.</p> <p>Use the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/connect-rules-language.html\">Rules Function language</a> to code conditions for the rule. </p>
+        """<p>Updates a rule for the specified Connect Customer instance.</p> <p>Use the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/connect-rules-language.html">Rules Function language</a> to code conditions for the rule. </p>
 
         Args:
             rule_id: <p>A unique identifier for the rule.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the rule. You can change the name only if <code>TriggerEventSource</code> is one of the following values: <code>OnZendeskTicketCreate</code> | <code>OnZendeskTicketStatusUpdate</code> | <code>OnSalesforceCaseCreate</code> </p>
             function: <p>The conditions of the rule.</p>
             actions: <p>A list of actions to be run when the rule is triggered.</p>
@@ -26839,13 +26839,13 @@ class ConnectClient:
             "capo_connect.types.granular_access_control_configuration.GranularAccessControlConfiguration"
         ] = None,
     ) -> None:
-        r"""<p>Updates a security profile.</p> <p>For information about security profiles, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html\">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>. </p>
+        """<p>Updates a security profile.</p> <p>For information about security profiles, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-security-profiles.html">Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>. For a mapping of the API name and user interface name of the security profile permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>. </p>
 
         Args:
             description: <p>The description of the security profile.</p>
-            permissions: <p>The permissions granted to a security profile. For a list of valid permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>.</p>
+            permissions: <p>The permissions granted to a security profile. For a list of valid permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>.</p>
             security_profile_id: <p>The identifier for the security profle.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             allowed_access_control_tags: <p>The list of tags that a security profile uses to restrict access to resources in Connect Customer.</p>
             tag_restricted_resources: <p>The list of resources that a security profile applies tag restrictions to in Connect Customer.</p>
             applications: <p>A list of the third-party application's metadata.</p>
@@ -26943,11 +26943,11 @@ class ConnectClient:
             "capo_connect.types.task_template_fields.TaskTemplateFields"
         ] = None,
     ) -> "capo_connect.types.update_task_template_response.UpdateTaskTemplateResponse":
-        r"""<p>Updates details about a specific task template in the specified Connect Customer instance. This operation does not support partial updates. Instead it does a full update of template content.</p>
+        """<p>Updates details about a specific task template in the specified Connect Customer instance. This operation does not support partial updates. Instead it does a full update of template content.</p>
 
         Args:
             task_template_id: <p>A unique identifier for the task template.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             name: <p>The name of the task template.</p>
             description: <p>The description of the task template.</p>
             contact_flow_id: <p>The identifier of the flow that runs by default when a task is created by referencing this template.</p> <p>Although this parameter is marked as optional, the request must contain either a <code>ContactFlowId</code> or a field of type <code>QUICK_CONNECT</code>.</p>
@@ -27119,7 +27119,7 @@ class ConnectClient:
         ] = None,
         agent_config: Optional["capo_connect.types.agent_config.AgentConfig"] = None,
     ) -> "capo_connect.types.update_traffic_distribution_response.UpdateTrafficDistributionResponse":
-        r"""<p>Updates the traffic distribution for a given traffic distribution group. </p> <important> <p>When you shift telephony traffic, also shift agents and/or agent sign-ins to ensure they can handle the calls in the other Region. If you don't shift the agents, voice calls will go to the shifted Region but there won't be any agents available to receive the calls.</p> </important> <note> <p>The <code>SignInConfig</code> distribution is available only on a default <code>TrafficDistributionGroup</code> (see the <code>IsDefault</code> parameter in the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_TrafficDistributionGroup.html\">TrafficDistributionGroup</a> data type). If you call <code>UpdateTrafficDistribution</code> with a modified <code>SignInConfig</code> and a non-default <code>TrafficDistributionGroup</code>, an <code>InvalidRequestException</code> is returned.</p> </note> <p>For more information about updating a traffic distribution group, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/update-telephony-traffic-distribution.html\">Update telephony traffic distribution across Amazon Web Services Regions </a> in the <i>Connect Customer Administrator Guide</i>. </p> <p> <b>Important things to know</b> </p> <ul> <li> <p>Invoke the UpdateTrafficDistribution API in the region that should handle traffic.</p> </li> </ul>
+        """<p>Updates the traffic distribution for a given traffic distribution group. </p> <important> <p>When you shift telephony traffic, also shift agents and/or agent sign-ins to ensure they can handle the calls in the other Region. If you don't shift the agents, voice calls will go to the shifted Region but there won't be any agents available to receive the calls.</p> </important> <note> <p>The <code>SignInConfig</code> distribution is available only on a default <code>TrafficDistributionGroup</code> (see the <code>IsDefault</code> parameter in the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_TrafficDistributionGroup.html">TrafficDistributionGroup</a> data type). If you call <code>UpdateTrafficDistribution</code> with a modified <code>SignInConfig</code> and a non-default <code>TrafficDistributionGroup</code>, an <code>InvalidRequestException</code> is returned.</p> </note> <p>For more information about updating a traffic distribution group, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/update-telephony-traffic-distribution.html">Update telephony traffic distribution across Amazon Web Services Regions </a> in the <i>Connect Customer Administrator Guide</i>. </p> <p> <b>Important things to know</b> </p> <ul> <li> <p>Invoke the UpdateTrafficDistribution API in the region that should handle traffic.</p> </li> </ul>
 
         Args:
             id: <p>The identifier of the traffic distribution group. This can be the ID or the ARN if the API is being called in the Region where the traffic distribution group was created. The ARN must be provided if the call is from the replicated Region. </p>
@@ -27192,7 +27192,7 @@ class ConnectClient:
             "capo_connect.types.voice_enhancement_configs.VoiceEnhancementConfigs"
         ] = None,
     ) -> None:
-        r"""<p>Updates the configuration settings for the specified user, including per-channel auto-accept and after contact work (ACW) timeout settings.</p> <note> <p>This operation replaces the UpdateUserPhoneConfig API. While UpdateUserPhoneConfig applies the same ACW timeout to all channels, UpdateUserConfig allows you to set different auto-accept and ACW timeout values for each channel type.</p> </note>
+        """<p>Updates the configuration settings for the specified user, including per-channel auto-accept and after contact work (ACW) timeout settings.</p> <note> <p>This operation replaces the UpdateUserPhoneConfig API. While UpdateUserPhoneConfig applies the same ACW timeout to all channels, UpdateUserConfig allows you to set different auto-accept and ACW timeout values for each channel type.</p> </note>
 
         Args:
             auto_accept_configs: <p>The list of auto-accept configuration settings for each channel. When auto-accept is enabled for a channel, available agents are automatically connected to contacts from that channel without needing to manually accept. Auto-accept connects agents to contacts in less than one second.</p>
@@ -27201,7 +27201,7 @@ class ConnectClient:
             persistent_connection_configs: <p>The list of persistent connection configuration settings for each channel.</p>
             voice_enhancement_configs: <p>The list of voice enhancement configuration settings for each channel.</p>
             user_id: <p>The identifier of the user account.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.conditional_operation_failed_exception.ConditionalOperationFailedException: <p>Request processing failed because dependent condition failed.</p>
@@ -27259,12 +27259,12 @@ class ConnectClient:
             "capo_connect.types.hierarchy_group_id.HierarchyGroupId"
         ] = None,
     ) -> None:
-        r"""<p>Assigns the specified hierarchy group to the specified user.</p>
+        """<p>Assigns the specified hierarchy group to the specified user.</p>
 
         Args:
             hierarchy_group_id: <p>The identifier of the hierarchy group.</p>
             user_id: <p>The identifier of the user account.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -27311,12 +27311,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the name of the user hierarchy group. </p>
+        """<p>Updates the name of the user hierarchy group. </p>
 
         Args:
             name: <p>The name of the hierarchy group. Must not be more than 100 characters.</p>
             hierarchy_group_id: <p>The identifier of the hierarchy group.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
@@ -27362,11 +27362,11 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the user hierarchy structure: add, remove, and rename user hierarchy levels.</p>
+        """<p>Updates the user hierarchy structure: add, remove, and rename user hierarchy levels.</p>
 
         Args:
             hierarchy_structure: <p>The hierarchy levels to update.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -27412,12 +27412,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the identity information for the specified user.</p> <important> <p>We strongly recommend limiting who has the ability to invoke <code>UpdateUserIdentityInfo</code>. Someone with that ability can change the login credentials of other users by changing their email address. This poses a security risk to your organization. They can change the email address of a user to the attacker's email address, and then reset the password through email. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-best-practices.html\">Best Practices for Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>.</p> </important>
+        """<p>Updates the identity information for the specified user.</p> <important> <p>We strongly recommend limiting who has the ability to invoke <code>UpdateUserIdentityInfo</code>. Someone with that ability can change the login credentials of other users by changing their email address. This poses a security risk to your organization. They can change the email address of a user to the attacker's email address, and then reset the password through email. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-best-practices.html">Best Practices for Security Profiles</a> in the <i>Connect Customer Administrator Guide</i>.</p> </important>
 
         Args:
             identity_info: <p>The identity information for the user.</p>
             user_id: <p>The identifier of the user account.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -27468,10 +27468,10 @@ class ConnectClient:
             "capo_connect.types.region_name.RegionName"
         ] = None,
     ) -> "capo_connect.types.update_user_notification_status_response.UpdateUserNotificationStatusResponse":
-        r"""<p>Updates the status of a notification for a specific user, such as marking it as read or hidden. Users can only update notification status for notifications that have been sent to them. READ status deprioritizes the notification and greys it out, while HIDDEN status removes it from the notification widget.</p>
+        """<p>Updates the status of a notification for a specific user, such as marking it as read or hidden. Users can only update notification status for notifications that have been sent to them. READ status deprioritizes the notification and greys it out, while HIDDEN status removes it from the notification widget.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             notification_id: <p>The unique identifier for the notification.</p>
             user_id: <p>The identifier of the user whose notification status is being updated.</p>
             status: <p>The new status for the notification. Valid values are READ, UNREAD, and HIDDEN.</p>
@@ -27530,12 +27530,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the phone configuration settings for the specified user.</p> <note> <p>We recommend using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_UpdateUserConfig.html\">UpdateUserConfig</a> API, which supports additional functionality that is not available in the UpdateUserPhoneConfig API, such as voice enhancement settings and per-channel configuration for auto-accept and After Contact Work (ACW) timeouts. In comparison, the UpdateUserPhoneConfig API will always set the same ACW timeouts to all channels the user handles.</p> </note>
+        """<p>Updates the phone configuration settings for the specified user.</p> <note> <p>We recommend using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_UpdateUserConfig.html">UpdateUserConfig</a> API, which supports additional functionality that is not available in the UpdateUserPhoneConfig API, such as voice enhancement settings and per-channel configuration for auto-accept and After Contact Work (ACW) timeouts. In comparison, the UpdateUserPhoneConfig API will always set the same ACW timeouts to all channels the user handles.</p> </note>
 
         Args:
             phone_config: <p>Information about phone configuration settings for the user.</p>
             user_id: <p>The identifier of the user account.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -27632,12 +27632,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Assigns the specified routing profile to the specified user.</p>
+        """<p>Assigns the specified routing profile to the specified user.</p>
 
         Args:
             routing_profile_id: <p>The identifier of the routing profile for the user.</p>
             user_id: <p>The identifier of the user account.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -27683,12 +27683,12 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> None:
-        r"""<p>Assigns the specified security profiles to the specified user.</p>
+        """<p>Assigns the specified security profiles to the specified user.</p>
 
         Args:
             security_profile_ids: <p>The identifiers of the security profiles for the user.</p>
             user_id: <p>The identifier of the user account.</p>
-            instance_id: <p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
 
         Raises:
             capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -27859,10 +27859,10 @@ class ConnectClient:
         ] = None,
         title: Optional["capo_connect.types.workspace_title.WorkspaceTitle"] = None,
     ) -> "capo_connect.types.update_workspace_metadata_response.UpdateWorkspaceMetadataResponse":
-        r"""<p>Updates the metadata of a workspace, such as its name and description.</p>
+        """<p>Updates the metadata of a workspace, such as its name and description.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             name: <p>The name of the workspace.</p>
             description: <p>The description of the workspace.</p>
@@ -27927,10 +27927,10 @@ class ConnectClient:
     ) -> (
         "capo_connect.types.update_workspace_page_response.UpdateWorkspacePageResponse"
     ):
-        r"""<p>Updates the configuration of a page in a workspace, including the associated view and input data.</p>
+        """<p>Updates the configuration of a page in a workspace, including the associated view and input data.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             page: <p>The current page identifier.</p>
             new_page: <p>The new page identifier, if changing the page name.</p>
@@ -27995,10 +27995,10 @@ class ConnectClient:
         config_overrides: Optional[ConnectClientConfig] = None,
         theme: Optional["capo_connect.types.workspace_theme.WorkspaceTheme"] = None,
     ) -> "capo_connect.types.update_workspace_theme_response.UpdateWorkspaceThemeResponse":
-        r"""<p>Updates the theme configuration for a workspace, including colors and styling.</p>
+        """<p>Updates the theme configuration for a workspace, including colors and styling.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             theme: <p>The theme configuration, including color schemes and visual styles.</p>
 
@@ -28050,10 +28050,10 @@ class ConnectClient:
         *,
         config_overrides: Optional[ConnectClientConfig] = None,
     ) -> "capo_connect.types.update_workspace_visibility_response.UpdateWorkspaceVisibilityResponse":
-        r"""<p>Updates the visibility setting of a workspace, controlling whether it is available to all users, assigned users only, or none.</p>
+        """<p>Updates the visibility setting of a workspace, controlling whether it is available to all users, assigned users only, or none.</p>
 
         Args:
-            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            instance_id: <p>The identifier of the Amazon Connect instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
             workspace_id: <p>The identifier of the workspace.</p>
             visibility: <p>The visibility setting for the workspace. Valid values are: <code>ALL</code> (available to all users), <code>ASSIGNED</code> (available only to assigned users and routing profiles), and <code>NONE</code> (not visible to any users).</p>
 

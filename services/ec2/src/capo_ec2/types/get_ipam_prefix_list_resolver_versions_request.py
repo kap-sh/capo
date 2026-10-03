@@ -27,7 +27,7 @@ class GetIpamPrefixListResolverVersionsRequest(TypedDict, closed=True):
     ]
     """<p>Specific version numbers to retrieve. If not specified, all versions are returned.</p>"""
     max_results: NotRequired["capo_ec2.types.ipam_max_results.IpamMaxResults"]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     filters: NotRequired["capo_ec2.types.filter_list.FilterList"]
     """<p>One or more filters to limit the results.</p>"""
     next_token: NotRequired["capo_ec2.types.next_token.NextToken"]

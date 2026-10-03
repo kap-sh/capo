@@ -44,9 +44,9 @@ class Endpoint(TypedDict, closed=True):
     monitoring_schedules: NotRequired[
         "capo_sagemaker.types.monitoring_schedule_list.MonitoringScheduleList"
     ]
-    r"""<p>A list of monitoring schedules for the endpoint. For information about model monitoring, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html\">Amazon SageMaker Model Monitor</a>.</p>"""
+    """<p>A list of monitoring schedules for the endpoint. For information about model monitoring, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html">Amazon SageMaker Model Monitor</a>.</p>"""
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>A list of the tags associated with the endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services resources</a> in the <i>Amazon Web Services General Reference Guide</i>.</p>"""
+    """<p>A list of the tags associated with the endpoint. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a> in the <i>Amazon Web Services General Reference Guide</i>.</p>"""
     shadow_production_variants: NotRequired[
         "capo_sagemaker.types.production_variant_summary_list.ProductionVariantSummaryList"
     ]

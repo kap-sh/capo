@@ -270,13 +270,13 @@ class BillingClient:
             "capo_billing.types.resource_tag_list.ResourceTagList"
         ] = None,
     ) -> "capo_billing.types.create_billing_view_response.CreateBillingViewResponse":
-        r"""<p> Creates a billing view with the specified billing view attributes. </p>
+        """<p> Creates a billing view with the specified billing view attributes. </p>
 
         Args:
             name: <p> The name of the billing view. </p>
             description: <p> The description of the billing view. </p>
             source_views: <p>A list of billing views used as the data source for the custom billing view.</p>
-            data_filter_expression: <p> See <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html\">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>
+            data_filter_expression: <p> See <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>
             client_token: <p>A unique, case-sensitive identifier you specify to ensure idempotency of the request. Idempotency ensures that an API request completes no more than one time. If the original request completes successfully, any subsequent retries complete successfully without performing any further actions with an idempotent request. </p>
             resource_tags: <p>A list of key value map specifying tags associated to the billing view being created. </p>
 
@@ -1532,13 +1532,13 @@ class BillingClient:
             "capo_billing.types.expression.Expression"
         ] = None,
     ) -> "capo_billing.types.update_billing_view_response.UpdateBillingViewResponse":
-        r"""<p>An API to update the attributes of the billing view. </p>
+        """<p>An API to update the attributes of the billing view. </p>
 
         Args:
             arn: <p> The Amazon Resource Name (ARN) that can be used to uniquely identify the billing view. </p>
             name: <p> The name of the billing view. </p>
             description: <p> The description of the billing view. </p>
-            data_filter_expression: <p>See <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html\">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>
+            data_filter_expression: <p>See <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>
 
         Raises:
             capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>

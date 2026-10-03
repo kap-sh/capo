@@ -19,7 +19,7 @@ class TriggerUpdate(TypedDict, closed=True):
     description: NotRequired["capo_glue.types.description_string.DescriptionString"]
     """<p>A description of this trigger.</p>"""
     schedule: NotRequired["capo_glue.types.generic_string.GenericString"]
-    r"""<p>A <code>cron</code> expression used to specify the schedule (see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html\">Time-Based Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>"""
+    """<p>A <code>cron</code> expression used to specify the schedule (see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>"""
     actions: NotRequired["capo_glue.types.action_list.ActionList"]
     """<p>The actions initiated by this trigger.</p>"""
     predicate: NotRequired["capo_glue.types.predicate.Predicate"]

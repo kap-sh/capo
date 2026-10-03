@@ -34,7 +34,7 @@ class CreateEndpointRequest(TypedDict, closed=True):
     ]
     """<p>An idempotency token provided by the customer. If this token matches a previous endpoint creation request, Amazon Comprehend will not return a <code>ResourceInUseException</code>. </p>"""
     tags: NotRequired["capo_comprehend.types.tag_list.TagList"]
-    r"""<p>Tags to associate with the endpoint. A tag is a key-value pair that adds metadata to the endpoint. For example, a tag with \"Sales\" as the key might be added to an endpoint to indicate its use by the sales department. </p>"""
+    """<p>Tags to associate with the endpoint. A tag is a key-value pair that adds metadata to the endpoint. For example, a tag with "Sales" as the key might be added to an endpoint to indicate its use by the sales department. </p>"""
     data_access_role_arn: NotRequired["capo_comprehend.types.iam_role_arn.IamRoleArn"]
     """<p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to trained custom models encrypted with a customer managed key (ModelKmsKeyId).</p>"""
     flywheel_arn: NotRequired[

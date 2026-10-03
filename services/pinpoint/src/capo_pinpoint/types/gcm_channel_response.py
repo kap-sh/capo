@@ -18,7 +18,7 @@ class GCMChannelResponse(TypedDict, closed=True):
     credential: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>, that you received from Google to communicate with Google services.</p>"""
     default_authentication_method: NotRequired["capo_pinpoint.types.__string.__string"]
-    r"""<p>The default authentication method used for GCM. Values are either \"TOKEN\" or \"KEY\". Defaults to \"KEY\".</p>"""
+    """<p>The default authentication method used for GCM. Values are either "TOKEN" or "KEY". Defaults to "KEY".</p>"""
     enabled: NotRequired["capo_pinpoint.types.__boolean.__boolean"]
     """<p>Specifies whether the GCM channel is enabled for the application.</p>"""
     has_credential: NotRequired["capo_pinpoint.types.__boolean.__boolean"]

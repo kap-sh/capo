@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 
 class UpdateOpenIDConnectProviderThumbprintRequest(TypedDict, closed=True):
     open_id_connect_provider_arn: "capo_iam.types.arn_type.arnType"
-    r"""<p>The Amazon Resource Name (ARN) of the IAM OIDC provider resource object for which you want to update the thumbprint. You can get a list of OIDC provider ARNs by using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListOpenIDConnectProviders.html\">ListOpenIDConnectProviders</a> operation.</p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM OIDC provider resource object for which you want to update the thumbprint. You can get a list of OIDC provider ARNs by using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListOpenIDConnectProviders.html">ListOpenIDConnectProviders</a> operation.</p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     thumbprint_list: "capo_iam.types.thumbprint_list_type.thumbprintListType"
-    r"""<p>A list of certificate thumbprints that are associated with the specified IAM OpenID Connect provider. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateOpenIDConnectProvider.html\">CreateOpenIDConnectProvider</a>. </p>"""
+    """<p>A list of certificate thumbprints that are associated with the specified IAM OpenID Connect provider. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateOpenIDConnectProvider.html">CreateOpenIDConnectProvider</a>. </p>"""
 
 
 # --- awsQuery ser/de ---

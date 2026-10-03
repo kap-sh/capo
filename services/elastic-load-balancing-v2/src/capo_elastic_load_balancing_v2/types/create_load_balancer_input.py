@@ -24,7 +24,7 @@ class CreateLoadBalancerInput(TypedDict, closed=True):
     name: NotRequired[
         "capo_elastic_load_balancing_v2.types.load_balancer_name.LoadBalancerName"
     ]
-    r"""<p>The name of the load balancer.</p> <p>This name must be unique per region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, must not begin or end with a hyphen, and must not begin with \"internal-\".</p>"""
+    """<p>The name of the load balancer.</p> <p>This name must be unique per region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, must not begin or end with a hyphen, and must not begin with "internal-".</p>"""
     subnets: NotRequired["capo_elastic_load_balancing_v2.types.subnets.Subnets"]
     """<p>The IDs of the subnets. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings, but not both. To specify an Elastic IP address, specify subnet mappings instead of subnets.</p> <p>[Application Load Balancers] You must specify subnets from at least two Availability Zones.</p> <p>[Application Load Balancers on Outposts] You must specify one Outpost subnet.</p> <p>[Application Load Balancers on Local Zones] You can specify subnets from one or more Local Zones.</p> <p>[Network Load Balancers and Gateway Load Balancers] You can specify subnets from one or more Availability Zones.</p>"""
     subnet_mappings: NotRequired[

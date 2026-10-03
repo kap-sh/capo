@@ -13,7 +13,7 @@ class UpdateApplicationRequest(TypedDict, closed=True):
     application_id: "capo_serverlessapplicationrepository.types.__string.__string"
     """<p>The Amazon Resource Name (ARN) of the application.</p>"""
     author: NotRequired["capo_serverlessapplicationrepository.types.__string.__string"]
-    r"""<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"""
+    """<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";</p>"""
     description: NotRequired[
         "capo_serverlessapplicationrepository.types.__string.__string"
     ]
@@ -25,7 +25,7 @@ class UpdateApplicationRequest(TypedDict, closed=True):
     labels: NotRequired[
         "capo_serverlessapplicationrepository.types.__list_of__string.__listOf__string"
     ]
-    r"""<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\-_:\\/@]+$\";</p>"""
+    r"""<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";</p>"""
     readme_body: NotRequired[
         "capo_serverlessapplicationrepository.types.__string.__string"
     ]

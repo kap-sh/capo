@@ -21,7 +21,7 @@ class EventSubscription(TypedDict, closed=True):
     sns_topic_arn: NotRequired["capo_neptune.types.string.String"]
     """<p>The topic ARN of the event notification subscription.</p>"""
     status: NotRequired["capo_neptune.types.string.String"]
-    r"""<p>The status of the event notification subscription.</p> <p>Constraints:</p> <p>Can be one of the following: creating | modifying | deleting | active | no-permission | topic-not-exist</p> <p>The status \"no-permission\" indicates that Neptune no longer has permission to post to the SNS topic. The status \"topic-not-exist\" indicates that the topic was deleted after the subscription was created.</p>"""
+    """<p>The status of the event notification subscription.</p> <p>Constraints:</p> <p>Can be one of the following: creating | modifying | deleting | active | no-permission | topic-not-exist</p> <p>The status "no-permission" indicates that Neptune no longer has permission to post to the SNS topic. The status "topic-not-exist" indicates that the topic was deleted after the subscription was created.</p>"""
     subscription_creation_time: NotRequired["capo_neptune.types.string.String"]
     """<p>The time the event notification subscription was created.</p>"""
     source_type: NotRequired["capo_neptune.types.string.String"]

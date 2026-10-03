@@ -20,7 +20,7 @@ class CreateDatabaseRequest(TypedDict, closed=True):
     kms_key_id: NotRequired[
         "capo_timestream_write.types.string_value2048.StringValue2048"
     ]
-    r"""<p>The KMS key for the database. If the KMS key is not specified, the database will be encrypted with a Timestream managed KMS key located in your account. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk\">Amazon Web Services managed keys</a>.</p>"""
+    """<p>The KMS key for the database. If the KMS key is not specified, the database will be encrypted with a Timestream managed KMS key located in your account. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk">Amazon Web Services managed keys</a>.</p>"""
     tags: NotRequired["capo_timestream_write.types.tag_list.TagList"]
     """<p> A list of key-value pairs to label the table. </p>"""
 

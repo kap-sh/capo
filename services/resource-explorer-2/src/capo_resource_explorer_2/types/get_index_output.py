@@ -15,9 +15,9 @@ if TYPE_CHECKING:
 
 class GetIndexOutput(TypedDict, closed=True):
     arn: NotRequired["str"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of the index.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of the index.</p>"""
     type: NotRequired["capo_resource_explorer_2.types.index_type.IndexType"]
-    r"""<p>The type of the index in this Region. For information about the aggregator index and how it differs from a local index, see <a href=\"https://docs.aws.amazon.com/resource-explorer/latest/userguide/manage-aggregator-region.html\">Turning on cross-Region search by creating an aggregator index</a>.</p>"""
+    """<p>The type of the index in this Region. For information about the aggregator index and how it differs from a local index, see <a href="https://docs.aws.amazon.com/resource-explorer/latest/userguide/manage-aggregator-region.html">Turning on cross-Region search by creating an aggregator index</a>.</p>"""
     state: NotRequired["capo_resource_explorer_2.types.index_state.IndexState"]
     """<p>The current state of the index in this Amazon Web Services Region.</p>"""
     replicating_from: NotRequired[

@@ -19,7 +19,7 @@ class CreateComponentVersionRequest(TypedDict, closed=True):
     ]
     """<p>The parameters to create a component from a Lambda function.</p> <p>You must specify either <code>inlineRecipe</code> or <code>lambdaFunction</code>.</p>"""
     tags: NotRequired["capo_greengrassv2.types.tag_map.TagMap"]
-    r"""<p>A list of key-value pairs that contain metadata for the resource. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/tag-resources.html\">Tag your resources</a> in the <i>IoT Greengrass V2 Developer Guide</i>.</p>"""
+    """<p>A list of key-value pairs that contain metadata for the resource. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/tag-resources.html">Tag your resources</a> in the <i>IoT Greengrass V2 Developer Guide</i>.</p>"""
     client_token: NotRequired[
         "capo_greengrassv2.types.client_token_string.ClientTokenString"
     ]

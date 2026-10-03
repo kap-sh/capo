@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CancelAuditTaskRequest(TypedDict, closed=True):
     task_id: "capo_iot.types.audit_task_id.AuditTaskId"
-    r"""<p>The ID of the audit you want to cancel. You can only cancel an audit that is \"IN_PROGRESS\".</p>"""
+    """<p>The ID of the audit you want to cancel. You can only cancel an audit that is "IN_PROGRESS".</p>"""
 
 
 # --- restJson1 ser/de ---

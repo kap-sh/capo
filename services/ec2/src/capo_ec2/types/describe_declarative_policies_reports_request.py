@@ -21,7 +21,7 @@ class DescribeDeclarativePoliciesReportsRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.declarative_policies_max_results.DeclarativePoliciesMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     report_ids: NotRequired["capo_ec2.types.value_string_list.ValueStringList"]
     """<p>One or more report IDs.</p>"""
 

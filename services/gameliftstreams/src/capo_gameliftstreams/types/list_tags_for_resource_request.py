@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_gameliftstreams.types.arn.Arn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that you want to retrieve tags for. To get an Amazon GameLift Streams resource ARN, call a List or Get operation for the resource.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that you want to retrieve tags for. To get an Amazon GameLift Streams resource ARN, call a List or Get operation for the resource.</p>"""
 
 
 # --- restJson1 ser/de ---

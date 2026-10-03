@@ -127,7 +127,7 @@ class ApplicationResource:
             "capo_emr_serverless.types.job_level_cost_allocation_configuration.JobLevelCostAllocationConfiguration"
         ] = None,
     ) -> "capo_emr_serverless.types.create_application_response.CreateApplicationResponse":
-        r"""<p>Creates an application.</p>
+        """<p>Creates an application.</p>
 
         Args:
             name: <p>The name of the application.</p>
@@ -143,7 +143,7 @@ class ApplicationResource:
             architecture: <p>The CPU architecture of an application.</p>
             image_configuration: <p>The image configuration for all worker types. You can either set this parameter or <code>imageConfiguration</code> for each worker type in <code>workerTypeSpecifications</code>.</p>
             worker_type_specifications: <p>The key-value pairs that specify worker type to <code>WorkerTypeSpecificationInput</code>. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include <code>Driver</code> and <code>Executor</code> for Spark applications and <code>HiveDriver</code> and <code>TezTask</code> for Hive applications. You can either set image details in this parameter for each worker type, or in <code>imageConfiguration</code> for all worker types.</p>
-            runtime_configuration: <p>The <a href=\"https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html\">Configuration</a> specifications to use when creating an application. Each configuration consists of a classification and properties. This configuration is applied to all the job runs submitted under the application.</p>
+            runtime_configuration: <p>The <a href="https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html">Configuration</a> specifications to use when creating an application. Each configuration consists of a classification and properties. This configuration is applied to all the job runs submitted under the application.</p>
             monitoring_configuration: <p>The configuration setting for monitoring.</p>
             disk_encryption_configuration: <p>The configuration object that allows encrypting local disks.</p>
             interactive_configuration: <p>The interactive configuration object that enables the interactive use cases to use when running an application.</p>
@@ -324,7 +324,7 @@ class ApplicationResource:
             "capo_emr_serverless.types.job_level_cost_allocation_configuration.JobLevelCostAllocationConfiguration"
         ] = None,
     ) -> "capo_emr_serverless.types.update_application_response.UpdateApplicationResponse":
-        r"""<p>Updates a specified application. An application has to be in a stopped or created state in order to be updated.</p>
+        """<p>Updates a specified application. An application has to be in a stopped or created state in order to be updated.</p>
 
         Args:
             application_id: <p>The ID of the application to update.</p>
@@ -338,7 +338,7 @@ class ApplicationResource:
             worker_type_specifications: <p>The key-value pairs that specify worker type to <code>WorkerTypeSpecificationInput</code>. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include <code>Driver</code> and <code>Executor</code> for Spark applications and <code>HiveDriver</code> and <code>TezTask</code> for Hive applications. You can either set image details in this parameter for each worker type, or in <code>imageConfiguration</code> for all worker types.</p>
             interactive_configuration: <p>The interactive configuration object that contains new interactive use cases when the application is updated.</p>
             release_label: <p>The Amazon EMR release label for the application. You can change the release label to use a different release of Amazon EMR.</p>
-            runtime_configuration: <p>The <a href=\"https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html\">Configuration</a> specifications to use when updating an application. Each configuration consists of a classification and properties. This configuration is applied across all the job runs submitted under the application.</p>
+            runtime_configuration: <p>The <a href="https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html">Configuration</a> specifications to use when updating an application. Each configuration consists of a classification and properties. This configuration is applied across all the job runs submitted under the application.</p>
             monitoring_configuration: <p>The configuration setting for monitoring.</p>
             disk_encryption_configuration: <p>The configuration object that allows encrypting local disks.</p>
             scheduler_configuration: <p>The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.</p>
@@ -721,7 +721,7 @@ class AsyncApplicationResource:
             "capo_emr_serverless.types.job_level_cost_allocation_configuration.JobLevelCostAllocationConfiguration"
         ] = None,
     ) -> "capo_emr_serverless.types.create_application_response.CreateApplicationResponse":
-        r"""<p>Creates an application.</p>
+        """<p>Creates an application.</p>
 
         Args:
             name: <p>The name of the application.</p>
@@ -737,7 +737,7 @@ class AsyncApplicationResource:
             architecture: <p>The CPU architecture of an application.</p>
             image_configuration: <p>The image configuration for all worker types. You can either set this parameter or <code>imageConfiguration</code> for each worker type in <code>workerTypeSpecifications</code>.</p>
             worker_type_specifications: <p>The key-value pairs that specify worker type to <code>WorkerTypeSpecificationInput</code>. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include <code>Driver</code> and <code>Executor</code> for Spark applications and <code>HiveDriver</code> and <code>TezTask</code> for Hive applications. You can either set image details in this parameter for each worker type, or in <code>imageConfiguration</code> for all worker types.</p>
-            runtime_configuration: <p>The <a href=\"https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html\">Configuration</a> specifications to use when creating an application. Each configuration consists of a classification and properties. This configuration is applied to all the job runs submitted under the application.</p>
+            runtime_configuration: <p>The <a href="https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html">Configuration</a> specifications to use when creating an application. Each configuration consists of a classification and properties. This configuration is applied to all the job runs submitted under the application.</p>
             monitoring_configuration: <p>The configuration setting for monitoring.</p>
             disk_encryption_configuration: <p>The configuration object that allows encrypting local disks.</p>
             interactive_configuration: <p>The interactive configuration object that enables the interactive use cases to use when running an application.</p>
@@ -920,7 +920,7 @@ class AsyncApplicationResource:
             "capo_emr_serverless.types.job_level_cost_allocation_configuration.JobLevelCostAllocationConfiguration"
         ] = None,
     ) -> "capo_emr_serverless.types.update_application_response.UpdateApplicationResponse":
-        r"""<p>Updates a specified application. An application has to be in a stopped or created state in order to be updated.</p>
+        """<p>Updates a specified application. An application has to be in a stopped or created state in order to be updated.</p>
 
         Args:
             application_id: <p>The ID of the application to update.</p>
@@ -934,7 +934,7 @@ class AsyncApplicationResource:
             worker_type_specifications: <p>The key-value pairs that specify worker type to <code>WorkerTypeSpecificationInput</code>. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include <code>Driver</code> and <code>Executor</code> for Spark applications and <code>HiveDriver</code> and <code>TezTask</code> for Hive applications. You can either set image details in this parameter for each worker type, or in <code>imageConfiguration</code> for all worker types.</p>
             interactive_configuration: <p>The interactive configuration object that contains new interactive use cases when the application is updated.</p>
             release_label: <p>The Amazon EMR release label for the application. You can change the release label to use a different release of Amazon EMR.</p>
-            runtime_configuration: <p>The <a href=\"https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html\">Configuration</a> specifications to use when updating an application. Each configuration consists of a classification and properties. This configuration is applied across all the job runs submitted under the application.</p>
+            runtime_configuration: <p>The <a href="https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html">Configuration</a> specifications to use when updating an application. Each configuration consists of a classification and properties. This configuration is applied across all the job runs submitted under the application.</p>
             monitoring_configuration: <p>The configuration setting for monitoring.</p>
             disk_encryption_configuration: <p>The configuration object that allows encrypting local disks.</p>
             scheduler_configuration: <p>The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.</p>

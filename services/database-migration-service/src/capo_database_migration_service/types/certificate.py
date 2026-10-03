@@ -25,7 +25,7 @@ class Certificate(TypedDict, closed=True):
     certificate_wallet: NotRequired[
         "capo_database_migration_service.types.certificate_wallet.CertificateWallet"
     ]
-    r"""<p>The location of an imported Oracle Wallet certificate for use with SSL. Example: <code>filebase64(\"${path.root}/rds-ca-2019-root.sso\")</code> </p>"""
+    """<p>The location of an imported Oracle Wallet certificate for use with SSL. Example: <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code> </p>"""
     certificate_arn: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The Amazon Resource Name (ARN) for the certificate.</p>"""
     certificate_owner: NotRequired[

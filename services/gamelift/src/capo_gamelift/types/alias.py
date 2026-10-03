@@ -21,7 +21,7 @@ class Alias(TypedDict, closed=True):
     ]
     """<p>A descriptive label that is associated with an alias. Alias names do not need to be unique.</p>"""
     alias_arn: NotRequired["capo_gamelift.types.alias_arn.AliasArn"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) that is assigned to a Amazon GameLift Servers alias resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a GameLift alias ARN, the resource ID matches the alias ID value.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a Amazon GameLift Servers alias resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a GameLift alias ARN, the resource ID matches the alias ID value.</p>"""
     description: NotRequired["capo_gamelift.types.free_text.FreeText"]
     """<p>A human-readable description of an alias.</p>"""
     routing_strategy: NotRequired[
@@ -29,9 +29,9 @@ class Alias(TypedDict, closed=True):
     ]
     """<p>The routing configuration, including routing type and fleet target, for the alias. </p>"""
     creation_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>).</p>"""
+    """<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).</p>"""
     last_updated_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>The time that this data object was last modified. Format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>).</p>"""
+    """<p>The time that this data object was last modified. Format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -26,7 +26,7 @@ class Vocabulary(TypedDict, closed=True):
     arn: "capo_connect.types.arn.ARN"
     """<p>The Amazon Resource Name (ARN) of the custom vocabulary.</p>"""
     language_code: "capo_connect.types.vocabulary_language_code.VocabularyLanguageCode"
-    r"""<p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html\">What is Amazon Transcribe?</a> </p>"""
+    """<p>The language code of the vocabulary entries. For a list of languages and their corresponding language codes, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/transcribe-whatis.html">What is Amazon Transcribe?</a> </p>"""
     state: "capo_connect.types.vocabulary_state.VocabularyState"
     """<p>The current state of the custom vocabulary.</p>"""
     last_modified_time: (
@@ -38,9 +38,9 @@ class Vocabulary(TypedDict, closed=True):
     ]
     """<p>The reason why the custom vocabulary was not created.</p>"""
     content: NotRequired["capo_connect.types.vocabulary_content.VocabularyContent"]
-    r"""<p>The content of the custom vocabulary in plain-text format with a table of values. Each row in the table represents a word or a phrase, described with <code>Phrase</code>, <code>IPA</code>, <code>SoundsLike</code>, and <code>DisplayAs</code> fields. Separate the fields with TAB characters. For more information, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/custom-vocabulary.html#create-vocabulary-table\">Create a custom vocabulary using a table</a>.</p>"""
+    """<p>The content of the custom vocabulary in plain-text format with a table of values. Each row in the table represents a word or a phrase, described with <code>Phrase</code>, <code>IPA</code>, <code>SoundsLike</code>, and <code>DisplayAs</code> fields. Separate the fields with TAB characters. For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/custom-vocabulary.html#create-vocabulary-table">Create a custom vocabulary using a table</a>.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

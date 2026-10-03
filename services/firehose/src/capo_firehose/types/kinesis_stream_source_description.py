@@ -14,9 +14,9 @@ class KinesisStreamSourceDescription(TypedDict, closed=True):
     kinesis_stream_arn: NotRequired[
         "capo_firehose.types.kinesis_stream_arn.KinesisStreamARN"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of the source Kinesis data stream. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams\">Amazon Kinesis Data Streams ARN Format</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the source Kinesis data stream. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">Amazon Kinesis Data Streams ARN Format</a>.</p>"""
     role_arn: NotRequired["capo_firehose.types.role_arn.RoleARN"]
-    r"""<p>The ARN of the role used by the source Kinesis data stream. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam\">Amazon Web Services Identity and Access Management (IAM) ARN Format</a>.</p>"""
+    """<p>The ARN of the role used by the source Kinesis data stream. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">Amazon Web Services Identity and Access Management (IAM) ARN Format</a>.</p>"""
     delivery_start_timestamp: NotRequired[
         "capo_firehose.types.delivery_start_timestamp.DeliveryStartTimestamp"
     ]

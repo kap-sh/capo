@@ -15,7 +15,7 @@ class TargetedSentimentEntity(TypedDict, closed=True):
     ]
     """<p>One or more index into the Mentions array that provides the best name for the entity group.</p>"""
     mentions: NotRequired["capo_comprehend.types.list_of_mentions.ListOfMentions"]
-    r"""<p>An array of mentions of the entity in the document. The array represents a co-reference group. See <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html#how-targeted-sentiment-values\"> Co-reference group</a> for an example. </p>"""
+    """<p>An array of mentions of the entity in the document. The array represents a co-reference group. See <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html#how-targeted-sentiment-values"> Co-reference group</a> for an example. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

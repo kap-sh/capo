@@ -16,7 +16,7 @@ class BatchContainerOverrides(TypedDict, closed=True):
     environment: NotRequired[
         "capo_pipes.types.batch_environment_variable_list.BatchEnvironmentVariableList"
     ]
-    r"""<p>The environment variables to send to the container. You can add new environment variables, which are added to the container at launch, or you can override the existing environment variables from the Docker image or the task definition.</p> <note> <p>Environment variables cannot start with \"<code>Batch</code>\". This naming convention is reserved for variables that Batch sets.</p> </note>"""
+    """<p>The environment variables to send to the container. You can add new environment variables, which are added to the container at launch, or you can override the existing environment variables from the Docker image or the task definition.</p> <note> <p>Environment variables cannot start with "<code>Batch</code>". This naming convention is reserved for variables that Batch sets.</p> </note>"""
     instance_type: NotRequired["str"]
     """<p>The instance type to use for a multi-node parallel job.</p> <note> <p>This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and shouldn't be provided.</p> </note>"""
     resource_requirements: NotRequired[

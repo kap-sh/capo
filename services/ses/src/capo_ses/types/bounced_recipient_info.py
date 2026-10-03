@@ -18,7 +18,7 @@ class BouncedRecipientInfo(TypedDict, closed=True):
     recipient: "capo_ses.types.address.Address"
     """<p>The email address of the recipient of the bounced email.</p>"""
     recipient_arn: NotRequired["capo_ses.types.amazon_resource_name.AmazonResourceName"]
-    r"""<p>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to receive email for the recipient of the bounced email. For more information about sending authorization, see the <a href=\"https://docs.aws.amazon.com/ses/latest/dg/sending-authorization.html\">Amazon SES Developer Guide</a>.</p>"""
+    """<p>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to receive email for the recipient of the bounced email. For more information about sending authorization, see the <a href="https://docs.aws.amazon.com/ses/latest/dg/sending-authorization.html">Amazon SES Developer Guide</a>.</p>"""
     bounce_type: NotRequired["capo_ses.types.bounce_type.BounceType"]
     """<p>The reason for the bounce. You must provide either this parameter or <code>RecipientDsnFields</code>.</p>"""
     recipient_dsn_fields: NotRequired[

@@ -23,9 +23,9 @@ class CreateTaskRequest(TypedDict, closed=True):
     description: NotRequired["capo_iotsitewise.types.description.Description"]
     """<p>A description of the task.</p>"""
     task_configuration: "capo_iotsitewise.types.task_configuration.TaskConfiguration"
-    r"""<p>The task execution configuration. Specify a <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ContainerTaskConfiguration.html\">containerTaskConfiguration</a> for custom container workloads.</p>"""
+    """<p>The task execution configuration. Specify a <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ContainerTaskConfiguration.html">containerTaskConfiguration</a> for custom container workloads.</p>"""
     tags: NotRequired["capo_iotsitewise.types.tag_map.TagMap"]
-    r"""<p>A list of key-value pairs that contain metadata for the task. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your AWS IoT SiteWise resources</a> in the AWS IoT SiteWise User Guide.</p>"""
+    """<p>A list of key-value pairs that contain metadata for the task. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your AWS IoT SiteWise resources</a> in the AWS IoT SiteWise User Guide.</p>"""
     client_token: NotRequired["capo_iotsitewise.types.client_token.ClientToken"]
     """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token, the server returns the cached result from the original successful request without performing the operation again.</p>"""
 

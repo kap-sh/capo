@@ -12,7 +12,7 @@ class SystemControl(TypedDict, closed=True):
     namespace: NotRequired["capo_ecs.types.string.String"]
     """<p>The namespaced kernel parameter to set a <code>value</code> for.</p>"""
     value: NotRequired["capo_ecs.types.string.String"]
-    r"""<p>The namespaced kernel parameter to set a <code>value</code> for.</p> <p>Valid IPC namespace values: <code>\"kernel.msgmax\" | \"kernel.msgmnb\" | \"kernel.msgmni\" | \"kernel.sem\" | \"kernel.shmall\" | \"kernel.shmmax\" | \"kernel.shmmni\" | \"kernel.shm_rmid_forced\"</code>, and <code>Sysctls</code> that start with <code>\"fs.mqueue.*\"</code> </p> <p>Valid network namespace values: <code>Sysctls</code> that start with <code>\"net.*\"</code>. Only namespaced <code>Sysctls</code> that exist within the container starting with \"net.* are accepted.</p> <p>All of these values are supported by Fargate.</p>"""
+    """<p>The namespaced kernel parameter to set a <code>value</code> for.</p> <p>Valid IPC namespace values: <code>"kernel.msgmax" | "kernel.msgmnb" | "kernel.msgmni" | "kernel.sem" | "kernel.shmall" | "kernel.shmmax" | "kernel.shmmni" | "kernel.shm_rmid_forced"</code>, and <code>Sysctls</code> that start with <code>"fs.mqueue.*"</code> </p> <p>Valid network namespace values: <code>Sysctls</code> that start with <code>"net.*"</code>. Only namespaced <code>Sysctls</code> that exist within the container starting with "net.* are accepted.</p> <p>All of these values are supported by Fargate.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -18,7 +18,7 @@ class StaleIpPermission(TypedDict, closed=True):
     from_port: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6, this is the ICMP type or -1 (all ICMP types).</p>"""
     ip_protocol: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The IP protocol name (<code>tcp</code>, <code>udp</code>, <code>icmp</code>, <code>icmpv6</code>) or number (see <a href=\"http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml\">Protocol Numbers)</a>.</p>"""
+    """<p>The IP protocol name (<code>tcp</code>, <code>udp</code>, <code>icmp</code>, <code>icmpv6</code>) or number (see <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol Numbers)</a>.</p>"""
     ip_ranges: NotRequired["capo_ec2.types.ip_ranges.IpRanges"]
     """<p>The IP ranges. Not applicable for stale security group rules.</p>"""
     prefix_list_ids: NotRequired["capo_ec2.types.prefix_list_id_set.PrefixListIdSet"]

@@ -16,7 +16,7 @@ class CreateAttendeeRequest(TypedDict, closed=True):
     meeting_id: "capo_chime_sdk_meetings.types.guid_string.GuidString"
     """<p>The unique ID of the meeting.</p>"""
     external_user_id: "capo_chime_sdk_meetings.types.external_user_id.ExternalUserId"
-    r"""<p>The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by a builder application.</p> <p>Pattern: <code>[-_&@+=,(){}\[\]\/«».:|'\"#a-zA-Z0-9À-ÿ\s]*</code> </p> <p>Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix.</p>"""
+    r"""<p>The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by a builder application.</p> <p>Pattern: <code>[-_&@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code> </p> <p>Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix.</p>"""
     capabilities: NotRequired[
         "capo_chime_sdk_meetings.types.attendee_capabilities.AttendeeCapabilities"
     ]

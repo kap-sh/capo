@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class DatetimeOptions(TypedDict, closed=True):
     format: "capo_databrew.types.datetime_format.DatetimeFormat"
-    r"""<p>Required option, that defines the datetime format used for a date parameter in the Amazon S3 path. Should use only supported datetime specifiers and separation characters, all literal a-z or A-Z characters should be escaped with single quotes. E.g. \"MM.dd.yyyy-'at'-HH:mm\".</p>"""
+    """<p>Required option, that defines the datetime format used for a date parameter in the Amazon S3 path. Should use only supported datetime specifiers and separation characters, all literal a-z or A-Z characters should be escaped with single quotes. E.g. "MM.dd.yyyy-'at'-HH:mm".</p>"""
     timezone_offset: NotRequired["capo_databrew.types.timezone_offset.TimezoneOffset"]
     """<p>Optional value for a timezone offset of the datetime parameter value in the Amazon S3 path. Shouldn't be used if Format for this parameter includes timezone fields. If no offset specified, UTC is assumed.</p>"""
     locale_code: NotRequired["capo_databrew.types.locale_code.LocaleCode"]

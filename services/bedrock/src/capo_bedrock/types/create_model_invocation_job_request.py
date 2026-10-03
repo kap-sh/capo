@@ -23,11 +23,11 @@ class CreateModelInvocationJobRequest(TypedDict, closed=True):
     job_name: "capo_bedrock.types.model_invocation_job_name.ModelInvocationJobName"
     """<p>A name to give the batch inference job.</p>"""
     role_arn: "capo_bedrock.types.role_arn.RoleArn"
-    r"""<p>The Amazon Resource Name (ARN) of the service role with permissions to carry out and manage batch inference. You can use the console to create a default service role or follow the steps at <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/batch-iam-sr.html\">Create a service role for batch inference</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the service role with permissions to carry out and manage batch inference. You can use the console to create a default service role or follow the steps at <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/batch-iam-sr.html">Create a service role for batch inference</a>.</p>"""
     client_request_token: NotRequired[
         "capo_bedrock.types.model_invocation_idempotency_token.ModelInvocationIdempotencyToken"
     ]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     model_id: "capo_bedrock.types.model_id.ModelId"
     """<p>The unique identifier of the foundation model to use for the batch inference job.</p>"""
     input_data_config: "capo_bedrock.types.model_invocation_job_input_data_config.ModelInvocationJobInputDataConfig"
@@ -35,13 +35,13 @@ class CreateModelInvocationJobRequest(TypedDict, closed=True):
     output_data_config: "capo_bedrock.types.model_invocation_job_output_data_config.ModelInvocationJobOutputDataConfig"
     """<p>Details about the location of the output of the batch inference job.</p>"""
     vpc_config: NotRequired["capo_bedrock.types.vpc_config.VpcConfig"]
-    r"""<p>The configuration of the Virtual Private Cloud (VPC) for the data in the batch inference job. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/batch-vpc\">Protect batch inference jobs using a VPC</a>.</p>"""
+    """<p>The configuration of the Virtual Private Cloud (VPC) for the data in the batch inference job. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/batch-vpc">Protect batch inference jobs using a VPC</a>.</p>"""
     timeout_duration_in_hours: NotRequired[
         "capo_bedrock.types.model_invocation_job_timeout_duration_in_hours.ModelInvocationJobTimeoutDurationInHours"
     ]
     """<p>The number of hours after which to force the batch inference job to time out.</p>"""
     tags: NotRequired["capo_bedrock.types.tag_list.TagList"]
-    r"""<p>Any tags to associate with the batch inference job. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tagging Amazon Bedrock resources</a>.</p>"""
+    """<p>Any tags to associate with the batch inference job. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tagging Amazon Bedrock resources</a>.</p>"""
     model_invocation_type: (
         "capo_bedrock.types.model_invocation_type.ModelInvocationType"
     )

@@ -29,7 +29,7 @@ class DescribeTaskResponse(TypedDict, closed=True):
     version: "capo_iotsitewise.types.version.Version"
     """<p>The version of the task.</p>"""
     task_configuration: "capo_iotsitewise.types.task_configuration.TaskConfiguration"
-    r"""<p>The task execution configuration. Contains a <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ContainerTaskConfiguration.html\">containerTaskConfiguration</a> for custom container workloads.</p>"""
+    """<p>The task execution configuration. Contains a <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ContainerTaskConfiguration.html">containerTaskConfiguration</a> for custom container workloads.</p>"""
     status: "capo_iotsitewise.types.resource_status.ResourceStatus"
     """<p>The current lifecycle status of the task.</p>"""
     created_at: "capo_iotsitewise.types.timestamp.Timestamp"

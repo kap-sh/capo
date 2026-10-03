@@ -17,7 +17,7 @@ class Slot(TypedDict, closed=True):
     shape: NotRequired["capo_lex_runtime_v2.types.shape.Shape"]
     """<p>When the <code>shape</code> value is <code>List</code>, it indicates that the <code>values</code> field contains a list of slot values. When the value is <code>Scalar</code>, it indicates that the <code>value</code> field contains a single value.</p>"""
     values: NotRequired["capo_lex_runtime_v2.types.values.Values"]
-    r"""<p>A list of one or more values that the user provided for the slot. For example, if a for a slot that elicits pizza toppings, the values might be \"pepperoni\" and \"pineapple.\" </p>"""
+    """<p>A list of one or more values that the user provided for the slot. For example, if a for a slot that elicits pizza toppings, the values might be "pepperoni" and "pineapple." </p>"""
     sub_slots: NotRequired["capo_lex_runtime_v2.types.slots.Slots"]
     """<p>The constituent sub slots of a composite slot.</p>"""
 

@@ -17,7 +17,7 @@ class GetJourneyDateRangeKpiRequest(TypedDict, closed=True):
     journey_id: "capo_pinpoint.types.__string.__string"
     """<p>The unique identifier for the journey.</p>"""
     kpi_name: "capo_pinpoint.types.__string.__string"
-    r"""<p>The name of the metric, also referred to as a <i>key performance indicator (KPI)</i>, to retrieve data for. This value describes the associated metric and consists of two or more terms, which are comprised of lowercase alphanumeric characters, separated by a hyphen. Examples are email-open-rate and successful-delivery-rate. For a list of valid values, see the <a href=\"https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html\">Amazon Pinpoint Developer Guide</a>.</p>"""
+    """<p>The name of the metric, also referred to as a <i>key performance indicator (KPI)</i>, to retrieve data for. This value describes the associated metric and consists of two or more terms, which are comprised of lowercase alphanumeric characters, separated by a hyphen. Examples are email-open-rate and successful-delivery-rate. For a list of valid values, see the <a href="https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html">Amazon Pinpoint Developer Guide</a>.</p>"""
     next_token: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The string that specifies which page of results to return in a paginated response. This parameter is not supported for application, campaign, and journey metrics.</p>"""
     page_size: NotRequired["capo_pinpoint.types.__string.__string"]

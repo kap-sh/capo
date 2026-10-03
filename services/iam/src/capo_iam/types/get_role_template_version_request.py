@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class GetRoleTemplateVersionRequest(TypedDict, closed=True):
     template_arn: "capo_iam.types.arn_type.arnType"
-    r"""<p>The Amazon Resource Name (ARN) of the role template whose version you want to retrieve.</p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the role template whose version you want to retrieve.</p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     minor_version: NotRequired["capo_iam.types.minor_version_type.minorVersionType"]
     """<p>The minor version of the role template to retrieve. If you do not specify a minor version, the service returns the template's default minor version.</p>"""
 

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ServiceRegistry(TypedDict, closed=True):
     registry_arn: NotRequired["capo_ecs.types.string.String"]
-    r"""<p>The Amazon Resource Name (ARN) of the service registry. The currently supported service registry is Cloud Map. For more information, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html\">CreateService</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the service registry. The currently supported service registry is Cloud Map. For more information, see <a href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>"""
     port: NotRequired["capo_ecs.types.boxed_integer.BoxedInteger"]
     """<p>The port value used if your service discovery service specified an SRV record. This field might be used if both the <code>awsvpc</code> network mode and SRV records are used.</p>"""
     container_name: NotRequired["capo_ecs.types.string.String"]

@@ -20,7 +20,7 @@ class ExecuteStatementResponse(TypedDict, closed=True):
     number_of_records_updated: "capo_rds_data.types.records_updated.RecordsUpdated"
     """<p>The number of records updated by the request.</p>"""
     generated_fields: NotRequired["capo_rds_data.types.field_list.FieldList"]
-    r"""<p>Values for fields generated during a DML request.</p> <note> <p>The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated fields, use the <code>RETURNING</code> clause. For more information, see <a href=\"https://www.postgresql.org/docs/10/dml-returning.html\">Returning Data From Modified Rows</a> in the PostgreSQL documentation.</p> </note>"""
+    """<p>Values for fields generated during a DML request.</p> <note> <p>The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated fields, use the <code>RETURNING</code> clause. For more information, see <a href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the PostgreSQL documentation.</p> </note>"""
     formatted_records: NotRequired[
         "capo_rds_data.types.formatted_sql_records.FormattedSqlRecords"
     ]

@@ -25,11 +25,11 @@ if TYPE_CHECKING:
 
 class ElasticsearchDestinationConfiguration(TypedDict, closed=True):
     role_arn: "capo_firehose.types.role_arn.RoleARN"
-    r"""<p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Firehose for calling the Amazon OpenSearch Service Configuration API and for indexing documents. For more information, see <a href=\"https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3\">Grant Firehose Access to an Amazon S3 Destination</a> and <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Firehose for calling the Amazon OpenSearch Service Configuration API and for indexing documents. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant Firehose Access to an Amazon S3 Destination</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
     domain_arn: NotRequired[
         "capo_firehose.types.elasticsearch_domain_arn.ElasticsearchDomainARN"
     ]
-    r"""<p>The ARN of the Amazon OpenSearch Service domain. The IAM role must have permissions for <code>DescribeDomain</code>, <code>DescribeDomains</code>, and <code>DescribeDomainConfig</code> after assuming the role specified in <b>RoleARN</b>. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p> <p>Specify either <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>"""
+    """<p>The ARN of the Amazon OpenSearch Service domain. The IAM role must have permissions for <code>DescribeDomain</code>, <code>DescribeDomains</code>, and <code>DescribeDomainConfig</code> after assuming the role specified in <b>RoleARN</b>. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p> <p>Specify either <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>"""
     cluster_endpoint: NotRequired[
         "capo_firehose.types.elasticsearch_cluster_endpoint.ElasticsearchClusterEndpoint"
     ]
@@ -43,7 +43,7 @@ class ElasticsearchDestinationConfiguration(TypedDict, closed=True):
     index_rotation_period: NotRequired[
         "capo_firehose.types.elasticsearch_index_rotation_period.ElasticsearchIndexRotationPeriod"
     ]
-    r"""<p>The Elasticsearch index rotation period. Index rotation appends a timestamp to the <code>IndexName</code> to facilitate the expiration of old data. For more information, see <a href=\"https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation\">Index Rotation for the Amazon OpenSearch Service Destination</a>. The default value is <code>OneDay</code>.</p>"""
+    """<p>The Elasticsearch index rotation period. Index rotation appends a timestamp to the <code>IndexName</code> to facilitate the expiration of old data. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index Rotation for the Amazon OpenSearch Service Destination</a>. The default value is <code>OneDay</code>.</p>"""
     buffering_hints: NotRequired[
         "capo_firehose.types.elasticsearch_buffering_hints.ElasticsearchBufferingHints"
     ]
@@ -55,7 +55,7 @@ class ElasticsearchDestinationConfiguration(TypedDict, closed=True):
     s3_backup_mode: NotRequired[
         "capo_firehose.types.elasticsearch_s3_backup_mode.ElasticsearchS3BackupMode"
     ]
-    r"""<p>Defines how documents should be delivered to Amazon S3. When it is set to <code>FailedDocumentsOnly</code>, Firehose writes any documents that could not be indexed to the configured Amazon S3 destination, with <code>AmazonOpenSearchService-failed/</code> appended to the key prefix. When set to <code>AllDocuments</code>, Firehose delivers all incoming records to Amazon S3, and also writes failed documents with <code>AmazonOpenSearchService-failed/</code> appended to the prefix. For more information, see <a href=\"https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup\">Amazon S3 Backup for the Amazon OpenSearch Service Destination</a>. Default value is <code>FailedDocumentsOnly</code>.</p> <p>You can't change this backup mode after you create the Firehose stream. </p>"""
+    """<p>Defines how documents should be delivered to Amazon S3. When it is set to <code>FailedDocumentsOnly</code>, Firehose writes any documents that could not be indexed to the configured Amazon S3 destination, with <code>AmazonOpenSearchService-failed/</code> appended to the key prefix. When set to <code>AllDocuments</code>, Firehose delivers all incoming records to Amazon S3, and also writes failed documents with <code>AmazonOpenSearchService-failed/</code> appended to the prefix. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon S3 Backup for the Amazon OpenSearch Service Destination</a>. Default value is <code>FailedDocumentsOnly</code>.</p> <p>You can't change this backup mode after you create the Firehose stream. </p>"""
     s3_configuration: (
         "capo_firehose.types.s3_destination_configuration.S3DestinationConfiguration"
     )

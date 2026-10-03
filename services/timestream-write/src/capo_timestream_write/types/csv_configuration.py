@@ -18,7 +18,7 @@ class CsvConfiguration(TypedDict, closed=True):
     escape_char: NotRequired["capo_timestream_write.types.string_value1.StringValue1"]
     """<p>Escape character can be one of </p>"""
     quote_char: NotRequired["capo_timestream_write.types.string_value1.StringValue1"]
-    r"""<p>Can be single quote (') or double quote (\").</p>"""
+    """<p>Can be single quote (') or double quote (").</p>"""
     null_value: NotRequired[
         "capo_timestream_write.types.string_value256.StringValue256"
     ]

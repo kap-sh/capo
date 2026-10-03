@@ -307,13 +307,13 @@ class AsyncchatbotClient:
         ] = None,
         tags: Optional["capo_chatbot.types.tags.Tags"] = None,
     ) -> "capo_chatbot.types.create_chime_webhook_configuration_result.CreateChimeWebhookConfigurationResult":
-        r"""<p>Creates an AWS Chatbot configuration for Amazon Chime.</p>
+        """<p>Creates an AWS Chatbot configuration for Amazon Chime.</p>
 
         Args:
-            webhook_description: <p>A description of the webhook. We recommend using the convention <code>RoomName/WebhookName</code>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chime-setup.html\">Tutorial: Get started with Amazon Chime</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            webhook_description: <p>A description of the webhook. We recommend using the convention <code>RoomName/WebhookName</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chime-setup.html">Tutorial: Get started with Amazon Chime</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             webhook_url: <p>The URL for the Amazon Chime webhook.</p>
             sns_topic_arns: <p>The Amazon Resource Names (ARNs) of the SNS topics that deliver notifications to AWS Chatbot.</p>
-            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html\">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             configuration_name: <p>The name of the configuration.</p>
             logging_level: <p>Logging levels include <code>ERROR</code>, <code>INFO</code>, or <code>NONE</code>.</p>
             tags: <p>A map of tags assigned to a resource. A tag is a string-to-string map of key-value pairs.</p>
@@ -390,16 +390,16 @@ class AsyncchatbotClient:
         ] = None,
         tags: Optional["capo_chatbot.types.tags.Tags"] = None,
     ) -> "capo_chatbot.types.create_teams_channel_configuration_result.CreateTeamsChannelConfigurationResult":
-        r"""<p>Creates an AWS Chatbot configuration for Microsoft Teams.</p>
+        """<p>Creates an AWS Chatbot configuration for Microsoft Teams.</p>
 
         Args:
             channel_id: <p>The ID of the Microsoft Teams channel.</p>
             channel_name: <p>The name of the Microsoft Teams channel.</p>
-            team_id: <p> The ID of the Microsoft Teams authorized with AWS Chatbot.</p> <p>To get the team ID, you must perform the initial authorization flow with Microsoft Teams in the AWS Chatbot console. Then you can copy and paste the team ID from the console. For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/teams-setup.html#teams-client-setup\">Step 1: Configure a Microsoft Teams client</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            team_id: <p> The ID of the Microsoft Teams authorized with AWS Chatbot.</p> <p>To get the team ID, you must perform the initial authorization flow with Microsoft Teams in the AWS Chatbot console. Then you can copy and paste the team ID from the console. For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/teams-setup.html#teams-client-setup">Step 1: Configure a Microsoft Teams client</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             team_name: <p>The name of the Microsoft Teams Team.</p>
             tenant_id: <p>The ID of the Microsoft Teams tenant.</p>
             sns_topic_arns: <p>The Amazon Resource Names (ARNs) of the SNS topics that deliver notifications to AWS Chatbot.</p>
-            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html\">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             configuration_name: <p>The name of the configuration.</p>
             logging_level: <p>Logging levels include <code>ERROR</code>, <code>INFO</code>, or <code>NONE</code>.</p>
             guardrail_policy_arns: <p>The list of IAM policy ARNs that are applied as channel guardrails. The AWS managed <code>AdministratorAccess</code> policy is applied by default if this is not set. </p>
@@ -486,14 +486,14 @@ class AsyncchatbotClient:
         ] = None,
         tags: Optional["capo_chatbot.types.tags.Tags"] = None,
     ) -> "capo_chatbot.types.create_slack_channel_configuration_result.CreateSlackChannelConfigurationResult":
-        r"""<p>Creates an AWS Chatbot confugration for Slack.</p>
+        """<p>Creates an AWS Chatbot confugration for Slack.</p>
 
         Args:
             slack_team_id: <p>The ID of the Slack workspace authorized with AWS Chatbot.</p>
             slack_channel_id: <p>The ID of the Slack channel.</p> <p>To get this ID, open Slack, right click on the channel name in the left pane, then choose Copy Link. The channel ID is the 9-character string at the end of the URL. For example, ABCBBLZZZ. </p>
             slack_channel_name: <p>The name of the Slack channel.</p>
             sns_topic_arns: <p>The Amazon Resource Names (ARNs) of the SNS topics that deliver notifications to AWS Chatbot.</p>
-            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html\">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             configuration_name: <p>The name of the configuration.</p>
             logging_level: <p>Logging levels include <code>ERROR</code>, <code>INFO</code>, or <code>NONE</code>.</p>
             guardrail_policy_arns: <p>The list of IAM policy ARNs that are applied as channel guardrails. The AWS managed <code>AdministratorAccess</code> policy is applied by default if this is not set. </p>
@@ -652,10 +652,10 @@ class AsyncchatbotClient:
         *,
         config_overrides: Optional[AsyncchatbotClientConfig] = None,
     ) -> "capo_chatbot.types.delete_teams_configured_team_result.DeleteTeamsConfiguredTeamResult":
-        r"""<p>Deletes the Microsoft Teams team authorization allowing for channels to be configured in that Microsoft Teams team. Note that the Microsoft Teams team must have no channels configured to remove it. </p>
+        """<p>Deletes the Microsoft Teams team authorization allowing for channels to be configured in that Microsoft Teams team. Note that the Microsoft Teams team must have no channels configured to remove it. </p>
 
         Args:
-            team_id: <p>The ID of the Microsoft Teams team authorized with AWS Chatbot.</p> <p>To get the team ID, you must perform the initial authorization flow with Microsoft Teams in the AWS Chatbot console. Then you can copy and paste the team ID from the console. For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/teams-setup.html#teams-client-setup\">Step 1: Configure a Microsoft Teams client</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            team_id: <p>The ID of the Microsoft Teams team authorized with AWS Chatbot.</p> <p>To get the team ID, you must perform the initial authorization flow with Microsoft Teams in the AWS Chatbot console. Then you can copy and paste the team ID from the console. For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/teams-setup.html#teams-client-setup">Step 1: Configure a Microsoft Teams client</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
 
         Raises:
             capo_chatbot.errors.delete_teams_configured_team_exception.DeleteTeamsConfiguredTeamException: <p>We can’t process your request right now because of a server issue. Try again later.</p>
@@ -1442,12 +1442,12 @@ class AsyncchatbotClient:
         ] = None,
         team_id: Optional["capo_chatbot.types.uuid.UUID"] = None,
     ) -> "capo_chatbot.types.list_teams_channel_configurations_result.ListTeamsChannelConfigurationsResult":
-        r"""<p>Lists all AWS Chatbot Microsoft Teams channel configurations in an AWS account.</p>
+        """<p>Lists all AWS Chatbot Microsoft Teams channel configurations in an AWS account.</p>
 
         Args:
             max_results: <p>The maximum number of results to include in the response. If more results exist than the specified MaxResults value, a token is included in the response so that the remaining results can be retrieved.</p>
             next_token: <p>An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by MaxResults.</p>
-            team_id: <p> The ID of the Microsoft Teams authorized with AWS Chatbot.</p> <p>To get the team ID, you must perform the initial authorization flow with Microsoft Teams in the AWS Chatbot console. Then you can copy and paste the team ID from the console. For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/teams-setup.html#teams-client-setup\">Step 1: Configure a Microsoft Teams client</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            team_id: <p> The ID of the Microsoft Teams authorized with AWS Chatbot.</p> <p>To get the team ID, you must perform the initial authorization flow with Microsoft Teams in the AWS Chatbot console. Then you can copy and paste the team ID from the console. For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/teams-setup.html#teams-client-setup">Step 1: Configure a Microsoft Teams client</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
 
         Raises:
             capo_chatbot.errors.invalid_parameter_exception.InvalidParameterException: <p>Your request input doesn't meet the constraints required by AWS Chatbot.</p>
@@ -1895,14 +1895,14 @@ class AsyncchatbotClient:
             "capo_chatbot.types.customer_cw_log_level.CustomerCwLogLevel"
         ] = None,
     ) -> "capo_chatbot.types.update_chime_webhook_configuration_result.UpdateChimeWebhookConfigurationResult":
-        r"""<p>Updates a Amazon Chime webhook configuration.</p>
+        """<p>Updates a Amazon Chime webhook configuration.</p>
 
         Args:
             chat_configuration_arn: <p>The Amazon Resource Name (ARN) of the ChimeWebhookConfiguration to update.</p>
-            webhook_description: <p>A description of the webhook. We recommend using the convention <code>RoomName/WebhookName</code>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chime-setup.html\">Tutorial: Get started with Amazon Chime</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            webhook_description: <p>A description of the webhook. We recommend using the convention <code>RoomName/WebhookName</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chime-setup.html">Tutorial: Get started with Amazon Chime</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             webhook_url: <p>The URL for the Amazon Chime webhook.</p>
             sns_topic_arns: <p>The ARNs of the SNS topics that deliver notifications to AWS Chatbot.</p>
-            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html\">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             logging_level: <p>Logging levels include <code>ERROR</code>, <code>INFO</code>, or <code>NONE</code>.</p>
 
         Raises:
@@ -1974,14 +1974,14 @@ class AsyncchatbotClient:
             "capo_chatbot.types.boolean_account_preference.BooleanAccountPreference"
         ] = None,
     ) -> "capo_chatbot.types.update_teams_channel_configuration_result.UpdateTeamsChannelConfigurationResult":
-        r"""<p>Updates an Microsoft Teams channel configuration.</p>
+        """<p>Updates an Microsoft Teams channel configuration.</p>
 
         Args:
             chat_configuration_arn: <p>The Amazon Resource Name (ARN) of the TeamsChannelConfiguration to update.</p>
             channel_id: <p>The ID of the Microsoft Teams channel.</p>
             channel_name: <p>The name of the Microsoft Teams channel.</p>
             sns_topic_arns: <p>The Amazon Resource Names (ARNs) of the SNS topics that deliver notifications to AWS Chatbot.</p>
-            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html\">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             logging_level: <p>Logging levels include <code>ERROR</code>, <code>INFO</code>, or <code>NONE</code>.</p>
             guardrail_policy_arns: <p>The list of IAM policy ARNs that are applied as channel guardrails. The AWS managed <code>AdministratorAccess</code> policy is applied by default if this is not set. </p>
             user_authorization_required: <p>Enables use of a user role requirement in your chat configuration.</p>
@@ -2058,14 +2058,14 @@ class AsyncchatbotClient:
             "capo_chatbot.types.boolean_account_preference.BooleanAccountPreference"
         ] = None,
     ) -> "capo_chatbot.types.update_slack_channel_configuration_result.UpdateSlackChannelConfigurationResult":
-        r"""<p>Updates a Slack channel configuration.</p>
+        """<p>Updates a Slack channel configuration.</p>
 
         Args:
             chat_configuration_arn: <p>The Amazon Resource Name (ARN) of the SlackChannelConfiguration to update.</p>
             slack_channel_id: <p>The ID of the Slack channel.</p> <p>To get this ID, open Slack, right click on the channel name in the left pane, then choose Copy Link. The channel ID is the 9-character string at the end of the URL. For example, ABCBBLZZZ. </p>
             slack_channel_name: <p>The name of the Slack channel.</p>
             sns_topic_arns: <p>The Amazon Resource Names (ARNs) of the SNS topics that deliver notifications to AWS Chatbot.</p>
-            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html\">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
+            iam_role_arn: <p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>
             logging_level: <p>Logging levels include <code>ERROR</code>, <code>INFO</code>, or <code>NONE</code>.</p>
             guardrail_policy_arns: <p>The list of IAM policy ARNs that are applied as channel guardrails. The AWS managed <code>AdministratorAccess</code> policy is applied by default if this is not set. </p>
             user_authorization_required: <p>Enables use of a user role requirement in your chat configuration.</p>

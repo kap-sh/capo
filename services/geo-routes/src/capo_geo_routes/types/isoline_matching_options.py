@@ -14,7 +14,7 @@ class IsolineMatchingOptions(TypedDict, closed=True):
     name_hint: NotRequired["capo_geo_routes.types.sensitive_string.SensitiveString"]
     """<p>The expected street name near the point. Helps disambiguate matching when multiple roads are within range.</p>"""
     on_road_threshold: "capo_geo_routes.types.distance_meters.DistanceMeters"
-    r"""<p>The maximum distance in meters that a point can be from a road while still being considered \"on\" that road. Points further than this distance require explicit matching.</p> <p> <b>Unit</b>: <code>meters</code> </p>"""
+    """<p>The maximum distance in meters that a point can be from a road while still being considered "on" that road. Points further than this distance require explicit matching.</p> <p> <b>Unit</b>: <code>meters</code> </p>"""
     radius: "capo_geo_routes.types.distance_meters.DistanceMeters"
     """<p>The maximum distance in meters to search for roads to match to. Points with no roads within this radius will fail to match. The roads that are considered within this radius are determined by the specified <code>Strategy</code> </p> <p> <b>Unit</b>: <code>meters</code> </p>"""
     strategy: NotRequired["capo_geo_routes.types.matching_strategy.MatchingStrategy"]

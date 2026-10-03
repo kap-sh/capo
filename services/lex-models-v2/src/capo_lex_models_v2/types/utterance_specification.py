@@ -65,7 +65,7 @@ class UtteranceSpecification(TypedDict, closed=True):
     intent_state: NotRequired["capo_lex_models_v2.types.intent_state.IntentState"]
     """<p>The state of the intent that the utterance is associated to.</p>"""
     dialog_action_type: NotRequired["capo_lex_models_v2.types.string.String"]
-    r"""<p>The type of dialog action that the utterance is associated to. See the <code>type</code> field in <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_runtime_DialogAction.html\">DialogAction</a> for more information.</p>"""
+    """<p>The type of dialog action that the utterance is associated to. See the <code>type</code> field in <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_runtime_DialogAction.html">DialogAction</a> for more information.</p>"""
     bot_response_audio_voice_id: NotRequired["capo_lex_models_v2.types.string.String"]
     """<p>The identifier for the audio of the bot response.</p>"""
     slots_filled_in_session: NotRequired["capo_lex_models_v2.types.string.String"]

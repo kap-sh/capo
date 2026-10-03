@@ -41,7 +41,7 @@ class Workflow(TypedDict, closed=True):
     data: NotRequired["capo_imagebuilder.types.workflow_data.WorkflowData"]
     """<p>Contains the YAML document content for the workflow.</p>"""
     kms_key_id: NotRequired["capo_imagebuilder.types.non_empty_string.NonEmptyString"]
-    r"""<p>The KMS key identifier used to encrypt the workflow resource. This can be either the Key ARN or the Alias ARN. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">Key identifiers (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>The KMS key identifier used to encrypt the workflow resource. This can be either the Key ARN or the Alias ARN. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">Key identifiers (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
     date_created: NotRequired["capo_imagebuilder.types.date_time.DateTime"]
     """<p>The timestamp when Image Builder created the workflow resource.</p>"""
     tags: NotRequired["capo_imagebuilder.types.tag_map.TagMap"]

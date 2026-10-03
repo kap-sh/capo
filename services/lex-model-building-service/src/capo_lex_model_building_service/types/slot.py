@@ -56,7 +56,7 @@ class Slot(TypedDict, closed=True):
     obfuscation_setting: NotRequired[
         "capo_lex_model_building_service.types.obfuscation_setting.ObfuscationSetting"
     ]
-    r"""<p>Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a slot, the value is replaced by the slot name in curly braces ({}). For example, if the slot name is \"full_name\", obfuscated values are replaced with \"{full_name}\". For more information, see <a href=\"https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html\"> Slot Obfuscation </a>. </p>"""
+    """<p>Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a slot, the value is replaced by the slot name in curly braces ({}). For example, if the slot name is "full_name", obfuscated values are replaced with "{full_name}". For more information, see <a href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>. </p>"""
     default_value_spec: NotRequired[
         "capo_lex_model_building_service.types.slot_default_value_spec.SlotDefaultValueSpec"
     ]

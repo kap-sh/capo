@@ -24,7 +24,7 @@ class SplunkDestinationConfiguration(TypedDict, closed=True):
     hec_endpoint: "capo_firehose.types.hec_endpoint.HECEndpoint"
     """<p>The HTTP Event Collector (HEC) endpoint to which Firehose sends your data.</p>"""
     hec_endpoint_type: "capo_firehose.types.hec_endpoint_type.HECEndpointType"
-    r"""<p>This type can be either \"Raw\" or \"Event.\"</p>"""
+    """<p>This type can be either "Raw" or "Event."</p>"""
     hec_token: NotRequired["capo_firehose.types.hec_token.HECToken"]
     """<p>This is a GUID that you obtain from your Splunk cluster when you create a new HEC endpoint.</p>"""
     hec_acknowledgment_timeout_in_seconds: NotRequired[

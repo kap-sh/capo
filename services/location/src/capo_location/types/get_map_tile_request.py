@@ -20,7 +20,7 @@ class GetMapTileRequest(TypedDict, closed=True):
     y: "capo_location.types.sensitive_string.SensitiveString"
     """<p>The Y axis value for the map tile. </p>"""
     key: NotRequired["capo_location.types.api_key.ApiKey"]
-    r"""<p>The optional <a href=\"https://docs.aws.amazon.com/location/previous/developerguide/using-apikeys.html\">API key</a> to authorize the request.</p>"""
+    """<p>The optional <a href="https://docs.aws.amazon.com/location/previous/developerguide/using-apikeys.html">API key</a> to authorize the request.</p>"""
 
 
 # --- restJson1 ser/de ---

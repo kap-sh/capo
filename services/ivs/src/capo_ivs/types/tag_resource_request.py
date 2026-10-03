@@ -15,7 +15,7 @@ class TagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_ivs.types.resource_arn.ResourceArn"
     """<p>ARN of the resource for which tags are to be added or updated. The ARN must be URL-encoded.</p>"""
     tags: "capo_ivs.types.tags.Tags"
-    r"""<p>Array of tags to be added or updated. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no service-specific constraints beyond what is documented there.</p>"""
+    """<p>Array of tags to be added or updated. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no service-specific constraints beyond what is documented there.</p>"""
 
 
 # --- restJson1 ser/de ---

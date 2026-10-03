@@ -16,7 +16,7 @@ class S3SetObjectRetentionOperation(TypedDict, closed=True):
     bypass_governance_retention: NotRequired["capo_s3_control.types.boolean.Boolean"]
     """<p>Indicates if the action should be applied to objects in the Batch Operations job even if they have Object Lock <code> GOVERNANCE</code> type in place.</p>"""
     retention: "capo_s3_control.types.s3_retention.S3Retention"
-    r"""<p>Contains the Object Lock retention mode to be applied to all objects in the Batch Operations job. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-retention-date.html\">Using S3 Object Lock retention with S3 Batch Operations</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>Contains the Object Lock retention mode to be applied to all objects in the Batch Operations job. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-retention-date.html">Using S3 Object Lock retention with S3 Batch Operations</a> in the <i>Amazon S3 User Guide</i>.</p>"""
 
 
 # --- restXml ser/de ---

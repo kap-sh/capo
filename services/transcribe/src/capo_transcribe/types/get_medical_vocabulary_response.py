@@ -25,7 +25,7 @@ class GetMedicalVocabularyResponse(TypedDict, closed=True):
     last_modified_time: NotRequired["capo_transcribe.types.date_time.DateTime"]
     """<p>The date and time the specified custom medical vocabulary was last modified.</p> <p>Timestamps are in the format <code>YYYY-MM-DD'T'HH:MM:SS.SSSSSS-UTC</code>. For example, <code>2022-05-04T12:32:58.761000-07:00</code> represents 12:32 PM UTC-7 on May 4, 2022.</p>"""
     failure_reason: NotRequired["capo_transcribe.types.failure_reason.FailureReason"]
-    r"""<p>If <code>VocabularyState</code> is <code>FAILED</code>, <code>FailureReason</code> contains information about why the custom medical vocabulary request failed. See also: <a href=\"https://docs.aws.amazon.com/transcribe/latest/APIReference/CommonErrors.html\">Common Errors</a>.</p>"""
+    """<p>If <code>VocabularyState</code> is <code>FAILED</code>, <code>FailureReason</code> contains information about why the custom medical vocabulary request failed. See also: <a href="https://docs.aws.amazon.com/transcribe/latest/APIReference/CommonErrors.html">Common Errors</a>.</p>"""
     download_uri: NotRequired["capo_transcribe.types.uri.Uri"]
     """<p>The Amazon S3 location where the specified custom medical vocabulary is stored; use this URI to view or download the custom vocabulary.</p>"""
 

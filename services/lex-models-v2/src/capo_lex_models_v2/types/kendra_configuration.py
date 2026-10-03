@@ -20,7 +20,7 @@ class KendraConfiguration(TypedDict, closed=True):
     query_filter_string: NotRequired[
         "capo_lex_models_v2.types.query_filter_string.QueryFilterString"
     ]
-    r"""<p>A query filter that Amazon Lex sends to Amazon Kendra to filter the response from a query. The filter is in the format defined by Amazon Kendra. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/filtering.html\">Filtering queries</a>.</p>"""
+    """<p>A query filter that Amazon Lex sends to Amazon Kendra to filter the response from a query. The filter is in the format defined by Amazon Kendra. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/filtering.html">Filtering queries</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

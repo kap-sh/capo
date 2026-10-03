@@ -434,7 +434,7 @@ class ECRClient:
 
         Raises:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.repository_not_found_exception.RepositoryNotFoundException: <p>The specified repository could not be found. Check the spelling of the specified repository and ensure that you are performing operations on the correct registry.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.unable_to_get_upstream_image_exception.UnableToGetUpstreamImageException: <p>The image or images were unable to be pulled using the pull through cache rule. This is usually caused because of an issue with the Secrets Manager secret containing the credentials for the upstream registry.</p>
@@ -604,7 +604,7 @@ class ECRClient:
             "capo_ecr.types.pull_through_cache_rule_repository_prefix.PullThroughCacheRuleRepositoryPrefix"
         ] = None,
     ) -> "capo_ecr.types.create_pull_through_cache_rule_response.CreatePullThroughCacheRuleResponse":
-        r"""<p>Creates a pull through cache rule. A pull through cache rule provides a way to cache images from an upstream registry source in your Amazon ECR private registry. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html\">Using pull through cache rules</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Creates a pull through cache rule. A pull through cache rule provides a way to cache images from an upstream registry source in your Amazon ECR private registry. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html">Using pull through cache rules</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             ecr_repository_prefix: <p>The repository name prefix to use when caching images from the source registry.</p> <important> <p>There is always an assumed <code>/</code> applied to the end of the prefix. If you specify <code>ecr-public</code> as the prefix, Amazon ECR treats that as <code>ecr-public/</code>.</p> </important>
@@ -617,7 +617,7 @@ class ECRClient:
 
         Raises:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.pull_through_cache_rule_already_exists_exception.PullThroughCacheRuleAlreadyExistsException: <p>A pull through cache rule with these settings already exists for the private registry.</p>
             capo_ecr.errors.secret_not_found_exception.SecretNotFoundException: <p>The ARN of the secret specified in the pull through cache rule was not found. Update the pull through cache rule with a valid secret ARN and try again.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
@@ -686,7 +686,7 @@ class ECRClient:
             "capo_ecr.types.encryption_configuration.EncryptionConfiguration"
         ] = None,
     ) -> "capo_ecr.types.create_repository_response.CreateRepositoryResponse":
-        r"""<p>Creates a repository. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html\">Amazon ECR repositories</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Creates a repository. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html">Amazon ECR repositories</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             registry_id: <p>The Amazon Web Services account ID associated with the registry to create the repository. If you do not specify a registry, the default registry is assumed.</p>
@@ -701,7 +701,7 @@ class ECRClient:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
             capo_ecr.errors.invalid_tag_parameter_exception.InvalidTagParameterException: <p>An invalid parameter has been specified. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters.</p>
             capo_ecr.errors.kms_exception.KmsException: <p>The operation failed due to a KMS exception.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.repository_already_exists_exception.RepositoryAlreadyExistsException: <p>The specified repository already exists in the specified registry.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.too_many_tags_exception.TooManyTagsException: <p>The list of tags on the repository is over the limit. The maximum number of tags that can be applied to a repository is 50.</p>
@@ -784,7 +784,7 @@ class ECRClient:
             "capo_ecr.types.custom_role_arn.CustomRoleArn"
         ] = None,
     ) -> "capo_ecr.types.create_repository_creation_template_response.CreateRepositoryCreationTemplateResponse":
-        r"""<p>Creates a repository creation template. This template is used to define the settings for repositories created by Amazon ECR on your behalf. For example, repositories created through pull through cache actions. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-creation-templates.html\">Private repository creation templates</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Creates a repository creation template. This template is used to define the settings for repositories created by Amazon ECR on your behalf. For example, repositories created through pull through cache actions. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-creation-templates.html">Private repository creation templates</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             prefix: <p>The repository namespace prefix to associate with the template. All repositories created using this namespace prefix will have the settings defined in this template applied. For example, a prefix of <code>prod</code> would apply to all repositories beginning with <code>prod/</code>. Similarly, a prefix of <code>prod/team</code> would apply to all repositories beginning with <code>prod/team/</code>.</p> <p>To apply a template to all repositories in your registry that don't have an associated creation template, you can use <code>ROOT</code> as the prefix.</p> <important> <p>There is always an assumed <code>/</code> applied to the end of the prefix. If you specify <code>ecr-public</code> as the prefix, Amazon ECR treats that as <code>ecr-public/</code>. When using a pull through cache rule, the repository prefix you specify during rule creation is what you should specify as your repository creation template prefix as well.</p> </important>
@@ -800,7 +800,7 @@ class ECRClient:
 
         Raises:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.template_already_exists_exception.TemplateAlreadyExistsException: <p>The repository creation template already exists. Specify a unique prefix and try again.</p>
             capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
@@ -1160,7 +1160,7 @@ class ECRClient:
     def delete_signing_configuration(
         self, *, config_overrides: Optional[ECRClientConfig] = None
     ) -> "capo_ecr.types.delete_signing_configuration_response.DeleteSigningConfigurationResponse":
-        r"""<p>Deletes the registry's signing configuration. Images pushed after deletion of the signing configuration will no longer be automatically signed.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html\">Managed signing</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p> <note> <p>Deleting the signing configuration does not affect existing image signatures.</p> </note>
+        """<p>Deletes the registry's signing configuration. Images pushed after deletion of the signing configuration will no longer be automatically signed.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html">Managed signing</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p> <note> <p>Deleting the signing configuration does not affect existing image signatures.</p> </note>
 
         Raises:
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
@@ -1208,7 +1208,7 @@ class ECRClient:
         Raises:
             capo_ecr.errors.exclusion_not_found_exception.ExclusionNotFoundException: <p>The specified pull time update exclusion was not found.</p>
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
             capo_ecr.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -1315,7 +1315,7 @@ class ECRClient:
             "capo_ecr.types.describe_images_filter.DescribeImagesFilter"
         ] = None,
     ) -> "capo_ecr.types.describe_images_response.DescribeImagesResponse":
-        r"""<p>Returns metadata about the images in a repository.</p> <note> <p>Starting with Docker version 1.9, the Docker client compresses image layers before pushing them to a V2 Docker registry. The output of the <code>docker images</code> command shows the uncompressed image size. Therefore, Docker might return a larger image than the image shown in the Amazon Web Services Management Console.</p> </note> <important> <p>The new version of Amazon ECR <i>Basic Scanning</i> doesn't use the <a>ImageDetail$imageScanFindingsSummary</a> and <a>ImageDetail$imageScanStatus</a> attributes from the API response to return scan results. Use the <a>DescribeImageScanFindings</a> API instead. For more information about Amazon Web Services native basic scanning, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html\"> Scan images for software vulnerabilities in Amazon ECR</a>.</p> </important>
+        """<p>Returns metadata about the images in a repository.</p> <note> <p>Starting with Docker version 1.9, the Docker client compresses image layers before pushing them to a V2 Docker registry. The output of the <code>docker images</code> command shows the uncompressed image size. Therefore, Docker might return a larger image than the image shown in the Amazon Web Services Management Console.</p> </note> <important> <p>The new version of Amazon ECR <i>Basic Scanning</i> doesn't use the <a>ImageDetail$imageScanFindingsSummary</a> and <a>ImageDetail$imageScanStatus</a> attributes from the API response to return scan results. Use the <a>DescribeImageScanFindings</a> API instead. For more information about Amazon Web Services native basic scanning, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html"> Scan images for software vulnerabilities in Amazon ECR</a>.</p> </important>
 
         Args:
             registry_id: <p>The Amazon Web Services account ID associated with the registry that contains the repository in which to describe images. If you do not specify a registry, the default registry is assumed.</p>
@@ -1498,7 +1498,7 @@ class ECRClient:
         config_overrides: Optional[ECRClientConfig] = None,
         registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
     ) -> "capo_ecr.types.describe_image_signing_status_response.DescribeImageSigningStatusResponse":
-        r"""<p>Returns the signing status for a specified image. If the image matched signing rules that reference different signing profiles, a status is returned for each profile.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html\">Managed signing</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Returns the signing status for a specified image. If the image matched signing rules that reference different signing profiles, a status is returned for each profile.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html">Managed signing</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             repository_name: <p>The name of the repository that contains the image.</p>
@@ -1891,7 +1891,7 @@ class ECRClient:
     ) -> (
         "capo_ecr.types.get_authorization_token_response.GetAuthorizationTokenResponse"
     ):
-        r"""<p>Retrieves an authorization token. An authorization token represents your IAM authentication credentials and can be used to access any Amazon ECR registry that your IAM principal has access to. The authorization token is valid for 12 hours.</p> <p>The <code>authorizationToken</code> returned is a base64 encoded string that can be decoded and used in a <code>docker login</code> command to authenticate to a registry. The CLI offers an <code>get-login-password</code> command that simplifies the login process. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth\">Registry authentication</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Retrieves an authorization token. An authorization token represents your IAM authentication credentials and can be used to access any Amazon ECR registry that your IAM principal has access to. The authorization token is valid for 12 hours.</p> <p>The <code>authorizationToken</code> returned is a base64 encoded string that can be decoded and used in a <code>docker login</code> command to authenticate to a registry. The CLI offers an <code>get-login-password</code> command that simplifies the login process. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth">Registry authentication</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             registry_ids: <p>A list of Amazon Web Services account IDs that are associated with the registries for which to get AuthorizationData objects. If you do not specify a registry, the default registry is assumed.</p>
@@ -2277,7 +2277,7 @@ class ECRClient:
     def get_signing_configuration(
         self, *, config_overrides: Optional[ECRClientConfig] = None
     ) -> "capo_ecr.types.get_signing_configuration_response.GetSigningConfigurationResponse":
-        r"""<p>Retrieves the registry's signing configuration, which defines rules for automatically signing images using Amazon Web Services Signer.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html\">Managed signing</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Retrieves the registry's signing configuration, which defines rules for automatically signing images using Amazon Web Services Signer.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html">Managed signing</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Raises:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
@@ -2555,7 +2555,7 @@ class ECRClient:
 
         Raises:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
             capo_ecr.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -2660,7 +2660,7 @@ class ECRClient:
 
         Raises:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
             capo_ecr.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -2724,7 +2724,7 @@ class ECRClient:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
             capo_ecr.errors.kms_exception.KmsException: <p>The operation failed due to a KMS exception.</p>
             capo_ecr.errors.layers_not_found_exception.LayersNotFoundException: <p>The specified layers could not be found, or the specified layer is not valid for this repository.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.referenced_images_not_found_exception.ReferencedImagesNotFoundException: <p>The manifest list is referencing an image that does not exist.</p>
             capo_ecr.errors.repository_not_found_exception.RepositoryNotFoundException: <p>The specified repository could not be found. Check the spelling of the specified repository and ensure that you are performing operations on the correct registry.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
@@ -2831,7 +2831,7 @@ class ECRClient:
     ) -> (
         "capo_ecr.types.put_image_tag_mutability_response.PutImageTagMutabilityResponse"
     ):
-        r"""<p>Updates the image tag mutability settings for the specified repository. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-tag-mutability.html\">Image tag mutability</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Updates the image tag mutability settings for the specified repository. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-tag-mutability.html">Image tag mutability</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             registry_id: <p>The Amazon Web Services account ID associated with the registry that contains the repository in which to update the image tag mutability settings. If you do not specify a registry, the default registry is assumed.</p>
@@ -2888,7 +2888,7 @@ class ECRClient:
         config_overrides: Optional[ECRClientConfig] = None,
         registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
     ) -> "capo_ecr.types.put_lifecycle_policy_response.PutLifecyclePolicyResponse":
-        r"""<p>Creates or updates the lifecycle policy for the specified repository. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html\">Lifecycle policy template</a>.</p>
+        """<p>Creates or updates the lifecycle policy for the specified repository. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html">Lifecycle policy template</a>.</p>
 
         Args:
             registry_id: <p>The Amazon Web Services account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed.</p>
@@ -2939,10 +2939,10 @@ class ECRClient:
         *,
         config_overrides: Optional[ECRClientConfig] = None,
     ) -> "capo_ecr.types.put_registry_policy_response.PutRegistryPolicyResponse":
-        r"""<p>Creates or updates the permissions policy for your registry.</p> <p>A registry policy is used to specify permissions for another Amazon Web Services account and is used when configuring cross-account replication. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html\">Registry permissions</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Creates or updates the permissions policy for your registry.</p> <p>A registry policy is used to specify permissions for another Amazon Web Services account and is used when configuring cross-account replication. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html">Registry permissions</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
-            policy_text: <p>The JSON policy text to apply to your registry. The policy text follows the same format as IAM policy text. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html\">Registry permissions</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+            policy_text: <p>The JSON policy text to apply to your registry. The policy text follows the same format as IAM policy text. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html">Registry permissions</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Raises:
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
@@ -3036,7 +3036,7 @@ class ECRClient:
         *,
         config_overrides: Optional[ECRClientConfig] = None,
     ) -> "capo_ecr.types.put_replication_configuration_response.PutReplicationConfigurationResponse":
-        r"""<p>Creates or updates the replication configuration for a registry. The existing replication configuration for a repository can be retrieved with the <a>DescribeRegistry</a> API action. The first time the PutReplicationConfiguration API is called, a service-linked IAM role is created in your account for the replication process. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html\">Using service-linked roles for Amazon ECR</a> in the <i>Amazon Elastic Container Registry User Guide</i>. For more information on the custom role for replication, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/replication-creation-templates.html#roles-creatingrole-user-console\">Creating an IAM role for replication</a>.</p> <note> <p>When configuring cross-account replication, the destination account must grant the source account permission to replicate. This permission is controlled using a registry permissions policy. For more information, see <a>PutRegistryPolicy</a>.</p> </note>
+        """<p>Creates or updates the replication configuration for a registry. The existing replication configuration for a repository can be retrieved with the <a>DescribeRegistry</a> API action. The first time the PutReplicationConfiguration API is called, a service-linked IAM role is created in your account for the replication process. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html">Using service-linked roles for Amazon ECR</a> in the <i>Amazon Elastic Container Registry User Guide</i>. For more information on the custom role for replication, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/replication-creation-templates.html#roles-creatingrole-user-console">Creating an IAM role for replication</a>.</p> <note> <p>When configuring cross-account replication, the destination account must grant the source account permission to replicate. This permission is controlled using a registry permissions policy. For more information, see <a>PutRegistryPolicy</a>.</p> </note>
 
         Args:
             replication_configuration: <p>An object representing the replication configuration for a registry.</p>
@@ -3081,7 +3081,7 @@ class ECRClient:
         *,
         config_overrides: Optional[ECRClientConfig] = None,
     ) -> "capo_ecr.types.put_signing_configuration_response.PutSigningConfigurationResponse":
-        r"""<p>Creates or updates the registry's signing configuration, which defines rules for automatically signing images with Amazon Web Services Signer.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html\">Managed signing</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p> <note> <p>To successfully generate a signature, the IAM principal pushing images must have permission to sign payloads with the Amazon Web Services Signer signing profile referenced in the signing configuration.</p> </note>
+        """<p>Creates or updates the registry's signing configuration, which defines rules for automatically signing images with Amazon Web Services Signer.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html">Managed signing</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p> <note> <p>To successfully generate a signature, the IAM principal pushing images must have permission to sign payloads with the Amazon Web Services Signer signing profile referenced in the signing configuration.</p> </note>
 
         Args:
             signing_configuration: <p>The signing configuration to assign to the registry.</p>
@@ -3134,7 +3134,7 @@ class ECRClient:
         Raises:
             capo_ecr.errors.exclusion_already_exists_exception.ExclusionAlreadyExistsException: <p>The specified pull time update exclusion already exists for the registry.</p>
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.validation_exception.ValidationException: <p>There was an exception validating this request.</p>
             capo_ecr.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -3176,12 +3176,12 @@ class ECRClient:
         registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
         force: Optional["capo_ecr.types.force_flag.ForceFlag"] = None,
     ) -> "capo_ecr.types.set_repository_policy_response.SetRepositoryPolicyResponse":
-        r"""<p>Applies a repository policy to the specified repository to control access permissions. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policies.html\">Amazon ECR Repository policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Applies a repository policy to the specified repository to control access permissions. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policies.html">Amazon ECR Repository policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             registry_id: <p>The Amazon Web Services account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed.</p>
             repository_name: <p>The name of the repository to receive the policy.</p>
-            policy_text: <p>The JSON repository policy text to apply to the repository. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policy-examples.html\">Amazon ECR repository policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+            policy_text: <p>The JSON repository policy text to apply to the repository. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policy-examples.html">Amazon ECR repository policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
             force: <p>If the policy you are attempting to set on a repository policy would prevent you from setting another policy in the future, you must force the <a>SetRepositoryPolicy</a> operation. This is intended to prevent accidental repository lock outs.</p>
 
         Raises:
@@ -3231,7 +3231,7 @@ class ECRClient:
         config_overrides: Optional[ECRClientConfig] = None,
         registry_id: Optional["capo_ecr.types.registry_id.RegistryId"] = None,
     ) -> "capo_ecr.types.start_image_scan_response.StartImageScanResponse":
-        r"""<p>Starts a basic image vulnerability scan.</p> <p> A basic image scan can only be started once per 24 hours on an individual image. This limit includes if an image was scanned on initial push. You can start up to 100,000 basic scans per 24 hours. This limit includes both scans on initial push and scans initiated by the StartImageScan API. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning-basic.html\">Basic scanning</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Starts a basic image vulnerability scan.</p> <p> A basic image scan can only be started once per 24 hours on an individual image. This limit includes if an image was scanned on initial push. You can start up to 100,000 basic scans per 24 hours. This limit includes both scans on initial push and scans initiated by the StartImageScan API. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning-basic.html">Basic scanning</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             registry_id: <p>The Amazon Web Services account ID associated with the registry that contains the repository in which to start an image scan request. If you do not specify a registry, the default registry is assumed.</p>
@@ -3241,7 +3241,7 @@ class ECRClient:
             capo_ecr.errors.image_archived_exception.ImageArchivedException: <p>The specified image is archived and cannot be scanned.</p>
             capo_ecr.errors.image_not_found_exception.ImageNotFoundException: <p>The image requested does not exist in the specified repository.</p>
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.repository_not_found_exception.RepositoryNotFoundException: <p>The specified repository could not be found. Check the spelling of the specified repository and ensure that you are performing operations on the correct registry.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.unsupported_image_type_exception.UnsupportedImageTypeException: <p>The image is of a type that cannot be scanned.</p>
@@ -3691,7 +3691,7 @@ class ECRClient:
             capo_ecr.errors.invalid_layer_part_exception.InvalidLayerPartException: <p>The layer part size is not valid, or the first byte specified is not consecutive to the last byte of a previous layer part upload.</p>
             capo_ecr.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
             capo_ecr.errors.kms_exception.KmsException: <p>The operation failed due to a KMS exception.</p>
-            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr.errors.limit_exceeded_exception.LimitExceededException: <p>The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr.errors.repository_not_found_exception.RepositoryNotFoundException: <p>The specified repository could not be found. Check the spelling of the specified repository and ensure that you are performing operations on the correct registry.</p>
             capo_ecr.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr.errors.upload_not_found_exception.UploadNotFoundException: <p>The upload could not be found, or the specified upload ID is not valid for this repository.</p>

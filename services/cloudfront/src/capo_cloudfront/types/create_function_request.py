@@ -20,7 +20,7 @@ class CreateFunctionRequest(TypedDict, closed=True):
     function_config: "capo_cloudfront.types.function_config.FunctionConfig"
     """<p>Configuration information about the function, including an optional comment and the function's runtime.</p>"""
     function_code: "capo_cloudfront.types.function_blob.FunctionBlob"
-    r"""<p>The function code. For more information about writing a CloudFront function, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html\">Writing function code for CloudFront Functions</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
+    """<p>The function code. For more information about writing a CloudFront function, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html">Writing function code for CloudFront Functions</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
     tags: NotRequired["capo_cloudfront.types.tags.Tags"]
 
 

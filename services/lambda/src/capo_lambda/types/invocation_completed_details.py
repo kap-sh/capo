@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 
 class InvocationCompletedDetails(TypedDict, closed=True):
     start_timestamp: "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
-    r"""<p>The date and time when the invocation started, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
+    """<p>The date and time when the invocation started, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
     end_timestamp: "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
-    r"""<p>The date and time when the invocation ended, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
+    """<p>The date and time when the invocation ended, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
     request_id: "capo_lambda.types.string.String"
     """<p>The request ID for the invocation.</p>"""
     error: NotRequired["capo_lambda.types.event_error.EventError"]

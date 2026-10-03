@@ -19,7 +19,7 @@ class UpdateKeyRequest(TypedDict, closed=True):
     ]
     """<p>Updates the description for the API key resource.</p>"""
     expire_time: NotRequired["capo_location.types.timestamp.Timestamp"]
-    r"""<p>Updates the timestamp for when the API key resource will expire in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>Updates the timestamp for when the API key resource will expire in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
     no_expiry: NotRequired["bool"]
     """<p>Whether the API key should expire. Set to <code>true</code> to set the API key to have no expiration time.</p>"""
     force_update: NotRequired["bool"]

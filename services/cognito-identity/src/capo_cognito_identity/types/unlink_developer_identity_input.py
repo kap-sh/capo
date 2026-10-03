@@ -21,7 +21,7 @@ class UnlinkDeveloperIdentityInput(TypedDict, closed=True):
     developer_provider_name: (
         "capo_cognito_identity.types.developer_provider_name.DeveloperProviderName"
     )
-    r"""<p>The \"domain\" by which Cognito will refer to your users.</p>"""
+    """<p>The "domain" by which Cognito will refer to your users.</p>"""
     developer_user_identifier: (
         "capo_cognito_identity.types.developer_user_identifier.DeveloperUserIdentifier"
     )

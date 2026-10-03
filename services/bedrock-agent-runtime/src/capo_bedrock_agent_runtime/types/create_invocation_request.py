@@ -16,7 +16,7 @@ class CreateInvocationRequest(TypedDict, closed=True):
     description: NotRequired[
         "capo_bedrock_agent_runtime.types.invocation_description.InvocationDescription"
     ]
-    r"""<p>A description for the interactions in the invocation. For example, \"User asking about weather in Seattle\".</p>"""
+    """<p>A description for the interactions in the invocation. For example, "User asking about weather in Seattle".</p>"""
     session_identifier: (
         "capo_bedrock_agent_runtime.types.session_identifier.SessionIdentifier"
     )

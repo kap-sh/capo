@@ -32,7 +32,7 @@ class CreatePromptVersionResponse(TypedDict, closed=True):
     default_variant: NotRequired[
         "capo_bedrock_agent.types.prompt_variant_name.PromptVariantName"
     ]
-    r"""<p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html\">PromptVariant</a> object.</p>"""
+    """<p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html">PromptVariant</a> object.</p>"""
     variants: NotRequired[
         "capo_bedrock_agent.types.prompt_variant_list.PromptVariantList"
     ]

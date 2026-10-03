@@ -18,7 +18,7 @@ class AwsIamUserDetails(TypedDict, closed=True):
     ]
     """<p>A list of the managed policies that are attached to the user.</p>"""
     create_date: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the user was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the user was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     group_list: NotRequired["capo_securityhub.types.string_list.StringList"]
     """<p>A list of IAM groups that the user belongs to.</p>"""
     path: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

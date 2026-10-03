@@ -40,7 +40,7 @@ class GetTablesRequest(TypedDict, closed=True):
     query_as_of_time: NotRequired["capo_glue.types.timestamp.Timestamp"]
     """<p>The time as of when to read the table contents. If not set, the most recent transaction commit time will be used. Cannot be specified along with <code>TransactionId</code>.</p>"""
     audit_context: NotRequired["capo_glue.types.audit_context.AuditContext"]
-    r"""<p>A structure containing the Lake Formation <a href=\"https://docs.aws.amazon.com/glue/latest/webapi/API_AuditContext.html\">audit context</a>.</p>"""
+    """<p>A structure containing the Lake Formation <a href="https://docs.aws.amazon.com/glue/latest/webapi/API_AuditContext.html">audit context</a>.</p>"""
     resource_share_type: NotRequired[
         "capo_glue.types.table_resource_share_type.TableResourceShareType"
     ]

@@ -30,7 +30,7 @@ class CreateServiceInstanceInput(TypedDict, closed=True):
     ]
     """<p>To create a new minor version of the service template, include a <code>major Version</code>.</p>"""
     tags: NotRequired["capo_proton.types.tag_list.TagList"]
-    r"""<p>An optional list of metadata items that you can associate with the Proton service instance. A tag is a key-value pair.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>"""
+    """<p>An optional list of metadata items that you can associate with the Proton service instance. A tag is a key-value pair.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/resources.html">Proton resources and tagging</a> in the <i>Proton User Guide</i>.</p>"""
     client_token: NotRequired["capo_proton.types.client_token.ClientToken"]
     """<p>The client token of the service instance to create.</p>"""
 

@@ -234,13 +234,13 @@ class AsyncDevOpsGuruClient:
         *,
         config_overrides: Optional[AsyncDevOpsGuruClientConfig] = None,
     ) -> "capo_devops_guru.types.add_notification_channel_response.AddNotificationChannelResponse":
-        r"""<p> Adds a notification channel to DevOps Guru. A notification channel is used to notify you about important DevOps Guru events, such as when an insight is generated. </p> <p>If you use an Amazon SNS topic in another account, you must attach a policy to it that grants DevOps Guru permission to send it notifications. DevOps Guru adds the required policy on your behalf to send notifications using Amazon SNS in your account. DevOps Guru only supports standard SNS topics. For more information, see <a href=\"https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-required-permissions.html\">Permissions for Amazon SNS topics</a>.</p> <p>If you use an Amazon SNS topic that is encrypted by an Amazon Web Services Key Management Service customer-managed key (CMK), then you must add permissions to the CMK. For more information, see <a href=\"https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-kms-permissions.html\">Permissions for Amazon Web Services KMS–encrypted Amazon SNS topics</a>.</p>
+        """<p> Adds a notification channel to DevOps Guru. A notification channel is used to notify you about important DevOps Guru events, such as when an insight is generated. </p> <p>If you use an Amazon SNS topic in another account, you must attach a policy to it that grants DevOps Guru permission to send it notifications. DevOps Guru adds the required policy on your behalf to send notifications using Amazon SNS in your account. DevOps Guru only supports standard SNS topics. For more information, see <a href="https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-required-permissions.html">Permissions for Amazon SNS topics</a>.</p> <p>If you use an Amazon SNS topic that is encrypted by an Amazon Web Services Key Management Service customer-managed key (CMK), then you must add permissions to the CMK. For more information, see <a href="https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-kms-permissions.html">Permissions for Amazon Web Services KMS–encrypted Amazon SNS topics</a>.</p>
 
         Args:
             config: <p> A <code>NotificationChannelConfig</code> object that specifies what type of notification channel to add. The one supported notification channel is Amazon Simple Notification Service (Amazon SNS). </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.conflict_exception.ConflictException: <p> An exception that is thrown when a conflict occurs. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
@@ -290,7 +290,7 @@ class AsyncDevOpsGuruClient:
             id: <p>The ID of the insight.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.conflict_exception.ConflictException: <p> An exception that is thrown when a conflict occurs. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
@@ -333,7 +333,7 @@ class AsyncDevOpsGuruClient:
         """<p> Returns the number of open reactive insights, the number of open proactive insights, and the number of metrics analyzed in your Amazon Web Services account. Use these numbers to gauge the health of operations in your Amazon Web Services account. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -380,7 +380,7 @@ class AsyncDevOpsGuruClient:
             to_time: <p> The end of the time range passed in. The start time granularity is at the day level. The floor of the start time is used. Returned information occurred before this day. If this is not specified, then the current day is used. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -433,7 +433,7 @@ class AsyncDevOpsGuruClient:
             account_id: <p>The ID of the member account.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -477,7 +477,7 @@ class AsyncDevOpsGuruClient:
         """<p>Returns the integration status of services that are integrated with DevOps Guru as Consumer via EventBridge. The one service that can be integrated with DevOps Guru is Amazon CodeGuru Profiler, which can produce proactive recommendations which can be stored and viewed in DevOps Guru.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -522,7 +522,7 @@ class AsyncDevOpsGuruClient:
             insight_id: <p> The ID of the insight for which the feedback was provided. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -574,7 +574,7 @@ class AsyncDevOpsGuruClient:
             account_id: <p>The ID of the member account in the organization.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -630,7 +630,7 @@ class AsyncDevOpsGuruClient:
             organizational_unit_ids: <p>The ID of the organizational unit.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -689,7 +689,7 @@ class AsyncDevOpsGuruClient:
             organizational_unit_ids: <p>The ID of the organizational unit.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -758,7 +758,7 @@ class AsyncDevOpsGuruClient:
             max_results: <p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -850,7 +850,7 @@ class AsyncDevOpsGuruClient:
             next_token: <p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -914,7 +914,7 @@ class AsyncDevOpsGuruClient:
         """<p> Returns the integration status of services that are integrated with DevOps Guru. The one service that can be integrated with DevOps Guru is Amazon Web Services Systems Manager, which can be used to create an OpsItem for each generated insight. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -958,13 +958,13 @@ class AsyncDevOpsGuruClient:
     ) -> (
         "capo_devops_guru.types.get_cost_estimation_response.GetCostEstimationResponse"
     ):
-        r"""<p>Returns an estimate of the monthly cost for DevOps Guru to analyze your Amazon Web Services resources. For more information, see <a href=\"https://docs.aws.amazon.com/devops-guru/latest/userguide/cost-estimate.html\">Estimate your Amazon DevOps Guru costs</a> and <a href=\"http://aws.amazon.com/devops-guru/pricing/\">Amazon DevOps Guru pricing</a>.</p>
+        """<p>Returns an estimate of the monthly cost for DevOps Guru to analyze your Amazon Web Services resources. For more information, see <a href="https://docs.aws.amazon.com/devops-guru/latest/userguide/cost-estimate.html">Estimate your Amazon DevOps Guru costs</a> and <a href="http://aws.amazon.com/devops-guru/pricing/">Amazon DevOps Guru pricing</a>.</p>
 
         Args:
             next_token: <p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -1035,7 +1035,7 @@ class AsyncDevOpsGuruClient:
             next_token: <p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -1126,7 +1126,7 @@ class AsyncDevOpsGuruClient:
             filters: <p> Specifies one or more service names that are used to list anomalies. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -1229,7 +1229,7 @@ class AsyncDevOpsGuruClient:
             next_token: <p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -1318,7 +1318,7 @@ class AsyncDevOpsGuruClient:
             account_id: <p>The ID of the Amazon Web Services account. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -1411,7 +1411,7 @@ class AsyncDevOpsGuruClient:
             next_token: <p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -1577,7 +1577,7 @@ class AsyncDevOpsGuruClient:
             next_token: <p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -1662,7 +1662,7 @@ class AsyncDevOpsGuruClient:
             next_token: <p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -1760,7 +1760,7 @@ class AsyncDevOpsGuruClient:
             account_id: <p>The ID of the Amazon Web Services account. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -1845,7 +1845,7 @@ class AsyncDevOpsGuruClient:
             insight_feedback: <p> The feedback from customers is about the recommendations in this insight. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.conflict_exception.ConflictException: <p> An exception that is thrown when a conflict occurs. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
@@ -1894,7 +1894,7 @@ class AsyncDevOpsGuruClient:
             id: <p> The ID of the notification channel to be removed. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.conflict_exception.ConflictException: <p> An exception that is thrown when a conflict occurs. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
@@ -1957,7 +1957,7 @@ class AsyncDevOpsGuruClient:
             type: <p> The type of insights you are searching for (<code>REACTIVE</code> or <code>PROACTIVE</code>). </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -2057,7 +2057,7 @@ class AsyncDevOpsGuruClient:
             type: <p> The type of insights you are searching for (<code>REACTIVE</code> or <code>PROACTIVE</code>). </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -2149,7 +2149,7 @@ class AsyncDevOpsGuruClient:
             client_token: <p>The idempotency token used to identify each cost estimate request.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.conflict_exception.ConflictException: <p> An exception that is thrown when a conflict occurs. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.resource_not_found_exception.ResourceNotFoundException: <p>A requested resource could not be found</p>
@@ -2203,7 +2203,7 @@ class AsyncDevOpsGuruClient:
             event_sources: <p>Configuration information about the integration of DevOps Guru as the Consumer via EventBridge with another AWS Service.</p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
             capo_devops_guru.errors.validation_exception.ValidationException: <p> Contains information about data passed in to a field during a request that is not valid. </p>
@@ -2251,7 +2251,7 @@ class AsyncDevOpsGuruClient:
             action: <p> Specifies if the resource collection in the request is added or deleted to the resource collection. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.conflict_exception.ConflictException: <p> An exception that is thrown when a conflict occurs. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>
@@ -2300,7 +2300,7 @@ class AsyncDevOpsGuruClient:
             service_integration: <p> An <code>IntegratedServiceConfig</code> object used to specify the integrated service you want to update, and whether you want to update it to enabled or disabled. </p>
 
         Raises:
-            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html\">Access Management</a> in the <i>IAM User Guide</i>. </p>
+            capo_devops_guru.errors.access_denied_exception.AccessDeniedException: <p> You don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access Management</a> in the <i>IAM User Guide</i>. </p>
             capo_devops_guru.errors.conflict_exception.ConflictException: <p> An exception that is thrown when a conflict occurs. </p>
             capo_devops_guru.errors.internal_server_exception.InternalServerException: <p>An internal failure in an Amazon service occurred.</p>
             capo_devops_guru.errors.throttling_exception.ThrottlingException: <p>The request was denied due to a request throttling.</p>

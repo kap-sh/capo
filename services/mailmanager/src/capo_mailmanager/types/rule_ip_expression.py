@@ -18,7 +18,7 @@ class RuleIpExpression(TypedDict, closed=True):
     operator: "capo_mailmanager.types.rule_ip_operator.RuleIpOperator"
     """<p>The operator to evaluate the IP address.</p>"""
     values: "capo_mailmanager.types.rule_ip_value_list.RuleIpValueList"
-    r"""<p>The IP CIDR blocks in format \"x.y.z.w/n\" (eg 10.0.0.0/8) to match with the email's IP address. For the operator CIDR_MATCHES, if multiple values are given, they are evaluated as an OR. That is, if the IP address is contained within any of the given CIDR ranges, the condition is deemed to match. For NOT_CIDR_MATCHES, if multiple CIDR ranges are given, the condition is deemed to match if the IP address is not contained in any of the given CIDR ranges.</p>"""
+    """<p>The IP CIDR blocks in format "x.y.z.w/n" (eg 10.0.0.0/8) to match with the email's IP address. For the operator CIDR_MATCHES, if multiple values are given, they are evaluated as an OR. That is, if the IP address is contained within any of the given CIDR ranges, the condition is deemed to match. For NOT_CIDR_MATCHES, if multiple CIDR ranges are given, the condition is deemed to match if the IP address is not contained in any of the given CIDR ranges.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

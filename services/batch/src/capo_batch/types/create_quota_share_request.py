@@ -33,7 +33,7 @@ class CreateQuotaShareRequest(TypedDict, closed=True):
     state: NotRequired["capo_batch.types.quota_share_state.QuotaShareState"]
     """<p>The state of the quota share. If the quota share is <code>ENABLED</code>, it is able to accept jobs. If the quota share is <code>DISABLED</code>, new jobs won't be accepted but jobs already submitted can finish. The default state is <code>ENABLED</code>.</p>"""
     tags: NotRequired["capo_batch.types.tagris_tags_map.TagrisTagsMap"]
-    r"""<p>The tags that you apply to the quota share to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html\">Tagging your Batch resources</a> in <i>Batch User Guide</i>.</p>"""
+    """<p>The tags that you apply to the quota share to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a> in <i>Batch User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

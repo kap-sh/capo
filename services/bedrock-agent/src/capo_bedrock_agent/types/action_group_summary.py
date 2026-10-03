@@ -20,7 +20,7 @@ class ActionGroupSummary(TypedDict, closed=True):
     action_group_name: "capo_bedrock_agent.types.name.Name"
     """<p>The name of the action group.</p>"""
     action_group_state: "capo_bedrock_agent.types.action_group_state.ActionGroupState"
-    r"""<p>Specifies whether the action group is available for the agent to invoke or not when sending an <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_InvokeAgent.html\">InvokeAgent</a> request.</p>"""
+    """<p>Specifies whether the action group is available for the agent to invoke or not when sending an <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_InvokeAgent.html">InvokeAgent</a> request.</p>"""
     description: NotRequired["capo_bedrock_agent.types.description.Description"]
     """<p>The description of the action group.</p>"""
     updated_at: "capo_bedrock_agent.types.date_timestamp.DateTimestamp"

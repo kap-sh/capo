@@ -22,7 +22,7 @@ class DescribeFlowLogsRequest(TypedDict, closed=True):
     flow_log_ids: NotRequired["capo_ec2.types.flow_log_id_list.FlowLogIdList"]
     """<p>One or more flow log IDs.</p> <p>Constraint: Maximum of 1000 flow log IDs.</p>"""
     max_results: NotRequired["capo_ec2.types.integer.Integer"]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     next_token: NotRequired["capo_ec2.types.string.String"]
     """<p>The token to request the next page of items. Pagination continues from the end of the items returned by the previous request.</p>"""
 

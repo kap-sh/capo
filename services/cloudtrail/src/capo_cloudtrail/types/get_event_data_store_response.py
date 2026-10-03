@@ -60,7 +60,7 @@ class GetEventDataStoreResponse(TypedDict, closed=True):
     federation_status: NotRequired[
         "capo_cloudtrail.types.federation_status.FederationStatus"
     ]
-    r"""<p> Indicates the <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/query-federation.html\">Lake query federation</a> status. The status is <code>ENABLED</code> if Lake query federation is enabled, or <code>DISABLED</code> if Lake query federation is disabled. You cannot delete an event data store if the <code>FederationStatus</code> is <code>ENABLED</code>. </p>"""
+    """<p> Indicates the <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/query-federation.html">Lake query federation</a> status. The status is <code>ENABLED</code> if Lake query federation is enabled, or <code>DISABLED</code> if Lake query federation is disabled. You cannot delete an event data store if the <code>FederationStatus</code> is <code>ENABLED</code>. </p>"""
     federation_role_arn: NotRequired[
         "capo_cloudtrail.types.federation_role_arn.FederationRoleArn"
     ]

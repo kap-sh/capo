@@ -15,7 +15,7 @@ class JourneySMSMessage(TypedDict, closed=True):
     origination_number: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The long code to send the SMS message from. This value should be one of the dedicated long codes that's assigned to your AWS account. Although it isn't required, we recommend that you specify the long code using an E.164 format to ensure prompt and accurate delivery of the message. For example, +12065550100.</p>"""
     sender_id: NotRequired["capo_pinpoint.types.__string.__string"]
-    r"""<p>The sender ID to display as the sender of the message on a recipient's device. Support for sender IDs varies by country or region. For more information, see <a href=\"https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html\">Supported Countries and Regions</a> in the Amazon Pinpoint User Guide.</p>"""
+    """<p>The sender ID to display as the sender of the message on a recipient's device. Support for sender IDs varies by country or region. For more information, see <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html">Supported Countries and Regions</a> in the Amazon Pinpoint User Guide.</p>"""
     entity_id: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The entity ID or Principal Entity (PE) id received from the regulatory body for sending SMS in your country.</p>"""
     template_id: NotRequired["capo_pinpoint.types.__string.__string"]

@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class Cluster(TypedDict, closed=True):
     cluster_arn: NotRequired["capo_ecs.types.string.String"]
-    r"""<p>The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids\">Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
     cluster_name: NotRequired["capo_ecs.types.string.String"]
     """<p>A user-generated string that you use to identify your cluster.</p>"""
     configuration: NotRequired[
@@ -35,7 +35,7 @@ class Cluster(TypedDict, closed=True):
     pending_tasks_count: "capo_ecs.types.integer.Integer"
     """<p>The number of tasks in the cluster that are in the <code>PENDING</code> state.</p>"""
     active_services_count: "capo_ecs.types.integer.Integer"
-    r"""<p>The number of services that are running on the cluster in an <code>ACTIVE</code> state. You can view these services with <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ListServices.html\">ListServices</a>.</p>"""
+    """<p>The number of services that are running on the cluster in an <code>ACTIVE</code> state. You can view these services with <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ListServices.html">ListServices</a>.</p>"""
     statistics: NotRequired["capo_ecs.types.statistics.Statistics"]
     """<p>Additional information about your clusters that are separated by launch type. They include the following:</p> <ul> <li> <p>runningEC2TasksCount</p> </li> <li> <p>RunningFargateTasksCount</p> </li> <li> <p>pendingEC2TasksCount</p> </li> <li> <p>pendingFargateTasksCount</p> </li> <li> <p>activeEC2ServiceCount</p> </li> <li> <p>activeFargateServiceCount</p> </li> <li> <p>drainingEC2ServiceCount</p> </li> <li> <p>drainingFargateServiceCount</p> </li> </ul>"""
     tags: NotRequired["capo_ecs.types.tags.Tags"]
@@ -55,7 +55,7 @@ class Cluster(TypedDict, closed=True):
     service_connect_defaults: NotRequired[
         "capo_ecs.types.cluster_service_connect_defaults.ClusterServiceConnectDefaults"
     ]
-    r"""<p>Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace, any new services with Service Connect turned on that are created in the cluster are added as client services in the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.</p> <p>Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html\">Service Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
+    """<p>Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace, any new services with Service Connect turned on that are created in the cluster are added as client services in the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.</p> <p>Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -29,7 +29,7 @@ class ListEngagementsRequest(TypedDict, closed=True):
     context_types: NotRequired[
         "capo_partnercentral_selling.types.engagement_context_type_list.EngagementContextTypeList"
     ]
-    r"""<p>Filters engagements to include only those containing the specified context types, such as \"CustomerProject\" or \"Lead\". Use this to find engagements that have specific types of contextual information associated with them.</p>"""
+    """<p>Filters engagements to include only those containing the specified context types, such as "CustomerProject" or "Lead". Use this to find engagements that have specific types of contextual information associated with them.</p>"""
     exclude_context_types: NotRequired[
         "capo_partnercentral_selling.types.engagement_context_type_list.EngagementContextTypeList"
     ]

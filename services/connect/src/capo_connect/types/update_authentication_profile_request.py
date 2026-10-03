@@ -21,7 +21,7 @@ class UpdateAuthenticationProfileRequest(TypedDict, closed=True):
     )
     """<p>A unique identifier for the authentication profile. </p>"""
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     name: NotRequired[
         "capo_connect.types.authentication_profile_name.AuthenticationProfileName"
     ]
@@ -31,13 +31,13 @@ class UpdateAuthenticationProfileRequest(TypedDict, closed=True):
     ]
     """<p>The description for the authentication profile.</p>"""
     allowed_ips: NotRequired["capo_connect.types.ip_cidr_list.IpCidrList"]
-    r"""<p>A list of IP address range strings that are allowed to access the instance. For more information on how to configure IP addresses, see<a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts\">Configure session timeouts</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>A list of IP address range strings that are allowed to access the instance. For more information on how to configure IP addresses, see<a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts">Configure session timeouts</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
     blocked_ips: NotRequired["capo_connect.types.ip_cidr_list.IpCidrList"]
-    r"""<p>A list of IP address range strings that are blocked from accessing the instance. For more information on how to configure IP addresses, For more information on how to configure IP addresses, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-ip-based-ac\">Configure IP-based access control</a> in the <i>Connect Customer Administrator Guide</i>. </p>"""
+    """<p>A list of IP address range strings that are blocked from accessing the instance. For more information on how to configure IP addresses, For more information on how to configure IP addresses, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-ip-based-ac">Configure IP-based access control</a> in the <i>Connect Customer Administrator Guide</i>. </p>"""
     periodic_session_duration: NotRequired[
         "capo_connect.types.access_token_duration.AccessTokenDuration"
     ]
-    r"""<p>The short lived session duration configuration for users logged in to Connect Customer, in minutes. This value determines the maximum possible time before an agent is authenticated. For more information, For more information on how to configure IP addresses, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts\">Configure session timeouts</a> in the <i>Connect Customer Administrator Guide</i>. </p>"""
+    """<p>The short lived session duration configuration for users logged in to Connect Customer, in minutes. This value determines the maximum possible time before an agent is authenticated. For more information, For more information on how to configure IP addresses, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts">Configure session timeouts</a> in the <i>Connect Customer Administrator Guide</i>. </p>"""
     session_inactivity_duration: NotRequired[
         "capo_connect.types.inactivity_duration.InactivityDuration"
     ]

@@ -24,7 +24,7 @@ class ClusterConfig(TypedDict, closed=True):
     dedicated_master_enabled: NotRequired["capo_opensearch.types.boolean.Boolean"]
     """<p>Indicates whether dedicated master nodes are enabled for the cluster.<code>True</code> if the cluster will use a dedicated master node.<code>False</code> if the cluster will not.</p>"""
     zone_awareness_enabled: NotRequired["capo_opensearch.types.boolean.Boolean"]
-    r"""<p>Indicates whether multiple Availability Zones are enabled. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html\">Configuring a multi-AZ domain in Amazon OpenSearch Service</a>.</p>"""
+    """<p>Indicates whether multiple Availability Zones are enabled. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html">Configuring a multi-AZ domain in Amazon OpenSearch Service</a>.</p>"""
     zone_awareness_config: NotRequired[
         "capo_opensearch.types.zone_awareness_config.ZoneAwarenessConfig"
     ]
@@ -50,7 +50,7 @@ class ClusterConfig(TypedDict, closed=True):
     ]
     """<p>Container for cold storage configuration options.</p>"""
     multi_az_with_standby_enabled: NotRequired["capo_opensearch.types.boolean.Boolean"]
-    r"""<p>A boolean that indicates whether a multi-AZ domain is turned on with a standby AZ. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html\">Configuring a multi-AZ domain in Amazon OpenSearch Service</a>. </p>"""
+    """<p>A boolean that indicates whether a multi-AZ domain is turned on with a standby AZ. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html">Configuring a multi-AZ domain in Amazon OpenSearch Service</a>. </p>"""
     node_options: NotRequired["capo_opensearch.types.node_options_list.NodeOptionsList"]
     """<p>List of node options for the domain.</p>"""
 

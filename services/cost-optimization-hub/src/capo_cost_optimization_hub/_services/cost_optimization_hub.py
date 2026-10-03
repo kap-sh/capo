@@ -682,11 +682,11 @@ class CostOptimizationHubClient:
             "capo_cost_optimization_hub.types.preferred_commitment.PreferredCommitment"
         ] = None,
     ) -> "capo_cost_optimization_hub.types.update_preferences_response.UpdatePreferencesResponse":
-        r"""<p>Updates a set of preferences for an account in order to add account-specific preferences into the service. These preferences impact how the savings associated with recommendations are presented.</p>
+        """<p>Updates a set of preferences for an account in order to add account-specific preferences into the service. These preferences impact how the savings associated with recommendations are presented.</p>
 
         Args:
-            savings_estimation_mode: <p>Sets the \"savings estimation mode\" preference.</p>
-            member_account_discount_visibility: <p>Sets the \"member account discount visibility\" preference.</p>
+            savings_estimation_mode: <p>Sets the "savings estimation mode" preference.</p>
+            member_account_discount_visibility: <p>Sets the "member account discount visibility" preference.</p>
             preferred_commitment: <p>Sets the preferences for how Reserved Instances and Savings Plans cost-saving opportunities are prioritized in terms of payment option and term length.</p>
 
         Raises:

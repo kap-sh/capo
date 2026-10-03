@@ -41,7 +41,7 @@ class Campaign(TypedDict, closed=True):
     latest_campaign_update: NotRequired[
         "capo_personalize.types.campaign_update_summary.CampaignUpdateSummary"
     ]
-    r"""<p>Provides a summary of the properties of a campaign update. For a complete listing, call the <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeCampaign.html\">DescribeCampaign</a> API.</p> <note> <p>The <code>latestCampaignUpdate</code> field is only returned when the campaign has had at least one <code>UpdateCampaign</code> call. </p> </note>"""
+    """<p>Provides a summary of the properties of a campaign update. For a complete listing, call the <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeCampaign.html">DescribeCampaign</a> API.</p> <note> <p>The <code>latestCampaignUpdate</code> field is only returned when the campaign has had at least one <code>UpdateCampaign</code> call. </p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---

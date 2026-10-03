@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Ipv4PrefixSpecification(TypedDict, closed=True):
     ipv4_prefix: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The IPv4 prefix. For information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html\"> Assigning prefixes to network interfaces</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The IPv4 prefix. For information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html"> Assigning prefixes to network interfaces</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
 
 
 # --- ec2Query ser/de ---

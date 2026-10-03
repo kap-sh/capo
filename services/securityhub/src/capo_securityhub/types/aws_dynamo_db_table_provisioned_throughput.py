@@ -13,11 +13,11 @@ class AwsDynamoDbTableProvisionedThroughput(TypedDict, closed=True):
     last_decrease_date_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the provisioned throughput was last decreased.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the provisioned throughput was last decreased.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     last_increase_date_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the provisioned throughput was last increased.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the provisioned throughput was last increased.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     number_of_decreases_today: NotRequired["capo_securityhub.types.integer.Integer"]
     """<p>The number of times during the current UTC calendar day that the provisioned throughput was decreased.</p>"""
     read_capacity_units: NotRequired["capo_securityhub.types.integer.Integer"]

@@ -22,9 +22,9 @@ class UpdateGroupRequest(TypedDict, closed=True):
     sam_account_name: "capo_directory_service_data.types.group_name.GroupName"
     """<p> The name of the group. </p>"""
     group_type: NotRequired["capo_directory_service_data.types.group_type.GroupType"]
-    r"""<p> The AD group type. For details, see <a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#how-active-directory-security-groups-work\">Active Directory security group type</a>. </p>"""
+    """<p> The AD group type. For details, see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#how-active-directory-security-groups-work">Active Directory security group type</a>. </p>"""
     group_scope: NotRequired["capo_directory_service_data.types.group_scope.GroupScope"]
-    r"""<p> The scope of the AD group. For details, see <a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope\">Active Directory security groups</a>. </p>"""
+    """<p> The scope of the AD group. For details, see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope">Active Directory security groups</a>. </p>"""
     other_attributes: NotRequired[
         "capo_directory_service_data.types.attributes.Attributes"
     ]

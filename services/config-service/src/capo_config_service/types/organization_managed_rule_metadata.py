@@ -24,7 +24,7 @@ class OrganizationManagedRuleMetadata(TypedDict, closed=True):
     rule_identifier: (
         "capo_config_service.types.string_with_char_limit256.StringWithCharLimit256"
     )
-    r"""<p>For organization config managed rules, a predefined identifier from a list. For example, <code>IAM_PASSWORD_POLICY</code> is a managed rule. To reference a managed rule, see <a href=\"https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html\">Using Config managed rules</a>.</p>"""
+    """<p>For organization config managed rules, a predefined identifier from a list. For example, <code>IAM_PASSWORD_POLICY</code> is a managed rule. To reference a managed rule, see <a href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html">Using Config managed rules</a>.</p>"""
     input_parameters: NotRequired[
         "capo_config_service.types.string_with_char_limit1024.StringWithCharLimit1024"
     ]

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class StartAttachedFileUploadRequest(TypedDict, closed=True):
     client_token: NotRequired["capo_connect.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
     instance_id: "capo_connect.types.instance_id.InstanceId"
     """<p>The unique identifier of the Connect Customer instance.</p>"""
     file_name: "capo_connect.types.file_name.FileName"
@@ -34,11 +34,11 @@ class StartAttachedFileUploadRequest(TypedDict, closed=True):
     file_use_case_type: "capo_connect.types.file_use_case_type.FileUseCaseType"
     """<p>The use case for the file.</p> <important> <p> Only <code>ATTACHMENTS</code> are supported.</p> </important>"""
     associated_resource_arn: "capo_connect.types.arn.ARN"
-    r"""<p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/cases.html\">Cases</a>, <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html\">Email</a>, and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html\">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>"""
+    """<p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href="https://docs.aws.amazon.com/connect/latest/adminguide/cases.html">Cases</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Email</a>, and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Task</a>.</p> <note> <p>This value must be a valid ARN.</p> </note>"""
     created_by: NotRequired["capo_connect.types.created_by_info.CreatedByInfo"]
     """<p>Represents the identity that created the file.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, <code>{ "Tags": {"key1":"value1", "key2":"value2"} }</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

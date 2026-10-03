@@ -53,7 +53,7 @@ class PhoneNumberInformation(TypedDict, closed=True):
     ]
     """<p>An optional IAM Role Arn for a service to assume, to be able to post inbound SMS messages.</p>"""
     self_managed_opt_outs_enabled: "bool"
-    r"""<p>When set to false and an end recipient sends a message that begins with HELP or STOP to one of your dedicated numbers, End User Messaging SMS automatically replies with a customizable message and adds the end recipient to the OptOutList. When set to true you're responsible for responding to HELP and STOP requests. You're also responsible for tracking and honoring opt-out request. For more information see <a href=\"https://docs.aws.amazon.com/pinpoint/latest/userguide/settings-sms-managing.html#settings-account-sms-self-managed-opt-out\">Self-managed opt-outs</a> </p>"""
+    """<p>When set to false and an end recipient sends a message that begins with HELP or STOP to one of your dedicated numbers, End User Messaging SMS automatically replies with a customizable message and adds the end recipient to the OptOutList. When set to true you're responsible for responding to HELP and STOP requests. You're also responsible for tracking and honoring opt-out request. For more information see <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/settings-sms-managing.html#settings-account-sms-self-managed-opt-out">Self-managed opt-outs</a> </p>"""
     opt_out_list_name: (
         "capo_pinpoint_sms_voice_v2.types.opt_out_list_name.OptOutListName"
     )
@@ -71,7 +71,7 @@ class PhoneNumberInformation(TypedDict, closed=True):
     ]
     """<p>The messaging limits that apply to the phone number, including the per-capability send rates and any advisory per-provider daily message caps.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the phone number was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the phone number was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

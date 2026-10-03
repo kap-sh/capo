@@ -14,13 +14,13 @@ if TYPE_CHECKING:
 
 class UpdateAppVersionAppComponentRequest(TypedDict, closed=True):
     app_arn: "capo_resiliencehub.types.arn.Arn"
-    r"""<p>Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:<code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>. For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\"> Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.</p>"""
+    """<p>Amazon Resource Name (ARN) of the Resilience Hub application. The format for this ARN is: arn:<code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app/<code>app-id</code>. For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"> Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.</p>"""
     id: "capo_resiliencehub.types.string255.String255"
     """<p>Identifier of the Application Component.</p>"""
     name: NotRequired["capo_resiliencehub.types.string255.String255"]
     """<p>Name of the Application Component.</p>"""
     type: NotRequired["capo_resiliencehub.types.string255.String255"]
-    r"""<p>Type of Application Component. For more information about the types of Application Component, see <a href=\"https://docs.aws.amazon.com/resilience-hub/latest/userguide/AppComponent.grouping.html\">Grouping resources in an AppComponent</a>.</p>"""
+    """<p>Type of Application Component. For more information about the types of Application Component, see <a href="https://docs.aws.amazon.com/resilience-hub/latest/userguide/AppComponent.grouping.html">Grouping resources in an AppComponent</a>.</p>"""
     additional_info: NotRequired[
         "capo_resiliencehub.types.additional_info_map.AdditionalInfoMap"
     ]

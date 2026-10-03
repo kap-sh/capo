@@ -317,7 +317,7 @@ class AsyncAppFabricClient:
         client_token: Optional["capo_appfabric.types.uuid.UUID"] = None,
         tags: Optional["capo_appfabric.types.tag_list.TagList"] = None,
     ) -> "capo_appfabric.types.create_app_authorization_response.CreateAppAuthorizationResponse":
-        r"""<p>Creates an app authorization within an app bundle, which allows AppFabric to connect to an application.</p>
+        """<p>Creates an app authorization within an app bundle, which allows AppFabric to connect to an application.</p>
 
         Args:
             app_bundle_identifier: <p>The Amazon Resource Name (ARN) or Universal Unique Identifier (UUID) of the app bundle to use for the request.</p>
@@ -325,7 +325,7 @@ class AsyncAppFabricClient:
             credential: <p>Contains credentials for the application, such as an API key or OAuth2 client ID and secret.</p> <p>Specify credentials that match the authorization type for your request. For example, if the authorization type for your request is OAuth2 (<code>oauth2</code>), then you should provide only the OAuth2 credentials.</p>
             tenant: <p>Contains information about an application tenant, such as the application display name and identifier.</p>
             auth_type: <p>The authorization type for the app authorization.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             tags: <p>A map of the key-value pairs of the tag or tags to assign to the resource.</p>
 
         Raises:
@@ -386,10 +386,10 @@ class AsyncAppFabricClient:
         ] = None,
         tags: Optional["capo_appfabric.types.tag_list.TagList"] = None,
     ) -> "capo_appfabric.types.create_app_bundle_response.CreateAppBundleResponse":
-        r"""<p>Creates an app bundle to collect data from an application using AppFabric.</p>
+        """<p>Creates an app bundle to collect data from an application using AppFabric.</p>
 
         Args:
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             customer_managed_key_identifier: <p>The Amazon Resource Name (ARN) of the Key Management Service (KMS) key to use to encrypt the application data. If this is not specified, an Amazon Web Services owned key is used for encryption.</p>
             tags: <p>A map of the key-value pairs of the tag or tags to assign to the resource.</p>
 
@@ -447,14 +447,14 @@ class AsyncAppFabricClient:
         client_token: Optional["capo_appfabric.types.uuid.UUID"] = None,
         tags: Optional["capo_appfabric.types.tag_list.TagList"] = None,
     ) -> "capo_appfabric.types.create_ingestion_response.CreateIngestionResponse":
-        r"""<p>Creates a data ingestion for an application.</p>
+        """<p>Creates a data ingestion for an application.</p>
 
         Args:
             app_bundle_identifier: <p>The Amazon Resource Name (ARN) or Universal Unique Identifier (UUID) of the app bundle to use for the request.</p>
             app: <p>The name of the application.</p> <p>Valid values are:</p> <ul> <li> <p> <code>SLACK</code> </p> </li> <li> <p> <code>ASANA</code> </p> </li> <li> <p> <code>JIRA</code> </p> </li> <li> <p> <code>M365</code> </p> </li> <li> <p> <code>M365AUDITLOGS</code> </p> </li> <li> <p> <code>ZOOM</code> </p> </li> <li> <p> <code>ZENDESK</code> </p> </li> <li> <p> <code>OKTA</code> </p> </li> <li> <p> <code>GOOGLE</code> </p> </li> <li> <p> <code>DROPBOX</code> </p> </li> <li> <p> <code>SMARTSHEET</code> </p> </li> <li> <p> <code>CISCO</code> </p> </li> </ul>
             tenant_id: <p>The ID of the application tenant.</p>
             ingestion_type: <p>The ingestion type.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             tags: <p>A map of the key-value pairs of the tag or tags to assign to the resource.</p>
 
         Raises:
@@ -514,14 +514,14 @@ class AsyncAppFabricClient:
         client_token: Optional["capo_appfabric.types.uuid.UUID"] = None,
         tags: Optional["capo_appfabric.types.tag_list.TagList"] = None,
     ) -> "capo_appfabric.types.create_ingestion_destination_response.CreateIngestionDestinationResponse":
-        r"""<p>Creates an ingestion destination, which specifies how an application's ingested data is processed by Amazon Web Services AppFabric and where it's delivered.</p>
+        """<p>Creates an ingestion destination, which specifies how an application's ingested data is processed by Amazon Web Services AppFabric and where it's delivered.</p>
 
         Args:
             app_bundle_identifier: <p>The Amazon Resource Name (ARN) or Universal Unique Identifier (UUID) of the app bundle to use for the request.</p>
             ingestion_identifier: <p>The Amazon Resource Name (ARN) or Universal Unique Identifier (UUID) of the ingestion to use for the request.</p>
             processing_configuration: <p>Contains information about how ingested data is processed.</p>
             destination_configuration: <p>Contains information about the destination of ingested data.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             tags: <p>A map of the key-value pairs of the tag or tags to assign to the resource.</p>
 
         Raises:

@@ -16,7 +16,7 @@ class StopAction(TypedDict, closed=True):
     scope: "capo_ses.types.stop_scope.StopScope"
     """<p>The scope of the StopAction. The only acceptable value is <code>RuleSet</code>.</p>"""
     topic_arn: NotRequired["capo_ses.types.amazon_resource_name.AmazonResourceName"]
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon SNS topic to notify when the stop action is taken. You can find the ARN of a topic by using the <a href=\"https://docs.aws.amazon.com/sns/latest/api/API_ListTopics.html\">ListTopics</a> Amazon SNS operation.</p> <p>For more information about Amazon SNS topics, see the <a href=\"https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html\">Amazon SNS Developer Guide</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon SNS topic to notify when the stop action is taken. You can find the ARN of a topic by using the <a href="https://docs.aws.amazon.com/sns/latest/api/API_ListTopics.html">ListTopics</a> Amazon SNS operation.</p> <p>For more information about Amazon SNS topics, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html">Amazon SNS Developer Guide</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

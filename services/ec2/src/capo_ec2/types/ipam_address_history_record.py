@@ -32,11 +32,11 @@ class IpamAddressHistoryRecord(TypedDict, closed=True):
     resource_compliance_status: NotRequired[
         "capo_ec2.types.ipam_compliance_status.IpamComplianceStatus"
     ]
-    r"""<p>The compliance status of a resource. For more information on compliance statuses, see <a href=\"https://docs.aws.amazon.com/vpc/latest/ipam/monitor-cidr-compliance-ipam.html\">Monitor CIDR usage by resource</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
+    """<p>The compliance status of a resource. For more information on compliance statuses, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/monitor-cidr-compliance-ipam.html">Monitor CIDR usage by resource</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
     resource_overlap_status: NotRequired[
         "capo_ec2.types.ipam_overlap_status.IpamOverlapStatus"
     ]
-    r"""<p>The overlap status of an IPAM resource. The overlap status tells you if the CIDR for a resource overlaps with another CIDR in the scope. For more information on overlap statuses, see <a href=\"https://docs.aws.amazon.com/vpc/latest/ipam/monitor-cidr-compliance-ipam.html\">Monitor CIDR usage by resource</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
+    """<p>The overlap status of an IPAM resource. The overlap status tells you if the CIDR for a resource overlaps with another CIDR in the scope. For more information on overlap statuses, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/monitor-cidr-compliance-ipam.html">Monitor CIDR usage by resource</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
     vpc_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The VPC ID of the resource.</p>"""
     sampled_start_time: NotRequired[

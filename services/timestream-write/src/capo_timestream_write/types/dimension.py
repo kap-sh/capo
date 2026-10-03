@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class Dimension(TypedDict, closed=True):
     name: "capo_timestream_write.types.schema_name.SchemaName"
-    r"""<p> Dimension represents the metadata attributes of the time series. For example, the name and Availability Zone of an EC2 instance or the name of the manufacturer of a wind turbine are dimensions. </p> <p>For constraints on dimension names, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming\">Naming Constraints</a>.</p>"""
+    """<p> Dimension represents the metadata attributes of the time series. For example, the name and Availability Zone of an EC2 instance or the name of the manufacturer of a wind turbine are dimensions. </p> <p>For constraints on dimension names, see <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming">Naming Constraints</a>.</p>"""
     value: "capo_timestream_write.types.schema_value.SchemaValue"
     """<p>The value of the dimension.</p>"""
     dimension_value_type: NotRequired[

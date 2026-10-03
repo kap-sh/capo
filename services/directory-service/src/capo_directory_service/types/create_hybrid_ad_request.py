@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class CreateHybridADRequest(TypedDict, closed=True):
     secret_arn: "capo_directory_service.types.secret_arn.SecretArn"
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the credentials for the service account used to join hybrid domain controllers to your self-managed AD domain. This secret is used once and not stored.</p> <p>The secret must contain key-value pairs with keys matching <code>customerAdAdminDomainUsername</code> and <code>customerAdAdminDomainPassword</code>. For example: <code>{\"customerAdAdminDomainUsername\":\"carlos_salazar\",\"customerAdAdminDomainPassword\":\"ExamplePassword123!\"}</code>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the credentials for the service account used to join hybrid domain controllers to your self-managed AD domain. This secret is used once and not stored.</p> <p>The secret must contain key-value pairs with keys matching <code>customerAdAdminDomainUsername</code> and <code>customerAdAdminDomainPassword</code>. For example: <code>{"customerAdAdminDomainUsername":"carlos_salazar","customerAdAdminDomainPassword":"ExamplePassword123!"}</code>.</p>"""
     assessment_id: "capo_directory_service.types.assessment_id.AssessmentId"
     """<p>The unique identifier of the successful directory assessment that validates your self-managed AD environment. You must have a successful directory assessment before you create a hybrid directory.</p>"""
     tags: NotRequired["capo_directory_service.types.tags.Tags"]

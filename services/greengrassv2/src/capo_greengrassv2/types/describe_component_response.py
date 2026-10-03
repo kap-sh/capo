@@ -20,7 +20,7 @@ class DescribeComponentResponse(TypedDict, closed=True):
     arn: NotRequired[
         "capo_greengrassv2.types.component_version_arn.ComponentVersionARN"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the component version.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the component version.</p>"""
     component_name: NotRequired[
         "capo_greengrassv2.types.component_name_string.ComponentNameString"
     ]
@@ -46,7 +46,7 @@ class DescribeComponentResponse(TypedDict, closed=True):
     ]
     """<p>The platforms that the component version supports.</p>"""
     tags: NotRequired["capo_greengrassv2.types.tag_map.TagMap"]
-    r"""<p>A list of key-value pairs that contain metadata for the resource. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/tag-resources.html\">Tag your resources</a> in the <i>IoT Greengrass V2 Developer Guide</i>.</p>"""
+    """<p>A list of key-value pairs that contain metadata for the resource. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/tag-resources.html">Tag your resources</a> in the <i>IoT Greengrass V2 Developer Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

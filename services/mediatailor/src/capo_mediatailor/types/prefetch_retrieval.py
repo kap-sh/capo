@@ -18,7 +18,7 @@ class PrefetchRetrieval(TypedDict, closed=True):
     dynamic_variables: NotRequired[
         "capo_mediatailor.types.__map_of__string.__mapOf__string"
     ]
-    r"""<p>The dynamic variables to use for substitution during prefetch requests to the ad decision server (ADS).</p> <p>You initially configure <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/variables.html\">dynamic variables</a> for the ADS URL when you set up your playback configuration. When you specify <code>DynamicVariables</code> for prefetch retrieval, MediaTailor includes the dynamic variables in the request to the ADS.</p>"""
+    """<p>The dynamic variables to use for substitution during prefetch requests to the ad decision server (ADS).</p> <p>You initially configure <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables.html">dynamic variables</a> for the ADS URL when you set up your playback configuration. When you specify <code>DynamicVariables</code> for prefetch retrieval, MediaTailor includes the dynamic variables in the request to the ADS.</p>"""
     end_time: "capo_mediatailor.types.__timestamp_unix.__timestampUnix"
     """<p>The time when prefetch retrieval ends for the ad break. Prefetching will be attempted for manifest requests that occur at or before this time.</p>"""
     start_time: NotRequired["capo_mediatailor.types.__timestamp_unix.__timestampUnix"]

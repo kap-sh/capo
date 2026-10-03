@@ -141,12 +141,12 @@ class EC2InstanceConnectClient:
             "capo_ec2_instance_connect.types.serial_port.SerialPort"
         ] = None,
     ) -> "capo_ec2_instance_connect.types.send_serial_console_ssh_public_key_response.SendSerialConsoleSSHPublicKeyResponse":
-        r"""<p>Pushes an SSH public key to the specified EC2 instance. The key remains for 60 seconds, which gives you 60 seconds to establish a serial console connection to the instance using SSH. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-serial-console.html\">EC2 Serial Console</a> in the <i>Amazon EC2 User Guide</i>.</p>
+        """<p>Pushes an SSH public key to the specified EC2 instance. The key remains for 60 seconds, which gives you 60 seconds to establish a serial console connection to the instance using SSH. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-serial-console.html">EC2 Serial Console</a> in the <i>Amazon EC2 User Guide</i>.</p>
 
         Args:
             instance_id: <p>The ID of the EC2 instance.</p>
             serial_port: <p>The serial port of the EC2 instance. Currently only port 0 is supported.</p> <p>Default: 0</p>
-            ssh_public_key: <p>The public key material. To use the public key, you must have the matching private key. For information about the supported key formats and lengths, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws\">Requirements for key pairs</a> in the <i>Amazon EC2 User Guide</i>.</p>
+            ssh_public_key: <p>The public key material. To use the public key, you must have the matching private key. For information about the supported key formats and lengths, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws">Requirements for key pairs</a> in the <i>Amazon EC2 User Guide</i>.</p>
 
         Raises:
             capo_ec2_instance_connect.errors.auth_exception.AuthException: <p>Either your AWS credentials are not valid or you do not have access to the EC2 instance.</p>
@@ -155,7 +155,7 @@ class EC2InstanceConnectClient:
             capo_ec2_instance_connect.errors.ec2_instance_type_invalid_exception.EC2InstanceTypeInvalidException: <p>The instance type is not supported for connecting via the serial console. Only Nitro instance types are currently supported.</p>
             capo_ec2_instance_connect.errors.ec2_instance_unavailable_exception.EC2InstanceUnavailableException: <p>The instance is currently unavailable. Wait a few minutes and try again.</p>
             capo_ec2_instance_connect.errors.invalid_args_exception.InvalidArgsException: <p>One of the parameters is not valid.</p>
-            capo_ec2_instance_connect.errors.serial_console_access_disabled_exception.SerialConsoleAccessDisabledException: <p>Your account is not authorized to use the EC2 Serial Console. To authorize your account, run the EnableSerialConsoleAccess API. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_EnableSerialConsoleAccess.html\">EnableSerialConsoleAccess</a> in the <i>Amazon EC2 API Reference</i>.</p>
+            capo_ec2_instance_connect.errors.serial_console_access_disabled_exception.SerialConsoleAccessDisabledException: <p>Your account is not authorized to use the EC2 Serial Console. To authorize your account, run the EnableSerialConsoleAccess API. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_EnableSerialConsoleAccess.html">EnableSerialConsoleAccess</a> in the <i>Amazon EC2 API Reference</i>.</p>
             capo_ec2_instance_connect.errors.serial_console_session_limit_exceeded_exception.SerialConsoleSessionLimitExceededException: <p>The instance currently has 1 active serial console session. Only 1 session is supported at a time.</p>
             capo_ec2_instance_connect.errors.serial_console_session_unavailable_exception.SerialConsoleSessionUnavailableException: <p>Unable to start a serial console session. Please try again.</p>
             capo_ec2_instance_connect.errors.serial_console_session_unsupported_exception.SerialConsoleSessionUnsupportedException: <p>Your instance's BIOS version is unsupported for serial console connection. Reboot your instance to update its BIOS, and then try again to connect.</p>
@@ -205,7 +205,7 @@ class EC2InstanceConnectClient:
             "capo_ec2_instance_connect.types.availability_zone.AvailabilityZone"
         ] = None,
     ) -> "capo_ec2_instance_connect.types.send_ssh_public_key_response.SendSSHPublicKeyResponse":
-        r"""<p>Pushes an SSH public key to the specified EC2 instance for use by the specified user. The key remains for 60 seconds. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html\">Connect to your Linux instance using EC2 Instance Connect</a> in the <i>Amazon EC2 User Guide</i>.</p>
+        """<p>Pushes an SSH public key to the specified EC2 instance for use by the specified user. The key remains for 60 seconds. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html">Connect to your Linux instance using EC2 Instance Connect</a> in the <i>Amazon EC2 User Guide</i>.</p>
 
         Args:
             instance_id: <p>The ID of the EC2 instance.</p>

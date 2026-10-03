@@ -17,7 +17,7 @@ class CapacityReservationTopology(TypedDict, closed=True):
     capacity_block_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the Capacity Block. This parameter is only supported for UltraServer instances and identifies instances within the UltraServer domain.</p>"""
     state: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The current state of the Capacity Reservation. For the list of possible states, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeCapacityReservations.html\">DescribeCapacityReservations</a>.</p>"""
+    """<p>The current state of the Capacity Reservation. For the list of possible states, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeCapacityReservations.html">DescribeCapacityReservations</a>.</p>"""
     instance_type: NotRequired["capo_ec2.types.string.String"]
     """<p>The instance type.</p>"""
     group_name: NotRequired["capo_ec2.types.string.String"]

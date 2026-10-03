@@ -22,7 +22,7 @@ class PutVectorBucketPolicyInput(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of the vector bucket.</p>"""
     policy: "capo_s3vectors.types.vector_bucket_policy.VectorBucketPolicy"
-    r"""<p>The <code>JSON</code> that defines the policy. For more information about bucket policies for S3 Vectors, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-bucket-policy.html\">Managing vector bucket policies</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The <code>JSON</code> that defines the policy. For more information about bucket policies for S3 Vectors, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-bucket-policy.html">Managing vector bucket policies</a> in the <i>Amazon S3 User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -17,7 +17,7 @@ class JdbcTarget(TypedDict, closed=True):
     path: NotRequired["capo_glue.types.path.Path"]
     """<p>The path of the JDBC target.</p>"""
     exclusions: NotRequired["capo_glue.types.path_list.PathList"]
-    r"""<p>A list of glob patterns used to exclude from the crawl. For more information, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html\">Catalog Tables with a Crawler</a>.</p>"""
+    """<p>A list of glob patterns used to exclude from the crawl. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html">Catalog Tables with a Crawler</a>.</p>"""
     enable_additional_metadata: NotRequired[
         "capo_glue.types.enable_additional_metadata.EnableAdditionalMetadata"
     ]

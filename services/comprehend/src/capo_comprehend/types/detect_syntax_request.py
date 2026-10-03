@@ -15,7 +15,7 @@ class DetectSyntaxRequest(TypedDict, closed=True):
     text: "capo_comprehend.types.customer_input_string.CustomerInputString"
     """<p>A UTF-8 string. The maximum string size is 5 KB.</p>"""
     language_code: "capo_comprehend.types.syntax_language_code.SyntaxLanguageCode"
-    r"""<p>The language code of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German (\"de\"), English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"), or Portuguese (\"pt\").</p>"""
+    """<p>The language code of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").</p>"""
 
 
 # --- awsJson1_1 ser/de ---

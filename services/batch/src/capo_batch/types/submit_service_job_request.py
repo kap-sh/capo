@@ -43,7 +43,7 @@ class SubmitServiceJobRequest(TypedDict, closed=True):
     ]
     """<p>The timeout configuration for the service job. If none is specified, Batch defers to the default timeout of the underlying service handling the job.</p>"""
     tags: NotRequired["capo_batch.types.tagris_tags_map.TagrisTagsMap"]
-    r"""<p>The tags that you apply to the service job request. Each tag consists of a key and an optional value. For more information, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html\">Tagging your Batch resources</a>.</p>"""
+    """<p>The tags that you apply to the service job request. Each tag consists of a key and an optional value. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a>.</p>"""
     client_token: NotRequired[
         "capo_batch.types.client_request_token.ClientRequestToken"
     ]

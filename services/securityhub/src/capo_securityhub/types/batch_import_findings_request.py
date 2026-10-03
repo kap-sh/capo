@@ -12,7 +12,7 @@ class BatchImportFindingsRequest(TypedDict, closed=True):
     findings: NotRequired[
         "capo_securityhub.types.batch_import_findings_request_finding_list.BatchImportFindingsRequestFindingList"
     ]
-    r"""<p>A list of findings to import. To successfully import a finding, it must follow the <a href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html\">Amazon Web Services Security Finding Format</a>. Maximum of 100 findings per request.</p>"""
+    """<p>A list of findings to import. To successfully import a finding, it must follow the <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon Web Services Security Finding Format</a>. Maximum of 100 findings per request.</p>"""
 
 
 # --- restJson1 ser/de ---

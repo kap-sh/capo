@@ -21,7 +21,7 @@ class WebACL(TypedDict, closed=True):
     name: NotRequired["capo_waf_regional.types.resource_name.ResourceName"]
     """<p>A friendly name or description of the <code>WebACL</code>. You can't change the name of a <code>WebACL</code> after you create it.</p>"""
     metric_name: NotRequired["capo_waf_regional.types.metric_name.MetricName"]
-    r"""<p>A friendly name or description for the metrics for this <code>WebACL</code>. The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including \"All\" and \"Default_Action.\" You can't change <code>MetricName</code> after you create the <code>WebACL</code>.</p>"""
+    """<p>A friendly name or description for the metrics for this <code>WebACL</code>. The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including "All" and "Default_Action." You can't change <code>MetricName</code> after you create the <code>WebACL</code>.</p>"""
     default_action: "capo_waf_regional.types.waf_action.WafAction"
     """<p>The action to perform if none of the <code>Rules</code> contained in the <code>WebACL</code> match. The action is specified by the <a>WafAction</a> object.</p>"""
     rules: "capo_waf_regional.types.activated_rules.ActivatedRules"

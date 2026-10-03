@@ -37,7 +37,7 @@ class ImageRecipe(TypedDict, closed=True):
     components: NotRequired[
         "capo_imagebuilder.types.component_configuration_list.ComponentConfigurationList"
     ]
-    r"""<p>The components that are included in the image recipe. A recipe can contain a maximum of 20 build and test components in any combination, by default. This maximum is an adjustable quota. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html\">EC2 Image Builder endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The components that are included in the image recipe. A recipe can contain a maximum of 20 build and test components in any combination, by default. This maximum is an adjustable quota. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html">EC2 Image Builder endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     parent_image: NotRequired["capo_imagebuilder.types.non_empty_string.NonEmptyString"]
     """<p>The base image for customizations specified in the image recipe. You can specify the parent image using one of the following options:</p> <ul> <li> <p>AMI ID</p> </li> <li> <p>Image Builder image Amazon Resource Name (ARN)</p> </li> <li> <p>Amazon Web Services Systems Manager (SSM) Parameter Store Parameter, prefixed by <code>ssm:</code>, followed by the parameter name or ARN.</p> </li> <li> <p>Amazon Web Services Marketplace product ID</p> </li> </ul>"""
     block_device_mappings: NotRequired[

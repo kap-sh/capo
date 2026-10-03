@@ -1559,7 +1559,7 @@ class AsyncSSMIncidentsClient:
         *,
         config_overrides: Optional[AsyncSSMIncidentsClientConfig] = None,
     ) -> "capo_ssm_incidents.types.put_resource_policy_output.PutResourcePolicyOutput":
-        r"""<p>Adds a resource policy to the specified response plan. The resource policy is used to share the response plan using Resource Access Manager (RAM). For more information about cross-account sharing, see <a href=\"https://docs.aws.amazon.com/incident-manager/latest/userguide/incident-manager-cross-account-cross-region.html\">Cross-Region and cross-account incident management</a>.</p>
+        """<p>Adds a resource policy to the specified response plan. The resource policy is used to share the response plan using Resource Access Manager (RAM). For more information about cross-account sharing, see <a href="https://docs.aws.amazon.com/incident-manager/latest/userguide/incident-manager-cross-account-cross-region.html">Cross-Region and cross-account incident management</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the response plan to add the resource policy to.</p>
@@ -1620,13 +1620,13 @@ class AsyncSSMIncidentsClient:
             "capo_ssm_incidents.types.related_item_list.RelatedItemList"
         ] = None,
     ) -> "capo_ssm_incidents.types.start_incident_output.StartIncidentOutput":
-        r"""<p>Used to start an incident from CloudWatch alarms, EventBridge events, or manually. </p>
+        """<p>Used to start an incident from CloudWatch alarms, EventBridge events, or manually. </p>
 
         Args:
             client_token: <p>A token ensuring that the operation is called only once with the specified details.</p>
             response_plan_arn: <p>The Amazon Resource Name (ARN) of the response plan that pre-defines summary, chat channels, Amazon SNS topics, runbooks, title, and impact of the incident. </p>
             title: <p>Provide a title for the incident. Providing a title overwrites the title provided by the response plan. </p>
-            impact: <p>Defines the impact to the customers. Providing an impact overwrites the impact provided by a response plan.</p> <p class=\"title\"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>
+            impact: <p>Defines the impact to the customers. Providing an impact overwrites the impact provided by a response plan.</p> <p class="title"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>
             trigger_details: <p>Details of what created the incident record in Incident Manager.</p>
             related_items: <p>Add related items to the incident for other responders to use. Related items are Amazon Web Services resources, external links, or files uploaded to an Amazon S3 bucket. </p>
 
@@ -1865,14 +1865,14 @@ class AsyncSSMIncidentsClient:
             "capo_ssm_incidents.types.notification_target_set.NotificationTargetSet"
         ] = None,
     ) -> "capo_ssm_incidents.types.update_incident_record_output.UpdateIncidentRecordOutput":
-        r"""<p>Update the details of an incident record. You can use this operation to update an incident record from the defined chat channel. For more information about using actions in chat channels, see <a href=\"https://docs.aws.amazon.com/incident-manager/latest/userguide/chat.html#chat-interact\">Interacting through chat</a>.</p>
+        """<p>Update the details of an incident record. You can use this operation to update an incident record from the defined chat channel. For more information about using actions in chat channels, see <a href="https://docs.aws.amazon.com/incident-manager/latest/userguide/chat.html#chat-interact">Interacting through chat</a>.</p>
 
         Args:
             client_token: <p>A token that ensures that a client calls the operation only once with the specified details.</p>
             arn: <p>The Amazon Resource Name (ARN) of the incident record you are updating.</p>
             title: <p>A brief description of the incident.</p>
             summary: <p>A longer description of what occurred during the incident.</p>
-            impact: <p>Defines the impact of the incident to customers and applications. If you provide an impact for an incident, it overwrites the impact provided by the response plan.</p> <p class=\"title\"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>
+            impact: <p>Defines the impact of the incident to customers and applications. If you provide an impact for an incident, it overwrites the impact provided by the response plan.</p> <p class="title"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>
             status: <p>The status of the incident. Possible statuses are <code>Open</code> or <code>Resolved</code>.</p>
             chat_channel: <p>The Chatbot chat channel where responders can collaborate.</p>
             notification_targets: <p>The Amazon SNS targets that Incident Manager notifies when a client updates an incident.</p> <p>Using multiple SNS topics creates redundancy in the event that a Region is down during the incident.</p>
@@ -2092,14 +2092,14 @@ class AsyncSSMIncidentsClient:
     ) -> (
         "capo_ssm_incidents.types.update_response_plan_output.UpdateResponsePlanOutput"
     ):
-        r"""<p>Updates the specified response plan.</p>
+        """<p>Updates the specified response plan.</p>
 
         Args:
             client_token: <p>A token ensuring that the operation is called only once with the specified details.</p>
             arn: <p>The Amazon Resource Name (ARN) of the response plan.</p>
             display_name: <p>The long format name of the response plan. The display name can't contain spaces.</p>
             incident_template_title: <p>The short format name of the incident. The title can't contain spaces.</p>
-            incident_template_impact: <p>Defines the impact to the customers. Providing an impact overwrites the impact provided by a response plan.</p> <p class=\"title\"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>
+            incident_template_impact: <p>Defines the impact to the customers. Providing an impact overwrites the impact provided by a response plan.</p> <p class="title"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>
             incident_template_summary: <p>A brief summary of the incident. This typically contains what has happened, what's currently happening, and next steps.</p>
             incident_template_dedupe_string: <p>The string Incident Manager uses to prevent duplicate incidents from being created by the same incident in the same account.</p>
             incident_template_notification_targets: <p>The Amazon SNS targets that are notified when updates are made to an incident.</p>

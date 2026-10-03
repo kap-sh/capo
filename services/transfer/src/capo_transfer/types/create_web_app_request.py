@@ -17,11 +17,11 @@ if TYPE_CHECKING:
 
 class CreateWebAppRequest(TypedDict, closed=True):
     identity_provider_details: "capo_transfer.types.web_app_identity_provider_details.WebAppIdentityProviderDetails"
-    r"""<p>You can provide a structure that contains the details for the identity provider to use with your web app.</p> <p>For more details about this parameter, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/webapp-identity-center.html\">Configure your identity provider for Transfer Family web apps</a>.</p>"""
+    """<p>You can provide a structure that contains the details for the identity provider to use with your web app.</p> <p>For more details about this parameter, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/webapp-identity-center.html">Configure your identity provider for Transfer Family web apps</a>.</p>"""
     access_endpoint: NotRequired[
         "capo_transfer.types.web_app_access_endpoint.WebAppAccessEndpoint"
     ]
-    r"""<p>The <code>AccessEndpoint</code> is the URL that you provide to your users for them to interact with the Transfer Family web app. You can specify a custom URL or use the default value.</p> <p>Before you enter a custom URL for this parameter, follow the steps described in <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/webapp-customize.html\">Update your access endpoint with a custom URL</a>.</p>"""
+    """<p>The <code>AccessEndpoint</code> is the URL that you provide to your users for them to interact with the Transfer Family web app. You can specify a custom URL or use the default value.</p> <p>Before you enter a custom URL for this parameter, follow the steps described in <a href="https://docs.aws.amazon.com/transfer/latest/userguide/webapp-customize.html">Update your access endpoint with a custom URL</a>.</p>"""
     web_app_units: NotRequired["capo_transfer.types.web_app_units.WebAppUnits"]
     """<p>A union that contains the value for number of concurrent connections or the user sessions on your web app.</p>"""
     tags: NotRequired["capo_transfer.types.tags.Tags"]

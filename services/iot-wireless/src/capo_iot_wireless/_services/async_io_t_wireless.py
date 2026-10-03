@@ -471,11 +471,11 @@ class AsyncIoTWirelessClient:
         ] = None,
         tags: Optional["capo_iot_wireless.types.tag_list.TagList"] = None,
     ) -> "capo_iot_wireless.types.associate_aws_account_with_partner_account_response.AssociateAwsAccountWithPartnerAccountResponse":
-        r"""<p>Associates a partner account with your AWS account.</p>
+        """<p>Associates a partner account with your AWS account.</p>
 
         Args:
             sidewalk: <p>The Sidewalk account credentials.</p>
-            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
+            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
             tags: <p>The tags to attach to the specified resource. Tags are metadata that you can use to manage a resource.</p>
 
         Raises:
@@ -883,7 +883,7 @@ class AsyncIoTWirelessClient:
     ) -> (
         "capo_iot_wireless.types.create_destination_response.CreateDestinationResponse"
     ):
-        r"""<p>Creates a new destination that maps a device message to an AWS IoT rule.</p>
+        """<p>Creates a new destination that maps a device message to an AWS IoT rule.</p>
 
         Args:
             name: <p>The name of the new resource.</p>
@@ -892,7 +892,7 @@ class AsyncIoTWirelessClient:
             description: <p>The description of the new resource.</p>
             role_arn: <p>The ARN of the IAM Role that authorizes the destination.</p>
             tags: <p>The tags to attach to the new destination. Tags are metadata that you can use to manage a resource.</p>
-            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
+            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
 
         Raises:
             capo_iot_wireless.errors.access_denied_exception.AccessDeniedException: <p>User does not have permission to perform this action.</p>
@@ -960,13 +960,13 @@ class AsyncIoTWirelessClient:
             "capo_iot_wireless.types.sidewalk_create_device_profile.SidewalkCreateDeviceProfile"
         ] = None,
     ) -> "capo_iot_wireless.types.create_device_profile_response.CreateDeviceProfileResponse":
-        r"""<p>Creates a new device profile.</p>
+        """<p>Creates a new device profile.</p>
 
         Args:
             name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
             lo_ra_wan: <p>The device profile information to use to create the device profile.</p>
             tags: <p>The tags to attach to the new device profile. Tags are metadata that you can use to manage a resource.</p>
-            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
+            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
             sidewalk: <p>The Sidewalk-related information for creating the Sidewalk device profile.</p>
 
         Raises:
@@ -1117,11 +1117,11 @@ class AsyncIoTWirelessClient:
         ] = None,
         tags: Optional["capo_iot_wireless.types.tag_list.TagList"] = None,
     ) -> "capo_iot_wireless.types.create_multicast_group_response.CreateMulticastGroupResponse":
-        r"""<p>Creates a multicast group.</p>
+        """<p>Creates a multicast group.</p>
 
         Args:
             description: <p>The description of the multicast group.</p>
-            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
+            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
 
         Raises:
             capo_iot_wireless.errors.access_denied_exception.AccessDeniedException: <p>User does not have permission to perform this action.</p>
@@ -1268,13 +1268,13 @@ class AsyncIoTWirelessClient:
             "capo_iot_wireless.types.client_request_token.ClientRequestToken"
         ] = None,
     ) -> "capo_iot_wireless.types.create_service_profile_response.CreateServiceProfileResponse":
-        r"""<p>Creates a new service profile.</p>
+        """<p>Creates a new service profile.</p>
 
         Args:
             name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
             lo_ra_wan: <p>The service profile information to use to create the service profile.</p>
             tags: <p>The tags to attach to the new service profile. Tags are metadata that you can use to manage a resource.</p>
-            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
+            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
 
         Raises:
             capo_iot_wireless.errors.access_denied_exception.AccessDeniedException: <p>User does not have permission to perform this action.</p>
@@ -1344,14 +1344,14 @@ class AsyncIoTWirelessClient:
             "capo_iot_wireless.types.sidewalk_create_wireless_device.SidewalkCreateWirelessDevice"
         ] = None,
     ) -> "capo_iot_wireless.types.create_wireless_device_response.CreateWirelessDeviceResponse":
-        r"""<p>Provisions a wireless device.</p>
+        """<p>Provisions a wireless device.</p>
 
         Args:
             type: <p>The wireless device type.</p>
             name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
             description: <p>The description of the new resource.</p>
             destination_name: <p>The name of the destination to assign to the new wireless device.</p>
-            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
+            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
             lo_ra_wan: <p>The device configuration information to use to create the wireless device.</p>
             tags: <p>The tags to attach to the new wireless device. Tags are metadata that you can use to manage a resource.</p>
             positioning: <p>The integration status of the Device Location feature for LoRaWAN and Sidewalk devices.</p>
@@ -1425,14 +1425,14 @@ class AsyncIoTWirelessClient:
             "capo_iot_wireless.types.client_request_token.ClientRequestToken"
         ] = None,
     ) -> "capo_iot_wireless.types.create_wireless_gateway_response.CreateWirelessGatewayResponse":
-        r"""<p>Provisions a wireless gateway.</p> <note> <p>When provisioning a wireless gateway, you might run into duplication errors for the following reasons.</p> <ul> <li> <p>If you specify a <code>GatewayEui</code> value that already exists.</p> </li> <li> <p>If you used a <code>ClientRequestToken</code> with the same parameters within the last 10 minutes.</p> </li> </ul> <p>To avoid this error, make sure that you use unique identifiers and parameters for each request within the specified time period.</p> </note>
+        """<p>Provisions a wireless gateway.</p> <note> <p>When provisioning a wireless gateway, you might run into duplication errors for the following reasons.</p> <ul> <li> <p>If you specify a <code>GatewayEui</code> value that already exists.</p> </li> <li> <p>If you used a <code>ClientRequestToken</code> with the same parameters within the last 10 minutes.</p> </li> </ul> <p>To avoid this error, make sure that you use unique identifiers and parameters for each request within the specified time period.</p> </note>
 
         Args:
             name: <p>The name of the new resource.</p> <note> <p>The following special characters aren't accepted: <code><>^#~$</code> </p> </note>
             description: <p>The description of the new resource.</p>
             lo_ra_wan: <p>The gateway configuration information to use to create the wireless gateway.</p>
             tags: <p>The tags to attach to the new wireless gateway. Tags are metadata that you can use to manage a resource.</p>
-            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
+            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
 
         Raises:
             capo_iot_wireless.errors.access_denied_exception.AccessDeniedException: <p>User does not have permission to perform this action.</p>
@@ -1548,13 +1548,13 @@ class AsyncIoTWirelessClient:
         ] = None,
         tags: Optional["capo_iot_wireless.types.tag_list.TagList"] = None,
     ) -> "capo_iot_wireless.types.create_wireless_gateway_task_definition_response.CreateWirelessGatewayTaskDefinitionResponse":
-        r"""<p>Creates a gateway task definition.</p>
+        """<p>Creates a gateway task definition.</p>
 
         Args:
             auto_create_tasks: <p>Whether to automatically create tasks using this task definition for all gateways with the specified current version. If <code>false</code>, the task must me created by calling <code>CreateWirelessGatewayTask</code>.</p>
             name: <p>The name of the new resource.</p>
             update: <p>Information about the gateways to update.</p>
-            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
+            client_request_token: <p>Each resource must have a unique client request token. The client token is used to implement idempotency. It ensures that the request completes no more than one time. If you retry a request with the same token and the same parameters, the request will complete successfully. However, if you try to create a new resource using the same token but different parameters, an HTTP 409 conflict occurs. If you omit this value, AWS SDKs will automatically generate a unique client request. For more information about idempotency, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency in Amazon EC2 API requests</a>.</p>
             tags: <p>The tags to attach to the specified resource. Tags are metadata that you can use to manage a resource.</p>
 
         Raises:
@@ -1851,11 +1851,11 @@ class AsyncIoTWirelessClient:
             "capo_iot_wireless.types.wireless_device_type.WirelessDeviceType"
         ] = None,
     ) -> "capo_iot_wireless.types.delete_queued_messages_response.DeleteQueuedMessagesResponse":
-        r"""<p>Remove queued messages from the downlink queue.</p>
+        """<p>Remove queued messages from the downlink queue.</p>
 
         Args:
             id: <p>The ID of a given wireless device for which downlink messages will be deleted.</p>
-            message_id: <p>If message ID is <code>\"*\"</code>, it cleares the entire downlink queue for a given device, specified by the wireless device ID. Otherwise, the downlink message with the specified message ID will be deleted.</p>
+            message_id: <p>If message ID is <code>"*"</code>, it cleares the entire downlink queue for a given device, specified by the wireless device ID. Otherwise, the downlink message with the specified message ID will be deleted.</p>
             wireless_device_type: <p>The wireless device type, which can be either Sidewalk or LoRaWAN.</p>
 
         Raises:
@@ -3086,7 +3086,7 @@ class AsyncIoTWirelessClient:
         *,
         config_overrides: Optional[AsyncIoTWirelessClientConfig] = None,
     ) -> "capo_iot_wireless.types.get_position_response.GetPositionResponse":
-        r"""<p>Get the position information for a given resource.</p> <important> <p>This action is no longer supported. Calls to retrieve the position information should use the <a href=\"https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_GetResourcePosition.html\">GetResourcePosition</a> API operation instead.</p> </important>
+        """<p>Get the position information for a given resource.</p> <important> <p>This action is no longer supported. Calls to retrieve the position information should use the <a href="https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_GetResourcePosition.html">GetResourcePosition</a> API operation instead.</p> </important>
 
         Args:
             resource_identifier: <p>Resource identifier used to retrieve the position information.</p>
@@ -3137,7 +3137,7 @@ class AsyncIoTWirelessClient:
         *,
         config_overrides: Optional[AsyncIoTWirelessClientConfig] = None,
     ) -> "capo_iot_wireless.types.get_position_configuration_response.GetPositionConfigurationResponse":
-        r"""<p>Get position configuration for a given resource.</p> <important> <p>This action is no longer supported. Calls to retrieve the position configuration should use the <a href=\"https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_GetResourcePosition.html\">GetResourcePosition</a> API operation instead.</p> </important>
+        """<p>Get position configuration for a given resource.</p> <important> <p>This action is no longer supported. Calls to retrieve the position configuration should use the <a href="https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_GetResourcePosition.html">GetResourcePosition</a> API operation instead.</p> </important>
 
         Args:
             resource_identifier: <p>Resource identifier used in a position configuration.</p>
@@ -3375,7 +3375,7 @@ class AsyncIoTWirelessClient:
         *,
         config_overrides: Optional[AsyncIoTWirelessClientConfig] = None,
     ) -> "capo_iot_wireless.types.get_resource_position_response.GetResourcePositionResponse":
-        r"""<p>Get the position information for a given wireless device or a wireless gateway resource. The position information uses the <a href=\"https://gisgeography.com/wgs84-world-geodetic-system/\"> World Geodetic System (WGS84)</a>.</p>
+        """<p>Get the position information for a given wireless device or a wireless gateway resource. The position information uses the <a href="https://gisgeography.com/wgs84-world-geodetic-system/"> World Geodetic System (WGS84)</a>.</p>
 
         Args:
             resource_identifier: <p>The identifier of the resource for which position information is retrieved. It can be the wireless device ID or the wireless gateway ID, depending on the resource type.</p>
@@ -4566,7 +4566,7 @@ class AsyncIoTWirelessClient:
         max_results: Optional["capo_iot_wireless.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_iot_wireless.types.next_token.NextToken"] = None,
     ) -> "capo_iot_wireless.types.list_position_configurations_response.ListPositionConfigurationsResponse":
-        r"""<p>List position configurations for a given resource, such as positioning solvers.</p> <important> <p>This action is no longer supported. Calls to retrieve position information should use the <a href=\"https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_GetResourcePosition.html\">GetResourcePosition</a> API operation instead.</p> </important>
+        """<p>List position configurations for a given resource, such as positioning solvers.</p> <important> <p>This action is no longer supported. Calls to retrieve position information should use the <a href="https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_GetResourcePosition.html">GetResourcePosition</a> API operation instead.</p> </important>
 
         Args:
             resource_type: <p>Resource type for which position configurations are listed.</p>
@@ -5160,7 +5160,7 @@ class AsyncIoTWirelessClient:
             "capo_iot_wireless.types.destination_name.DestinationName"
         ] = None,
     ) -> "capo_iot_wireless.types.put_position_configuration_response.PutPositionConfigurationResponse":
-        r"""<p>Put position configuration for a given resource.</p> <important> <p>This action is no longer supported. Calls to update the position configuration should use the <a href=\"https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_UpdateResourcePosition.html\">UpdateResourcePosition</a> API operation instead.</p> </important>
+        """<p>Put position configuration for a given resource.</p> <important> <p>This action is no longer supported. Calls to update the position configuration should use the <a href="https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_UpdateResourcePosition.html">UpdateResourcePosition</a> API operation instead.</p> </important>
 
         Args:
             resource_identifier: <p>Resource identifier used to update the position configuration.</p>
@@ -6506,7 +6506,7 @@ class AsyncIoTWirelessClient:
         *,
         config_overrides: Optional[AsyncIoTWirelessClientConfig] = None,
     ) -> "capo_iot_wireless.types.update_position_response.UpdatePositionResponse":
-        r"""<p>Update the position information of a resource.</p> <important> <p>This action is no longer supported. Calls to update the position information should use the <a href=\"https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_UpdateResourcePosition.html\">UpdateResourcePosition</a> API operation instead.</p> </important>
+        """<p>Update the position information of a resource.</p> <important> <p>This action is no longer supported. Calls to update the position information should use the <a href="https://docs.aws.amazon.com/iot-wireless/latest/apireference/API_UpdateResourcePosition.html">UpdateResourcePosition</a> API operation instead.</p> </important>
 
         Args:
             resource_identifier: <p>Resource identifier of the resource for which position is updated.</p>
@@ -6650,12 +6650,12 @@ class AsyncIoTWirelessClient:
             "capo_iot_wireless.types.geo_json_payload.GeoJsonPayload"
         ] = None,
     ) -> "capo_iot_wireless.types.update_resource_position_response.UpdateResourcePositionResponse":
-        r"""<p>Update the position information of a given wireless device or a wireless gateway resource. The position coordinates are based on the <a href=\"https://gisgeography.com/wgs84-world-geodetic-system/\"> World Geodetic System (WGS84)</a>.</p>
+        """<p>Update the position information of a given wireless device or a wireless gateway resource. The position coordinates are based on the <a href="https://gisgeography.com/wgs84-world-geodetic-system/"> World Geodetic System (WGS84)</a>.</p>
 
         Args:
             resource_identifier: <p>The identifier of the resource for which position information is updated. It can be the wireless device ID or the wireless gateway ID, depending on the resource type.</p>
             resource_type: <p>The type of resource for which position information is updated, which can be a wireless device or a wireless gateway.</p>
-            geo_json_payload: <p>The position information of the resource, displayed as a JSON payload. The payload uses the GeoJSON format, which a format that's used to encode geographic data structures. For more information, see <a href=\"https://geojson.org/\">GeoJSON</a>.</p>
+            geo_json_payload: <p>The position information of the resource, displayed as a JSON payload. The payload uses the GeoJSON format, which a format that's used to encode geographic data structures. For more information, see <a href="https://geojson.org/">GeoJSON</a>.</p>
 
         Raises:
             capo_iot_wireless.errors.access_denied_exception.AccessDeniedException: <p>User does not have permission to perform this action.</p>

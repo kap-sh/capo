@@ -37,11 +37,11 @@ class GetApprovalTeamResponse(TypedDict, closed=True):
     name: NotRequired["capo_mpa.types.string.String"]
     """<p>Name of the approval team.</p>"""
     status: NotRequired["capo_mpa.types.approval_team_status.ApprovalTeamStatus"]
-    r"""<p>Status for the team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html\">Team health</a> in the <i>Multi-party approval User Guide</i>.</p>"""
+    """<p>Status for the team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html">Team health</a> in the <i>Multi-party approval User Guide</i>.</p>"""
     status_code: NotRequired[
         "capo_mpa.types.approval_team_status_code.ApprovalTeamStatusCode"
     ]
-    r"""<p>Status code for the approval team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html\">Team health</a> in the <i>Multi-party approval User Guide</i>.</p>"""
+    """<p>Status code for the approval team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html">Team health</a> in the <i>Multi-party approval User Guide</i>.</p>"""
     status_message: NotRequired["capo_mpa.types.message.Message"]
     """<p>Message describing the status for the team.</p>"""
     update_session_arn: NotRequired["capo_mpa.types.string.String"]

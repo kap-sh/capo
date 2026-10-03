@@ -15,11 +15,11 @@ class RestoreStatus(TypedDict, closed=True):
     is_restore_in_progress: NotRequired[
         "capo_s3.types.is_restore_in_progress.IsRestoreInProgress"
     ]
-    r"""<p>Specifies whether the object is currently being restored. If the object restoration is in progress, the header returns the value <code>TRUE</code>. For example:</p> <p> <code>x-amz-optional-object-attributes: IsRestoreInProgress=\"true\"</code> </p> <p>If the object restoration has completed, the header returns the value <code>FALSE</code>. For example:</p> <p> <code>x-amz-optional-object-attributes: IsRestoreInProgress=\"false\", RestoreExpiryDate=\"2012-12-21T00:00:00.000Z\"</code> </p> <p>If the object hasn't been restored, there is no header response.</p>"""
+    """<p>Specifies whether the object is currently being restored. If the object restoration is in progress, the header returns the value <code>TRUE</code>. For example:</p> <p> <code>x-amz-optional-object-attributes: IsRestoreInProgress="true"</code> </p> <p>If the object restoration has completed, the header returns the value <code>FALSE</code>. For example:</p> <p> <code>x-amz-optional-object-attributes: IsRestoreInProgress="false", RestoreExpiryDate="2012-12-21T00:00:00.000Z"</code> </p> <p>If the object hasn't been restored, there is no header response.</p>"""
     restore_expiry_date: NotRequired[
         "capo_s3.types.restore_expiry_date.RestoreExpiryDate"
     ]
-    r"""<p>Indicates when the restored copy will expire. This value is populated only if the object has already been restored. For example:</p> <p> <code>x-amz-optional-object-attributes: IsRestoreInProgress=\"false\", RestoreExpiryDate=\"2012-12-21T00:00:00.000Z\"</code> </p>"""
+    """<p>Indicates when the restored copy will expire. This value is populated only if the object has already been restored. For example:</p> <p> <code>x-amz-optional-object-attributes: IsRestoreInProgress="false", RestoreExpiryDate="2012-12-21T00:00:00.000Z"</code> </p>"""
 
 
 # --- restXml ser/de ---

@@ -19,11 +19,11 @@ class FacetAttribute(TypedDict, closed=True):
     attribute_definition: NotRequired[
         "capo_clouddirectory.types.facet_attribute_definition.FacetAttributeDefinition"
     ]
-    r"""<p>A facet attribute consists of either a definition or a reference. This structure contains the attribute definition. See <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html\">Attribute References</a> for more information.</p>"""
+    """<p>A facet attribute consists of either a definition or a reference. This structure contains the attribute definition. See <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html">Attribute References</a> for more information.</p>"""
     attribute_reference: NotRequired[
         "capo_clouddirectory.types.facet_attribute_reference.FacetAttributeReference"
     ]
-    r"""<p>An attribute reference that is associated with the attribute. See <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html\">Attribute References</a> for more information.</p>"""
+    """<p>An attribute reference that is associated with the attribute. See <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html">Attribute References</a> for more information.</p>"""
     required_behavior: NotRequired[
         "capo_clouddirectory.types.required_attribute_behavior.RequiredAttributeBehavior"
     ]

@@ -27,27 +27,27 @@ class AutomationRulesFindingFilters(TypedDict, closed=True):
     ]
     """<p> The identifier for the solution-specific component that generated a finding. </p> <p> Array Members: Minimum number of 1 item. Maximum number of 100 items. </p>"""
     type: NotRequired["capo_securityhub.types.string_filter_list.StringFilterList"]
-    r"""<p> One or more finding types in the format of namespace/category/classifier that classify a finding. For a list of namespaces, classifiers, and categories, see <a href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format-type-taxonomy.html\">Types taxonomy for ASFF</a> in the <i>Security Hub CSPM User Guide</i>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p> One or more finding types in the format of namespace/category/classifier that classify a finding. For a list of namespaces, classifiers, and categories, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format-type-taxonomy.html">Types taxonomy for ASFF</a> in the <i>Security Hub CSPM User Guide</i>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     first_observed_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p> A timestamp that indicates when the potential security issue captured by a finding was first observed by the security findings product. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p> A timestamp that indicates when the potential security issue captured by a finding was first observed by the security findings product. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     last_observed_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p> A timestamp that indicates when the security findings provider most recently observed a change in the resource that is involved in the finding. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p> A timestamp that indicates when the security findings provider most recently observed a change in the resource that is involved in the finding. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     created_at: NotRequired["capo_securityhub.types.date_filter_list.DateFilterList"]
-    r"""<p> A timestamp that indicates when this finding record was created. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p> A timestamp that indicates when this finding record was created. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     updated_at: NotRequired["capo_securityhub.types.date_filter_list.DateFilterList"]
-    r"""<p> A timestamp that indicates when the finding record was most recently updated. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p> A timestamp that indicates when the finding record was most recently updated. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     confidence: NotRequired[
         "capo_securityhub.types.number_filter_list.NumberFilterList"
     ]
-    r"""<p>The likelihood that a finding accurately identifies the behavior or issue that it was intended to identify. <code>Confidence</code> is scored on a 0–100 basis using a ratio scale. A value of <code>0</code> means 0 percent confidence, and a value of <code>100</code> means 100 percent confidence. For example, a data exfiltration detection based on a statistical deviation of network traffic has low confidence because an actual exfiltration hasn't been verified. For more information, see <a href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/asff-top-level-attributes.html#asff-confidence\">Confidence</a> in the <i>Security Hub CSPM User Guide</i>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p>The likelihood that a finding accurately identifies the behavior or issue that it was intended to identify. <code>Confidence</code> is scored on a 0–100 basis using a ratio scale. A value of <code>0</code> means 0 percent confidence, and a value of <code>100</code> means 100 percent confidence. For example, a data exfiltration detection based on a statistical deviation of network traffic has low confidence because an actual exfiltration hasn't been verified. For more information, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/asff-top-level-attributes.html#asff-confidence">Confidence</a> in the <i>Security Hub CSPM User Guide</i>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     criticality: NotRequired[
         "capo_securityhub.types.number_filter_list.NumberFilterList"
     ]
-    r"""<p> The level of importance that is assigned to the resources that are associated with a finding. <code>Criticality</code> is scored on a 0–100 basis, using a ratio scale that supports only full integers. A score of <code>0</code> means that the underlying resources have no criticality, and a score of <code>100</code> is reserved for the most critical resources. For more information, see <a href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/asff-top-level-attributes.html#asff-criticality\">Criticality</a> in the <i>Security Hub CSPM User Guide</i>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p> The level of importance that is assigned to the resources that are associated with a finding. <code>Criticality</code> is scored on a 0–100 basis, using a ratio scale that supports only full integers. A score of <code>0</code> means that the underlying resources have no criticality, and a score of <code>100</code> is reserved for the most critical resources. For more information, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/asff-top-level-attributes.html#asff-criticality">Criticality</a> in the <i>Security Hub CSPM User Guide</i>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     title: NotRequired["capo_securityhub.types.string_filter_list.StringFilterList"]
     """<p> A finding's title. </p> <p> Array Members: Minimum number of 1 item. Maximum number of 100 items. </p>"""
     description: NotRequired[
@@ -103,7 +103,7 @@ class AutomationRulesFindingFilters(TypedDict, closed=True):
     compliance_associated_standards_id: NotRequired[
         "capo_securityhub.types.string_filter_list.StringFilterList"
     ]
-    r"""<p>The unique identifier of a standard in which a control is enabled. This field consists of the resource portion of the Amazon Resource Name (ARN) returned for a standard in the <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_DescribeStandards.html\">DescribeStandards</a> API response.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p>The unique identifier of a standard in which a control is enabled. This field consists of the resource portion of the Amazon Resource Name (ARN) returned for a standard in the <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_DescribeStandards.html">DescribeStandards</a> API response.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     verification_state: NotRequired[
         "capo_securityhub.types.string_filter_list.StringFilterList"
     ]
@@ -129,7 +129,7 @@ class AutomationRulesFindingFilters(TypedDict, closed=True):
     note_updated_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p> The timestamp of when the note was updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
+    """<p> The timestamp of when the note was updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p> <p> Array Members: Minimum number of 1 item. Maximum number of 20 items. </p>"""
     note_updated_by: NotRequired[
         "capo_securityhub.types.string_filter_list.StringFilterList"
     ]

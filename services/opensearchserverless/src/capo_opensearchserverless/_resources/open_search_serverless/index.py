@@ -47,7 +47,7 @@ class Index:
             "capo_opensearchserverless.types.index_schema.IndexSchema"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_index_response.CreateIndexResponse":
-        r"""<p>Creates an index within an OpenSearch Serverless collection. Unlike other OpenSearch indexes, indexes created by this API are automatically configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a> in the <i>OpenSearch User Guide</i>.</p>
+        """<p>Creates an index within an OpenSearch Serverless collection. Unlike other OpenSearch indexes, indexes created by this API are automatically configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a> in the <i>OpenSearch User Guide</i>.</p>
 
         Args:
             id: <p>The unique identifier of the collection in which to create the index.</p>
@@ -99,7 +99,7 @@ class Index:
         *,
         config_overrides: Optional[OpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.get_index_response.GetIndexResponse":
-        r"""<p>Retrieves information about an index in an OpenSearch Serverless collection, including its schema definition. The index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Retrieves information about an index in an OpenSearch Serverless collection, including its schema definition. The index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index.</p>
@@ -150,7 +150,7 @@ class Index:
             "capo_opensearchserverless.types.index_schema.IndexSchema"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_index_response.UpdateIndexResponse":
-        r"""<p>Updates an existing index in an OpenSearch Serverless collection. This operation allows you to modify the index schema, including adding new fields or changing field mappings. You can also enable automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Updates an existing index in an OpenSearch Serverless collection. This operation allows you to modify the index schema, including adding new fields or changing field mappings. You can also enable automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index to update.</p>
@@ -201,7 +201,7 @@ class Index:
         *,
         config_overrides: Optional[OpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.delete_index_response.DeleteIndexResponse":
-        r"""<p>Deletes an index from an OpenSearch Serverless collection. Be aware that the index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Deletes an index from an OpenSearch Serverless collection. Be aware that the index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index to delete.</p>
@@ -257,7 +257,7 @@ class AsyncIndex:
             "capo_opensearchserverless.types.index_schema.IndexSchema"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_index_response.CreateIndexResponse":
-        r"""<p>Creates an index within an OpenSearch Serverless collection. Unlike other OpenSearch indexes, indexes created by this API are automatically configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a> in the <i>OpenSearch User Guide</i>.</p>
+        """<p>Creates an index within an OpenSearch Serverless collection. Unlike other OpenSearch indexes, indexes created by this API are automatically configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a> in the <i>OpenSearch User Guide</i>.</p>
 
         Args:
             id: <p>The unique identifier of the collection in which to create the index.</p>
@@ -310,7 +310,7 @@ class AsyncIndex:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.get_index_response.GetIndexResponse":
-        r"""<p>Retrieves information about an index in an OpenSearch Serverless collection, including its schema definition. The index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Retrieves information about an index in an OpenSearch Serverless collection, including its schema definition. The index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index.</p>
@@ -362,7 +362,7 @@ class AsyncIndex:
             "capo_opensearchserverless.types.index_schema.IndexSchema"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_index_response.UpdateIndexResponse":
-        r"""<p>Updates an existing index in an OpenSearch Serverless collection. This operation allows you to modify the index schema, including adding new fields or changing field mappings. You can also enable automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Updates an existing index in an OpenSearch Serverless collection. This operation allows you to modify the index schema, including adding new fields or changing field mappings. You can also enable automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index to update.</p>
@@ -414,7 +414,7 @@ class AsyncIndex:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.delete_index_response.DeleteIndexResponse":
-        r"""<p>Deletes an index from an OpenSearch Serverless collection. Be aware that the index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Deletes an index from an OpenSearch Serverless collection. Be aware that the index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index to delete.</p>

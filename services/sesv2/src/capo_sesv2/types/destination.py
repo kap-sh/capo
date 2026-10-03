@@ -10,11 +10,11 @@ if TYPE_CHECKING:
 
 class Destination(TypedDict, closed=True):
     to_addresses: NotRequired["capo_sesv2.types.email_address_list.EmailAddressList"]
-    r"""<p>An array that contains the email addresses of the \"To\" recipients for the email.</p>"""
+    """<p>An array that contains the email addresses of the "To" recipients for the email.</p>"""
     cc_addresses: NotRequired["capo_sesv2.types.email_address_list.EmailAddressList"]
-    r"""<p>An array that contains the email addresses of the \"CC\" (carbon copy) recipients for the email.</p>"""
+    """<p>An array that contains the email addresses of the "CC" (carbon copy) recipients for the email.</p>"""
     bcc_addresses: NotRequired["capo_sesv2.types.email_address_list.EmailAddressList"]
-    r"""<p>An array that contains the email addresses of the \"BCC\" (blind carbon copy) recipients for the email.</p>"""
+    """<p>An array that contains the email addresses of the "BCC" (blind carbon copy) recipients for the email.</p>"""
 
 
 # --- restJson1 ser/de ---

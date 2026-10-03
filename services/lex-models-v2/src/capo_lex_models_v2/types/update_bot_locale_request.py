@@ -27,7 +27,7 @@ class UpdateBotLocaleRequest(TypedDict, closed=True):
     bot_version: "capo_lex_models_v2.types.draft_bot_version.DraftBotVersion"
     """<p>The version of the bot that contains the locale to be updated. The version can only be the <code>DRAFT</code> version.</p>"""
     locale_id: "capo_lex_models_v2.types.locale_id.LocaleId"
-    r"""<p>The identifier of the language and locale to update. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>"""
+    """<p>The identifier of the language and locale to update. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>"""
     description: NotRequired["capo_lex_models_v2.types.description.Description"]
     """<p>The new description of the locale.</p>"""
     nlu_intent_confidence_threshold: (

@@ -33,7 +33,7 @@ class DescribeBackupVaultOutput(TypedDict, closed=True):
     creator_request_id: NotRequired["capo_backup.types.string.string"]
     """<p>A unique string that identifies the request and allows failed requests to be retried without the risk of running the operation twice. This parameter is optional. If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.</p>"""
     number_of_recovery_points: "capo_backup.types.long2.Long2"
-    r"""<p>The number of recovery points that are stored in a backup vault.</p> <p>Recovery point count value displayed in the console can be an approximation. Use <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListRecoveryPointsByBackupVault.html\"> <code>ListRecoveryPointsByBackupVault</code> </a> API to obtain the exact count.</p>"""
+    """<p>The number of recovery points that are stored in a backup vault.</p> <p>Recovery point count value displayed in the console can be an approximation. Use <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_ListRecoveryPointsByBackupVault.html"> <code>ListRecoveryPointsByBackupVault</code> </a> API to obtain the exact count.</p>"""
     locked: NotRequired["capo_backup.types.boolean.Boolean"]
     """<p>A Boolean that indicates whether Backup Vault Lock is currently protecting the backup vault. <code>True</code> means that Vault Lock causes delete or update operations on the recovery points stored in the vault to fail.</p>"""
     min_retention_days: NotRequired["capo_backup.types.long.Long"]

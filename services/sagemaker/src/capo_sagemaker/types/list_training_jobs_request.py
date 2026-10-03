@@ -46,7 +46,7 @@ class ListTrainingJobsRequest(TypedDict, closed=True):
     training_plan_arn_equals: NotRequired[
         "capo_sagemaker.types.training_plan_arn.TrainingPlanArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN); of the training plan to filter training jobs by. For more information about reserving GPU capacity for your SageMaker training jobs using Amazon SageMaker Training Plan, see <code> <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingPlan.html\">CreateTrainingPlan</a> </code>.</p>"""
+    """<p>The Amazon Resource Name (ARN); of the training plan to filter training jobs by. For more information about reserving GPU capacity for your SageMaker training jobs using Amazon SageMaker Training Plan, see <code> <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingPlan.html">CreateTrainingPlan</a> </code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

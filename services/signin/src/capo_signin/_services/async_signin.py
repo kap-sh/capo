@@ -218,11 +218,11 @@ class AsyncSigninClient:
         *,
         config_overrides: Optional[AsyncSigninClientConfig] = None,
     ) -> "capo_signin.types.create_o_auth2_token_with_iam_response.CreateOAuth2TokenWithIAMResponse":
-        r"""Grants permission to exchange client credentials for an OAuth 2.0 access token scoped to a resource that can be used to access AWS services from applications
+        """Grants permission to exchange client credentials for an OAuth 2.0 access token scoped to a resource that can be used to access AWS services from applications
 
         Args:
-            grant_type: OAuth 2.0 grant type. Must be \"client_credentials\".
-            resource: The OAuth resource for which the access token is requested. Example: \"aws-mcp.amazonaws.com\".
+            grant_type: OAuth 2.0 grant type. Must be "client_credentials".
+            resource: The OAuth resource for which the access token is requested. Example: "aws-mcp.amazonaws.com".
 
         Raises:
             capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.
@@ -458,7 +458,7 @@ class AsyncSigninClient:
             "capo_signin.types.token_type_hint.TokenTypeHint"
         ] = None,
     ) -> "capo_signin.types.introspect_o_auth2_token_with_iam_response.IntrospectOAuth2TokenWithIAMResponse":
-        r"""Grants permission to inspect the metadata and state of an OAuth 2.0 access token or refresh token Implements RFC 7662 OAuth 2.0 Token Introspection over a SigV4-authenticated endpoint. Inspects the metadata of an access_token or refresh_token issued by AWS Sign-In and returns the claims associated with it. Inactive token semantics (RFC 7662 §2.2): when the supplied token is unknown, expired, revoked, malformed, or owned by a different account, the response body is exactly { \"active\": false } with all other claims omitted.
+        """Grants permission to inspect the metadata and state of an OAuth 2.0 access token or refresh token Implements RFC 7662 OAuth 2.0 Token Introspection over a SigV4-authenticated endpoint. Inspects the metadata of an access_token or refresh_token issued by AWS Sign-In and returns the claims associated with it. Inactive token semantics (RFC 7662 §2.2): when the supplied token is unknown, expired, revoked, malformed, or owned by a different account, the response body is exactly { "active": false } with all other claims omitted.
 
         Args:
             token: The string value of the token to introspect. May be either an access_token or a refresh_token issued by AWS Sign-In.
@@ -718,10 +718,10 @@ class AsyncSigninClient:
         *,
         config_overrides: Optional[AsyncSigninClientConfig] = None,
     ) -> "capo_signin.types.revoke_o_auth2_token_with_iam_response.RevokeOAuth2TokenWithIAMResponse":
-        r"""Grants permission to revoke an OAuth 2.0 refresh token and its associated refresh tokens Revokes a refresh_token issued by AWS Sign-In, invalidating the entire token chain so that the refresh_token can no longer be used to mint new access_tokens. Idempotency: revoking an already-revoked, expired, or otherwise invalid token still returns 200 OK with an empty body. Only the refresh_token type is accepted.
+        """Grants permission to revoke an OAuth 2.0 refresh token and its associated refresh tokens Revokes a refresh_token issued by AWS Sign-In, invalidating the entire token chain so that the refresh_token can no longer be used to mint new access_tokens. Idempotency: revoking an already-revoked, expired, or otherwise invalid token still returns 200 OK with an empty body. Only the refresh_token type is accepted.
 
         Args:
-            token: The refresh_token to revoke. Must be a refresh_token issued by AWS Sign-In (prefix \"ASOR\"); access_tokens are not accepted for revocation.
+            token: The refresh_token to revoke. Must be a refresh_token issued by AWS Sign-In (prefix "ASOR"); access_tokens are not accepted for revocation.
 
         Raises:
             capo_signin.errors.access_denied_exception.AccessDeniedException: Error thrown for access denied scenarios with flexible HTTP status mapping Runtime HTTP Status Code Mapping: - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS The specific HTTP status code is determined at runtime based on the error enum value. Consumers should use the error field to determine the specific access denial reason.

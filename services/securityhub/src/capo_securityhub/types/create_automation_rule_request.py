@@ -18,7 +18,7 @@ class CreateAutomationRuleRequest(TypedDict, closed=True):
     tags: NotRequired["capo_securityhub.types.tag_map.TagMap"]
     """<p> User-defined tags associated with an automation rule. </p>"""
     rule_status: NotRequired["capo_securityhub.types.rule_status.RuleStatus"]
-    r"""<p> Whether the rule is active after it is created. If this parameter is equal to <code>ENABLED</code>, Security Hub CSPM starts applying the rule to findings and finding updates after the rule is created. To change the value of this parameter after creating a rule, use <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateAutomationRules.html\"> <code>BatchUpdateAutomationRules</code> </a>. </p>"""
+    """<p> Whether the rule is active after it is created. If this parameter is equal to <code>ENABLED</code>, Security Hub CSPM starts applying the rule to findings and finding updates after the rule is created. To change the value of this parameter after creating a rule, use <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateAutomationRules.html"> <code>BatchUpdateAutomationRules</code> </a>. </p>"""
     rule_order: NotRequired["capo_securityhub.types.rule_order_value.RuleOrderValue"]
     """<p>An integer ranging from 1 to 1000 that represents the order in which the rule action is applied to findings. Security Hub CSPM applies rules with lower values for this parameter first. </p>"""
     rule_name: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

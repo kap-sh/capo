@@ -51,7 +51,7 @@ class SpotFleetLaunchSpecification(TypedDict, closed=True):
     network_interfaces: NotRequired[
         "capo_ec2.types.instance_network_interface_specification_list.InstanceNetworkInterfaceSpecificationList"
     ]
-    r"""<p>The network interfaces.</p> <note> <p> <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html\">LaunchTemplateConfig</a> instead.</p> </note>"""
+    """<p>The network interfaces.</p> <note> <p> <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html">LaunchTemplateConfig</a> instead.</p> </note>"""
     placement: NotRequired["capo_ec2.types.spot_placement.SpotPlacement"]
     """<p>The placement information.</p>"""
     ramdisk_id: NotRequired["capo_ec2.types.string.String"]
@@ -59,7 +59,7 @@ class SpotFleetLaunchSpecification(TypedDict, closed=True):
     spot_price: NotRequired["capo_ec2.types.string.String"]
     """<p>The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the current Spot price.</p> <important> <p>If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify this parameter.</p> </important>"""
     subnet_id: NotRequired["capo_ec2.types.subnet_id.SubnetId"]
-    r"""<p>The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using commas; for example, \"subnet-1234abcdeexample1, subnet-0987cdef6example2\".</p> <p>If you specify a network interface, you must specify any subnets as part of the network interface instead of using this parameter.</p>"""
+    """<p>The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using commas; for example, "subnet-1234abcdeexample1, subnet-0987cdef6example2".</p> <p>If you specify a network interface, you must specify any subnets as part of the network interface instead of using this parameter.</p>"""
     user_data: NotRequired["capo_ec2.types.sensitive_user_data.SensitiveUserData"]
     """<p>The base64-encoded user data that instances use when starting up. User data is limited to 16 KB.</p>"""
     weighted_capacity: NotRequired["capo_ec2.types.double.Double"]

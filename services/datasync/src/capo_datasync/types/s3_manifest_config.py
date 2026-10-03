@@ -17,7 +17,7 @@ class S3ManifestConfig(TypedDict, closed=True):
     manifest_object_path: "capo_datasync.types.s3_subdirectory.S3Subdirectory"
     """<p>Specifies the Amazon S3 object key of your manifest. This can include a prefix (for example, <code>prefix/my-manifest.csv</code>).</p>"""
     bucket_access_role_arn: "capo_datasync.types.iam_role_arn.IamRoleArn"
-    r"""<p>Specifies the Identity and Access Management (IAM) role that allows DataSync to access your manifest. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html#transferring-with-manifest-access\">Providing DataSync access to your manifest</a>.</p>"""
+    """<p>Specifies the Identity and Access Management (IAM) role that allows DataSync to access your manifest. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html#transferring-with-manifest-access">Providing DataSync access to your manifest</a>.</p>"""
     s3_bucket_arn: "capo_datasync.types.s3_bucket_arn.S3BucketArn"
     """<p>Specifies the Amazon Resource Name (ARN) of the S3 bucket where you're hosting your manifest.</p>"""
     manifest_object_version_id: NotRequired[

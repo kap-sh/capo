@@ -17,7 +17,7 @@ class Detection(TypedDict, closed=True):
     count: NotRequired["capo_macie2.types.__long.__long"]
     """<p>The total number of occurrences of the sensitive data.</p>"""
     id: NotRequired["capo_macie2.types.__string.__string"]
-    r"""<p>The unique identifier for the custom data identifier or managed data identifier that detected the sensitive data. For additional details about a specified managed data identifier, see <a href=\"https://docs.aws.amazon.com/macie/latest/user/managed-data-identifiers.html\">Using managed data identifiers</a> in the <i>Amazon Macie User Guide</i>.</p>"""
+    """<p>The unique identifier for the custom data identifier or managed data identifier that detected the sensitive data. For additional details about a specified managed data identifier, see <a href="https://docs.aws.amazon.com/macie/latest/user/managed-data-identifiers.html">Using managed data identifiers</a> in the <i>Amazon Macie User Guide</i>.</p>"""
     name: NotRequired["capo_macie2.types.__string.__string"]
     """<p>The name of the custom data identifier or managed data identifier that detected the sensitive data. For a managed data identifier, this value is the same as the unique identifier (id).</p>"""
     suppressed: NotRequired["capo_macie2.types.__boolean.__boolean"]

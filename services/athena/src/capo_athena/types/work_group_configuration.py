@@ -31,7 +31,7 @@ class WorkGroupConfiguration(TypedDict, closed=True):
     enforce_work_group_configuration: NotRequired[
         "capo_athena.types.boxed_boolean.BoxedBoolean"
     ]
-    r"""<p>If set to \"true\", the settings for the workgroup override client-side settings. If set to \"false\", client-side settings are used. This property is not required for Apache Spark enabled workgroups. For more information, see <a href=\"https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html\">Workgroup Settings Override Client-Side Settings</a>.</p>"""
+    """<p>If set to "true", the settings for the workgroup override client-side settings. If set to "false", client-side settings are used. This property is not required for Apache Spark enabled workgroups. For more information, see <a href="https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html">Workgroup Settings Override Client-Side Settings</a>.</p>"""
     publish_cloud_watch_metrics_enabled: NotRequired[
         "capo_athena.types.boxed_boolean.BoxedBoolean"
     ]
@@ -41,7 +41,7 @@ class WorkGroupConfiguration(TypedDict, closed=True):
     ]
     """<p>The upper data usage limit (cutoff) for the amount of bytes a single query in a workgroup is allowed to scan.</p>"""
     requester_pays_enabled: NotRequired["capo_athena.types.boxed_boolean.BoxedBoolean"]
-    r"""<p>If set to <code>true</code>, allows members assigned to a workgroup to reference Amazon S3 Requester Pays buckets in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays buckets, and queries that retrieve data from Requester Pays buckets cause an error. The default is <code>false</code>. For more information about Requester Pays buckets, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html\">Requester Pays Buckets</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>"""
+    """<p>If set to <code>true</code>, allows members assigned to a workgroup to reference Amazon S3 Requester Pays buckets in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays buckets, and queries that retrieve data from Requester Pays buckets cause an error. The default is <code>false</code>. For more information about Requester Pays buckets, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>"""
     engine_version: NotRequired["capo_athena.types.engine_version.EngineVersion"]
     """<p>The engine version that all queries running on the workgroup use. Queries on the <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this setting.</p>"""
     additional_configuration: NotRequired["capo_athena.types.name_string.NameString"]

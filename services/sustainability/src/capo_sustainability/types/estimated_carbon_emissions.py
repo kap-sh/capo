@@ -19,7 +19,7 @@ class EstimatedCarbonEmissions(TypedDict, closed=True):
     dimensions_values: "capo_sustainability.types.dimensions_map.DimensionsMap"
     """<p>The dimensions used to group emissions values.</p>"""
     model_version: "capo_sustainability.types.model_version.ModelVersion"
-    r"""<p>The semantic version-formatted string that indicates the methodology version used to calculate the emission values. </p> <note> <p> The AWS Sustainability service reflects the most recent model version for every month. You will not see two entries for the same month with different <code>ModelVersion</code> values. To track the evolution of the methodology and compare emission values from previous versions, we recommend creating a <a href=\"https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html\">Data Export</a>. </p> </note>"""
+    """<p>The semantic version-formatted string that indicates the methodology version used to calculate the emission values. </p> <note> <p> The AWS Sustainability service reflects the most recent model version for every month. You will not see two entries for the same month with different <code>ModelVersion</code> values. To track the evolution of the methodology and compare emission values from previous versions, we recommend creating a <a href="https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html">Data Export</a>. </p> </note>"""
     emissions_values: "capo_sustainability.types.emissions_map.EmissionsMap"
     """<p>The emissions values for the requested emissions types.</p>"""
 

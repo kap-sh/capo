@@ -23,11 +23,11 @@ class PutBucketAbacRequest(TypedDict, closed=True):
     checksum_algorithm: NotRequired[
         "capo_s3.types.checksum_algorithm.ChecksumAlgorithm"
     ]
-    r"""<p>Indicates the algorithm that you want Amazon S3 to use to create the checksum. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\"> Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>Indicates the algorithm that you want Amazon S3 to use to create the checksum. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html"> Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     expected_bucket_owner: NotRequired["capo_s3.types.account_id.AccountId"]
     """<p>The Amazon Web Services account ID of the general purpose bucket's owner. </p>"""
     abac_status: "capo_s3.types.abac_status.AbacStatus"
-    r"""<p>The ABAC status of the general purpose bucket. When ABAC is enabled for the general purpose bucket, you can use tags to manage access to the general purpose buckets as well as for cost tracking purposes. When ABAC is disabled for the general purpose buckets, you can only use tags for cost tracking purposes. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging.html\">Using tags with S3 general purpose buckets</a>. </p>"""
+    """<p>The ABAC status of the general purpose bucket. When ABAC is enabled for the general purpose bucket, you can use tags to manage access to the general purpose buckets as well as for cost tracking purposes. When ABAC is disabled for the general purpose buckets, you can only use tags for cost tracking purposes. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging.html">Using tags with S3 general purpose buckets</a>. </p>"""
 
 
 # --- restXml ser/de ---

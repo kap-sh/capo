@@ -56,12 +56,12 @@ class RetrieveResource:
             "capo_bedrock_agent_runtime.types.user_context.UserContext"
         ] = None,
     ) -> "capo_bedrock_agent_runtime.types.retrieve_response.RetrieveResponse":
-        r"""<p>Queries a knowledge base and retrieves information from it.</p>
+        """<p>Queries a knowledge base and retrieves information from it.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base to query.</p>
             retrieval_query: <p>Contains the query to send the knowledge base.</p>
-            retrieval_configuration: <p>Contains configurations for the knowledge base query and retrieval process. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html\">Query configurations</a>.</p>
+            retrieval_configuration: <p>Contains configurations for the knowledge base query and retrieval process. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html">Query configurations</a>.</p>
             guardrail_configuration: <p>Guardrail settings.</p>
             next_token: <p>If there are more results than can fit in the response, the response returns a <code>nextToken</code>. Use this token in the <code>nextToken</code> field of another request to retrieve the next batch of results.</p>
             user_context: <p>Contains information about the user making the request. This is used for access control filtering to ensure that retrieval results only include documents the user is authorized to access.</p>
@@ -139,12 +139,12 @@ class AsyncRetrieveResource:
             "capo_bedrock_agent_runtime.types.user_context.UserContext"
         ] = None,
     ) -> "capo_bedrock_agent_runtime.types.retrieve_response.RetrieveResponse":
-        r"""<p>Queries a knowledge base and retrieves information from it.</p>
+        """<p>Queries a knowledge base and retrieves information from it.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base to query.</p>
             retrieval_query: <p>Contains the query to send the knowledge base.</p>
-            retrieval_configuration: <p>Contains configurations for the knowledge base query and retrieval process. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html\">Query configurations</a>.</p>
+            retrieval_configuration: <p>Contains configurations for the knowledge base query and retrieval process. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html">Query configurations</a>.</p>
             guardrail_configuration: <p>Guardrail settings.</p>
             next_token: <p>If there are more results than can fit in the response, the response returns a <code>nextToken</code>. Use this token in the <code>nextToken</code> field of another request to retrieve the next batch of results.</p>
             user_context: <p>Contains information about the user making the request. This is used for access control filtering to ensure that retrieval results only include documents the user is authorized to access.</p>

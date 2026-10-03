@@ -30,13 +30,13 @@ class DynamoDBAction(TypedDict, closed=True):
     hash_key_value: "capo_iot.types.hash_key_value.HashKeyValue"
     """<p>The hash key value.</p>"""
     hash_key_type: NotRequired["capo_iot.types.dynamo_key_type.DynamoKeyType"]
-    r"""<p>The hash key type. Valid values are \"STRING\" or \"NUMBER\"</p>"""
+    """<p>The hash key type. Valid values are "STRING" or "NUMBER"</p>"""
     range_key_field: NotRequired["capo_iot.types.range_key_field.RangeKeyField"]
     """<p>The range key name.</p>"""
     range_key_value: NotRequired["capo_iot.types.range_key_value.RangeKeyValue"]
     """<p>The range key value.</p>"""
     range_key_type: NotRequired["capo_iot.types.dynamo_key_type.DynamoKeyType"]
-    r"""<p>The range key type. Valid values are \"STRING\" or \"NUMBER\"</p>"""
+    """<p>The range key type. Valid values are "STRING" or "NUMBER"</p>"""
     payload_field: NotRequired["capo_iot.types.payload_field.PayloadField"]
     """<p>The action payload. This name can be customized.</p>"""
 

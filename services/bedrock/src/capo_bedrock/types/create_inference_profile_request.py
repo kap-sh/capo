@@ -26,13 +26,13 @@ class CreateInferenceProfileRequest(TypedDict, closed=True):
     client_request_token: NotRequired[
         "capo_bedrock.types.idempotency_token.IdempotencyToken"
     ]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     model_source: (
         "capo_bedrock.types.inference_profile_model_source.InferenceProfileModelSource"
     )
     """<p>The foundation model or system-defined inference profile that the inference profile will track metrics and costs for.</p>"""
     tags: NotRequired["capo_bedrock.types.tag_list.TagList"]
-    r"""<p>An array of objects, each of which contains a tag and its value. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Tagging resources</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>"""
+    """<p>An array of objects, each of which contains a tag and its value. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Tagging resources</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

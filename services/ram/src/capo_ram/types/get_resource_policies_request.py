@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class GetResourcePoliciesRequest(TypedDict, closed=True):
     resource_arns: "capo_ram.types.resource_arn_list.ResourceArnList"
-    r"""<p>Specifies the <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.</p>"""
+    """<p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.</p>"""
     principal: NotRequired["capo_ram.types.string.String"]
     """<p>Specifies the principal.</p>"""
     next_token: NotRequired["capo_ram.types.string.String"]

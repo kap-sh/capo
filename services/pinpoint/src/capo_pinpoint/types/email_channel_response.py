@@ -14,7 +14,7 @@ class EmailChannelResponse(TypedDict, closed=True):
     application_id: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The unique identifier for the application that the email channel applies to.</p>"""
     configuration_set: NotRequired["capo_pinpoint.types.__string.__string"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html\">Amazon SES configuration set</a> that's applied to messages that are sent through the channel.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html">Amazon SES configuration set</a> that's applied to messages that are sent through the channel.</p>"""
     creation_date: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The date and time, in ISO 8601 format, when the email channel was enabled.</p>"""
     enabled: NotRequired["capo_pinpoint.types.__boolean.__boolean"]

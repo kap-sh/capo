@@ -23,7 +23,7 @@ class ReservationFleetInstanceSpecification(TypedDict, closed=True):
     ]
     """<p>The type of operating system for which the Capacity Reservation Fleet reserves capacity.</p>"""
     weight: NotRequired["capo_ec2.types.double_with_constraints.DoubleWithConstraints"]
-    r"""<p>The number of capacity units provided by the specified instance type. This value, together with the total target capacity that you specify for the Fleet determine the number of instances for which the Fleet reserves capacity. Both values are based on units that make sense for your workload. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity\">Total target capacity</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The number of capacity units provided by the specified instance type. This value, together with the total target capacity that you specify for the Fleet determine the number of instances for which the Fleet reserves capacity. Both values are based on units that make sense for your workload. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity">Total target capacity</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     availability_zone: NotRequired["capo_ec2.types.string.String"]
     """<p>The Availability Zone in which the Capacity Reservation Fleet reserves the capacity. A Capacity Reservation Fleet can't span Availability Zones. All instance type specifications that you specify for the Fleet must use the same Availability Zone.</p>"""
     availability_zone_id: NotRequired["capo_ec2.types.string.String"]
@@ -33,7 +33,7 @@ class ReservationFleetInstanceSpecification(TypedDict, closed=True):
     priority: NotRequired[
         "capo_ec2.types.integer_with_constraints.IntegerWithConstraints"
     ]
-    r"""<p>The priority to assign to the instance type. This value is used to determine which of the instance types specified for the Fleet should be prioritized for use. A lower value indicates a high priority. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-priority\">Instance type priority</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The priority to assign to the instance type. This value is used to determine which of the instance types specified for the Fleet should be prioritized for use. A lower value indicates a high priority. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-priority">Instance type priority</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
 
 
 # --- ec2Query ser/de ---

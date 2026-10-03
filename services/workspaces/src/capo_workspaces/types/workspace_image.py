@@ -39,7 +39,7 @@ class WorkspaceImage(TypedDict, closed=True):
     required_tenancy: NotRequired[
         "capo_workspaces.types.workspace_image_required_tenancy.WorkspaceImageRequiredTenancy"
     ]
-    r"""<p>Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this value is set to <code>DEDICATED</code>. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html\">Bring Your Own Windows Desktop Images</a>.</p>"""
+    """<p>Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this value is set to <code>DEDICATED</code>. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows Desktop Images</a>.</p>"""
     error_code: NotRequired[
         "capo_workspaces.types.workspace_image_error_code.WorkspaceImageErrorCode"
     ]

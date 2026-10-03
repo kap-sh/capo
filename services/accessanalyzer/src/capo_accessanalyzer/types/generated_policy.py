@@ -7,7 +7,7 @@ from capo_accessanalyzer.errors import DeserializationError
 
 class GeneratedPolicy(TypedDict, closed=True):
     policy: "str"
-    r"""<p>The text to use as the content for the new policy. The policy is created using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicy.html\">CreatePolicy</a> action.</p>"""
+    """<p>The text to use as the content for the new policy. The policy is created using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicy.html">CreatePolicy</a> action.</p>"""
 
 
 # --- restJson1 ser/de ---

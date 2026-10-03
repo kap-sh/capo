@@ -22,7 +22,7 @@ class SparkSQL(TypedDict, closed=True):
     sql_query: "capo_glue.types.sql_query.SqlQuery"
     """<p>A SQL query that must use Spark SQL syntax and return a single data set.</p>"""
     sql_aliases: "capo_glue.types.sql_aliases.SqlAliases"
-    r"""<p>A list of aliases. An alias allows you to specify what name to use in the SQL for a given input. For example, you have a datasource named \"MyDataSource\". If you specify <code>From</code> as MyDataSource, and <code>Alias</code> as SqlName, then in your SQL you can do:</p> <p> <code>select * from SqlName</code> </p> <p>and that gets data from MyDataSource.</p>"""
+    """<p>A list of aliases. An alias allows you to specify what name to use in the SQL for a given input. For example, you have a datasource named "MyDataSource". If you specify <code>From</code> as MyDataSource, and <code>Alias</code> as SqlName, then in your SQL you can do:</p> <p> <code>select * from SqlName</code> </p> <p>and that gets data from MyDataSource.</p>"""
     output_schemas: NotRequired["capo_glue.types.glue_schemas.GlueSchemas"]
     """<p>Specifies the data schema for the SparkSQL transform.</p>"""
 

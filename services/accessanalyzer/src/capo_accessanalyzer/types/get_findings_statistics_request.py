@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GetFindingsStatisticsRequest(TypedDict, closed=True):
     analyzer_arn: "capo_accessanalyzer.types.analyzer_arn.AnalyzerArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources\">ARN of the analyzer</a> used to generate the statistics.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources">ARN of the analyzer</a> used to generate the statistics.</p>"""
 
 
 # --- restJson1 ser/de ---

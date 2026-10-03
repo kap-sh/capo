@@ -118,7 +118,7 @@ class DBCluster(TypedDict, closed=True):
     enabled_cloudwatch_logs_exports: NotRequired[
         "capo_neptune.types.log_type_list.LogTypeList"
     ]
-    r"""<p>A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types are: <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to CloudWatch). See <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html\">Publishing Neptune logs to Amazon CloudWatch logs</a>.</p>"""
+    """<p>A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types are: <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to CloudWatch). See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing Neptune logs to Amazon CloudWatch logs</a>.</p>"""
     pending_modified_values: NotRequired[
         "capo_neptune.types.cluster_pending_modified_values.ClusterPendingModifiedValues"
     ]
@@ -136,7 +136,7 @@ class DBCluster(TypedDict, closed=True):
     serverless_v2_scaling_configuration: NotRequired[
         "capo_neptune.types.serverless_v2_scaling_configuration_info.ServerlessV2ScalingConfigurationInfo"
     ]
-    r"""<p>Shows the scaling configuration for a Neptune Serverless DB cluster.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html\">Using Amazon Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.</p>"""
+    """<p>Shows the scaling configuration for a Neptune Serverless DB cluster.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.</p>"""
     global_cluster_identifier: NotRequired[
         "capo_neptune.types.global_cluster_identifier.GlobalClusterIdentifier"
     ]
@@ -146,7 +146,7 @@ class DBCluster(TypedDict, closed=True):
     ]
     """<p>The next time you can modify the DB cluster to use the <code>iopt1</code> storage type.</p>"""
     storage_type: NotRequired["capo_neptune.types.string.String"]
-    r"""<p>The storage type used by the DB cluster.</p> <p>Valid Values:</p> <ul> <li> <p> <b> <code>standard</code> </b> – ( <i>the default</i> ) Provides cost-effective database storage for applications with moderate to small I/O usage.</p> </li> <li> <p> <b> <code>iopt1</code> </b> – Enables <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/storage-types.html#provisioned-iops-storage\">I/O-Optimized storage</a> that's designed to meet the needs of I/O-intensive graph workloads that require predictable pricing with low I/O latency and consistent I/O throughput.</p> <p>Neptune I/O-Optimized storage is only available starting with engine release 1.3.0.0.</p> </li> </ul>"""
+    """<p>The storage type used by the DB cluster.</p> <p>Valid Values:</p> <ul> <li> <p> <b> <code>standard</code> </b> – ( <i>the default</i> ) Provides cost-effective database storage for applications with moderate to small I/O usage.</p> </li> <li> <p> <b> <code>iopt1</code> </b> – Enables <a href="https://docs.aws.amazon.com/neptune/latest/userguide/storage-types.html#provisioned-iops-storage">I/O-Optimized storage</a> that's designed to meet the needs of I/O-intensive graph workloads that require predictable pricing with low I/O latency and consistent I/O throughput.</p> <p>Neptune I/O-Optimized storage is only available starting with engine release 1.3.0.0.</p> </li> </ul>"""
     network_type: NotRequired["capo_neptune.types.string.String"]
     """<p>The network type of the DB cluster.</p> <p>Valid Values:</p> <ul> <li> <p> <b> <code>IPV4</code> </b> – The DB cluster uses only IPv4 addresses for communication.</p> </li> <li> <p> <b> <code>DUAL</code> </b> – The DB cluster uses both IPv4 and IPv6 addresses for communication.</p> </li> </ul>"""
 

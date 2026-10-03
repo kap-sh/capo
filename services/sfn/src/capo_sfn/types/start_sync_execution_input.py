@@ -20,7 +20,7 @@ class StartSyncExecutionInput(TypedDict, closed=True):
     name: NotRequired["capo_sfn.types.name.Name"]
     """<p>The name of the execution.</p>"""
     input: NotRequired["capo_sfn.types.sensitive_data.SensitiveData"]
-    r"""<p>The string that contains the JSON input data for the execution, for example:</p> <p> <code>\"{\\"first_name\\" : \\"Alejandro\\"}\"</code> </p> <note> <p>If you don't include any JSON input data, you still must include the two braces, for example: <code>\"{}\"</code> </p> </note> <p>Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.</p>"""
+    r"""<p>The string that contains the JSON input data for the execution, for example:</p> <p> <code>"{\"first_name\" : \"Alejandro\"}"</code> </p> <note> <p>If you don't include any JSON input data, you still must include the two braces, for example: <code>"{}"</code> </p> </note> <p>Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.</p>"""
     trace_header: NotRequired["capo_sfn.types.trace_header.TraceHeader"]
     """<p>Passes the X-Ray trace header. The trace header can also be passed in the request payload.</p> <note> <p> For X-Ray traces, all Amazon Web Services services use the <code>X-Amzn-Trace-Id</code> header from the HTTP request. Using the header is the preferred mechanism to identify a trace. <code>StartExecution</code> and <code>StartSyncExecution</code> API operations can also use <code>traceHeader</code> from the body of the request payload. If <b>both</b> sources are provided, Step Functions will use the <b>header value</b> (preferred) over the value in the request body. </p> </note>"""
     included_data: NotRequired["capo_sfn.types.included_data.IncludedData"]

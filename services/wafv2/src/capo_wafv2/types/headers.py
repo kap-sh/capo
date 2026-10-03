@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class Headers(TypedDict, closed=True):
     match_pattern: "capo_wafv2.types.header_match_pattern.HeaderMatchPattern"
-    r"""<p>The filter to use to identify the subset of headers to inspect in a web request. </p> <p>You must specify exactly one setting: either <code>All</code>, <code>IncludedHeaders</code>, or <code>ExcludedHeaders</code>.</p> <p>Example JSON: <code>\"MatchPattern\": { \"ExcludedHeaders\": [ \"KeyToExclude1\", \"KeyToExclude2\" ] }</code> </p>"""
+    """<p>The filter to use to identify the subset of headers to inspect in a web request. </p> <p>You must specify exactly one setting: either <code>All</code>, <code>IncludedHeaders</code>, or <code>ExcludedHeaders</code>.</p> <p>Example JSON: <code>"MatchPattern": { "ExcludedHeaders": [ "KeyToExclude1", "KeyToExclude2" ] }</code> </p>"""
     match_scope: "capo_wafv2.types.map_match_scope.MapMatchScope"
     """<p>The parts of the headers to match with the rule inspection criteria. If you specify <code>ALL</code>, WAF inspects both keys and values. </p> <p> <code>All</code> does not require a match to be found in the keys and a match to be found in the values. It requires a match to be found in the keys or the values or both. To require a match in the keys and in the values, use a logical <code>AND</code> statement to combine two match rules, one that inspects the keys and another that inspects the values. </p>"""
     oversize_handling: "capo_wafv2.types.oversize_handling.OversizeHandling"

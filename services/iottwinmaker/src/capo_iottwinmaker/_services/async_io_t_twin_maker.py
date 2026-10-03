@@ -1065,7 +1065,7 @@ class AsyncIoTTwinMakerClient:
         ] = None,
         next_token: Optional["capo_iottwinmaker.types.next_token.NextToken"] = None,
     ) -> "capo_iottwinmaker.types.execute_query_response.ExecuteQueryResponse":
-        r"""<p>Run queries to access information from your knowledge graph of entities within individual workspaces.</p> <note> <p>The ExecuteQuery action only works with <a href=\"https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html\">Amazon Web Services Java SDK2</a>. ExecuteQuery will not work with any Amazon Web Services Java SDK version &lt; 2.x.</p> </note>
+        """<p>Run queries to access information from your knowledge graph of entities within individual workspaces.</p> <note> <p>The ExecuteQuery action only works with <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html">Amazon Web Services Java SDK2</a>. ExecuteQuery will not work with any Amazon Web Services Java SDK version &lt; 2.x.</p> </note>
 
         Args:
             workspace_id: <p>The ID of the workspace.</p>
@@ -1492,7 +1492,7 @@ class AsyncIoTTwinMakerClient:
         start_time: Optional["capo_iottwinmaker.types.time.Time"] = None,
         end_time: Optional["capo_iottwinmaker.types.time.Time"] = None,
     ) -> "capo_iottwinmaker.types.get_property_value_history_response.GetPropertyValueHistoryResponse":
-        r"""<p>Retrieves information about the history of a time series property value for a component, component type, entity, or workspace.</p> <p>You must specify a value for <code>workspaceId</code>. For entity-specific queries, specify values for <code>componentName</code> and <code>entityId</code>. For cross-entity quries, specify a value for <code>componentTypeId</code>.</p>
+        """<p>Retrieves information about the history of a time series property value for a component, component type, entity, or workspace.</p> <p>You must specify a value for <code>workspaceId</code>. For entity-specific queries, specify values for <code>componentName</code> and <code>entityId</code>. For cross-entity quries, specify a value for <code>componentTypeId</code>.</p>
 
         Args:
             workspace_id: <p>The ID of the workspace.</p>
@@ -1508,8 +1508,8 @@ class AsyncIoTTwinMakerClient:
             next_token: <p>The string that specifies the next page of results.</p>
             max_results: <p>The maximum number of results to return at one time. The default is 25.</p> <p>Valid Range: Minimum value of 1. Maximum value of 250.</p>
             order_by_time: <p>The time direction to use in the result order.</p>
-            start_time: <p>The ISO8601 DateTime of the earliest property value to return.</p> <p>For more information about the ISO8601 DateTime format, see the data type <a href=\"https://docs.aws.amazon.com/iot-twinmaker/latest/apireference/API_PropertyValue.html\">PropertyValue</a>.</p>
-            end_time: <p>The ISO8601 DateTime of the latest property value to return.</p> <p>For more information about the ISO8601 DateTime format, see the data type <a href=\"https://docs.aws.amazon.com/iot-twinmaker/latest/apireference/API_PropertyValue.html\">PropertyValue</a>.</p>
+            start_time: <p>The ISO8601 DateTime of the earliest property value to return.</p> <p>For more information about the ISO8601 DateTime format, see the data type <a href="https://docs.aws.amazon.com/iot-twinmaker/latest/apireference/API_PropertyValue.html">PropertyValue</a>.</p>
+            end_time: <p>The ISO8601 DateTime of the latest property value to return.</p> <p>For more information about the ISO8601 DateTime format, see the data type <a href="https://docs.aws.amazon.com/iot-twinmaker/latest/apireference/API_PropertyValue.html">PropertyValue</a>.</p>
 
         Raises:
             capo_iottwinmaker.errors.access_denied_exception.AccessDeniedException: <p>Access is denied.</p>

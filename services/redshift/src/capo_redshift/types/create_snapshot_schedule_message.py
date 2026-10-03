@@ -18,7 +18,7 @@ class CreateSnapshotScheduleMessage(TypedDict, closed=True):
     schedule_definitions: NotRequired[
         "capo_redshift.types.schedule_definition_list.ScheduleDefinitionList"
     ]
-    r"""<p>The definition of the snapshot schedule. The definition is made up of schedule expressions, for example \"cron(30 12 *)\" or \"rate(12 hours)\". </p>"""
+    """<p>The definition of the snapshot schedule. The definition is made up of schedule expressions, for example "cron(30 12 *)" or "rate(12 hours)". </p>"""
     schedule_identifier: NotRequired["capo_redshift.types.string.String"]
     """<p>A unique identifier for a snapshot schedule. Only alphanumeric characters are allowed for the identifier.</p>"""
     schedule_description: NotRequired["capo_redshift.types.string.String"]

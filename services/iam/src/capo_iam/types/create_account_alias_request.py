@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class CreateAccountAliasRequest(TypedDict, closed=True):
     account_alias: "capo_iam.types.account_alias_type.accountAliasType"
-    r"""<p>The account alias to create.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of lowercase letters, digits, and dashes. You cannot start or finish with a dash, nor can you have two dashes in a row.</p>"""
+    """<p>The account alias to create.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of lowercase letters, digits, and dashes. You cannot start or finish with a dash, nor can you have two dashes in a row.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -18,7 +18,7 @@ class AddApplicationReferenceDataSourceRequest(TypedDict, closed=True):
     current_application_version_id: (
         "capo_kinesis_analytics.types.application_version_id.ApplicationVersionId"
     )
-    r"""<p>Version of the application for which you are adding the reference data source. You can use the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html\">DescribeApplication</a> operation to get the current application version. If the version specified is not the current version, the <code>ConcurrentModificationException</code> is returned.</p>"""
+    """<p>Version of the application for which you are adding the reference data source. You can use the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a> operation to get the current application version. If the version specified is not the current version, the <code>ConcurrentModificationException</code> is returned.</p>"""
     reference_data_source: (
         "capo_kinesis_analytics.types.reference_data_source.ReferenceDataSource"
     )

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class HybridAdministratorAccountUpdate(TypedDict, closed=True):
     secret_arn: "capo_directory_service.types.secret_arn.SecretArn"
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the credentials for the AD administrator user, and enables hybrid domain controllers to join the managed AD domain. For example:</p> <p> <code> {\"customerAdAdminDomainUsername\":\"carlos_salazar\",\"customerAdAdminDomainPassword\":\"ExamplePassword123!\"}. </code> </p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the credentials for the AD administrator user, and enables hybrid domain controllers to join the managed AD domain. For example:</p> <p> <code> {"customerAdAdminDomainUsername":"carlos_salazar","customerAdAdminDomainPassword":"ExamplePassword123!"}. </code> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -67,7 +67,7 @@ class ApplicationStatusCheckResponseObject(TypedDict, closed=True):
     target_tag_associations: NotRequired[
         "capo_ec2.types.custom_key_value_pair_response_set.CustomKeyValuePairResponseSet"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html\">tags</a> associated with the application status check. Instances with these tags are automatically monitored by this check.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html">tags</a> associated with the application status check. Instances with these tags are automatically monitored by this check.</p>"""
     tags: NotRequired["capo_ec2.types.tag_list.TagList"]
     """<p>The tags assigned to the application status check.</p>"""
     creation_time: NotRequired[

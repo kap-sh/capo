@@ -15,9 +15,9 @@ if TYPE_CHECKING:
 
 class MessageDsn(TypedDict, closed=True):
     reporting_mta: "capo_ses.types.reporting_mta.ReportingMta"
-    r"""<p>The reporting MTA that attempted to deliver the message, formatted as specified in <a href=\"https://tools.ietf.org/html/rfc3464\">RFC 3464</a> (<code>mta-name-type; mta-name</code>). The default value is <code>dns; inbound-smtp.[region].amazonaws.com</code>.</p>"""
+    """<p>The reporting MTA that attempted to deliver the message, formatted as specified in <a href="https://tools.ietf.org/html/rfc3464">RFC 3464</a> (<code>mta-name-type; mta-name</code>). The default value is <code>dns; inbound-smtp.[region].amazonaws.com</code>.</p>"""
     arrival_date: NotRequired["capo_ses.types.arrival_date.ArrivalDate"]
-    r"""<p>When the message was received by the reporting mail transfer agent (MTA), in <a href=\"https://www.ietf.org/rfc/rfc0822.txt\">RFC 822</a> date-time format.</p>"""
+    """<p>When the message was received by the reporting mail transfer agent (MTA), in <a href="https://www.ietf.org/rfc/rfc0822.txt">RFC 822</a> date-time format.</p>"""
     extension_fields: NotRequired[
         "capo_ses.types.extension_field_list.ExtensionFieldList"
     ]

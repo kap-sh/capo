@@ -15,7 +15,7 @@ class HttpHeaderConditionConfig(TypedDict, closed=True):
     http_header_name: NotRequired[
         "capo_elastic_load_balancing_v2.types.http_header_condition_name.HttpHeaderConditionName"
     ]
-    r"""<p>The name of the HTTP header field. The maximum length is 40 characters. The header name is case insensitive. The allowed characters are specified by RFC 7230. Wildcards are not supported.</p> <p>You can't use an HTTP header condition to specify the host header. Instead, use a <a href=\"https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#host-conditions\">host condition</a>.</p>"""
+    """<p>The name of the HTTP header field. The maximum length is 40 characters. The header name is case insensitive. The allowed characters are specified by RFC 7230. Wildcards are not supported.</p> <p>You can't use an HTTP header condition to specify the host header. Instead, use a <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#host-conditions">host condition</a>.</p>"""
     values: NotRequired[
         "capo_elastic_load_balancing_v2.types.list_of_string.ListOfString"
     ]

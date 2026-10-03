@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class UntagSAMLProviderRequest(TypedDict, closed=True):
     saml_provider_arn: "capo_iam.types.arn_type.arnType"
-    r"""<p>The ARN of the SAML identity provider in IAM from which you want to remove tags.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
+    """<p>The ARN of the SAML identity provider in IAM from which you want to remove tags.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
     tag_keys: "capo_iam.types.tag_key_list_type.tagKeyListType"
     """<p>A list of key names as a simple array of strings. The tags with matching keys are removed from the specified SAML identity provider.</p>"""
 

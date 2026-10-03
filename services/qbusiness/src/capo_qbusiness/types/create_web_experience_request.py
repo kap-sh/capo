@@ -53,7 +53,7 @@ class CreateWebExperienceRequest(TypedDict, closed=True):
     browser_extension_configuration: NotRequired[
         "capo_qbusiness.types.browser_extension_configuration.BrowserExtensionConfiguration"
     ]
-    r"""<p>The browser extension configuration for an Amazon Q Business web experience.</p> <note> <p> For Amazon Q Business application using external OIDC-compliant identity providers (IdPs). The IdP administrator must add the browser extension sign-in redirect URLs to the IdP application. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/browser-extensions.html\">Configure external OIDC identity provider for your browser extensions.</a>. </p> </note>"""
+    """<p>The browser extension configuration for an Amazon Q Business web experience.</p> <note> <p> For Amazon Q Business application using external OIDC-compliant identity providers (IdPs). The IdP administrator must add the browser extension sign-in redirect URLs to the IdP application. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/browser-extensions.html">Configure external OIDC identity provider for your browser extensions.</a>. </p> </note>"""
     customization_configuration: NotRequired[
         "capo_qbusiness.types.customization_configuration.CustomizationConfiguration"
     ]

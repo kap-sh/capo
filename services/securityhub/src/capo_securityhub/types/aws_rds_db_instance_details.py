@@ -69,7 +69,7 @@ class AwsRdsDbInstanceDetails(TypedDict, closed=True):
     instance_create_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the DB instance was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the DB instance was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     kms_key_id: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>If <code>StorageEncrypted</code> is true, the KMS key identifier for the encrypted DB instance.</p>"""
     publicly_accessible: NotRequired["capo_securityhub.types.boolean.Boolean"]
@@ -131,7 +131,7 @@ class AwsRdsDbInstanceDetails(TypedDict, closed=True):
     latest_restorable_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Specifies the latest time to which a database can be restored with point-in-time restore.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Specifies the latest time to which a database can be restored with point-in-time restore.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     auto_minor_version_upgrade: NotRequired["capo_securityhub.types.boolean.Boolean"]
     """<p>Indicates whether minor version patches are applied automatically.</p>"""
     read_replica_source_db_instance_identifier: NotRequired[

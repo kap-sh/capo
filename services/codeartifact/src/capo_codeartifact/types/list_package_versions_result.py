@@ -27,7 +27,7 @@ class ListPackageVersionsResult(TypedDict, closed=True):
     versions: NotRequired[
         "capo_codeartifact.types.package_version_summary_list.PackageVersionSummaryList"
     ]
-    r"""<p> The returned list of <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionSummary.html\">PackageVersionSummary</a> objects. </p>"""
+    """<p> The returned list of <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionSummary.html">PackageVersionSummary</a> objects. </p>"""
     next_token: NotRequired["capo_codeartifact.types.pagination_token.PaginationToken"]
     """<p> If there are additional results, this is the token for the next set of results. </p>"""
 

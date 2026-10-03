@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceResponse(TypedDict, closed=True):
     tags: NotRequired["capo_iotsitewise.types.tag_map.TagMap"]
-    r"""<p>The list of key-value pairs that contain metadata for the resource. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The list of key-value pairs that contain metadata for the resource. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

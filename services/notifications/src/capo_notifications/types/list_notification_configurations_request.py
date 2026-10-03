@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ListNotificationConfigurationsRequest(TypedDict, closed=True):
     event_rule_source: NotRequired["capo_notifications.types.source.Source"]
-    r"""<p>The matched event source.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level\">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>The matched event source.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
     channel_arn: NotRequired["capo_notifications.types.channel_arn.ChannelArn"]
     """<p>The Amazon Resource Name (ARN) of the Channel to match.</p>"""
     status: NotRequired[

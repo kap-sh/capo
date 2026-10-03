@@ -16,7 +16,7 @@ class CreateOAuth2TokenWithIAMResponse(TypedDict, closed=True):
     access_token: "capo_signin.types.o_auth_access_token.OAuthAccessToken"
     """JWT access token containing principal identity, resource scope, and session metadata"""
     token_type: "capo_signin.types.bearer_token_type.BearerTokenType"
-    r"""Always \"Bearer\" per OAuth 2.1 specification"""
+    """Always "Bearer" per OAuth 2.1 specification"""
     expires_in: "capo_signin.types.token_expires_in.TokenExpiresIn"
     """Token lifetime in seconds. Value is the minimum of session validity and 1 hour."""
 

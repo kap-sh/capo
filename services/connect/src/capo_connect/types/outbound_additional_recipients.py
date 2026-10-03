@@ -12,7 +12,7 @@ class OutboundAdditionalRecipients(TypedDict, closed=True):
     cc_email_addresses: NotRequired[
         "capo_connect.types.email_address_recipient_list.EmailAddressRecipientList"
     ]
-    r"""<p>Information about the <b>additional</b> CC email address recipients. Email recipients are limited to 50 total addresses: 1 required recipient in the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_SendOutboundEmail.html#API_SendOutboundEmail_RequestBody\">DestinationEmailAddress</a> field and up to 49 recipients in the 'CcEmailAddresses' field.</p>"""
+    """<p>Information about the <b>additional</b> CC email address recipients. Email recipients are limited to 50 total addresses: 1 required recipient in the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_SendOutboundEmail.html#API_SendOutboundEmail_RequestBody">DestinationEmailAddress</a> field and up to 49 recipients in the 'CcEmailAddresses' field.</p>"""
 
 
 # --- restJson1 ser/de ---

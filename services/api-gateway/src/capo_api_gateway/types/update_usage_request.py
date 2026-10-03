@@ -17,7 +17,7 @@ class UpdateUsageRequest(TypedDict, closed=True):
     patch_operations: NotRequired[
         "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
     ]
-    r"""<p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>"""
+    """<p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -19,7 +19,7 @@ class SearchForSuggestionsResult(TypedDict, closed=True):
     place_id: NotRequired["capo_location.types.place_id.PlaceId"]
     """<p>The unique identifier of the Place. You can use this with the <code>GetPlace</code> operation to find the place again later, or to get full information for the Place.</p> <p>The <code>GetPlace</code> request must use the same <code>PlaceIndex</code> resource as the <code>SearchPlaceIndexForSuggestions</code> that generated the Place ID.</p> <note> <p>For <code>SearchPlaceIndexForSuggestions</code> operations, the <code>PlaceId</code> is returned by place indexes that use Esri, Grab, or HERE as data providers.</p> </note>"""
     categories: NotRequired["capo_location.types.place_category_list.PlaceCategoryList"]
-    r"""<p>The Amazon Location categories that describe the Place.</p> <p>For more information about using categories, including a list of Amazon Location categories, see <a href=\"https://docs.aws.amazon.com/location/previous/developerguide/category-filtering.html\">Categories and filtering</a>, in the <i>Amazon Location Service developer guide</i>.</p>"""
+    """<p>The Amazon Location categories that describe the Place.</p> <p>For more information about using categories, including a list of Amazon Location categories, see <a href="https://docs.aws.amazon.com/location/previous/developerguide/category-filtering.html">Categories and filtering</a>, in the <i>Amazon Location Service developer guide</i>.</p>"""
     supplemental_categories: NotRequired[
         "capo_location.types.place_supplemental_category_list.PlaceSupplementalCategoryList"
     ]

@@ -34,7 +34,7 @@ class CreateInstanceRequest(TypedDict, closed=True):
     )
     """<p>Your contact center allows outbound calls.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, <code>{ "tags": {"key1":"value1", "key2":"value2"} }</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

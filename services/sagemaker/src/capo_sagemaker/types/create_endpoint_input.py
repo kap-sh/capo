@@ -13,16 +13,16 @@ if TYPE_CHECKING:
 
 class CreateEndpointInput(TypedDict, closed=True):
     endpoint_name: NotRequired["capo_sagemaker.types.endpoint_name.EndpointName"]
-    r"""<p>The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web Services account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved and must be matched in <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html\">InvokeEndpoint</a>.</p>"""
+    """<p>The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web Services account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved and must be matched in <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html">InvokeEndpoint</a>.</p>"""
     endpoint_config_name: NotRequired[
         "capo_sagemaker.types.endpoint_config_name.EndpointConfigName"
     ]
-    r"""<p>The name of an endpoint configuration. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html\">CreateEndpointConfig</a>. </p>"""
+    """<p>The name of an endpoint configuration. For more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">CreateEndpointConfig</a>. </p>"""
     deployment_config: NotRequired[
         "capo_sagemaker.types.deployment_config.DeploymentConfig"
     ]
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways, for example, by purpose, owner, or environment. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services Resources</a>.</p>"""
+    """<p>An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways, for example, by purpose, owner, or environment. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

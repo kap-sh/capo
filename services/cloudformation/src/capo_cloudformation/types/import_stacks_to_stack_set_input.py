@@ -32,7 +32,7 @@ class ImportStacksToStackSetInput(TypedDict, closed=True):
     operation_preferences: NotRequired[
         "capo_cloudformation.types.stack_set_operation_preferences.StackSetOperationPreferences"
     ]
-    r"""<p>The user-specified preferences for how CloudFormation performs a StackSet operation.</p> <p>For more information about maximum concurrent accounts and failure tolerance, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options\">StackSet operation options</a>.</p>"""
+    """<p>The user-specified preferences for how CloudFormation performs a StackSet operation.</p> <p>For more information about maximum concurrent accounts and failure tolerance, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options">StackSet operation options</a>.</p>"""
     operation_id: NotRequired[
         "capo_cloudformation.types.client_request_token.ClientRequestToken"
     ]

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ReplicationStatus(TypedDict, closed=True):
     location: NotRequired["capo_gameliftstreams.types.location_name.LocationName"]
-    r"""<p> A location's name. For example, <code>us-east-1</code>. For a complete list of locations that Amazon GameLift Streams supports, refer to <a href=\"https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/regions-quotas.html\">Regions, quotas, and limitations</a> in the <i>Amazon GameLift Streams Developer Guide</i>. </p>"""
+    """<p> A location's name. For example, <code>us-east-1</code>. For a complete list of locations that Amazon GameLift Streams supports, refer to <a href="https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/regions-quotas.html">Regions, quotas, and limitations</a> in the <i>Amazon GameLift Streams Developer Guide</i>. </p>"""
     status: NotRequired[
         "capo_gameliftstreams.types.replication_status_type.ReplicationStatusType"
     ]

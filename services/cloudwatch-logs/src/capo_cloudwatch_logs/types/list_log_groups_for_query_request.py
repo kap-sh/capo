@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ListLogGroupsForQueryRequest(TypedDict, closed=True):
     query_id: "capo_cloudwatch_logs.types.query_id.QueryId"
-    r"""<p>The ID of the query to use. This query ID is from the response to your <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_StartQuery.html\">StartQuery</a> operation.</p>"""
+    """<p>The ID of the query to use. This query ID is from the response to your <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_StartQuery.html">StartQuery</a> operation.</p>"""
     next_token: NotRequired["capo_cloudwatch_logs.types.next_token.NextToken"]
     max_results: NotRequired[
         "capo_cloudwatch_logs.types.list_log_groups_for_query_max_results.ListLogGroupsForQueryMaxResults"

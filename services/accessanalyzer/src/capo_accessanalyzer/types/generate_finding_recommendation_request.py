@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class GenerateFindingRecommendationRequest(TypedDict, closed=True):
     analyzer_arn: "capo_accessanalyzer.types.analyzer_arn.AnalyzerArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources\">ARN of the analyzer</a> used to generate the finding recommendation.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources">ARN of the analyzer</a> used to generate the finding recommendation.</p>"""
     id: "str"
     """<p>The unique ID for the finding recommendation.</p>"""
 

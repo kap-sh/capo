@@ -77,7 +77,7 @@ class DecoderManifestResource:
         ] = None,
         tags: Optional["capo_iotfleetwise.types.tag_list.TagList"] = None,
     ) -> "capo_iotfleetwise.types.create_decoder_manifest_response.CreateDecoderManifestResponse":
-        r"""<p>Creates the decoder manifest associated with a model manifest. To create a decoder manifest, the following must be true:</p> <ul> <li> <p>Every signal decoder has a unique name.</p> </li> <li> <p>Each signal decoder is associated with a network interface.</p> </li> <li> <p>Each network interface has a unique ID.</p> </li> <li> <p>The signal decoders are specified in the model manifest.</p> </li> </ul>
+        """<p>Creates the decoder manifest associated with a model manifest. To create a decoder manifest, the following must be true:</p> <ul> <li> <p>Every signal decoder has a unique name.</p> </li> <li> <p>Each signal decoder is associated with a network interface.</p> </li> <li> <p>Each network interface has a unique ID.</p> </li> <li> <p>The signal decoders are specified in the model manifest.</p> </li> </ul>
 
         Args:
             name: <p> The unique name of the decoder manifest to create.</p>
@@ -85,7 +85,7 @@ class DecoderManifestResource:
             model_manifest_arn: <p> The Amazon Resource Name (ARN) of the vehicle model (model manifest). </p>
             signal_decoders: <p> A list of information about signal decoders. </p>
             network_interfaces: <p> A list of information about available network interfaces. </p>
-            default_for_unmapped_signals: <p>Use default decoders for all unmapped signals in the model. You don't need to provide any detailed decoding information.</p> <important> <p>Access to certain Amazon Web Services IoT FleetWise features is currently gated. For more information, see <a href=\"https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/fleetwise-regions.html\">Amazon Web Services Region and feature availability</a> in the <i>Amazon Web Services IoT FleetWise Developer Guide</i>.</p> </important>
+            default_for_unmapped_signals: <p>Use default decoders for all unmapped signals in the model. You don't need to provide any detailed decoding information.</p> <important> <p>Access to certain Amazon Web Services IoT FleetWise features is currently gated. For more information, see <a href="https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/fleetwise-regions.html">Amazon Web Services Region and feature availability</a> in the <i>Amazon Web Services IoT FleetWise Developer Guide</i>.</p> </important>
             tags: <p>Metadata that can be used to manage the decoder manifest.</p>
 
         Raises:
@@ -214,7 +214,7 @@ class DecoderManifestResource:
             "capo_iotfleetwise.types.default_for_unmapped_signals_type.DefaultForUnmappedSignalsType"
         ] = None,
     ) -> "capo_iotfleetwise.types.update_decoder_manifest_response.UpdateDecoderManifestResponse":
-        r"""<p> Updates a decoder manifest.</p> <p>A decoder manifest can only be updated when the status is <code>DRAFT</code>. Only <code>ACTIVE</code> decoder manifests can be associated with vehicles.</p>
+        """<p> Updates a decoder manifest.</p> <p>A decoder manifest can only be updated when the status is <code>DRAFT</code>. Only <code>ACTIVE</code> decoder manifests can be associated with vehicles.</p>
 
         Args:
             name: <p> The name of the decoder manifest to update.</p>
@@ -226,7 +226,7 @@ class DecoderManifestResource:
             network_interfaces_to_update: <p> A list of information about the network interfaces to update in the decoder manifest. </p>
             network_interfaces_to_remove: <p> A list of network interfaces to remove from the decoder manifest.</p>
             status: <p> The state of the decoder manifest. If the status is <code>ACTIVE</code>, the decoder manifest can't be edited. If the status is <code>DRAFT</code>, you can edit the decoder manifest. </p>
-            default_for_unmapped_signals: <p>Use default decoders for all unmapped signals in the model. You don't need to provide any detailed decoding information.</p> <important> <p>Access to certain Amazon Web Services IoT FleetWise features is currently gated. For more information, see <a href=\"https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/fleetwise-regions.html\">Amazon Web Services Region and feature availability</a> in the <i>Amazon Web Services IoT FleetWise Developer Guide</i>.</p> </important>
+            default_for_unmapped_signals: <p>Use default decoders for all unmapped signals in the model. You don't need to provide any detailed decoding information.</p> <important> <p>Access to certain Amazon Web Services IoT FleetWise features is currently gated. For more information, see <a href="https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/fleetwise-regions.html">Amazon Web Services Region and feature availability</a> in the <i>Amazon Web Services IoT FleetWise Developer Guide</i>.</p> </important>
 
         Raises:
             capo_iotfleetwise.errors.internal_server_exception.InternalServerException: <p>The request couldn't be completed because the server temporarily failed.</p>
@@ -578,7 +578,7 @@ class AsyncDecoderManifestResource:
         ] = None,
         tags: Optional["capo_iotfleetwise.types.tag_list.TagList"] = None,
     ) -> "capo_iotfleetwise.types.create_decoder_manifest_response.CreateDecoderManifestResponse":
-        r"""<p>Creates the decoder manifest associated with a model manifest. To create a decoder manifest, the following must be true:</p> <ul> <li> <p>Every signal decoder has a unique name.</p> </li> <li> <p>Each signal decoder is associated with a network interface.</p> </li> <li> <p>Each network interface has a unique ID.</p> </li> <li> <p>The signal decoders are specified in the model manifest.</p> </li> </ul>
+        """<p>Creates the decoder manifest associated with a model manifest. To create a decoder manifest, the following must be true:</p> <ul> <li> <p>Every signal decoder has a unique name.</p> </li> <li> <p>Each signal decoder is associated with a network interface.</p> </li> <li> <p>Each network interface has a unique ID.</p> </li> <li> <p>The signal decoders are specified in the model manifest.</p> </li> </ul>
 
         Args:
             name: <p> The unique name of the decoder manifest to create.</p>
@@ -586,7 +586,7 @@ class AsyncDecoderManifestResource:
             model_manifest_arn: <p> The Amazon Resource Name (ARN) of the vehicle model (model manifest). </p>
             signal_decoders: <p> A list of information about signal decoders. </p>
             network_interfaces: <p> A list of information about available network interfaces. </p>
-            default_for_unmapped_signals: <p>Use default decoders for all unmapped signals in the model. You don't need to provide any detailed decoding information.</p> <important> <p>Access to certain Amazon Web Services IoT FleetWise features is currently gated. For more information, see <a href=\"https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/fleetwise-regions.html\">Amazon Web Services Region and feature availability</a> in the <i>Amazon Web Services IoT FleetWise Developer Guide</i>.</p> </important>
+            default_for_unmapped_signals: <p>Use default decoders for all unmapped signals in the model. You don't need to provide any detailed decoding information.</p> <important> <p>Access to certain Amazon Web Services IoT FleetWise features is currently gated. For more information, see <a href="https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/fleetwise-regions.html">Amazon Web Services Region and feature availability</a> in the <i>Amazon Web Services IoT FleetWise Developer Guide</i>.</p> </important>
             tags: <p>Metadata that can be used to manage the decoder manifest.</p>
 
         Raises:
@@ -717,7 +717,7 @@ class AsyncDecoderManifestResource:
             "capo_iotfleetwise.types.default_for_unmapped_signals_type.DefaultForUnmappedSignalsType"
         ] = None,
     ) -> "capo_iotfleetwise.types.update_decoder_manifest_response.UpdateDecoderManifestResponse":
-        r"""<p> Updates a decoder manifest.</p> <p>A decoder manifest can only be updated when the status is <code>DRAFT</code>. Only <code>ACTIVE</code> decoder manifests can be associated with vehicles.</p>
+        """<p> Updates a decoder manifest.</p> <p>A decoder manifest can only be updated when the status is <code>DRAFT</code>. Only <code>ACTIVE</code> decoder manifests can be associated with vehicles.</p>
 
         Args:
             name: <p> The name of the decoder manifest to update.</p>
@@ -729,7 +729,7 @@ class AsyncDecoderManifestResource:
             network_interfaces_to_update: <p> A list of information about the network interfaces to update in the decoder manifest. </p>
             network_interfaces_to_remove: <p> A list of network interfaces to remove from the decoder manifest.</p>
             status: <p> The state of the decoder manifest. If the status is <code>ACTIVE</code>, the decoder manifest can't be edited. If the status is <code>DRAFT</code>, you can edit the decoder manifest. </p>
-            default_for_unmapped_signals: <p>Use default decoders for all unmapped signals in the model. You don't need to provide any detailed decoding information.</p> <important> <p>Access to certain Amazon Web Services IoT FleetWise features is currently gated. For more information, see <a href=\"https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/fleetwise-regions.html\">Amazon Web Services Region and feature availability</a> in the <i>Amazon Web Services IoT FleetWise Developer Guide</i>.</p> </important>
+            default_for_unmapped_signals: <p>Use default decoders for all unmapped signals in the model. You don't need to provide any detailed decoding information.</p> <important> <p>Access to certain Amazon Web Services IoT FleetWise features is currently gated. For more information, see <a href="https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/fleetwise-regions.html">Amazon Web Services Region and feature availability</a> in the <i>Amazon Web Services IoT FleetWise Developer Guide</i>.</p> </important>
 
         Raises:
             capo_iotfleetwise.errors.internal_server_exception.InternalServerException: <p>The request couldn't be completed because the server temporarily failed.</p>

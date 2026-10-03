@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class PutDataProtectionPolicyInput(TypedDict, closed=True):
     resource_arn: "capo_sns.types.topic_arn.topicARN"
-    r"""<p>The ARN of the topic whose <code>DataProtectionPolicy</code> you want to add or update.</p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the Amazon Web Services General Reference.</p>"""
+    """<p>The ARN of the topic whose <code>DataProtectionPolicy</code> you want to add or update.</p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the Amazon Web Services General Reference.</p>"""
     data_protection_policy: "capo_sns.types.attribute_value.attributeValue"
     """<p>The JSON serialization of the topic's <code>DataProtectionPolicy</code>.</p> <p>The <code>DataProtectionPolicy</code> must be in JSON string format.</p> <p>Length Constraints: Maximum length of 30,720.</p>"""
 

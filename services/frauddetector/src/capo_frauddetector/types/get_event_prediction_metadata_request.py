@@ -24,7 +24,7 @@ class GetEventPredictionMetadataRequest(TypedDict, closed=True):
     )
     """<p> The detector version ID. </p>"""
     prediction_timestamp: "capo_frauddetector.types.time.time"
-    r"""<p> The timestamp that defines when the prediction was generated. The timestamp must be specified using ISO 8601 standard in UTC.</p> <p>We recommend calling <a href=\"https://docs.aws.amazon.com/frauddetector/latest/api/API_ListEventPredictions.html\">ListEventPredictions</a> first, and using the <code>predictionTimestamp</code> value in the response to provide an accurate prediction timestamp value.</p>"""
+    """<p> The timestamp that defines when the prediction was generated. The timestamp must be specified using ISO 8601 standard in UTC.</p> <p>We recommend calling <a href="https://docs.aws.amazon.com/frauddetector/latest/api/API_ListEventPredictions.html">ListEventPredictions</a> first, and using the <code>predictionTimestamp</code> value in the response to provide an accurate prediction timestamp value.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

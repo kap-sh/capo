@@ -30,7 +30,7 @@ class CreateBatchPredictionJobRequest(TypedDict, closed=True):
     ]
     """<p>The detector version.</p>"""
     iam_role_arn: "capo_frauddetector.types.iam_role_arn.iamRoleArn"
-    r"""<p>The ARN of the IAM role to use for this job request.</p> <p>The IAM Role must have read permissions to your input S3 bucket and write permissions to your output S3 bucket. For more information about bucket permissions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html\">User policy examples</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The ARN of the IAM role to use for this job request.</p> <p>The IAM Role must have read permissions to your input S3 bucket and write permissions to your output S3 bucket. For more information about bucket permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html">User policy examples</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     tags: NotRequired["capo_frauddetector.types.tag_list.tagList"]
     """<p>A collection of key and value pairs.</p>"""
 

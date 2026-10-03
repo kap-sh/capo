@@ -28,7 +28,7 @@ class Finding(TypedDict, closed=True):
     partition: NotRequired["capo_guardduty.types.string.String"]
     """<p>The partition associated with the finding.</p>"""
     region: NotRequired["capo_guardduty.types.string.String"]
-    r"""<p>The Region where the finding was generated. For findings generated from <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html#cloudtrail-concepts-global-service-events\">Global Service Events</a>, the Region value in the finding might differ from the Region where GuardDuty identifies the potential threat. For more information, see <a href=\"https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_data-sources.html#cloudtrail_global\">How GuardDuty handles Amazon Web Services CloudTrail global events</a> in the <i>Amazon GuardDuty User Guide</i>.</p>"""
+    """<p>The Region where the finding was generated. For findings generated from <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html#cloudtrail-concepts-global-service-events">Global Service Events</a>, the Region value in the finding might differ from the Region where GuardDuty identifies the potential threat. For more information, see <a href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_data-sources.html#cloudtrail_global">How GuardDuty handles Amazon Web Services CloudTrail global events</a> in the <i>Amazon GuardDuty User Guide</i>.</p>"""
     resource: NotRequired["capo_guardduty.types.resource.Resource"]
     schema_version: NotRequired["capo_guardduty.types.string.String"]
     """<p>The version of the schema used for the finding.</p>"""

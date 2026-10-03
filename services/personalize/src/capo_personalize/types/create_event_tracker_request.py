@@ -18,7 +18,7 @@ class CreateEventTrackerRequest(TypedDict, closed=True):
     dataset_group_arn: "capo_personalize.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the dataset group that receives the event data.</p>"""
     tags: NotRequired["capo_personalize.types.tags.Tags"]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html\">tags</a> to apply to the event tracker.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to the event tracker.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

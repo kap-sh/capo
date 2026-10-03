@@ -14,7 +14,7 @@ class AutoExportRevisionDestinationEntry(TypedDict, closed=True):
     bucket: "capo_dataexchange.types.__string.__string"
     """<p>The Amazon S3 bucket that is the destination for the event action.</p>"""
     key_pattern: NotRequired["capo_dataexchange.types.__string.__string"]
-    r"""<p>A string representing the pattern for generated names of the individual assets in the revision. For more information about key patterns, see <a href=\"https://docs.aws.amazon.com/data-exchange/latest/userguide/jobs.html#revision-export-keypatterns\">Key patterns when exporting revisions</a>.</p>"""
+    """<p>A string representing the pattern for generated names of the individual assets in the revision. For more information about key patterns, see <a href="https://docs.aws.amazon.com/data-exchange/latest/userguide/jobs.html#revision-export-keypatterns">Key patterns when exporting revisions</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

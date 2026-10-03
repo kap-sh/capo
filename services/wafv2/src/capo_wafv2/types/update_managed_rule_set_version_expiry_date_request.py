@@ -27,7 +27,7 @@ class UpdateManagedRuleSetVersionExpiryDateRequest(TypedDict, closed=True):
     version_to_expire: "capo_wafv2.types.version_key_string.VersionKeyString"
     """<p>The version that you want to remove from your list of offerings for the named managed rule group. </p>"""
     expiry_timestamp: "capo_wafv2.types.timestamp.Timestamp"
-    r"""<p>The time that you want the version to expire.</p> <p>Times are in Coordinated Universal Time (UTC) format. UTC format includes the special designator, Z. For example, \"2016-09-27T14:50Z\". </p>"""
+    """<p>The time that you want the version to expire.</p> <p>Times are in Coordinated Universal Time (UTC) format. UTC format includes the special designator, Z. For example, "2016-09-27T14:50Z". </p>"""
 
 
 # --- awsJson1_1 ser/de ---

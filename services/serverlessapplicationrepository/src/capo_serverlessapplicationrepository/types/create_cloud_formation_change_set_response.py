@@ -20,7 +20,7 @@ class CreateCloudFormationChangeSetResponse(TypedDict, closed=True):
     semantic_version: NotRequired[
         "capo_serverlessapplicationrepository.types.__string.__string"
     ]
-    r"""<p>The semantic version of the application:</p><p> <a href=\"https://semver.org/\">https://semver.org/</a> </p>"""
+    """<p>The semantic version of the application:</p><p> <a href="https://semver.org/">https://semver.org/</a> </p>"""
     stack_id: NotRequired[
         "capo_serverlessapplicationrepository.types.__string.__string"
     ]

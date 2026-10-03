@@ -13,7 +13,7 @@ class DescribeDomainAutoTunesResponse(TypedDict, closed=True):
     auto_tunes: NotRequired[
         "capo_elasticsearch_service.types.auto_tune_list.AutoTuneList"
     ]
-    r"""<p>Specifies the list of setting adjustments that Auto-Tune has made to the domain. See the <a href=\"https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html\" target=\"_blank\">Developer Guide</a> for more information.</p>"""
+    """<p>Specifies the list of setting adjustments that Auto-Tune has made to the domain. See the <a href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html" target="_blank">Developer Guide</a> for more information.</p>"""
     next_token: NotRequired["capo_elasticsearch_service.types.next_token.NextToken"]
     """<p>Specifies an identifier to allow retrieval of paginated results.</p>"""
 

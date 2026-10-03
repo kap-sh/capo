@@ -42,7 +42,7 @@ class DescribeEndpointConfigOutput(TypedDict, closed=True):
     async_inference_config: NotRequired[
         "capo_sagemaker.types.async_inference_config.AsyncInferenceConfig"
     ]
-    r"""<p>Returns the description of an endpoint configuration created using the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html\"> <code>CreateEndpointConfig</code> </a> API.</p>"""
+    """<p>Returns the description of an endpoint configuration created using the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"> <code>CreateEndpointConfig</code> </a> API.</p>"""
     explainer_config: NotRequired[
         "capo_sagemaker.types.explainer_config.ExplainerConfig"
     ]

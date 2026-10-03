@@ -12,7 +12,7 @@ class AutoTrainingConfig(TypedDict, closed=True):
     scheduling_expression: NotRequired[
         "capo_personalize.types.scheduling_expression.SchedulingExpression"
     ]
-    r"""<p>Specifies how often to automatically train new solution versions. Specify a rate expression in rate(<i>value</i> <i>unit</i>) format. For value, specify a number between 1 and 30. For unit, specify <code>day</code> or <code>days</code>. For example, to automatically create a new solution version every 5 days, specify <code>rate(5 days)</code>. The default is every 7 days.</p> <p>For more information about auto training, see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html\">Creating and configuring a solution</a>.</p>"""
+    """<p>Specifies how often to automatically train new solution versions. Specify a rate expression in rate(<i>value</i> <i>unit</i>) format. For value, specify a number between 1 and 30. For unit, specify <code>day</code> or <code>days</code>. For example, to automatically create a new solution version every 5 days, specify <code>rate(5 days)</code>. The default is every 7 days.</p> <p>For more information about auto training, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and configuring a solution</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

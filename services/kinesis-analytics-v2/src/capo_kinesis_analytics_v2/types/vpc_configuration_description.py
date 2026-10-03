@@ -19,11 +19,11 @@ class VpcConfigurationDescription(TypedDict, closed=True):
     vpc_id: "capo_kinesis_analytics_v2.types.vpc_id.VpcId"
     """<p>The ID of the associated VPC.</p>"""
     subnet_ids: "capo_kinesis_analytics_v2.types.subnet_ids.SubnetIds"
-    r"""<p>The array of <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_Subnet.html\">Subnet</a> IDs used by the VPC configuration.</p>"""
+    """<p>The array of <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_Subnet.html">Subnet</a> IDs used by the VPC configuration.</p>"""
     security_group_ids: (
         "capo_kinesis_analytics_v2.types.security_group_ids.SecurityGroupIds"
     )
-    r"""<p>The array of <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SecurityGroup.html\">SecurityGroup</a> IDs used by the VPC configuration.</p>"""
+    """<p>The array of <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SecurityGroup.html">SecurityGroup</a> IDs used by the VPC configuration.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

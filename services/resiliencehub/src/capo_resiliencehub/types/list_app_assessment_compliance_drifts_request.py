@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ListAppAssessmentComplianceDriftsRequest(TypedDict, closed=True):
     assessment_arn: "capo_resiliencehub.types.arn.Arn"
-    r"""<p>Amazon Resource Name (ARN) of the assessment. The format for this ARN is: arn:<code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app-assessment/<code>app-id</code>. For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\"> Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.</p>"""
+    """<p>Amazon Resource Name (ARN) of the assessment. The format for this ARN is: arn:<code>partition</code>:resiliencehub:<code>region</code>:<code>account</code>:app-assessment/<code>app-id</code>. For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"> Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.</p>"""
     next_token: NotRequired["capo_resiliencehub.types.next_token.NextToken"]
     """<p>Null, or the token from a previous call to get the next set of results.</p>"""
     max_results: NotRequired["capo_resiliencehub.types.max_results.MaxResults"]

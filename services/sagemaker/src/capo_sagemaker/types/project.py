@@ -48,7 +48,7 @@ class Project(TypedDict, closed=True):
     ]
     """<p> An array of template providers associated with the project. </p>"""
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways, for example, by purpose, owner, or environment. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services Resources</a>.</p>"""
+    """<p>An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways, for example, by purpose, owner, or environment. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.</p>"""
     last_modified_time: NotRequired["capo_sagemaker.types.timestamp.Timestamp"]
     """<p>A timestamp container for when the project was last modified.</p>"""
     last_modified_by: NotRequired["capo_sagemaker.types.user_context.UserContext"]

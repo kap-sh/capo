@@ -18,13 +18,13 @@ class FinalAutoMLJobObjectiveMetric(TypedDict, closed=True):
     metric_name: NotRequired[
         "capo_sagemaker.types.auto_ml_metric_enum.AutoMLMetricEnum"
     ]
-    r"""<p>The name of the metric with the best result. For a description of the possible objective metrics, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AutoMLJobObjective.html\">AutoMLJobObjective$MetricName</a>.</p>"""
+    """<p>The name of the metric with the best result. For a description of the possible objective metrics, see <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AutoMLJobObjective.html">AutoMLJobObjective$MetricName</a>.</p>"""
     value: NotRequired["capo_sagemaker.types.metric_value.MetricValue"]
     """<p>The value of the metric with the best result.</p>"""
     standard_metric_name: NotRequired[
         "capo_sagemaker.types.auto_ml_metric_enum.AutoMLMetricEnum"
     ]
-    r"""<p>The name of the standard metric. For a description of the standard metrics, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-metrics-validation.html#autopilot-metrics\">Autopilot candidate metrics</a>.</p>"""
+    """<p>The name of the standard metric. For a description of the standard metrics, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-metrics-validation.html#autopilot-metrics">Autopilot candidate metrics</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

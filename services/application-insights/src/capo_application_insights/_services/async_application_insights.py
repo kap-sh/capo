@@ -2234,14 +2234,14 @@ class AsyncApplicationInsightsClient:
             "capo_application_insights.types.auto_config_enabled.AutoConfigEnabled"
         ] = None,
     ) -> "capo_application_insights.types.update_component_configuration_response.UpdateComponentConfigurationResponse":
-        r"""<p>Updates the monitoring configurations for the component. The configuration input parameter is an escaped JSON of the configuration and should match the schema of what is returned by <code>DescribeComponentConfigurationRecommendation</code>. </p>
+        """<p>Updates the monitoring configurations for the component. The configuration input parameter is an escaped JSON of the configuration and should match the schema of what is returned by <code>DescribeComponentConfigurationRecommendation</code>. </p>
 
         Args:
             resource_group_name: <p>The name of the resource group.</p>
             component_name: <p>The name of the component.</p>
             monitor: <p>Indicates whether the application component is monitored.</p>
             tier: <p>The tier of the application component.</p>
-            component_configuration: <p>The configuration settings of the component. The value is the escaped JSON of the configuration. For more information about the JSON format, see <a href=\"https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html\">Working with JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see the recommended configuration for a component. For the complete format of the component configuration file, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html\">Component Configuration</a>.</p>
+            component_configuration: <p>The configuration settings of the component. The value is the escaped JSON of the configuration. For more information about the JSON format, see <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html">Working with JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see the recommended configuration for a component. For the complete format of the component configuration file, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html">Component Configuration</a>.</p>
             auto_config_enabled: <p> Automatically configures the component by applying the recommended configurations. </p>
 
         Raises:

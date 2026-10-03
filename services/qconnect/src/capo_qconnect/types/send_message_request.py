@@ -38,7 +38,7 @@ class SendMessageRequest(TypedDict, closed=True):
     configuration: NotRequired[
         "capo_qconnect.types.message_configuration.MessageConfiguration"
     ]
-    r"""<p>The configuration of the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_amazon-q-connect_SendMessage.html\">SendMessage</a> request.</p>"""
+    """<p>The configuration of the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_amazon-q-connect_SendMessage.html">SendMessage</a> request.</p>"""
     client_token: NotRequired["capo_qconnect.types.client_token.ClientToken"]
     """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the AWS SDK populates this field.For more information about idempotency, see Making retries safe with idempotent APIs.</p>"""
     orchestrator_use_case: NotRequired[

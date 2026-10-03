@@ -24,7 +24,7 @@ class UpdateRotationRequest(TypedDict, closed=True):
     start_time: NotRequired["capo_ssm_contacts.types.date_time.DateTime"]
     """<p>The date and time the rotation goes into effect.</p>"""
     time_zone_id: NotRequired["capo_ssm_contacts.types.time_zone_id.TimeZoneId"]
-    r"""<p>The time zone to base the updated rotation’s activity on, in Internet Assigned Numbers Authority (IANA) format. For example: \"America/Los_Angeles\", \"UTC\", or \"Asia/Seoul\". For more information, see the <a href=\"https://www.iana.org/time-zones\">Time Zone Database</a> on the IANA website.</p> <note> <p>Designators for time zones that don’t support Daylight Savings Time Rules, such as Pacific Standard Time (PST), aren't supported.</p> </note>"""
+    """<p>The time zone to base the updated rotation’s activity on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <a href="https://www.iana.org/time-zones">Time Zone Database</a> on the IANA website.</p> <note> <p>Designators for time zones that don’t support Daylight Savings Time Rules, such as Pacific Standard Time (PST), aren't supported.</p> </note>"""
     recurrence: "capo_ssm_contacts.types.recurrence_settings.RecurrenceSettings"
     """<p>Information about how long the updated rotation lasts before restarting at the beginning of the shift order.</p>"""
 

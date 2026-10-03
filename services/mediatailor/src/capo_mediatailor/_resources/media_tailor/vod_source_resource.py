@@ -54,12 +54,12 @@ class VodSourceResource:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_vod_source_response.CreateVodSourceResponse":
-        r"""<p>The VOD source configuration parameters.</p>
+        """<p>The VOD source configuration parameters.</p>
 
         Args:
             http_package_configurations: <p>A list of HTTP package configuration parameters for this VOD source.</p>
             source_location_name: <p>The name of the source location for this VOD source.</p>
-            tags: <p>The tags to assign to the VOD source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the VOD source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             vod_source_name: <p>The name associated with the VOD source.&gt;</p>
 
         Raises:
@@ -303,12 +303,12 @@ class AsyncVodSourceResource:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_vod_source_response.CreateVodSourceResponse":
-        r"""<p>The VOD source configuration parameters.</p>
+        """<p>The VOD source configuration parameters.</p>
 
         Args:
             http_package_configurations: <p>A list of HTTP package configuration parameters for this VOD source.</p>
             source_location_name: <p>The name of the source location for this VOD source.</p>
-            tags: <p>The tags to assign to the VOD source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the VOD source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             vod_source_name: <p>The name associated with the VOD source.&gt;</p>
 
         Raises:

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class JobManifestLocation(TypedDict, closed=True):
     object_arn: "capo_s3_control.types.s3_key_arn_string.S3KeyArnString"
-    r"""<p>The Amazon Resource Name (ARN) for a manifest object.</p> <important> <p>When you're using XML requests, you must replace special characters (such as carriage returns) in object keys with their equivalent XML entity codes. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints\"> XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.</p> </important>"""
+    """<p>The Amazon Resource Name (ARN) for a manifest object.</p> <important> <p>When you're using XML requests, you must replace special characters (such as carriage returns) in object keys with their equivalent XML entity codes. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints"> XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.</p> </important>"""
     object_version_id: NotRequired[
         "capo_s3_control.types.s3_object_version_id.S3ObjectVersionId"
     ]

@@ -16,7 +16,7 @@ class PutEmailIdentityMailFromAttributesRequest(TypedDict, closed=True):
     mail_from_domain: NotRequired[
         "capo_pinpoint_email.types.mail_from_domain_name.MailFromDomainName"
     ]
-    r"""<p> The custom MAIL FROM domain that you want the verified identity to use. The MAIL FROM domain must meet the following criteria:</p> <ul> <li> <p>It has to be a subdomain of the verified identity.</p> </li> <li> <p>It can't be used to receive email.</p> </li> <li> <p>It can't be used in a \"From\" address if the MAIL FROM domain is a destination for feedback forwarding emails.</p> </li> </ul>"""
+    """<p> The custom MAIL FROM domain that you want the verified identity to use. The MAIL FROM domain must meet the following criteria:</p> <ul> <li> <p>It has to be a subdomain of the verified identity.</p> </li> <li> <p>It can't be used to receive email.</p> </li> <li> <p>It can't be used in a "From" address if the MAIL FROM domain is a destination for feedback forwarding emails.</p> </li> </ul>"""
     behavior_on_mx_failure: NotRequired[
         "capo_pinpoint_email.types.behavior_on_mx_failure.BehaviorOnMxFailure"
     ]

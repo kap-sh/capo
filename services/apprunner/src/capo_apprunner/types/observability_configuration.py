@@ -28,7 +28,7 @@ class ObservabilityConfiguration(TypedDict, closed=True):
     ]
     """<p>The configuration of the tracing feature within this observability configuration. If not specified, tracing isn't enabled.</p>"""
     observability_configuration_revision: "capo_apprunner.types.integer.Integer"
-    r"""<p>The revision of this observability configuration. It's unique among all the active configurations (<code>\"Status\": \"ACTIVE\"</code>) that share the same <code>ObservabilityConfigurationName</code>.</p>"""
+    """<p>The revision of this observability configuration. It's unique among all the active configurations (<code>"Status": "ACTIVE"</code>) that share the same <code>ObservabilityConfigurationName</code>.</p>"""
     latest: "capo_apprunner.types.boolean.Boolean"
     """<p>It's set to <code>true</code> for the configuration with the highest <code>Revision</code> among all configurations that share the same <code>ObservabilityConfigurationName</code>. It's set to <code>false</code> otherwise.</p>"""
     status: NotRequired[

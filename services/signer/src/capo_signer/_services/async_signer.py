@@ -200,12 +200,12 @@ class AsyncsignerClient:
     ) -> (
         "capo_signer.types.add_profile_permission_response.AddProfilePermissionResponse"
     ):
-        r"""<p>Adds cross-account permissions to a signing profile.</p>
+        """<p>Adds cross-account permissions to a signing profile.</p>
 
         Args:
             profile_name: <p>The human-readable name of the signing profile.</p>
             profile_version: <p>The version of the signing profile.</p>
-            action: <p>For cross-account signing. Grant a designated account permission to perform one or more of the following actions. Each action is associated with a specific API's operations. For more information about cross-account signing, see <a href=\"http://docs.aws.amazon.com/signer/latest/developerguide/signing-profile-cross-account.html\">Using cross-account signing with signing profiles</a> in the <i>AWS Signer Developer Guide</i>.</p> <p>You can designate the following actions to an account.</p> <ul> <li> <p> <code>signer:StartSigningJob</code>. This action isn't supported for container image workflows. For details, see <a>StartSigningJob</a>.</p> </li> <li> <p> <code>signer:SignPayload</code>. This action isn't supported for AWS Lambda workflows. For details, see <a>SignPayload</a> </p> </li> <li> <p> <code>signer:GetSigningProfile</code>. For details, see <a>GetSigningProfile</a>.</p> </li> <li> <p> <code>signer:RevokeSignature</code>. For details, see <a>RevokeSignature</a>.</p> </li> </ul>
+            action: <p>For cross-account signing. Grant a designated account permission to perform one or more of the following actions. Each action is associated with a specific API's operations. For more information about cross-account signing, see <a href="http://docs.aws.amazon.com/signer/latest/developerguide/signing-profile-cross-account.html">Using cross-account signing with signing profiles</a> in the <i>AWS Signer Developer Guide</i>.</p> <p>You can designate the following actions to an account.</p> <ul> <li> <p> <code>signer:StartSigningJob</code>. This action isn't supported for container image workflows. For details, see <a>StartSigningJob</a>.</p> </li> <li> <p> <code>signer:SignPayload</code>. This action isn't supported for AWS Lambda workflows. For details, see <a>SignPayload</a> </p> </li> <li> <p> <code>signer:GetSigningProfile</code>. For details, see <a>GetSigningProfile</a>.</p> </li> <li> <p> <code>signer:RevokeSignature</code>. For details, see <a>RevokeSignature</a>.</p> </li> </ul>
             principal: <p>The AWS principal receiving cross-account permissions. This may be an IAM role or another AWS account ID.</p>
             revision_id: <p>A unique identifier for the current profile revision.</p>
             statement_id: <p>A unique identifier for the cross-account permission statement.</p>
@@ -262,7 +262,7 @@ class AsyncsignerClient:
         *,
         config_overrides: Optional[AsyncsignerClientConfig] = None,
     ) -> None:
-        r"""<p>Changes the state of an <code>ACTIVE</code> signing profile to <code>CANCELED</code>. A canceled profile is still viewable with the <code>ListSigningProfiles</code> operation, but it cannot perform new signing jobs. See <a href=\"https://docs.aws.amazon.com/signer/latest/developerguide/retention.html\">Data Retention</a> for more information on scheduled deletion of a canceled signing profile.</p>
+        """<p>Changes the state of an <code>ACTIVE</code> signing profile to <code>CANCELED</code>. A canceled profile is still viewable with the <code>ListSigningProfiles</code> operation, but it cannot perform new signing jobs. See <a href="https://docs.aws.amazon.com/signer/latest/developerguide/retention.html">Data Retention</a> for more information on scheduled deletion of a canceled signing profile.</p>
 
         Args:
             profile_name: <p>The name of the signing profile to be canceled.</p>
@@ -1099,7 +1099,7 @@ class AsyncsignerClient:
         *,
         config_overrides: Optional[AsyncsignerClientConfig] = None,
     ) -> None:
-        r"""<p>Changes the state of a signing profile to <code>REVOKED</code>. This indicates that signatures generated using the signing profile after an effective start date are no longer valid. A revoked profile is still viewable with the <code>ListSigningProfiles</code> operation, but it cannot perform new signing jobs. See <a href=\"https://docs.aws.amazon.com/signer/latest/developerguide/retention.html\">Data Retention</a> for more information on scheduled deletion of a revoked signing profile. </p>
+        """<p>Changes the state of a signing profile to <code>REVOKED</code>. This indicates that signatures generated using the signing profile after an effective start date are no longer valid. A revoked profile is still viewable with the <code>ListSigningProfiles</code> operation, but it cannot perform new signing jobs. See <a href="https://docs.aws.amazon.com/signer/latest/developerguide/retention.html">Data Retention</a> for more information on scheduled deletion of a revoked signing profile. </p>
 
         Args:
             profile_name: <p>The name of the signing profile to be revoked.</p>
@@ -1213,7 +1213,7 @@ class AsyncsignerClient:
         config_overrides: Optional[AsyncsignerClientConfig] = None,
         profile_owner: Optional["capo_signer.types.account_id.AccountId"] = None,
     ) -> "capo_signer.types.start_signing_job_response.StartSigningJobResponse":
-        r"""<p>Initiates a signing job to be performed on the code provided. Signing jobs are viewable by the <code>ListSigningJobs</code> operation. Note the following requirements: </p> <ul> <li> <p> You must create an Amazon S3 source bucket. For more information, see <a href=\"http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html\">Creating a Bucket</a> in the <i>Amazon S3 Getting Started Guide</i>. </p> </li> <li> <p>Your S3 source bucket must be version enabled.</p> </li> <li> <p>You must create an S3 destination bucket. AWS Signer uses your S3 destination bucket to write your signed code.</p> </li> <li> <p>You specify the name of the source and destination buckets when calling the <code>StartSigningJob</code> operation.</p> </li> <li> <p>You must ensure the S3 buckets are from the same Region as the signing profile. Cross-Region signing isn't supported.</p> </li> <li> <p>You must also specify a request token that identifies your request to Signer.</p> </li> </ul> <p>You can call the <a>DescribeSigningJob</a> and the <a>ListSigningJobs</a> actions after you call <code>StartSigningJob</code>.</p> <p>For a Java example that shows how to use this action, see <a href=\"https://docs.aws.amazon.com/signer/latest/developerguide/api-startsigningjob.html\">StartSigningJob</a>.</p>
+        """<p>Initiates a signing job to be performed on the code provided. Signing jobs are viewable by the <code>ListSigningJobs</code> operation. Note the following requirements: </p> <ul> <li> <p> You must create an Amazon S3 source bucket. For more information, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html">Creating a Bucket</a> in the <i>Amazon S3 Getting Started Guide</i>. </p> </li> <li> <p>Your S3 source bucket must be version enabled.</p> </li> <li> <p>You must create an S3 destination bucket. AWS Signer uses your S3 destination bucket to write your signed code.</p> </li> <li> <p>You specify the name of the source and destination buckets when calling the <code>StartSigningJob</code> operation.</p> </li> <li> <p>You must ensure the S3 buckets are from the same Region as the signing profile. Cross-Region signing isn't supported.</p> </li> <li> <p>You must also specify a request token that identifies your request to Signer.</p> </li> </ul> <p>You can call the <a>DescribeSigningJob</a> and the <a>ListSigningJobs</a> actions after you call <code>StartSigningJob</code>.</p> <p>For a Java example that shows how to use this action, see <a href="https://docs.aws.amazon.com/signer/latest/developerguide/api-startsigningjob.html">StartSigningJob</a>.</p>
 
         Args:
             source: <p>The S3 bucket that contains the object to sign or a BLOB that contains your raw code.</p>

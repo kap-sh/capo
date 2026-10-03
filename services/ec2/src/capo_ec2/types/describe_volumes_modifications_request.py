@@ -24,7 +24,7 @@ class DescribeVolumesModificationsRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_ec2.types.string.String"]
     """<p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>"""
     max_results: NotRequired["capo_ec2.types.integer.Integer"]
-    r"""<p>The maximum number of results (up to a limit of 500) to be returned in a paginated request. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of results (up to a limit of 500) to be returned in a paginated request. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     include_managed_resources: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Indicates whether to include managed resources in the output. If this parameter is set to <code>true</code>, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.</p>"""
 

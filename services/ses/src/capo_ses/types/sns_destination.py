@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class SNSDestination(TypedDict, closed=True):
     topic_arn: "capo_ses.types.amazon_resource_name.AmazonResourceName"
-    r"""<p>The ARN of the Amazon SNS topic for email sending events. You can find the ARN of a topic by using the <a href=\"https://docs.aws.amazon.com/sns/latest/api/API_ListTopics.html\">ListTopics</a> Amazon SNS operation.</p> <p>For more information about Amazon SNS topics, see the <a href=\"https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html\">Amazon SNS Developer Guide</a>.</p>"""
+    """<p>The ARN of the Amazon SNS topic for email sending events. You can find the ARN of a topic by using the <a href="https://docs.aws.amazon.com/sns/latest/api/API_ListTopics.html">ListTopics</a> Amazon SNS operation.</p> <p>For more information about Amazon SNS topics, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html">Amazon SNS Developer Guide</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -25,7 +25,7 @@ class ListIndexRequest(TypedDict, closed=True):
     index_reference: "capo_clouddirectory.types.object_reference.ObjectReference"
     """<p>The reference to the index to list.</p>"""
     max_results: NotRequired["capo_clouddirectory.types.number_results.NumberResults"]
-    r"""<p>The maximum number of objects in a single page to retrieve from the index during a request. For more information, see <a href=\"http://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html\">Amazon Cloud Directory Limits</a>.</p>"""
+    """<p>The maximum number of objects in a single page to retrieve from the index during a request. For more information, see <a href="http://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Amazon Cloud Directory Limits</a>.</p>"""
     next_token: NotRequired["capo_clouddirectory.types.next_token.NextToken"]
     """<p>The pagination token.</p>"""
     consistency_level: NotRequired[

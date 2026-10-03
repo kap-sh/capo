@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class AddClientIDToOpenIDConnectProviderRequest(TypedDict, closed=True):
     open_id_connect_provider_arn: "capo_iam.types.arn_type.arnType"
-    r"""<p>The Amazon Resource Name (ARN) of the IAM OpenID Connect (OIDC) provider resource to add the client ID to. You can get a list of OIDC provider ARNs by using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListOpenIDConnectProviders.html\">ListOpenIDConnectProviders</a> operation.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM OpenID Connect (OIDC) provider resource to add the client ID to. You can get a list of OIDC provider ARNs by using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListOpenIDConnectProviders.html">ListOpenIDConnectProviders</a> operation.</p>"""
     client_id: "capo_iam.types.client_id_type.clientIDType"
     """<p>The client ID (also known as audience) to add to the IAM OpenID Connect provider resource.</p>"""
 

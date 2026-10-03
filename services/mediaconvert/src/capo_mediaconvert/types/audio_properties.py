@@ -17,7 +17,7 @@ class AudioProperties(TypedDict, closed=True):
     bit_rate: NotRequired["capo_mediaconvert.types.__long.__long"]
     """The bit rate of the audio track, in bits per second."""
     channel_layout: NotRequired["capo_mediaconvert.types.__string.__string"]
-    r"""The audio channel layout of the track, such as \"mono\", \"stereo\", \"5.1\", or \"7.1\". Object-based or immersive audio is reported as \"5.1.4\" or \"7.1.4\". The layout is exact for AC-3 and E-AC-3 audio. For other codecs, it is inferred from the channel count and should be treated as approximate."""
+    """The audio channel layout of the track, such as "mono", "stereo", "5.1", or "7.1". Object-based or immersive audio is reported as "5.1.4" or "7.1.4". The layout is exact for AC-3 and E-AC-3 audio. For other codecs, it is inferred from the channel count and should be treated as approximate."""
     channels: NotRequired["capo_mediaconvert.types.__integer.__integer"]
     """The number of audio channels in the audio track."""
     frame_rate: NotRequired["capo_mediaconvert.types.frame_rate.FrameRate"]

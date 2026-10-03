@@ -183,11 +183,11 @@ class AsyncMediaStoreClient:
         config_overrides: Optional[AsyncMediaStoreClientConfig] = None,
         tags: Optional["capo_mediastore.types.tag_list.TagList"] = None,
     ) -> "capo_mediastore.types.create_container_output.CreateContainerOutput":
-        r"""<p>Creates a storage container to hold objects. A container is similar to a bucket in the Amazon S3 service.</p>
+        """<p>Creates a storage container to hold objects. A container is similar to a bucket in the Amazon S3 service.</p>
 
         Args:
             container_name: <p>The name for the container. The name must be from 1 to 255 characters. Container names must be unique to your AWS account within a specific region. As an example, you could create a container named <code>movies</code> in every region, as long as you don’t have an existing container with that name.</p>
-            tags: <p>An array of key:value pairs that you define. These values can be anything that you want. Typically, the tag key represents a category (such as \"environment\") and the tag value represents a specific value within that category (such as \"test,\" \"development,\" or \"production\"). You can add up to 50 tags to each container. For more information about tagging, including naming and usage conventions, see <a href=\"https://docs.aws.amazon.com/mediastore/latest/ug/tagging.html\">Tagging Resources in MediaStore</a>.</p>
+            tags: <p>An array of key:value pairs that you define. These values can be anything that you want. Typically, the tag key represents a category (such as "environment") and the tag value represents a specific value within that category (such as "test," "development," or "production"). You can add up to 50 tags to each container. For more information about tagging, including naming and usage conventions, see <a href="https://docs.aws.amazon.com/mediastore/latest/ug/tagging.html">Tagging Resources in MediaStore</a>.</p>
 
         Raises:
             capo_mediastore.errors.container_in_use_exception.ContainerInUseException: <p>The container that you specified in the request already exists or is being updated.</p>
@@ -513,7 +513,7 @@ class AsyncMediaStoreClient:
         *,
         config_overrides: Optional[AsyncMediaStoreClientConfig] = None,
     ) -> "capo_mediastore.types.get_container_policy_output.GetContainerPolicyOutput":
-        r"""<p>Retrieves the access policy for the specified container. For information about the data that is included in an access policy, see the <a href=\"https://aws.amazon.com/documentation/iam/\">AWS Identity and Access Management User Guide</a>.</p>
+        """<p>Retrieves the access policy for the specified container. For information about the data that is included in an access policy, see the <a href="https://aws.amazon.com/documentation/iam/">AWS Identity and Access Management User Guide</a>.</p>
 
         Args:
             container_name: <p>The name of the container. </p>
@@ -825,7 +825,7 @@ class AsyncMediaStoreClient:
         *,
         config_overrides: Optional[AsyncMediaStoreClientConfig] = None,
     ) -> "capo_mediastore.types.put_container_policy_output.PutContainerPolicyOutput":
-        r"""<p>Creates an access policy for the specified container to restrict the users and clients that can access it. For information about the data that is included in an access policy, see the <a href=\"https://aws.amazon.com/documentation/iam/\">AWS Identity and Access Management User Guide</a>.</p> <p>For this release of the REST API, you can create only one policy for a container. If you enter <code>PutContainerPolicy</code> twice, the second command modifies the existing policy. </p>
+        """<p>Creates an access policy for the specified container to restrict the users and clients that can access it. For information about the data that is included in an access policy, see the <a href="https://aws.amazon.com/documentation/iam/">AWS Identity and Access Management User Guide</a>.</p> <p>For this release of the REST API, you can create only one policy for a container. If you enter <code>PutContainerPolicy</code> twice, the second command modifies the existing policy. </p>
 
         Args:
             container_name: <p>The name of the container.</p>
@@ -874,7 +874,7 @@ class AsyncMediaStoreClient:
         *,
         config_overrides: Optional[AsyncMediaStoreClientConfig] = None,
     ) -> "capo_mediastore.types.put_cors_policy_output.PutCorsPolicyOutput":
-        r"""<p>Sets the cross-origin resource sharing (CORS) configuration on a container so that the container can service cross-origin requests. For example, you might want to enable a request whose origin is http://www.example.com to access your AWS Elemental MediaStore container at my.example.container.com by using the browser's XMLHttpRequest capability.</p> <p>To enable CORS on a container, you attach a CORS policy to the container. In the CORS policy, you configure rules that identify origins and the HTTP methods that can be executed on your container. The policy can contain up to 398,000 characters. You can add up to 100 rules to a CORS policy. If more than one rule applies, the service uses the first applicable rule listed.</p> <p>To learn more about CORS, see <a href=\"https://docs.aws.amazon.com/mediastore/latest/ug/cors-policy.html\">Cross-Origin Resource Sharing (CORS) in AWS Elemental MediaStore</a>.</p>
+        """<p>Sets the cross-origin resource sharing (CORS) configuration on a container so that the container can service cross-origin requests. For example, you might want to enable a request whose origin is http://www.example.com to access your AWS Elemental MediaStore container at my.example.container.com by using the browser's XMLHttpRequest capability.</p> <p>To enable CORS on a container, you attach a CORS policy to the container. In the CORS policy, you configure rules that identify origins and the HTTP methods that can be executed on your container. The policy can contain up to 398,000 characters. You can add up to 100 rules to a CORS policy. If more than one rule applies, the service uses the first applicable rule listed.</p> <p>To learn more about CORS, see <a href="https://docs.aws.amazon.com/mediastore/latest/ug/cors-policy.html">Cross-Origin Resource Sharing (CORS) in AWS Elemental MediaStore</a>.</p>
 
         Args:
             container_name: <p>The name of the container that you want to assign the CORS policy to.</p>
@@ -923,7 +923,7 @@ class AsyncMediaStoreClient:
         *,
         config_overrides: Optional[AsyncMediaStoreClientConfig] = None,
     ) -> "capo_mediastore.types.put_lifecycle_policy_output.PutLifecyclePolicyOutput":
-        r"""<p>Writes an object lifecycle policy to a container. If the container already has an object lifecycle policy, the service replaces the existing policy with the new policy. It takes up to 20 minutes for the change to take effect.</p> <p>For information about how to construct an object lifecycle policy, see <a href=\"https://docs.aws.amazon.com/mediastore/latest/ug/policies-object-lifecycle-components.html\">Components of an Object Lifecycle Policy</a>.</p>
+        """<p>Writes an object lifecycle policy to a container. If the container already has an object lifecycle policy, the service replaces the existing policy with the new policy. It takes up to 20 minutes for the change to take effect.</p> <p>For information about how to construct an object lifecycle policy, see <a href="https://docs.aws.amazon.com/mediastore/latest/ug/policies-object-lifecycle-components.html">Components of an Object Lifecycle Policy</a>.</p>
 
         Args:
             container_name: <p>The name of the container that you want to assign the object lifecycle policy to.</p>
@@ -1113,7 +1113,7 @@ class AsyncMediaStoreClient:
         *,
         config_overrides: Optional[AsyncMediaStoreClientConfig] = None,
     ) -> "capo_mediastore.types.tag_resource_output.TagResourceOutput":
-        r"""<p>Adds tags to the specified AWS Elemental MediaStore container. Tags are key:value pairs that you can associate with AWS resources. For example, the tag key might be \"customer\" and the tag value might be \"companyA.\" You can specify one or more tags to add to each container. You can add up to 50 tags to each container. For more information about tagging, including naming and usage conventions, see <a href=\"https://docs.aws.amazon.com/mediastore/latest/ug/tagging.html\">Tagging Resources in MediaStore</a>.</p>
+        """<p>Adds tags to the specified AWS Elemental MediaStore container. Tags are key:value pairs that you can associate with AWS resources. For example, the tag key might be "customer" and the tag value might be "companyA." You can specify one or more tags to add to each container. You can add up to 50 tags to each container. For more information about tagging, including naming and usage conventions, see <a href="https://docs.aws.amazon.com/mediastore/latest/ug/tagging.html">Tagging Resources in MediaStore</a>.</p>
 
         Args:
             resource: <p>The Amazon Resource Name (ARN) for the container. </p>

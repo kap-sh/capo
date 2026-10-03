@@ -20,7 +20,7 @@ class DescribeIntegrationsRequest(TypedDict, closed=True):
     filters: NotRequired[
         "capo_glue.types.integration_filter_list.IntegrationFilterList"
     ]
-    r"""<p>A list of key and values, to filter down the results. Supported keys are \"Status\", \"IntegrationName\", and \"SourceArn\". IntegrationName is limited to only one value.</p>"""
+    """<p>A list of key and values, to filter down the results. Supported keys are "Status", "IntegrationName", and "SourceArn". IntegrationName is limited to only one value.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

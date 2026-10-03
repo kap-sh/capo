@@ -309,10 +309,10 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.collection_names.CollectionNames"
         ] = None,
     ) -> "capo_opensearchserverless.types.batch_get_collection_response.BatchGetCollectionResponse":
-        r"""<p>Returns attributes for one or more collections, including the collection endpoint, the OpenSearch Dashboards endpoint, and FIPS-compliant endpoints. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Returns attributes for one or more collections, including the collection endpoint, the OpenSearch Dashboards endpoint, and FIPS-compliant endpoints. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
-            ids: <p>A list of collection IDs. You can't provide names and IDs in the same request. The ID is part of the collection endpoint. You can also retrieve it using the <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html\">ListCollections</a> API.</p>
+            ids: <p>A list of collection IDs. You can't provide names and IDs in the same request. The ID is part of the collection endpoint. You can also retrieve it using the <a href="https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html">ListCollections</a> API.</p>
             names: <p>A list of collection names. You can't provide names and IDs in the same request.</p>
 
         Raises:
@@ -362,7 +362,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.collection_group_names.CollectionGroupNames"
         ] = None,
     ) -> "capo_opensearchserverless.types.batch_get_collection_group_response.BatchGetCollectionGroupResponse":
-        r"""<p>Returns attributes for one or more collection groups, including capacity limits and the number of collections in each group. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Returns attributes for one or more collection groups, including capacity limits and the number of collections in each group. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             ids: <p>A list of collection group IDs. You can't provide names and IDs in the same request.</p>
@@ -410,7 +410,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.batch_get_effective_lifecycle_policy_response.BatchGetEffectiveLifecyclePolicyResponse":
-        r"""<p>Returns a list of successful and failed retrievals for the OpenSearch Serverless indexes. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-list\">Viewing data lifecycle policies</a>.</p>
+        """<p>Returns a list of successful and failed retrievals for the OpenSearch Serverless indexes. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-list">Viewing data lifecycle policies</a>.</p>
 
         Args:
             resource_identifiers: <p>The unique identifiers of policy types and resource names.</p>
@@ -455,7 +455,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.batch_get_lifecycle_policy_response.BatchGetLifecyclePolicyResponse":
-        r"""<p>Returns one or more configured OpenSearch Serverless lifecycle policies. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-list\">Viewing data lifecycle policies</a>.</p>
+        """<p>Returns one or more configured OpenSearch Serverless lifecycle policies. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-list">Viewing data lifecycle policies</a>.</p>
 
         Args:
             identifiers: <p>The unique identifiers of policy types and policy names.</p>
@@ -500,7 +500,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.batch_get_vpc_endpoint_response.BatchGetVpcEndpointResponse":
-        r"""<p>Returns attributes for one or more VPC endpoints associated with the current account. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Returns attributes for one or more VPC endpoints associated with the current account. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             ids: <p>A list of VPC endpoint identifiers.</p>
@@ -553,7 +553,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_lifecycle_policy_response.CreateLifecyclePolicyResponse":
-        r"""<p>Creates a lifecyle policy to be applied to OpenSearch Serverless indexes. Lifecycle policies define the number of days or hours to retain the data on an OpenSearch Serverless index. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-create\">Creating data lifecycle policies</a>.</p>
+        """<p>Creates a lifecyle policy to be applied to OpenSearch Serverless indexes. Lifecycle policies define the number of days or hours to retain the data on an OpenSearch Serverless index. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-create">Creating data lifecycle policies</a>.</p>
 
         Args:
             type: <p>The type of lifecycle policy.</p>
@@ -619,7 +619,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_security_policy_response.CreateSecurityPolicyResponse":
-        r"""<p>Creates a security policy to be used by one or more OpenSearch Serverless collections. Security policies provide access to a collection and its OpenSearch Dashboards endpoint from public networks or specific VPC endpoints. They also allow you to secure a collection with a KMS encryption key. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html\">Network access for Amazon OpenSearch Serverless</a> and <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-encryption.html\">Encryption at rest for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Creates a security policy to be used by one or more OpenSearch Serverless collections. Security policies provide access to a collection and its OpenSearch Dashboards endpoint from public networks or specific VPC endpoints. They also allow you to secure a collection with a KMS encryption key. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html">Network access for Amazon OpenSearch Serverless</a> and <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-encryption.html">Encryption at rest for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of security policy.</p>
@@ -754,7 +754,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>Returns the tags for an OpenSearch Serverless resource. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/tag-collection.html\">Tagging Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Returns the tags for an OpenSearch Serverless resource. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/tag-collection.html">Tagging Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource. The resource must be active (not in the <code>DELETING</code> state), and must be owned by the account ID included in the request.</p>
@@ -801,7 +801,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Associates tags with an OpenSearch Serverless resource. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/tag-collection.html\">Tagging Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Associates tags with an OpenSearch Serverless resource. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/tag-collection.html">Tagging Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource. The resource must be active (not in the <code>DELETING</code> state), and must be owned by the account ID included in the request.</p>
@@ -854,7 +854,7 @@ class AsyncOpenSearchServerlessClient:
     ) -> (
         "capo_opensearchserverless.types.untag_resource_response.UntagResourceResponse"
     ):
-        r"""<p>Removes a tag or set of tags from an OpenSearch Serverless resource. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/tag-collection.html\">Tagging Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Removes a tag or set of tags from an OpenSearch Serverless resource. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/tag-collection.html">Tagging Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource to remove tags from. The resource must be active (not in the <code>DELETING</code> state), and must be owned by the account ID included in the request.</p>
@@ -905,7 +905,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.capacity_limits.CapacityLimits"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_account_settings_response.UpdateAccountSettingsResponse":
-        r"""<p>Update the OpenSearch Serverless settings for the current Amazon Web Services account. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-scaling.html\">Managing capacity limits for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Update the OpenSearch Serverless settings for the current Amazon Web Services account. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-scaling.html">Managing capacity limits for Amazon OpenSearch Serverless</a>.</p>
 
         Raises:
             capo_opensearchserverless.errors.internal_server_exception.InternalServerException: <p>Thrown when an error internal to the service occurs while processing a request.</p>
@@ -963,7 +963,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_vpc_endpoint_response.UpdateVpcEndpointResponse":
-        r"""<p>Updates an OpenSearch Serverless-managed interface endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Updates an OpenSearch Serverless-managed interface endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             id: <p>The unique identifier of the interface endpoint to update.</p>
@@ -1033,7 +1033,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_access_policy_response.CreateAccessPolicyResponse":
-        r"""<p>Creates a data access policy for OpenSearch Serverless. Access policies limit access to collections and the resources within them, and allow a user to access that data irrespective of the access mechanism or network source. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Creates a data access policy for OpenSearch Serverless. Access policies limit access to collections and the resources within them, and allow a user to access that data irrespective of the access mechanism or network source. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>
@@ -1092,7 +1092,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.get_access_policy_response.GetAccessPolicyResponse":
-        r"""<p>Returns an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Returns an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>Tye type of policy. Currently, the only supported value is <code>data</code>.</p>
@@ -1151,7 +1151,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_access_policy_response.UpdateAccessPolicyResponse":
-        r"""<p>Updates an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Updates an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>
@@ -1216,7 +1216,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_access_policy_response.DeleteAccessPolicyResponse":
-        r"""<p>Deletes an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Deletes an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>
@@ -1376,7 +1376,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_collection_response.CreateCollectionResponse":
-        r"""<p>Creates a new OpenSearch Serverless collection. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Creates a new OpenSearch Serverless collection. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             name: <p>Name of the collection.</p>
@@ -1524,10 +1524,10 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_collection_response.DeleteCollectionResponse":
-        r"""<p>Deletes an OpenSearch Serverless collection. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Deletes an OpenSearch Serverless collection. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
-            id: <p>The unique identifier of the collection. For example, <code>1iu5usc406kd</code>. The ID is part of the collection endpoint. You can also retrieve it using the <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html\">ListCollections</a> API.</p>
+            id: <p>The unique identifier of the collection. For example, <code>1iu5usc406kd</code>. The ID is part of the collection endpoint. You can also retrieve it using the <a href="https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html">ListCollections</a> API.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -1579,7 +1579,7 @@ class AsyncOpenSearchServerlessClient:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_collections_response.ListCollectionsResponse":
-        r"""<p>Lists all OpenSearch Serverless collections. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p> <note> <p>Make sure to include an empty request body {} if you don't include any collection filters in the request.</p> </note>
+        """<p>Lists all OpenSearch Serverless collections. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p> <note> <p>Make sure to include an empty request body {} if you don't include any collection filters in the request.</p> </note>
 
         Args:
             collection_filters: <p> A list of filter names and values that you can use for requests.</p>
@@ -1665,7 +1665,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_collection_group_response.CreateCollectionGroupResponse":
-        r"""<p>Creates a collection group within OpenSearch Serverless. Collection groups let you manage OpenSearch Compute Units (OCUs) at a group level, with multiple collections sharing the group's capacity limits.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-collection-groups.html\">Managing collection groups</a>.</p>
+        """<p>Creates a collection group within OpenSearch Serverless. Collection groups let you manage OpenSearch Compute Units (OCUs) at a group level, with multiple collections sharing the group's capacity limits.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-collection-groups.html">Managing collection groups</a>.</p>
 
         Args:
             name: <p>The name of the collection group.</p>
@@ -1797,7 +1797,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_collection_group_response.DeleteCollectionGroupResponse":
-        r"""<p>Deletes a collection group. You can only delete empty collection groups that contain no collections. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Deletes a collection group. You can only delete empty collection groups that contain no collections. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection group to delete.</p>
@@ -1849,7 +1849,7 @@ class AsyncOpenSearchServerlessClient:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_collection_groups_response.ListCollectionGroupsResponse":
-        r"""<p>Returns a list of collection groups. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Returns a list of collection groups. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             next_token: <p>If your initial <code>ListCollectionGroups</code> operation returns a <code>nextToken</code>, you can include the returned <code>nextToken</code> in subsequent <code>ListCollectionGroups</code> operations, which returns results in the next page.</p>
@@ -1920,7 +1920,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.index_schema.IndexSchema"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_index_response.CreateIndexResponse":
-        r"""<p>Creates an index within an OpenSearch Serverless collection. Unlike other OpenSearch indexes, indexes created by this API are automatically configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a> in the <i>OpenSearch User Guide</i>.</p>
+        """<p>Creates an index within an OpenSearch Serverless collection. Unlike other OpenSearch indexes, indexes created by this API are automatically configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a> in the <i>OpenSearch User Guide</i>.</p>
 
         Args:
             id: <p>The unique identifier of the collection in which to create the index.</p>
@@ -1973,7 +1973,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.get_index_response.GetIndexResponse":
-        r"""<p>Retrieves information about an index in an OpenSearch Serverless collection, including its schema definition. The index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Retrieves information about an index in an OpenSearch Serverless collection, including its schema definition. The index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index.</p>
@@ -2025,7 +2025,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.index_schema.IndexSchema"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_index_response.UpdateIndexResponse":
-        r"""<p>Updates an existing index in an OpenSearch Serverless collection. This operation allows you to modify the index schema, including adding new fields or changing field mappings. You can also enable automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Updates an existing index in an OpenSearch Serverless collection. This operation allows you to modify the index schema, including adding new fields or changing field mappings. You can also enable automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index to update.</p>
@@ -2077,7 +2077,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.delete_index_response.DeleteIndexResponse":
-        r"""<p>Deletes an index from an OpenSearch Serverless collection. Be aware that the index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment\">About automatic semantic enrichment</a>.</p>
+        """<p>Deletes an index from an OpenSearch Serverless collection. Be aware that the index might be configured to conduct automatic semantic enrichment ingestion and search. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment">About automatic semantic enrichment</a>.</p>
 
         Args:
             id: <p>The unique identifier of the collection containing the index to delete.</p>
@@ -2136,7 +2136,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_lifecycle_policy_response.UpdateLifecyclePolicyResponse":
-        r"""<p>Updates an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-update\">Updating data lifecycle policies</a>.</p>
+        """<p>Updates an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-update">Updating data lifecycle policies</a>.</p>
 
         Args:
             type: <p> The type of lifecycle policy.</p>
@@ -2202,7 +2202,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_lifecycle_policy_response.DeleteLifecyclePolicyResponse":
-        r"""<p>Deletes an OpenSearch Serverless lifecycle policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-delete\">Deleting data lifecycle policies</a>.</p>
+        """<p>Deletes an OpenSearch Serverless lifecycle policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-delete">Deleting data lifecycle policies</a>.</p>
 
         Args:
             type: <p>The type of lifecycle policy.</p>
@@ -2260,7 +2260,7 @@ class AsyncOpenSearchServerlessClient:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_lifecycle_policies_response.ListLifecyclePoliciesResponse":
-        r"""<p>Returns a list of OpenSearch Serverless lifecycle policies. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-list\">Viewing data lifecycle policies</a>.</p>
+        """<p>Returns a list of OpenSearch Serverless lifecycle policies. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-lifecycle.html#serverless-lifecycle-list">Viewing data lifecycle policies</a>.</p>
 
         Args:
             type: <p>The type of lifecycle policy.</p>
@@ -2355,7 +2355,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_security_config_response.CreateSecurityConfigResponse":
-        r"""<p>Specifies a security configuration for OpenSearch Serverless. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html\">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Specifies a security configuration for OpenSearch Serverless. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of security configuration.</p>
@@ -2420,7 +2420,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.get_security_config_response.GetSecurityConfigResponse":
-        r"""<p>Returns information about an OpenSearch Serverless security configuration. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html\">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Returns information about an OpenSearch Serverless security configuration. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             id: <p>The unique identifier of the security configuration.</p>
@@ -2482,7 +2482,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_security_config_response.UpdateSecurityConfigResponse":
-        r"""<p>Updates a security configuration for OpenSearch Serverless. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html\">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Updates a security configuration for OpenSearch Serverless. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             id: <p>The security configuration identifier. For SAML the ID will be <code>saml/&lt;accountId&gt;/&lt;idpProviderName&gt;</code>. For example, <code>saml/123456789123/OKTADev</code>.</p>
@@ -2552,7 +2552,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_security_config_response.DeleteSecurityConfigResponse":
-        r"""<p>Deletes a security configuration for OpenSearch Serverless. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html\">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Deletes a security configuration for OpenSearch Serverless. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             id: <p>The security configuration identifier. For SAML the ID will be <code>saml/&lt;accountId&gt;/&lt;idpProviderName&gt;</code>. For example, <code>saml/123456789123/OKTADev</code>.</p>
@@ -2605,7 +2605,7 @@ class AsyncOpenSearchServerlessClient:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_security_configs_response.ListSecurityConfigsResponse":
-        r"""<p>Returns information about configured OpenSearch Serverless security configurations. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html\">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Returns information about configured OpenSearch Serverless security configurations. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-saml.html">SAML authentication for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of security configuration.</p>
@@ -2678,7 +2678,7 @@ class AsyncOpenSearchServerlessClient:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.get_security_policy_response.GetSecurityPolicyResponse":
-        r"""<p>Returns information about a configured OpenSearch Serverless security policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html\">Network access for Amazon OpenSearch Serverless</a> and <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-encryption.html\">Encryption at rest for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Returns information about a configured OpenSearch Serverless security policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html">Network access for Amazon OpenSearch Serverless</a> and <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-encryption.html">Encryption at rest for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of security policy.</p>
@@ -2737,7 +2737,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_security_policy_response.UpdateSecurityPolicyResponse":
-        r"""<p>Updates an OpenSearch Serverless security policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html\">Network access for Amazon OpenSearch Serverless</a> and <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-encryption.html\">Encryption at rest for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Updates an OpenSearch Serverless security policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html">Network access for Amazon OpenSearch Serverless</a> and <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-encryption.html">Encryption at rest for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of access policy.</p>
@@ -2948,7 +2948,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_vpc_endpoint_response.CreateVpcEndpointResponse":
-        r"""<p>Creates an OpenSearch Serverless-managed interface VPC endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Creates an OpenSearch Serverless-managed interface VPC endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             name: <p>The name of the interface endpoint.</p>
@@ -3009,7 +3009,7 @@ class AsyncOpenSearchServerlessClient:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_vpc_endpoint_response.DeleteVpcEndpointResponse":
-        r"""<p>Deletes an OpenSearch Serverless-managed interface endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Deletes an OpenSearch Serverless-managed interface endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             id: <p>The VPC endpoint identifier.</p>
@@ -3064,7 +3064,7 @@ class AsyncOpenSearchServerlessClient:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_vpc_endpoints_response.ListVpcEndpointsResponse":
-        r"""<p>Returns the OpenSearch Serverless-managed interface VPC endpoints associated with the current account. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Returns the OpenSearch Serverless-managed interface VPC endpoints associated with the current account. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             vpc_endpoint_filters: <p>Filter the results according to the current status of the VPC endpoint. Possible statuses are <code>CREATING</code>, <code>DELETING</code>, <code>UPDATING</code>, <code>ACTIVE</code>, and <code>FAILED</code>.</p>

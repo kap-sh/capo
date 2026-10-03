@@ -21,7 +21,7 @@ class AppInputSource(TypedDict, closed=True):
     import_type: "capo_resiliencehub.types.resource_mapping_type.ResourceMappingType"
     """<p>The resource type of the input source.</p>"""
     source_arn: NotRequired["capo_resiliencehub.types.arn.Arn"]
-    r"""<p>The Amazon Resource Name (ARN) of the input source. For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\"> Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the input source. For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"> Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i> guide.</p>"""
     terraform_source: NotRequired[
         "capo_resiliencehub.types.terraform_source.TerraformSource"
     ]

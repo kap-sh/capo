@@ -33,7 +33,7 @@ class GetLowLatencyHlsManifestConfiguration(TypedDict, closed=True):
     ]
     start_tag: NotRequired["capo_mediapackagev2.types.start_tag.StartTag"]
     url_encode_child_manifest: NotRequired["bool"]
-    r"""<p>When enabled, MediaPackage URL-encodes the query string for API requests for LL-HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html\">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>"""
+    """<p>When enabled, MediaPackage URL-encodes the query string for API requests for LL-HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>"""
     uri_path_type: NotRequired["capo_mediapackagev2.types.uri_path_type.UriPathType"]
     """<p>The type of path used in manifest URIs. <code>LEAF</code> indicates leaf-relative paths. <code>ROOT</code> indicates root-relative paths that include the full path from root.</p>"""
 

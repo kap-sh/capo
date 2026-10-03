@@ -17,7 +17,7 @@ class Action(TypedDict, closed=True):
     properties: NotRequired[
         "capo_personalize_events.types.synthesized_json_action_properties.SynthesizedJsonActionProperties"
     ]
-    r"""<p>A string map of action-specific metadata. Each element in the map consists of a key-value pair. For example, <code>{\"value\": \"100\"}</code>.</p> <p>The keys use camel case names that match the fields in the schema for the Actions dataset. In the previous example, the <code>value</code> matches the 'VALUE' field defined in the Actions schema. For categorical string data, to include multiple categories for a single action, separate each category with a pipe separator (<code>|</code>). For example, <code>\\"Deluxe|Premium\\"</code>.</p>"""
+    r"""<p>A string map of action-specific metadata. Each element in the map consists of a key-value pair. For example, <code>{"value": "100"}</code>.</p> <p>The keys use camel case names that match the fields in the schema for the Actions dataset. In the previous example, the <code>value</code> matches the 'VALUE' field defined in the Actions schema. For categorical string data, to include multiple categories for a single action, separate each category with a pipe separator (<code>|</code>). For example, <code>\"Deluxe|Premium\"</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

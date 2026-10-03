@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 class ProtectedResourceConditions(TypedDict, closed=True):
     string_equals: NotRequired["capo_backup.types.key_value_list.KeyValueList"]
-    r"""<p>Filters the values of your tagged resources for only those resources that you tagged with the same value. Also called \"exact matching.\"</p>"""
+    """<p>Filters the values of your tagged resources for only those resources that you tagged with the same value. Also called "exact matching."</p>"""
     string_not_equals: NotRequired["capo_backup.types.key_value_list.KeyValueList"]
-    r"""<p>Filters the values of your tagged resources for only those resources that you tagged that do not have the same value. Also called \"negated matching.\"</p>"""
+    """<p>Filters the values of your tagged resources for only those resources that you tagged that do not have the same value. Also called "negated matching."</p>"""
 
 
 # --- restJson1 ser/de ---

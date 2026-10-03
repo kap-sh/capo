@@ -25,7 +25,7 @@ class ListDeploymentInstancesInput(TypedDict, closed=True):
     instance_type_filter: NotRequired[
         "capo_codedeploy.types.instance_type_list.InstanceTypeList"
     ]
-    r"""<p>The set of instances in a blue/green deployment, either those in the original environment (\"BLUE\") or those in the replacement environment (\"GREEN\"), for which you want to view instance information.</p>"""
+    """<p>The set of instances in a blue/green deployment, either those in the original environment ("BLUE") or those in the replacement environment ("GREEN"), for which you want to view instance information.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

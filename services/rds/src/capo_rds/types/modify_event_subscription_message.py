@@ -22,7 +22,7 @@ class ModifyEventSubscriptionMessage(TypedDict, closed=True):
     event_categories: NotRequired[
         "capo_rds.types.event_categories_list.EventCategoriesList"
     ]
-    r"""<p>A list of event categories for a source type (<code>SourceType</code>) that you want to subscribe to. You can see a list of the categories for a given source type in <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html\">Events</a> in the <i>Amazon RDS User Guide</i> or by using the <code>DescribeEventCategories</code> operation.</p>"""
+    """<p>A list of event categories for a source type (<code>SourceType</code>) that you want to subscribe to. You can see a list of the categories for a given source type in <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">Events</a> in the <i>Amazon RDS User Guide</i> or by using the <code>DescribeEventCategories</code> operation.</p>"""
     enabled: NotRequired["capo_rds.types.boolean_optional.BooleanOptional"]
     """<p>Specifies whether to activate the subscription.</p>"""
 

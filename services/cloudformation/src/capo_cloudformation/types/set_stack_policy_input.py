@@ -18,7 +18,7 @@ class SetStackPolicyInput(TypedDict, closed=True):
     stack_policy_body: NotRequired[
         "capo_cloudformation.types.stack_policy_body.StackPolicyBody"
     ]
-    r"""<p>Structure that contains the stack policy body. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html\">Prevent updates to stack resources</a> in the <i>CloudFormation User Guide</i>. You can specify either the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code> parameter, but not both.</p>"""
+    """<p>Structure that contains the stack policy body. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html">Prevent updates to stack resources</a> in the <i>CloudFormation User Guide</i>. You can specify either the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code> parameter, but not both.</p>"""
     stack_policy_url: NotRequired[
         "capo_cloudformation.types.stack_policy_url.StackPolicyURL"
     ]

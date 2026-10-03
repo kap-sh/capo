@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class VerifyDomainIdentityResponse(TypedDict, closed=True):
     verification_token: "capo_ses.types.verification_token.VerificationToken"
-    r"""<p>A TXT record that you must place in the DNS settings of the domain to complete domain verification with Amazon SES.</p> <p>As Amazon SES searches for the TXT record, the domain's verification status is \"Pending\". When Amazon SES detects the record, the domain's verification status changes to \"Success\". If Amazon SES is unable to detect the record within 72 hours, the domain's verification status changes to \"Failed.\" In that case, to verify the domain, you must restart the verification process from the beginning. The domain's verification status also changes to \"Success\" when it is DKIM verified.</p>"""
+    """<p>A TXT record that you must place in the DNS settings of the domain to complete domain verification with Amazon SES.</p> <p>As Amazon SES searches for the TXT record, the domain's verification status is "Pending". When Amazon SES detects the record, the domain's verification status changes to "Success". If Amazon SES is unable to detect the record within 72 hours, the domain's verification status changes to "Failed." In that case, to verify the domain, you must restart the verification process from the beginning. The domain's verification status also changes to "Success" when it is DKIM verified.</p>"""
 
 
 # --- awsQuery ser/de ---

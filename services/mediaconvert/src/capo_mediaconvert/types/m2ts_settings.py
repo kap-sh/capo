@@ -120,7 +120,7 @@ class M2tsSettings(TypedDict, closed=True):
     min_ebp_interval: NotRequired[
         "capo_mediaconvert.types.__integer_min0_max10000.__integerMin0Max10000"
     ]
-    r"""When set, enforces that Encoder Boundary Points do not come within the specified time interval of each other by looking ahead at input video. If another EBP is going to come in within the specified time interval, the current EBP is not emitted, and the segment is \"stretched\" to the next marker. The lookahead value does not add latency to the system. The Live Event must be configured elsewhere to create sufficient latency to make the lookahead accurate."""
+    """When set, enforces that Encoder Boundary Points do not come within the specified time interval of each other by looking ahead at input video. If another EBP is going to come in within the specified time interval, the current EBP is not emitted, and the segment is "stretched" to the next marker. The lookahead value does not add latency to the system. The Live Event must be configured elsewhere to create sufficient latency to make the lookahead accurate."""
     nielsen_id3: NotRequired["capo_mediaconvert.types.m2ts_nielsen_id3.M2tsNielsenId3"]
     """If INSERT, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag will be inserted in the output."""
     null_packet_bitrate: NotRequired[
@@ -182,7 +182,7 @@ class M2tsSettings(TypedDict, closed=True):
     segmentation_style: NotRequired[
         "capo_mediaconvert.types.m2ts_segmentation_style.M2tsSegmentationStyle"
     ]
-    r"""The segmentation style parameter controls how segmentation markers are inserted into the transport stream. With avails, it is possible that segments may be truncated, which can influence where future segmentation markers are inserted. When a segmentation style of \"reset_cadence\" is selected and a segment is truncated due to an avail, we will reset the segmentation cadence. This means the subsequent segment will have a duration of of $segmentation_time seconds. When a segmentation style of \"maintain_cadence\" is selected and a segment is truncated due to an avail, we will not reset the segmentation cadence. This means the subsequent segment will likely be truncated as well. However, all segments after that will have a duration of $segmentation_time seconds. Note that EBP lookahead is a slight exception to this rule."""
+    """The segmentation style parameter controls how segmentation markers are inserted into the transport stream. With avails, it is possible that segments may be truncated, which can influence where future segmentation markers are inserted. When a segmentation style of "reset_cadence" is selected and a segment is truncated due to an avail, we will reset the segmentation cadence. This means the subsequent segment will have a duration of of $segmentation_time seconds. When a segmentation style of "maintain_cadence" is selected and a segment is truncated due to an avail, we will not reset the segmentation cadence. This means the subsequent segment will likely be truncated as well. However, all segments after that will have a duration of $segmentation_time seconds. Note that EBP lookahead is a slight exception to this rule."""
     segmentation_time: NotRequired["capo_mediaconvert.types.__double_min0.__doubleMin0"]
     """Specify the length, in seconds, of each segment. Required unless markers is set to _none_."""
     timed_metadata_pid: NotRequired[

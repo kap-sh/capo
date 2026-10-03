@@ -17,7 +17,7 @@ class SearchFoldersRequest(TypedDict, closed=True):
     aws_account_id: "capo_quicksight.types.aws_account_id.AwsAccountId"
     """<p>The ID for the Amazon Web Services account that contains the folder.</p>"""
     filters: "capo_quicksight.types.folder_search_filter_list.FolderSearchFilterList"
-    r"""<p>The filters to apply to the search. Currently, you can search only by the parent folder ARN. For example, <code>\"Filters\": [ { \"Name\": \"PARENT_FOLDER_ARN\", \"Operator\": \"StringEquals\", \"Value\": \"arn:aws:quicksight:us-east-1:1:folder/folderId\" } ]</code>.</p>"""
+    """<p>The filters to apply to the search. Currently, you can search only by the parent folder ARN. For example, <code>"Filters": [ { "Name": "PARENT_FOLDER_ARN", "Operator": "StringEquals", "Value": "arn:aws:quicksight:us-east-1:1:folder/folderId" } ]</code>.</p>"""
     next_token: NotRequired["capo_quicksight.types.string.String"]
     """<p>The token for the next set of results, or null if there are no more results.</p>"""
     max_results: NotRequired["capo_quicksight.types.max_results.MaxResults"]

@@ -18,7 +18,7 @@ class SendWhatsAppConversionEventInput(TypedDict, closed=True):
     dataset_id: "capo_socialmessaging.types.whats_app_dataset_id.WhatsAppDatasetId"
     """<p>The Meta-generated dataset ID to send the event to.</p>"""
     event_data: "capo_socialmessaging.types.whats_app_conversion_event_blob.WhatsAppConversionEventBlob"
-    r"""<p>The raw Meta Conversions API event payload as a JSON blob. See <a href=\"https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event\">Meta's server event parameters</a> for the supported format.</p>"""
+    """<p>The raw Meta Conversions API event payload as a JSON blob. See <a href="https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event">Meta's server event parameters</a> for the supported format.</p>"""
 
 
 # --- restJson1 ser/de ---

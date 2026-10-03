@@ -77,16 +77,16 @@ class PromptResource:
         ] = None,
         tags: Optional["capo_bedrock_agent.types.tags_map.TagsMap"] = None,
     ) -> "capo_bedrock_agent.types.create_prompt_response.CreatePromptResponse":
-        r"""<p>Creates a prompt in your prompt library that you can add to a flow. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html\">Prompt management in Amazon Bedrock</a>, <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-create.html\">Create a prompt using Prompt management</a> and <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/flows.html\">Prompt flows in Amazon Bedrock</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Creates a prompt in your prompt library that you can add to a flow. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html">Prompt management in Amazon Bedrock</a>, <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-create.html">Create a prompt using Prompt management</a> and <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/flows.html">Prompt flows in Amazon Bedrock</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             name: <p>A name for the prompt.</p>
             description: <p>A description for the prompt.</p>
             customer_encryption_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key to encrypt the prompt.</p>
-            default_variant: <p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html\">PromptVariant</a> object.</p>
+            default_variant: <p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html">PromptVariant</a> object.</p>
             variants: <p>A list of objects, each containing details about a variant of the prompt.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
-            tags: <p>Any tags that you want to attach to the prompt. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tagging resources in Amazon Bedrock</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
+            tags: <p>Any tags that you want to attach to the prompt. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tagging resources in Amazon Bedrock</a>.</p>
 
         Raises:
             capo_bedrock_agent.errors.access_denied_exception.AccessDeniedException: <p>The request is denied because of missing access permissions.</p>
@@ -148,7 +148,7 @@ class PromptResource:
             "capo_bedrock_agent.types.included_data.IncludedData"
         ] = None,
     ) -> "capo_bedrock_agent.types.get_prompt_response.GetPromptResponse":
-        r"""<p>Retrieves information about the working draft (<code>DRAFT</code> version) of a prompt or a version of it, depending on whether you include the <code>promptVersion</code> field or not. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-view.html\">View information about prompts using Prompt management</a> and <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html#prompt-management-versions-view.html\">View information about a version of your prompt</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Retrieves information about the working draft (<code>DRAFT</code> version) of a prompt or a version of it, depending on whether you include the <code>promptVersion</code> field or not. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-view.html">View information about prompts using Prompt management</a> and <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html#prompt-management-versions-view.html">View information about a version of your prompt</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             prompt_identifier: <p>The unique identifier of the prompt.</p>
@@ -214,13 +214,13 @@ class PromptResource:
             "capo_bedrock_agent.types.prompt_variant_list.PromptVariantList"
         ] = None,
     ) -> "capo_bedrock_agent.types.update_prompt_response.UpdatePromptResponse":
-        r"""<p>Modifies a prompt in your prompt library. Include both fields that you want to keep and fields that you want to replace. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html\">Prompt management in Amazon Bedrock</a> and <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-edit\">Edit prompts in your prompt library</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Modifies a prompt in your prompt library. Include both fields that you want to keep and fields that you want to replace. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html">Prompt management in Amazon Bedrock</a> and <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-edit">Edit prompts in your prompt library</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             name: <p>A name for the prompt.</p>
             description: <p>A description for the prompt.</p>
             customer_encryption_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key to encrypt the prompt.</p>
-            default_variant: <p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html\">PromptVariant</a> object.</p>
+            default_variant: <p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html">PromptVariant</a> object.</p>
             variants: <p>A list of objects, each containing details about a variant of the prompt.</p>
             prompt_identifier: <p>The unique identifier of the prompt.</p>
 
@@ -280,7 +280,7 @@ class PromptResource:
             "capo_bedrock_agent.types.numerical_version.NumericalVersion"
         ] = None,
     ) -> "capo_bedrock_agent.types.delete_prompt_response.DeletePromptResponse":
-        r"""<p>Deletes a prompt or a version of it, depending on whether you include the <code>promptVersion</code> field or not. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-delete.html\">Delete prompts from the Prompt management tool</a> and <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html#prompt-management-versions-delete.html\">Delete a version of a prompt from the Prompt management tool</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Deletes a prompt or a version of it, depending on whether you include the <code>promptVersion</code> field or not. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-delete.html">Delete prompts from the Prompt management tool</a> and <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html#prompt-management-versions-delete.html">Delete a version of a prompt from the Prompt management tool</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             prompt_identifier: <p>The unique identifier of the prompt.</p>
@@ -335,7 +335,7 @@ class PromptResource:
         max_results: Optional["capo_bedrock_agent.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_bedrock_agent.types.next_token.NextToken"] = None,
     ) -> "capo_bedrock_agent.types.list_prompts_response.ListPromptsResponse":
-        r"""<p>Returns either information about the working draft (<code>DRAFT</code> version) of each prompt in an account, or information about of all versions of a prompt, depending on whether you include the <code>promptIdentifier</code> field or not. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-view.html\">View information about prompts using Prompt management</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Returns either information about the working draft (<code>DRAFT</code> version) of each prompt in an account, or information about of all versions of a prompt, depending on whether you include the <code>promptIdentifier</code> field or not. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-view.html">View information about prompts using Prompt management</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             prompt_identifier: <p>The unique identifier of the prompt for whose versions you want to return information. Omit this field to list information about all prompts in an account.</p>
@@ -395,13 +395,13 @@ class PromptResource:
         ] = None,
         tags: Optional["capo_bedrock_agent.types.tags_map.TagsMap"] = None,
     ) -> "capo_bedrock_agent.types.create_prompt_version_response.CreatePromptVersionResponse":
-        r"""<p>Creates a static snapshot of your prompt that can be deployed to production. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html\">Deploy prompts using Prompt management by creating versions</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Creates a static snapshot of your prompt that can be deployed to production. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html">Deploy prompts using Prompt management by creating versions</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             prompt_identifier: <p>The unique identifier of the prompt that you want to create a version of.</p>
             description: <p>A description for the version of the prompt.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
-            tags: <p>Any tags that you want to attach to the version of the prompt. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tagging resources in Amazon Bedrock</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
+            tags: <p>Any tags that you want to attach to the version of the prompt. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tagging resources in Amazon Bedrock</a>.</p>
 
         Raises:
             capo_bedrock_agent.errors.access_denied_exception.AccessDeniedException: <p>The request is denied because of missing access permissions.</p>
@@ -475,16 +475,16 @@ class AsyncPromptResource:
         ] = None,
         tags: Optional["capo_bedrock_agent.types.tags_map.TagsMap"] = None,
     ) -> "capo_bedrock_agent.types.create_prompt_response.CreatePromptResponse":
-        r"""<p>Creates a prompt in your prompt library that you can add to a flow. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html\">Prompt management in Amazon Bedrock</a>, <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-create.html\">Create a prompt using Prompt management</a> and <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/flows.html\">Prompt flows in Amazon Bedrock</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Creates a prompt in your prompt library that you can add to a flow. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html">Prompt management in Amazon Bedrock</a>, <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-create.html">Create a prompt using Prompt management</a> and <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/flows.html">Prompt flows in Amazon Bedrock</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             name: <p>A name for the prompt.</p>
             description: <p>A description for the prompt.</p>
             customer_encryption_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key to encrypt the prompt.</p>
-            default_variant: <p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html\">PromptVariant</a> object.</p>
+            default_variant: <p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html">PromptVariant</a> object.</p>
             variants: <p>A list of objects, each containing details about a variant of the prompt.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
-            tags: <p>Any tags that you want to attach to the prompt. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tagging resources in Amazon Bedrock</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
+            tags: <p>Any tags that you want to attach to the prompt. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tagging resources in Amazon Bedrock</a>.</p>
 
         Raises:
             capo_bedrock_agent.errors.access_denied_exception.AccessDeniedException: <p>The request is denied because of missing access permissions.</p>
@@ -547,7 +547,7 @@ class AsyncPromptResource:
             "capo_bedrock_agent.types.included_data.IncludedData"
         ] = None,
     ) -> "capo_bedrock_agent.types.get_prompt_response.GetPromptResponse":
-        r"""<p>Retrieves information about the working draft (<code>DRAFT</code> version) of a prompt or a version of it, depending on whether you include the <code>promptVersion</code> field or not. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-view.html\">View information about prompts using Prompt management</a> and <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html#prompt-management-versions-view.html\">View information about a version of your prompt</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Retrieves information about the working draft (<code>DRAFT</code> version) of a prompt or a version of it, depending on whether you include the <code>promptVersion</code> field or not. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-view.html">View information about prompts using Prompt management</a> and <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html#prompt-management-versions-view.html">View information about a version of your prompt</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             prompt_identifier: <p>The unique identifier of the prompt.</p>
@@ -614,13 +614,13 @@ class AsyncPromptResource:
             "capo_bedrock_agent.types.prompt_variant_list.PromptVariantList"
         ] = None,
     ) -> "capo_bedrock_agent.types.update_prompt_response.UpdatePromptResponse":
-        r"""<p>Modifies a prompt in your prompt library. Include both fields that you want to keep and fields that you want to replace. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html\">Prompt management in Amazon Bedrock</a> and <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-edit\">Edit prompts in your prompt library</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Modifies a prompt in your prompt library. Include both fields that you want to keep and fields that you want to replace. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html">Prompt management in Amazon Bedrock</a> and <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-edit">Edit prompts in your prompt library</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             name: <p>A name for the prompt.</p>
             description: <p>A description for the prompt.</p>
             customer_encryption_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key to encrypt the prompt.</p>
-            default_variant: <p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html\">PromptVariant</a> object.</p>
+            default_variant: <p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html">PromptVariant</a> object.</p>
             variants: <p>A list of objects, each containing details about a variant of the prompt.</p>
             prompt_identifier: <p>The unique identifier of the prompt.</p>
 
@@ -681,7 +681,7 @@ class AsyncPromptResource:
             "capo_bedrock_agent.types.numerical_version.NumericalVersion"
         ] = None,
     ) -> "capo_bedrock_agent.types.delete_prompt_response.DeletePromptResponse":
-        r"""<p>Deletes a prompt or a version of it, depending on whether you include the <code>promptVersion</code> field or not. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-delete.html\">Delete prompts from the Prompt management tool</a> and <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html#prompt-management-versions-delete.html\">Delete a version of a prompt from the Prompt management tool</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Deletes a prompt or a version of it, depending on whether you include the <code>promptVersion</code> field or not. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-delete.html">Delete prompts from the Prompt management tool</a> and <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html#prompt-management-versions-delete.html">Delete a version of a prompt from the Prompt management tool</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             prompt_identifier: <p>The unique identifier of the prompt.</p>
@@ -737,7 +737,7 @@ class AsyncPromptResource:
         max_results: Optional["capo_bedrock_agent.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_bedrock_agent.types.next_token.NextToken"] = None,
     ) -> "capo_bedrock_agent.types.list_prompts_response.ListPromptsResponse":
-        r"""<p>Returns either information about the working draft (<code>DRAFT</code> version) of each prompt in an account, or information about of all versions of a prompt, depending on whether you include the <code>promptIdentifier</code> field or not. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-view.html\">View information about prompts using Prompt management</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Returns either information about the working draft (<code>DRAFT</code> version) of each prompt in an account, or information about of all versions of a prompt, depending on whether you include the <code>promptIdentifier</code> field or not. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-manage.html#prompt-management-view.html">View information about prompts using Prompt management</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             prompt_identifier: <p>The unique identifier of the prompt for whose versions you want to return information. Omit this field to list information about all prompts in an account.</p>
@@ -798,13 +798,13 @@ class AsyncPromptResource:
         ] = None,
         tags: Optional["capo_bedrock_agent.types.tags_map.TagsMap"] = None,
     ) -> "capo_bedrock_agent.types.create_prompt_version_response.CreatePromptVersionResponse":
-        r"""<p>Creates a static snapshot of your prompt that can be deployed to production. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html\">Deploy prompts using Prompt management by creating versions</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Creates a static snapshot of your prompt that can be deployed to production. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-deploy.html">Deploy prompts using Prompt management by creating versions</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             prompt_identifier: <p>The unique identifier of the prompt that you want to create a version of.</p>
             description: <p>A description for the version of the prompt.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
-            tags: <p>Any tags that you want to attach to the version of the prompt. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tagging resources in Amazon Bedrock</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
+            tags: <p>Any tags that you want to attach to the version of the prompt. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tagging resources in Amazon Bedrock</a>.</p>
 
         Raises:
             capo_bedrock_agent.errors.access_denied_exception.AccessDeniedException: <p>The request is denied because of missing access permissions.</p>

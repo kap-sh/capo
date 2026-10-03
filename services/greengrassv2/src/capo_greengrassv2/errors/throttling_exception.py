@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 class ThrottlingException_(TypedDict, closed=True):
     message: "capo_greengrassv2.types.string.String"
     quota_code: NotRequired["capo_greengrassv2.types.string.String"]
-    r"""<p>The code for the quota in <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html\">Service Quotas</a>.</p>"""
+    """<p>The code for the quota in <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">Service Quotas</a>.</p>"""
     service_code: NotRequired["capo_greengrassv2.types.string.String"]
-    r"""<p>The code for the service in <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html\">Service Quotas</a>.</p>"""
+    """<p>The code for the service in <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">Service Quotas</a>.</p>"""
     retry_after_seconds: "capo_greengrassv2.types.retry_after_seconds.RetryAfterSeconds"
     """<p>The amount of time to wait before you retry the request.</p>"""
 

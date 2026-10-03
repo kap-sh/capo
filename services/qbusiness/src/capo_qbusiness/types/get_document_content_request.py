@@ -18,7 +18,7 @@ class GetDocumentContentRequest(TypedDict, closed=True):
     index_id: "capo_qbusiness.types.index_id.IndexId"
     """<p>The identifier of the index where documents are indexed.</p>"""
     data_source_id: NotRequired["capo_qbusiness.types.data_source_id.DataSourceId"]
-    r"""<p>The identifier of the data source from which the document was ingested. This field is not present if the document is ingested by directly calling the BatchPutDocument API. If the document is from a file-upload data source, the datasource will be \"uploaded-docs-file-stat-datasourceid\".</p>"""
+    """<p>The identifier of the data source from which the document was ingested. This field is not present if the document is ingested by directly calling the BatchPutDocument API. If the document is from a file-upload data source, the datasource will be "uploaded-docs-file-stat-datasourceid".</p>"""
     document_id: "capo_qbusiness.types.document_id.DocumentId"
     """<p>The unique identifier of the document that is indexed via BatchPutDocument API or file-upload or connector sync. It is also found in chat or chatSync response.</p>"""
     output_format: NotRequired["capo_qbusiness.types.output_format.OutputFormat"]

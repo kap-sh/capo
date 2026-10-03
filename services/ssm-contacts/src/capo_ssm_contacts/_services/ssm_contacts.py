@@ -525,15 +525,15 @@ class SSMContactsClient:
             "capo_ssm_contacts.types.idempotency_token.IdempotencyToken"
         ] = None,
     ) -> "capo_ssm_contacts.types.create_rotation_result.CreateRotationResult":
-        r"""<p>Creates a rotation in an on-call schedule.</p>
+        """<p>Creates a rotation in an on-call schedule.</p>
 
         Args:
             name: <p>The name of the rotation.</p>
             contact_ids: <p>The Amazon Resource Names (ARNs) of the contacts to add to the rotation.</p> <note> <p>Only the <code>PERSONAL</code> contact type is supported. The contact types <code>ESCALATION</code> and <code>ONCALL_SCHEDULE</code> are not supported for this operation. </p> </note> <p>The order that you list the contacts in is their shift order in the rotation schedule. To change the order of the contact's shifts, use the <a>UpdateRotation</a> operation.</p>
             start_time: <p>The date and time that the rotation goes into effect.</p>
-            time_zone_id: <p>The time zone to base the rotation’s activity on in Internet Assigned Numbers Authority (IANA) format. For example: \"America/Los_Angeles\", \"UTC\", or \"Asia/Seoul\". For more information, see the <a href=\"https://www.iana.org/time-zones\">Time Zone Database</a> on the IANA website.</p> <note> <p>Designators for time zones that don’t support Daylight Savings Time rules, such as Pacific Standard Time (PST), are not supported.</p> </note>
+            time_zone_id: <p>The time zone to base the rotation’s activity on in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <a href="https://www.iana.org/time-zones">Time Zone Database</a> on the IANA website.</p> <note> <p>Designators for time zones that don’t support Daylight Savings Time rules, such as Pacific Standard Time (PST), are not supported.</p> </note>
             recurrence: <p>Information about the rule that specifies when a shift's team members rotate.</p>
-            tags: <p>Optional metadata to assign to the rotation. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For more information, see <a href=\"https://docs.aws.amazon.com/incident-manager/latest/userguide/tagging.html\">Tagging Incident Manager resources</a> in the <i>Incident Manager User Guide</i>.</p>
+            tags: <p>Optional metadata to assign to the rotation. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For more information, see <a href="https://docs.aws.amazon.com/incident-manager/latest/userguide/tagging.html">Tagging Incident Manager resources</a> in the <i>Incident Manager User Guide</i>.</p>
             idempotency_token: <p>A token that ensures that the operation is called only once with the specified details.</p>
 
         Raises:
@@ -1836,14 +1836,14 @@ class SSMContactsClient:
         ] = None,
         max_results: Optional["capo_ssm_contacts.types.max_results.MaxResults"] = None,
     ) -> "capo_ssm_contacts.types.list_preview_rotation_shifts_result.ListPreviewRotationShiftsResult":
-        r"""<p>Returns a list of shifts based on rotation configuration parameters.</p> <note> <p>The Incident Manager primarily uses this operation to populate the <b>Preview</b> calendar. It is not typically run by end users.</p> </note>
+        """<p>Returns a list of shifts based on rotation configuration parameters.</p> <note> <p>The Incident Manager primarily uses this operation to populate the <b>Preview</b> calendar. It is not typically run by end users.</p> </note>
 
         Args:
             rotation_start_time: <p>The date and time a rotation would begin. The first shift is calculated from this date and time.</p>
             start_time: <p>Used to filter the range of calculated shifts before sending the response back to the user. </p>
             end_time: <p>The date and time a rotation shift would end.</p>
             members: <p>The contacts that would be assigned to a rotation.</p>
-            time_zone_id: <p>The time zone the rotation’s activity would be based on, in Internet Assigned Numbers Authority (IANA) format. For example: \"America/Los_Angeles\", \"UTC\", or \"Asia/Seoul\". </p>
+            time_zone_id: <p>The time zone the rotation’s activity would be based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". </p>
             recurrence: <p>Information about how long a rotation would last before restarting at the beginning of the shift order.</p>
             overrides: <p>Information about changes that would be made in a rotation override.</p>
             next_token: <p>A token to start the list. This token is used to get the next set of results.</p>
@@ -2264,7 +2264,7 @@ class SSMContactsClient:
         *,
         config_overrides: Optional[SSMContactsClientConfig] = None,
     ) -> "capo_ssm_contacts.types.put_contact_policy_result.PutContactPolicyResult":
-        r"""<p>Adds a resource policy to the specified contact or escalation plan. The resource policy is used to share the contact or escalation plan using Resource Access Manager (RAM). For more information about cross-account sharing, see <a href=\"https://docs.aws.amazon.com/incident-manager/latest/userguide/xa.html\">Setting up cross-account functionality</a>.</p>
+        """<p>Adds a resource policy to the specified contact or escalation plan. The resource policy is used to share the contact or escalation plan using Resource Access Manager (RAM). For more information about cross-account sharing, see <a href="https://docs.aws.amazon.com/incident-manager/latest/userguide/xa.html">Setting up cross-account functionality</a>.</p>
 
         Args:
             contact_arn: <p>The Amazon Resource Name (ARN) of the contact or escalation plan.</p>
@@ -2721,13 +2721,13 @@ class SSMContactsClient:
             "capo_ssm_contacts.types.time_zone_id.TimeZoneId"
         ] = None,
     ) -> "capo_ssm_contacts.types.update_rotation_result.UpdateRotationResult":
-        r"""<p>Updates the information specified for an on-call rotation.</p>
+        """<p>Updates the information specified for an on-call rotation.</p>
 
         Args:
             rotation_id: <p>The Amazon Resource Name (ARN) of the rotation to update.</p>
             contact_ids: <p>The Amazon Resource Names (ARNs) of the contacts to include in the updated rotation. </p> <note> <p>Only the <code>PERSONAL</code> contact type is supported. The contact types <code>ESCALATION</code> and <code>ONCALL_SCHEDULE</code> are not supported for this operation. </p> </note> <p>The order in which you list the contacts is their shift order in the rotation schedule.</p>
             start_time: <p>The date and time the rotation goes into effect.</p>
-            time_zone_id: <p>The time zone to base the updated rotation’s activity on, in Internet Assigned Numbers Authority (IANA) format. For example: \"America/Los_Angeles\", \"UTC\", or \"Asia/Seoul\". For more information, see the <a href=\"https://www.iana.org/time-zones\">Time Zone Database</a> on the IANA website.</p> <note> <p>Designators for time zones that don’t support Daylight Savings Time Rules, such as Pacific Standard Time (PST), aren't supported.</p> </note>
+            time_zone_id: <p>The time zone to base the updated rotation’s activity on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <a href="https://www.iana.org/time-zones">Time Zone Database</a> on the IANA website.</p> <note> <p>Designators for time zones that don’t support Daylight Savings Time Rules, such as Pacific Standard Time (PST), aren't supported.</p> </note>
             recurrence: <p>Information about how long the updated rotation lasts before restarting at the beginning of the shift order.</p>
 
         Raises:

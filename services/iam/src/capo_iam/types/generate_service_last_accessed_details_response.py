@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GenerateServiceLastAccessedDetailsResponse(TypedDict, closed=True):
     job_id: NotRequired["capo_iam.types.job_id_type.jobIDType"]
-    r"""<p>The <code>JobId</code> that you can use in the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetServiceLastAccessedDetails.html\">GetServiceLastAccessedDetails</a> or <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetServiceLastAccessedDetailsWithEntities.html\">GetServiceLastAccessedDetailsWithEntities</a> operations. The <code>JobId</code> returned by <code>GenerateServiceLastAccessedDetail</code> must be used by the same role within a session, or by the same user when used to call <code>GetServiceLastAccessedDetail</code>.</p>"""
+    """<p>The <code>JobId</code> that you can use in the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetServiceLastAccessedDetails.html">GetServiceLastAccessedDetails</a> or <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetServiceLastAccessedDetailsWithEntities.html">GetServiceLastAccessedDetailsWithEntities</a> operations. The <code>JobId</code> returned by <code>GenerateServiceLastAccessedDetail</code> must be used by the same role within a session, or by the same user when used to call <code>GetServiceLastAccessedDetail</code>.</p>"""
 
 
 # --- awsQuery ser/de ---

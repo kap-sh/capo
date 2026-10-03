@@ -15,7 +15,7 @@ class CreateGatewayResponse(TypedDict, closed=True):
     gateway_id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the gateway device. You can use this ID when you call other IoT SiteWise API operations.</p>"""
     gateway_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the gateway, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:gateway/${GatewayId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the gateway, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:gateway/${GatewayId}</code> </p>"""
 
 
 # --- restJson1 ser/de ---

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_iotsitewise.types.amazon_resource_name.AmazonResourceName"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the resource.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the resource.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -16,7 +16,7 @@ class PutResourcePolicyRequest(TypedDict, closed=True):
     resource_arn: "capo_comprehend.types.comprehend_model_arn.ComprehendModelArn"
     """<p>The Amazon Resource Name (ARN) of the custom model to attach the policy to.</p>"""
     resource_policy: "capo_comprehend.types.policy.Policy"
-    r"""<p>The JSON resource-based policy to attach to your custom model. Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you must escape the double quotes that are inside the policy:</p> <p> <code>\"{\\"attribute\\": \\"value\\", \\"attribute\\": [\\"value\\"]}\"</code> </p> <p>To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON names and values:</p> <p> <code>'{\"attribute\": \"value\", \"attribute\": [\"value\"]}'</code> </p>"""
+    r"""<p>The JSON resource-based policy to attach to your custom model. Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you must escape the double quotes that are inside the policy:</p> <p> <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code> </p> <p>To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON names and values:</p> <p> <code>'{"attribute": "value", "attribute": ["value"]}'</code> </p>"""
     policy_revision_id: NotRequired[
         "capo_comprehend.types.policy_revision_id.PolicyRevisionId"
     ]

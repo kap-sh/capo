@@ -26,7 +26,7 @@ class DescribeAssetResponse(TypedDict, closed=True):
     asset_external_id: NotRequired["capo_iotsitewise.types.external_id.ExternalId"]
     """<p>The external ID of the asset, if any.</p>"""
     asset_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the asset, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:asset/${AssetId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the asset, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:asset/${AssetId}</code> </p>"""
     asset_name: "capo_iotsitewise.types.name.Name"
     """<p>The name of the asset.</p>"""
     asset_model_id: "capo_iotsitewise.types.id.ID"

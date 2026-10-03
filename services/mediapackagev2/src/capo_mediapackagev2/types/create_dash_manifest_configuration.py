@@ -46,7 +46,7 @@ class CreateDashManifestConfiguration(TypedDict, closed=True):
     period_triggers: NotRequired[
         "capo_mediapackagev2.types.dash_period_triggers.DashPeriodTriggers"
     ]
-    r"""<p>A list of triggers that controls when AWS Elemental MediaPackage separates the MPEG-DASH manifest into multiple periods. Type <code>ADS</code> to indicate that AWS Elemental MediaPackage must create periods in the output manifest that correspond to SCTE-35 ad markers in the input source. Leave this value empty to indicate that the manifest is contained all in one period. For more information about periods in the DASH manifest, see <a href=\"https://docs.aws.amazon.com/mediapackage/latest/userguide/multi-period.html\">Multi-period DASH in AWS Elemental MediaPackage</a>.</p>"""
+    """<p>A list of triggers that controls when AWS Elemental MediaPackage separates the MPEG-DASH manifest into multiple periods. Type <code>ADS</code> to indicate that AWS Elemental MediaPackage must create periods in the output manifest that correspond to SCTE-35 ad markers in the input source. Leave this value empty to indicate that the manifest is contained all in one period. For more information about periods in the DASH manifest, see <a href="https://docs.aws.amazon.com/mediapackage/latest/userguide/multi-period.html">Multi-period DASH in AWS Elemental MediaPackage</a>.</p>"""
     scte_dash: NotRequired["capo_mediapackagev2.types.scte_dash.ScteDash"]
     """<p>The SCTE configuration.</p>"""
     drm_signaling: NotRequired[
@@ -70,11 +70,11 @@ class CreateDashManifestConfiguration(TypedDict, closed=True):
     compactness: NotRequired[
         "capo_mediapackagev2.types.dash_compactness.DashCompactness"
     ]
-    r"""<p>The layout of the DASH manifest that MediaPackage produces. <code>STANDARD</code> indicates a default manifest, which is compacted. <code>NONE</code> indicates a full manifest.</p> <p>For information about compactness, see <a href=\"https://docs.aws.amazon.com/mediapackage/latest/userguide/compacted.html\">DASH manifest compactness</a> in the <i>Elemental MediaPackage v2 User Guide</i>.</p>"""
+    """<p>The layout of the DASH manifest that MediaPackage produces. <code>STANDARD</code> indicates a default manifest, which is compacted. <code>NONE</code> indicates a full manifest.</p> <p>For information about compactness, see <a href="https://docs.aws.amazon.com/mediapackage/latest/userguide/compacted.html">DASH manifest compactness</a> in the <i>Elemental MediaPackage v2 User Guide</i>.</p>"""
     audio_timeline_pattern: NotRequired[
         "capo_mediapackagev2.types.dash_audio_timeline_pattern.DashAudioTimelinePattern"
     ]
-    r"""<p>How MediaPackage represents the audio timeline in the DASH manifest. This setting applies DASH Segment Duration Patternization, as defined in the MPEG-DASH specification, to audio adaptation sets. When set to <code>PATTERNED</code>, MediaPackage uses a pattern-based segment template for audio, which reduces manifest size by expressing repeating segment durations as a pattern instead of listing each segment individually. When set to <code>NONE</code>, the manifest contains an explicit timeline that lists each audio segment.</p> <p>Valid values: <code>NONE</code> | <code>PATTERNED</code> </p> <p>For information about audio timeline patterns, see <a href=\"https://docs.aws.amazon.com/mediapackage/latest/userguide/dash-audio-timeline-pattern.html\">DASH audio timeline pattern</a> in the <i>Elemental MediaPackage v2 User Guide</i>.</p>"""
+    """<p>How MediaPackage represents the audio timeline in the DASH manifest. This setting applies DASH Segment Duration Patternization, as defined in the MPEG-DASH specification, to audio adaptation sets. When set to <code>PATTERNED</code>, MediaPackage uses a pattern-based segment template for audio, which reduces manifest size by expressing repeating segment durations as a pattern instead of listing each segment individually. When set to <code>NONE</code>, the manifest contains an explicit timeline that lists each audio segment.</p> <p>Valid values: <code>NONE</code> | <code>PATTERNED</code> </p> <p>For information about audio timeline patterns, see <a href="https://docs.aws.amazon.com/mediapackage/latest/userguide/dash-audio-timeline-pattern.html">DASH audio timeline pattern</a> in the <i>Elemental MediaPackage v2 User Guide</i>.</p>"""
     subtitle_configuration: NotRequired[
         "capo_mediapackagev2.types.dash_subtitle_configuration.DashSubtitleConfiguration"
     ]

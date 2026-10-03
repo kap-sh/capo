@@ -14,7 +14,7 @@ class User(TypedDict, closed=True):
     name: NotRequired["capo_memorydb.types.string.String"]
     """<p>The name of the user</p>"""
     status: NotRequired["capo_memorydb.types.string.String"]
-    r"""<p>Indicates the user status. Can be \"active\", \"modifying\" or \"deleting\".</p>"""
+    """<p>Indicates the user status. Can be "active", "modifying" or "deleting".</p>"""
     access_string: NotRequired["capo_memorydb.types.string.String"]
     """<p>Access permissions string used for this user.</p>"""
     acl_names: NotRequired["capo_memorydb.types.acl_name_list.ACLNameList"]

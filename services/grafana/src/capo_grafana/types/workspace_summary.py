@@ -50,7 +50,7 @@ class WorkspaceSummary(TypedDict, closed=True):
     license_type: NotRequired["capo_grafana.types.license_type.LicenseType"]
     """<p>Specifies whether this workspace has a full Grafana Enterprise license.</p> <note> <p>Amazon Managed Grafana workspaces no longer support Grafana Enterprise free trials.</p> </note>"""
     grafana_token: NotRequired["capo_grafana.types.grafana_token.GrafanaToken"]
-    r"""<p>The token that ties this workspace to a Grafana Labs account. For more information, see <a href=\"https://docs.aws.amazon.com/grafana/latest/userguide/upgrade-to-Grafana-Enterprise.html#AMG-workspace-register-enterprise\">Link your account with Grafana Labs</a>.</p>"""
+    """<p>The token that ties this workspace to a Grafana Labs account. For more information, see <a href="https://docs.aws.amazon.com/grafana/latest/userguide/upgrade-to-Grafana-Enterprise.html#AMG-workspace-register-enterprise">Link your account with Grafana Labs</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

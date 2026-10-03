@@ -37,7 +37,7 @@ class Instance(TypedDict, closed=True):
     resource_type: NotRequired["capo_lightsail.types.resource_type.ResourceType"]
     """<p>The type of resource (usually <code>Instance</code>).</p>"""
     tags: NotRequired["capo_lightsail.types.tag_list.TagList"]
-    r"""<p>The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a href=\"https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags\">Amazon Lightsail Developer Guide</a>.</p>"""
+    """<p>The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>"""
     blueprint_id: NotRequired["capo_lightsail.types.non_empty_string.NonEmptyString"]
     """<p>The blueprint ID (<code>amazon_linux_2023</code>).</p>"""
     blueprint_name: NotRequired["capo_lightsail.types.non_empty_string.NonEmptyString"]

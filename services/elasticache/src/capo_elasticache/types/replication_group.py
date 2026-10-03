@@ -58,7 +58,7 @@ class ReplicationGroup(TypedDict, closed=True):
     ]
     """<p>Indicates the status of automatic failover for this Valkey or Redis OSS replication group.</p>"""
     multi_az: NotRequired["capo_elasticache.types.multi_az_status.MultiAZStatus"]
-    r"""<p>A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a href=\"http://docs.aws.amazon.com/AmazonElastiCache/latest/dg/AutoFailover.html\">Minimizing Downtime: Multi-AZ</a> </p>"""
+    """<p>A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/dg/AutoFailover.html">Minimizing Downtime: Multi-AZ</a> </p>"""
     configuration_endpoint: NotRequired["capo_elasticache.types.endpoint.Endpoint"]
     """<p>The configuration endpoint for this replication group. Use the configuration endpoint to connect to this replication group.</p>"""
     snapshot_retention_limit: NotRequired[
@@ -112,13 +112,13 @@ class ReplicationGroup(TypedDict, closed=True):
     data_tiering: NotRequired[
         "capo_elasticache.types.data_tiering_status.DataTieringStatus"
     ]
-    r"""<p>Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This parameter must be set to true when using r6gd nodes. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/data-tiering.html\">Data tiering</a>.</p>"""
+    """<p>Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This parameter must be set to true when using r6gd nodes. For more information, see <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/data-tiering.html">Data tiering</a>.</p>"""
     auto_minor_version_upgrade: NotRequired["capo_elasticache.types.boolean.Boolean"]
     """<p>If you are running Valkey 7.2 and above, or Redis OSS engine version 6.0 and above, set this parameter to yes if you want to opt-in to the next auto minor version upgrade campaign. This parameter is disabled for previous versions. </p>"""
     network_type: NotRequired["capo_elasticache.types.network_type.NetworkType"]
-    r"""<p>Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS engine version 6.2 to 7.1 or Memcached engine version 1.6.6 and above on all instances built on the <a href=\"http://aws.amazon.com/ec2/nitro/\">Nitro system</a>.</p>"""
+    """<p>Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS engine version 6.2 to 7.1 or Memcached engine version 1.6.6 and above on all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.</p>"""
     ip_discovery: NotRequired["capo_elasticache.types.ip_discovery.IpDiscovery"]
-    r"""<p>The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS engine version 6.2 to 7.1 or Memcached engine version 1.6.6 and above on all instances built on the <a href=\"http://aws.amazon.com/ec2/nitro/\">Nitro system</a>.</p>"""
+    """<p>The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS engine version 6.2 to 7.1 or Memcached engine version 1.6.6 and above on all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.</p>"""
     transit_encryption_mode: NotRequired[
         "capo_elasticache.types.transit_encryption_mode.TransitEncryptionMode"
     ]
@@ -128,11 +128,11 @@ class ReplicationGroup(TypedDict, closed=True):
     engine: NotRequired["capo_elasticache.types.string.String"]
     """<p>The engine used in a replication group. The options are valkey, memcached or redis.</p>"""
     durability: NotRequired["capo_elasticache.types.durability.Durability"]
-    r"""<p>The durability setting of the replication group. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/durability.html\">Durability</a>.</p>"""
+    """<p>The durability setting of the replication group. For more information, see <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/durability.html">Durability</a>.</p>"""
     effective_durability: NotRequired[
         "capo_elasticache.types.effective_durability.EffectiveDurability"
     ]
-    r"""<p>The effective durability of the replication group. When <code>Durability</code> is set to <code>default</code>, the service resolves the actual durability based on the engine version, cluster mode, and other parameters. This field reflects the resolved value. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Durability.Configuring.html\">Configuring Durability</a>.</p>"""
+    """<p>The effective durability of the replication group. When <code>Durability</code> is set to <code>default</code>, the service resolves the actual durability based on the engine version, cluster mode, and other parameters. This field reflects the resolved value. For more information, see <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Durability.Configuring.html">Configuring Durability</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

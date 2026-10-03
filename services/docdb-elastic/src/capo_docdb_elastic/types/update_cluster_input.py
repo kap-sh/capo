@@ -26,7 +26,7 @@ class UpdateClusterInput(TypedDict, closed=True):
     subnet_ids: NotRequired["capo_docdb_elastic.types.string_list.StringList"]
     """<p>The Amazon EC2 subnet IDs for the elastic cluster.</p>"""
     admin_user_password: NotRequired["capo_docdb_elastic.types.password.Password"]
-    r"""<p>The password associated with the elastic cluster administrator. This password can contain any printable ASCII character except forward slash (/), double quote (\"), or the \"at\" symbol (@).</p> <p> <i>Constraints</i>: Must contain from 8 to 100 characters.</p>"""
+    """<p>The password associated with the elastic cluster administrator. This password can contain any printable ASCII character except forward slash (/), double quote ("), or the "at" symbol (@).</p> <p> <i>Constraints</i>: Must contain from 8 to 100 characters.</p>"""
     client_token: NotRequired["str"]
     """<p>The client token for the elastic cluster.</p>"""
     preferred_maintenance_window: NotRequired["str"]

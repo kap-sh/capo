@@ -24,7 +24,7 @@ class Session(TypedDict, closed=True):
     target: NotRequired["capo_ssm.types.session_target.SessionTarget"]
     """<p>The managed node that the Session Manager session connected to.</p>"""
     status: NotRequired["capo_ssm.types.session_status.SessionStatus"]
-    r"""<p>The status of the session. For example, \"Connected\" or \"Terminated\".</p>"""
+    """<p>The status of the session. For example, "Connected" or "Terminated".</p>"""
     start_date: NotRequired["capo_ssm.types.date_time.DateTime"]
     """<p>The date and time, in ISO-8601 Extended format, when the session began.</p>"""
     end_date: NotRequired["capo_ssm.types.date_time.DateTime"]
@@ -46,7 +46,7 @@ class Session(TypedDict, closed=True):
     ]
     """<p>The maximum duration of a session before it terminates.</p>"""
     access_type: NotRequired["capo_ssm.types.access_type.AccessType"]
-    r"""<p> <code>Standard</code> access type is the default for Session Manager sessions. <code>JustInTime</code> is the access type for <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-just-in-time-node-access.html\">Just-in-time node access</a>.</p>"""
+    """<p> <code>Standard</code> access type is the default for Session Manager sessions. <code>JustInTime</code> is the access type for <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-just-in-time-node-access.html">Just-in-time node access</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

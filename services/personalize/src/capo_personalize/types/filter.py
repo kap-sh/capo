@@ -29,7 +29,7 @@ class Filter(TypedDict, closed=True):
     filter_expression: NotRequired[
         "capo_personalize.types.filter_expression.FilterExpression"
     ]
-    r"""<p>Specifies the type of item interactions to filter out of recommendation results. The filter expression must follow specific format rules. For information about filter expression structure and syntax, see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/filter-expressions.html\">Filter expressions</a>.</p>"""
+    """<p>Specifies the type of item interactions to filter out of recommendation results. The filter expression must follow specific format rules. For information about filter expression structure and syntax, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/filter-expressions.html">Filter expressions</a>.</p>"""
     status: NotRequired["capo_personalize.types.status.Status"]
     """<p>The status of the filter.</p>"""
 

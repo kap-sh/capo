@@ -4,7 +4,7 @@ from typing import Literal, TypeAlias, cast
 
 from capo_s3._protocol.xml import Element, SubElement
 
-"""<p>If present, indicates that the requester was successfully charged for the request. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html\">Using Requester Pays buckets for storage transfers and usage</a> in the <i>Amazon Simple Storage Service user guide</i>.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
+"""<p>If present, indicates that the requester was successfully charged for the request. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html">Using Requester Pays buckets for storage transfers and usage</a> in the <i>Amazon Simple Storage Service user guide</i>.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
 RequestCharged: TypeAlias = Literal["requester",]
 
 

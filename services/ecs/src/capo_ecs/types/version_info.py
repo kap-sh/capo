@@ -12,7 +12,7 @@ class VersionInfo(TypedDict, closed=True):
     agent_version: NotRequired["capo_ecs.types.string.String"]
     """<p>The version number of the Amazon ECS container agent.</p>"""
     agent_hash: NotRequired["capo_ecs.types.string.String"]
-    r"""<p>The Git commit hash for the Amazon ECS container agent build on the <a href=\"https://github.com/aws/amazon-ecs-agent\">amazon-ecs-agent </a> GitHub repository.</p>"""
+    """<p>The Git commit hash for the Amazon ECS container agent build on the <a href="https://github.com/aws/amazon-ecs-agent">amazon-ecs-agent </a> GitHub repository.</p>"""
     docker_version: NotRequired["capo_ecs.types.string.String"]
     """<p>The Docker version that's running on the container instance.</p>"""
 

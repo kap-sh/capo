@@ -23,7 +23,7 @@ class AgentContactReference(TypedDict, closed=True):
     ]
     """<p>How the contact was initiated.</p>"""
     agent_contact_state: NotRequired["capo_connect.types.contact_state.ContactState"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/about-contact-states.html\">state of the contact</a>.</p> <note> <p>When <code>AgentContactState</code> is set to <code>CONNECTED_ONHOLD</code>, <code>StateStartTimestamp</code> is not changed. Instead, <code>StateStartTimestamp</code> reflects the time the contact was <code>CONNECTED</code> to the agent.</p> </note>"""
+    """<p>The <a href="https://docs.aws.amazon.com/connect/latest/adminguide/about-contact-states.html">state of the contact</a>.</p> <note> <p>When <code>AgentContactState</code> is set to <code>CONNECTED_ONHOLD</code>, <code>StateStartTimestamp</code> is not changed. Instead, <code>StateStartTimestamp</code> reflects the time the contact was <code>CONNECTED</code> to the agent.</p> </note>"""
     state_start_timestamp: NotRequired["capo_connect.types.timestamp.Timestamp"]
     """<p>The epoch timestamp when the contact state started.</p>"""
     connected_to_agent_timestamp: NotRequired["capo_connect.types.timestamp.Timestamp"]

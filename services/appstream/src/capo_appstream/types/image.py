@@ -86,7 +86,7 @@ class Image(TypedDict, closed=True):
     managed_software_included: NotRequired["capo_appstream.types.boolean.Boolean"]
     """<p>Indicates whether the image includes license-included applications.</p>"""
     image_type: NotRequired["capo_appstream.types.image_type.ImageType"]
-    r"""<p>The type of the image. Images created through AMI import have type \"custom\", while WorkSpaces Applications provided images have type \"native\". Custom images support additional instance types including GeneralPurpose, MemoryOptimized, ComputeOptimized, and Accelerated instance families.</p>"""
+    """<p>The type of the image. Images created through AMI import have type "custom", while WorkSpaces Applications provided images have type "native". Custom images support additional instance types including GeneralPurpose, MemoryOptimized, ComputeOptimized, and Accelerated instance families.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

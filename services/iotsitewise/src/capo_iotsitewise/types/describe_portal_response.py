@@ -28,7 +28,7 @@ class DescribePortalResponse(TypedDict, closed=True):
     portal_id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the portal.</p>"""
     portal_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the portal, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:portal/${PortalId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the portal, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:portal/${PortalId}</code> </p>"""
     portal_name: "capo_iotsitewise.types.name.Name"
     """<p>The name of the portal.</p>"""
     portal_description: NotRequired["capo_iotsitewise.types.description.Description"]
@@ -50,7 +50,7 @@ class DescribePortalResponse(TypedDict, closed=True):
     ]
     """<p>The portal's logo image, which is available at a URL.</p>"""
     role_arn: NotRequired["capo_iotsitewise.types.iam_arn.IamArn"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the service role that allows the portal's users to access your IoT SiteWise resources on your behalf. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-service-role.html\">Using service roles for IoT SiteWise Monitor</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the service role that allows the portal's users to access your IoT SiteWise resources on your behalf. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-service-role.html">Using service roles for IoT SiteWise Monitor</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     portal_auth_mode: NotRequired["capo_iotsitewise.types.auth_mode.AuthMode"]
     """<p>The service to use to authenticate users to the portal.</p>"""
     notification_sender_email: NotRequired["capo_iotsitewise.types.email.Email"]

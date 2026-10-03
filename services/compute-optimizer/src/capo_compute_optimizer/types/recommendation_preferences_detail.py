@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 class RecommendationPreferencesDetail(TypedDict, closed=True):
     scope: NotRequired["capo_compute_optimizer.types.scope.Scope"]
-    r"""<p>An object that describes the scope of the recommendation preference.</p> <p>Recommendation preferences can be created at the organization level (for management accounts of an organization only), account level, and resource level. For more information, see <a href=\"https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html\">Activating enhanced infrastructure metrics</a> in the <i>Compute Optimizer User Guide</i>.</p>"""
+    """<p>An object that describes the scope of the recommendation preference.</p> <p>Recommendation preferences can be created at the organization level (for management accounts of an organization only), account level, and resource level. For more information, see <a href="https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html">Activating enhanced infrastructure metrics</a> in the <i>Compute Optimizer User Guide</i>.</p>"""
     resource_type: NotRequired[
         "capo_compute_optimizer.types.resource_type.ResourceType"
     ]
@@ -26,7 +26,7 @@ class RecommendationPreferencesDetail(TypedDict, closed=True):
     enhanced_infrastructure_metrics: NotRequired[
         "capo_compute_optimizer.types.enhanced_infrastructure_metrics.EnhancedInfrastructureMetrics"
     ]
-    r"""<p>The status of the enhanced infrastructure metrics recommendation preference.</p> <p>When the recommendations page is refreshed, a status of <code>Active</code> confirms that the preference is applied to the recommendations, and a status of <code>Inactive</code> confirms that the preference isn't yet applied to recommendations.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html\">Enhanced infrastructure metrics</a> in the <i>Compute Optimizer User Guide</i>.</p>"""
+    """<p>The status of the enhanced infrastructure metrics recommendation preference.</p> <p>When the recommendations page is refreshed, a status of <code>Active</code> confirms that the preference is applied to the recommendations, and a status of <code>Inactive</code> confirms that the preference isn't yet applied to recommendations.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html">Enhanced infrastructure metrics</a> in the <i>Compute Optimizer User Guide</i>.</p>"""
     inferred_workload_types: NotRequired[
         "capo_compute_optimizer.types.inferred_workload_types_preference.InferredWorkloadTypesPreference"
     ]

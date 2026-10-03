@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class OperationEvent(TypedDict, closed=True):
     description: NotRequired["str"]
-    r"""<p>A description of the operation event. For example, \"Stop the EC2 instance i-abcdefgh987654321\".</p>"""
+    """<p>A description of the operation event. For example, "Stop the EC2 instance i-abcdefgh987654321".</p>"""
     resource: NotRequired["capo_ssm_sap.types.resource.Resource"]
     """<p>The resource involved in the operations event.</p> <p>Contains <code>ResourceArn</code> ARN and <code>ResourceType</code>.</p>"""
     status: NotRequired[

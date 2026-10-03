@@ -23,11 +23,11 @@ class Group(TypedDict, closed=True):
     distinguished_name: NotRequired[
         "capo_directory_service_data.types.distinguished_name.DistinguishedName"
     ]
-    r"""<p>The <a href=\"https://learn.microsoft.com/en-us/windows/win32/ad/object-names-and-identities#distinguished-name\">distinguished name</a> of the object. </p>"""
+    """<p>The <a href="https://learn.microsoft.com/en-us/windows/win32/ad/object-names-and-identities#distinguished-name">distinguished name</a> of the object. </p>"""
     group_type: NotRequired["capo_directory_service_data.types.group_type.GroupType"]
-    r"""<p> The AD group type. For details, see <a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#how-active-directory-security-groups-work\">Active Directory security group type</a>. </p>"""
+    """<p> The AD group type. For details, see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#how-active-directory-security-groups-work">Active Directory security group type</a>. </p>"""
     group_scope: NotRequired["capo_directory_service_data.types.group_scope.GroupScope"]
-    r"""<p> The scope of the AD group. For details, see <a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope\">Active Directory security groups</a> </p>"""
+    """<p> The scope of the AD group. For details, see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope">Active Directory security groups</a> </p>"""
     other_attributes: NotRequired[
         "capo_directory_service_data.types.attributes.Attributes"
     ]

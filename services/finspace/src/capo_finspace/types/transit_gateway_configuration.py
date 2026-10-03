@@ -16,7 +16,7 @@ class TransitGatewayConfiguration(TypedDict, closed=True):
     transit_gateway_id: "capo_finspace.types.transit_gateway_id.TransitGatewayID"
     """<p>The identifier of the transit gateway created by the customer to connect outbound traffics from kdb network to your internal network.</p>"""
     routable_cidr_space: "capo_finspace.types.valid_cidr_space.ValidCIDRSpace"
-    r"""<p>The routing CIDR on behalf of kdb environment. It could be any \"/26 range in the 100.64.0.0 CIDR space. After providing, it will be added to the customer's transit gateway routing table so that the traffics could be routed to kdb network.</p>"""
+    """<p>The routing CIDR on behalf of kdb environment. It could be any "/26 range in the 100.64.0.0 CIDR space. After providing, it will be added to the customer's transit gateway routing table so that the traffics could be routed to kdb network.</p>"""
     attachment_network_acl_configuration: NotRequired[
         "capo_finspace.types.network_acl_configuration.NetworkACLConfiguration"
     ]

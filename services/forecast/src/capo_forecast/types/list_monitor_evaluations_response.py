@@ -15,7 +15,7 @@ class ListMonitorEvaluationsResponse(TypedDict, closed=True):
     predictor_monitor_evaluations: NotRequired[
         "capo_forecast.types.predictor_monitor_evaluations.PredictorMonitorEvaluations"
     ]
-    r"""<p>The monitoring results and predictor events collected by the monitor resource during different windows of time.</p> <p>For information about monitoring see <a href=\"https://docs.aws.amazon.com/forecast/latest/dg/predictor-monitoring-results.html\">Viewing Monitoring Results</a>. For more information about retrieving monitoring results see <a href=\"https://docs.aws.amazon.com/forecast/latest/dg/predictor-monitoring-results.html\">Viewing Monitoring Results</a>.</p>"""
+    """<p>The monitoring results and predictor events collected by the monitor resource during different windows of time.</p> <p>For information about monitoring see <a href="https://docs.aws.amazon.com/forecast/latest/dg/predictor-monitoring-results.html">Viewing Monitoring Results</a>. For more information about retrieving monitoring results see <a href="https://docs.aws.amazon.com/forecast/latest/dg/predictor-monitoring-results.html">Viewing Monitoring Results</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

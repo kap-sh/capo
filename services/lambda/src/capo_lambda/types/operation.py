@@ -33,11 +33,11 @@ class Operation(TypedDict, closed=True):
     sub_type: NotRequired["capo_lambda.types.operation_sub_type.OperationSubType"]
     """<p>The subtype of the operation, providing additional categorization.</p>"""
     start_timestamp: "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
-    r"""<p>The date and time when the operation started, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
+    """<p>The date and time when the operation started, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
     end_timestamp: NotRequired[
         "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
     ]
-    r"""<p>The date and time when the operation ended, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
+    """<p>The date and time when the operation ended, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
     status: "capo_lambda.types.operation_status.OperationStatus"
     """<p>The current status of the operation.</p>"""
     execution_details: NotRequired[

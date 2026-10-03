@@ -13,7 +13,7 @@ class MetricDefinition(TypedDict, closed=True):
     name: NotRequired["capo_sagemaker.types.metric_name.MetricName"]
     """<p>The name of the metric.</p>"""
     regex: NotRequired["capo_sagemaker.types.metric_regex.MetricRegex"]
-    r"""<p>A regular expression that searches the output of a training job and gets the value of the metric. For more information about using regular expressions to define metrics, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html\">Defining metrics and environment variables</a>.</p>"""
+    """<p>A regular expression that searches the output of a training job and gets the value of the metric. For more information about using regular expressions to define metrics, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html">Defining metrics and environment variables</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

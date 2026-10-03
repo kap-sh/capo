@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class Tag(TypedDict, closed=True):
     key: "capo_fms.types.tag_key.TagKey"
-    r"""<p>Part of the key:value pair that defines a tag. You can use a tag key to describe a category of information, such as \"customer.\" Tag keys are case-sensitive.</p>"""
+    """<p>Part of the key:value pair that defines a tag. You can use a tag key to describe a category of information, such as "customer." Tag keys are case-sensitive.</p>"""
     value: "capo_fms.types.tag_value.TagValue"
-    r"""<p>Part of the key:value pair that defines a tag. You can use a tag value to describe a specific value within a category, such as \"companyA\" or \"companyB.\" Tag values are case-sensitive. </p>"""
+    """<p>Part of the key:value pair that defines a tag. You can use a tag value to describe a specific value within a category, such as "companyA" or "companyB." Tag values are case-sensitive. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -54,7 +54,7 @@ class DescribeIndexResponse(TypedDict, closed=True):
     capacity_units: NotRequired[
         "capo_kendra.types.capacity_units_configuration.CapacityUnitsConfiguration"
     ]
-    r"""<p>For Enterprise Edition indexes, you can choose to use additional capacity to meet the needs of your application. This contains the capacity units used for the index. A query or document storage capacity of zero indicates that the index is using the default capacity. For more information on the default capacity for an index and adjusting this, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/adjusting-capacity.html\">Adjusting capacity</a>.</p>"""
+    """<p>For Enterprise Edition indexes, you can choose to use additional capacity to meet the needs of your application. This contains the capacity units used for the index. A query or document storage capacity of zero indicates that the index is using the default capacity. For more information on the default capacity for an index and adjusting this, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/adjusting-capacity.html">Adjusting capacity</a>.</p>"""
     user_token_configurations: NotRequired[
         "capo_kendra.types.user_token_configuration_list.UserTokenConfigurationList"
     ]

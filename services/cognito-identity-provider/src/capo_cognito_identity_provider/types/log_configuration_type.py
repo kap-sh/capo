@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class LogConfigurationType(TypedDict, closed=True):
     log_level: "capo_cognito_identity_provider.types.log_level.LogLevel"
-    r"""<p>The <code>errorlevel</code> selection of logs that a user pool sends for detailed activity logging. To send <code>userNotification</code> activity with <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/exporting-quotas-and-usage.html\">information about message delivery</a>, choose <code>ERROR</code> with <code>CloudWatchLogsConfiguration</code>. To send <code>userAuthEvents</code> activity with user logs from threat protection with the Plus feature plan, choose <code>INFO</code> with one of <code>CloudWatchLogsConfiguration</code>, <code>FirehoseConfiguration</code>, or <code>S3Configuration</code>.</p>"""
+    """<p>The <code>errorlevel</code> selection of logs that a user pool sends for detailed activity logging. To send <code>userNotification</code> activity with <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/exporting-quotas-and-usage.html">information about message delivery</a>, choose <code>ERROR</code> with <code>CloudWatchLogsConfiguration</code>. To send <code>userAuthEvents</code> activity with user logs from threat protection with the Plus feature plan, choose <code>INFO</code> with one of <code>CloudWatchLogsConfiguration</code>, <code>FirehoseConfiguration</code>, or <code>S3Configuration</code>.</p>"""
     event_source: (
         "capo_cognito_identity_provider.types.event_source_name.EventSourceName"
     )
@@ -28,11 +28,11 @@ class LogConfigurationType(TypedDict, closed=True):
     s3_configuration: NotRequired[
         "capo_cognito_identity_provider.types.s3_configuration_type.S3ConfigurationType"
     ]
-    r"""<p>The Amazon S3 bucket destination of user activity log export with threat protection. To activate this setting, your user pool must be on the <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html\"> Plus tier</a>.</p>"""
+    """<p>The Amazon S3 bucket destination of user activity log export with threat protection. To activate this setting, your user pool must be on the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html"> Plus tier</a>.</p>"""
     firehose_configuration: NotRequired[
         "capo_cognito_identity_provider.types.firehose_configuration_type.FirehoseConfigurationType"
     ]
-    r"""<p>The Amazon Data Firehose stream destination of user activity log export with threat protection. To activate this setting, your user pool must be on the <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html\"> Plus tier</a>.</p>"""
+    """<p>The Amazon Data Firehose stream destination of user activity log export with threat protection. To activate this setting, your user pool must be on the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html"> Plus tier</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

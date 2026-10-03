@@ -28,7 +28,7 @@ class SearchContactFlowsRequest(TypedDict, closed=True):
     search_criteria: NotRequired[
         "capo_connect.types.contact_flow_search_criteria.ContactFlowSearchCriteria"
     ]
-    r"""<p>The search criteria to be used to return flows.</p> <note> <p>The <code>name</code> and <code>description</code> fields support \"contains\" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will result in invalid results.</p> </note>"""
+    """<p>The search criteria to be used to return flows.</p> <note> <p>The <code>name</code> and <code>description</code> fields support "contains" queries with a minimum of 2 characters and a maximum of 25 characters. Any queries with character lengths outside of this range will result in invalid results.</p> </note>"""
 
 
 # --- restJson1 ser/de ---

@@ -30,7 +30,7 @@ class DescribeConnectionResponse(TypedDict, closed=True):
     invocation_connectivity_parameters: NotRequired[
         "capo_eventbridge.types.describe_connection_connectivity_parameters.DescribeConnectionConnectivityParameters"
     ]
-    r"""<p>For connections to private APIs The parameters EventBridge uses to invoke the resource endpoint.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/connection-private.html\">Connecting to private APIs</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.</p>"""
+    """<p>For connections to private APIs The parameters EventBridge uses to invoke the resource endpoint.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/connection-private.html">Connecting to private APIs</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.</p>"""
     connection_state: NotRequired[
         "capo_eventbridge.types.connection_state.ConnectionState"
     ]
@@ -50,7 +50,7 @@ class DescribeConnectionResponse(TypedDict, closed=True):
     kms_key_identifier: NotRequired[
         "capo_eventbridge.types.kms_key_identifier.KmsKeyIdentifier"
     ]
-    r"""<p>The identifier of the KMS customer managed key for EventBridge to use to encrypt the connection, if one has been specified.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/encryption-connections.html\">Encrypting connections</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>The identifier of the KMS customer managed key for EventBridge to use to encrypt the connection, if one has been specified.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/encryption-connections.html">Encrypting connections</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
     auth_parameters: NotRequired[
         "capo_eventbridge.types.connection_auth_response_parameters.ConnectionAuthResponseParameters"
     ]

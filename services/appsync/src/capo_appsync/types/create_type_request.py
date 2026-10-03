@@ -15,7 +15,7 @@ class CreateTypeRequest(TypedDict, closed=True):
     api_id: "capo_appsync.types.string.String"
     """<p>The API ID.</p>"""
     definition: "capo_appsync.types.string.String"
-    r"""<p>The type definition, in GraphQL Schema Definition Language (SDL) format.</p> <p>For more information, see the <a href=\"http://graphql.org/learn/schema/\">GraphQL SDL documentation</a>.</p>"""
+    """<p>The type definition, in GraphQL Schema Definition Language (SDL) format.</p> <p>For more information, see the <a href="http://graphql.org/learn/schema/">GraphQL SDL documentation</a>.</p>"""
     format: "capo_appsync.types.type_definition_format.TypeDefinitionFormat"
     """<p>The type format: SDL or JSON.</p>"""
 

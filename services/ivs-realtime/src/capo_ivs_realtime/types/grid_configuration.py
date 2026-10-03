@@ -16,7 +16,7 @@ class GridConfiguration(TypedDict, closed=True):
     featured_participant_attribute: NotRequired[
         "capo_ivs_realtime.types.attribute_key.AttributeKey"
     ]
-    r"""<p>This attribute name identifies the featured slot. A participant with this attribute set to <code>\"true\"</code> (as a string value) in <a>ParticipantTokenConfiguration</a> is placed in the featured slot. Default: <code>\"\"</code> (no featured participant).</p>"""
+    """<p>This attribute name identifies the featured slot. A participant with this attribute set to <code>"true"</code> (as a string value) in <a>ParticipantTokenConfiguration</a> is placed in the featured slot. Default: <code>""</code> (no featured participant).</p>"""
     omit_stopped_video: "capo_ivs_realtime.types.omit_stopped_video.OmitStoppedVideo"
     """<p>Determines whether to omit participants with stopped video in the composition. Default: <code>false</code>.</p>"""
     video_aspect_ratio: NotRequired[
@@ -32,7 +32,7 @@ class GridConfiguration(TypedDict, closed=True):
     participant_order_attribute: NotRequired[
         "capo_ivs_realtime.types.attribute_key.AttributeKey"
     ]
-    r"""<p>Attribute name in <a>ParticipantTokenConfiguration</a> identifying the participant ordering key. Participants with <code>participantOrderAttribute</code> set to <code>\"\"</code> or not specified are ordered based on their arrival time into the stage.</p>"""
+    """<p>Attribute name in <a>ParticipantTokenConfiguration</a> identifying the participant ordering key. Participants with <code>participantOrderAttribute</code> set to <code>""</code> or not specified are ordered based on their arrival time into the stage.</p>"""
 
 
 # --- restJson1 ser/de ---

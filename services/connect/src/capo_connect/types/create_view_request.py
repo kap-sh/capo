@@ -30,7 +30,7 @@ class CreateViewRequest(TypedDict, closed=True):
     name: "capo_connect.types.view_name.ViewName"
     """<p>The name of the view.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags associated with the view resource (not specific to view version).These tags can be used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags associated with the view resource (not specific to view version).These tags can be used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -29,7 +29,7 @@ class UpdateContentRequest(TypedDict, closed=True):
     metadata: NotRequired["capo_wisdom.types.content_metadata.ContentMetadata"]
     """<p>A key/value map to store attributes without affecting tagging or recommendations. For example, when synchronizing data between an external system and Wisdom, you can store an external version identifier as metadata to utilize for determining drift.</p>"""
     upload_id: NotRequired["capo_wisdom.types.upload_id.UploadId"]
-    r"""<p>A pointer to the uploaded asset. This value is returned by <a href=\"https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html\">StartContentUpload</a>. </p>"""
+    """<p>A pointer to the uploaded asset. This value is returned by <a href="https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html">StartContentUpload</a>. </p>"""
 
 
 # --- restJson1 ser/de ---

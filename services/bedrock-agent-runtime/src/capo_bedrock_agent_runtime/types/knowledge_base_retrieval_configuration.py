@@ -13,11 +13,11 @@ class KnowledgeBaseRetrievalConfiguration(TypedDict, closed=True):
     vector_search_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.knowledge_base_vector_search_configuration.KnowledgeBaseVectorSearchConfiguration"
     ]
-    r"""<p>Contains details about how the results from the vector search should be returned. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html\">Query configurations</a>.</p>"""
+    """<p>Contains details about how the results from the vector search should be returned. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html">Query configurations</a>.</p>"""
     managed_search_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.managed_search_configuration.ManagedSearchConfiguration"
     ]
-    r"""<p>Contains configurations for managed search. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html\">Query configurations</a>.</p>"""
+    """<p>Contains configurations for managed search. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html">Query configurations</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

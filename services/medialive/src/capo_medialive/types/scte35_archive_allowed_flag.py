@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""Corresponds to the archive_allowed parameter. A value of ARCHIVE_NOT_ALLOWED corresponds to 0 (false) in the SCTE-35 specification. If you include one of the \"restriction\" flags then you must include all four of them."""
+"""Corresponds to the archive_allowed parameter. A value of ARCHIVE_NOT_ALLOWED corresponds to 0 (false) in the SCTE-35 specification. If you include one of the "restriction" flags then you must include all four of them."""
 Scte35ArchiveAllowedFlag: TypeAlias = Literal[
     "ARCHIVE_NOT_ALLOWED",
     "ARCHIVE_ALLOWED",

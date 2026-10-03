@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ImportApiRequest(TypedDict, closed=True):
     basepath: NotRequired["capo_apigatewayv2.types.__string.__string"]
-    r"""<p>Specifies how to interpret the base path of the API during import. Valid values are ignore, prepend, and split. The default value is ignore. To learn more, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api-basePath.html\">Set the OpenAPI basePath Property</a>. Supported only for HTTP APIs.</p>"""
+    """<p>Specifies how to interpret the base path of the API during import. Valid values are ignore, prepend, and split. The default value is ignore. To learn more, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api-basePath.html">Set the OpenAPI basePath Property</a>. Supported only for HTTP APIs.</p>"""
     body: NotRequired["capo_apigatewayv2.types.__string.__string"]
     """<p>The OpenAPI definition. Supported only for HTTP APIs.</p>"""
     fail_on_warnings: NotRequired["capo_apigatewayv2.types.__boolean.__boolean"]

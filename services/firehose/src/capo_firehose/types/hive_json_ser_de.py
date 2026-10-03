@@ -12,7 +12,7 @@ class HiveJsonSerDe(TypedDict, closed=True):
     timestamp_formats: NotRequired[
         "capo_firehose.types.list_of_non_empty_strings.ListOfNonEmptyStrings"
     ]
-    r"""<p>Indicates how you want Firehose to parse the date and timestamps that may be present in your input data JSON. To specify these format strings, follow the pattern syntax of JodaTime's DateTimeFormat format strings. For more information, see <a href=\"https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html\">Class DateTimeFormat</a>. You can also use the special value <code>millis</code> to parse timestamps in epoch milliseconds. If you don't specify a format, Firehose uses <code>java.sql.Timestamp::valueOf</code> by default.</p>"""
+    """<p>Indicates how you want Firehose to parse the date and timestamps that may be present in your input data JSON. To specify these format strings, follow the pattern syntax of JodaTime's DateTimeFormat format strings. For more information, see <a href="https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html">Class DateTimeFormat</a>. You can also use the special value <code>millis</code> to parse timestamps in epoch milliseconds. If you don't specify a format, Firehose uses <code>java.sql.Timestamp::valueOf</code> by default.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

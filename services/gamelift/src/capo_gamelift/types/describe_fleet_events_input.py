@@ -15,9 +15,9 @@ class DescribeFleetEventsInput(TypedDict, closed=True):
     fleet_id: NotRequired["capo_gamelift.types.fleet_id_or_arn.FleetIdOrArn"]
     """<p>A unique identifier for the fleet to get event logs for. You can use either the fleet ID or ARN value.</p>"""
     start_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>The earliest date to retrieve event logs for. If no start time is specified, this call returns entries starting from when the fleet was created to the specified end time. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\").</p>"""
+    """<p>The earliest date to retrieve event logs for. If no start time is specified, this call returns entries starting from when the fleet was created to the specified end time. Format is a number expressed in Unix time as milliseconds (ex: "1469498468.057").</p>"""
     end_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>The most recent date to retrieve event logs for. If no end time is specified, this call returns entries from the specified start time up to the present. Format is a number expressed in Unix time as milliseconds (ex: \"1469498468.057\").</p>"""
+    """<p>The most recent date to retrieve event logs for. If no end time is specified, this call returns entries from the specified start time up to the present. Format is a number expressed in Unix time as milliseconds (ex: "1469498468.057").</p>"""
     limit: NotRequired["capo_gamelift.types.positive_integer.PositiveInteger"]
     """<p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>"""
     next_token: NotRequired[

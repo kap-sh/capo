@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class Resource(TypedDict, closed=True):
     arn: NotRequired["capo_ram.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the resource.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource.</p>"""
     type: NotRequired["capo_ram.types.string.String"]
     """<p>The resource type. This takes the form of: <code>service-code</code>:<code>resource-code</code>, and is case-insensitive. For example, an Amazon EC2 Subnet would be represented by the string <code>ec2:subnet</code>.</p>"""
     resource_share_arn: NotRequired["capo_ram.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the resource share this resource is associated with.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource share this resource is associated with.</p>"""
     resource_group_arn: NotRequired["capo_ram.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the resource group. This value is available only if the resource is part of a resource group.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource group. This value is available only if the resource is part of a resource group.</p>"""
     status: NotRequired["capo_ram.types.resource_status.ResourceStatus"]
     """<p>The current status of the resource.</p>"""
     status_message: NotRequired["capo_ram.types.string.String"]

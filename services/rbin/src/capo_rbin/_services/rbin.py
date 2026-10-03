@@ -174,7 +174,7 @@ class rbinClient:
             "capo_rbin.types.exclude_resource_tags.ExcludeResourceTags"
         ] = None,
     ) -> "capo_rbin.types.create_rule_response.CreateRuleResponse":
-        r"""<p>Creates a Recycle Bin retention rule. You can create two types of retention rules:</p> <ul> <li> <p> <b>Tag-level retention rules</b> - These retention rules use resource tags to identify the resources to protect. For each retention rule, you specify one or more tag key and value pairs. Resources (of the specified type) that have at least one of these tag key and value pairs are automatically retained in the Recycle Bin upon deletion. Use this type of retention rule to protect specific resources in your account based on their tags.</p> </li> <li> <p> <b>Region-level retention rules</b> - These retention rules, by default, apply to all of the resources (of the specified type) in the Region, even if the resources are not tagged. However, you can specify exclusion tags to exclude resources that have specific tags. Use this type of retention rule to protect all resources of a specific type in a Region.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/recycle-bin.html\"> Create Recycle Bin retention rules</a> in the <i>Amazon EBS User Guide</i>.</p>
+        """<p>Creates a Recycle Bin retention rule. You can create two types of retention rules:</p> <ul> <li> <p> <b>Tag-level retention rules</b> - These retention rules use resource tags to identify the resources to protect. For each retention rule, you specify one or more tag key and value pairs. Resources (of the specified type) that have at least one of these tag key and value pairs are automatically retained in the Recycle Bin upon deletion. Use this type of retention rule to protect specific resources in your account based on their tags.</p> </li> <li> <p> <b>Region-level retention rules</b> - These retention rules, by default, apply to all of the resources (of the specified type) in the Region, even if the resources are not tagged. However, you can specify exclusion tags to exclude resources that have specific tags. Use this type of retention rule to protect all resources of a specific type in a Region.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/recycle-bin.html"> Create Recycle Bin retention rules</a> in the <i>Amazon EBS User Guide</i>.</p>
 
         Args:
             retention_period: <p>Information about the retention period for which the retention rule is to retain resources.</p>
@@ -236,7 +236,7 @@ class rbinClient:
         *,
         config_overrides: Optional[rbinClientConfig] = None,
     ) -> "capo_rbin.types.delete_rule_response.DeleteRuleResponse":
-        r"""<p>Deletes a Recycle Bin retention rule. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin-working-with-rules.html#recycle-bin-delete-rule\"> Delete Recycle Bin retention rules</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+        """<p>Deletes a Recycle Bin retention rule. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin-working-with-rules.html#recycle-bin-delete-rule"> Delete Recycle Bin retention rules</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
 
         Args:
             identifier: <p>The unique ID of the retention rule.</p>
@@ -664,7 +664,7 @@ class rbinClient:
             "capo_rbin.types.exclude_resource_tags.ExcludeResourceTags"
         ] = None,
     ) -> "capo_rbin.types.update_rule_response.UpdateRuleResponse":
-        r"""<p>Updates an existing Recycle Bin retention rule. You can update a retention rule's description, resource tags, and retention period at any time after creation. You can't update a retention rule's resource type after creation. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin-working-with-rules.html#recycle-bin-update-rule\"> Update Recycle Bin retention rules</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+        """<p>Updates an existing Recycle Bin retention rule. You can update a retention rule's description, resource tags, and retention period at any time after creation. You can't update a retention rule's resource type after creation. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin-working-with-rules.html#recycle-bin-update-rule"> Update Recycle Bin retention rules</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
 
         Args:
             identifier: <p>The unique ID of the retention rule.</p>

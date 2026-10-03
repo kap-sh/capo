@@ -22,7 +22,7 @@ class ProfilingGroupDescription(TypedDict, closed=True):
     agent_orchestration_config: NotRequired[
         "capo_codeguruprofiler.types.agent_orchestration_config.AgentOrchestrationConfig"
     ]
-    r"""<p> An <a href=\"https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentOrchestrationConfig.html\"> <code>AgentOrchestrationConfig</code> </a> object that indicates if the profiling group is enabled for profiled or not. </p>"""
+    """<p> An <a href="https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentOrchestrationConfig.html"> <code>AgentOrchestrationConfig</code> </a> object that indicates if the profiling group is enabled for profiled or not. </p>"""
     arn: NotRequired[
         "capo_codeguruprofiler.types.profiling_group_arn.ProfilingGroupArn"
     ]
@@ -34,7 +34,7 @@ class ProfilingGroupDescription(TypedDict, closed=True):
     profiling_status: NotRequired[
         "capo_codeguruprofiler.types.profiling_status.ProfilingStatus"
     ]
-    r"""<p> A <a href=\"https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_ProfilingStatus.html\"> <code>ProfilingStatus</code> </a> object that includes information about the last time a profile agent pinged back, the last time a profile was received, and the aggregation period and start time for the most recent aggregated profile. </p>"""
+    """<p> A <a href="https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_ProfilingStatus.html"> <code>ProfilingStatus</code> </a> object that includes information about the last time a profile agent pinged back, the last time a profile was received, and the aggregation period and start time for the most recent aggregated profile. </p>"""
     compute_platform: NotRequired[
         "capo_codeguruprofiler.types.compute_platform.ComputePlatform"
     ]

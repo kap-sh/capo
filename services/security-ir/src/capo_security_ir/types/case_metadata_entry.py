@@ -7,7 +7,7 @@ from capo_security_ir.errors import DeserializationError
 
 class CaseMetadataEntry(TypedDict, closed=True):
     key: "str"
-    r"""<p>The identifier for the metadata field. This key uniquely identifies the type of metadata being stored, such as \"severity\", \"category\", or \"assignee\".</p>"""
+    """<p>The identifier for the metadata field. This key uniquely identifies the type of metadata being stored, such as "severity", "category", or "assignee".</p>"""
     value: "str"
     """<p>The value associated with the metadata key. This contains the actual data for the metadata field identified by the key.</p>"""
 

@@ -14,7 +14,7 @@ class EndpointConfiguration(TypedDict, closed=True):
     types: NotRequired[
         "capo_api_gateway.types.list_of_endpoint_type.ListOfEndpointType"
     ]
-    r"""<p>A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API and its custom domain name, the endpoint type is <code>\"EDGE\"</code>. For a regional API and its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is <code>PRIVATE</code>.</p>"""
+    """<p>A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is <code>PRIVATE</code>.</p>"""
     ip_address_type: NotRequired["capo_api_gateway.types.ip_address_type.IpAddressType"]
     """<p>The IP address types that can invoke an API (RestApi) or a DomainName. Use <code>ipv4</code> to allow only IPv4 addresses to invoke an API or DomainName, or use <code>dualstack</code> to allow both IPv4 and IPv6 addresses to invoke an API or a DomainName. For the <code>PRIVATE</code> endpoint type, only <code>dualstack</code> is supported.</p>"""
     vpc_endpoint_ids: NotRequired["capo_api_gateway.types.list_of_string.ListOfString"]

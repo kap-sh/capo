@@ -1101,7 +1101,7 @@ class CloudWatchOmniClient:
         r"""Creates a new SQL view. A view is a named, reusable SQL query that can be referenced from telemetry queries. View names must be unique within the account and region. Only USER views can be created — MANAGED views are provisioned by AWS.
 
         Args:
-            name: The name of the view. Must begin with the \"view.\" prefix. View names must be unique within the account and region.
+            name: The name of the view. Must begin with the "view." prefix. View names must be unique within the account and region.
             definition: The SQL query that defines the view.
             description: A description of the view.
             tags: Resource tags.

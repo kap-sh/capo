@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class PutRawEventsSystemMetadata(TypedDict, closed=True):
     content_type: "capo_eventbridgev2.types.content_type.ContentType"
-    r"""Content type of the event data (e.g., \"application/cloudevents+json\")."""
+    """Content type of the event data (e.g., "application/cloudevents+json")."""
     deduplication_id: NotRequired[
         "capo_eventbridgev2.types.event_deduplication_id.EventDeduplicationId"
     ]

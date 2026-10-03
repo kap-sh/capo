@@ -18,7 +18,7 @@ class ConnectorEntity(TypedDict, closed=True):
     label: NotRequired["capo_appflow.types.label.Label"]
     """<p> The label applied to the connector entity. </p>"""
     has_nested_entities: "capo_appflow.types.boolean.Boolean"
-    r"""<p> Specifies whether the connector entity is a parent or a category and has more entities nested underneath it. If another call is made with <code>entitiesPath = \"the_current_entity_name_with_hasNestedEntities_true\"</code>, then it returns the nested entities underneath it. This provides a way to retrieve all supported entities in a recursive fashion. </p>"""
+    """<p> Specifies whether the connector entity is a parent or a category and has more entities nested underneath it. If another call is made with <code>entitiesPath = "the_current_entity_name_with_hasNestedEntities_true"</code>, then it returns the nested entities underneath it. This provides a way to retrieve all supported entities in a recursive fashion. </p>"""
 
 
 # --- restJson1 ser/de ---

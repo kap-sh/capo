@@ -9,7 +9,7 @@ class IcebergPartitionField(TypedDict, closed=True):
     source_id: "int"
     """<p>The ID of the source schema field to partition by. This must reference a valid field ID from the table schema.</p>"""
     transform: "str"
-    r"""<p>The partition transform to apply to the source field. Supported transforms include <code>identity</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>bucket</code>, and <code>truncate</code>. For more information, see the <a href=\"https://iceberg.apache.org/spec/#partition-transforms\">Apache Iceberg partition transforms documentation</a>.</p>"""
+    """<p>The partition transform to apply to the source field. Supported transforms include <code>identity</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>bucket</code>, and <code>truncate</code>. For more information, see the <a href="https://iceberg.apache.org/spec/#partition-transforms">Apache Iceberg partition transforms documentation</a>.</p>"""
     name: "str"
     """<p>The name for this partition field. This name is used in the partitioned file paths.</p>"""
     field_id: NotRequired["int"]

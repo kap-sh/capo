@@ -35,7 +35,7 @@ class MultipartUpload(TypedDict, closed=True):
     ]
     """<p>The algorithm that was used to create a checksum of the object.</p>"""
     checksum_type: NotRequired["capo_s3.types.checksum_type.ChecksumType"]
-    r"""<p>The checksum type that is used to calculate the object’s checksum value. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The checksum type that is used to calculate the object’s checksum value. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"""
 
 
 # --- restXml ser/de ---

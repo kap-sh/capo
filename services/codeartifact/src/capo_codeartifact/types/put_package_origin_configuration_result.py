@@ -12,7 +12,7 @@ class PutPackageOriginConfigurationResult(TypedDict, closed=True):
     origin_configuration: NotRequired[
         "capo_codeartifact.types.package_origin_configuration.PackageOriginConfiguration"
     ]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageOriginConfiguration.html\">PackageOriginConfiguration</a> object that describes the origin configuration set for the package. It contains a <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageOriginRestrictions.html\">PackageOriginRestrictions</a> object that describes how new versions of the package can be introduced to the repository.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageOriginConfiguration.html">PackageOriginConfiguration</a> object that describes the origin configuration set for the package. It contains a <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageOriginRestrictions.html">PackageOriginRestrictions</a> object that describes how new versions of the package can be introduced to the repository.</p>"""
 
 
 # --- restJson1 ser/de ---

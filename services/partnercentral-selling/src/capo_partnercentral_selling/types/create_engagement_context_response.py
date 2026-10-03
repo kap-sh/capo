@@ -23,7 +23,7 @@ class CreateEngagementContextResponse(TypedDict, closed=True):
     engagement_last_modified_at: NotRequired[
         "capo_partnercentral_selling.types.date_time.DateTime"
     ]
-    r"""<p>The timestamp indicating when the engagement was last modified as a result of adding the context, in ISO 8601 format (UTC). Example: \"2023-05-01T20:37:46Z\".</p>"""
+    """<p>The timestamp indicating when the engagement was last modified as a result of adding the context, in ISO 8601 format (UTC). Example: "2023-05-01T20:37:46Z".</p>"""
     context_id: NotRequired[
         "capo_partnercentral_selling.types.engagement_context_identifier.EngagementContextIdentifier"
     ]

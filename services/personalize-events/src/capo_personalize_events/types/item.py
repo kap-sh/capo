@@ -17,7 +17,7 @@ class Item(TypedDict, closed=True):
     properties: NotRequired[
         "capo_personalize_events.types.synthesized_json_item_properties.SynthesizedJsonItemProperties"
     ]
-    r"""<p>A string map of item-specific metadata. Each element in the map consists of a key-value pair. For example, <code>{\"numberOfRatings\": \"12\"}</code>.</p> <p>The keys use camel case names that match the fields in the schema for the Items dataset. In the previous example, the <code>numberOfRatings</code> matches the 'NUMBER_OF_RATINGS' field defined in the Items schema. For categorical string data, to include multiple categories for a single item, separate each category with a pipe separator (<code>|</code>). For example, <code>\\"Horror|Action\\"</code>.</p>"""
+    r"""<p>A string map of item-specific metadata. Each element in the map consists of a key-value pair. For example, <code>{"numberOfRatings": "12"}</code>.</p> <p>The keys use camel case names that match the fields in the schema for the Items dataset. In the previous example, the <code>numberOfRatings</code> matches the 'NUMBER_OF_RATINGS' field defined in the Items schema. For categorical string data, to include multiple categories for a single item, separate each category with a pipe separator (<code>|</code>). For example, <code>\"Horror|Action\"</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class TriggerDetails(TypedDict, closed=True):
     source: "capo_ssm_incidents.types.incident_source.IncidentSource"
-    r"""<p>Identifies the service that sourced the event. All events sourced from within Amazon Web Services begin with \"<code>aws.</code>\" Customer-generated events can have any value here, as long as it doesn't begin with \"<code>aws.</code>\" We recommend the use of Java package-name style reverse domain-name strings. </p>"""
+    """<p>Identifies the service that sourced the event. All events sourced from within Amazon Web Services begin with "<code>aws.</code>" Customer-generated events can have any value here, as long as it doesn't begin with "<code>aws.</code>" We recommend the use of Java package-name style reverse domain-name strings. </p>"""
     trigger_arn: NotRequired["capo_ssm_incidents.types.arn.Arn"]
     """<p>The Amazon Resource Name (ARN) of the source that detected the incident.</p>"""
     timestamp: "datetime.datetime"

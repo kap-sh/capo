@@ -17,7 +17,7 @@ class GameServerGroupAutoScalingPolicy(TypedDict, closed=True):
     target_tracking_configuration: NotRequired[
         "capo_gamelift.types.target_tracking_configuration.TargetTrackingConfiguration"
     ]
-    r"""<p>Settings for a target-based scaling policy applied to Auto Scaling group. These settings are used to create a target-based policy that tracks the Amazon GameLift Servers FleetIQ metric <code>\"PercentUtilizedGameServers\"</code> and specifies a target value for the metric. As player usage changes, the policy triggers to adjust the game server group capacity so that the metric returns to the target value. </p>"""
+    """<p>Settings for a target-based scaling policy applied to Auto Scaling group. These settings are used to create a target-based policy that tracks the Amazon GameLift Servers FleetIQ metric <code>"PercentUtilizedGameServers"</code> and specifies a target value for the metric. As player usage changes, the policy triggers to adjust the game server group capacity so that the metric returns to the target value. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -19,7 +19,7 @@ class IdMappingJobMetrics(TypedDict, closed=True):
     total_mapped_target_records: NotRequired["int"]
     """<p> The total number of distinct mapped target records.</p>"""
     unique_records_loaded: NotRequired["int"]
-    r"""<p>The number of de-duplicated processed records across all runs, excluding deletion-related records. Duplicates are determined by the field marked as UNIQUE_ID in your schema mapping. Records sharing the same value in this field are considered duplicates. For example, if you specified \"customer_id\" as a UNIQUE_ID field and had three records with the same customer_id value, they would count as one unique record in this metric. </p>"""
+    """<p>The number of de-duplicated processed records across all runs, excluding deletion-related records. Duplicates are determined by the field marked as UNIQUE_ID in your schema mapping. Records sharing the same value in this field are considered duplicates. For example, if you specified "customer_id" as a UNIQUE_ID field and had three records with the same customer_id value, they would count as one unique record in this metric. </p>"""
     new_mapped_records: NotRequired["int"]
     """<p> The number of new mapped records.</p>"""
     new_mapped_source_records: NotRequired["int"]

@@ -20,7 +20,7 @@ class ProtectConfigurationRuleSetNumberOverride(TypedDict, closed=True):
     )
     """<p>The destination phone number in E.164 format.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the rule was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the rule was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     action: "capo_pinpoint_sms_voice_v2.types.protect_configuration_rule_override_action.ProtectConfigurationRuleOverrideAction"
     """<p>The action for the rule to perform of either blocking or allowing messages to the destination phone number.</p>"""
     iso_country_code: NotRequired[

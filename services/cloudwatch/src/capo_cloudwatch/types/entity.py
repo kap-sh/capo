@@ -15,11 +15,11 @@ class Entity(TypedDict, closed=True):
     key_attributes: NotRequired[
         "capo_cloudwatch.types.entity_key_attributes_map.EntityKeyAttributesMap"
     ]
-    r"""<p>The attributes of the entity which identify the specific entity, as a list of key-value pairs. Entities with the same <code>KeyAttributes</code> are considered to be the same entity. For an entity to be valid, the <code>KeyAttributes</code> must exist and be formatted correctly.</p> <p>There are five allowed attributes (key names): <code>Type</code>, <code>ResourceType</code>, <code>Identifier</code>, <code>Name</code>, and <code>Environment</code>.</p> <p>For details about how to use the key attributes to specify an entity, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/adding-your-own-related-telemetry.html\">How to add related information to telemetry</a> in the <i>CloudWatch User Guide</i>.</p>"""
+    """<p>The attributes of the entity which identify the specific entity, as a list of key-value pairs. Entities with the same <code>KeyAttributes</code> are considered to be the same entity. For an entity to be valid, the <code>KeyAttributes</code> must exist and be formatted correctly.</p> <p>There are five allowed attributes (key names): <code>Type</code>, <code>ResourceType</code>, <code>Identifier</code>, <code>Name</code>, and <code>Environment</code>.</p> <p>For details about how to use the key attributes to specify an entity, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/adding-your-own-related-telemetry.html">How to add related information to telemetry</a> in the <i>CloudWatch User Guide</i>.</p>"""
     attributes: NotRequired[
         "capo_cloudwatch.types.entity_attributes_map.EntityAttributesMap"
     ]
-    r"""<p>Additional attributes of the entity that are not used to specify the identity of the entity. A list of key-value pairs.</p> <p>For details about how to use the attributes, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/adding-your-own-related-telemetry.html\">How to add related information to telemetry</a> in the <i>CloudWatch User Guide</i>.</p>"""
+    """<p>Additional attributes of the entity that are not used to specify the identity of the entity. A list of key-value pairs.</p> <p>For details about how to use the attributes, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/adding-your-own-related-telemetry.html">How to add related information to telemetry</a> in the <i>CloudWatch User Guide</i>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

@@ -39,7 +39,7 @@ class FeaturedResultsItem(TypedDict, closed=True):
     ]
     """<p>An array of document attributes assigned to a featured document in the search results. For example, the document author (<code>_author</code>) or the source URI (<code>_source_uri</code>) of the document.</p>"""
     feedback_token: NotRequired["capo_kendra.types.feedback_token.FeedbackToken"]
-    r"""<p>A token that identifies a particular featured result from a particular query. Use this token to provide click-through feedback for the result. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/submitting-feedback.html\">Submitting feedback</a>.</p>"""
+    """<p>A token that identifies a particular featured result from a particular query. Use this token to provide click-through feedback for the result. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/submitting-feedback.html">Submitting feedback</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -21,7 +21,7 @@ class RenderUiTemplateRequest(TypedDict, closed=True):
     human_task_ui_arn: NotRequired[
         "capo_sagemaker.types.human_task_ui_arn.HumanTaskUiArn"
     ]
-    r"""<p>The <code>HumanTaskUiArn</code> of the worker UI that you want to render. Do not provide a <code>HumanTaskUiArn</code> if you use the <code>UiTemplate</code> parameter.</p> <p>See a list of available Human Ui Amazon Resource Names (ARNs) in <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UiConfig.html\">UiConfig</a>.</p>"""
+    """<p>The <code>HumanTaskUiArn</code> of the worker UI that you want to render. Do not provide a <code>HumanTaskUiArn</code> if you use the <code>UiTemplate</code> parameter.</p> <p>See a list of available Human Ui Amazon Resource Names (ARNs) in <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UiConfig.html">UiConfig</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

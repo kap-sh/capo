@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 
 class UpdateEvaluationFormRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     evaluation_form_id: "capo_connect.types.resource_id.ResourceId"
     """<p>The unique identifier for the evaluation form.</p>"""
     evaluation_form_version: "capo_connect.types.version_number.VersionNumber"
@@ -55,7 +55,7 @@ class UpdateEvaluationFormRequest(TypedDict, closed=True):
     as_draft: "capo_connect.types.boxed_boolean.BoxedBoolean"
     """<p>A boolean flag indicating whether to update evaluation form to draft state.</p>"""
     client_token: NotRequired["capo_connect.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
     target_configuration: NotRequired[
         "capo_connect.types.evaluation_form_target_configuration.EvaluationFormTargetConfiguration"
     ]

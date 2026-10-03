@@ -18,7 +18,7 @@ class RenewDomainRequest(TypedDict, closed=True):
     duration_in_years: NotRequired[
         "capo_route_53_domains.types.duration_in_years.DurationInYears"
     ]
-    r"""<p>The number of years that you want to renew the domain for. The maximum number of years depends on the top-level domain. For the range of valid values for your domain, see <a href=\"https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html\">Domains that You Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> <p>Default: 1</p>"""
+    """<p>The number of years that you want to renew the domain for. The maximum number of years depends on the top-level domain. For the range of valid values for your domain, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> <p>Default: 1</p>"""
     current_expiry_year: (
         "capo_route_53_domains.types.current_expiry_year.CurrentExpiryYear"
     )

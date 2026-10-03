@@ -22,7 +22,7 @@ class DescribeGatewayResponse(TypedDict, closed=True):
     gateway_name: "capo_iotsitewise.types.gateway_name.GatewayName"
     """<p>The name of the gateway.</p>"""
     gateway_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the gateway, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:gateway/${GatewayId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the gateway, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:gateway/${GatewayId}</code> </p>"""
     gateway_platform: NotRequired[
         "capo_iotsitewise.types.gateway_platform.GatewayPlatform"
     ]
@@ -34,7 +34,7 @@ class DescribeGatewayResponse(TypedDict, closed=True):
     gateway_capability_summaries: (
         "capo_iotsitewise.types.gateway_capability_summaries.GatewayCapabilitySummaries"
     )
-    r"""<p>A list of gateway capability summaries that each contain a namespace and status. Each gateway capability defines data sources for the gateway. To retrieve a capability configuration's definition, use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeGatewayCapabilityConfiguration.html\">DescribeGatewayCapabilityConfiguration</a>.</p>"""
+    """<p>A list of gateway capability summaries that each contain a namespace and status. Each gateway capability defines data sources for the gateway. To retrieve a capability configuration's definition, use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeGatewayCapabilityConfiguration.html">DescribeGatewayCapabilityConfiguration</a>.</p>"""
     creation_date: "capo_iotsitewise.types.timestamp.Timestamp"
     """<p>The date the gateway was created, in Unix epoch time.</p>"""
     last_update_date: "capo_iotsitewise.types.timestamp.Timestamp"

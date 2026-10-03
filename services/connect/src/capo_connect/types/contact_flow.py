@@ -28,7 +28,7 @@ class ContactFlow(TypedDict, closed=True):
     name: NotRequired["capo_connect.types.contact_flow_name.ContactFlowName"]
     """<p>The name of the flow.</p>"""
     type: NotRequired["capo_connect.types.contact_flow_type.ContactFlowType"]
-    r"""<p>The type of the flow. For descriptions of the available types, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types\">Choose a flow type</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>The type of the flow. For descriptions of the available types, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types">Choose a flow type</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
     state: NotRequired["capo_connect.types.contact_flow_state.ContactFlowState"]
     """<p>The type of flow.</p>"""
     status: NotRequired["capo_connect.types.contact_flow_status.ContactFlowStatus"]
@@ -38,9 +38,9 @@ class ContactFlow(TypedDict, closed=True):
     ]
     """<p>The description of the flow.</p>"""
     content: NotRequired["capo_connect.types.contact_flow_content.ContactFlowContent"]
-    r"""<p>The JSON string that represents the content of the flow. For an example, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html\">Example flow in Connect Customer Flow language</a>. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 256000.</p>"""
+    """<p>The JSON string that represents the content of the flow. For an example, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html">Example flow in Connect Customer Flow language</a>. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 256000.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     flow_content_sha256: NotRequired[
         "capo_connect.types.flow_content_sha256.FlowContentSha256"
     ]

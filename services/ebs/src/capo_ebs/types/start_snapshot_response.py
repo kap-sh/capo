@@ -33,7 +33,7 @@ class StartSnapshotResponse(TypedDict, closed=True):
     block_size: NotRequired["capo_ebs.types.block_size.BlockSize"]
     """<p>The size of the blocks in the snapshot, in bytes.</p>"""
     tags: NotRequired["capo_ebs.types.tags.Tags"]
-    r"""<p>The tags applied to the snapshot. You can specify up to 50 tags per snapshot. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html\"> Tagging your Amazon EC2 resources</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>"""
+    """<p>The tags applied to the snapshot. You can specify up to 50 tags per snapshot. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html"> Tagging your Amazon EC2 resources</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>"""
     parent_snapshot_id: NotRequired["capo_ebs.types.snapshot_id.SnapshotId"]
     """<p>The ID of the parent snapshot.</p>"""
     kms_key_arn: NotRequired["capo_ebs.types.kms_key_arn.KmsKeyArn"]

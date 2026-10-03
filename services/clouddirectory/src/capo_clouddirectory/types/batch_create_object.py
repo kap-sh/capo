@@ -28,7 +28,7 @@ class BatchCreateObject(TypedDict, closed=True):
     batch_reference_name: NotRequired[
         "capo_clouddirectory.types.batch_reference_name.BatchReferenceName"
     ]
-    r"""<p>The batch reference name. See <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html\">Transaction Support</a> for more information.</p>"""
+    """<p>The batch reference name. See <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction Support</a> for more information.</p>"""
 
 
 # --- restJson1 ser/de ---

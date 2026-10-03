@@ -20,11 +20,11 @@ class PutQueryDefinitionRequest(TypedDict, closed=True):
     query_language: NotRequired[
         "capo_cloudwatch_logs.types.query_language.QueryLanguage"
     ]
-    r"""<p>Specify the query language to use for this query. The options are Logs Insights QL, OpenSearch PPL, and OpenSearch SQL. For more information about the query languages that CloudWatch Logs supports, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_AnalyzeLogData_Languages.html\">Supported query languages</a>.</p>"""
+    """<p>Specify the query language to use for this query. The options are Logs Insights QL, OpenSearch PPL, and OpenSearch SQL. For more information about the query languages that CloudWatch Logs supports, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_AnalyzeLogData_Languages.html">Supported query languages</a>.</p>"""
     name: "capo_cloudwatch_logs.types.query_definition_name.QueryDefinitionName"
-    r"""<p>A name for the query definition. If you are saving numerous query definitions, we recommend that you name them. This way, you can find the ones you want by using the first part of the name as a filter in the <code>queryDefinitionNamePrefix</code> parameter of <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html\">DescribeQueryDefinitions</a>.</p>"""
+    """<p>A name for the query definition. If you are saving numerous query definitions, we recommend that you name them. This way, you can find the ones you want by using the first part of the name as a filter in the <code>queryDefinitionNamePrefix</code> parameter of <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html">DescribeQueryDefinitions</a>.</p>"""
     query_definition_id: NotRequired["capo_cloudwatch_logs.types.query_id.QueryId"]
-    r"""<p>If you are updating a query definition, use this parameter to specify the ID of the query definition that you want to update. You can use <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html\">DescribeQueryDefinitions</a> to retrieve the IDs of your saved query definitions.</p> <p>If you are creating a query definition, do not specify this parameter. CloudWatch generates a unique ID for the new query definition and include it in the response to this operation.</p>"""
+    """<p>If you are updating a query definition, use this parameter to specify the ID of the query definition that you want to update. You can use <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html">DescribeQueryDefinitions</a> to retrieve the IDs of your saved query definitions.</p> <p>If you are creating a query definition, do not specify this parameter. CloudWatch generates a unique ID for the new query definition and include it in the response to this operation.</p>"""
     log_group_names: NotRequired[
         "capo_cloudwatch_logs.types.log_group_names.LogGroupNames"
     ]
@@ -32,7 +32,7 @@ class PutQueryDefinitionRequest(TypedDict, closed=True):
     query_string: (
         "capo_cloudwatch_logs.types.query_definition_string.QueryDefinitionString"
     )
-    r"""<p>The query string to use for this definition. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html\">CloudWatch Logs Insights Query Syntax</a>.</p>"""
+    """<p>The query string to use for this definition. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html">CloudWatch Logs Insights Query Syntax</a>.</p>"""
     client_token: NotRequired["capo_cloudwatch_logs.types.client_token.ClientToken"]
     """<p>Used as an idempotency token, to avoid returning an exception if the service receives the same request twice because of a network error.</p>"""
     parameters: NotRequired[

@@ -46,7 +46,7 @@ class RerankResource:
             "capo_bedrock_agent_runtime.types.next_token.NextToken"
         ] = None,
     ) -> "capo_bedrock_agent_runtime.types.rerank_response.RerankResponse":
-        r"""<p>Reranks the relevance of sources based on queries. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/rerank.html\">Improve the relevance of query responses with a reranker model</a>.</p>
+        """<p>Reranks the relevance of sources based on queries. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/rerank.html">Improve the relevance of query responses with a reranker model</a>.</p>
 
         Args:
             queries: <p>An array of objects, each of which contains information about a query to submit to the reranker model.</p>
@@ -114,7 +114,7 @@ class AsyncRerankResource:
             "capo_bedrock_agent_runtime.types.next_token.NextToken"
         ] = None,
     ) -> "capo_bedrock_agent_runtime.types.rerank_response.RerankResponse":
-        r"""<p>Reranks the relevance of sources based on queries. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/rerank.html\">Improve the relevance of query responses with a reranker model</a>.</p>
+        """<p>Reranks the relevance of sources based on queries. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/rerank.html">Improve the relevance of query responses with a reranker model</a>.</p>
 
         Args:
             queries: <p>An array of objects, each of which contains information about a query to submit to the reranker model.</p>

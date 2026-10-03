@@ -12,7 +12,7 @@ class CreateAccountResponse(TypedDict, closed=True):
     create_account_status: NotRequired[
         "capo_organizations.types.create_account_status.CreateAccountStatus"
     ]
-    r"""<p>A structure that contains details about the request to create an account. This response structure might not be fully populated when you first receive it because account creation is an asynchronous process. You can pass the returned <code>CreateAccountStatus</code> ID as a parameter to <a>DescribeCreateAccountStatus</a> to get status about the progress of the request at later times. You can also check the CloudTrail log for the <code>CreateAccountResult</code> event. For more information, see <a href=\"https://docs.aws.amazon.com/organizations/latest/userguide/orgs_security_incident-response.html\">Logging and monitoring in Organizations</a> in the <i>Organizations User Guide</i>.</p>"""
+    """<p>A structure that contains details about the request to create an account. This response structure might not be fully populated when you first receive it because account creation is an asynchronous process. You can pass the returned <code>CreateAccountStatus</code> ID as a parameter to <a>DescribeCreateAccountStatus</a> to get status about the progress of the request at later times. You can also check the CloudTrail log for the <code>CreateAccountResult</code> event. For more information, see <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_security_incident-response.html">Logging and monitoring in Organizations</a> in the <i>Organizations User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

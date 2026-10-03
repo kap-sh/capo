@@ -35,7 +35,7 @@ class UpdateEnvironmentMessage(TypedDict, closed=True):
     ]
     """<p>The name of the environment to update. If no environment with this name exists, Elastic Beanstalk returns an <code>InvalidParameterValue</code> error. </p> <p>Condition: You must specify either this or an EnvironmentId, or both. If you do not specify either, Elastic Beanstalk returns <code>MissingRequiredParameter</code> error. </p>"""
     group_name: NotRequired["capo_elastic_beanstalk.types.group_name.GroupName"]
-    r"""<p>The name of the group to which the target environment belongs. Specify a group name only if the environment's name is specified in an environment manifest and not with the environment name or environment ID parameters. See <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html\">Environment Manifest (env.yaml)</a> for details.</p>"""
+    """<p>The name of the group to which the target environment belongs. Specify a group name only if the environment's name is specified in an environment manifest and not with the environment name or environment ID parameters. See <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html">Environment Manifest (env.yaml)</a> for details.</p>"""
     description: NotRequired["capo_elastic_beanstalk.types.description.Description"]
     """<p>If this parameter is specified, Elastic Beanstalk updates the description of this environment.</p>"""
     tier: NotRequired["capo_elastic_beanstalk.types.environment_tier.EnvironmentTier"]

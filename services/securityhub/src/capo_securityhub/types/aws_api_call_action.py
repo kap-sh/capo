@@ -29,9 +29,9 @@ class AwsApiCallAction(TypedDict, closed=True):
     affected_resources: NotRequired["capo_securityhub.types.field_map.FieldMap"]
     """<p>Identifies the resources that were affected by the API call.</p>"""
     first_seen: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>A timestamp that indicates when the API call was first observed.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that indicates when the API call was first observed.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     last_seen: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>A timestamp that indicates when the API call was most recently observed.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that indicates when the API call was most recently observed.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

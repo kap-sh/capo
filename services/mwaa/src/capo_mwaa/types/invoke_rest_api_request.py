@@ -17,7 +17,7 @@ class InvokeRestApiRequest(TypedDict, closed=True):
     name: "capo_mwaa.types.environment_name.EnvironmentName"
     """<p>The name of the Amazon MWAA environment. For example, <code>MyMWAAEnvironment</code>.</p>"""
     path: "capo_mwaa.types.rest_api_path.RestApiPath"
-    r"""<p>The Apache Airflow REST API endpoint path to be called. For example, <code>/dags/123456/clearTaskInstances</code>. For more information, see <a href=\"https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html\">Apache Airflow API</a> </p>"""
+    """<p>The Apache Airflow REST API endpoint path to be called. For example, <code>/dags/123456/clearTaskInstances</code>. For more information, see <a href="https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html">Apache Airflow API</a> </p>"""
     method: "capo_mwaa.types.rest_api_method.RestApiMethod"
     """<p>The HTTP method used for making Airflow REST API calls. For example, <code>POST</code>. </p>"""
     query_parameters: NotRequired["object"]

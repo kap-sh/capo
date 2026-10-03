@@ -17,7 +17,7 @@ class DirectoryRegistrationSummary(TypedDict, closed=True):
     arn: NotRequired[
         "capo_pca_connector_ad.types.directory_registration_arn.DirectoryRegistrationArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html\">CreateDirectoryRegistration</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html">CreateDirectoryRegistration</a>.</p>"""
     directory_id: NotRequired["capo_pca_connector_ad.types.directory_id.DirectoryId"]
     """<p>The identifier of the Active Directory.</p>"""
     status: NotRequired[

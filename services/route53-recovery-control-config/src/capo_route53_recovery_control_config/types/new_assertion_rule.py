@@ -32,7 +32,7 @@ class NewAssertionRule(TypedDict, closed=True):
     wait_period_ms: NotRequired[
         "capo_route53_recovery_control_config.types.__integer.__integer"
     ]
-    r"""<p>An evaluation period, in milliseconds (ms), during which any request against the target routing controls will fail. This helps prevent \"flapping\" of state. The wait period is 5000 ms by default, but you can choose a custom value.</p>"""
+    """<p>An evaluation period, in milliseconds (ms), during which any request against the target routing controls will fail. This helps prevent "flapping" of state. The wait period is 5000 ms by default, but you can choose a custom value.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -17,7 +17,7 @@ class StepDetails(TypedDict, closed=True):
     next_attempt_timestamp: NotRequired[
         "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
     ]
-    r"""<p>The date and time when the next attempt is scheduled, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD). Only populated when the step is in a pending state.</p>"""
+    """<p>The date and time when the next attempt is scheduled, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD). Only populated when the step is in a pending state.</p>"""
     result: NotRequired["capo_lambda.types.operation_payload.OperationPayload"]
     """<p>The JSON response payload from the step operation.</p>"""
     error: NotRequired["capo_lambda.types.error_object.ErrorObject"]

@@ -25,7 +25,7 @@ class AliasConfiguration(TypedDict, closed=True):
     routing_config: NotRequired[
         "capo_lambda.types.alias_routing_configuration.AliasRoutingConfiguration"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html\">routing configuration</a> of the alias.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing configuration</a> of the alias.</p>"""
     revision_id: NotRequired["capo_lambda.types.string.String"]
     """<p>A unique identifier that changes when you update the alias.</p>"""
 

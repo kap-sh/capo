@@ -61,11 +61,11 @@ class WebAppResource:
             "capo_transfer.types.web_app_endpoint_details.WebAppEndpointDetails"
         ] = None,
     ) -> "capo_transfer.types.create_web_app_response.CreateWebAppResponse":
-        r"""<p>Creates a web app based on specified parameters, and returns the ID for the new web app. You can configure the web app to be publicly accessible or hosted within a VPC.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html\">Create a Transfer Family web app in a VPC</a>.</p>
+        """<p>Creates a web app based on specified parameters, and returns the ID for the new web app. You can configure the web app to be publicly accessible or hosted within a VPC.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html">Create a Transfer Family web app in a VPC</a>.</p>
 
         Args:
-            identity_provider_details: <p>You can provide a structure that contains the details for the identity provider to use with your web app.</p> <p>For more details about this parameter, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/webapp-identity-center.html\">Configure your identity provider for Transfer Family web apps</a>.</p>
-            access_endpoint: <p>The <code>AccessEndpoint</code> is the URL that you provide to your users for them to interact with the Transfer Family web app. You can specify a custom URL or use the default value.</p> <p>Before you enter a custom URL for this parameter, follow the steps described in <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/webapp-customize.html\">Update your access endpoint with a custom URL</a>.</p>
+            identity_provider_details: <p>You can provide a structure that contains the details for the identity provider to use with your web app.</p> <p>For more details about this parameter, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/webapp-identity-center.html">Configure your identity provider for Transfer Family web apps</a>.</p>
+            access_endpoint: <p>The <code>AccessEndpoint</code> is the URL that you provide to your users for them to interact with the Transfer Family web app. You can specify a custom URL or use the default value.</p> <p>Before you enter a custom URL for this parameter, follow the steps described in <a href="https://docs.aws.amazon.com/transfer/latest/userguide/webapp-customize.html">Update your access endpoint with a custom URL</a>.</p>
             web_app_units: <p>A union that contains the value for number of concurrent connections or the user sessions on your web app.</p>
             tags: <p>Key-value pairs that can be used to group and search for web apps.</p>
             web_app_endpoint_policy: <p> Setting for the type of endpoint policy for the web app. The default value is <code>STANDARD</code>. </p> <p>If you are creating the web app in an Amazon Web Services GovCloud (US) Region, you can set this parameter to <code>FIPS</code>.</p>
@@ -123,7 +123,7 @@ class WebAppResource:
         *,
         config_overrides: Optional[TransferClientConfig] = None,
     ) -> "capo_transfer.types.describe_web_app_response.DescribeWebAppResponse":
-        r"""<p>Describes the web app that's identified by <code>WebAppId</code>. The response includes endpoint configuration details such as whether the web app is publicly accessible or VPC hosted.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html\">Create a Transfer Family web app in a VPC</a>.</p>
+        """<p>Describes the web app that's identified by <code>WebAppId</code>. The response includes endpoint configuration details such as whether the web app is publicly accessible or VPC hosted.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html">Create a Transfer Family web app in a VPC</a>.</p>
 
         Args:
             web_app_id: <p>Provide the unique identifier for the web app.</p>
@@ -180,7 +180,7 @@ class WebAppResource:
             "capo_transfer.types.update_web_app_endpoint_details.UpdateWebAppEndpointDetails"
         ] = None,
     ) -> "capo_transfer.types.update_web_app_response.UpdateWebAppResponse":
-        r"""<p>Assigns new properties to a web app. You can modify the access point, identity provider details, endpoint configuration, and the web app units.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html\">Create a Transfer Family web app in a VPC</a>.</p>
+        """<p>Assigns new properties to a web app. You can modify the access point, identity provider details, endpoint configuration, and the web app units.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html">Create a Transfer Family web app in a VPC</a>.</p>
 
         Args:
             web_app_id: <p>Provide the identifier of the web app that you are updating.</p>
@@ -286,7 +286,7 @@ class WebAppResource:
         max_results: Optional["capo_transfer.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_transfer.types.next_token.NextToken"] = None,
     ) -> "capo_transfer.types.list_web_apps_response.ListWebAppsResponse":
-        r"""<p>Lists all web apps associated with your Amazon Web Services account for your current region. The response includes the endpoint type for each web app, showing whether it is publicly accessible or VPC hosted.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html\">Create a Transfer Family web app in a VPC</a>.</p>
+        """<p>Lists all web apps associated with your Amazon Web Services account for your current region. The response includes the endpoint type for each web app, showing whether it is publicly accessible or VPC hosted.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html">Create a Transfer Family web app in a VPC</a>.</p>
 
         Args:
             max_results: <p>The maximum number of items to return.</p>
@@ -351,11 +351,11 @@ class AsyncWebAppResource:
             "capo_transfer.types.web_app_endpoint_details.WebAppEndpointDetails"
         ] = None,
     ) -> "capo_transfer.types.create_web_app_response.CreateWebAppResponse":
-        r"""<p>Creates a web app based on specified parameters, and returns the ID for the new web app. You can configure the web app to be publicly accessible or hosted within a VPC.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html\">Create a Transfer Family web app in a VPC</a>.</p>
+        """<p>Creates a web app based on specified parameters, and returns the ID for the new web app. You can configure the web app to be publicly accessible or hosted within a VPC.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html">Create a Transfer Family web app in a VPC</a>.</p>
 
         Args:
-            identity_provider_details: <p>You can provide a structure that contains the details for the identity provider to use with your web app.</p> <p>For more details about this parameter, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/webapp-identity-center.html\">Configure your identity provider for Transfer Family web apps</a>.</p>
-            access_endpoint: <p>The <code>AccessEndpoint</code> is the URL that you provide to your users for them to interact with the Transfer Family web app. You can specify a custom URL or use the default value.</p> <p>Before you enter a custom URL for this parameter, follow the steps described in <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/webapp-customize.html\">Update your access endpoint with a custom URL</a>.</p>
+            identity_provider_details: <p>You can provide a structure that contains the details for the identity provider to use with your web app.</p> <p>For more details about this parameter, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/webapp-identity-center.html">Configure your identity provider for Transfer Family web apps</a>.</p>
+            access_endpoint: <p>The <code>AccessEndpoint</code> is the URL that you provide to your users for them to interact with the Transfer Family web app. You can specify a custom URL or use the default value.</p> <p>Before you enter a custom URL for this parameter, follow the steps described in <a href="https://docs.aws.amazon.com/transfer/latest/userguide/webapp-customize.html">Update your access endpoint with a custom URL</a>.</p>
             web_app_units: <p>A union that contains the value for number of concurrent connections or the user sessions on your web app.</p>
             tags: <p>Key-value pairs that can be used to group and search for web apps.</p>
             web_app_endpoint_policy: <p> Setting for the type of endpoint policy for the web app. The default value is <code>STANDARD</code>. </p> <p>If you are creating the web app in an Amazon Web Services GovCloud (US) Region, you can set this parameter to <code>FIPS</code>.</p>
@@ -414,7 +414,7 @@ class AsyncWebAppResource:
         *,
         config_overrides: Optional[AsyncTransferClientConfig] = None,
     ) -> "capo_transfer.types.describe_web_app_response.DescribeWebAppResponse":
-        r"""<p>Describes the web app that's identified by <code>WebAppId</code>. The response includes endpoint configuration details such as whether the web app is publicly accessible or VPC hosted.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html\">Create a Transfer Family web app in a VPC</a>.</p>
+        """<p>Describes the web app that's identified by <code>WebAppId</code>. The response includes endpoint configuration details such as whether the web app is publicly accessible or VPC hosted.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html">Create a Transfer Family web app in a VPC</a>.</p>
 
         Args:
             web_app_id: <p>Provide the unique identifier for the web app.</p>
@@ -472,7 +472,7 @@ class AsyncWebAppResource:
             "capo_transfer.types.update_web_app_endpoint_details.UpdateWebAppEndpointDetails"
         ] = None,
     ) -> "capo_transfer.types.update_web_app_response.UpdateWebAppResponse":
-        r"""<p>Assigns new properties to a web app. You can modify the access point, identity provider details, endpoint configuration, and the web app units.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html\">Create a Transfer Family web app in a VPC</a>.</p>
+        """<p>Assigns new properties to a web app. You can modify the access point, identity provider details, endpoint configuration, and the web app units.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html">Create a Transfer Family web app in a VPC</a>.</p>
 
         Args:
             web_app_id: <p>Provide the identifier of the web app that you are updating.</p>
@@ -580,7 +580,7 @@ class AsyncWebAppResource:
         max_results: Optional["capo_transfer.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_transfer.types.next_token.NextToken"] = None,
     ) -> "capo_transfer.types.list_web_apps_response.ListWebAppsResponse":
-        r"""<p>Lists all web apps associated with your Amazon Web Services account for your current region. The response includes the endpoint type for each web app, showing whether it is publicly accessible or VPC hosted.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href=\"https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html\">Create a Transfer Family web app in a VPC</a>.</p>
+        """<p>Lists all web apps associated with your Amazon Web Services account for your current region. The response includes the endpoint type for each web app, showing whether it is publicly accessible or VPC hosted.</p> <p>For more information about using VPC endpoints with Transfer Family, see <a href="https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html">Create a Transfer Family web app in a VPC</a>.</p>
 
         Args:
             max_results: <p>The maximum number of items to return.</p>

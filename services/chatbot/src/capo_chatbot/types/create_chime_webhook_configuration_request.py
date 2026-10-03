@@ -20,13 +20,13 @@ class CreateChimeWebhookConfigurationRequest(TypedDict, closed=True):
     webhook_description: (
         "capo_chatbot.types.chime_webhook_description.ChimeWebhookDescription"
     )
-    r"""<p>A description of the webhook. We recommend using the convention <code>RoomName/WebhookName</code>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chime-setup.html\">Tutorial: Get started with Amazon Chime</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>"""
+    """<p>A description of the webhook. We recommend using the convention <code>RoomName/WebhookName</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chime-setup.html">Tutorial: Get started with Amazon Chime</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>"""
     webhook_url: "capo_chatbot.types.chime_webhook_url.ChimeWebhookUrl"
     """<p>The URL for the Amazon Chime webhook.</p>"""
     sns_topic_arns: "capo_chatbot.types.sns_topic_arn_list.SnsTopicArnList"
     """<p>The Amazon Resource Names (ARNs) of the SNS topics that deliver notifications to AWS Chatbot.</p>"""
     iam_role_arn: "capo_chatbot.types.arn.Arn"
-    r"""<p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html\">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>"""
+    """<p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>"""
     configuration_name: "capo_chatbot.types.configuration_name.ConfigurationName"
     """<p>The name of the configuration.</p>"""
     logging_level: NotRequired[

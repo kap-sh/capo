@@ -12,7 +12,7 @@ class EfsFileSystemConfiguration(TypedDict, closed=True):
     file_system_policy: NotRequired[
         "capo_accessanalyzer.types.efs_file_system_policy.EfsFileSystemPolicy"
     ]
-    r"""<p>The JSON policy definition to apply to the Amazon EFS file system. For more information on the elements that make up a file system policy, see <a href=\"https://docs.aws.amazon.com/efs/latest/ug/access-control-overview.html#access-control-manage-access-intro-resource-policies\">Amazon EFS Resource-based policies</a>.</p>"""
+    """<p>The JSON policy definition to apply to the Amazon EFS file system. For more information on the elements that make up a file system policy, see <a href="https://docs.aws.amazon.com/efs/latest/ug/access-control-overview.html#access-control-manage-access-intro-resource-policies">Amazon EFS Resource-based policies</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -61,10 +61,10 @@ class RunCacheResource:
             "capo_omics.types.aws_account_id.AwsAccountId"
         ] = None,
     ) -> "capo_omics.types.create_run_cache_response.CreateRunCacheResponse":
-        r"""<p>Creates a run cache to store and reference task outputs from completed private runs. Specify an Amazon S3 location where Amazon Web Services HealthOmics saves the cached data. This data must be immediately accessible and not in an archived state. You can save intermediate task files to a run cache if they are declared as task outputs in the workflow definition file.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflows-call-caching.html\">Call caching</a> and <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflow-cache-create.html\">Creating a run cache</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Creates a run cache to store and reference task outputs from completed private runs. Specify an Amazon S3 location where Amazon Web Services HealthOmics saves the cached data. This data must be immediately accessible and not in an archived state. You can save intermediate task files to a run cache if they are declared as task outputs in the workflow definition file.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/workflows-call-caching.html">Call caching</a> and <a href="https://docs.aws.amazon.com/omics/latest/dev/workflow-cache-create.html">Creating a run cache</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
-            cache_behavior: <p>Default cache behavior for runs that use this cache. Supported values are:</p> <p> <code>CACHE_ON_FAILURE</code>: Caches task outputs from completed tasks for runs that fail. This setting is useful if you're debugging a workflow that fails after several tasks completed successfully. The subsequent run uses the cache outputs for previously-completed tasks if the task definition, inputs, and container in ECR are identical to the prior run.</p> <p> <code>CACHE_ALWAYS</code>: Caches task outputs from completed tasks for all runs. This setting is useful in development mode, but do not use it in a production setting.</p> <p>If you don't specify a value, the default behavior is CACHE_ON_FAILURE. When you start a run that uses this cache, you can override the default cache behavior.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/how-run-cache.html#run-cache-behavior\">Run cache behavior</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+            cache_behavior: <p>Default cache behavior for runs that use this cache. Supported values are:</p> <p> <code>CACHE_ON_FAILURE</code>: Caches task outputs from completed tasks for runs that fail. This setting is useful if you're debugging a workflow that fails after several tasks completed successfully. The subsequent run uses the cache outputs for previously-completed tasks if the task definition, inputs, and container in ECR are identical to the prior run.</p> <p> <code>CACHE_ALWAYS</code>: Caches task outputs from completed tasks for all runs. This setting is useful in development mode, but do not use it in a production setting.</p> <p>If you don't specify a value, the default behavior is CACHE_ON_FAILURE. When you start a run that uses this cache, you can override the default cache behavior.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/how-run-cache.html#run-cache-behavior">Run cache behavior</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
             cache_s3_location: <p>Specify the S3 location for storing the cached task outputs. This data must be immediately accessible (not in an archived state).</p>
             description: <p>Enter a description of the run cache.</p>
             name: <p>Enter a user-friendly name for the run cache.</p>
@@ -128,7 +128,7 @@ class RunCacheResource:
         *,
         config_overrides: Optional[OmicsClientConfig] = None,
     ) -> "capo_omics.types.get_run_cache_response.GetRunCacheResponse":
-        r"""<p>Retrieves detailed information about the specified run cache using its ID.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflows-call-caching.html\">Call caching for Amazon Web Services HealthOmics runs</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Retrieves detailed information about the specified run cache using its ID.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/workflows-call-caching.html">Call caching for Amazon Web Services HealthOmics runs</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             id: <p>The identifier of the run cache to retrieve.</p>
@@ -183,7 +183,7 @@ class RunCacheResource:
         ] = None,
         name: Optional["capo_omics.types.user_custom_name.UserCustomName"] = None,
     ) -> None:
-        r"""<p>Updates a run cache using its ID and returns a response with no body if the operation is successful. You can update the run cache description, name, or the default run cache behavior with <code>CACHE_ON_FAILURE</code> or <code>CACHE_ALWAYS</code>. To confirm that your run cache settings have been properly updated, use the <code>GetRunCache</code> API operation.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/how-run-cache.html\">How call caching works</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Updates a run cache using its ID and returns a response with no body if the operation is successful. You can update the run cache description, name, or the default run cache behavior with <code>CACHE_ON_FAILURE</code> or <code>CACHE_ALWAYS</code>. To confirm that your run cache settings have been properly updated, use the <code>GetRunCache</code> API operation.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/how-run-cache.html">How call caching works</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             cache_behavior: <p>Update the default run cache behavior.</p>
@@ -240,7 +240,7 @@ class RunCacheResource:
         *,
         config_overrides: Optional[OmicsClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a run cache and returns a response with no body if the operation is successful. This action removes the cache metadata stored in the service account, but does not delete the data in Amazon S3. You can access the cache data in Amazon S3, for inspection or to troubleshoot issues. You can remove old cache data using standard S3 <code>Delete</code> operations. </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflow-cache-delete.html\">Deleting a run cache</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Deletes a run cache and returns a response with no body if the operation is successful. This action removes the cache metadata stored in the service account, but does not delete the data in Amazon S3. You can access the cache data in Amazon S3, for inspection or to troubleshoot issues. You can remove old cache data using standard S3 <code>Delete</code> operations. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/workflow-cache-delete.html">Deleting a run cache</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             id: <p>Run cache identifier for the cache you want to delete.</p>
@@ -359,10 +359,10 @@ class AsyncRunCacheResource:
             "capo_omics.types.aws_account_id.AwsAccountId"
         ] = None,
     ) -> "capo_omics.types.create_run_cache_response.CreateRunCacheResponse":
-        r"""<p>Creates a run cache to store and reference task outputs from completed private runs. Specify an Amazon S3 location where Amazon Web Services HealthOmics saves the cached data. This data must be immediately accessible and not in an archived state. You can save intermediate task files to a run cache if they are declared as task outputs in the workflow definition file.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflows-call-caching.html\">Call caching</a> and <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflow-cache-create.html\">Creating a run cache</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Creates a run cache to store and reference task outputs from completed private runs. Specify an Amazon S3 location where Amazon Web Services HealthOmics saves the cached data. This data must be immediately accessible and not in an archived state. You can save intermediate task files to a run cache if they are declared as task outputs in the workflow definition file.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/workflows-call-caching.html">Call caching</a> and <a href="https://docs.aws.amazon.com/omics/latest/dev/workflow-cache-create.html">Creating a run cache</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
-            cache_behavior: <p>Default cache behavior for runs that use this cache. Supported values are:</p> <p> <code>CACHE_ON_FAILURE</code>: Caches task outputs from completed tasks for runs that fail. This setting is useful if you're debugging a workflow that fails after several tasks completed successfully. The subsequent run uses the cache outputs for previously-completed tasks if the task definition, inputs, and container in ECR are identical to the prior run.</p> <p> <code>CACHE_ALWAYS</code>: Caches task outputs from completed tasks for all runs. This setting is useful in development mode, but do not use it in a production setting.</p> <p>If you don't specify a value, the default behavior is CACHE_ON_FAILURE. When you start a run that uses this cache, you can override the default cache behavior.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/how-run-cache.html#run-cache-behavior\">Run cache behavior</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+            cache_behavior: <p>Default cache behavior for runs that use this cache. Supported values are:</p> <p> <code>CACHE_ON_FAILURE</code>: Caches task outputs from completed tasks for runs that fail. This setting is useful if you're debugging a workflow that fails after several tasks completed successfully. The subsequent run uses the cache outputs for previously-completed tasks if the task definition, inputs, and container in ECR are identical to the prior run.</p> <p> <code>CACHE_ALWAYS</code>: Caches task outputs from completed tasks for all runs. This setting is useful in development mode, but do not use it in a production setting.</p> <p>If you don't specify a value, the default behavior is CACHE_ON_FAILURE. When you start a run that uses this cache, you can override the default cache behavior.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/how-run-cache.html#run-cache-behavior">Run cache behavior</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
             cache_s3_location: <p>Specify the S3 location for storing the cached task outputs. This data must be immediately accessible (not in an archived state).</p>
             description: <p>Enter a description of the run cache.</p>
             name: <p>Enter a user-friendly name for the run cache.</p>
@@ -427,7 +427,7 @@ class AsyncRunCacheResource:
         *,
         config_overrides: Optional[AsyncOmicsClientConfig] = None,
     ) -> "capo_omics.types.get_run_cache_response.GetRunCacheResponse":
-        r"""<p>Retrieves detailed information about the specified run cache using its ID.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflows-call-caching.html\">Call caching for Amazon Web Services HealthOmics runs</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Retrieves detailed information about the specified run cache using its ID.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/workflows-call-caching.html">Call caching for Amazon Web Services HealthOmics runs</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             id: <p>The identifier of the run cache to retrieve.</p>
@@ -483,7 +483,7 @@ class AsyncRunCacheResource:
         ] = None,
         name: Optional["capo_omics.types.user_custom_name.UserCustomName"] = None,
     ) -> None:
-        r"""<p>Updates a run cache using its ID and returns a response with no body if the operation is successful. You can update the run cache description, name, or the default run cache behavior with <code>CACHE_ON_FAILURE</code> or <code>CACHE_ALWAYS</code>. To confirm that your run cache settings have been properly updated, use the <code>GetRunCache</code> API operation.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/how-run-cache.html\">How call caching works</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Updates a run cache using its ID and returns a response with no body if the operation is successful. You can update the run cache description, name, or the default run cache behavior with <code>CACHE_ON_FAILURE</code> or <code>CACHE_ALWAYS</code>. To confirm that your run cache settings have been properly updated, use the <code>GetRunCache</code> API operation.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/how-run-cache.html">How call caching works</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             cache_behavior: <p>Update the default run cache behavior.</p>
@@ -541,7 +541,7 @@ class AsyncRunCacheResource:
         *,
         config_overrides: Optional[AsyncOmicsClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a run cache and returns a response with no body if the operation is successful. This action removes the cache metadata stored in the service account, but does not delete the data in Amazon S3. You can access the cache data in Amazon S3, for inspection or to troubleshoot issues. You can remove old cache data using standard S3 <code>Delete</code> operations. </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflow-cache-delete.html\">Deleting a run cache</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Deletes a run cache and returns a response with no body if the operation is successful. This action removes the cache metadata stored in the service account, but does not delete the data in Amazon S3. You can access the cache data in Amazon S3, for inspection or to troubleshoot issues. You can remove old cache data using standard S3 <code>Delete</code> operations. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/workflow-cache-delete.html">Deleting a run cache</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             id: <p>Run cache identifier for the cache you want to delete.</p>

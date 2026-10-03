@@ -16,7 +16,7 @@ class CreateKeyspaceRequest(TypedDict, closed=True):
     keyspace_name: "capo_keyspaces.types.keyspace_name.KeyspaceName"
     """<p>The name of the keyspace to be created.</p>"""
     tags: NotRequired["capo_keyspaces.types.tag_list.TagList"]
-    r"""<p>A list of key-value pair tags to be attached to the keyspace.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/keyspaces/latest/devguide/tagging-keyspaces.html\">Adding tags and labels to Amazon Keyspaces resources</a> in the <i>Amazon Keyspaces Developer Guide</i>.</p>"""
+    """<p>A list of key-value pair tags to be attached to the keyspace.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/keyspaces/latest/devguide/tagging-keyspaces.html">Adding tags and labels to Amazon Keyspaces resources</a> in the <i>Amazon Keyspaces Developer Guide</i>.</p>"""
     replication_specification: NotRequired[
         "capo_keyspaces.types.replication_specification.ReplicationSpecification"
     ]

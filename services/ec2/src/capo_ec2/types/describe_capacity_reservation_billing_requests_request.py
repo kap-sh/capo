@@ -27,7 +27,7 @@ class DescribeCapacityReservationBillingRequestsRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_capacity_reservation_billing_requests_request_max_results.DescribeCapacityReservationBillingRequestsRequestMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     filters: NotRequired["capo_ec2.types.filter_list.FilterList"]
     """<p>One or more filters.</p> <ul> <li> <p> <code>status</code> - The state of the request (<code>pending</code> | <code>accepted</code> | <code>rejected</code> | <code>cancelled</code> | <code>revoked</code> | <code>expired</code>).</p> </li> <li> <p> <code>requested-by</code> - The account ID of the Capacity Reservation owner that initiated the request. Not supported if you specify <code>requested-by</code> for <b>Role</b>.</p> </li> <li> <p> <code>unused-reservation-billing-owner</code> - The ID of the consumer account to which the request was sent. Not supported if you specify <code>unused-reservation-billing-owner</code> for <b>Role</b>.</p> </li> </ul>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]

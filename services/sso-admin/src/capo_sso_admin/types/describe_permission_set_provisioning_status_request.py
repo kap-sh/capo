@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DescribePermissionSetProvisioningStatusRequest(TypedDict, closed=True):
     instance_arn: "capo_sso_admin.types.instance_arn.InstanceArn"
-    r"""<p>The ARN of the IAM Identity Center instance under which the operation will be executed. For more information about ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The ARN of the IAM Identity Center instance under which the operation will be executed. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     provision_permission_set_request_id: "capo_sso_admin.types.uu_id.UUId"
     """<p>The identifier that is provided by the <a>ProvisionPermissionSet</a> call to retrieve the current status of the provisioning workflow.</p>"""
 

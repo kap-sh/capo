@@ -584,13 +584,13 @@ class AsyncDeviceFarmClient:
             "capo_device_farm.types.amazon_role_resource_name.AmazonRoleResourceName"
         ] = None,
     ) -> "capo_device_farm.types.create_project_result.CreateProjectResult":
-        r"""<p>Creates a project.</p>
+        """<p>Creates a project.</p>
 
         Args:
             name: <p>The project's name.</p>
             default_job_timeout_minutes: <p>Sets the execution timeout value (in minutes) for a project. All test runs in this project use the specified execution timeout value unless overridden when scheduling a run.</p>
             vpc_config: <p>The VPC security groups and subnets that are attached to a project.</p>
-            environment_variables: <p> A set of environment variables which are used by default for all runs in the project. These environment variables are applied to the test run during the execution of a test spec file. </p> <p> For more information about using test spec files, please see <a href=\"https://docs.aws.amazon.com/devicefarm/latest/developerguide/custom-test-environments.html\">Custom test environments </a> in <i>AWS Device Farm.</i> </p>
+            environment_variables: <p> A set of environment variables which are used by default for all runs in the project. These environment variables are applied to the test run during the execution of a test spec file. </p> <p> For more information about using test spec files, please see <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/custom-test-environments.html">Custom test environments </a> in <i>AWS Device Farm.</i> </p>
             execution_role_arn: <p>An IAM role to be assumed by the test host for all runs in the project.</p>
 
         Raises:
@@ -659,7 +659,7 @@ class AsyncDeviceFarmClient:
         ] = None,
         skip_app_resign: Optional["capo_device_farm.types.boolean.Boolean"] = None,
     ) -> "capo_device_farm.types.create_remote_access_session_result.CreateRemoteAccessSessionResult":
-        r"""<p>Specifies and starts a remote access session.</p>
+        """<p>Specifies and starts a remote access session.</p>
 
         Args:
             project_arn: <p>The Amazon Resource Name (ARN) of the project for which you want to create a remote access session.</p>
@@ -669,7 +669,7 @@ class AsyncDeviceFarmClient:
             name: <p>The name of the remote access session to create.</p>
             configuration: <p>The configuration information for the remote access session request.</p>
             interaction_mode: <p>The interaction mode of the remote access session. Changing the interactive mode of remote access sessions is no longer available.</p>
-            skip_app_resign: <p>When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again.</p> <p>For more information on how Device Farm modifies your uploads during tests, see <a href=\"http://aws.amazon.com/device-farm/faqs/\">Do you modify my app?</a> </p>
+            skip_app_resign: <p>When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again.</p> <p>For more information on how Device Farm modifies your uploads during tests, see <a href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> </p>
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
@@ -747,7 +747,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.limit_exceeded_exception.LimitExceededException: <p>A limit was exceeded.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -799,7 +799,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.not_found_exception.NotFoundException: <p>The specified entity was not found.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1270,7 +1270,7 @@ class AsyncDeviceFarmClient:
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
             capo_device_farm.errors.cannot_delete_exception.CannotDeleteException: <p>The requested object could not be deleted.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.not_found_exception.NotFoundException: <p>The specified entity was not found.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1835,7 +1835,7 @@ class AsyncDeviceFarmClient:
             "capo_device_farm.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_device_farm.types.get_offering_status_result.GetOfferingStatusResult":
-        r"""<p>Gets the current status and future status of all offerings purchased by an AWS account. The response indicates how many offerings are currently available and the offerings that will be available in the next period. The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a>.</p>
+        """<p>Gets the current status and future status of all offerings purchased by an AWS account. The response indicates how many offerings are currently available and the offerings that will be available in the next period. The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a>.</p>
 
         Args:
             next_token: <p>An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.</p>
@@ -2156,7 +2156,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.not_found_exception.NotFoundException: <p>The specified entity was not found.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -2210,7 +2210,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.not_found_exception.NotFoundException: <p>The specified entity was not found.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -2644,12 +2644,12 @@ class AsyncDeviceFarmClient:
         ] = None,
         filters: Optional["capo_device_farm.types.device_filters.DeviceFilters"] = None,
     ) -> "capo_device_farm.types.list_devices_result.ListDevicesResult":
-        r"""<p>Gets information about unique device types.</p>
+        """<p>Gets information about unique device types.</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the project.</p>
             next_token: <p>An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.</p>
-            filters: <p>Used to select a set of devices. A filter is made up of an attribute, an operator, and one or more values.</p> <ul> <li> <p>Attribute: The aspect of a device such as platform or model used as the selection criteria in a device filter.</p> <p>Allowed values include:</p> <ul> <li> <p>ARN: The Amazon Resource Name (ARN) of the device (for example, <code>arn:aws:devicefarm:us-west-2::device:12345Example</code>).</p> </li> <li> <p>PLATFORM: The device platform. Valid values are ANDROID or IOS.</p> </li> <li> <p>OS_VERSION: The operating system version (for example, 10.3.2).</p> </li> <li> <p>MODEL: The device model (for example, iPad 5th Gen).</p> </li> <li> <p>AVAILABILITY: The current availability of the device. Valid values are AVAILABLE, HIGHLY_AVAILABLE, BUSY, or TEMPORARY_NOT_AVAILABLE.</p> </li> <li> <p>FORM_FACTOR: The device form factor. Valid values are PHONE or TABLET.</p> </li> <li> <p>MANUFACTURER: The device manufacturer (for example, Apple).</p> </li> <li> <p>REMOTE_ACCESS_ENABLED: Whether the device is enabled for remote access. Valid values are TRUE or FALSE.</p> </li> <li> <p>REMOTE_DEBUG_ENABLED: Whether the device is enabled for remote debugging. Valid values are TRUE or FALSE. Because remote debugging is <a href=\"https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html\">no longer supported</a>, this attribute is ignored.</p> </li> <li> <p>INSTANCE_ARN: The Amazon Resource Name (ARN) of the device instance.</p> </li> <li> <p>INSTANCE_LABELS: The label of the device instance.</p> </li> <li> <p>FLEET_TYPE: The fleet type. Valid values are PUBLIC or PRIVATE.</p> </li> </ul> </li> <li> <p>Operator: The filter operator.</p> <ul> <li> <p>The EQUALS operator is available for every attribute except INSTANCE_LABELS.</p> </li> <li> <p>The CONTAINS operator is available for the INSTANCE_LABELS and MODEL attributes.</p> </li> <li> <p>The IN and NOT_IN operators are available for the ARN, OS_VERSION, MODEL, MANUFACTURER, and INSTANCE_ARN attributes.</p> </li> <li> <p>The LESS_THAN, GREATER_THAN, LESS_THAN_OR_EQUALS, and GREATER_THAN_OR_EQUALS operators are also available for the OS_VERSION attribute.</p> </li> </ul> </li> <li> <p>Values: An array of one or more filter values.</p> <ul> <li> <p>The IN and NOT_IN operators take a values array that has one or more elements.</p> </li> <li> <p>The other operators require an array with a single element.</p> </li> <li> <p>In a request, the AVAILABILITY attribute takes the following values: AVAILABLE, HIGHLY_AVAILABLE, BUSY, or TEMPORARY_NOT_AVAILABLE.</p> </li> </ul> </li> </ul>
+            filters: <p>Used to select a set of devices. A filter is made up of an attribute, an operator, and one or more values.</p> <ul> <li> <p>Attribute: The aspect of a device such as platform or model used as the selection criteria in a device filter.</p> <p>Allowed values include:</p> <ul> <li> <p>ARN: The Amazon Resource Name (ARN) of the device (for example, <code>arn:aws:devicefarm:us-west-2::device:12345Example</code>).</p> </li> <li> <p>PLATFORM: The device platform. Valid values are ANDROID or IOS.</p> </li> <li> <p>OS_VERSION: The operating system version (for example, 10.3.2).</p> </li> <li> <p>MODEL: The device model (for example, iPad 5th Gen).</p> </li> <li> <p>AVAILABILITY: The current availability of the device. Valid values are AVAILABLE, HIGHLY_AVAILABLE, BUSY, or TEMPORARY_NOT_AVAILABLE.</p> </li> <li> <p>FORM_FACTOR: The device form factor. Valid values are PHONE or TABLET.</p> </li> <li> <p>MANUFACTURER: The device manufacturer (for example, Apple).</p> </li> <li> <p>REMOTE_ACCESS_ENABLED: Whether the device is enabled for remote access. Valid values are TRUE or FALSE.</p> </li> <li> <p>REMOTE_DEBUG_ENABLED: Whether the device is enabled for remote debugging. Valid values are TRUE or FALSE. Because remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer supported</a>, this attribute is ignored.</p> </li> <li> <p>INSTANCE_ARN: The Amazon Resource Name (ARN) of the device instance.</p> </li> <li> <p>INSTANCE_LABELS: The label of the device instance.</p> </li> <li> <p>FLEET_TYPE: The fleet type. Valid values are PUBLIC or PRIVATE.</p> </li> </ul> </li> <li> <p>Operator: The filter operator.</p> <ul> <li> <p>The EQUALS operator is available for every attribute except INSTANCE_LABELS.</p> </li> <li> <p>The CONTAINS operator is available for the INSTANCE_LABELS and MODEL attributes.</p> </li> <li> <p>The IN and NOT_IN operators are available for the ARN, OS_VERSION, MODEL, MANUFACTURER, and INSTANCE_ARN attributes.</p> </li> <li> <p>The LESS_THAN, GREATER_THAN, LESS_THAN_OR_EQUALS, and GREATER_THAN_OR_EQUALS operators are also available for the OS_VERSION attribute.</p> </li> </ul> </li> <li> <p>Values: An array of one or more filter values.</p> <ul> <li> <p>The IN and NOT_IN operators take a values array that has one or more elements.</p> </li> <li> <p>The other operators require an array with a single element.</p> </li> <li> <p>In a request, the AVAILABILITY attribute takes the following values: AVAILABLE, HIGHLY_AVAILABLE, BUSY, or TEMPORARY_NOT_AVAILABLE.</p> </li> </ul> </li> </ul>
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
@@ -2926,7 +2926,7 @@ class AsyncDeviceFarmClient:
             "capo_device_farm.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_device_farm.types.list_offering_promotions_result.ListOfferingPromotionsResult":
-        r"""<p>Returns a list of offering promotions. Each offering promotion record contains the ID and description of the promotion. The API returns a <code>NotEligible</code> error if the caller is not permitted to invoke the operation. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you must be able to invoke this operation.</p>
+        """<p>Returns a list of offering promotions. Each offering promotion record contains the ID and description of the promotion. The API returns a <code>NotEligible</code> error if the caller is not permitted to invoke the operation. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you must be able to invoke this operation.</p>
 
         Args:
             next_token: <p>An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.</p>
@@ -2976,7 +2976,7 @@ class AsyncDeviceFarmClient:
             "capo_device_farm.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_device_farm.types.list_offerings_result.ListOfferingsResult":
-        r"""<p>Returns a list of products or offerings that the user can manage through the API. Each offering record indicates the recurring price per unit and the frequency for that offering. The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a>.</p>
+        """<p>Returns a list of products or offerings that the user can manage through the API. Each offering record indicates the recurring price per unit and the frequency for that offering. The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a>.</p>
 
         Args:
             next_token: <p>An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.</p>
@@ -3053,7 +3053,7 @@ class AsyncDeviceFarmClient:
             "capo_device_farm.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_device_farm.types.list_offering_transactions_result.ListOfferingTransactionsResult":
-        r"""<p>Returns a list of all historical purchases, renewals, and system renewal transactions for an AWS account. The list is paginated and ordered by a descending timestamp (most recent transactions are first). The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a>.</p>
+        """<p>Returns a list of all historical purchases, renewals, and system renewal transactions for an AWS account. The list is paginated and ordered by a descending timestamp (most recent transactions are first). The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a>.</p>
 
         Args:
             next_token: <p>An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.</p>
@@ -3558,7 +3558,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3632,7 +3632,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.not_found_exception.NotFoundException: <p>The specified entity was not found.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -3715,7 +3715,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.not_found_exception.NotFoundException: <p>The specified entity was not found.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -3816,7 +3816,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.not_found_exception.NotFoundException: <p>The specified entity was not found.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -4215,7 +4215,7 @@ class AsyncDeviceFarmClient:
             "capo_device_farm.types.offering_promotion_identifier.OfferingPromotionIdentifier"
         ] = None,
     ) -> "capo_device_farm.types.purchase_offering_result.PurchaseOfferingResult":
-        r"""<p>Immediately purchases offerings for an AWS account. Offerings renew with the latest total purchased quantity for an offering, unless the renewal was overridden. The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a>.</p>
+        """<p>Immediately purchases offerings for an AWS account. Offerings renew with the latest total purchased quantity for an offering, unless the renewal was overridden. The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a>.</p>
 
         Args:
             offering_id: <p>The ID of the offering.</p>
@@ -4269,7 +4269,7 @@ class AsyncDeviceFarmClient:
         *,
         config_overrides: Optional[AsyncDeviceFarmClientConfig] = None,
     ) -> "capo_device_farm.types.renew_offering_result.RenewOfferingResult":
-        r"""<p>Explicitly sets the quantity of devices to renew for an offering, starting from the <code>effectiveDate</code> of the next period. The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a>.</p>
+        """<p>Explicitly sets the quantity of devices to renew for an offering, starting from the <code>effectiveDate</code> of the next period. The API returns a <code>NotEligible</code> error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a>.</p>
 
         Args:
             offering_id: <p>The ID of a request to renew an offering.</p>
@@ -4964,14 +4964,14 @@ class AsyncDeviceFarmClient:
             "capo_device_farm.types.amazon_role_resource_name.AmazonRoleResourceName"
         ] = None,
     ) -> "capo_device_farm.types.update_project_result.UpdateProjectResult":
-        r"""<p>Modifies the specified project name, given the project ARN and a new name.</p>
+        """<p>Modifies the specified project name, given the project ARN and a new name.</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the project whose name to update.</p>
             name: <p>A string that represents the new name of the project that you are updating.</p>
             default_job_timeout_minutes: <p>The number of minutes a test run in the project executes before it times out.</p>
             vpc_config: <p>The VPC security groups and subnets that are attached to a project.</p>
-            environment_variables: <p> A set of environment variables which are used by default for all runs in the project. These environment variables are applied to the test run during the execution of a test spec file. </p> <p> For more information about using test spec files, please see <a href=\"https://docs.aws.amazon.com/devicefarm/latest/developerguide/custom-test-environments.html\">Custom test environments </a> in <i>AWS Device Farm.</i> </p>
+            environment_variables: <p> A set of environment variables which are used by default for all runs in the project. These environment variables are applied to the test run during the execution of a test spec file. </p> <p> For more information about using test spec files, please see <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/custom-test-environments.html">Custom test environments </a> in <i>AWS Device Farm.</i> </p>
             execution_role_arn: <p>An IAM role to be assumed by the test host for all runs in the project.</p>
 
         Raises:
@@ -5043,7 +5043,7 @@ class AsyncDeviceFarmClient:
 
         Raises:
             capo_device_farm.errors.argument_exception.ArgumentException: <p>An invalid argument was specified.</p>
-            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href=\"mailto:aws-devicefarm-support@amazon.com\">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
+            capo_device_farm.errors.internal_service_exception.InternalServiceException: <p>An internal exception was raised in the service. Contact <a href="mailto:aws-devicefarm-support@amazon.com">aws-devicefarm-support@amazon.com</a> if you see this error. </p>
             capo_device_farm.errors.limit_exceeded_exception.LimitExceededException: <p>A limit was exceeded.</p>
             capo_device_farm.errors.not_found_exception.NotFoundException: <p>The specified entity was not found.</p>
             capo_device_farm.errors.UnknownServiceError: The service returned an error code this client does not model.

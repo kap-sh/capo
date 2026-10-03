@@ -42,7 +42,7 @@ class EvaluationSearchSummary(TypedDict, closed=True):
     last_modified_time: "capo_connect.types.timestamp.Timestamp"
     """<p>The date and time when the evaluation was modified last time, in UTC time.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

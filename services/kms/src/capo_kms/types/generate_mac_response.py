@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GenerateMacResponse(TypedDict, closed=True):
     mac: NotRequired["capo_kms.types.ciphertext_type.CiphertextType"]
-    r"""<p>The hash-based message authentication code (HMAC) that was generated for the specified message, HMAC KMS key, and MAC algorithm.</p> <p>This is the standard, raw HMAC defined in <a href=\"https://datatracker.ietf.org/doc/html/rfc2104\">RFC 2104</a>.</p>"""
+    """<p>The hash-based message authentication code (HMAC) that was generated for the specified message, HMAC KMS key, and MAC algorithm.</p> <p>This is the standard, raw HMAC defined in <a href="https://datatracker.ietf.org/doc/html/rfc2104">RFC 2104</a>.</p>"""
     mac_algorithm: NotRequired["capo_kms.types.mac_algorithm_spec.MacAlgorithmSpec"]
     """<p>The MAC algorithm that was used to generate the HMAC.</p>"""
     key_id: NotRequired["capo_kms.types.key_id_type.KeyIdType"]

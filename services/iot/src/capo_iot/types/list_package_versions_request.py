@@ -15,7 +15,7 @@ class ListPackageVersionsRequest(TypedDict, closed=True):
     package_name: "capo_iot.types.package_name.PackageName"
     """<p>The name of the target software package.</p>"""
     status: NotRequired["capo_iot.types.package_version_status.PackageVersionStatus"]
-    r"""<p>The status of the package version. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p>"""
+    """<p>The status of the package version. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p>"""
     max_results: NotRequired[
         "capo_iot.types.package_catalog_max_results.PackageCatalogMaxResults"
     ]

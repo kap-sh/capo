@@ -35,7 +35,7 @@ class EngineTranscribeSettings(TypedDict, closed=True):
     region: NotRequired[
         "capo_chime_sdk_meetings.types.transcribe_region.TranscribeRegion"
     ]
-    r"""<p>The Amazon Web Services Region in which to use Amazon Transcribe.</p> <p>If you don't specify a Region, then the <a href=\"https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateMeeting.html\">MediaRegion</a> of the meeting is used. However, if Amazon Transcribe is not available in the <code>MediaRegion</code>, then a <code>TranscriptFailed</code> event is sent.</p> <p>Use <code>auto</code> to use Amazon Transcribe in a Region near the meeting’s <code>MediaRegion</code>. For more information, refer to <a href=\"https://docs.aws.amazon.com/chime-sdk/latest/dg/transcription-options.html#choose-region\">Choosing a transcription Region</a> in the <i>Amazon Chime SDK Developer Guide</i>.</p>"""
+    """<p>The Amazon Web Services Region in which to use Amazon Transcribe.</p> <p>If you don't specify a Region, then the <a href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateMeeting.html">MediaRegion</a> of the meeting is used. However, if Amazon Transcribe is not available in the <code>MediaRegion</code>, then a <code>TranscriptFailed</code> event is sent.</p> <p>Use <code>auto</code> to use Amazon Transcribe in a Region near the meeting’s <code>MediaRegion</code>. For more information, refer to <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/transcription-options.html#choose-region">Choosing a transcription Region</a> in the <i>Amazon Chime SDK Developer Guide</i>.</p>"""
     enable_partial_results_stabilization: (
         "capo_chime_sdk_meetings.types.boolean.Boolean"
     )

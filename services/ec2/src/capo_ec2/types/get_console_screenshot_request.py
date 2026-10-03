@@ -17,7 +17,7 @@ class GetConsoleScreenshotRequest(TypedDict, closed=True):
     instance_id: NotRequired["capo_ec2.types.instance_id.InstanceId"]
     """<p>The ID of the instance.</p>"""
     wake_up: NotRequired["capo_ec2.types.boolean.Boolean"]
-    r"""<p>When set to <code>true</code>, acts as keystroke input and wakes up an instance that's in standby or \"sleep\" mode.</p>"""
+    """<p>When set to <code>true</code>, acts as keystroke input and wakes up an instance that's in standby or "sleep" mode.</p>"""
 
 
 # --- ec2Query ser/de ---

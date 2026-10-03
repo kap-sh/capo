@@ -21,7 +21,7 @@ class EventTracker(TypedDict, closed=True):
     account_id: NotRequired["capo_personalize.types.account_id.AccountId"]
     """<p>The Amazon Web Services account that owns the event tracker.</p>"""
     tracking_id: NotRequired["capo_personalize.types.tracking_id.TrackingId"]
-    r"""<p>The ID of the event tracker. Include this ID in requests to the <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html\">PutEvents</a> API.</p>"""
+    """<p>The ID of the event tracker. Include this ID in requests to the <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html">PutEvents</a> API.</p>"""
     dataset_group_arn: NotRequired["capo_personalize.types.arn.Arn"]
     """<p>The Amazon Resource Name (ARN) of the dataset group that receives the event data.</p>"""
     status: NotRequired["capo_personalize.types.status.Status"]

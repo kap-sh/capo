@@ -17,7 +17,7 @@ class SearchTrainingPlanOfferingsResponse(TypedDict, closed=True):
     training_plan_extension_offerings: NotRequired[
         "capo_sagemaker.types.training_plan_extension_offerings.TrainingPlanExtensionOfferings"
     ]
-    r"""<p>A list of extension offerings available for the specified training plan. These offerings can be used with the <code> <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ExtendTrainingPlan.html\">ExtendTrainingPlan</a> </code> API to extend an existing training plan.</p>"""
+    """<p>A list of extension offerings available for the specified training plan. These offerings can be used with the <code> <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ExtendTrainingPlan.html">ExtendTrainingPlan</a> </code> API to extend an existing training plan.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

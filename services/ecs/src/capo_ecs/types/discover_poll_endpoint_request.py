@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class DiscoverPollEndpointRequest(TypedDict, closed=True):
     container_instance: NotRequired["capo_ecs.types.string.String"]
-    r"""<p>The container instance ID or full ARN of the container instance. For more information about the ARN format, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids\">Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
+    """<p>The container instance ID or full ARN of the container instance. For more information about the ARN format, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
     cluster: NotRequired["capo_ecs.types.string.String"]
     """<p>The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.</p>"""
 

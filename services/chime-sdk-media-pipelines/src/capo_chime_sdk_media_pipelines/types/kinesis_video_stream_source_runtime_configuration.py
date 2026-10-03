@@ -16,7 +16,7 @@ class KinesisVideoStreamSourceRuntimeConfiguration(TypedDict, closed=True):
     streams: "capo_chime_sdk_media_pipelines.types.streams.Streams"
     """<p>The streams in the source runtime configuration of a Kinesis video stream.</p>"""
     media_encoding: "capo_chime_sdk_media_pipelines.types.media_encoding.MediaEncoding"
-    r"""<p>Specifies the encoding of your input audio. Supported format: PCM (only signed 16-bit little-endian audio formats, which does not include WAV)</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/transcribe/latest/dg/how-input.html#how-input-audio\">Media formats</a> in the <i>Amazon Transcribe Developer Guide</i>.</p>"""
+    """<p>Specifies the encoding of your input audio. Supported format: PCM (only signed 16-bit little-endian audio formats, which does not include WAV)</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/how-input.html#how-input-audio">Media formats</a> in the <i>Amazon Transcribe Developer Guide</i>.</p>"""
     media_sample_rate: "capo_chime_sdk_media_pipelines.types.media_sample_rate_hertz.MediaSampleRateHertz"
     """<p>The sample rate of the input audio (in hertz). Low-quality audio, such as telephone audio, is typically around 8,000 Hz. High-quality audio typically ranges from 16,000 Hz to 48,000 Hz. Note that the sample rate you specify must match that of your audio.</p> <p>Valid Range: Minimum value of 8000. Maximum value of 48000.</p>"""
 

@@ -42,7 +42,7 @@ class CreateIngressPointRequest(TypedDict, closed=True):
     tls_policy: NotRequired["capo_mailmanager.types.tls_policy.TlsPolicy"]
     """<p>The Transport Layer Security (TLS) policy for the ingress point. The FIPS value is only valid in US and Canada regions.</p>"""
     tags: NotRequired["capo_mailmanager.types.tag_list.TagList"]
-    r"""<p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

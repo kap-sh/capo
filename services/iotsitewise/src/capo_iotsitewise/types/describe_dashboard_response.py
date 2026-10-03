@@ -19,7 +19,7 @@ class DescribeDashboardResponse(TypedDict, closed=True):
     dashboard_id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the dashboard.</p>"""
     dashboard_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the dashboard, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:dashboard/${DashboardId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the dashboard, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:dashboard/${DashboardId}</code> </p>"""
     dashboard_name: "capo_iotsitewise.types.name.Name"
     """<p>The name of the dashboard.</p>"""
     project_id: "capo_iotsitewise.types.id.ID"
@@ -29,7 +29,7 @@ class DescribeDashboardResponse(TypedDict, closed=True):
     dashboard_definition: (
         "capo_iotsitewise.types.dashboard_definition.DashboardDefinition"
     )
-    r"""<p>The dashboard's definition JSON literal. For detailed information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-using-aws-cli.html\">Creating dashboards (CLI)</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The dashboard's definition JSON literal. For detailed information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-using-aws-cli.html">Creating dashboards (CLI)</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     dashboard_creation_date: "capo_iotsitewise.types.timestamp.Timestamp"
     """<p>The date the dashboard was created, in Unix epoch time.</p>"""
     dashboard_last_update_date: "capo_iotsitewise.types.timestamp.Timestamp"

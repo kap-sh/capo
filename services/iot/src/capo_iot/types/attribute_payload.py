@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class AttributePayload(TypedDict, closed=True):
     attributes: NotRequired["capo_iot.types.attributes.Attributes"]
-    r"""<p>A JSON string containing up to three key-value pair in JSON format. For example:</p> <p> <code>{\\"attributes\\":{\\"string1\\":\\"string2\\"}}</code> </p>"""
+    r"""<p>A JSON string containing up to three key-value pair in JSON format. For example:</p> <p> <code>{\"attributes\":{\"string1\":\"string2\"}}</code> </p>"""
     merge: "capo_iot.types.flag.Flag"
     """<p>Specifies whether the list of attributes provided in the <code>AttributePayload</code> is merged with the attributes stored in the registry, instead of overwriting them.</p> <p>To remove an attribute, call <code>UpdateThing</code> with an empty attribute value.</p> <note> <p>The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or <code>UpdateThingGroup</code>.</p> </note>"""
 

@@ -31,7 +31,7 @@ class CreateHlsManifestConfiguration(TypedDict, closed=True):
         "capo_mediapackagev2.types.filter_configuration.FilterConfiguration"
     ]
     url_encode_child_manifest: NotRequired["bool"]
-    r"""<p>When enabled, MediaPackage URL-encodes the query string for API requests for HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html\">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>"""
+    """<p>When enabled, MediaPackage URL-encodes the query string for API requests for HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>"""
     uri_path_type: NotRequired["capo_mediapackagev2.types.uri_path_type.UriPathType"]
     """<p>The type of path to use in manifest URIs. <code>LEAF</code> uses leaf-relative paths (for example, <code>index_1.m3u8</code>). <code>ROOT</code> uses root-relative paths that include the full path from root (for example, <code>/out/v1/channel-group/channel/endpoint/index_1.m3u8</code>). If you don't specify a value, the default is <code>LEAF</code>.</p>"""
 

@@ -16,11 +16,11 @@ class Rule(TypedDict, closed=True):
     name: NotRequired["capo_mailmanager.types.rule_name.RuleName"]
     """<p>The user-friendly name of the rule.</p>"""
     conditions: NotRequired["capo_mailmanager.types.rule_conditions.RuleConditions"]
-    r"""<p>The conditions of this rule. All conditions must match the email for the actions to be executed. An empty list of conditions means that all emails match, but are still subject to any \"unless conditions\"</p>"""
+    """<p>The conditions of this rule. All conditions must match the email for the actions to be executed. An empty list of conditions means that all emails match, but are still subject to any "unless conditions"</p>"""
     unless: NotRequired["capo_mailmanager.types.rule_conditions.RuleConditions"]
-    r"""<p>The \"unless conditions\" of this rule. None of the conditions can match the email for the actions to be executed. If any of these conditions do match the email, then the actions are not executed.</p>"""
+    """<p>The "unless conditions" of this rule. None of the conditions can match the email for the actions to be executed. If any of these conditions do match the email, then the actions are not executed.</p>"""
     actions: "capo_mailmanager.types.rule_actions.RuleActions"
-    r"""<p>The list of actions to execute when the conditions match the incoming email, and none of the \"unless conditions\" match.</p>"""
+    """<p>The list of actions to execute when the conditions match the incoming email, and none of the "unless conditions" match.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

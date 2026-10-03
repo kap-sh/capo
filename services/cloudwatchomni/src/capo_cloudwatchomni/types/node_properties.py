@@ -12,7 +12,7 @@ class NodeProperties(TypedDict, closed=True):
     region: NotRequired["str"]
     """The region the node runs in. Falls back to the region the telemetry was ingested from when the node does not report one."""
     cloud_provider: NotRequired["str"]
-    r"""The cloud provider hosting the node, resolved from the reported provider, platform, or vendor namespace, and defaulting to \"aws\"."""
+    """The cloud provider hosting the node, resolved from the reported provider, platform, or vendor namespace, and defaulting to "aws"."""
     source_account_id: NotRequired["str"]
     """The account that produced the telemetry this node was discovered from."""
     namespace: NotRequired["str"]

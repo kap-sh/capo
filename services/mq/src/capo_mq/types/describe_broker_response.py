@@ -64,7 +64,7 @@ class DescribeBrokerResponse(TypedDict, closed=True):
     engine_type: NotRequired["capo_mq.types.engine_type.EngineType"]
     """<p>The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.</p>"""
     engine_version: NotRequired["capo_mq.types.__string.__string"]
-    r"""<p>The broker engine version. For more information, see the <a href=\"https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html\">ActiveMQ version management</a> and the <a href=\"https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html\">RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.</p>"""
+    """<p>The broker engine version. For more information, see the <a href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ version management</a> and the <a href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.</p>"""
     host_instance_type: NotRequired["capo_mq.types.__string.__string"]
     """<p>The broker's instance type.</p>"""
     ldap_server_metadata: NotRequired[
@@ -82,9 +82,9 @@ class DescribeBrokerResponse(TypedDict, closed=True):
     ]
     """<p>The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.</p>"""
     pending_engine_version: NotRequired["capo_mq.types.__string.__string"]
-    r"""<p>The broker engine version to upgrade to. For more information, see the <a href=\"https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html\">ActiveMQ version management</a> and the <a href=\"https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html\">RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.</p>"""
+    """<p>The broker engine version to upgrade to. For more information, see the <a href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ version management</a> and the <a href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.</p>"""
     pending_host_instance_type: NotRequired["capo_mq.types.__string.__string"]
-    r"""<p>The broker's host instance type to upgrade to. For a list of supported instance types, see <a href=\"https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types\">Broker instance types</a>.</p>"""
+    """<p>The broker's host instance type to upgrade to. For a list of supported instance types, see <a href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker instance types</a>.</p>"""
     pending_ldap_server_metadata: NotRequired[
         "capo_mq.types.ldap_server_metadata_output.LdapServerMetadataOutput"
     ]

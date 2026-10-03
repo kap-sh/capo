@@ -17,7 +17,7 @@ class Encryption(TypedDict, closed=True):
     encryption_type: "capo_s3.types.server_side_encryption.ServerSideEncryption"
     """<p>The server-side encryption algorithm used when storing job results in Amazon S3 (for example, AES256, <code>aws:kms</code>).</p>"""
     kms_key_id: NotRequired["capo_s3.types.ssekms_key_id.SSEKMSKeyId"]
-    r"""<p>If the encryption type is <code>aws:kms</code>, this optional value specifies the ID of the symmetric encryption customer managed key to use for encryption of job results. Amazon S3 only supports symmetric encryption KMS keys. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html\">Asymmetric keys in KMS</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>"""
+    """<p>If the encryption type is <code>aws:kms</code>, this optional value specifies the ID of the symmetric encryption customer managed key to use for encryption of job results. Amazon S3 only supports symmetric encryption KMS keys. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Asymmetric keys in KMS</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>"""
     kms_context: NotRequired["capo_s3.types.kms_context.KMSContext"]
     """<p>If the encryption type is <code>aws:kms</code>, this optional value can be used to specify the encryption context for the restore results.</p>"""
 

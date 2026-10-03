@@ -22,7 +22,7 @@ class AwsS3BucketBucketLifecycleConfigurationRulesDetails(TypedDict, closed=True
     expiration_date: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>The date when objects are moved or deleted.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>The date when objects are moved or deleted.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     expiration_in_days: NotRequired["capo_securityhub.types.integer.Integer"]
     """<p>The length in days of the lifetime for objects that are subject to the rule.</p>"""
     expired_object_delete_marker: NotRequired["capo_securityhub.types.boolean.Boolean"]

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ImportKeyPairResult(TypedDict, closed=True):
     key_fingerprint: NotRequired["capo_ec2.types.string.String"]
-    r"""<ul> <li> <p>For RSA key pairs, the key fingerprint is the MD5 public key fingerprint as specified in section 4 of RFC 4716.</p> </li> <li> <p>For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for OpenSSH, starting with <a href=\"http://www.openssh.com/txt/release-6.8\">OpenSSH 6.8</a>.</p> </li> </ul>"""
+    """<ul> <li> <p>For RSA key pairs, the key fingerprint is the MD5 public key fingerprint as specified in section 4 of RFC 4716.</p> </li> <li> <p>For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for OpenSSH, starting with <a href="http://www.openssh.com/txt/release-6.8">OpenSSH 6.8</a>.</p> </li> </ul>"""
     key_name: NotRequired["capo_ec2.types.string.String"]
     """<p>The key pair name that you provided.</p>"""
     key_pair_id: NotRequired["capo_ec2.types.string.String"]

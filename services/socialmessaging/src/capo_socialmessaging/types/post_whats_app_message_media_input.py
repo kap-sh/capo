@@ -16,7 +16,7 @@ class PostWhatsAppMessageMediaInput(TypedDict, closed=True):
     origination_phone_number_id: (
         "capo_socialmessaging.types.whats_app_phone_number_id.WhatsAppPhoneNumberId"
     )
-    r"""<p>The ID of the phone number to associate with the WhatsApp media file. The phone number identifiers are formatted as <code>phone-number-id-01234567890123456789012345678901</code>. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_GetLinkedWhatsAppBusinessAccount.html\">GetLinkedWhatsAppBusinessAccount</a> to find a phone number's id.</p>"""
+    """<p>The ID of the phone number to associate with the WhatsApp media file. The phone number identifiers are formatted as <code>phone-number-id-01234567890123456789012345678901</code>. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_GetLinkedWhatsAppBusinessAccount.html">GetLinkedWhatsAppBusinessAccount</a> to find a phone number's id.</p>"""
     source_s3_presigned_url: NotRequired[
         "capo_socialmessaging.types.s3_presigned_url.S3PresignedUrl"
     ]

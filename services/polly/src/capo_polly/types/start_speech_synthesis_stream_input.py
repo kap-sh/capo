@@ -26,7 +26,7 @@ class StartSpeechSynthesisStreamInput(TypedDict, closed=True):
     sample_rate: NotRequired["capo_polly.types.sample_rate.SampleRate"]
     """<p>The audio frequency, specified in Hz.</p>"""
     voice_id: "capo_polly.types.voice_id.VoiceId"
-    r"""<p>The voice to use in synthesis. To get a list of available voice IDs, use the <a href=\"https://docs.aws.amazon.com/polly/latest/API/API_DescribeVoices.html\">DescribeVoices</a> operation.</p>"""
+    """<p>The voice to use in synthesis. To get a list of available voice IDs, use the <a href="https://docs.aws.amazon.com/polly/latest/API/API_DescribeVoices.html">DescribeVoices</a> operation.</p>"""
     action_stream: NotRequired[
         "capo_polly.types.start_speech_synthesis_stream_action_stream.StartSpeechSynthesisStreamActionStream"
     ]

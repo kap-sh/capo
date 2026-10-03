@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class SupportedInstanceType(TypedDict, closed=True):
     type: NotRequired["capo_emr.types.string.String"]
-    r"""<p>The <a href=\"http://aws.amazon.com/ec2/instance-types/\">Amazon EC2 instance type</a>, for example <code>m5.xlarge</code>, of the <code>SupportedInstanceType</code>.</p>"""
+    """<p>The <a href="http://aws.amazon.com/ec2/instance-types/">Amazon EC2 instance type</a>, for example <code>m5.xlarge</code>, of the <code>SupportedInstanceType</code>.</p>"""
     memory_gb: NotRequired["capo_emr.types.float.Float"]
     """<p>The amount of memory that is available to Amazon EMR from the <code>SupportedInstanceType</code>. The kernel and hypervisor software consume some memory, so this value might be lower than the overall memory for the instance type.</p>"""
     storage_gb: NotRequired["capo_emr.types.integer.Integer"]

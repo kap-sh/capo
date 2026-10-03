@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class CreateProfileRequest(TypedDict, closed=True):
     as2_id: "capo_transfer.types.as2_id.As2Id"
-    r"""<p>The <code>As2Id</code> is the <i>AS2-name</i>, as defined in the <a href=\"https://datatracker.ietf.org/doc/html/rfc4130\">RFC 4130</a>. For inbound transfers, this is the <code>AS2-From</code> header for the AS2 messages sent from the partner. For outbound connectors, this is the <code>AS2-To</code> header for the AS2 messages sent to the partner using the <code>StartFileTransfer</code> API operation. This ID cannot include spaces.</p>"""
+    """<p>The <code>As2Id</code> is the <i>AS2-name</i>, as defined in the <a href="https://datatracker.ietf.org/doc/html/rfc4130">RFC 4130</a>. For inbound transfers, this is the <code>AS2-From</code> header for the AS2 messages sent from the partner. For outbound connectors, this is the <code>AS2-To</code> header for the AS2 messages sent to the partner using the <code>StartFileTransfer</code> API operation. This ID cannot include spaces.</p>"""
     profile_type: "capo_transfer.types.profile_type.ProfileType"
     """<p>Determines the type of profile to create:</p> <ul> <li> <p>Specify <code>LOCAL</code> to create a local profile. A local profile represents the AS2-enabled Transfer Family server organization or party.</p> </li> <li> <p>Specify <code>PARTNER</code> to create a partner profile. A partner profile represents a remote organization, external to Transfer Family.</p> </li> </ul>"""
     certificate_ids: NotRequired["capo_transfer.types.certificate_ids.CertificateIds"]

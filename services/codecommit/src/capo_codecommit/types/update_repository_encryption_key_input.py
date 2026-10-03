@@ -15,7 +15,7 @@ class UpdateRepositoryEncryptionKeyInput(TypedDict, closed=True):
     repository_name: "capo_codecommit.types.repository_name.RepositoryName"
     """<p>The name of the repository for which you want to update the KMS encryption key used to encrypt and decrypt the repository.</p>"""
     kms_key_id: "capo_codecommit.types.kms_key_id.KmsKeyId"
-    r"""<p>The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to programmatically retrieve a key ID. For more information about acceptable values for keyID, see <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId\">KeyId</a> in the Decrypt API description in the <i>Key Management Service API Reference</i>.</p>"""
+    """<p>The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to programmatically retrieve a key ID. For more information about acceptable values for keyID, see <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a> in the Decrypt API description in the <i>Key Management Service API Reference</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

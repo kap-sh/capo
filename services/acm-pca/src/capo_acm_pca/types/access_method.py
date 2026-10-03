@@ -13,7 +13,7 @@ class AccessMethod(TypedDict, closed=True):
     custom_object_identifier: NotRequired[
         "capo_acm_pca.types.custom_object_identifier.CustomObjectIdentifier"
     ]
-    r"""<p>An object identifier (OID) specifying the <code>AccessMethod</code>. The OID must satisfy the regular expression shown below. For more information, see NIST's definition of <a href=\"https://csrc.nist.gov/glossary/term/Object_Identifier\">Object Identifier (OID)</a>.</p>"""
+    """<p>An object identifier (OID) specifying the <code>AccessMethod</code>. The OID must satisfy the regular expression shown below. For more information, see NIST's definition of <a href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.</p>"""
     access_method_type: NotRequired[
         "capo_acm_pca.types.access_method_type.AccessMethodType"
     ]

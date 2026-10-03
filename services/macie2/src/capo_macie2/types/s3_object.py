@@ -20,7 +20,7 @@ class S3Object(TypedDict, closed=True):
     e_tag: NotRequired["capo_macie2.types.__string.__string"]
     """<p>The entity tag (ETag) that identifies the affected version of the object. If the object was overwritten or changed after Amazon Macie produced the finding, this value might be different from the current ETag for the object.</p>"""
     extension: NotRequired["capo_macie2.types.__string.__string"]
-    r"""<p>The file name extension of the object. If the object doesn't have a file name extension, this value is \"\".</p>"""
+    """<p>The file name extension of the object. If the object doesn't have a file name extension, this value is "".</p>"""
     key: NotRequired["capo_macie2.types.__string.__string"]
     """<p>The full name (<i>key</i>) of the object, including the object's prefix if applicable.</p>"""
     last_modified: NotRequired[

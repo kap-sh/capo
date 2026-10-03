@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class BatchGetDocumentStatusRequest(TypedDict, closed=True):
     index_id: "capo_kendra.types.index_id.IndexId"
-    r"""<p>The identifier of the index to add documents to. The index ID is returned by the <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_CreateIndex.html\">CreateIndex </a> API.</p>"""
+    """<p>The identifier of the index to add documents to. The index ID is returned by the <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateIndex.html">CreateIndex </a> API.</p>"""
     document_info_list: "capo_kendra.types.document_info_list.DocumentInfoList"
     """<p>A list of <code>DocumentInfo</code> objects that identify the documents for which to get the status. You identify the documents by their document ID and optional attributes.</p>"""
 

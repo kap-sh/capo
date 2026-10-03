@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class EnableDefaultKeyReplicationRegionsInput(TypedDict, closed=True):
     replication_regions: "capo_payment_cryptography.types.regions.Regions"
-    r"""<p>The list of Amazon Web Services Regions to enable as default replication regions for the Amazon Web Services account for <a href=\"https://docs.aws.amazon.com/payment-cryptography/latest/userguide/keys-multi-region-replication.html\">Multi-Region key replication</a>.</p> <p>New keys created in this account will automatically be replicated to these regions unless explicitly overridden during key creation.</p>"""
+    """<p>The list of Amazon Web Services Regions to enable as default replication regions for the Amazon Web Services account for <a href="https://docs.aws.amazon.com/payment-cryptography/latest/userguide/keys-multi-region-replication.html">Multi-Region key replication</a>.</p> <p>New keys created in this account will automatically be replicated to these regions unless explicitly overridden during key creation.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

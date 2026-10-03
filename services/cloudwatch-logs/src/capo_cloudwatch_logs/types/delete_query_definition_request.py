@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DeleteQueryDefinitionRequest(TypedDict, closed=True):
     query_definition_id: "capo_cloudwatch_logs.types.query_id.QueryId"
-    r"""<p>The ID of the query definition that you want to delete. You can use <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html\">DescribeQueryDefinitions</a> to retrieve the IDs of your saved query definitions.</p>"""
+    """<p>The ID of the query definition that you want to delete. You can use <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html">DescribeQueryDefinitions</a> to retrieve the IDs of your saved query definitions.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

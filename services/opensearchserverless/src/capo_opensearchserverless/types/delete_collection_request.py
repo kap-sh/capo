@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DeleteCollectionRequest(TypedDict, closed=True):
     id: "capo_opensearchserverless.types.collection_id.CollectionId"
-    r"""<p>The unique identifier of the collection. For example, <code>1iu5usc406kd</code>. The ID is part of the collection endpoint. You can also retrieve it using the <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html\">ListCollections</a> API.</p>"""
+    """<p>The unique identifier of the collection. For example, <code>1iu5usc406kd</code>. The ID is part of the collection endpoint. You can also retrieve it using the <a href="https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html">ListCollections</a> API.</p>"""
     client_token: NotRequired[
         "capo_opensearchserverless.types.client_token.ClientToken"
     ]

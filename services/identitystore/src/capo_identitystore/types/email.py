@@ -13,11 +13,11 @@ class Email(TypedDict, closed=True):
     value: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string containing an email address. For example, \"johndoe@amazon.com.\"</p>"""
+    """<p>A string containing an email address. For example, "johndoe@amazon.com."</p>"""
     type: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string representing the type of address. For example, \"Work.\"</p>"""
+    """<p>A string representing the type of address. For example, "Work."</p>"""
     primary: "capo_identitystore.types.boolean_type.BooleanType"
     """<p>A Boolean value representing whether this is the primary email address for the associated resource.</p>"""
 

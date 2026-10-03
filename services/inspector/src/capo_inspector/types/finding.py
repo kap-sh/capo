@@ -30,7 +30,7 @@ class Finding(TypedDict, closed=True):
     schema_version: "capo_inspector.types.numeric_version.NumericVersion"
     """<p>The schema version of this data type.</p>"""
     service: NotRequired["capo_inspector.types.service_name.ServiceName"]
-    r"""<p>The data element is set to \"Inspector\".</p>"""
+    """<p>The data element is set to "Inspector".</p>"""
     service_attributes: NotRequired[
         "capo_inspector.types.inspector_service_attributes.InspectorServiceAttributes"
     ]

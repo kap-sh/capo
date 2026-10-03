@@ -53,7 +53,7 @@ class GetMLModelOutput(TypedDict, closed=True):
     input_data_location_s3: NotRequired["capo_machine_learning.types.s3_url.S3Url"]
     """<p>The location of the data file or directory in Amazon Simple Storage Service (Amazon S3).</p>"""
     ml_model_type: NotRequired["capo_machine_learning.types.ml_model_type.MLModelType"]
-    r"""<p>Identifies the <code>MLModel</code> category. The following are the available types: </p> <ul> <li> <p>REGRESSION -- Produces a numeric result. For example, \"What price should a house be listed at?\"</p> </li> <li> <p>BINARY -- Produces one of two possible results. For example, \"Is this an e-commerce website?\"</p> </li> <li> <p>MULTICLASS -- Produces one of several possible results. For example, \"Is this a HIGH, LOW or MEDIUM risk trade?\"</p> </li> </ul>"""
+    """<p>Identifies the <code>MLModel</code> category. The following are the available types: </p> <ul> <li> <p>REGRESSION -- Produces a numeric result. For example, "What price should a house be listed at?"</p> </li> <li> <p>BINARY -- Produces one of two possible results. For example, "Is this an e-commerce website?"</p> </li> <li> <p>MULTICLASS -- Produces one of several possible results. For example, "Is this a HIGH, LOW or MEDIUM risk trade?"</p> </li> </ul>"""
     score_threshold: NotRequired[
         "capo_machine_learning.types.score_threshold.ScoreThreshold"
     ]

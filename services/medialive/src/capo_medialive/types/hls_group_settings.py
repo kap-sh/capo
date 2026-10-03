@@ -57,13 +57,13 @@ class HlsGroupSettings(TypedDict, closed=True):
     caption_language_mappings: NotRequired[
         "capo_medialive.types.__list_of_caption_language_mapping.__listOfCaptionLanguageMapping"
     ]
-    r"""Mapping of up to 4 caption channels to caption languages. Is only meaningful if captionLanguageSetting is set to \"insert\"."""
+    """Mapping of up to 4 caption channels to caption languages. Is only meaningful if captionLanguageSetting is set to "insert"."""
     caption_language_setting: NotRequired[
         "capo_medialive.types.hls_caption_language_setting.HlsCaptionLanguageSetting"
     ]
     """Applies only to 608 Embedded output captions. insert: Include CLOSED-CAPTIONS lines in the manifest. Specify at least one language in the CC1 Language Code field. One CLOSED-CAPTION line is added for each Language Code you specify. Make sure to specify the languages in the order in which they appear in the original source (if the source is embedded format) or the order of the caption selectors (if the source is other than embedded). Otherwise, languages in the manifest will not match up properly with the output captions. none: Include CLOSED-CAPTIONS=NONE line in the manifest. omit: Omit any CLOSED-CAPTIONS line from the manifest."""
     client_cache: NotRequired["capo_medialive.types.hls_client_cache.HlsClientCache"]
-    r"""When set to \"disabled\", sets the #EXT-X-ALLOW-CACHE:no tag in the manifest, which prevents clients from saving media segments for later replay."""
+    """When set to "disabled", sets the #EXT-X-ALLOW-CACHE:no tag in the manifest, which prevents clients from saving media segments for later replay."""
     codec_specification: NotRequired[
         "capo_medialive.types.hls_codec_specification.HlsCodecSpecification"
     ]
@@ -71,7 +71,7 @@ class HlsGroupSettings(TypedDict, closed=True):
     constant_iv: NotRequired[
         "capo_medialive.types.__string_min32_max32.__stringMin32Max32"
     ]
-    r"""For use with encryptionType. This is a 128-bit, 16-byte hex value represented by a 32-character text string. If ivSource is set to \"explicit\" then this parameter is required and is used as the IV for encryption."""
+    """For use with encryptionType. This is a 128-bit, 16-byte hex value represented by a 32-character text string. If ivSource is set to "explicit" then this parameter is required and is used as the IV for encryption."""
     destination: NotRequired[
         "capo_medialive.types.output_location_ref.OutputLocationRef"
     ]
@@ -99,7 +99,7 @@ class HlsGroupSettings(TypedDict, closed=True):
     i_frame_only_playlists: NotRequired[
         "capo_medialive.types.i_frame_only_playlist_type.IFrameOnlyPlaylistType"
     ]
-    r"""DISABLED: Do not create an I-frame-only manifest, but do create the master and media manifests (according to the Output Selection field). STANDARD: Create an I-frame-only manifest for each output that contains video, as well as the other manifests (according to the Output Selection field). The I-frame manifest contains a #EXT-X-I-FRAMES-ONLY tag to indicate it is I-frame only, and one or more #EXT-X-BYTERANGE entries identifying the I-frame position. For example, #EXT-X-BYTERANGE:160364@1461888\""""
+    """DISABLED: Do not create an I-frame-only manifest, but do create the master and media manifests (according to the Output Selection field). STANDARD: Create an I-frame-only manifest for each output that contains video, as well as the other manifests (according to the Output Selection field). The I-frame manifest contains a #EXT-X-I-FRAMES-ONLY tag to indicate it is I-frame only, and one or more #EXT-X-BYTERANGE entries identifying the I-frame position. For example, #EXT-X-BYTERANGE:160364@1461888\""""
     incomplete_segment_behavior: NotRequired[
         "capo_medialive.types.hls_incomplete_segment_behavior.HlsIncompleteSegmentBehavior"
     ]
@@ -113,13 +113,13 @@ class HlsGroupSettings(TypedDict, closed=True):
     iv_in_manifest: NotRequired[
         "capo_medialive.types.hls_iv_in_manifest.HlsIvInManifest"
     ]
-    r"""For use with encryptionType. The IV (Initialization Vector) is a 128-bit number used in conjunction with the key for encrypting blocks. If set to \"include\", IV is listed in the manifest, otherwise the IV is not in the manifest."""
+    """For use with encryptionType. The IV (Initialization Vector) is a 128-bit number used in conjunction with the key for encrypting blocks. If set to "include", IV is listed in the manifest, otherwise the IV is not in the manifest."""
     iv_source: NotRequired["capo_medialive.types.hls_iv_source.HlsIvSource"]
-    r"""For use with encryptionType. The IV (Initialization Vector) is a 128-bit number used in conjunction with the key for encrypting blocks. If this setting is \"followsSegmentNumber\", it will cause the IV to change every segment (to match the segment number). If this is set to \"explicit\", you must enter a constantIv value."""
+    """For use with encryptionType. The IV (Initialization Vector) is a 128-bit number used in conjunction with the key for encrypting blocks. If this setting is "followsSegmentNumber", it will cause the IV to change every segment (to match the segment number). If this is set to "explicit", you must enter a constantIv value."""
     keep_segments: NotRequired["capo_medialive.types.__integer_min1.__integerMin1"]
-    r"""Applies only if Mode field is LIVE. Specifies the number of media segments to retain in the destination directory. This number should be bigger than indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1). If this \"keep segments\" number is too low, the following might happen: the player is still reading a media manifest file that lists this segment, but that segment has been removed from the destination directory (as directed by indexNSegments). This situation would result in a 404 HTTP error on the player."""
+    """Applies only if Mode field is LIVE. Specifies the number of media segments to retain in the destination directory. This number should be bigger than indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1). If this "keep segments" number is too low, the following might happen: the player is still reading a media manifest file that lists this segment, but that segment has been removed from the destination directory (as directed by indexNSegments). This situation would result in a 404 HTTP error on the player."""
     key_format: NotRequired["capo_medialive.types.__string.__string"]
-    r"""The value specifies how the key is represented in the resource identified by the URI. If parameter is absent, an implicit value of \"identity\" is used. A reverse DNS string can also be given."""
+    """The value specifies how the key is represented in the resource identified by the URI. If parameter is absent, an implicit value of "identity" is used. A reverse DNS string can also be given."""
     key_format_versions: NotRequired["capo_medialive.types.__string.__string"]
     """Either a single positive integer version value or a slash delimited list of version values (1/2/3)."""
     key_provider_settings: NotRequired[
@@ -137,7 +137,7 @@ class HlsGroupSettings(TypedDict, closed=True):
     min_segment_length: NotRequired["capo_medialive.types.__integer_min0.__integerMin0"]
     """Minimum length of MPEG-2 Transport Stream segments in seconds. When set, minimum segment length is enforced by looking ahead and back within the specified range for a nearby avail and extending the segment size if needed."""
     mode: NotRequired["capo_medialive.types.hls_mode.HlsMode"]
-    r"""If \"vod\", all segments are indexed and kept permanently in the destination and manifest. If \"live\", only the number segments specified in keepSegments and indexNSegments are kept; newer segments replace older segments, which may prevent players from rewinding all the way to the beginning of the event. VOD mode uses HLS EXT-X-PLAYLIST-TYPE of EVENT while the channel is running, converting it to a \"VOD\" type manifest on completion of the stream."""
+    """If "vod", all segments are indexed and kept permanently in the destination and manifest. If "live", only the number segments specified in keepSegments and indexNSegments are kept; newer segments replace older segments, which may prevent players from rewinding all the way to the beginning of the event. VOD mode uses HLS EXT-X-PLAYLIST-TYPE of EVENT while the channel is running, converting it to a "VOD" type manifest on completion of the stream."""
     output_selection: NotRequired[
         "capo_medialive.types.hls_output_selection.HlsOutputSelection"
     ]

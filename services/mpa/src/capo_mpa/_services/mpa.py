@@ -681,7 +681,7 @@ class MPAClient:
         client_token: Optional["capo_mpa.types.token.Token"] = None,
         tags: Optional["capo_mpa.types.tags.Tags"] = None,
     ) -> "capo_mpa.types.create_approval_team_response.CreateApprovalTeamResponse":
-        r"""<p>Creates a new approval team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Approval team</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Creates a new approval team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Approval team</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services populates this field.</p> <note> <p> <b>What is idempotency?</b> </p> <p>When you make a mutating API request, the request typically returns a result before the operation's asynchronous workflows have completed. Operations might also time out or encounter other server issues before they complete, even though the request has already returned a result. This could make it difficult to determine whether the request succeeded or not, and could lead to multiple retries to ensure that the operation completes successfully. However, if the original request and the subsequent retries are successful, the operation is completed multiple times. This means that you might create more resources than you intended.</p> <p> <i>Idempotency</i> ensures that an API request completes no more than one time. With an idempotent request, if the original request completes successfully, any subsequent retries complete successfully without performing any further actions.</p> </note>
@@ -861,7 +861,7 @@ class MPAClient:
         *,
         config_overrides: Optional[MPAClientConfig] = None,
     ) -> "capo_mpa.types.delete_inactive_approval_team_version_response.DeleteInactiveApprovalTeamVersionResponse":
-        r"""<p>Deletes an inactive approval team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html\">Team health</a> in the <i>Multi-party approval User Guide</i>.</p> <p>You can also use this operation to delete a team draft. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/update-team.html#update-team-draft-status\">Interacting with drafts</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Deletes an inactive approval team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html">Team health</a> in the <i>Multi-party approval User Guide</i>.</p> <p>You can also use this operation to delete a team draft. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/update-team.html#update-team-draft-status">Interacting with drafts</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             arn: <p>Amaazon Resource Name (ARN) for the team.</p>
@@ -1089,7 +1089,7 @@ class MPAClient:
         client_token: Optional["capo_mpa.types.token.Token"] = None,
         tags: Optional["capo_mpa.types.tags.Tags"] = None,
     ) -> "capo_mpa.types.create_identity_source_response.CreateIdentitySourceResponse":
-        r"""<p>Creates a new identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Creates a new identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_parameters: <p>A <code> IdentitySourceParameters</code> object. Contains details for the resource that provides identities to the identity source. For example, an IAM Identity Center instance.</p>
@@ -1143,7 +1143,7 @@ class MPAClient:
         *,
         config_overrides: Optional[MPAClientConfig] = None,
     ) -> "capo_mpa.types.get_identity_source_response.GetIdentitySourceResponse":
-        r"""<p>Returns details for an identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Returns details for an identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_arn: <p>Amazon Resource Name (ARN) for the identity source.</p>
@@ -1190,7 +1190,7 @@ class MPAClient:
         *,
         config_overrides: Optional[MPAClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes an identity source. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Deletes an identity source. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             identity_source_arn: <p>Amazon Resource Name (ARN) for identity source.</p>
@@ -1236,7 +1236,7 @@ class MPAClient:
         max_results: Optional["capo_mpa.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_mpa.types.token.Token"] = None,
     ) -> "capo_mpa.types.list_identity_sources_response.ListIdentitySourcesResponse":
-        r"""<p>Returns a list of identity sources. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Returns a list of identity sources. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Identity Source</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             max_results: <p>The maximum number of items to return in the response. If more results exist than the specified <code>MaxResults</code> value, a token is included in the response so that you can retrieve the remaining results.</p>
@@ -1306,7 +1306,7 @@ class MPAClient:
         *,
         config_overrides: Optional[MPAClientConfig] = None,
     ) -> "capo_mpa.types.get_session_response.GetSessionResponse":
-        r"""<p>Returns details for an approval session. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Session</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Returns details for an approval session. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Session</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             session_arn: <p>Amazon Resource Name (ARN) for the session.</p>
@@ -1353,7 +1353,7 @@ class MPAClient:
         *,
         config_overrides: Optional[MPAClientConfig] = None,
     ) -> "capo_mpa.types.cancel_session_response.CancelSessionResponse":
-        r"""<p>Cancels an approval session. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Session</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Cancels an approval session. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Session</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             session_arn: <p>Amazon Resource Name (ARN) for the session.</p>
@@ -1404,7 +1404,7 @@ class MPAClient:
         next_token: Optional["capo_mpa.types.token.Token"] = None,
         filters: Optional["capo_mpa.types.filters.Filters"] = None,
     ) -> "capo_mpa.types.list_sessions_response.ListSessionsResponse":
-        r"""<p>Returns a list of approval sessions. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Session</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Returns a list of approval sessions. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Session</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             approval_team_arn: <p>Amazon Resource Name (ARN) for the approval team.</p>

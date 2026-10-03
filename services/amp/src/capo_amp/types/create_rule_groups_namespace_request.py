@@ -20,7 +20,7 @@ class CreateRuleGroupsNamespaceRequest(TypedDict, closed=True):
     name: "capo_amp.types.rule_groups_namespace_name.RuleGroupsNamespaceName"
     """<p>The name for the new rule groups namespace.</p>"""
     data: "capo_amp.types.rule_groups_namespace_data.RuleGroupsNamespaceData"
-    r"""<p>The rules file to use in the new namespace.</p> <p>Contains the base64-encoded version of the YAML rules file.</p> <p>For details about the rule groups namespace structure, see <a href=\"https://docs.aws.amazon.com/prometheus/latest/APIReference/yaml-RuleGroupsNamespaceData.html\">RuleGroupsNamespaceData</a>.</p>"""
+    """<p>The rules file to use in the new namespace.</p> <p>Contains the base64-encoded version of the YAML rules file.</p> <p>For details about the rule groups namespace structure, see <a href="https://docs.aws.amazon.com/prometheus/latest/APIReference/yaml-RuleGroupsNamespaceData.html">RuleGroupsNamespaceData</a>.</p>"""
     client_token: NotRequired["capo_amp.types.idempotency_token.IdempotencyToken"]
     """<p>A unique identifier that you can provide to ensure the idempotency of the request. Case-sensitive.</p>"""
     tags: NotRequired["capo_amp.types.tag_map.TagMap"]

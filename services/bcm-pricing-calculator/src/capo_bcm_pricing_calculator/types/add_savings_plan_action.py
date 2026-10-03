@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class AddSavingsPlanAction(TypedDict, closed=True):
     savings_plan_offering_id: NotRequired["capo_bcm_pricing_calculator.types.uuid.Uuid"]
-    r"""<p> The ID of the Savings Plan offering to add. For more information, see <a href=\"https://docs.aws.amazon.com/savingsplans/latest/APIReference/API_DescribeSavingsPlansOfferings.html\"> DescribeSavingsPlansOfferings</a>. </p>"""
+    """<p> The ID of the Savings Plan offering to add. For more information, see <a href="https://docs.aws.amazon.com/savingsplans/latest/APIReference/API_DescribeSavingsPlansOfferings.html"> DescribeSavingsPlansOfferings</a>. </p>"""
     commitment: NotRequired[
         "capo_bcm_pricing_calculator.types.savings_plan_commitment.SavingsPlanCommitment"
     ]

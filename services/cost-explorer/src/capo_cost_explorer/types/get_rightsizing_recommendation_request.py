@@ -21,7 +21,7 @@ class GetRightsizingRecommendationRequest(TypedDict, closed=True):
     ]
     """<p>You can use Configuration to customize recommendations across two attributes. You can choose to view recommendations for instances within the same instance families or across different instance families. You can also choose to view your estimated savings that are associated with recommendations with consideration of existing Savings Plans or RI benefits, or neither. </p>"""
     service: "capo_cost_explorer.types.generic_string.GenericString"
-    r"""<p>The specific service that you want recommendations for. The only valid value for <code>GetRightsizingRecommendation</code> is \"<code>AmazonEC2</code>\".</p>"""
+    """<p>The specific service that you want recommendations for. The only valid value for <code>GetRightsizingRecommendation</code> is "<code>AmazonEC2</code>".</p>"""
     page_size: (
         "capo_cost_explorer.types.recommendations_page_size.RecommendationsPageSize"
     )

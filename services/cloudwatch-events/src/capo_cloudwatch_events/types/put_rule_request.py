@@ -23,11 +23,11 @@ class PutRuleRequest(TypedDict, closed=True):
     schedule_expression: NotRequired[
         "capo_cloudwatch_events.types.schedule_expression.ScheduleExpression"
     ]
-    r"""<p>The scheduling expression. For example, \"cron(0 20 * * ? *)\" or \"rate(5 minutes)\".</p>"""
+    """<p>The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".</p>"""
     event_pattern: NotRequired[
         "capo_cloudwatch_events.types.event_pattern.EventPattern"
     ]
-    r"""<p>The event pattern. For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html\">Events and Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>The event pattern. For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
     state: NotRequired["capo_cloudwatch_events.types.rule_state.RuleState"]
     """<p>Indicates whether the rule is enabled or disabled.</p>"""
     description: NotRequired[

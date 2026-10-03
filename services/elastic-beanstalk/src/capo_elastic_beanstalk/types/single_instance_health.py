@@ -20,9 +20,9 @@ class SingleInstanceHealth(TypedDict, closed=True):
     instance_id: NotRequired["capo_elastic_beanstalk.types.instance_id.InstanceId"]
     """<p>The ID of the Amazon EC2 instance.</p>"""
     health_status: NotRequired["capo_elastic_beanstalk.types.string.String"]
-    r"""<p>Returns the health status of the specified instance. For more information, see <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html\">Health Colors and Statuses</a>.</p>"""
+    """<p>Returns the health status of the specified instance. For more information, see <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html">Health Colors and Statuses</a>.</p>"""
     color: NotRequired["capo_elastic_beanstalk.types.string.String"]
-    r"""<p>Represents the color indicator that gives you information about the health of the EC2 instance. For more information, see <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html\">Health Colors and Statuses</a>.</p>"""
+    """<p>Represents the color indicator that gives you information about the health of the EC2 instance. For more information, see <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html">Health Colors and Statuses</a>.</p>"""
     causes: NotRequired["capo_elastic_beanstalk.types.causes.Causes"]
     """<p>Represents the causes, which provide more information about the current health status.</p>"""
     launched_at: NotRequired["capo_elastic_beanstalk.types.launched_at.LaunchedAt"]

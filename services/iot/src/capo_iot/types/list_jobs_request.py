@@ -28,7 +28,7 @@ class ListJobsRequest(TypedDict, closed=True):
     thing_group_id: NotRequired["capo_iot.types.thing_group_id.ThingGroupId"]
     """<p>A filter that limits the returned jobs to those for the specified group.</p>"""
     namespace_id: NotRequired["capo_iot.types.namespace_id.NamespaceId"]
-    r"""<p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>"""
+    """<p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>"""
 
 
 # --- restJson1 ser/de ---

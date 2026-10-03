@@ -19,7 +19,7 @@ class PermissionSet(TypedDict, closed=True):
     permission_set_arn: NotRequired[
         "capo_sso_admin.types.permission_set_arn.PermissionSetArn"
     ]
-    r"""<p>The ARN of the permission set. For more information about ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The ARN of the permission set. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     description: NotRequired[
         "capo_sso_admin.types.permission_set_description.PermissionSetDescription"
     ]

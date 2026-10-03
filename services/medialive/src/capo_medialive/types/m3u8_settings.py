@@ -33,7 +33,7 @@ class M3u8Settings(TypedDict, closed=True):
     pat_interval: NotRequired[
         "capo_medialive.types.__integer_min0_max1000.__integerMin0Max1000"
     ]
-    r"""The number of milliseconds between instances of this table in the output transport stream. A value of \\"0\\" writes out the PMT once per segment file."""
+    r"""The number of milliseconds between instances of this table in the output transport stream. A value of \"0\" writes out the PMT once per segment file."""
     pcr_control: NotRequired["capo_medialive.types.m3u8_pcr_control.M3u8PcrControl"]
     """When set to pcrEveryPesPacket, a Program Clock Reference value is inserted for every Packetized Elementary Stream (PES) header. This parameter is effective only when the PCR PID is the same as the video or audio elementary stream."""
     pcr_period: NotRequired[
@@ -45,7 +45,7 @@ class M3u8Settings(TypedDict, closed=True):
     pmt_interval: NotRequired[
         "capo_medialive.types.__integer_min0_max1000.__integerMin0Max1000"
     ]
-    r"""The number of milliseconds between instances of this table in the output transport stream. A value of \\"0\\" writes out the PMT once per segment file."""
+    r"""The number of milliseconds between instances of this table in the output transport stream. A value of \"0\" writes out the PMT once per segment file."""
     pmt_pid: NotRequired["capo_medialive.types.__string.__string"]
     """Packet Identifier (PID) for the Program Map Table (PMT) in the transport stream. Can be entered as a decimal or hexadecimal value."""
     program_num: NotRequired[

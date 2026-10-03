@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class UntagRoleRequest(TypedDict, closed=True):
     role_name: "capo_iam.types.role_name_type.roleNameType"
-    r"""<p>The name of the IAM role from which you want to remove tags.</p> <p>This parameter accepts (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
+    """<p>The name of the IAM role from which you want to remove tags.</p> <p>This parameter accepts (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
     tag_keys: "capo_iam.types.tag_key_list_type.tagKeyListType"
     """<p>A list of key names as a simple array of strings. The tags with matching keys are removed from the specified role.</p>"""
 

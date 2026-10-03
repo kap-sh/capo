@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class CreateCapacityProviderRequest(TypedDict, closed=True):
     name: "capo_ecs.types.string.String"
-    r"""<p>The name of the capacity provider. Up to 255 characters are allowed. They include letters (both upper and lowercase letters), numbers, underscores (_), and hyphens (-). The name can't be prefixed with \"<code>aws</code>\", \"<code>ecs</code>\", or \"<code>fargate</code>\".</p>"""
+    """<p>The name of the capacity provider. Up to 255 characters are allowed. They include letters (both upper and lowercase letters), numbers, underscores (_), and hyphens (-). The name can't be prefixed with "<code>aws</code>", "<code>ecs</code>", or "<code>fargate</code>".</p>"""
     cluster: NotRequired["capo_ecs.types.string.String"]
     """<p>The name of the cluster to associate with the capacity provider. When you create a capacity provider with Amazon ECS Managed Instances, it becomes available only within the specified cluster.</p>"""
     auto_scaling_group_provider: NotRequired[

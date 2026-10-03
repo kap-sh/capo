@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class UpdateApplicationRequest(TypedDict, closed=True):
     application_arn: "capo_sso_admin.types.application_arn.ApplicationArn"
-    r"""<p>Specifies the ARN of the application. For more information about ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>Specifies the ARN of the application. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     name: NotRequired["capo_sso_admin.types.application_name_type.ApplicationNameType"]
     """<p>Specifies the updated name for the application.</p>"""
     description: NotRequired["capo_sso_admin.types.description.Description"]

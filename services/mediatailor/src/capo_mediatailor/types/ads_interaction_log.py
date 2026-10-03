@@ -13,7 +13,7 @@ class AdsInteractionLog(TypedDict, closed=True):
     publish_opt_in_event_types: NotRequired[
         "capo_mediatailor.types.__ads_interaction_publish_opt_in_event_types_list.__adsInteractionPublishOptInEventTypesList"
     ]
-    r"""<p>Indicates that MediaTailor will emit the selected events in the logs for playback sessions that are initialized with this configuration. These events are not emitted by default and must be explicitly opted in. For descriptions of each event type, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/ads-log-format.html\">MediaTailor ADS logs description and event types</a> in Elemental MediaTailor User Guide.</p>"""
+    """<p>Indicates that MediaTailor will emit the selected events in the logs for playback sessions that are initialized with this configuration. These events are not emitted by default and must be explicitly opted in. For descriptions of each event type, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ads-log-format.html">MediaTailor ADS logs description and event types</a> in Elemental MediaTailor User Guide.</p>"""
     exclude_event_types: NotRequired[
         "capo_mediatailor.types.__ads_interaction_exclude_event_types_list.__adsInteractionExcludeEventTypesList"
     ]

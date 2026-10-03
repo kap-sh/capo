@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class CreateViewRequest(TypedDict, closed=True):
     name: "capo_cloudwatchomni.types.view_name.ViewName"
-    r"""The name of the view. Must begin with the \"view.\" prefix. View names must be unique within the account and region."""
+    """The name of the view. Must begin with the "view." prefix. View names must be unique within the account and region."""
     definition: "capo_cloudwatchomni.types.view_definition.ViewDefinition"
     """The SQL query that defines the view."""
     description: NotRequired[

@@ -15,7 +15,7 @@ class GenerateQueryRequest(TypedDict, closed=True):
     event_data_stores: "capo_cloudtrail.types.event_data_store_list.EventDataStoreList"
     """<p> The ARN (or ID suffix of the ARN) of the event data store that you want to query. You can only specify one event data store. </p>"""
     prompt: "capo_cloudtrail.types.prompt.Prompt"
-    r"""<p> The prompt that you want to use to generate the query. The prompt must be in English. For example prompts, see <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/lake-query-generator.html#lake-query-generator-examples\">Example prompts</a> in the <i>CloudTrail </i> user guide. </p>"""
+    """<p> The prompt that you want to use to generate the query. The prompt must be in English. For example prompts, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/lake-query-generator.html#lake-query-generator-examples">Example prompts</a> in the <i>CloudTrail </i> user guide. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

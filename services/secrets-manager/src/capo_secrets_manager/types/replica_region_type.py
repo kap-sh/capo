@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ReplicaRegionType(TypedDict, closed=True):
     region: NotRequired["capo_secrets_manager.types.region_type.RegionType"]
-    r"""<p>A Region code. For a list of Region codes, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints\">Name and code of Regions</a>.</p>"""
+    """<p>A Region code. For a list of Region codes, see <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints">Name and code of Regions</a>.</p>"""
     kms_key_id: NotRequired["capo_secrets_manager.types.kms_key_id_type.KmsKeyIdType"]
     """<p>The ARN, key ID, or alias of the KMS key to encrypt the secret. If you don't include this field, Secrets Manager uses <code>aws/secretsmanager</code>.</p>"""
 

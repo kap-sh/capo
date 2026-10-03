@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class UpdateCrossRegionRoutingRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.acgr_instance_id_or_arn.ACGRInstanceIdOrArn"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     isolated_all: "capo_connect.types.boolean.Boolean"
     """<p>Set to <code>true</code> to disable cross-region routing for all Regions associated with this instance. Set to <code>false</code> to re-enable cross-region routing.</p>"""
 

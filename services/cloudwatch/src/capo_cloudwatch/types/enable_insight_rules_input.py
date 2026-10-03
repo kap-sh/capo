@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class EnableInsightRulesInput(TypedDict, closed=True):
     rule_names: NotRequired["capo_cloudwatch.types.insight_rule_names.InsightRuleNames"]
-    r"""<p>An array of the rule names to enable. If you need to find out the names of your rules, use <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html\">DescribeInsightRules</a>.</p>"""
+    """<p>An array of the rule names to enable. If you need to find out the names of your rules, use <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeInsightRules.html">DescribeInsightRules</a>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

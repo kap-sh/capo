@@ -21,7 +21,7 @@ class CreateClusterInput(TypedDict, closed=True):
     admin_user_name: "str"
     """<p>The name of the Amazon DocumentDB elastic clusters administrator.</p> <p> <i>Constraints</i>:</p> <ul> <li> <p>Must be from 1 to 63 letters or numbers.</p> </li> <li> <p>The first character must be a letter.</p> </li> <li> <p>Cannot be a reserved word.</p> </li> </ul>"""
     admin_user_password: "capo_docdb_elastic.types.password.Password"
-    r"""<p>The password for the Amazon DocumentDB elastic clusters administrator. The password can contain any printable ASCII characters.</p> <p> <i>Constraints</i>:</p> <ul> <li> <p>Must contain from 8 to 100 characters.</p> </li> <li> <p>Cannot contain a forward slash (/), double quote (\"), or the \"at\" symbol (@).</p> </li> </ul>"""
+    """<p>The password for the Amazon DocumentDB elastic clusters administrator. The password can contain any printable ASCII characters.</p> <p> <i>Constraints</i>:</p> <ul> <li> <p>Must contain from 8 to 100 characters.</p> </li> <li> <p>Cannot contain a forward slash (/), double quote ("), or the "at" symbol (@).</p> </li> </ul>"""
     shard_capacity: "int"
     """<p>The number of vCPUs assigned to each elastic cluster shard. Maximum is 64. Allowed values are 2, 4, 8, 16, 32, 64.</p>"""
     shard_count: "int"

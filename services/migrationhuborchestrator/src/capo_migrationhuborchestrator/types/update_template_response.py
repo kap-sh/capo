@@ -12,7 +12,7 @@ class UpdateTemplateResponse(TypedDict, closed=True):
     template_id: NotRequired["str"]
     """<p>The ID of the migration workflow template being updated.</p>"""
     template_arn: NotRequired["str"]
-    r"""<p>The ARN of the migration workflow template being updated. The format for an Migration Hub Orchestrator template ARN is <code>arn:aws:migrationhub-orchestrator:region:account:template/template-abcd1234</code>. For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
+    """<p>The ARN of the migration workflow template being updated. The format for an Migration Hub Orchestrator template ARN is <code>arn:aws:migrationhub-orchestrator:region:account:template/template-abcd1234</code>. For more information about ARNs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
     tags: NotRequired["capo_migrationhuborchestrator.types.string_map.StringMap"]
     """<p>The tags added to the migration workflow template.</p>"""
 

@@ -21,7 +21,7 @@ class ListServicesOutput(TypedDict, closed=True):
     service_summaries: (
         "capo_application_signals.types.service_summaries.ServiceSummaries"
     )
-    r"""<p>An array of structures, where each structure contains some information about a service. To get complete information about a service, use <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetService.html\">GetService</a>.</p>"""
+    """<p>An array of structures, where each structure contains some information about a service. To get complete information about a service, use <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetService.html">GetService</a>.</p>"""
     next_token: NotRequired["capo_application_signals.types.next_token.NextToken"]
     """<p>Include this value in your next use of this API to get next set of services.</p>"""
 

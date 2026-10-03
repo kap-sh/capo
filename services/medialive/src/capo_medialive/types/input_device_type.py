@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""The type of the input device. For an AWS Elemental Link device that outputs resolutions up to 1080, choose \"HD\"."""
+"""The type of the input device. For an AWS Elemental Link device that outputs resolutions up to 1080, choose "HD"."""
 InputDeviceType: TypeAlias = Literal[
     "HD",
     "UHD",

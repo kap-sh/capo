@@ -33,11 +33,11 @@ class Target(TypedDict, closed=True):
     role_arn: NotRequired["capo_cloudwatch_events.types.role_arn.RoleArn"]
     """<p>The Amazon Resource Name (ARN) of the IAM role to be used for this target when the rule is triggered. If one rule triggers multiple targets, you can use a different IAM role for each target.</p>"""
     input: NotRequired["capo_cloudwatch_events.types.target_input.TargetInput"]
-    r"""<p>Valid JSON text passed to the target. In this case, nothing from the event itself is passed to the target. For more information, see <a href=\"http://www.rfc-editor.org/rfc/rfc7159.txt\">The JavaScript Object Notation (JSON) Data Interchange Format</a>.</p>"""
+    """<p>Valid JSON text passed to the target. In this case, nothing from the event itself is passed to the target. For more information, see <a href="http://www.rfc-editor.org/rfc/rfc7159.txt">The JavaScript Object Notation (JSON) Data Interchange Format</a>.</p>"""
     input_path: NotRequired[
         "capo_cloudwatch_events.types.target_input_path.TargetInputPath"
     ]
-    r"""<p>The value of the JSONPath that is used for extracting part of the matched event when passing it to the target. You must use JSON dot notation, not bracket notation. For more information about JSON paths, see <a href=\"http://goessner.net/articles/JsonPath/\">JSONPath</a>.</p>"""
+    """<p>The value of the JSONPath that is used for extracting part of the matched event when passing it to the target. You must use JSON dot notation, not bracket notation. For more information about JSON paths, see <a href="http://goessner.net/articles/JsonPath/">JSONPath</a>.</p>"""
     input_transformer: NotRequired[
         "capo_cloudwatch_events.types.input_transformer.InputTransformer"
     ]
@@ -53,11 +53,11 @@ class Target(TypedDict, closed=True):
     ecs_parameters: NotRequired[
         "capo_cloudwatch_events.types.ecs_parameters.EcsParameters"
     ]
-    r"""<p>Contains the Amazon ECS task definition and task count to be used, if the event target is an Amazon ECS task. For more information about Amazon ECS tasks, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html\">Task Definitions </a> in the <i>Amazon EC2 Container Service Developer Guide</i>.</p>"""
+    """<p>Contains the Amazon ECS task definition and task count to be used, if the event target is an Amazon ECS task. For more information about Amazon ECS tasks, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html">Task Definitions </a> in the <i>Amazon EC2 Container Service Developer Guide</i>.</p>"""
     batch_parameters: NotRequired[
         "capo_cloudwatch_events.types.batch_parameters.BatchParameters"
     ]
-    r"""<p>If the event target is an Batch job, this contains the job definition, job name, and other parameters. For more information, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/jobs.html\">Jobs</a> in the <i>Batch User Guide</i>.</p>"""
+    """<p>If the event target is an Batch job, this contains the job definition, job name, and other parameters. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/jobs.html">Jobs</a> in the <i>Batch User Guide</i>.</p>"""
     sqs_parameters: NotRequired[
         "capo_cloudwatch_events.types.sqs_parameters.SqsParameters"
     ]

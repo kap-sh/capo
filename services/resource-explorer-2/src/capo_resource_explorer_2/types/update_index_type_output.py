@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class UpdateIndexTypeOutput(TypedDict, closed=True):
     arn: NotRequired["str"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of the index that you updated.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of the index that you updated.</p>"""
     type: NotRequired["capo_resource_explorer_2.types.index_type.IndexType"]
     """<p>Specifies the type of the specified index after the operation completes.</p>"""
     state: NotRequired["capo_resource_explorer_2.types.index_state.IndexState"]

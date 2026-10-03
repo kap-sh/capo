@@ -24,7 +24,7 @@ class GameSessionQueue(TypedDict, closed=True):
     game_session_queue_arn: NotRequired[
         "capo_gamelift.types.game_session_queue_arn.GameSessionQueueArn"
     ]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) that is assigned to a Amazon GameLift Servers game session queue resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::gamesessionqueue/<queue name></code>. In a Amazon GameLift Servers game session queue ARN, the resource ID matches the <i>Name</i> value.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a Amazon GameLift Servers game session queue resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::gamesessionqueue/<queue name></code>. In a Amazon GameLift Servers game session queue ARN, the resource ID matches the <i>Name</i> value.</p>"""
     timeout_in_seconds: NotRequired["capo_gamelift.types.whole_number.WholeNumber"]
     """<p>The maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds this time, the game session placement changes to a <code>TIMED_OUT</code> status.</p> <note> <p>The minimum value is 10 and the maximum value is 600.</p> </note>"""
     player_latency_policies: NotRequired[
@@ -50,7 +50,7 @@ class GameSessionQueue(TypedDict, closed=True):
     notification_target: NotRequired[
         "capo_gamelift.types.queue_sns_arn_string_model.QueueSnsArnStringModel"
     ]
-    r"""<p>An SNS topic ARN that is set up to receive game session placement notifications. See <a href=\"https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html\"> Setting up notifications for game session placement</a>.</p>"""
+    """<p>An SNS topic ARN that is set up to receive game session placement notifications. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html"> Setting up notifications for game session placement</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

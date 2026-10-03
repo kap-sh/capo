@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class FailureDetails(TypedDict, closed=True):
     reason: NotRequired["capo_emr.types.string.String"]
-    r"""<p>The reason for the step failure. In the case where the service cannot successfully determine the root cause of the failure, it returns \"Unknown Error\" as a reason.</p>"""
+    """<p>The reason for the step failure. In the case where the service cannot successfully determine the root cause of the failure, it returns "Unknown Error" as a reason.</p>"""
     message: NotRequired["capo_emr.types.string.String"]
     """<p>The descriptive message including the error the Amazon EMR service has identified as the cause of step failure. This is text from an error log that describes the root cause of the failure.</p>"""
     log_file: NotRequired["capo_emr.types.string.String"]

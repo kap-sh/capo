@@ -18,9 +18,9 @@ if TYPE_CHECKING:
 
 class ListMlflowAppsRequest(TypedDict, closed=True):
     created_after: NotRequired["capo_sagemaker.types.timestamp.Timestamp"]
-    r"""<p>Use the <code>CreatedAfter</code> filter to only list MLflow Apps created after a specific date and time. Listed MLflow Apps are shown with a date and time such as <code>\"2024-03-16T01:46:56+00:00\"</code>. The <code>CreatedAfter</code> parameter takes in a Unix timestamp.</p>"""
+    """<p>Use the <code>CreatedAfter</code> filter to only list MLflow Apps created after a specific date and time. Listed MLflow Apps are shown with a date and time such as <code>"2024-03-16T01:46:56+00:00"</code>. The <code>CreatedAfter</code> parameter takes in a Unix timestamp.</p>"""
     created_before: NotRequired["capo_sagemaker.types.timestamp.Timestamp"]
-    r"""<p>Use the <code>CreatedBefore</code> filter to only list MLflow Apps created before a specific date and time. Listed MLflow Apps are shown with a date and time such as <code>\"2024-03-16T01:46:56+00:00\"</code>. The <code>CreatedAfter</code> parameter takes in a Unix timestamp.</p>"""
+    """<p>Use the <code>CreatedBefore</code> filter to only list MLflow Apps created before a specific date and time. Listed MLflow Apps are shown with a date and time such as <code>"2024-03-16T01:46:56+00:00"</code>. The <code>CreatedAfter</code> parameter takes in a Unix timestamp.</p>"""
     status: NotRequired["capo_sagemaker.types.mlflow_app_status.MlflowAppStatus"]
     """<p>Filter for Mlflow apps with a specific creation status.</p>"""
     mlflow_version: NotRequired["capo_sagemaker.types.mlflow_version.MlflowVersion"]

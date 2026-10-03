@@ -32,7 +32,7 @@ class GetMLTransformResponse(TypedDict, closed=True):
     description: NotRequired["capo_glue.types.description_string.DescriptionString"]
     """<p>A description of the transform.</p>"""
     status: NotRequired["capo_glue.types.transform_status_type.TransformStatusType"]
-    r"""<p>The last known status of the transform (to indicate whether it can be used or not). One of \"NOT_READY\", \"READY\", or \"DELETING\".</p>"""
+    """<p>The last known status of the transform (to indicate whether it can be used or not). One of "NOT_READY", "READY", or "DELETING".</p>"""
     created_on: NotRequired["capo_glue.types.timestamp.Timestamp"]
     """<p>The date and time when the transform was created.</p>"""
     last_modified_on: NotRequired["capo_glue.types.timestamp.Timestamp"]
@@ -52,9 +52,9 @@ class GetMLTransformResponse(TypedDict, closed=True):
     role: NotRequired["capo_glue.types.role_string.RoleString"]
     """<p>The name or Amazon Resource Name (ARN) of the IAM role with the required permissions.</p>"""
     glue_version: NotRequired["capo_glue.types.glue_version_string.GlueVersionString"]
-    r"""<p>This value determines which version of Glue this machine learning transform is compatible with. Glue 1.0 is recommended for most customers. If the value is not set, the Glue compatibility defaults to Glue 0.9. For more information, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions\">Glue Versions</a> in the developer guide.</p>"""
+    """<p>This value determines which version of Glue this machine learning transform is compatible with. Glue 1.0 is recommended for most customers. If the value is not set, the Glue compatibility defaults to Glue 0.9. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions">Glue Versions</a> in the developer guide.</p>"""
     max_capacity: NotRequired["capo_glue.types.nullable_double.NullableDouble"]
-    r"""<p>The number of Glue data processing units (DPUs) that are allocated to task runs for this transform. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a href=\"https://aws.amazon.com/glue/pricing/\">Glue pricing page</a>. </p> <p>When the <code>WorkerType</code> field is set to a value other than <code>Standard</code>, the <code>MaxCapacity</code> field is set automatically and becomes read-only.</p>"""
+    """<p>The number of Glue data processing units (DPUs) that are allocated to task runs for this transform. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">Glue pricing page</a>. </p> <p>When the <code>WorkerType</code> field is set to a value other than <code>Standard</code>, the <code>MaxCapacity</code> field is set automatically and becomes read-only.</p>"""
     worker_type: NotRequired["capo_glue.types.worker_type.WorkerType"]
     """<p>The type of predefined worker that is allocated when this task runs. Accepts a value of Standard, G.1X, or G.2X.</p> <ul> <li> <p>For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.</p> </li> <li> <p>For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1 executor per worker.</p> </li> <li> <p>For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1 executor per worker.</p> </li> </ul>"""
     number_of_workers: NotRequired["capo_glue.types.nullable_integer.NullableInteger"]

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class TransformParameters(TypedDict, closed=True):
     transform_type: "capo_glue.types.transform_type.TransformType"
-    r"""<p>The type of machine learning transform.</p> <p>For information about the types of machine learning transforms, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html\">Creating Machine Learning Transforms</a>.</p>"""
+    """<p>The type of machine learning transform.</p> <p>For information about the types of machine learning transforms, see <a href="https://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html">Creating Machine Learning Transforms</a>.</p>"""
     find_matches_parameters: NotRequired[
         "capo_glue.types.find_matches_parameters.FindMatchesParameters"
     ]

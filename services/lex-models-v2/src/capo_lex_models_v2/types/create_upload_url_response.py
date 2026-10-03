@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class CreateUploadUrlResponse(TypedDict, closed=True):
     import_id: NotRequired["capo_lex_models_v2.types.id.Id"]
-    r"""<p>An identifier for a unique import job. Use it when you call the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_StartImport.html\">StartImport</a> operation.</p>"""
+    """<p>An identifier for a unique import job. Use it when you call the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_StartImport.html">StartImport</a> operation.</p>"""
     upload_url: NotRequired["capo_lex_models_v2.types.presigned_s3_url.PresignedS3Url"]
     """<p>A pre-signed S3 write URL. Upload the zip archive file that contains the definition of your bot or bot locale.</p>"""
 

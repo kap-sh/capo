@@ -54,7 +54,7 @@ class Device(TypedDict, closed=True):
     remote_access_enabled: NotRequired["capo_device_farm.types.boolean.Boolean"]
     """<p>Specifies whether remote access has been enabled for the specified device.</p>"""
     remote_debug_enabled: NotRequired["capo_device_farm.types.boolean.Boolean"]
-    r"""<p>This flag is set to <code>true</code> if remote debugging is enabled for the device.</p> <p>Remote debugging is <a href=\"https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html\">no longer supported</a>.</p>"""
+    """<p>This flag is set to <code>true</code> if remote debugging is enabled for the device.</p> <p>Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer supported</a>.</p>"""
     fleet_type: NotRequired["capo_device_farm.types.string.String"]
     """<p>The type of fleet to which this device belongs. Possible values are PRIVATE and PUBLIC.</p>"""
     fleet_name: NotRequired["capo_device_farm.types.string.String"]

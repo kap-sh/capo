@@ -51,7 +51,7 @@ class Cluster(TypedDict, closed=True):
     running_ami_version: NotRequired["capo_emr.types.string.String"]
     """<p>The AMI version running on this cluster.</p>"""
     release_label: NotRequired["capo_emr.types.string.String"]
-    r"""<p>The Amazon EMR release label, which determines the version of open-source application packages installed on the cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version such as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application versions and features, see <a href=\"https://docs.aws.amazon.com/emr/latest/ReleaseGuide/\">https://docs.aws.amazon.com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases version 4.0 and later. Earlier versions use <code>AmiVersion</code>.</p>"""
+    """<p>The Amazon EMR release label, which determines the version of open-source application packages installed on the cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version such as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application versions and features, see <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">https://docs.aws.amazon.com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases version 4.0 and later. Earlier versions use <code>AmiVersion</code>.</p>"""
     auto_terminate: NotRequired["capo_emr.types.boolean.Boolean"]
     """<p>Specifies whether the cluster should terminate after completing all steps.</p>"""
     termination_protected: NotRequired["capo_emr.types.boolean.Boolean"]
@@ -61,7 +61,7 @@ class Cluster(TypedDict, closed=True):
     ]
     """<p>Indicates whether Amazon EMR should gracefully replace Amazon EC2 core instances that have degraded within the cluster.</p>"""
     visible_to_all_users: NotRequired["capo_emr.types.boolean.Boolean"]
-    r"""<p>Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated with the cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform Amazon EMR cluster actions on the cluster that their IAM policies allow. When <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services account root user can perform Amazon EMR actions, regardless of IAM permissions policies attached to other IAM principals.</p> <p>The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon EMR API <a>RunJobFlow</a> command, the CLI <a href=\"https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html\">create-cluster</a> command, or the Amazon Web Services Management Console.</p>"""
+    """<p>Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated with the cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform Amazon EMR cluster actions on the cluster that their IAM policies allow. When <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services account root user can perform Amazon EMR actions, regardless of IAM permissions policies attached to other IAM principals.</p> <p>The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon EMR API <a>RunJobFlow</a> command, the CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command, or the Amazon Web Services Management Console.</p>"""
     applications: NotRequired["capo_emr.types.application_list.ApplicationList"]
     """<p>The applications installed on this cluster.</p>"""
     tags: NotRequired["capo_emr.types.tag_list.TagList"]
@@ -95,7 +95,7 @@ class Cluster(TypedDict, closed=True):
     kerberos_attributes: NotRequired[
         "capo_emr.types.kerberos_attributes.KerberosAttributes"
     ]
-    r"""<p>Attributes for Kerberos configuration when Kerberos authentication is enabled using a security configuration. For more information see <a href=\"https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html\">Use Kerberos Authentication</a> in the <i>Amazon EMR Management Guide</i>.</p>"""
+    """<p>Attributes for Kerberos configuration when Kerberos authentication is enabled using a security configuration. For more information see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html">Use Kerberos Authentication</a> in the <i>Amazon EMR Management Guide</i>.</p>"""
     cluster_arn: NotRequired["capo_emr.types.arn_type.ArnType"]
     """<p>The Amazon Resource Name of the cluster.</p>"""
     outpost_arn: NotRequired["capo_emr.types.optional_arn_type.OptionalArnType"]

@@ -17,7 +17,7 @@ class ListServiceInstancesFilter(TypedDict, closed=True):
     value: NotRequired[
         "capo_proton.types.list_service_instances_filter_value.ListServiceInstancesFilterValue"
     ]
-    r"""<p>A value to filter by.</p> <p>With the date/time keys (<code>*At{Before,After}</code>), the value is a valid <a href=\"https://datatracker.ietf.org/doc/html/rfc3339.html\">RFC 3339</a> string with no UTC offset and with an optional fractional precision (for example, <code>1985-04-12T23:20:50.52Z</code>).</p>"""
+    """<p>A value to filter by.</p> <p>With the date/time keys (<code>*At{Before,After}</code>), the value is a valid <a href="https://datatracker.ietf.org/doc/html/rfc3339.html">RFC 3339</a> string with no UTC offset and with an optional fractional precision (for example, <code>1985-04-12T23:20:50.52Z</code>).</p>"""
 
 
 # --- awsJson1_0 ser/de ---

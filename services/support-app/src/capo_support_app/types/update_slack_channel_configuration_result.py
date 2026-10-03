@@ -37,7 +37,7 @@ class UpdateSlackChannelConfigurationResult(TypedDict, closed=True):
     ]
     """<p>The case severity for a support case that you want to receive notifications.</p>"""
     channel_role_arn: NotRequired["capo_support_app.types.role_arn.roleArn"]
-    r"""<p>The Amazon Resource Name (ARN) of an IAM role that you want to use to perform operations on Amazon Web Services. For more information, see <a href=\"https://docs.aws.amazon.com/awssupport/latest/user/support-app-permissions.html\">Managing access to the Amazon Web Services Support App</a> in the <i>Amazon Web Services Support User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an IAM role that you want to use to perform operations on Amazon Web Services. For more information, see <a href="https://docs.aws.amazon.com/awssupport/latest/user/support-app-permissions.html">Managing access to the Amazon Web Services Support App</a> in the <i>Amazon Web Services Support User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

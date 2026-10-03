@@ -43,7 +43,7 @@ class ConfigurationSession:
             "capo_appconfigdata.types.optional_poll_seconds.OptionalPollSeconds"
         ] = None,
     ) -> "capo_appconfigdata.types.start_configuration_session_response.StartConfigurationSessionResponse":
-        r"""<p>Starts a configuration session used to retrieve a deployed configuration. For more information about this API action and to view example CLI commands that show how to use it with the <a>GetLatestConfiguration</a> API action, see <a href=\"http://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-retrieving-the-configuration\">Retrieving the configuration</a> in the <i>AppConfig User Guide</i>. </p>
+        """<p>Starts a configuration session used to retrieve a deployed configuration. For more information about this API action and to view example CLI commands that show how to use it with the <a>GetLatestConfiguration</a> API action, see <a href="http://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-retrieving-the-configuration">Retrieving the configuration</a> in the <i>AppConfig User Guide</i>. </p>
 
         Args:
             application_identifier: <p>The application ID or the application name.</p>
@@ -108,7 +108,7 @@ class AsyncConfigurationSession:
             "capo_appconfigdata.types.optional_poll_seconds.OptionalPollSeconds"
         ] = None,
     ) -> "capo_appconfigdata.types.start_configuration_session_response.StartConfigurationSessionResponse":
-        r"""<p>Starts a configuration session used to retrieve a deployed configuration. For more information about this API action and to view example CLI commands that show how to use it with the <a>GetLatestConfiguration</a> API action, see <a href=\"http://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-retrieving-the-configuration\">Retrieving the configuration</a> in the <i>AppConfig User Guide</i>. </p>
+        """<p>Starts a configuration session used to retrieve a deployed configuration. For more information about this API action and to view example CLI commands that show how to use it with the <a>GetLatestConfiguration</a> API action, see <a href="http://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-retrieving-the-configuration">Retrieving the configuration</a> in the <i>AppConfig User Guide</i>. </p>
 
         Args:
             application_identifier: <p>The application ID or the application name.</p>

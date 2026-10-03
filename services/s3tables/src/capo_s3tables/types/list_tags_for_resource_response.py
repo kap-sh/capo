@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceResponse(TypedDict, closed=True):
     tags: NotRequired["capo_s3tables.types.tags.Tags"]
-    r"""<p>The user-defined tags that are applied to the resource. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html\">Tagging for cost allocation or attribute-based access control (ABAC)</a>.</p>"""
+    """<p>The user-defined tags that are applied to the resource. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html">Tagging for cost allocation or attribute-based access control (ABAC)</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

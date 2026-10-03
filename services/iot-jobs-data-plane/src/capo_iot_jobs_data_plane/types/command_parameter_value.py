@@ -18,11 +18,11 @@ class CommandParameterValue(TypedDict, closed=True):
     s: NotRequired[
         "capo_iot_jobs_data_plane.types.string_parameter_value.StringParameterValue"
     ]
-    r"""<p>An attribute of type String. For example:</p> <p> <code>\"S\": \"Hello\"</code> </p>"""
+    """<p>An attribute of type String. For example:</p> <p> <code>"S": "Hello"</code> </p>"""
     b: NotRequired[
         "capo_iot_jobs_data_plane.types.boolean_parameter_value.BooleanParameterValue"
     ]
-    r"""<p>An attribute of type Boolean. For example:</p> <p> <code>\"BOOL\": true</code> </p>"""
+    """<p>An attribute of type Boolean. For example:</p> <p> <code>"BOOL": true</code> </p>"""
     i: NotRequired[
         "capo_iot_jobs_data_plane.types.integer_parameter_value.IntegerParameterValue"
     ]

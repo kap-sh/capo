@@ -32,29 +32,29 @@ class MongoDbSettings(TypedDict, closed=True):
     auth_type: NotRequired[
         "capo_database_migration_service.types.auth_type_value.AuthTypeValue"
     ]
-    r"""<p> The authentication type you use to access the MongoDB source endpoint.</p> <p>When when set to <code>\"no\"</code>, user name and password parameters are not used and can be empty. </p>"""
+    """<p> The authentication type you use to access the MongoDB source endpoint.</p> <p>When when set to <code>"no"</code>, user name and password parameters are not used and can be empty. </p>"""
     auth_mechanism: NotRequired[
         "capo_database_migration_service.types.auth_mechanism_value.AuthMechanismValue"
     ]
-    r"""<p> The authentication mechanism you use to access the MongoDB source endpoint.</p> <p>For the default value, in MongoDB version 2.x, <code>\"default\"</code> is <code>\"mongodb_cr\"</code>. For MongoDB version 3.x or later, <code>\"default\"</code> is <code>\"scram_sha_1\"</code>. This setting isn't used when <code>AuthType</code> is set to <code>\"no\"</code>.</p>"""
+    """<p> The authentication mechanism you use to access the MongoDB source endpoint.</p> <p>For the default value, in MongoDB version 2.x, <code>"default"</code> is <code>"mongodb_cr"</code>. For MongoDB version 3.x or later, <code>"default"</code> is <code>"scram_sha_1"</code>. This setting isn't used when <code>AuthType</code> is set to <code>"no"</code>.</p>"""
     nesting_level: NotRequired[
         "capo_database_migration_service.types.nesting_level_value.NestingLevelValue"
     ]
-    r"""<p> Specifies either document or table mode. </p> <p>Default value is <code>\"none\"</code>. Specify <code>\"none\"</code> to use document mode. Specify <code>\"one\"</code> to use table mode.</p>"""
+    """<p> Specifies either document or table mode. </p> <p>Default value is <code>"none"</code>. Specify <code>"none"</code> to use document mode. Specify <code>"one"</code> to use table mode.</p>"""
     extract_doc_id: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>Specifies whether the document ID is added to the target table. Use this setting when <code>NestingLevel</code> is set to <code>\"none\"</code>. </p> <p>Set <code>ExtractDocId</code> to <code>\"true\"</code> when using <a href=\"https://www.mongodb.com/docs/manual/reference/method/Session.startTransaction/#mongodb-method-Session.startTransaction\">multi-document transactions</a> with CDC. </p> <p>Default value is <code>\"false\"</code>.</p>"""
+    """<p>Specifies whether the document ID is added to the target table. Use this setting when <code>NestingLevel</code> is set to <code>"none"</code>. </p> <p>Set <code>ExtractDocId</code> to <code>"true"</code> when using <a href="https://www.mongodb.com/docs/manual/reference/method/Session.startTransaction/#mongodb-method-Session.startTransaction">multi-document transactions</a> with CDC. </p> <p>Default value is <code>"false"</code>.</p>"""
     docs_to_investigate: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p> Indicates the number of documents to preview to determine the document organization. Use this setting when <code>NestingLevel</code> is set to <code>\"one\"</code>. </p> <p>Must be a positive value greater than <code>0</code>. Default value is <code>1000</code>.</p>"""
+    """<p> Indicates the number of documents to preview to determine the document organization. Use this setting when <code>NestingLevel</code> is set to <code>"one"</code>. </p> <p>Must be a positive value greater than <code>0</code>. Default value is <code>1000</code>.</p>"""
     auth_source: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p> The MongoDB database name. This setting isn't used when <code>AuthType</code> is set to <code>\"no\"</code>. </p> <p>The default is <code>\"admin\"</code>.</p>"""
+    """<p> The MongoDB database name. This setting isn't used when <code>AuthType</code> is set to <code>"no"</code>. </p> <p>The default is <code>"admin"</code>.</p>"""
     kms_key_id: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The KMS key identifier that is used to encrypt the content on the replication instance. If you don't specify a value for the <code>KmsKeyId</code> parameter, then DMS uses your default encryption key. KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services account has a different default encryption key for each Amazon Web Services Region.</p>"""
     secrets_manager_access_role_arn: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>The full Amazon Resource Name (ARN) of the IAM role that specifies DMS as the trusted entity and grants the required permissions to access the value in <code>SecretsManagerSecret</code>. The role must allow the <code>iam:PassRole</code> action. <code>SecretsManagerSecret</code> has the value of the Amazon Web Services Secrets Manager secret that allows access to the MongoDB endpoint.</p> <note> <p>You can specify one of two sets of values for these permissions. You can specify the values for this setting and <code>SecretsManagerSecretId</code>. Or you can specify clear-text values for <code>UserName</code>, <code>Password</code>, <code>ServerName</code>, and <code>Port</code>. You can't specify both. For more information on creating this <code>SecretsManagerSecret</code> and the <code>SecretsManagerAccessRoleArn</code> and <code>SecretsManagerSecretId</code> required to access it, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Security.html#security-iam-secretsmanager\">Using secrets to access Database Migration Service resources</a> in the <i>Database Migration Service User Guide</i>.</p> </note>"""
+    """<p>The full Amazon Resource Name (ARN) of the IAM role that specifies DMS as the trusted entity and grants the required permissions to access the value in <code>SecretsManagerSecret</code>. The role must allow the <code>iam:PassRole</code> action. <code>SecretsManagerSecret</code> has the value of the Amazon Web Services Secrets Manager secret that allows access to the MongoDB endpoint.</p> <note> <p>You can specify one of two sets of values for these permissions. You can specify the values for this setting and <code>SecretsManagerSecretId</code>. Or you can specify clear-text values for <code>UserName</code>, <code>Password</code>, <code>ServerName</code>, and <code>Port</code>. You can't specify both. For more information on creating this <code>SecretsManagerSecret</code> and the <code>SecretsManagerAccessRoleArn</code> and <code>SecretsManagerSecretId</code> required to access it, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Security.html#security-iam-secretsmanager">Using secrets to access Database Migration Service resources</a> in the <i>Database Migration Service User Guide</i>.</p> </note>"""
     secrets_manager_secret_id: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]

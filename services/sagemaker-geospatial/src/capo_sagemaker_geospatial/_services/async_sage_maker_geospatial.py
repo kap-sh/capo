@@ -971,11 +971,11 @@ class AsyncSageMakerGeospatialClient:
             "capo_sagemaker_geospatial.types.next_token.NextToken"
         ] = None,
     ) -> "capo_sagemaker_geospatial.types.search_raster_data_collection_output.SearchRasterDataCollectionOutput":
-        r"""<p>Allows you run image query on a specific raster data collection to get a list of the satellite imagery matching the selected filters.</p>
+        """<p>Allows you run image query on a specific raster data collection to get a list of the satellite imagery matching the selected filters.</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the raster data collection.</p>
-            raster_data_collection_query: <p>RasterDataCollectionQuery consisting of <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_geospatial_AreaOfInterest.html\">AreaOfInterest(AOI)</a>, <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_geospatial_PropertyFilter.html\">PropertyFilters</a> and <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_geospatial_TimeRangeFilterInput.html\">TimeRangeFilterInput</a> used in <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_geospatial_SearchRasterDataCollection.html\">SearchRasterDataCollection</a>.</p>
+            raster_data_collection_query: <p>RasterDataCollectionQuery consisting of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_geospatial_AreaOfInterest.html">AreaOfInterest(AOI)</a>, <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_geospatial_PropertyFilter.html">PropertyFilters</a> and <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_geospatial_TimeRangeFilterInput.html">TimeRangeFilterInput</a> used in <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_geospatial_SearchRasterDataCollection.html">SearchRasterDataCollection</a>.</p>
             next_token: <p>If the previous response was truncated, you receive this token. Use it in your next request to receive the next set of results.</p>
 
         Raises:

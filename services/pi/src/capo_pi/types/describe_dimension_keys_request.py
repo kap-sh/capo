@@ -37,7 +37,7 @@ class DescribeDimensionKeysRequest(TypedDict, closed=True):
     additional_metrics: NotRequired[
         "capo_pi.types.additional_metrics_list.AdditionalMetricsList"
     ]
-    r"""<p>Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the values for the top <code>N</code> SQL digests. The response syntax is as follows: <code>\"AdditionalMetrics\" : { \"<i>string</i>\" : \"<i>string</i>\" }</code>.</p> <p>The only supported statistic function is <code>.avg</code>.</p>"""
+    """<p>Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the values for the top <code>N</code> SQL digests. The response syntax is as follows: <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.</p> <p>The only supported statistic function is <code>.avg</code>.</p>"""
     partition_by: NotRequired["capo_pi.types.dimension_group.DimensionGroup"]
     """<p>For each dimension specified in <code>GroupBy</code>, specify a secondary dimension to further subdivide the partition keys in the response. </p>"""
     filter: NotRequired["capo_pi.types.metric_query_filter_map.MetricQueryFilterMap"]

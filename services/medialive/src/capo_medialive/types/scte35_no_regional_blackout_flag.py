@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""Corresponds to the no_regional_blackout_flag parameter. A value of REGIONAL_BLACKOUT corresponds to 0 (false) in the SCTE-35 specification. If you include one of the \"restriction\" flags then you must include all four of them."""
+"""Corresponds to the no_regional_blackout_flag parameter. A value of REGIONAL_BLACKOUT corresponds to 0 (false) in the SCTE-35 specification. If you include one of the "restriction" flags then you must include all four of them."""
 Scte35NoRegionalBlackoutFlag: TypeAlias = Literal[
     "REGIONAL_BLACKOUT",
     "NO_REGIONAL_BLACKOUT",

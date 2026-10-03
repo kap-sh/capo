@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class StopCanaryRequest(TypedDict, closed=True):
     name: "capo_synthetics.types.canary_name.CanaryName"
-    r"""<p>The name of the canary that you want to stop. To find the names of your canaries, use <a href=\"https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_DescribeCanaries.html\">ListCanaries</a>.</p>"""
+    """<p>The name of the canary that you want to stop. To find the names of your canaries, use <a href="https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_DescribeCanaries.html">ListCanaries</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

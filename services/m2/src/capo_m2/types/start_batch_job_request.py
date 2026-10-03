@@ -21,7 +21,7 @@ class StartBatchJobRequest(TypedDict, closed=True):
     job_params: NotRequired[
         "capo_m2.types.batch_job_parameters_map.BatchJobParametersMap"
     ]
-    r"""<p>The collection of batch job parameters. For details about limits for keys and values, see <a href=\"https://www.ibm.com/docs/en/workload-automation/9.3.0?topic=zos-coding-variables-in-jcl\">Coding variables in JCL</a>.</p>"""
+    """<p>The collection of batch job parameters. For details about limits for keys and values, see <a href="https://www.ibm.com/docs/en/workload-automation/9.3.0?topic=zos-coding-variables-in-jcl">Coding variables in JCL</a>.</p>"""
     auth_secrets_manager_arn: NotRequired[
         "capo_m2.types.auth_secrets_manager_arn.AuthSecretsManagerArn"
     ]

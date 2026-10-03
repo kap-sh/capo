@@ -32,7 +32,7 @@ class MemberSummary(TypedDict, closed=True):
     is_owned: NotRequired["capo_managedblockchain.types.is_owned.IsOwned"]
     """<p>An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web Services account.</p>"""
     arn: NotRequired["capo_managedblockchain.types.arn_string.ArnString"]
-    r"""<p>The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

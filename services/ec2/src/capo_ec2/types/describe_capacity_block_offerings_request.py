@@ -36,7 +36,7 @@ class DescribeCapacityBlockOfferingsRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_capacity_block_offerings_max_results.DescribeCapacityBlockOfferingsMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     ultraserver_type: NotRequired["capo_ec2.types.string.String"]
     """<p>The EC2 UltraServer type of the Capacity Block offerings.</p>"""
     ultraserver_count: NotRequired["capo_ec2.types.integer.Integer"]

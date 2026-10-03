@@ -28,7 +28,7 @@ class AwsAutoScalingAutoScalingGroupDetails(TypedDict, closed=True):
     health_check_grace_period: NotRequired["capo_securityhub.types.integer.Integer"]
     """<p>The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before it checks the health status of an EC2 instance that has come into service.</p>"""
     created_time: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the auto scaling group was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the auto scaling group was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     mixed_instances_policy: NotRequired[
         "capo_securityhub.types.aws_auto_scaling_auto_scaling_group_mixed_instances_policy_details.AwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails"
     ]

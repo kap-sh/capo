@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class SignUpResponse(TypedDict, closed=True):
     user_confirmed: "capo_cognito_identity_provider.types.boolean_type.BooleanType"
-    r"""<p>Indicates whether the user was automatically confirmed. You can auto-confirm users with a <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html\">pre sign-up Lambda trigger</a>.</p>"""
+    """<p>Indicates whether the user was automatically confirmed. You can auto-confirm users with a <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">pre sign-up Lambda trigger</a>.</p>"""
     code_delivery_details: NotRequired[
         "capo_cognito_identity_provider.types.code_delivery_details_type.CodeDeliveryDetailsType"
     ]

@@ -59,7 +59,7 @@ class RuleGroupResponse(TypedDict, closed=True):
     ]
     """<p>A complex type that contains metadata about the rule group that your own rule group is copied from. You can use the metadata to track the version updates made to the originating rule group.</p>"""
     sns_topic: NotRequired["capo_network_firewall.types.resource_arn.ResourceArn"]
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service SNS topic that's used to record changes to the managed rule group. You can subscribe to the SNS topic to receive notifications when the managed rule group is modified, such as for new versions and for version expiration. For more information, see the <a href=\"https://docs.aws.amazon.com/sns/latest/dg/welcome.html\">Amazon Simple Notification Service Developer Guide.</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service SNS topic that's used to record changes to the managed rule group. You can subscribe to the SNS topic to receive notifications when the managed rule group is modified, such as for new versions and for version expiration. For more information, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon Simple Notification Service Developer Guide.</a>.</p>"""
     last_modified_time: NotRequired[
         "capo_network_firewall.types.last_update_time.LastUpdateTime"
     ]

@@ -23,7 +23,7 @@ class EbsInstanceBlockDeviceSpecification(TypedDict, closed=True):
     iops: NotRequired["capo_imagebuilder.types.ebs_iops_integer.EbsIopsInteger"]
     """<p>The IOPS value for the device. Required only when volumeType is io1 or io2.</p>"""
     kms_key_id: NotRequired["capo_imagebuilder.types.non_empty_string.NonEmptyString"]
-    r"""<p>The Amazon Resource Name (ARN) that uniquely identifies the KMS key to use when encrypting the device. This can be either the Key ARN or the Alias ARN. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">Key identifiers (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) that uniquely identifies the KMS key to use when encrypting the device. This can be either the Key ARN or the Alias ARN. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">Key identifiers (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
     snapshot_id: NotRequired["capo_imagebuilder.types.non_empty_string.NonEmptyString"]
     """<p>The snapshot that defines the device contents.</p>"""
     volume_size: NotRequired[

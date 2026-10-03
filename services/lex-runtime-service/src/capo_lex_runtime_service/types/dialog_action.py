@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 class DialogAction(TypedDict, closed=True):
     type: "capo_lex_runtime_service.types.dialog_action_type.DialogActionType"
-    r"""<p>The next action that the bot should take in its interaction with the user. The possible values are:</p> <ul> <li> <p> <code>ConfirmIntent</code> - The next action is asking the user if the intent is complete and ready to be fulfilled. This is a yes/no question such as \"Place the order?\"</p> </li> <li> <p> <code>Close</code> - Indicates that the there will not be a response from the user. For example, the statement \"Your order has been placed\" does not require a response.</p> </li> <li> <p> <code>Delegate</code> - The next action is determined by Amazon Lex.</p> </li> <li> <p> <code>ElicitIntent</code> - The next action is to determine the intent that the user wants to fulfill.</p> </li> <li> <p> <code>ElicitSlot</code> - The next action is to elicit a slot value from the user.</p> </li> </ul>"""
+    """<p>The next action that the bot should take in its interaction with the user. The possible values are:</p> <ul> <li> <p> <code>ConfirmIntent</code> - The next action is asking the user if the intent is complete and ready to be fulfilled. This is a yes/no question such as "Place the order?"</p> </li> <li> <p> <code>Close</code> - Indicates that the there will not be a response from the user. For example, the statement "Your order has been placed" does not require a response.</p> </li> <li> <p> <code>Delegate</code> - The next action is determined by Amazon Lex.</p> </li> <li> <p> <code>ElicitIntent</code> - The next action is to determine the intent that the user wants to fulfill.</p> </li> <li> <p> <code>ElicitSlot</code> - The next action is to elicit a slot value from the user.</p> </li> </ul>"""
     intent_name: NotRequired["capo_lex_runtime_service.types.intent_name.IntentName"]
     """<p>The name of the intent.</p>"""
     slots: NotRequired["capo_lex_runtime_service.types.string_map.StringMap"]
@@ -34,7 +34,7 @@ class DialogAction(TypedDict, closed=True):
     message_format: NotRequired[
         "capo_lex_runtime_service.types.message_format_type.MessageFormatType"
     ]
-    r"""<ul> <li> <p> <code>PlainText</code> - The message contains plain UTF-8 text.</p> </li> <li> <p> <code>CustomPayload</code> - The message is a custom format for the client.</p> </li> <li> <p> <code>SSML</code> - The message contains text formatted for voice output.</p> </li> <li> <p> <code>Composite</code> - The message contains an escaped JSON object containing one or more messages. For more information, see <a href=\"https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html\">Message Groups</a>. </p> </li> </ul>"""
+    """<ul> <li> <p> <code>PlainText</code> - The message contains plain UTF-8 text.</p> </li> <li> <p> <code>CustomPayload</code> - The message is a custom format for the client.</p> </li> <li> <p> <code>SSML</code> - The message contains text formatted for voice output.</p> </li> <li> <p> <code>Composite</code> - The message contains an escaped JSON object containing one or more messages. For more information, see <a href="https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html">Message Groups</a>. </p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

@@ -25,7 +25,7 @@ class ExportTr34KeyBlock(TypedDict, closed=True):
     )
     """<p>The <code>KeyARN</code> of the wrapping key certificate. Amazon Web Services Payment Cryptography uses this certificate to wrap the key under export.</p>"""
     export_token: "capo_payment_cryptography.types.export_token_id.ExportTokenId"
-    r"""<p>The export token to initiate key export from Amazon Web Services Payment Cryptography. It also contains the signing key certificate that will sign the wrapped key during TR-34 key block generation. Call <a href=\"https://docs.aws.amazon.com/payment-cryptography/latest/APIReference/API_GetParametersForExport.html\">GetParametersForExport</a> to receive an export token. It expires after 30 days. You can use the same export token to export multiple keys from the same service account.</p>"""
+    """<p>The export token to initiate key export from Amazon Web Services Payment Cryptography. It also contains the signing key certificate that will sign the wrapped key during TR-34 key block generation. Call <a href="https://docs.aws.amazon.com/payment-cryptography/latest/APIReference/API_GetParametersForExport.html">GetParametersForExport</a> to receive an export token. It expires after 30 days. You can use the same export token to export multiple keys from the same service account.</p>"""
     signing_key_identifier: NotRequired[
         "capo_payment_cryptography.types.key_arn_or_key_alias_type.KeyArnOrKeyAliasType"
     ]

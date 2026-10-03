@@ -39,7 +39,7 @@ class CreateApplicationRequest(TypedDict, closed=True):
     ]
     """<p>Use this parameter to configure an Amazon CloudWatch log stream to monitor application configuration errors. </p>"""
     tags: NotRequired["capo_kinesis_analytics_v2.types.tags.Tags"]
-    r"""<p>A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50. For more information, see <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html\">Using Tagging</a>.</p>"""
+    """<p>A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50. For more information, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.</p>"""
     application_mode: NotRequired[
         "capo_kinesis_analytics_v2.types.application_mode.ApplicationMode"
     ]

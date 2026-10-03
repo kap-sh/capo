@@ -16,7 +16,7 @@ class StripePrivyTokenRequestInput(TypedDict, closed=True):
     request_host: NotRequired[
         "capo_bedrock_agentcore.types.stripe_privy_request_host_type.StripePrivyRequestHostType"
     ]
-    r"""<p>The host for the Privy API request. Defaults to \"api.privy.io\".</p>"""
+    """<p>The host for the Privy API request. Defaults to "api.privy.io".</p>"""
     request_path: "capo_bedrock_agentcore.types.stripe_privy_request_path_type.StripePrivyRequestPathType"
     """<p>The path of the Stripe Privy API request.</p>"""
     request_body: "capo_bedrock_agentcore.types.stripe_privy_request_body_type.StripePrivyRequestBodyType"

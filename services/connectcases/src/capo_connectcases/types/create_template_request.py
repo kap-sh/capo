@@ -39,7 +39,7 @@ class CreateTemplateRequest(TypedDict, closed=True):
     rules: NotRequired[
         "capo_connectcases.types.template_case_rule_list.TemplateCaseRuleList"
     ]
-    r"""<p>A list of case rules (also known as <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/case-field-conditions.html\">case field conditions</a>) on a template. </p>"""
+    """<p>A list of case rules (also known as <a href="https://docs.aws.amazon.com/connect/latest/adminguide/case-field-conditions.html">case field conditions</a>) on a template. </p>"""
     tag_propagation_configurations: NotRequired[
         "capo_connectcases.types.tag_propagation_configuration_list.TagPropagationConfigurationList"
     ]

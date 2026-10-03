@@ -25,7 +25,7 @@ class VerifyDestinationNumberResult(TypedDict, closed=True):
     status: "capo_pinpoint_sms_voice_v2.types.verification_status.VerificationStatus"
     """<p>The status for being able to send messages to the phone number.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the destination phone number was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the destination phone number was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

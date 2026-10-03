@@ -19,7 +19,7 @@ class DescribeAccessPolicyResponse(TypedDict, closed=True):
     access_policy_id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the access policy.</p>"""
     access_policy_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the access policy, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:access-policy/${AccessPolicyId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the access policy, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:access-policy/${AccessPolicyId}</code> </p>"""
     access_policy_identity: "capo_iotsitewise.types.identity.Identity"
     """<p>The identity (IAM Identity Center user, IAM Identity Center group, or IAM user) to which this access policy applies.</p>"""
     access_policy_resource: "capo_iotsitewise.types.resource.Resource"

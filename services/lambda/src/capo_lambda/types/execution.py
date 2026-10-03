@@ -27,11 +27,11 @@ class Execution(TypedDict, closed=True):
     status: "capo_lambda.types.execution_status.ExecutionStatus"
     """<p>The current status of the durable execution.</p>"""
     start_timestamp: "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
-    r"""<p>The date and time when the durable execution started, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
+    """<p>The date and time when the durable execution started, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
     end_timestamp: NotRequired[
         "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
     ]
-    r"""<p>The date and time when the durable execution ended, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
+    """<p>The date and time when the durable execution ended, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
     kms_key_arn: NotRequired["capo_lambda.types.kms_key_arn.KMSKeyArn"]
     """<p>The ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your durable execution's payload data, including input, output, and error payloads.</p>"""
 

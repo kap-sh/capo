@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class DisconnectParticipantRequest(TypedDict, closed=True):
     client_token: NotRequired["capo_connectparticipant.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
     connection_token: "capo_connectparticipant.types.participant_token.ParticipantToken"
     """<p>The authentication token associated with the participant's connection.</p>"""
 

@@ -22,7 +22,7 @@ class S3CatalogSource(TypedDict, closed=True):
     partition_predicate: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>Partitions satisfying this predicate are deleted. Files within the retention period in these partitions are not deleted. Set to <code>\"\"</code> – empty by default.</p>"""
+    """<p>Partitions satisfying this predicate are deleted. Files within the retention period in these partitions are not deleted. Set to <code>""</code> – empty by default.</p>"""
     additional_options: NotRequired[
         "capo_glue.types.s3_source_additional_options.S3SourceAdditionalOptions"
     ]

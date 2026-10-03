@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""If you are setting up the picture as a tile, you must set this to \"disabled\". In all other configurations, you typically enter \"enabled\"."""
+"""If you are setting up the picture as a tile, you must set this to "disabled". In all other configurations, you typically enter "enabled"."""
 H265MvOverPictureBoundaries: TypeAlias = Literal[
     "ENABLED",
     "DISABLED",

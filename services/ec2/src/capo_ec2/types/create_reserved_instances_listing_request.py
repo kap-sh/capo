@@ -23,7 +23,7 @@ class CreateReservedInstancesListingRequest(TypedDict, closed=True):
     ]
     """<p>A list specifying the price of the Standard Reserved Instance for each month remaining in the Reserved Instance term.</p>"""
     client_token: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>Unique, case-sensitive identifier you provide to ensure idempotency of your listings. This helps avoid duplicate listings. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring Idempotency</a>.</p>"""
+    """<p>Unique, case-sensitive identifier you provide to ensure idempotency of your listings. This helps avoid duplicate listings. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring Idempotency</a>.</p>"""
 
 
 # --- ec2Query ser/de ---

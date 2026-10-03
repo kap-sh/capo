@@ -29,7 +29,7 @@ class CreateRoomRequest(TypedDict, closed=True):
     ]
     """<p>Configuration information for optional review of messages.</p>"""
     tags: NotRequired["capo_ivschat.types.tags.Tags"]
-    r"""<p>Tags to attach to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS Chat has no constraints beyond what is documented there.</p>"""
+    """<p>Tags to attach to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS Chat has no constraints beyond what is documented there.</p>"""
     logging_configuration_identifiers: NotRequired[
         "capo_ivschat.types.logging_configuration_identifier_list.LoggingConfigurationIdentifierList"
     ]

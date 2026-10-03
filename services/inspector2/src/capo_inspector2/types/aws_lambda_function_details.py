@@ -32,7 +32,7 @@ class AwsLambdaFunctionDetails(TypedDict, closed=True):
     execution_role_arn: "capo_inspector2.types.execution_role_arn.ExecutionRoleArn"
     """<p>The Amazon Web Services Lambda function's execution role.</p>"""
     layers: NotRequired["capo_inspector2.types.layer_list.LayerList"]
-    r"""<p>The Amazon Web Services Lambda function's <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html\"> layers</a>. A Lambda function can have up to five layers.</p>"""
+    """<p>The Amazon Web Services Lambda function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html"> layers</a>. A Lambda function can have up to five layers.</p>"""
     vpc_config: NotRequired["capo_inspector2.types.lambda_vpc_config.LambdaVpcConfig"]
     """<p>The Amazon Web Services Lambda function's networking configuration.</p>"""
     package_type: NotRequired["capo_inspector2.types.package_type.PackageType"]
@@ -42,7 +42,7 @@ class AwsLambdaFunctionDetails(TypedDict, closed=True):
     ]
     """<p>The instruction set architecture that the Amazon Web Services Lambda function supports. Architecture is a string array with one of the valid values. The default architecture value is <code>x86_64</code>.</p>"""
     last_modified_at: NotRequired["datetime.datetime"]
-    r"""<p>The date and time that a user last updated the configuration, in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601 format</a> </p>"""
+    """<p>The date and time that a user last updated the configuration, in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601 format</a> </p>"""
 
 
 # --- restJson1 ser/de ---

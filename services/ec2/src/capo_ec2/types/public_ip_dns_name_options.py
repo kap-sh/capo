@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class PublicIpDnsNameOptions(TypedDict, closed=True):
     dns_hostname_type: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The public hostname type. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html\">EC2 instance hostnames, DNS names, and domains</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The public hostname type. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html">EC2 instance hostnames, DNS names, and domains</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     public_ipv4_dns_name: NotRequired["capo_ec2.types.string.String"]
     """<p>An IPv4-enabled public hostname for a network interface. Requests from within the VPC resolve to the private primary IPv4 address of the network interface. Requests from the internet resolve to the public IPv4 address of the network interface.</p>"""
     public_ipv6_dns_name: NotRequired["capo_ec2.types.string.String"]

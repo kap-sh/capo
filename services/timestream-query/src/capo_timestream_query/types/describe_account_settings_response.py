@@ -14,7 +14,7 @@ class DescribeAccountSettingsResponse(TypedDict, closed=True):
     max_query_tcu: NotRequired[
         "capo_timestream_query.types.max_query_capacity.MaxQueryCapacity"
     ]
-    r"""<p>The maximum number of <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/tcu.html\">Timestream compute units</a> (TCUs) the service will use at any point in time to serve your queries. To run queries, you must set a minimum capacity of 4 TCU. You can set the maximum number of TCU in multiples of 4, for example, 4, 8, 16, 32, and so on. This configuration is applicable only for on-demand usage of (TCUs). </p>"""
+    """<p>The maximum number of <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/tcu.html">Timestream compute units</a> (TCUs) the service will use at any point in time to serve your queries. To run queries, you must set a minimum capacity of 4 TCU. You can set the maximum number of TCU in multiples of 4, for example, 4, 8, 16, 32, and so on. This configuration is applicable only for on-demand usage of (TCUs). </p>"""
     query_pricing_model: NotRequired[
         "capo_timestream_query.types.query_pricing_model.QueryPricingModel"
     ]

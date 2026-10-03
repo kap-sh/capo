@@ -37,7 +37,7 @@ class ListTransactionsInput(TypedDict, closed=True):
     confirmation_status_filter: NotRequired[
         "capo_managedblockchain_query.types.confirmation_status_filter.ConfirmationStatusFilter"
     ]
-    r"""<p>This filter is used to include transactions in the response that haven't reached <a href=\"https://docs.aws.amazon.com/managed-blockchain/latest/ambq-dg/key-concepts.html#finality\"> <i>finality</i> </a>. Transactions that have reached finality are always part of the response.</p>"""
+    """<p>This filter is used to include transactions in the response that haven't reached <a href="https://docs.aws.amazon.com/managed-blockchain/latest/ambq-dg/key-concepts.html#finality"> <i>finality</i> </a>. Transactions that have reached finality are always part of the response.</p>"""
 
 
 # --- restJson1 ser/de ---

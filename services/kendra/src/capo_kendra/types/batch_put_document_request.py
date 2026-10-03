@@ -17,13 +17,13 @@ class BatchPutDocumentRequest(TypedDict, closed=True):
     index_id: "capo_kendra.types.index_id.IndexId"
     """<p>The identifier of the index to add the documents to. You need to create the index first using the <code>CreateIndex</code> API.</p>"""
     role_arn: NotRequired["capo_kendra.types.role_arn.RoleArn"]
-    r"""<p>The Amazon Resource Name (ARN) of an IAM role with permission to access your S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html\">IAM access roles for Amazon Kendra</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an IAM role with permission to access your S3 bucket. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html">IAM access roles for Amazon Kendra</a>.</p>"""
     documents: "capo_kendra.types.document_list.DocumentList"
-    r"""<p>One or more documents to add to the index.</p> <p>Documents have the following file size limits.</p> <ul> <li> <p>50 MB total size for any file</p> </li> <li> <p>5 MB extracted text for any file</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/quotas.html\">Quotas</a>.</p>"""
+    """<p>One or more documents to add to the index.</p> <p>Documents have the following file size limits.</p> <ul> <li> <p>50 MB total size for any file</p> </li> <li> <p>5 MB extracted text for any file</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/quotas.html">Quotas</a>.</p>"""
     custom_document_enrichment_configuration: NotRequired[
         "capo_kendra.types.custom_document_enrichment_configuration.CustomDocumentEnrichmentConfiguration"
     ]
-    r"""<p>Configuration information for altering your document metadata and content during the document ingestion process when you use the <code>BatchPutDocument</code> API.</p> <p>For more information on how to create, modify and delete document metadata, or make other content alterations when you ingest documents into Amazon Kendra, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html\">Customizing document metadata during the ingestion process</a>.</p>"""
+    """<p>Configuration information for altering your document metadata and content during the document ingestion process when you use the <code>BatchPutDocument</code> API.</p> <p>For more information on how to create, modify and delete document metadata, or make other content alterations when you ingest documents into Amazon Kendra, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html">Customizing document metadata during the ingestion process</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

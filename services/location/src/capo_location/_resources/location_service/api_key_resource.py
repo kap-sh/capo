@@ -56,21 +56,21 @@ class ApiKeyResource:
         no_expiry: Optional[bool] = None,
         tags: Optional["capo_location.types.tag_map.TagMap"] = None,
     ) -> "capo_location.types.create_key_response.CreateKeyResponse":
-        r"""<p>Creates an API key resource in your Amazon Web Services account, which lets you grant actions for Amazon Location resources to the API key bearer.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html\">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p>Creates an API key resource in your Amazon Web Services account, which lets you grant actions for Amazon Location resources to the API key bearer.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             key_name: <p>A custom name for the API key resource.</p> <p>Requirements:</p> <ul> <li> <p>Contain only alphanumeric characters (A–Z, a–z, 0–9), hyphens (-), periods (.), and underscores (_). </p> </li> <li> <p>Must be a unique API key name.</p> </li> <li> <p>No spaces allowed. For example, <code>ExampleAPIKey</code>.</p> </li> </ul>
             restrictions: <p>The API key restrictions for the API key resource.</p>
             description: <p>An optional description for the API key resource.</p>
-            expire_time: <p>The optional timestamp for when the API key resource will expire in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. One of <code>NoExpiry</code> or <code>ExpireTime</code> must be set.</p>
+            expire_time: <p>The optional timestamp for when the API key resource will expire in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. One of <code>NoExpiry</code> or <code>ExpireTime</code> must be set.</p>
             no_expiry: <p>Optionally set to <code>true</code> to set no expiration time for the API key. One of <code>NoExpiry</code> or <code>ExpireTime</code> must be set.</p>
-            tags: <p>Applies one or more tags to the map resource. A tag is a key-value pair that helps manage, identify, search, and filter your resources by labelling them.</p> <p>Format: <code>\"key\" : \"value\"</code> </p> <p>Restrictions:</p> <ul> <li> <p>Maximum 50 tags per resource</p> </li> <li> <p>Each resource tag must be unique with a maximum of one value.</p> </li> <li> <p>Maximum key length: 128 Unicode characters in UTF-8</p> </li> <li> <p>Maximum value length: 256 Unicode characters in UTF-8</p> </li> <li> <p>Can use alphanumeric characters (A–Z, a–z, 0–9), and the following characters: + - = . _ : / @. </p> </li> <li> <p>Cannot use \"aws:\" as a prefix for a key.</p> </li> </ul>
+            tags: <p>Applies one or more tags to the map resource. A tag is a key-value pair that helps manage, identify, search, and filter your resources by labelling them.</p> <p>Format: <code>"key" : "value"</code> </p> <p>Restrictions:</p> <ul> <li> <p>Maximum 50 tags per resource</p> </li> <li> <p>Each resource tag must be unique with a maximum of one value.</p> </li> <li> <p>Maximum key length: 128 Unicode characters in UTF-8</p> </li> <li> <p>Maximum value length: 256 Unicode characters in UTF-8</p> </li> <li> <p>Can use alphanumeric characters (A–Z, a–z, 0–9), and the following characters: + - = . _ : / @. </p> </li> <li> <p>Cannot use "aws:" as a prefix for a key.</p> </li> </ul>
 
         Raises:
             capo_location.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because of insufficient access or permissions. Check with an administrator to verify your permissions.</p>
             capo_location.errors.conflict_exception.ConflictException: <p>The request was unsuccessful because of a conflict.</p>
             capo_location.errors.internal_server_exception.InternalServerException: <p>The request has failed to process because of an unknown server error, exception, or failure.</p>
-            capo_location.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The operation was denied because the request would exceed the maximum <a href=\"https://docs.aws.amazon.com/location/previous/developerguide/location-quotas.html\">quota</a> set for Amazon Location Service.</p>
+            capo_location.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The operation was denied because the request would exceed the maximum <a href="https://docs.aws.amazon.com/location/previous/developerguide/location-quotas.html">quota</a> set for Amazon Location Service.</p>
             capo_location.errors.throttling_exception.ThrottlingException: <p>The request was denied because of request throttling.</p>
             capo_location.errors.validation_exception.ValidationException: <p>The input failed to meet the constraints specified by the AWS service. </p>
             capo_location.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -118,7 +118,7 @@ class ApiKeyResource:
         *,
         config_overrides: Optional[LocationClientConfig] = None,
     ) -> "capo_location.types.describe_key_response.DescribeKeyResponse":
-        r"""<p>Retrieves the API key resource details.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html\">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p>Retrieves the API key resource details.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             key_name: <p>The name of the API key resource.</p>
@@ -174,12 +174,12 @@ class ApiKeyResource:
             "capo_location.types.api_key_restrictions.ApiKeyRestrictions"
         ] = None,
     ) -> "capo_location.types.update_key_response.UpdateKeyResponse":
-        r"""<p>Updates the specified properties of a given API key resource.</p>
+        """<p>Updates the specified properties of a given API key resource.</p>
 
         Args:
             key_name: <p>The name of the API key resource to update.</p>
             description: <p>Updates the description for the API key resource.</p>
-            expire_time: <p>Updates the timestamp for when the API key resource will expire in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>
+            expire_time: <p>Updates the timestamp for when the API key resource will expire in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>
             no_expiry: <p>Whether the API key should expire. Set to <code>true</code> to set the API key to have no expiration time.</p>
             force_update: <p>The boolean flag to be included for updating <code>ExpireTime</code> or <code>Restrictions</code> details.</p> <p>Must be set to <code>true</code> to update an API key resource that has been used in the past 7 days.</p> <p> <code>False</code> if force update is not preferred</p> <p>Default value: <code>False</code> </p>
             restrictions: <p>Updates the API key restrictions for the API key resource.</p>
@@ -237,7 +237,7 @@ class ApiKeyResource:
         config_overrides: Optional[LocationClientConfig] = None,
         force_delete: Optional[bool] = None,
     ) -> "capo_location.types.delete_key_response.DeleteKeyResponse":
-        r"""<p>Deletes the specified API key. The API key must have been deactivated more than 90 days previously.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html\">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p>Deletes the specified API key. The API key must have been deactivated more than 90 days previously.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             key_name: <p>The name of the API key to delete.</p>
@@ -289,7 +289,7 @@ class ApiKeyResource:
         next_token: Optional["capo_location.types.token.Token"] = None,
         filter: Optional["capo_location.types.api_key_filter.ApiKeyFilter"] = None,
     ) -> "capo_location.types.list_keys_response.ListKeysResponse":
-        r"""<p>Lists API key resources in your Amazon Web Services account.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html\">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p>Lists API key resources in your Amazon Web Services account.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             max_results: <p>An optional limit for the number of resources returned in a single call. </p> <p>Default value: <code>100</code> </p>
@@ -353,21 +353,21 @@ class AsyncApiKeyResource:
         no_expiry: Optional[bool] = None,
         tags: Optional["capo_location.types.tag_map.TagMap"] = None,
     ) -> "capo_location.types.create_key_response.CreateKeyResponse":
-        r"""<p>Creates an API key resource in your Amazon Web Services account, which lets you grant actions for Amazon Location resources to the API key bearer.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html\">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p>Creates an API key resource in your Amazon Web Services account, which lets you grant actions for Amazon Location resources to the API key bearer.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             key_name: <p>A custom name for the API key resource.</p> <p>Requirements:</p> <ul> <li> <p>Contain only alphanumeric characters (A–Z, a–z, 0–9), hyphens (-), periods (.), and underscores (_). </p> </li> <li> <p>Must be a unique API key name.</p> </li> <li> <p>No spaces allowed. For example, <code>ExampleAPIKey</code>.</p> </li> </ul>
             restrictions: <p>The API key restrictions for the API key resource.</p>
             description: <p>An optional description for the API key resource.</p>
-            expire_time: <p>The optional timestamp for when the API key resource will expire in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. One of <code>NoExpiry</code> or <code>ExpireTime</code> must be set.</p>
+            expire_time: <p>The optional timestamp for when the API key resource will expire in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. One of <code>NoExpiry</code> or <code>ExpireTime</code> must be set.</p>
             no_expiry: <p>Optionally set to <code>true</code> to set no expiration time for the API key. One of <code>NoExpiry</code> or <code>ExpireTime</code> must be set.</p>
-            tags: <p>Applies one or more tags to the map resource. A tag is a key-value pair that helps manage, identify, search, and filter your resources by labelling them.</p> <p>Format: <code>\"key\" : \"value\"</code> </p> <p>Restrictions:</p> <ul> <li> <p>Maximum 50 tags per resource</p> </li> <li> <p>Each resource tag must be unique with a maximum of one value.</p> </li> <li> <p>Maximum key length: 128 Unicode characters in UTF-8</p> </li> <li> <p>Maximum value length: 256 Unicode characters in UTF-8</p> </li> <li> <p>Can use alphanumeric characters (A–Z, a–z, 0–9), and the following characters: + - = . _ : / @. </p> </li> <li> <p>Cannot use \"aws:\" as a prefix for a key.</p> </li> </ul>
+            tags: <p>Applies one or more tags to the map resource. A tag is a key-value pair that helps manage, identify, search, and filter your resources by labelling them.</p> <p>Format: <code>"key" : "value"</code> </p> <p>Restrictions:</p> <ul> <li> <p>Maximum 50 tags per resource</p> </li> <li> <p>Each resource tag must be unique with a maximum of one value.</p> </li> <li> <p>Maximum key length: 128 Unicode characters in UTF-8</p> </li> <li> <p>Maximum value length: 256 Unicode characters in UTF-8</p> </li> <li> <p>Can use alphanumeric characters (A–Z, a–z, 0–9), and the following characters: + - = . _ : / @. </p> </li> <li> <p>Cannot use "aws:" as a prefix for a key.</p> </li> </ul>
 
         Raises:
             capo_location.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because of insufficient access or permissions. Check with an administrator to verify your permissions.</p>
             capo_location.errors.conflict_exception.ConflictException: <p>The request was unsuccessful because of a conflict.</p>
             capo_location.errors.internal_server_exception.InternalServerException: <p>The request has failed to process because of an unknown server error, exception, or failure.</p>
-            capo_location.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The operation was denied because the request would exceed the maximum <a href=\"https://docs.aws.amazon.com/location/previous/developerguide/location-quotas.html\">quota</a> set for Amazon Location Service.</p>
+            capo_location.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The operation was denied because the request would exceed the maximum <a href="https://docs.aws.amazon.com/location/previous/developerguide/location-quotas.html">quota</a> set for Amazon Location Service.</p>
             capo_location.errors.throttling_exception.ThrottlingException: <p>The request was denied because of request throttling.</p>
             capo_location.errors.validation_exception.ValidationException: <p>The input failed to meet the constraints specified by the AWS service. </p>
             capo_location.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -416,7 +416,7 @@ class AsyncApiKeyResource:
         *,
         config_overrides: Optional[AsyncLocationClientConfig] = None,
     ) -> "capo_location.types.describe_key_response.DescribeKeyResponse":
-        r"""<p>Retrieves the API key resource details.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html\">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p>Retrieves the API key resource details.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             key_name: <p>The name of the API key resource.</p>
@@ -473,12 +473,12 @@ class AsyncApiKeyResource:
             "capo_location.types.api_key_restrictions.ApiKeyRestrictions"
         ] = None,
     ) -> "capo_location.types.update_key_response.UpdateKeyResponse":
-        r"""<p>Updates the specified properties of a given API key resource.</p>
+        """<p>Updates the specified properties of a given API key resource.</p>
 
         Args:
             key_name: <p>The name of the API key resource to update.</p>
             description: <p>Updates the description for the API key resource.</p>
-            expire_time: <p>Updates the timestamp for when the API key resource will expire in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>
+            expire_time: <p>Updates the timestamp for when the API key resource will expire in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>
             no_expiry: <p>Whether the API key should expire. Set to <code>true</code> to set the API key to have no expiration time.</p>
             force_update: <p>The boolean flag to be included for updating <code>ExpireTime</code> or <code>Restrictions</code> details.</p> <p>Must be set to <code>true</code> to update an API key resource that has been used in the past 7 days.</p> <p> <code>False</code> if force update is not preferred</p> <p>Default value: <code>False</code> </p>
             restrictions: <p>Updates the API key restrictions for the API key resource.</p>
@@ -537,7 +537,7 @@ class AsyncApiKeyResource:
         config_overrides: Optional[AsyncLocationClientConfig] = None,
         force_delete: Optional[bool] = None,
     ) -> "capo_location.types.delete_key_response.DeleteKeyResponse":
-        r"""<p>Deletes the specified API key. The API key must have been deactivated more than 90 days previously.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html\">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p>Deletes the specified API key. The API key must have been deactivated more than 90 days previously.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             key_name: <p>The name of the API key to delete.</p>
@@ -590,7 +590,7 @@ class AsyncApiKeyResource:
         next_token: Optional["capo_location.types.token.Token"] = None,
         filter: Optional["capo_location.types.api_key_filter.ApiKeyFilter"] = None,
     ) -> "capo_location.types.list_keys_response.ListKeysResponse":
-        r"""<p>Lists API key resources in your Amazon Web Services account.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html\">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p>Lists API key resources in your Amazon Web Services account.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html">Use API keys to authenticate</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             max_results: <p>An optional limit for the number of resources returned in a single call. </p> <p>Default value: <code>100</code> </p>

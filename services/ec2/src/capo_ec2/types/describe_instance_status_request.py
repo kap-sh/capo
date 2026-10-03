@@ -20,7 +20,7 @@ class DescribeInstanceStatusRequest(TypedDict, closed=True):
     ]
     """<p>The instance IDs.</p> <p>Default: Describes all your instances.</p> <p>Constraints: Maximum 100 explicitly specified instance IDs.</p>"""
     max_results: NotRequired["capo_ec2.types.integer.Integer"]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p> <p>You cannot specify this parameter and the instance IDs parameter in the same request.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p> <p>You cannot specify this parameter and the instance IDs parameter in the same request.</p>"""
     next_token: NotRequired["capo_ec2.types.string.String"]
     """<p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>"""
     include_managed_resources: NotRequired["capo_ec2.types.boolean.Boolean"]

@@ -35,15 +35,15 @@ class LaunchConfiguration(TypedDict, closed=True):
     image_id: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]
-    r"""<p>The ID of the Amazon Machine Image (AMI) to use to launch your EC2 instances. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html\">Find a Linux AMI</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The ID of the Amazon Machine Image (AMI) to use to launch your EC2 instances. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html">Find a Linux AMI</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     key_name: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]
-    r"""<p>The name of the key pair.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html\">Amazon EC2 key pairs and Amazon EC2 instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The name of the key pair.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">Amazon EC2 key pairs and Amazon EC2 instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     security_groups: NotRequired[
         "capo_auto_scaling.types.security_groups.SecurityGroups"
     ]
-    r"""<p>A list that contains the security groups to assign to the instances in the Auto Scaling group. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html\">Control traffic to your Amazon Web Services resources using security groups</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>"""
+    """<p>A list that contains the security groups to assign to the instances in the Auto Scaling group. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html">Control traffic to your Amazon Web Services resources using security groups</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>"""
     classic_link_vpc_id: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]
@@ -55,11 +55,11 @@ class LaunchConfiguration(TypedDict, closed=True):
     user_data: NotRequired[
         "capo_auto_scaling.types.xml_string_user_data.XmlStringUserData"
     ]
-    r"""<p>The user data to make available to the launched EC2 instances. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html\">Instance metadata and user data</a> in the <i>Amazon EC2 User Guide</i>. If you are using a command line tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide base64-encoded text. User data is limited to 16 KB.</p>"""
+    """<p>The user data to make available to the launched EC2 instances. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user data</a> in the <i>Amazon EC2 User Guide</i>. If you are using a command line tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide base64-encoded text. User data is limited to 16 KB.</p>"""
     instance_type: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]
-    r"""<p>The instance type for the instances. For information about available instance types, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes\">Available instance types</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The instance type for the instances. For information about available instance types, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes">Available instance types</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     kernel_id: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]
@@ -71,25 +71,25 @@ class LaunchConfiguration(TypedDict, closed=True):
     block_device_mappings: NotRequired[
         "capo_auto_scaling.types.block_device_mappings.BlockDeviceMappings"
     ]
-    r"""<p>The block device mapping entries that define the block devices to attach to the instances at launch. By default, the block devices specified in the block device mapping for the AMI are used. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html\">Block device mappings</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The block device mapping entries that define the block devices to attach to the instances at launch. By default, the block devices specified in the block device mapping for the AMI are used. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html">Block device mappings</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     instance_monitoring: NotRequired[
         "capo_auto_scaling.types.instance_monitoring.InstanceMonitoring"
     ]
-    r"""<p>Controls whether instances in this group are launched with detailed (<code>true</code>) or basic (<code>false</code>) monitoring.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/latest/userguide/enable-as-instance-metrics.html\">Configure monitoring for Auto Scaling instances</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
+    """<p>Controls whether instances in this group are launched with detailed (<code>true</code>) or basic (<code>false</code>) monitoring.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/autoscaling/latest/userguide/enable-as-instance-metrics.html">Configure monitoring for Auto Scaling instances</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
     spot_price: NotRequired["capo_auto_scaling.types.spot_price.SpotPrice"]
-    r"""<p>The maximum hourly price to be paid for any Spot Instance launched to fulfill the request. Spot Instances are launched when the price you specify exceeds the current Spot price. For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-template-spot-instances.html\">Requesting Spot Instances for fault-tolerant and flexible applications</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
+    """<p>The maximum hourly price to be paid for any Spot Instance launched to fulfill the request. Spot Instances are launched when the price you specify exceeds the current Spot price. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-template-spot-instances.html">Requesting Spot Instances for fault-tolerant and flexible applications</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
     iam_instance_profile: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len1600.XmlStringMaxLen1600"
     ]
-    r"""<p>The name or the Amazon Resource Name (ARN) of the instance profile associated with the IAM role for the instance. The instance profile contains the IAM role. For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/us-iam-role.html\">IAM role for applications that run on Amazon EC2 instances</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
+    """<p>The name or the Amazon Resource Name (ARN) of the instance profile associated with the IAM role for the instance. The instance profile contains the IAM role. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/us-iam-role.html">IAM role for applications that run on Amazon EC2 instances</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
     created_time: NotRequired["capo_auto_scaling.types.timestamp_type.TimestampType"]
     """<p>The creation date and time for the launch configuration.</p>"""
     ebs_optimized: NotRequired["capo_auto_scaling.types.ebs_optimized.EbsOptimized"]
-    r"""<p>Specifies whether the launch configuration is optimized for EBS I/O (<code>true</code>) or not (<code>false</code>). For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html\">Amazon EBS-optimized instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Specifies whether the launch configuration is optimized for EBS I/O (<code>true</code>) or not (<code>false</code>). For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html">Amazon EBS-optimized instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     associate_public_ip_address: NotRequired[
         "capo_auto_scaling.types.associate_public_ip_address.AssociatePublicIpAddress"
     ]
-    r"""<p>Specifies whether to assign a public IPv4 address to the group's instances. If the instance is launched into a default subnet, the default is to assign a public IPv4 address, unless you disabled the option to assign a public IPv4 address on the subnet. If the instance is launched into a nondefault subnet, the default is not to assign a public IPv4 address, unless you enabled the option to assign a public IPv4 address on the subnet. For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html\">Provide network connectivity for your Auto Scaling instances using Amazon VPC</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
+    """<p>Specifies whether to assign a public IPv4 address to the group's instances. If the instance is launched into a default subnet, the default is to assign a public IPv4 address, unless you disabled the option to assign a public IPv4 address on the subnet. If the instance is launched into a nondefault subnet, the default is not to assign a public IPv4 address, unless you enabled the option to assign a public IPv4 address on the subnet. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html">Provide network connectivity for your Auto Scaling instances using Amazon VPC</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
     placement_tenancy: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len64.XmlStringMaxLen64"
     ]
@@ -97,7 +97,7 @@ class LaunchConfiguration(TypedDict, closed=True):
     metadata_options: NotRequired[
         "capo_auto_scaling.types.instance_metadata_options.InstanceMetadataOptions"
     ]
-    r"""<p>The metadata options for the instances. For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-launch-config.html#launch-configurations-imds\">Configure the instance metadata options</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
+    """<p>The metadata options for the instances. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-launch-config.html#launch-configurations-imds">Configure the instance metadata options</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

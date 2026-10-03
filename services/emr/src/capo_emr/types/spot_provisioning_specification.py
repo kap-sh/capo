@@ -22,7 +22,7 @@ class SpotProvisioningSpecification(TypedDict, closed=True):
     allocation_strategy: NotRequired[
         "capo_emr.types.spot_provisioning_allocation_strategy.SpotProvisioningAllocationStrategy"
     ]
-    r"""<p>Specifies one of the following strategies to launch Spot Instance fleets: <code>capacity-optimized</code>, <code>price-capacity-optimized</code>, <code>lowest-price</code>, or <code>diversified</code>, and <code>capacity-optimized-prioritized</code>. For more information on the provisioning strategies, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-allocation-strategy.html\">Allocation strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.</p> <note> <p>When you launch a Spot Instance fleet with the old console, it automatically launches with the <code>capacity-optimized</code> strategy. You can't change the allocation strategy from the old console.</p> </note>"""
+    """<p>Specifies one of the following strategies to launch Spot Instance fleets: <code>capacity-optimized</code>, <code>price-capacity-optimized</code>, <code>lowest-price</code>, or <code>diversified</code>, and <code>capacity-optimized-prioritized</code>. For more information on the provisioning strategies, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-allocation-strategy.html">Allocation strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.</p> <note> <p>When you launch a Spot Instance fleet with the old console, it automatically launches with the <code>capacity-optimized</code> strategy. You can't change the allocation strategy from the old console.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---

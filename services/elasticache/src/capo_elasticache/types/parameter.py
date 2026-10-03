@@ -30,7 +30,7 @@ class Parameter(TypedDict, closed=True):
     minimum_engine_version: NotRequired["capo_elasticache.types.string.String"]
     """<p>The earliest cache engine version to which the parameter can apply.</p>"""
     change_type: NotRequired["capo_elasticache.types.change_type.ChangeType"]
-    r"""<p>Indicates whether a change to the parameter is applied immediately or requires a reboot for the change to be applied. You can force a reboot or wait until the next maintenance window's reboot. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Clusters.Rebooting.html\">Rebooting a Cluster</a>.</p>"""
+    """<p>Indicates whether a change to the parameter is applied immediately or requires a reboot for the change to be applied. You can force a reboot or wait until the next maintenance window's reboot. For more information, see <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Clusters.Rebooting.html">Rebooting a Cluster</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -23,7 +23,7 @@ class EventSubscription(TypedDict, closed=True):
     sns_topic_arn: NotRequired["capo_redshift.types.string.String"]
     """<p>The Amazon Resource Name (ARN) of the Amazon SNS topic used by the event notification subscription.</p>"""
     status: NotRequired["capo_redshift.types.string.String"]
-    r"""<p>The status of the Amazon Redshift event notification subscription.</p> <p>Constraints:</p> <ul> <li> <p>Can be one of the following: active | no-permission | topic-not-exist</p> </li> <li> <p>The status \"no-permission\" indicates that Amazon Redshift no longer has permission to post to the Amazon SNS topic. The status \"topic-not-exist\" indicates that the topic was deleted after the subscription was created.</p> </li> </ul>"""
+    """<p>The status of the Amazon Redshift event notification subscription.</p> <p>Constraints:</p> <ul> <li> <p>Can be one of the following: active | no-permission | topic-not-exist</p> </li> <li> <p>The status "no-permission" indicates that Amazon Redshift no longer has permission to post to the Amazon SNS topic. The status "topic-not-exist" indicates that the topic was deleted after the subscription was created.</p> </li> </ul>"""
     subscription_creation_time: NotRequired["capo_redshift.types.t_stamp.TStamp"]
     """<p>The date and time the Amazon Redshift event notification subscription was created.</p>"""
     source_type: NotRequired["capo_redshift.types.string.String"]

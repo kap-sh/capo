@@ -15,11 +15,11 @@ class DescribeReservedNodesRequest(TypedDict, closed=True):
     reserved_nodes_offering_id: NotRequired["capo_memorydb.types.string.String"]
     """<p>The offering identifier filter value. Use this parameter to show only purchased reservations matching the specified offering identifier.</p>"""
     node_type: NotRequired["capo_memorydb.types.string.String"]
-    r"""<p>The node type filter value. Use this parameter to show only those reservations matching the specified node type. For more information, see <a href=\"https://docs.aws.amazon.com/memorydb/latest/devguide/nodes.reserved.html#reserved-nodes-supported\">Supported node types</a>.</p>"""
+    """<p>The node type filter value. Use this parameter to show only those reservations matching the specified node type. For more information, see <a href="https://docs.aws.amazon.com/memorydb/latest/devguide/nodes.reserved.html#reserved-nodes-supported">Supported node types</a>.</p>"""
     duration: NotRequired["capo_memorydb.types.string.String"]
     """<p>The duration filter value, specified in years or seconds. Use this parameter to show only reservations for this duration.</p>"""
     offering_type: NotRequired["capo_memorydb.types.string.String"]
-    r"""<p>The offering type filter value. Use this parameter to show only the available offerings matching the specified offering type. Valid values: \"All Upfront\"|\"Partial Upfront\"| \"No Upfront\"</p>"""
+    """<p>The offering type filter value. Use this parameter to show only the available offerings matching the specified offering type. Valid values: "All Upfront"|"Partial Upfront"| "No Upfront"</p>"""
     max_results: NotRequired["capo_memorydb.types.integer_optional.IntegerOptional"]
     """<p>The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a marker is included in the response so that the remaining results can be retrieved.</p>"""
     next_token: NotRequired["capo_memorydb.types.string.String"]

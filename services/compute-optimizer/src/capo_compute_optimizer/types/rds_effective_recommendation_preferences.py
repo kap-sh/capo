@@ -19,7 +19,7 @@ class RDSEffectiveRecommendationPreferences(TypedDict, closed=True):
     enhanced_infrastructure_metrics: NotRequired[
         "capo_compute_optimizer.types.enhanced_infrastructure_metrics.EnhancedInfrastructureMetrics"
     ]
-    r"""<p>Describes the activation status of the enhanced infrastructure metrics preference. </p> <p>A status of <code>Active</code> confirms that the preference is applied in the latest recommendation refresh, and a status of <code>Inactive</code> confirms that it's not yet applied to recommendations. </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html\">Enhanced infrastructure metrics</a> in the <i>Compute Optimizer User Guide</i>. </p>"""
+    """<p>Describes the activation status of the enhanced infrastructure metrics preference. </p> <p>A status of <code>Active</code> confirms that the preference is applied in the latest recommendation refresh, and a status of <code>Inactive</code> confirms that it's not yet applied to recommendations. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html">Enhanced infrastructure metrics</a> in the <i>Compute Optimizer User Guide</i>. </p>"""
     look_back_period: NotRequired[
         "capo_compute_optimizer.types.look_back_period_preference.LookBackPeriodPreference"
     ]

@@ -15,7 +15,7 @@ class GetConnectionRequest(TypedDict, closed=True):
     include_socket_information: (
         "capo_iot_data_plane.types.include_socket_information.IncludeSocketInformation"
     )
-    r"""<p>Specifies if socket information (sourcePort, targetPort, sourceIp, targetIp) should be included in the GetConnection response. Set to <code>TRUE</code> to include socket information. Set to <code>FALSE</code> to omit socket information. By default, this is set to <code>FALSE</code>. See the <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html#mqtt-client-disconnect\">developer guide</a> for how to authorize this parameter.</p>"""
+    """<p>Specifies if socket information (sourcePort, targetPort, sourceIp, targetIp) should be included in the GetConnection response. Set to <code>TRUE</code> to include socket information. Set to <code>FALSE</code> to omit socket information. By default, this is set to <code>FALSE</code>. See the <a href="https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html#mqtt-client-disconnect">developer guide</a> for how to authorize this parameter.</p>"""
 
 
 # --- restJson1 ser/de ---

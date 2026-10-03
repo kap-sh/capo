@@ -27,7 +27,7 @@ class CreateSipMediaApplicationCallRequest(TypedDict, closed=True):
     arguments_map: NotRequired[
         "capo_chime_sdk_voice.types.sma_create_call_arguments_map.SMACreateCallArgumentsMap"
     ]
-    r"""<p>Context passed to a CreateSipMediaApplication API call. For example, you could pass key-value pairs such as: <code>\"FirstName\": \"John\", \"LastName\": \"Doe\"</code> </p>"""
+    """<p>Context passed to a CreateSipMediaApplication API call. For example, you could pass key-value pairs such as: <code>"FirstName": "John", "LastName": "Doe"</code> </p>"""
 
 
 # --- restJson1 ser/de ---

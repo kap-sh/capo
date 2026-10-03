@@ -22,11 +22,11 @@ class GetResourceShareAssociationsRequest(TypedDict, closed=True):
     resource_share_arns: NotRequired[
         "capo_ram.types.resource_share_arn_list.ResourceShareArnList"
     ]
-    r"""<p>Specifies a list of <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> of the resource share whose associations you want to retrieve.</p>"""
+    """<p>Specifies a list of <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> of the resource share whose associations you want to retrieve.</p>"""
     resource_arn: NotRequired["capo_ram.types.string.String"]
-    r"""<p>Specifies the <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of a resource whose resource shares you want to retrieve.</p> <p>You cannot specify this parameter if the association type is <code>PRINCIPAL</code>.</p>"""
+    """<p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of a resource whose resource shares you want to retrieve.</p> <p>You cannot specify this parameter if the association type is <code>PRINCIPAL</code>.</p>"""
     principal: NotRequired["capo_ram.types.string.String"]
-    r"""<p>Specifies the ID of the principal whose resource shares you want to retrieve. This can be an Amazon Web Services account ID, an organization ID, an organizational unit ID, or the <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of an individual IAM role or user.</p> <p>You cannot specify this parameter if the association type is <code>RESOURCE</code>.</p>"""
+    """<p>Specifies the ID of the principal whose resource shares you want to retrieve. This can be an Amazon Web Services account ID, an organization ID, an organizational unit ID, or the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of an individual IAM role or user.</p> <p>You cannot specify this parameter if the association type is <code>RESOURCE</code>.</p>"""
     association_status: NotRequired[
         "capo_ram.types.resource_share_association_status.ResourceShareAssociationStatus"
     ]

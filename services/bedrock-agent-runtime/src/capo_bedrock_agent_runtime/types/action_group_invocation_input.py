@@ -34,7 +34,7 @@ class ActionGroupInvocationInput(TypedDict, closed=True):
     execution_type: NotRequired[
         "capo_bedrock_agent_runtime.types.execution_type.ExecutionType"
     ]
-    r"""<p>How fulfillment of the action is handled. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/action-handle.html\">Handling fulfillment of the action</a>.</p>"""
+    """<p>How fulfillment of the action is handled. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/action-handle.html">Handling fulfillment of the action</a>.</p>"""
     invocation_id: NotRequired["str"]
     """<p>The unique identifier of the invocation. Only returned if the <code>executionType</code> is <code>RETURN_CONTROL</code>.</p>"""
 

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ListSecurityProfilePermissionsResponse(TypedDict, closed=True):
     permissions: NotRequired["capo_connect.types.permissions_list.PermissionsList"]
-    r"""<p>The permissions granted to the security profile. For a complete list of valid permissions, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html\">List of security profile permissions</a>.</p>"""
+    """<p>The permissions granted to the security profile. For a complete list of valid permissions, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html">List of security profile permissions</a>.</p>"""
     next_token: NotRequired["capo_connect.types.next_token.NextToken"]
     """<p>If there are additional results, this is the token for the next set of results.</p>"""
     last_modified_time: NotRequired["capo_connect.types.timestamp.Timestamp"]

@@ -26,7 +26,7 @@ class Service(TypedDict, closed=True):
     resource_owner: NotRequired[
         "capo_servicediscovery.types.aws_account_id.AWSAccountId"
     ]
-    r"""<p>The ID of the Amazon Web Services account that created the namespace with which the service is associated. If this isn't your account ID, it is the ID of the account that shared the namespace with your account. For more information about shared namespaces, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html\">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
+    """<p>The ID of the Amazon Web Services account that created the namespace with which the service is associated. If this isn't your account ID, it is the ID of the account that shared the namespace with your account. For more information about shared namespaces, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
     name: NotRequired["capo_servicediscovery.types.service_name.ServiceName"]
     """<p>The name of the service.</p>"""
     namespace_id: NotRequired["capo_servicediscovery.types.resource_id.ResourceId"]
@@ -46,7 +46,7 @@ class Service(TypedDict, closed=True):
     health_check_config: NotRequired[
         "capo_servicediscovery.types.health_check_config.HealthCheckConfig"
     ]
-    r"""<p> <i>Public DNS and HTTP namespaces only.</i> A complex type that contains settings for an optional health check. If you specify settings for a health check, Cloud Map associates the health check with the records that you specify in <code>DnsConfig</code>.</p> <p>For information about the charges for health checks, see <a href=\"http://aws.amazon.com/route53/pricing/\">Amazon Route 53 Pricing</a>.</p>"""
+    """<p> <i>Public DNS and HTTP namespaces only.</i> A complex type that contains settings for an optional health check. If you specify settings for a health check, Cloud Map associates the health check with the records that you specify in <code>DnsConfig</code>.</p> <p>For information about the charges for health checks, see <a href="http://aws.amazon.com/route53/pricing/">Amazon Route 53 Pricing</a>.</p>"""
     health_check_custom_config: NotRequired[
         "capo_servicediscovery.types.health_check_custom_config.HealthCheckCustomConfig"
     ]
@@ -60,7 +60,7 @@ class Service(TypedDict, closed=True):
     created_by_account: NotRequired[
         "capo_servicediscovery.types.aws_account_id.AWSAccountId"
     ]
-    r"""<p>The ID of the Amazon Web Services account that created the service. If this isn't your account ID, it is the ID of account of the namespace owner or of another account with which the namespace has been shared. For more information about shared namespaces, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html\">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
+    """<p>The ID of the Amazon Web Services account that created the service. If this isn't your account ID, it is the ID of account of the namespace owner or of another account with which the namespace has been shared. For more information about shared namespaces, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

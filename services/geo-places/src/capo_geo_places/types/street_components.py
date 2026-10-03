@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class StreetComponents(TypedDict, closed=True):
     base_name: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
-    r"""<p>Base name part of the street name. </p> <p>Example: Younge from the \"Younge street\".</p>"""
+    """<p>Base name part of the street name. </p> <p>Example: Younge from the "Younge street".</p>"""
     type: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
-    r"""<p>Street type part of the street name. </p> <p>Example: <code>\"avenue\"</code>.</p>"""
+    """<p>Street type part of the street name. </p> <p>Example: <code>"avenue"</code>.</p>"""
     type_placement: NotRequired["capo_geo_places.types.type_placement.TypePlacement"]
     """<p>Defines if the street type is before or after the base name.</p>"""
     type_separator: NotRequired["capo_geo_places.types.type_separator.TypeSeparator"]
-    r"""<p>Defines a separator character such as <code>\"\"</code> or <code>\" \"</code> between the base name and type.</p>"""
+    """<p>Defines a separator character such as <code>""</code> or <code>" "</code> between the base name and type.</p>"""
     prefix: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
     """<p>A prefix is a directional identifier that precedes, but is not included in, the base name of a road. </p> <p>Example: E for East.</p>"""
     suffix: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
@@ -27,7 +27,7 @@ class StreetComponents(TypedDict, closed=True):
     direction: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
     """<p>Indicates the official directional identifiers assigned to highways.</p>"""
     language: NotRequired["capo_geo_places.types.language_tag.LanguageTag"]
-    r"""<p>A <a href=\"https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\">BCP 47</a> compliant language codes for the results to be rendered in. If there is no data for the result in the requested language, data will be returned in the default language for the entry.</p>"""
+    """<p>A <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">BCP 47</a> compliant language codes for the results to be rendered in. If there is no data for the result in the requested language, data will be returned in the default language for the entry.</p>"""
 
 
 # --- restJson1 ser/de ---

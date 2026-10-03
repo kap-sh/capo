@@ -241,7 +241,7 @@ class AsyncfisClient:
             "capo_fis.types.create_experiment_template_report_configuration_input.CreateExperimentTemplateReportConfigurationInput"
         ] = None,
     ) -> "capo_fis.types.create_experiment_template_response.CreateExperimentTemplateResponse":
-        r"""<p>Creates an experiment template. </p> <p>An experiment template includes the following components:</p> <ul> <li> <p> <b>Targets</b>: A target can be a specific resource in your Amazon Web Services environment, or one or more resources that match criteria that you specify, for example, resources that have specific tags.</p> </li> <li> <p> <b>Actions</b>: The actions to carry out on the target. You can specify multiple actions, the duration of each action, and when to start each action during an experiment.</p> </li> <li> <p> <b>Stop conditions</b>: If a stop condition is triggered while an experiment is running, the experiment is automatically stopped. You can define a stop condition as a CloudWatch alarm.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/fis/latest/userguide/experiment-templates.html\">experiment templates</a> in the <i>Fault Injection Service User Guide</i>.</p>
+        """<p>Creates an experiment template. </p> <p>An experiment template includes the following components:</p> <ul> <li> <p> <b>Targets</b>: A target can be a specific resource in your Amazon Web Services environment, or one or more resources that match criteria that you specify, for example, resources that have specific tags.</p> </li> <li> <p> <b>Actions</b>: The actions to carry out on the target. You can specify multiple actions, the duration of each action, and when to start each action during an experiment.</p> </li> <li> <p> <b>Stop conditions</b>: If a stop condition is triggered while an experiment is running, the experiment is automatically stopped. You can define a stop condition as a CloudWatch alarm.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/fis/latest/userguide/experiment-templates.html">experiment templates</a> in the <i>Fault Injection Service User Guide</i>.</p>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
@@ -317,7 +317,7 @@ class AsyncfisClient:
             "capo_fis.types.target_account_configuration_description.TargetAccountConfigurationDescription"
         ] = None,
     ) -> "capo_fis.types.create_target_account_configuration_response.CreateTargetAccountConfigurationResponse":
-        r"""<p>Creates a target account configuration for the experiment template. A target account configuration is required when <code>accountTargeting</code> of <code>experimentOptions</code> is set to <code>multi-account</code>. For more information, see <a href=\"https://docs.aws.amazon.com/fis/latest/userguide/experiment-options.html\">experiment options</a> in the <i>Fault Injection Service User Guide</i>. </p>
+        """<p>Creates a target account configuration for the experiment template. A target account configuration is required when <code>accountTargeting</code> of <code>experimentOptions</code> is set to <code>multi-account</code>. For more information, see <a href="https://docs.aws.amazon.com/fis/latest/userguide/experiment-options.html">experiment options</a> in the <i>Fault Injection Service User Guide</i>. </p>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>

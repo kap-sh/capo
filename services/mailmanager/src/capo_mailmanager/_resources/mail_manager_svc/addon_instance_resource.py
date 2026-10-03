@@ -52,12 +52,12 @@ class AddonInstanceResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_addon_instance_response.CreateAddonInstanceResponse":
-        r"""<p>Creates an Add On instance for the subscription indicated in the request. The resulting Amazon Resource Name (ARN) can be used in a conditional statement for a rule set or traffic policy. </p>
+        """<p>Creates an Add On instance for the subscription indicated in the request. The resulting Amazon Resource Name (ARN) can be used in a conditional statement for a rule set or traffic policy. </p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             addon_subscription_id: <p>The unique ID of a previously created subscription that an Add On instance is created for. You can only have one instance per subscription.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -251,12 +251,12 @@ class AsyncAddonInstanceResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_addon_instance_response.CreateAddonInstanceResponse":
-        r"""<p>Creates an Add On instance for the subscription indicated in the request. The resulting Amazon Resource Name (ARN) can be used in a conditional statement for a rule set or traffic policy. </p>
+        """<p>Creates an Add On instance for the subscription indicated in the request. The resulting Amazon Resource Name (ARN) can be used in a conditional statement for a rule set or traffic policy. </p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             addon_subscription_id: <p>The unique ID of a previously created subscription that an Add On instance is created for. You can only have one instance per subscription.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>

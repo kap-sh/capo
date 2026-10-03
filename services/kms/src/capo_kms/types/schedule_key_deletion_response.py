@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 
 class ScheduleKeyDeletionResponse(TypedDict, closed=True):
     key_id: NotRequired["capo_kms.types.key_id_type.KeyIdType"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">key ARN</a>) of the KMS key whose deletion is scheduled.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS key whose deletion is scheduled.</p>"""
     deletion_date: NotRequired["capo_kms.types.date_type.DateType"]
     """<p>The date and time after which KMS deletes the KMS key.</p> <p>If the KMS key is a multi-Region primary key with replica keys, this field does not appear. The deletion date for the primary key isn't known until its last replica key is deleted.</p>"""
     key_state: NotRequired["capo_kms.types.key_state.KeyState"]
-    r"""<p>The current status of the KMS key.</p> <p>For more information about how key state affects the use of a KMS key, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html\">Key states of KMS keys</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>The current status of the KMS key.</p> <p>For more information about how key state affects the use of a KMS key, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">Key states of KMS keys</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
     pending_window_in_days: NotRequired[
         "capo_kms.types.pending_window_in_days_type.PendingWindowInDaysType"
     ]

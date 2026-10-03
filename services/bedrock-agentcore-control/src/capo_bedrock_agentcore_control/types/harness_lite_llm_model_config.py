@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class HarnessLiteLlmModelConfig(TypedDict, closed=True):
     model_id: "capo_bedrock_agentcore_control.types.model_id.ModelId"
-    r"""<p>The LiteLLM model identifier (e.g., \"anthropic/claude-3-sonnet\").</p>"""
+    """<p>The LiteLLM model identifier (e.g., "anthropic/claude-3-sonnet").</p>"""
     api_key_arn: NotRequired[
         "capo_bedrock_agentcore_control.types.api_key_arn.ApiKeyArn"
     ]

@@ -34,7 +34,7 @@ class ValidatePullThroughCacheRuleResponse(TypedDict, closed=True):
     is_valid: "capo_ecr.types.is_ptc_rule_valid.IsPTCRuleValid"
     """<p>Whether or not the pull through cache rule was validated. If <code>true</code>, Amazon ECR was able to reach the upstream registry and authentication was successful. If <code>false</code>, there was an issue and validation failed. The <code>failure</code> reason indicates the cause.</p>"""
     failure: NotRequired["capo_ecr.types.ptc_validate_failure.PTCValidateFailure"]
-    r"""<p>The reason the validation failed. For more details about possible causes and how to address them, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html\">Using pull through cache rules</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>"""
+    """<p>The reason the validation failed. For more details about possible causes and how to address them, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html">Using pull through cache rules</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

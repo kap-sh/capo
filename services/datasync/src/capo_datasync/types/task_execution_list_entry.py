@@ -16,9 +16,9 @@ class TaskExecutionListEntry(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of a task execution.</p>"""
     status: NotRequired["capo_datasync.types.task_execution_status.TaskExecutionStatus"]
-    r"""<p>The status of a task execution. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/run-task.html#understand-task-execution-statuses\">Task execution statuses</a>.</p>"""
+    """<p>The status of a task execution. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/run-task.html#understand-task-execution-statuses">Task execution statuses</a>.</p>"""
     task_mode: NotRequired["capo_datasync.types.task_mode.TaskMode"]
-    r"""<p>The task mode that you're using. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/choosing-task-mode.html\">Choosing a task mode for your data transfer</a>.</p>"""
+    """<p>The task mode that you're using. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/choosing-task-mode.html">Choosing a task mode for your data transfer</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

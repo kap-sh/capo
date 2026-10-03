@@ -28,7 +28,7 @@ class RepositoryTrigger(TypedDict, closed=True):
     events: (
         "capo_codecommit.types.repository_trigger_event_list.RepositoryTriggerEventList"
     )
-    r"""<p>The repository events that cause the trigger to run actions in another service, such as sending a notification through Amazon SNS. </p> <note> <p>The valid value \"all\" cannot be used with any other values.</p> </note>"""
+    """<p>The repository events that cause the trigger to run actions in another service, such as sending a notification through Amazon SNS. </p> <note> <p>The valid value "all" cannot be used with any other values.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---

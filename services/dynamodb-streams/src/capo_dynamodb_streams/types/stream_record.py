@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class StreamRecord(TypedDict, closed=True):
     approximate_creation_date_time: NotRequired["capo_dynamodb_streams.types.date.Date"]
-    r"""<p>The approximate date and time when the stream record was created, in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601</a> format and rounded down to the closest second.</p>"""
+    """<p>The approximate date and time when the stream record was created, in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format and rounded down to the closest second.</p>"""
     keys: NotRequired["capo_dynamodb_streams.types.attribute_map.AttributeMap"]
     """<p>The primary key attribute(s) for the DynamoDB item that was modified.</p>"""
     new_image: NotRequired["capo_dynamodb_streams.types.attribute_map.AttributeMap"]

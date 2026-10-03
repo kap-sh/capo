@@ -18,7 +18,7 @@ class BatchUpdateCustomVocabularyItemResponse(TypedDict, closed=True):
     bot_version: NotRequired["capo_lex_models_v2.types.bot_version.BotVersion"]
     """<p>The identifier of the version of the bot associated with this custom vocabulary.</p>"""
     locale_id: NotRequired["capo_lex_models_v2.types.locale_id.LocaleId"]
-    r"""<p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\"> Supported Languages </a>.</p>"""
+    """<p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html"> Supported Languages </a>.</p>"""
     errors: NotRequired[
         "capo_lex_models_v2.types.failed_custom_vocabulary_items.FailedCustomVocabularyItems"
     ]

@@ -15,11 +15,11 @@ if TYPE_CHECKING:
 
 class ResourceScope(TypedDict, closed=True):
     resource_type: "str"
-    r"""Resource type name (e.g., \"DataSet\", \"OmniDashboard\")."""
+    """Resource type name (e.g., "DataSet", "OmniDashboard")."""
     resource_arns: NotRequired[
         "capo_cloudwatchomni.types.resource_arn_list.ResourceArnList"
     ]
-    r"""Specific resource ARNs or ARN patterns. When set, actions are limited to these resources. When absent, defaults to \"*\"."""
+    """Specific resource ARNs or ARN patterns. When set, actions are limited to these resources. When absent, defaults to "*"."""
     tags: NotRequired[
         "capo_cloudwatchomni.types.resource_scope_tag_map.ResourceScopeTagMap"
     ]

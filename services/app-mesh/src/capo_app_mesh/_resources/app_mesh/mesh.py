@@ -51,7 +51,7 @@ class Mesh:
         tags: Optional["capo_app_mesh.types.tag_list.TagList"] = None,
         client_token: Optional[str] = None,
     ) -> "capo_app_mesh.types.create_mesh_output.CreateMeshOutput":
-        r"""<p>Creates a service mesh.</p> <p> A service mesh is a logical boundary for network traffic between services that are represented by resources within the mesh. After you create your service mesh, you can create virtual services, virtual nodes, virtual routers, and routes to distribute traffic between the applications in your mesh.</p> <p>For more information about service meshes, see <a href=\"https://docs.aws.amazon.com/app-mesh/latest/userguide/meshes.html\">Service meshes</a>.</p>
+        """<p>Creates a service mesh.</p> <p> A service mesh is a logical boundary for network traffic between services that are represented by resources within the mesh. After you create your service mesh, you can create virtual services, virtual nodes, virtual routers, and routes to distribute traffic between the applications in your mesh.</p> <p>For more information about service meshes, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/meshes.html">Service meshes</a>.</p>
 
         Args:
             mesh_name: <p>The name to use for the service mesh.</p>
@@ -64,7 +64,7 @@ class Mesh:
             capo_app_mesh.errors.conflict_exception.ConflictException: <p>The request contains a client token that was used for a previous update resource call with different specifications. Try the request again with a new client token.</p>
             capo_app_mesh.errors.forbidden_exception.ForbiddenException: <p>You don't have permissions to perform this action.</p>
             capo_app_mesh.errors.internal_server_error_exception.InternalServerErrorException: <p>The request processing has failed because of an unknown error, exception, or failure.</p>
-            capo_app_mesh.errors.limit_exceeded_exception.LimitExceededException: <p>You have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/app-mesh/latest/userguide/service-quotas.html\">Service Limits</a> in the <i>App Mesh User Guide</i>.</p>
+            capo_app_mesh.errors.limit_exceeded_exception.LimitExceededException: <p>You have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/service-quotas.html">Service Limits</a> in the <i>App Mesh User Guide</i>.</p>
             capo_app_mesh.errors.not_found_exception.NotFoundException: <p>The specified resource doesn't exist. Check your request syntax and try again.</p>
             capo_app_mesh.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_app_mesh.errors.too_many_requests_exception.TooManyRequestsException: <p>The maximum request rate permitted by the App Mesh APIs has been exceeded for your account. For best results, use an increasing or variable sleep interval between requests.</p>
@@ -112,11 +112,11 @@ class Mesh:
         config_overrides: Optional[AppMeshClientConfig] = None,
         mesh_owner: Optional["capo_app_mesh.types.account_id.AccountId"] = None,
     ) -> "capo_app_mesh.types.describe_mesh_output.DescribeMeshOutput":
-        r"""<p>Describes an existing service mesh.</p>
+        """<p>Describes an existing service mesh.</p>
 
         Args:
             mesh_name: <p>The name of the service mesh to describe.</p>
-            mesh_owner: <p>The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a href=\"https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html\">Working with shared meshes</a>.</p>
+            mesh_owner: <p>The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.</p>
 
         Raises:
             capo_app_mesh.errors.bad_request_exception.BadRequestException: <p>The request syntax was malformed. Check your request syntax and try again.</p>
@@ -330,7 +330,7 @@ class AsyncMesh:
         tags: Optional["capo_app_mesh.types.tag_list.TagList"] = None,
         client_token: Optional[str] = None,
     ) -> "capo_app_mesh.types.create_mesh_output.CreateMeshOutput":
-        r"""<p>Creates a service mesh.</p> <p> A service mesh is a logical boundary for network traffic between services that are represented by resources within the mesh. After you create your service mesh, you can create virtual services, virtual nodes, virtual routers, and routes to distribute traffic between the applications in your mesh.</p> <p>For more information about service meshes, see <a href=\"https://docs.aws.amazon.com/app-mesh/latest/userguide/meshes.html\">Service meshes</a>.</p>
+        """<p>Creates a service mesh.</p> <p> A service mesh is a logical boundary for network traffic between services that are represented by resources within the mesh. After you create your service mesh, you can create virtual services, virtual nodes, virtual routers, and routes to distribute traffic between the applications in your mesh.</p> <p>For more information about service meshes, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/meshes.html">Service meshes</a>.</p>
 
         Args:
             mesh_name: <p>The name to use for the service mesh.</p>
@@ -343,7 +343,7 @@ class AsyncMesh:
             capo_app_mesh.errors.conflict_exception.ConflictException: <p>The request contains a client token that was used for a previous update resource call with different specifications. Try the request again with a new client token.</p>
             capo_app_mesh.errors.forbidden_exception.ForbiddenException: <p>You don't have permissions to perform this action.</p>
             capo_app_mesh.errors.internal_server_error_exception.InternalServerErrorException: <p>The request processing has failed because of an unknown error, exception, or failure.</p>
-            capo_app_mesh.errors.limit_exceeded_exception.LimitExceededException: <p>You have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/app-mesh/latest/userguide/service-quotas.html\">Service Limits</a> in the <i>App Mesh User Guide</i>.</p>
+            capo_app_mesh.errors.limit_exceeded_exception.LimitExceededException: <p>You have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/service-quotas.html">Service Limits</a> in the <i>App Mesh User Guide</i>.</p>
             capo_app_mesh.errors.not_found_exception.NotFoundException: <p>The specified resource doesn't exist. Check your request syntax and try again.</p>
             capo_app_mesh.errors.service_unavailable_exception.ServiceUnavailableException: <p>The request has failed due to a temporary failure of the service.</p>
             capo_app_mesh.errors.too_many_requests_exception.TooManyRequestsException: <p>The maximum request rate permitted by the App Mesh APIs has been exceeded for your account. For best results, use an increasing or variable sleep interval between requests.</p>
@@ -392,11 +392,11 @@ class AsyncMesh:
         config_overrides: Optional[AsyncAppMeshClientConfig] = None,
         mesh_owner: Optional["capo_app_mesh.types.account_id.AccountId"] = None,
     ) -> "capo_app_mesh.types.describe_mesh_output.DescribeMeshOutput":
-        r"""<p>Describes an existing service mesh.</p>
+        """<p>Describes an existing service mesh.</p>
 
         Args:
             mesh_name: <p>The name of the service mesh to describe.</p>
-            mesh_owner: <p>The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a href=\"https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html\">Working with shared meshes</a>.</p>
+            mesh_owner: <p>The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.</p>
 
         Raises:
             capo_app_mesh.errors.bad_request_exception.BadRequestException: <p>The request syntax was malformed. Check your request syntax and try again.</p>

@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class ListServiceSpecificCredentialsRequest(TypedDict, closed=True):
     user_name: NotRequired["capo_iam.types.user_name_type.userNameType"]
-    r"""<p>The name of the user whose service-specific credentials you want information about. If this value is not specified, then the operation assumes the user whose credentials are used to call the operation.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
+    """<p>The name of the user whose service-specific credentials you want information about. If this value is not specified, then the operation assumes the user whose credentials are used to call the operation.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
     service_name: NotRequired["capo_iam.types.service_name.serviceName"]
     """<p>Filters the returned results to only those for the specified Amazon Web Services service. If not specified, then Amazon Web Services returns service-specific credentials for all services.</p>"""
     all_users: NotRequired["capo_iam.types.all_users.allUsers"]

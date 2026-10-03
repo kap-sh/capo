@@ -16,15 +16,15 @@ class AsyncRequestParameters(TypedDict, closed=True):
     create_multi_region_access_point_request: NotRequired[
         "capo_s3_control.types.create_multi_region_access_point_input.CreateMultiRegionAccessPointInput"
     ]
-    r"""<p>A container of the parameters for a <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateMultiRegionAccessPoint.html\">CreateMultiRegionAccessPoint</a> request.</p>"""
+    """<p>A container of the parameters for a <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateMultiRegionAccessPoint.html">CreateMultiRegionAccessPoint</a> request.</p>"""
     delete_multi_region_access_point_request: NotRequired[
         "capo_s3_control.types.delete_multi_region_access_point_input.DeleteMultiRegionAccessPointInput"
     ]
-    r"""<p>A container of the parameters for a <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_DeleteMultiRegionAccessPoint.html\">DeleteMultiRegionAccessPoint</a> request.</p>"""
+    """<p>A container of the parameters for a <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_DeleteMultiRegionAccessPoint.html">DeleteMultiRegionAccessPoint</a> request.</p>"""
     put_multi_region_access_point_policy_request: NotRequired[
         "capo_s3_control.types.put_multi_region_access_point_policy_input.PutMultiRegionAccessPointPolicyInput"
     ]
-    r"""<p>A container of the parameters for a <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_PutMultiRegionAccessPoint.html\">PutMultiRegionAccessPoint</a> request.</p>"""
+    """<p>A container of the parameters for a <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_PutMultiRegionAccessPoint.html">PutMultiRegionAccessPoint</a> request.</p>"""
 
 
 # --- restXml ser/de ---

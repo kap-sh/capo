@@ -106,7 +106,7 @@ class Run(TypedDict, closed=True):
     web_url: NotRequired["capo_device_farm.types.string.String"]
     """<p>The Device Farm console URL for the recording of the run.</p>"""
     skip_app_resign: NotRequired["capo_device_farm.types.skip_app_resign.SkipAppResign"]
-    r"""<p>When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again.</p> <p>For more information about how Device Farm re-signs your apps, see <a href=\"http://aws.amazon.com/device-farm/faqs/\">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.</p>"""
+    """<p>When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again.</p> <p>For more information about how Device Farm re-signs your apps, see <a href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.</p>"""
     test_spec_arn: NotRequired[
         "capo_device_farm.types.amazon_resource_name.AmazonResourceName"
     ]

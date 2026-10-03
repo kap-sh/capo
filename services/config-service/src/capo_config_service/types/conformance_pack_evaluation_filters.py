@@ -23,7 +23,7 @@ class ConformancePackEvaluationFilters(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_config_service.types.string_with_char_limit256.StringWithCharLimit256"
     ]
-    r"""<p>Filters the results by the resource type (for example, <code>\"AWS::EC2::Instance\"</code>). </p>"""
+    """<p>Filters the results by the resource type (for example, <code>"AWS::EC2::Instance"</code>). </p>"""
     resource_ids: NotRequired[
         "capo_config_service.types.conformance_pack_compliance_resource_ids.ConformancePackComplianceResourceIds"
     ]

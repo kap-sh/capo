@@ -60,7 +60,7 @@ class NetworkInsightsAnalysis(TypedDict, closed=True):
     ]
     """<p>The components in the path from destination to source.</p>"""
     explanations: NotRequired["capo_ec2.types.explanation_list.ExplanationList"]
-    r"""<p>The explanations. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/reachability/explanation-codes.html\">Reachability Analyzer explanation codes</a>.</p>"""
+    """<p>The explanations. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/reachability/explanation-codes.html">Reachability Analyzer explanation codes</a>.</p>"""
     alternate_path_hints: NotRequired[
         "capo_ec2.types.alternate_path_hint_list.AlternatePathHintList"
     ]

@@ -24,7 +24,7 @@ class OriginGroup(TypedDict, closed=True):
     selection_criteria: NotRequired[
         "capo_cloudfront.types.origin_group_selection_criteria.OriginGroupSelectionCriteria"
     ]
-    r"""<p>The selection criteria for the origin group. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html#concept_origin_groups.creating\">Create an origin group</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
+    """<p>The selection criteria for the origin group. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html#concept_origin_groups.creating">Create an origin group</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
 
 
 # --- restXml ser/de ---

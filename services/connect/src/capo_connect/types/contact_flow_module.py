@@ -31,7 +31,7 @@ class ContactFlowModule(TypedDict, closed=True):
     content: NotRequired[
         "capo_connect.types.contact_flow_module_content.ContactFlowModuleContent"
     ]
-    r"""<p>The JSON string that represents the content of the flow. For an example, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html\">Example flow in Connect Customer Flow language</a>. </p>"""
+    """<p>The JSON string that represents the content of the flow. For an example, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html">Example flow in Connect Customer Flow language</a>. </p>"""
     description: NotRequired[
         "capo_connect.types.contact_flow_module_description.ContactFlowModuleDescription"
     ]
@@ -45,7 +45,7 @@ class ContactFlowModule(TypedDict, closed=True):
     ]
     """<p>The status of the flow module.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     flow_module_content_sha256: NotRequired[
         "capo_connect.types.flow_module_content_sha256.FlowModuleContentSha256"
     ]

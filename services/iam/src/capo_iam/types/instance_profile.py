@@ -19,21 +19,21 @@ if TYPE_CHECKING:
 
 class InstanceProfile(TypedDict, closed=True):
     path: "capo_iam.types.path_type.pathType"
-    r"""<p> The path to the instance profile. For more information about paths, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p> The path to the instance profile. For more information about paths, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
     instance_profile_name: (
         "capo_iam.types.instance_profile_name_type.instanceProfileNameType"
     )
     """<p>The name identifying the instance profile.</p>"""
     instance_profile_id: "capo_iam.types.id_type.idType"
-    r"""<p> The stable and unique string identifying the instance profile. For more information about IDs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p> The stable and unique string identifying the instance profile. For more information about IDs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
     arn: "capo_iam.types.arn_type.arnType"
-    r"""<p> The Amazon Resource Name (ARN) specifying the instance profile. For more information about ARNs and how to use them in policies, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p> The Amazon Resource Name (ARN) specifying the instance profile. For more information about ARNs and how to use them in policies, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
     create_date: "capo_iam.types.date_type.dateType"
     """<p>The date when the instance profile was created.</p>"""
     roles: "capo_iam.types.role_list_type.roleListType"
     """<p>The role associated with the instance profile.</p>"""
     tags: NotRequired["capo_iam.types.tag_list_type.tagListType"]
-    r"""<p>A list of tags that are attached to the instance profile. For more information about tagging, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html\">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>A list of tags that are attached to the instance profile. For more information about tagging, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

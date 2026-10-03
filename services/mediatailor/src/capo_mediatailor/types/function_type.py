@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""<p>The type of a function, which determines what the function can do at runtime. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-types.html\">Function types and composition</a> in the <i>MediaTailor User Guide</i>.</p>"""
+"""<p>The type of a function, which determines what the function can do at runtime. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-types.html">Function types and composition</a> in the <i>MediaTailor User Guide</i>.</p>"""
 FunctionType: TypeAlias = Literal[
     "HTTP_REQUEST",
     "AWS_SERVICE_REQUEST",

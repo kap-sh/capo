@@ -42,7 +42,7 @@ class ListContactsRequest(TypedDict, closed=True):
     ]
     """<p>ARN of a mission profile.</p>"""
     ephemeris: NotRequired["capo_groundstation.types.ephemeris_filter.EphemerisFilter"]
-    r"""<p>Filter for selecting contacts that use a specific ephemeris\".</p>"""
+    """<p>Filter for selecting contacts that use a specific ephemeris".</p>"""
 
 
 # --- restJson1 ser/de ---

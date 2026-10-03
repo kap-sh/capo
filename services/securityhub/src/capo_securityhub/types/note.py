@@ -14,7 +14,7 @@ class Note(TypedDict, closed=True):
     updated_by: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The principal that created a note.</p>"""
     updated_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>A timestamp that indicates when the note was updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that indicates when the note was updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

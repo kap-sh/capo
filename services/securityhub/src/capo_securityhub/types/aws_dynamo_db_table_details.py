@@ -33,7 +33,7 @@ class AwsDynamoDbTableDetails(TypedDict, closed=True):
     creation_date_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the table was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the table was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     global_secondary_indexes: NotRequired[
         "capo_securityhub.types.aws_dynamo_db_table_global_secondary_index_list.AwsDynamoDbTableGlobalSecondaryIndexList"
     ]

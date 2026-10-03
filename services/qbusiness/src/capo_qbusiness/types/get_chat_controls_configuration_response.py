@@ -20,7 +20,7 @@ class GetChatControlsConfigurationResponse(TypedDict, closed=True):
     orchestration_configuration: NotRequired[
         "capo_qbusiness.types.applied_orchestration_configuration.AppliedOrchestrationConfiguration"
     ]
-    r"""<p> The chat response orchestration settings for your application.</p> <note> <p>Chat orchestration is optimized to work for English language content. For more details on language support in Amazon Q Business, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/supported-languages.html\">Supported languages</a>.</p> </note>"""
+    """<p> The chat response orchestration settings for your application.</p> <note> <p>Chat orchestration is optimized to work for English language content. For more details on language support in Amazon Q Business, see <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/supported-languages.html">Supported languages</a>.</p> </note>"""
     blocked_phrases: NotRequired[
         "capo_qbusiness.types.blocked_phrases_configuration.BlockedPhrasesConfiguration"
     ]

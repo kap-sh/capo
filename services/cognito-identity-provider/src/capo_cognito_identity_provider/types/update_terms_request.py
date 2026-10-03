@@ -35,7 +35,7 @@ class UpdateTermsRequest(TypedDict, closed=True):
     ]
     """<p>This parameter is reserved for future use and currently accepts only one value.</p>"""
     links: NotRequired["capo_cognito_identity_provider.types.links_type.LinksType"]
-    r"""<p>A map of URLs to languages. For each localized language that will view the requested <code>TermsName</code>, assign a URL. A selection of <code>cognito:default</code> displays for all languages that don't have a language-specific URL.</p> <p>For example, <code>\"cognito:default\": \"https://terms.example.com\", \"cognito:spanish\": \"https://terms.example.com/es\"</code>.</p>"""
+    """<p>A map of URLs to languages. For each localized language that will view the requested <code>TermsName</code>, assign a URL. A selection of <code>cognito:default</code> displays for all languages that don't have a language-specific URL.</p> <p>For example, <code>"cognito:default": "https://terms.example.com", "cognito:spanish": "https://terms.example.com/es"</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

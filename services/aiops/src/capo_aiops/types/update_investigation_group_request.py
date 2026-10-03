@@ -19,11 +19,11 @@ class UpdateInvestigationGroupRequest(TypedDict, closed=True):
     )
     """<p>Specify either the name or the ARN of the investigation group that you want to modify.</p>"""
     role_arn: NotRequired["capo_aiops.types.role_arn.RoleArn"]
-    r"""<p>Specify this field if you want to change the IAM role that CloudWatch investigations will use when it gathers investigation data. To do so, specify the ARN of the new role.</p> <p>The permissions in this role determine which of your resources that CloudWatch investigations will have access to during investigations.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Investigations-Security.html#Investigations-Security-Data\">How to control what data CloudWatch investigations has access to during investigations</a>.</p>"""
+    """<p>Specify this field if you want to change the IAM role that CloudWatch investigations will use when it gathers investigation data. To do so, specify the ARN of the new role.</p> <p>The permissions in this role determine which of your resources that CloudWatch investigations will have access to during investigations.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Investigations-Security.html#Investigations-Security-Data">How to control what data CloudWatch investigations has access to during investigations</a>.</p>"""
     encryption_configuration: NotRequired[
         "capo_aiops.types.encryption_configuration.EncryptionConfiguration"
     ]
-    r"""<p>Use this structure if you want to use a customer managed KMS key to encrypt your investigation data. If you omit this parameter, CloudWatch investigations will use an Amazon Web Services key to encrypt the data. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Investigations-Security.html#Investigations-KMS\">Encryption of investigation data</a>.</p>"""
+    """<p>Use this structure if you want to use a customer managed KMS key to encrypt your investigation data. If you omit this parameter, CloudWatch investigations will use an Amazon Web Services key to encrypt the data. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Investigations-Security.html#Investigations-KMS">Encryption of investigation data</a>.</p>"""
     tag_key_boundaries: NotRequired[
         "capo_aiops.types.tag_key_boundaries.TagKeyBoundaries"
     ]
@@ -31,7 +31,7 @@ class UpdateInvestigationGroupRequest(TypedDict, closed=True):
     chatbot_notification_channel: NotRequired[
         "capo_aiops.types.chatbot_notification_channel.ChatbotNotificationChannel"
     ]
-    r"""<p>Use this structure to integrate CloudWatch investigations with chat applications. This structure is a string array. For the first string, specify the ARN of an Amazon SNS topic. For the array of strings, specify the ARNs of one or more chat applications configurations that you want to associate with that topic. For more information about these configuration ARNs, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/getting-started.html\">Getting started with Amazon Q in chat applications</a> and <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awschatbot.html#awschatbot-resources-for-iam-policies\">Resource type defined by Amazon Web Services Chatbot</a>.</p>"""
+    """<p>Use this structure to integrate CloudWatch investigations with chat applications. This structure is a string array. For the first string, specify the ARN of an Amazon SNS topic. For the array of strings, specify the ARNs of one or more chat applications configurations that you want to associate with that topic. For more information about these configuration ARNs, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/getting-started.html">Getting started with Amazon Q in chat applications</a> and <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awschatbot.html#awschatbot-resources-for-iam-policies">Resource type defined by Amazon Web Services Chatbot</a>.</p>"""
     is_cloud_trail_event_history_enabled: NotRequired["bool"]
     """<p>Specify <code>true</code> to enable CloudWatch investigations to have access to change events that are recorded by CloudTrail. The default is <code>true</code>.</p>"""
     cross_account_configurations: NotRequired[

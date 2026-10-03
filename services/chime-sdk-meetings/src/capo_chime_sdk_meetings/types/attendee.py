@@ -15,7 +15,7 @@ class Attendee(TypedDict, closed=True):
     external_user_id: NotRequired[
         "capo_chime_sdk_meetings.types.external_user_id.ExternalUserId"
     ]
-    r"""<p>The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by a builder application.</p> <p>Pattern: <code>[-_&@+=,(){}\[\]\/«».:|'\"#a-zA-Z0-9À-ÿ\s]*</code> </p> <p>Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix. Case insensitive.</p>"""
+    r"""<p>The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by a builder application.</p> <p>Pattern: <code>[-_&@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code> </p> <p>Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix. Case insensitive.</p>"""
     attendee_id: NotRequired["capo_chime_sdk_meetings.types.guid_string.GuidString"]
     """<p>The Amazon Chime SDK attendee ID.</p>"""
     join_token: NotRequired[

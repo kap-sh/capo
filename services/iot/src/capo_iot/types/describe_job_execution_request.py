@@ -16,7 +16,7 @@ class DescribeJobExecutionRequest(TypedDict, closed=True):
     thing_name: "capo_iot.types.thing_name.ThingName"
     """<p>The name of the thing on which the job execution is running.</p>"""
     execution_number: NotRequired["capo_iot.types.execution_number.ExecutionNumber"]
-    r"""<p>A string (consisting of the digits \"0\" through \"9\" which is used to specify a particular job execution on a particular device.</p>"""
+    """<p>A string (consisting of the digits "0" through "9" which is used to specify a particular job execution on a particular device.</p>"""
 
 
 # --- restJson1 ser/de ---

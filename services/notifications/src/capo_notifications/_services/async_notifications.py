@@ -484,7 +484,7 @@ class AsyncNotificationsClient:
         *,
         config_overrides: Optional[AsyncNotificationsClientConfig] = None,
     ) -> "capo_notifications.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>Returns a list of tags for a specified Amazon Resource Name (ARN).</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html\">Tagging your Amazon Web Services resources</a> in the <i>Tagging Amazon Web Services Resources User Guide</i>.</p> <note> <p>This is only supported for <code>NotificationConfigurations</code>.</p> </note>
+        """<p>Returns a list of tags for a specified Amazon Resource Name (ARN).</p> <p>For more information, see <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html">Tagging your Amazon Web Services resources</a> in the <i>Tagging Amazon Web Services Resources User Guide</i>.</p> <note> <p>This is only supported for <code>NotificationConfigurations</code>.</p> </note>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) to use to list tags.</p>
@@ -533,7 +533,7 @@ class AsyncNotificationsClient:
         *,
         config_overrides: Optional[AsyncNotificationsClientConfig] = None,
     ) -> "capo_notifications.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Tags the resource with a tag key and value.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html\">Tagging your Amazon Web Services resources</a> in the <i>Tagging Amazon Web Services Resources User Guide</i>.</p> <note> <p>This is only supported for <code>NotificationConfigurations</code>.</p> </note>
+        """<p>Tags the resource with a tag key and value.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html">Tagging your Amazon Web Services resources</a> in the <i>Tagging Amazon Web Services Resources User Guide</i>.</p> <note> <p>This is only supported for <code>NotificationConfigurations</code>.</p> </note>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) to use to tag a resource.</p>
@@ -584,7 +584,7 @@ class AsyncNotificationsClient:
         *,
         config_overrides: Optional[AsyncNotificationsClientConfig] = None,
     ) -> "capo_notifications.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Untags a resource with a specified Amazon Resource Name (ARN).</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html\">Tagging your Amazon Web Services resources</a> in the <i>Tagging Amazon Web Services Resources User Guide</i>.</p>
+        """<p>Untags a resource with a specified Amazon Resource Name (ARN).</p> <p>For more information, see <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html">Tagging your Amazon Web Services resources</a> in the <i>Tagging Amazon Web Services Resources User Guide</i>.</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) to use to untag a resource.</p>
@@ -691,7 +691,7 @@ class AsyncNotificationsClient:
         *,
         config_overrides: Optional[AsyncNotificationsClientConfig] = None,
     ) -> "capo_notifications.types.associate_channel_response.AssociateChannelResponse":
-        r"""<p>Associates a delivery <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/managing-delivery-channels.html\">Channel</a> with a particular <code>NotificationConfiguration</code>. Supported Channels include Amazon Q Developer in chat applications, the Console Mobile Application, and emails (notifications-contacts).</p>
+        """<p>Associates a delivery <a href="https://docs.aws.amazon.com/notifications/latest/userguide/managing-delivery-channels.html">Channel</a> with a particular <code>NotificationConfiguration</code>. Supported Channels include Amazon Q Developer in chat applications, the Console Mobile Application, and emails (notifications-contacts).</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the Channel to associate with the <code>NotificationConfiguration</code>.</p> <p>Supported ARNs include Amazon Q Developer in chat applications, the Console Mobile Application, and notifications-contacts.</p>
@@ -879,13 +879,13 @@ class AsyncNotificationsClient:
             "capo_notifications.types.event_rule_event_pattern.EventRuleEventPattern"
         ] = None,
     ) -> "capo_notifications.types.create_event_rule_response.CreateEventRuleResponse":
-        r"""<p>Creates an <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/glossary.html\"> <code>EventRule</code> </a> that is associated with a specified <code>NotificationConfiguration</code>.</p>
+        """<p>Creates an <a href="https://docs.aws.amazon.com/notifications/latest/userguide/glossary.html"> <code>EventRule</code> </a> that is associated with a specified <code>NotificationConfiguration</code>.</p>
 
         Args:
             notification_configuration_arn: <p>The Amazon Resource Name (ARN) of the <code>NotificationConfiguration</code> associated with this <code>EventRule</code>.</p>
-            source: <p>The matched event source.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level\">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>
-            event_type: <p>The event type to match.</p> <p>Must match one of the valid Amazon EventBridge event types. For example, EC2 Instance State-change Notification and Amazon CloudWatch Alarm State Change. For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level\">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>
-            event_pattern: <p>An additional event pattern used to further filter the events this <code>EventRule</code> receives.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html\">Amazon EventBridge event patterns</a> in the <i>Amazon EventBridge User Guide.</i> </p>
+            source: <p>The matched event source.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>
+            event_type: <p>The event type to match.</p> <p>Must match one of the valid Amazon EventBridge event types. For example, EC2 Instance State-change Notification and Amazon CloudWatch Alarm State Change. For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>
+            event_pattern: <p>An additional event pattern used to further filter the events this <code>EventRule</code> receives.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge event patterns</a> in the <i>Amazon EventBridge User Guide.</i> </p>
             regions: <p>A list of Amazon Web Services Regions that send events to this <code>EventRule</code>.</p>
 
         Raises:
@@ -942,11 +942,11 @@ class AsyncNotificationsClient:
         ] = None,
         regions: Optional["capo_notifications.types.regions.Regions"] = None,
     ) -> "capo_notifications.types.update_event_rule_response.UpdateEventRuleResponse":
-        r"""<p>Updates an existing <code>EventRule</code>.</p>
+        """<p>Updates an existing <code>EventRule</code>.</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) to use to update the <code>EventRule</code>.</p>
-            event_pattern: <p>An additional event pattern used to further filter the events this <code>EventRule</code> receives.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html\">Amazon EventBridge event patterns</a> in the <i>Amazon EventBridge User Guide.</i> </p>
+            event_pattern: <p>An additional event pattern used to further filter the events this <code>EventRule</code> receives.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge event patterns</a> in the <i>Amazon EventBridge User Guide.</i> </p>
             regions: <p>A list of Amazon Web Services Regions that sends events to this <code>EventRule</code>.</p>
 
         Raises:
@@ -2097,10 +2097,10 @@ class AsyncNotificationsClient:
         max_results: Optional[int] = None,
         next_token: Optional["capo_notifications.types.next_token.NextToken"] = None,
     ) -> "capo_notifications.types.list_notification_configurations_response.ListNotificationConfigurationsResponse":
-        r"""<p>Returns a list of abbreviated <code>NotificationConfigurations</code> according to specified filters, in reverse chronological order (newest first).</p>
+        """<p>Returns a list of abbreviated <code>NotificationConfigurations</code> according to specified filters, in reverse chronological order (newest first).</p>
 
         Args:
-            event_rule_source: <p>The matched event source.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level\">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>
+            event_rule_source: <p>The matched event source.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>
             channel_arn: <p>The Amazon Resource Name (ARN) of the Channel to match.</p>
             status: <p>The <code>NotificationConfiguration</code> status to match.</p> <ul> <li> <p>Values:</p> <ul> <li> <p> <code>ACTIVE</code> </p> <ul> <li> <p>All <code>EventRules</code> are <code>ACTIVE</code> and any call can be run.</p> </li> </ul> </li> <li> <p> <code>PARTIALLY_ACTIVE</code> </p> <ul> <li> <p>Some <code>EventRules</code> are <code>ACTIVE</code> and some are <code>INACTIVE</code>. Any call can be run.</p> </li> <li> <p>Any call can be run.</p> </li> </ul> </li> <li> <p> <code>INACTIVE</code> </p> <ul> <li> <p>All <code>EventRules</code> are <code>INACTIVE</code> and any call can be run.</p> </li> </ul> </li> <li> <p> <code>DELETING</code> </p> <ul> <li> <p>This <code>NotificationConfiguration</code> is being deleted.</p> </li> <li> <p>Only <code>GET</code> and <code>LIST</code> calls can be run.</p> </li> </ul> </li> </ul> </li> </ul>
             subtype: <p>The subtype used to filter the notification configurations in the request.</p>
@@ -2193,7 +2193,7 @@ class AsyncNotificationsClient:
         config_overrides: Optional[AsyncNotificationsClientConfig] = None,
         locale: Optional["capo_notifications.types.locale_code.LocaleCode"] = None,
     ) -> "capo_notifications.types.get_notification_event_response.GetNotificationEventResponse":
-        r"""<p>Returns a specified <code>NotificationEvent</code>.</p> <important> <p>User Notifications stores notifications in the individual Regions you register as notification hubs and the Region of the source event rule. <code>GetNotificationEvent</code> only returns notifications stored in the same Region in which the action is called. User Notifications doesn't backfill notifications to new Regions selected as notification hubs. For this reason, we recommend that you make calls in your oldest registered notification hub. For more information, see <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/notification-hubs.html\">Notification hubs</a> in the <i>Amazon Web Services User Notifications User Guide</i>.</p> </important>
+        """<p>Returns a specified <code>NotificationEvent</code>.</p> <important> <p>User Notifications stores notifications in the individual Regions you register as notification hubs and the Region of the source event rule. <code>GetNotificationEvent</code> only returns notifications stored in the same Region in which the action is called. User Notifications doesn't backfill notifications to new Regions selected as notification hubs. For this reason, we recommend that you make calls in your oldest registered notification hub. For more information, see <a href="https://docs.aws.amazon.com/notifications/latest/userguide/notification-hubs.html">Notification hubs</a> in the <i>Amazon Web Services User Notifications User Guide</i>.</p> </important>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the <code>NotificationEvent</code> to return.</p>
@@ -2256,13 +2256,13 @@ class AsyncNotificationsClient:
             "capo_notifications.types.organizational_unit_id.OrganizationalUnitId"
         ] = None,
     ) -> "capo_notifications.types.list_notification_events_response.ListNotificationEventsResponse":
-        r"""<p>Returns a list of <code>NotificationEvents</code> according to specified filters, in reverse chronological order (newest first).</p> <important> <p>User Notifications stores notifications in the individual Regions you register as notification hubs and the Region of the source event rule. ListNotificationEvents only returns notifications stored in the same Region in which the action is called. User Notifications doesn't backfill notifications to new Regions selected as notification hubs. For this reason, we recommend that you make calls in your oldest registered notification hub. For more information, see <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/notification-hubs.html\">Notification hubs</a> in the <i>Amazon Web Services User Notifications User Guide</i>.</p> </important>
+        """<p>Returns a list of <code>NotificationEvents</code> according to specified filters, in reverse chronological order (newest first).</p> <important> <p>User Notifications stores notifications in the individual Regions you register as notification hubs and the Region of the source event rule. ListNotificationEvents only returns notifications stored in the same Region in which the action is called. User Notifications doesn't backfill notifications to new Regions selected as notification hubs. For this reason, we recommend that you make calls in your oldest registered notification hub. For more information, see <a href="https://docs.aws.amazon.com/notifications/latest/userguide/notification-hubs.html">Notification hubs</a> in the <i>Amazon Web Services User Notifications User Guide</i>.</p> </important>
 
         Args:
             start_time: <p>The earliest time of events to return from this call.</p>
             end_time: <p>Latest time of events to return from this call.</p>
             locale: <p>The locale code of the language used for the retrieved <code>NotificationEvent</code>. The default locale is English <code>(en_US)</code>.</p>
-            source: <p>The matched event source.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level\">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>
+            source: <p>The matched event source.</p> <p>Must match one of the valid EventBridge sources. Only Amazon Web Services service sourced events are supported. For example, <code>aws.ec2</code> and <code>aws.cloudwatch</code>. For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-delivery-level">Event delivery from Amazon Web Services services</a> in the <i>Amazon EventBridge User Guide</i>.</p>
             include_child_events: <p>Include aggregated child events in the result.</p>
             aggregate_notification_event_arn: <p>The Amazon Resource Name (ARN) of the <code>aggregatedNotificationEventArn</code> to match.</p>
             max_results: <p>The maximum number of results to be returned in this call. Defaults to 20.</p>

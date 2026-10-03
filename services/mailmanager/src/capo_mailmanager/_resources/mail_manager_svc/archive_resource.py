@@ -60,14 +60,14 @@ class ArchiveResource:
         kms_key_arn: Optional["capo_mailmanager.types.kms_key_arn.KmsKeyArn"] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_archive_response.CreateArchiveResponse":
-        r"""<p>Creates a new email archive resource for storing and retaining emails.</p>
+        """<p>Creates a new email archive resource for storing and retaining emails.</p>
 
         Args:
             client_token: <p>A unique token Amazon SES uses to recognize retries of this request.</p>
             archive_name: <p>A unique name for the new archive.</p>
             retention: <p>The period for retaining emails in the archive before automatic deletion.</p>
             kms_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key for encrypting emails in the archive.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.access_denied_exception.AccessDeniedException: <p>Occurs when a user is denied access to a specific resource or action.</p>
@@ -336,14 +336,14 @@ class AsyncArchiveResource:
         kms_key_arn: Optional["capo_mailmanager.types.kms_key_arn.KmsKeyArn"] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_archive_response.CreateArchiveResponse":
-        r"""<p>Creates a new email archive resource for storing and retaining emails.</p>
+        """<p>Creates a new email archive resource for storing and retaining emails.</p>
 
         Args:
             client_token: <p>A unique token Amazon SES uses to recognize retries of this request.</p>
             archive_name: <p>A unique name for the new archive.</p>
             retention: <p>The period for retaining emails in the archive before automatic deletion.</p>
             kms_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key for encrypting emails in the archive.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.access_denied_exception.AccessDeniedException: <p>Occurs when a user is denied access to a specific resource or action.</p>

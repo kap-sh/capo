@@ -18,7 +18,7 @@ class Tiering(TypedDict, closed=True):
     access_tier: (
         "capo_s3.types.intelligent_tiering_access_tier.IntelligentTieringAccessTier"
     )
-    r"""<p>S3 Intelligent-Tiering access tier. See <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access\">Storage class for automatically optimizing frequently and infrequently accessed objects</a> for a list of access tiers in the S3 Intelligent-Tiering storage class.</p>"""
+    """<p>S3 Intelligent-Tiering access tier. See <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access">Storage class for automatically optimizing frequently and infrequently accessed objects</a> for a list of access tiers in the S3 Intelligent-Tiering storage class.</p>"""
 
 
 # --- restXml ser/de ---

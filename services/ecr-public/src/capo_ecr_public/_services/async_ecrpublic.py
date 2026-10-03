@@ -385,7 +385,7 @@ class AsyncECRPUBLICClient:
         ] = None,
         tags: Optional["capo_ecr_public.types.tag_list.TagList"] = None,
     ) -> "capo_ecr_public.types.create_repository_response.CreateRepositoryResponse":
-        r"""<p>Creates a repository in a public registry. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html\">Amazon ECR repositories</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Creates a repository in a public registry. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html">Amazon ECR repositories</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             repository_name: <p>The name to use for the repository. This appears publicly in the Amazon ECR Public Gallery. The repository name can be specified on its own (for example <code>nginx-web-app</code>) or prepended with a namespace to group the repository into a category (for example <code>project-a/nginx-web-app</code>).</p>
@@ -395,7 +395,7 @@ class AsyncECRPUBLICClient:
         Raises:
             capo_ecr_public.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
             capo_ecr_public.errors.invalid_tag_parameter_exception.InvalidTagParameterException: <p>An invalid parameter has been specified. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters.</p>
-            capo_ecr_public.errors.limit_exceeded_exception.LimitExceededException: <p>The operation didn't succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR Service Quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr_public.errors.limit_exceeded_exception.LimitExceededException: <p>The operation didn't succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR Service Quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr_public.errors.repository_already_exists_exception.RepositoryAlreadyExistsException: <p>The specified repository already exists in the specified registry.</p>
             capo_ecr_public.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>
             capo_ecr_public.errors.too_many_tags_exception.TooManyTagsException: <p>The list of tags on the repository is over the limit. The maximum number of tags that can be applied to a repository is 50.</p>
@@ -1194,7 +1194,7 @@ class AsyncECRPUBLICClient:
             capo_ecr_public.errors.image_tag_already_exists_exception.ImageTagAlreadyExistsException: <p>The specified image is tagged with a tag that already exists. The repository is configured for tag immutability.</p>
             capo_ecr_public.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
             capo_ecr_public.errors.layers_not_found_exception.LayersNotFoundException: <p>The specified layers can't be found, or the specified layer isn't valid for this repository.</p>
-            capo_ecr_public.errors.limit_exceeded_exception.LimitExceededException: <p>The operation didn't succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR Service Quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr_public.errors.limit_exceeded_exception.LimitExceededException: <p>The operation didn't succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR Service Quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr_public.errors.referenced_images_not_found_exception.ReferencedImagesNotFoundException: <p>The manifest list is referencing an image that doesn't exist.</p>
             capo_ecr_public.errors.registry_not_found_exception.RegistryNotFoundException: <p>The registry doesn't exist.</p>
             capo_ecr_public.errors.repository_not_found_exception.RepositoryNotFoundException: <p>The specified repository can't be found. Check the spelling of the specified repository and ensure that you're performing operations on the correct registry.</p>
@@ -1351,12 +1351,12 @@ class AsyncECRPUBLICClient:
         registry_id: Optional["capo_ecr_public.types.registry_id.RegistryId"] = None,
         force: Optional["capo_ecr_public.types.force_flag.ForceFlag"] = None,
     ) -> "capo_ecr_public.types.set_repository_policy_response.SetRepositoryPolicyResponse":
-        r"""<p>Applies a repository policy to the specified public repository to control access permissions. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policies.html\">Amazon ECR Repository Policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+        """<p>Applies a repository policy to the specified public repository to control access permissions. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policies.html">Amazon ECR Repository Policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
 
         Args:
             registry_id: <p>The Amazon Web Services account ID that's associated with the registry that contains the repository. If you do not specify a registry, the default public registry is assumed.</p>
             repository_name: <p>The name of the repository to receive the policy.</p>
-            policy_text: <p>The JSON repository policy text to apply to the repository. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policy-examples.html\">Amazon ECR Repository Policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
+            policy_text: <p>The JSON repository policy text to apply to the repository. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policy-examples.html">Amazon ECR Repository Policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.</p>
             force: <p>If the policy that you want to set on a repository policy would prevent you from setting another policy in the future, you must force the <a>SetRepositoryPolicy</a> operation. This prevents accidental repository lockouts.</p>
 
         Raises:
@@ -1530,7 +1530,7 @@ class AsyncECRPUBLICClient:
         Raises:
             capo_ecr_public.errors.invalid_layer_part_exception.InvalidLayerPartException: <p>The layer part size isn't valid, or the first byte specified isn't consecutive to the last byte of a previous layer part upload.</p>
             capo_ecr_public.errors.invalid_parameter_exception.InvalidParameterException: <p>The specified parameter is invalid. Review the available parameters for the API request.</p>
-            capo_ecr_public.errors.limit_exceeded_exception.LimitExceededException: <p>The operation didn't succeed because it would have exceeded a service limit for your account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html\">Amazon ECR Service Quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
+            capo_ecr_public.errors.limit_exceeded_exception.LimitExceededException: <p>The operation didn't succeed because it would have exceeded a service limit for your account. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR Service Quotas</a> in the Amazon Elastic Container Registry User Guide.</p>
             capo_ecr_public.errors.registry_not_found_exception.RegistryNotFoundException: <p>The registry doesn't exist.</p>
             capo_ecr_public.errors.repository_not_found_exception.RepositoryNotFoundException: <p>The specified repository can't be found. Check the spelling of the specified repository and ensure that you're performing operations on the correct registry.</p>
             capo_ecr_public.errors.server_exception.ServerException: <p>These errors are usually caused by a server-side issue.</p>

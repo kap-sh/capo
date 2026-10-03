@@ -21,7 +21,7 @@ class LogicalResourceId(TypedDict, closed=True):
     terraform_source_name: NotRequired["capo_resiliencehub.types.string255.String255"]
     """<p> The name of the Terraform S3 state file this resource belongs to. </p>"""
     eks_source_name: NotRequired["capo_resiliencehub.types.string255.String255"]
-    r"""<p>Name of the Amazon Elastic Kubernetes Service cluster and namespace this resource belongs to.</p> <note> <p>This parameter accepts values in \"eks-cluster/namespace\" format.</p> </note>"""
+    """<p>Name of the Amazon Elastic Kubernetes Service cluster and namespace this resource belongs to.</p> <note> <p>This parameter accepts values in "eks-cluster/namespace" format.</p> </note>"""
 
 
 # --- restJson1 ser/de ---

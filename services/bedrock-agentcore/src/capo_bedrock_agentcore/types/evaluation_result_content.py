@@ -24,7 +24,7 @@ class EvaluationResultContent(TypedDict, closed=True):
     evaluator_id: "capo_bedrock_agentcore.types.evaluator_id.EvaluatorId"
     """<p> The unique identifier of the evaluator that produced this result. This matches the <code>evaluatorId</code> provided in the evaluation request and can be used to identify which evaluator generated specific results. </p>"""
     evaluator_name: "capo_bedrock_agentcore.types.evaluator_name.EvaluatorName"
-    r"""<p> The human-readable name of the evaluator used for this evaluation. For built-in evaluators, this is the descriptive name (e.g., \"Helpfulness\", \"Correctness\"); for custom evaluators, this is the user-defined name. </p>"""
+    """<p> The human-readable name of the evaluator used for this evaluation. For built-in evaluators, this is the descriptive name (e.g., "Helpfulness", "Correctness"); for custom evaluators, this is the user-defined name. </p>"""
     explanation: NotRequired[
         "capo_bedrock_agentcore.types.evaluation_explanation.EvaluationExplanation"
     ]
@@ -34,7 +34,7 @@ class EvaluationResultContent(TypedDict, closed=True):
     value: NotRequired["float"]
     """<p> The numerical score assigned by the evaluator according to its configured rating scale. For numerical scales, this is a decimal value within the defined range. This field is not allowed for categorical scales. </p>"""
     label: NotRequired["str"]
-    r"""<p> The categorical label assigned by the evaluator when using a categorical rating scale. This provides a human-readable description of the evaluation result (e.g., \"Excellent\", \"Good\", \"Poor\") corresponding to the numerical value. For numerical scales, this field is optional and provides a natural language explanation of what the value means (e.g., value 0.5 = \"Somewhat Helpful\"). </p>"""
+    """<p> The categorical label assigned by the evaluator when using a categorical rating scale. This provides a human-readable description of the evaluation result (e.g., "Excellent", "Good", "Poor") corresponding to the numerical value. For numerical scales, this field is optional and provides a natural language explanation of what the value means (e.g., value 0.5 = "Somewhat Helpful"). </p>"""
     token_usage: NotRequired["capo_bedrock_agentcore.types.token_usage.TokenUsage"]
     """<p> The token consumption statistics for this evaluation, including input tokens, output tokens, and total tokens used by the underlying language model during the evaluation process. </p>"""
     error_message: NotRequired[

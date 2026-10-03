@@ -17,11 +17,11 @@ class AutoScalingGroup(TypedDict, closed=True):
     hook: NotRequired[
         "capo_codedeploy.types.auto_scaling_group_hook.AutoScalingGroupHook"
     ]
-    r"""<p>The name of the launch hook that CodeDeploy installed into the Auto Scaling group.</p> <p>For more information about the launch hook, see <a href=\"https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors\">How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.</p>"""
+    """<p>The name of the launch hook that CodeDeploy installed into the Auto Scaling group.</p> <p>For more information about the launch hook, see <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors">How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.</p>"""
     termination_hook: NotRequired[
         "capo_codedeploy.types.auto_scaling_group_hook.AutoScalingGroupHook"
     ]
-    r"""<p>The name of the termination hook that CodeDeploy installed into the Auto Scaling group.</p> <p>For more information about the termination hook, see <a href=\"https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable\">Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.</p>"""
+    """<p>The name of the termination hook that CodeDeploy installed into the Auto Scaling group.</p> <p>For more information about the termination hook, see <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable">Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

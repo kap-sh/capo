@@ -14,7 +14,7 @@ class ReportOverrides(TypedDict, closed=True):
     verified: NotRequired["capo_datasync.types.report_override.ReportOverride"]
     """<p>Specifies the level of reporting for the files, objects, and directories that DataSync attempted to verify at the end of your transfer.</p>"""
     deleted: NotRequired["capo_datasync.types.report_override.ReportOverride"]
-    r"""<p>Specifies the level of reporting for the files, objects, and directories that DataSync attempted to delete in your destination location. This only applies if you <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/configure-metadata.html\">configure your task</a> to delete data in the destination that isn't in the source.</p>"""
+    """<p>Specifies the level of reporting for the files, objects, and directories that DataSync attempted to delete in your destination location. This only applies if you <a href="https://docs.aws.amazon.com/datasync/latest/userguide/configure-metadata.html">configure your task</a> to delete data in the destination that isn't in the source.</p>"""
     skipped: NotRequired["capo_datasync.types.report_override.ReportOverride"]
     """<p>Specifies the level of reporting for the files, objects, and directories that DataSync attempted to skip during your transfer.</p>"""
 

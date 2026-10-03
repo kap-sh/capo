@@ -12,7 +12,7 @@ class Environment(TypedDict, closed=True):
     variables: NotRequired[
         "capo_lambda.types.environment_variables.EnvironmentVariables"
     ]
-    r"""<p>Environment variable key-value pairs. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html\">Using Lambda environment variables</a>.</p>"""
+    """<p>Environment variable key-value pairs. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html">Using Lambda environment variables</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

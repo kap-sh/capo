@@ -25,7 +25,7 @@ class Snapshot(TypedDict, closed=True):
     owner_alias: NotRequired["capo_ec2.types.string.String"]
     """<p>The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the user-configured Amazon Web Services account alias set using the IAM console.</p>"""
     outpost_arn: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The ARN of the Outpost on which the snapshot is stored. For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html\">Amazon EBS local snapshots on Outposts</a> in the <i>Amazon EBS User Guide</i>.</p>"""
+    """<p>The ARN of the Outpost on which the snapshot is stored. For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on Outposts</a> in the <i>Amazon EBS User Guide</i>.</p>"""
     tags: NotRequired["capo_ec2.types.tag_list.TagList"]
     """<p>Any tags assigned to the snapshot.</p>"""
     storage_tier: NotRequired["capo_ec2.types.storage_tier.StorageTier"]

@@ -36,7 +36,7 @@ class GetPolicyOutput(TypedDict, closed=True):
     actions: NotRequired[
         "capo_verifiedpermissions.types.action_identifier_list.ActionIdentifierList"
     ]
-    r"""<p>The action that a policy permits or forbids. For example, <code>{\"actions\": [{\"actionId\": \"ViewPhoto\", \"actionType\": \"PhotoFlash::Action\"}, {\"entityID\": \"SharePhoto\", \"entityType\": \"PhotoFlash::Action\"}]}</code>.</p>"""
+    """<p>The action that a policy permits or forbids. For example, <code>{"actions": [{"actionId": "ViewPhoto", "actionType": "PhotoFlash::Action"}, {"entityID": "SharePhoto", "entityType": "PhotoFlash::Action"}]}</code>.</p>"""
     definition: (
         "capo_verifiedpermissions.types.policy_definition_detail.PolicyDefinitionDetail"
     )
@@ -46,7 +46,7 @@ class GetPolicyOutput(TypedDict, closed=True):
     last_updated_date: "capo_verifiedpermissions.types.timestamp_format.TimestampFormat"
     """<p>The date and time that the policy was last updated.</p>"""
     effect: NotRequired["capo_verifiedpermissions.types.policy_effect.PolicyEffect"]
-    r"""<p>The effect of the decision that a policy returns to an authorization request. For example, <code>\"effect\": \"Permit\"</code>.</p>"""
+    """<p>The effect of the decision that a policy returns to an authorization request. For example, <code>"effect": "Permit"</code>.</p>"""
     name: NotRequired["capo_verifiedpermissions.types.policy_name.PolicyName"]
     """<p>The name of the policy, if one was assigned when the policy was created or last updated.</p>"""
 

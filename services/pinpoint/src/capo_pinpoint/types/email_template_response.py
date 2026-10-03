@@ -29,7 +29,7 @@ class EmailTemplateResponse(TypedDict, closed=True):
     headers: NotRequired[
         "capo_pinpoint.types.list_of_message_header.ListOfMessageHeader"
     ]
-    r"""<p>The list of <a href=\"https://docs.aws.amazon.com/pinpoint/latest/apireference/templates-template-name-email.html#templates-template-name-email-model-messageheader\">MessageHeaders</a> for the email. You can have up to 15 Headers.</p>"""
+    """<p>The list of <a href="https://docs.aws.amazon.com/pinpoint/latest/apireference/templates-template-name-email.html#templates-template-name-email-model-messageheader">MessageHeaders</a> for the email. You can have up to 15 Headers.</p>"""
     tags: NotRequired["capo_pinpoint.types.map_of__string.MapOf__string"]
     """<p>A string-to-string map of key-value pairs that identifies the tags that are associated with the message template. Each tag consists of a required tag key and an associated tag value.</p>"""
     template_description: NotRequired["capo_pinpoint.types.__string.__string"]

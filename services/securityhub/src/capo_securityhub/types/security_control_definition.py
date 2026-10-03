@@ -29,7 +29,7 @@ class SecurityControlDefinition(TypedDict, closed=True):
     severity_rating: NotRequired[
         "capo_securityhub.types.severity_rating.SeverityRating"
     ]
-    r"""<p> The severity of a security control. For more information about how Security Hub CSPM determines control severity, see <a href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/controls-findings-create-update.html#control-findings-severity\">Assigning severity to control findings</a> in the <i>Security Hub CSPM User Guide</i>. </p>"""
+    """<p> The severity of a security control. For more information about how Security Hub CSPM determines control severity, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/controls-findings-create-update.html#control-findings-severity">Assigning severity to control findings</a> in the <i>Security Hub CSPM User Guide</i>. </p>"""
     current_region_availability: NotRequired[
         "capo_securityhub.types.region_availability_status.RegionAvailabilityStatus"
     ]

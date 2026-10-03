@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class ReservedInstancesListing(TypedDict, closed=True):
     client_token: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>A unique, case-sensitive key supplied by the client to ensure that the request is idempotent. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring Idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive key supplied by the client to ensure that the request is idempotent. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring Idempotency</a>.</p>"""
     create_date: NotRequired["capo_ec2.types.date_time.DateTime"]
     """<p>The time the listing was created.</p>"""
     instance_counts: NotRequired["capo_ec2.types.instance_count_list.InstanceCountList"]

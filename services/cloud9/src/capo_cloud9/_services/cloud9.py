@@ -194,19 +194,19 @@ class Cloud9Client:
         ] = None,
         dry_run: Optional["capo_cloud9.types.nullable_boolean.NullableBoolean"] = None,
     ) -> "capo_cloud9.types.create_environment_ec2_result.CreateEnvironmentEC2Result":
-        r"""<p>Creates an Cloud9 development environment, launches an Amazon Elastic Compute Cloud (Amazon EC2) instance, and then connects from the instance to the environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Creates an Cloud9 development environment, launches an Amazon Elastic Compute Cloud (Amazon EC2) instance, and then connects from the instance to the environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             name: <p>The name of the environment to create.</p> <p>This name is visible to other IAM users in the same Amazon Web Services account.</p>
             description: <p>The description of the environment to create.</p>
-            client_request_token: <p>A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one time.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Client Tokens</a> in the <i>Amazon EC2 API Reference</i>.</p>
+            client_request_token: <p>A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one time.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in the <i>Amazon EC2 API Reference</i>.</p>
             instance_type: <p>The type of instance to connect to the environment (for example, <code>t2.micro</code>).</p>
             subnet_id: <p>The ID of the subnet in Amazon VPC that Cloud9 will use to communicate with the Amazon EC2 instance.</p>
             image_id: <p>The identifier for the Amazon Machine Image (AMI) that's used to create the EC2 instance. To choose an AMI for the instance, you must specify a valid AMI alias or a valid Amazon EC2 Systems Manager (SSM) path.</p> <p></p> <p>We recommend using Amazon Linux 2023 as the AMI to create your environment as it is fully supported.</p> <p>From December 16, 2024, Ubuntu 18.04 will be removed from the list of available <code>imageIds</code> for Cloud9. This change is necessary as Ubuntu 18.04 has ended standard support on May 31, 2023. This change will only affect direct API consumers, and not Cloud9 console users.</p> <p>Since Ubuntu 18.04 has ended standard support as of May 31, 2023, we recommend you choose Ubuntu 22.04.</p> <p> <b>AMI aliases </b> </p> <ul> <li> <p>Amazon Linux 2023 (recommended): <code>amazonlinux-2023-x86_64</code> </p> </li> <li> <p>Ubuntu 22.04: <code>ubuntu-22.04-x86_64</code> </p> </li> </ul> <p> <b>SSM paths</b> </p> <ul> <li> <p>Amazon Linux 2023 (recommended): <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64</code> </p> </li> <li> <p>Ubuntu 22.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64</code> </p> </li> </ul>
             automatic_stop_time_minutes: <p>The number of minutes until the running instance is shut down after the environment has last been used.</p>
             owner_arn: <p>The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any IAM principal. If this value is not specified, the ARN defaults to this environment's creator.</p>
             tags: <p>An array of key-value pairs that will be associated with the new Cloud9 development environment.</p>
-            connection_type: <p>The connection type used for connecting to an Amazon EC2 environment. Valid values are <code>CONNECT_SSH</code> (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems Manager).</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html\">Accessing no-ingress EC2 instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.</p>
+            connection_type: <p>The connection type used for connecting to an Amazon EC2 environment. Valid values are <code>CONNECT_SSH</code> (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems Manager).</p> <p>For more information, see <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing no-ingress EC2 instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.</p>
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
 
         Raises:
@@ -278,7 +278,7 @@ class Cloud9Client:
         *,
         config_overrides: Optional[Cloud9ClientConfig] = None,
     ) -> "capo_cloud9.types.create_environment_membership_result.CreateEnvironmentMembershipResult":
-        r"""<p>Adds an environment member to an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Adds an environment member to an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             environment_id: <p>The ID of the environment that contains the environment member you want to add.</p>
@@ -336,7 +336,7 @@ class Cloud9Client:
         *,
         config_overrides: Optional[Cloud9ClientConfig] = None,
     ) -> "capo_cloud9.types.delete_environment_result.DeleteEnvironmentResult":
-        r"""<p>Deletes an Cloud9 development environment. If an Amazon EC2 instance is connected to the environment, also terminates the instance.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Deletes an Cloud9 development environment. If an Amazon EC2 instance is connected to the environment, also terminates the instance.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             environment_id: <p>The ID of the environment to delete.</p>
@@ -391,7 +391,7 @@ class Cloud9Client:
         *,
         config_overrides: Optional[Cloud9ClientConfig] = None,
     ) -> "capo_cloud9.types.delete_environment_membership_result.DeleteEnvironmentMembershipResult":
-        r"""<p>Deletes an environment member from a development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Deletes an environment member from a development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             environment_id: <p>The ID of the environment to delete the environment member from.</p>
@@ -455,7 +455,7 @@ class Cloud9Client:
         next_token: Optional["capo_cloud9.types.string.String"] = None,
         max_results: Optional["capo_cloud9.types.max_results.MaxResults"] = None,
     ) -> "capo_cloud9.types.describe_environment_memberships_result.DescribeEnvironmentMembershipsResult":
-        r"""<p>Gets information about environment members for an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Gets information about environment members for an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             user_arn: <p>The Amazon Resource Name (ARN) of an individual environment member to get information about. If no value is specified, information about all environment members are returned.</p>
@@ -559,7 +559,7 @@ class Cloud9Client:
         *,
         config_overrides: Optional[Cloud9ClientConfig] = None,
     ) -> "capo_cloud9.types.describe_environments_result.DescribeEnvironmentsResult":
-        r"""<p>Gets information about Cloud9 development environments.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Gets information about Cloud9 development environments.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             environment_ids: <p>The IDs of individual environments to get information about.</p>
@@ -613,7 +613,7 @@ class Cloud9Client:
         *,
         config_overrides: Optional[Cloud9ClientConfig] = None,
     ) -> "capo_cloud9.types.describe_environment_status_result.DescribeEnvironmentStatusResult":
-        r"""<p>Gets status information for an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Gets status information for an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             environment_id: <p>The ID of the environment to get status information about.</p>
@@ -668,7 +668,7 @@ class Cloud9Client:
         next_token: Optional["capo_cloud9.types.string.String"] = None,
         max_results: Optional["capo_cloud9.types.max_results.MaxResults"] = None,
     ) -> "capo_cloud9.types.list_environments_result.ListEnvironmentsResult":
-        r"""<p>Gets a list of Cloud9 development environment identifiers.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Gets a list of Cloud9 development environment identifiers.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             next_token: <p>During a previous call, if there are more than 25 items in the list, only the first 25 items are returned, along with a unique string called a <i>next token</i>. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.</p>
@@ -746,7 +746,7 @@ class Cloud9Client:
     ) -> (
         "capo_cloud9.types.list_tags_for_resource_response.ListTagsForResourceResponse"
     ):
-        r"""<p>Gets a list of the tags associated with an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Gets a list of the tags associated with an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the Cloud9 development environment to get the tags for.</p>
@@ -792,7 +792,7 @@ class Cloud9Client:
         *,
         config_overrides: Optional[Cloud9ClientConfig] = None,
     ) -> "capo_cloud9.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds tags to an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important> <important> <p>Tags that you add to an Cloud9 environment by using this method will NOT be automatically propagated to underlying resources.</p> </important>
+        """<p>Adds tags to an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important> <important> <p>Tags that you add to an Cloud9 environment by using this method will NOT be automatically propagated to underlying resources.</p> </important>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the Cloud9 development environment to add tags to.</p>
@@ -841,7 +841,7 @@ class Cloud9Client:
         *,
         config_overrides: Optional[Cloud9ClientConfig] = None,
     ) -> "capo_cloud9.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Removes tags from an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Removes tags from an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the Cloud9 development environment to remove tags from.</p>
@@ -896,7 +896,7 @@ class Cloud9Client:
             "capo_cloud9.types.managed_credentials_action.ManagedCredentialsAction"
         ] = None,
     ) -> "capo_cloud9.types.update_environment_result.UpdateEnvironmentResult":
-        r"""<p>Changes the settings of an existing Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Changes the settings of an existing Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             environment_id: <p>The ID of the environment to change settings.</p>
@@ -961,7 +961,7 @@ class Cloud9Client:
         *,
         config_overrides: Optional[Cloud9ClientConfig] = None,
     ) -> "capo_cloud9.types.update_environment_membership_result.UpdateEnvironmentMembershipResult":
-        r"""<p>Changes the settings of an existing environment member for an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href=\"http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/\">Learn more\"</a> </p> </important>
+        """<p>Changes the settings of an existing environment member for an Cloud9 development environment.</p> <important> <p>Cloud9 is no longer available to new customers. Existing customers of Cloud9 can continue to use the service as normal. <a href="http://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/">Learn more"</a> </p> </important>
 
         Args:
             environment_id: <p>The ID of the environment for the environment member whose settings you want to change.</p>

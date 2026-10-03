@@ -15,4 +15,4 @@ class GetClipOutput(TypedDict, closed=True):
     ]
     """<p>The content type of the media in the requested clip.</p>"""
     payload: "capo_kinesis_video_archived_media.types.payload.Payload"
-    r"""<p>Traditional MP4 file that contains the media clip from the specified video stream. The output will contain the first 100 MB or the first 200 fragments from the specified start timestamp. For more information, see <a href=\"https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html\">Kinesis Video Streams Limits</a>. </p>"""
+    """<p>Traditional MP4 file that contains the media clip from the specified video stream. The output will contain the first 100 MB or the first 200 fragments from the specified start timestamp. For more information, see <a href="https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams Limits</a>. </p>"""

@@ -28,7 +28,7 @@ class FunctionCodeLocation(TypedDict, closed=True):
     ]
     """<p>The resolved Amazon S3 object that contains the deployment package.</p>"""
     source_kms_key_arn: NotRequired["capo_lambda.types.kms_key_arn.KMSKeyArn"]
-    r"""<p>The ARN of the Key Management Service (KMS) customer managed key that's used to encrypt your function's .zip deployment package. If you don't provide a customer managed key, Lambda uses an <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk\">Amazon Web Services owned key</a>.</p>"""
+    """<p>The ARN of the Key Management Service (KMS) customer managed key that's used to encrypt your function's .zip deployment package. If you don't provide a customer managed key, Lambda uses an <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk">Amazon Web Services owned key</a>.</p>"""
     error: NotRequired[
         "capo_lambda.types.function_code_location_error.FunctionCodeLocationError"
     ]

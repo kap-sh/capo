@@ -40,7 +40,7 @@ class GetStaticMapRequest(TypedDict, closed=True):
     crop_labels: NotRequired["bool"]
     """<p>It is a flag that takes in true or false. It prevents the labels that are on the edge of the image from being cut or obscured.</p>"""
     geo_json_overlay: NotRequired["capo_geo_maps.types.geo_json_overlay.GeoJsonOverlay"]
-    r"""<p>Takes in a string to draw geometries on the image. The input is a valid GeoJSON collection object. </p> <p>Example: <code>{\"type\":\"FeatureCollection\",\"features\": [{\"type\":\"Feature\",\"geometry\":{\"type\":\"MultiPoint\",\"coordinates\": [[-90.076345,51.504107],[-0.074451,51.506892]]},\"properties\": {\"color\":\"#00DD00\"}}]}</code> </p>"""
+    """<p>Takes in a string to draw geometries on the image. The input is a valid GeoJSON collection object. </p> <p>Example: <code>{"type":"FeatureCollection","features": [{"type":"Feature","geometry":{"type":"MultiPoint","coordinates": [[-90.076345,51.504107],[-0.074451,51.506892]]},"properties": {"color":"#00DD00"}}]}</code> </p>"""
     height: "capo_geo_maps.types.sensitive_integer.SensitiveInteger"
     """<p>Specifies the height of the map image.</p>"""
     key: NotRequired["capo_geo_maps.types.api_key.ApiKey"]

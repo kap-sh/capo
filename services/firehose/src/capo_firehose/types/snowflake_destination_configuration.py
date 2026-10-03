@@ -31,15 +31,15 @@ if TYPE_CHECKING:
 
 class SnowflakeDestinationConfiguration(TypedDict, closed=True):
     account_url: "capo_firehose.types.snowflake_account_url.SnowflakeAccountUrl"
-    r"""<p>URL for accessing your Snowflake account. This URL must include your <a href=\"https://docs.snowflake.com/en/user-guide/admin-account-identifier\">account identifier</a>. Note that the protocol (https://) and port number are optional.</p>"""
+    """<p>URL for accessing your Snowflake account. This URL must include your <a href="https://docs.snowflake.com/en/user-guide/admin-account-identifier">account identifier</a>. Note that the protocol (https://) and port number are optional.</p>"""
     private_key: NotRequired[
         "capo_firehose.types.snowflake_private_key.SnowflakePrivateKey"
     ]
-    r"""<p>The private key used to encrypt your Snowflake client. For information, see <a href=\"https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-configuration#using-key-pair-authentication-key-rotation\">Using Key Pair Authentication & Key Rotation</a>.</p>"""
+    """<p>The private key used to encrypt your Snowflake client. For information, see <a href="https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-configuration#using-key-pair-authentication-key-rotation">Using Key Pair Authentication & Key Rotation</a>.</p>"""
     key_passphrase: NotRequired[
         "capo_firehose.types.snowflake_key_passphrase.SnowflakeKeyPassphrase"
     ]
-    r"""<p>Passphrase to decrypt the private key when the key is encrypted. For information, see <a href=\"https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-configuration#using-key-pair-authentication-key-rotation\">Using Key Pair Authentication & Key Rotation</a>.</p>"""
+    """<p>Passphrase to decrypt the private key when the key is encrypted. For information, see <a href="https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-configuration#using-key-pair-authentication-key-rotation">Using Key Pair Authentication & Key Rotation</a>.</p>"""
     user: NotRequired["capo_firehose.types.snowflake_user.SnowflakeUser"]
     """<p>User login name for the Snowflake account.</p>"""
     database: "capo_firehose.types.snowflake_database.SnowflakeDatabase"
@@ -59,7 +59,7 @@ class SnowflakeDestinationConfiguration(TypedDict, closed=True):
     meta_data_column_name: NotRequired[
         "capo_firehose.types.snowflake_meta_data_column_name.SnowflakeMetaDataColumnName"
     ]
-    r"""<p>Specify a column name in the table, where the metadata information has to be loaded. When you enable this field, you will see the following column in the snowflake table, which differs based on the source type.</p> <p>For Direct PUT as source </p> <p> <code>{ \"firehoseDeliveryStreamName\" : \"streamname\", \"IngestionTime\" : \"timestamp\" }</code> </p> <p>For Kinesis Data Stream as source </p> <p> <code> \"kinesisStreamName\" : \"streamname\", \"kinesisShardId\" : \"Id\", \"kinesisPartitionKey\" : \"key\", \"kinesisSequenceNumber\" : \"1234\", \"subsequenceNumber\" : \"2334\", \"IngestionTime\" : \"timestamp\" }</code> </p>"""
+    """<p>Specify a column name in the table, where the metadata information has to be loaded. When you enable this field, you will see the following column in the snowflake table, which differs based on the source type.</p> <p>For Direct PUT as source </p> <p> <code>{ "firehoseDeliveryStreamName" : "streamname", "IngestionTime" : "timestamp" }</code> </p> <p>For Kinesis Data Stream as source </p> <p> <code> "kinesisStreamName" : "streamname", "kinesisShardId" : "Id", "kinesisPartitionKey" : "key", "kinesisSequenceNumber" : "1234", "subsequenceNumber" : "2334", "IngestionTime" : "timestamp" }</code> </p>"""
     content_column_name: NotRequired[
         "capo_firehose.types.snowflake_content_column_name.SnowflakeContentColumnName"
     ]
@@ -67,7 +67,7 @@ class SnowflakeDestinationConfiguration(TypedDict, closed=True):
     snowflake_vpc_configuration: NotRequired[
         "capo_firehose.types.snowflake_vpc_configuration.SnowflakeVpcConfiguration"
     ]
-    r"""<p>The VPCE ID for Firehose to privately connect with Snowflake. The ID format is com.amazonaws.vpce.[region].vpce-svc-<[id]>. For more information, see <a href=\"https://docs.snowflake.com/en/user-guide/admin-security-privatelink\">Amazon PrivateLink & Snowflake</a> </p>"""
+    """<p>The VPCE ID for Firehose to privately connect with Snowflake. The ID format is com.amazonaws.vpce.[region].vpce-svc-<[id]>. For more information, see <a href="https://docs.snowflake.com/en/user-guide/admin-security-privatelink">Amazon PrivateLink & Snowflake</a> </p>"""
     cloud_watch_logging_options: NotRequired[
         "capo_firehose.types.cloud_watch_logging_options.CloudWatchLoggingOptions"
     ]

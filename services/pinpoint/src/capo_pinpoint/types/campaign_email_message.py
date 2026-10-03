@@ -17,7 +17,7 @@ class CampaignEmailMessage(TypedDict, closed=True):
     headers: NotRequired[
         "capo_pinpoint.types.list_of_message_header.ListOfMessageHeader"
     ]
-    r"""<p>The list of <a href=\"https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-campaigns-campaign-id.html#apps-application-id-campaigns-campaign-id-model-messageheader\">MessageHeaders</a> for the email. You can have up to 15 MessageHeaders for each email.</p>"""
+    """<p>The list of <a href="https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-campaigns-campaign-id.html#apps-application-id-campaigns-campaign-id-model-messageheader">MessageHeaders</a> for the email. You can have up to 15 MessageHeaders for each email.</p>"""
     html_body: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The body of the email, in HTML format, for recipients whose email clients render HTML content.</p>"""
     title: NotRequired["capo_pinpoint.types.__string.__string"]

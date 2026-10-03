@@ -16,7 +16,7 @@ class TagInstanceProfileRequest(TypedDict, closed=True):
     instance_profile_name: (
         "capo_iam.types.instance_profile_name_type.instanceProfileNameType"
     )
-    r"""<p>The name of the IAM instance profile to which you want to add tags.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
+    """<p>The name of the IAM instance profile to which you want to add tags.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
     tags: "capo_iam.types.tag_list_type.tagListType"
     """<p>The list of tags that you want to attach to the IAM instance profile. Each tag consists of a key name and an associated value.</p>"""
 

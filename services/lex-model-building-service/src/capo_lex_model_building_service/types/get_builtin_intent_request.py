@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class GetBuiltinIntentRequest(TypedDict, closed=True):
     signature: "capo_lex_model_building_service.types.builtin_intent_signature.BuiltinIntentSignature"
-    r"""<p>The unique identifier for a built-in intent. To find the signature for an intent, see <a href=\"https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents\">Standard Built-in Intents</a> in the <i>Alexa Skills Kit</i>.</p>"""
+    """<p>The unique identifier for a built-in intent. To find the signature for an intent, see <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents">Standard Built-in Intents</a> in the <i>Alexa Skills Kit</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

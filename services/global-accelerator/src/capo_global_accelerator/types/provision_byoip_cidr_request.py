@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ProvisionByoipCidrRequest(TypedDict, closed=True):
     cidr: "capo_global_accelerator.types.generic_string.GenericString"
-    r"""<p>The public IPv4 address range, in CIDR notation. The most specific IP prefix that you can specify is /24. The address range cannot overlap with another address range that you've brought to this Amazon Web Services Region or another Region.</p> <p> For more information, see <a href=\"https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html\">Bring your own IP addresses (BYOIP)</a> in the Global Accelerator Developer Guide.</p>"""
+    """<p>The public IPv4 address range, in CIDR notation. The most specific IP prefix that you can specify is /24. The address range cannot overlap with another address range that you've brought to this Amazon Web Services Region or another Region.</p> <p> For more information, see <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html">Bring your own IP addresses (BYOIP)</a> in the Global Accelerator Developer Guide.</p>"""
     cidr_authorization_context: "capo_global_accelerator.types.cidr_authorization_context.CidrAuthorizationContext"
     """<p>A signed document that proves that you are authorized to bring the specified IP address range to Amazon using BYOIP. </p>"""
 

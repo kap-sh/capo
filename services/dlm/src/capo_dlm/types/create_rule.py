@@ -23,9 +23,9 @@ class CreateRule(TypedDict, closed=True):
     times: NotRequired["capo_dlm.types.times_list.TimesList"]
     """<p>The time, in UTC, to start the operation. The supported format is hh:mm.</p> <p>The operation occurs within a one-hour window following the specified time. If you do not specify a time, Amazon Data Lifecycle Manager selects a time within the next 24 hours.</p>"""
     cron_expression: NotRequired["capo_dlm.types.cron_expression.CronExpression"]
-    r"""<p>The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more information, see the <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html\">Cron expressions reference</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more information, see the <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html">Cron expressions reference</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
     scripts: NotRequired["capo_dlm.types.scripts_list.ScriptsList"]
-    r"""<p> <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a snapshot lifecycle policy that targets instances. This is useful for creating application-consistent snapshots, or for performing specific administrative tasks before or after Amazon Data Lifecycle Manager initiates snapshot creation.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html\">Automating application-consistent snapshots with pre and post scripts</a>.</p>"""
+    """<p> <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a snapshot lifecycle policy that targets instances. This is useful for creating application-consistent snapshots, or for performing specific administrative tasks before or after Amazon Data Lifecycle Manager initiates snapshot creation.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating application-consistent snapshots with pre and post scripts</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

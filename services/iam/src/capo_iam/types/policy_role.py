@@ -15,7 +15,7 @@ class PolicyRole(TypedDict, closed=True):
     role_name: NotRequired["capo_iam.types.role_name_type.roleNameType"]
     """<p>The name (friendly name, not ARN) identifying the role.</p>"""
     role_id: NotRequired["capo_iam.types.id_type.idType"]
-    r"""<p>The stable and unique string identifying the role. For more information about IDs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The stable and unique string identifying the role. For more information about IDs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -265,7 +265,7 @@ class MemoryDBClient:
             "capo_memorydb.types.service_update_request.ServiceUpdateRequest"
         ] = None,
     ) -> "capo_memorydb.types.batch_update_cluster_response.BatchUpdateClusterResponse":
-        r"""<p>Apply the service update to a list of clusters supplied. For more information on service updates and applying them, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/managing-updates.html#applying-updates\">Applying the service updates</a>.</p>
+        """<p>Apply the service update to a list of clusters supplied. For more information on service updates and applying them, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/managing-updates.html#applying-updates">Applying the service updates</a>.</p>
 
         Args:
             cluster_names: <p>The cluster names to apply the updates.</p>
@@ -318,12 +318,12 @@ class MemoryDBClient:
         kms_key_id: Optional["capo_memorydb.types.kms_key_id.KmsKeyId"] = None,
         tags: Optional["capo_memorydb.types.tag_list.TagList"] = None,
     ) -> "capo_memorydb.types.copy_snapshot_response.CopySnapshotResponse":
-        r"""<p>Makes a copy of an existing snapshot.</p>
+        """<p>Makes a copy of an existing snapshot.</p>
 
         Args:
             source_snapshot_name: <p>The name of an existing snapshot from which to make a copy.</p>
             target_snapshot_name: <p>A name for the snapshot copy. MemoryDB does not permit overwriting a snapshot, therefore this name must be unique within its context - MemoryDB or an Amazon S3 bucket if exporting.</p>
-            target_bucket: <p>The Amazon S3 bucket to which the snapshot is exported. This parameter is used only when exporting a snapshot for external access. When using this parameter to export a snapshot, be sure MemoryDB has the needed permissions to this S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/snapshots-exporting.html\">Step 2: Grant MemoryDB Access to Your Amazon S3 Bucket</a>. </p>
+            target_bucket: <p>The Amazon S3 bucket to which the snapshot is exported. This parameter is used only when exporting a snapshot for external access. When using this parameter to export a snapshot, be sure MemoryDB has the needed permissions to this S3 bucket. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/snapshots-exporting.html">Step 2: Grant MemoryDB Access to Your Amazon S3 Bucket</a>. </p>
             kms_key_id: <p>The ID of the KMS key used to encrypt the target snapshot.</p>
             tags: <p>A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a tag value, although null is accepted.</p>
 
@@ -383,7 +383,7 @@ class MemoryDBClient:
         ] = None,
         tags: Optional["capo_memorydb.types.tag_list.TagList"] = None,
     ) -> "capo_memorydb.types.create_acl_response.CreateACLResponse":
-        r"""<p>Creates an Access Control List. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/clusters.acls.html\">Authenticating users with Access Contol Lists (ACLs)</a>.</p>
+        """<p>Creates an Access Control List. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/clusters.acls.html">Authenticating users with Access Contol Lists (ACLs)</a>.</p>
 
         Args:
             acl_name: <p>The name of the Access Control List.</p>
@@ -479,7 +479,7 @@ class MemoryDBClient:
         network_type: Optional["capo_memorydb.types.network_type.NetworkType"] = None,
         ip_discovery: Optional["capo_memorydb.types.ip_discovery.IpDiscovery"] = None,
     ) -> "capo_memorydb.types.create_cluster_response.CreateClusterResponse":
-        r"""<p>Creates a cluster. All nodes in the cluster run the same protocol-compliant engine software.</p>
+        """<p>Creates a cluster. All nodes in the cluster run the same protocol-compliant engine software.</p>
 
         Args:
             cluster_name: <p>The name of the cluster. This value must be unique as it also serves as the cluster identifier.</p>
@@ -505,7 +505,7 @@ class MemoryDBClient:
             engine: <p>The name of the engine to be used for the cluster.</p>
             engine_version: <p>The version number of the Redis OSS engine to be used for the cluster.</p>
             auto_minor_version_upgrade: <p>When set to true, the cluster will automatically receive minor engine version upgrades after launch.</p>
-            data_tiering: <p>Enables data tiering. Data tiering is only supported for clusters using the r6gd node type. This parameter must be set when using r6gd nodes. For more information, see <a href=\"https://docs.aws.amazon.com/memorydb/latest/devguide/data-tiering.html\">Data tiering</a>.</p>
+            data_tiering: <p>Enables data tiering. Data tiering is only supported for clusters using the r6gd node type. This parameter must be set when using r6gd nodes. For more information, see <a href="https://docs.aws.amazon.com/memorydb/latest/devguide/data-tiering.html">Data tiering</a>.</p>
             network_type: <p>Specifies the IP address type for the cluster. Valid values are 'ipv4', 'ipv6', or 'dual_stack'. When set to 'ipv4', the cluster will only be accessible via IPv4 addresses. When set to 'ipv6', the cluster will only be accessible via IPv6 addresses. When set to 'dual_stack', the cluster will be accessible via both IPv4 and IPv6 addresses. If not specified, the default is 'ipv4'.</p>
             ip_discovery: <p>The mechanism for discovering IP addresses for the cluster discovery protocol. Valid values are 'ipv4' or 'ipv6'. When set to 'ipv4', cluster discovery functions such as cluster slots, cluster shards, and cluster nodes return IPv4 addresses for cluster nodes. When set to 'ipv6', the cluster discovery functions return IPv6 addresses for cluster nodes. The value must be compatible with the NetworkType parameter. If not specified, the default is 'ipv4'.</p>
 
@@ -626,10 +626,10 @@ class MemoryDBClient:
         ] = None,
         tags: Optional["capo_memorydb.types.tag_list.TagList"] = None,
     ) -> "capo_memorydb.types.create_multi_region_cluster_response.CreateMultiRegionClusterResponse":
-        r"""<p>Creates a new multi-Region cluster.</p>
+        """<p>Creates a new multi-Region cluster.</p>
 
         Args:
-            multi_region_cluster_name_suffix: <p>A suffix to be added to the Multi-Region cluster name. Amazon MemoryDB automatically applies a prefix to the Multi-Region cluster Name when it is created. Each Amazon Region has its own prefix. For instance, a Multi-Region cluster Name created in the US-West-1 region will begin with \"virxk\", along with the suffix name you provide. The suffix guarantees uniqueness of the Multi-Region cluster name across multiple regions.</p>
+            multi_region_cluster_name_suffix: <p>A suffix to be added to the Multi-Region cluster name. Amazon MemoryDB automatically applies a prefix to the Multi-Region cluster Name when it is created. Each Amazon Region has its own prefix. For instance, a Multi-Region cluster Name created in the US-West-1 region will begin with "virxk", along with the suffix name you provide. The suffix guarantees uniqueness of the Multi-Region cluster name across multiple regions.</p>
             description: <p>A description for the multi-Region cluster.</p>
             engine: <p>The name of the engine to be used for the multi-Region cluster.</p>
             engine_version: <p>The version of the engine to be used for the multi-Region cluster.</p>
@@ -702,7 +702,7 @@ class MemoryDBClient:
         description: Optional["capo_memorydb.types.string.String"] = None,
         tags: Optional["capo_memorydb.types.tag_list.TagList"] = None,
     ) -> "capo_memorydb.types.create_parameter_group_response.CreateParameterGroupResponse":
-        r"""<p>Creates a new MemoryDB parameter group. A parameter group is a collection of parameters and their values that are applied to all of the nodes in any cluster. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/parametergroups.html\">Configuring engine parameters using parameter groups</a>. </p>
+        """<p>Creates a new MemoryDB parameter group. A parameter group is a collection of parameters and their values that are applied to all of the nodes in any cluster. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/parametergroups.html">Configuring engine parameters using parameter groups</a>. </p>
 
         Args:
             parameter_group_name: <p>The name of the parameter group.</p>
@@ -823,7 +823,7 @@ class MemoryDBClient:
         description: Optional["capo_memorydb.types.string.String"] = None,
         tags: Optional["capo_memorydb.types.tag_list.TagList"] = None,
     ) -> "capo_memorydb.types.create_subnet_group_response.CreateSubnetGroupResponse":
-        r"""<p>Creates a subnet group. A subnet group is a collection of subnets (typically private) that you can designate for your clusters running in an Amazon Virtual Private Cloud (VPC) environment. When you create a cluster in an Amazon VPC, you must specify a subnet group. MemoryDB uses that subnet group to choose a subnet and IP addresses within that subnet to associate with your nodes. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/subnetgroups.html\">Subnets and subnet groups</a>.</p>
+        """<p>Creates a subnet group. A subnet group is a collection of subnets (typically private) that you can designate for your clusters running in an Amazon Virtual Private Cloud (VPC) environment. When you create a cluster in an Amazon VPC, you must specify a subnet group. MemoryDB uses that subnet group to choose a subnet and IP addresses within that subnet to associate with your nodes. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/subnetgroups.html">Subnets and subnet groups</a>.</p>
 
         Args:
             subnet_group_name: <p>The name of the subnet group.</p>
@@ -883,7 +883,7 @@ class MemoryDBClient:
         config_overrides: Optional[MemoryDBClientConfig] = None,
         tags: Optional["capo_memorydb.types.tag_list.TagList"] = None,
     ) -> "capo_memorydb.types.create_user_response.CreateUserResponse":
-        r"""<p>Creates a MemoryDB user. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/clusters.acls.html\">Authenticating users with Access Contol Lists (ACLs)</a>.</p>
+        """<p>Creates a MemoryDB user. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/clusters.acls.html">Authenticating users with Access Contol Lists (ACLs)</a>.</p>
 
         Args:
             user_name: <p>The name of the user. This value must be unique as it also serves as the user identifier.</p>
@@ -938,7 +938,7 @@ class MemoryDBClient:
         *,
         config_overrides: Optional[MemoryDBClientConfig] = None,
     ) -> "capo_memorydb.types.delete_acl_response.DeleteACLResponse":
-        r"""<p>Deletes an Access Control List. The ACL must first be disassociated from the cluster before it can be deleted. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/clusters.acls.html\">Authenticating users with Access Contol Lists (ACLs)</a>.</p>
+        """<p>Deletes an Access Control List. The ACL must first be disassociated from the cluster before it can be deleted. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/clusters.acls.html">Authenticating users with Access Contol Lists (ACLs)</a>.</p>
 
         Args:
             acl_name: <p>The name of the Access Control List to delete.</p>
@@ -2027,14 +2027,14 @@ class MemoryDBClient:
         ] = None,
         next_token: Optional["capo_memorydb.types.string.String"] = None,
     ) -> "capo_memorydb.types.describe_reserved_nodes_response.DescribeReservedNodesResponse":
-        r"""<p>Returns information about reserved nodes for this account, or about a specified reserved node.</p>
+        """<p>Returns information about reserved nodes for this account, or about a specified reserved node.</p>
 
         Args:
             reservation_id: <p>The reserved node identifier filter value. Use this parameter to show only the reservation that matches the specified reservation ID.</p>
             reserved_nodes_offering_id: <p>The offering identifier filter value. Use this parameter to show only purchased reservations matching the specified offering identifier.</p>
-            node_type: <p>The node type filter value. Use this parameter to show only those reservations matching the specified node type. For more information, see <a href=\"https://docs.aws.amazon.com/memorydb/latest/devguide/nodes.reserved.html#reserved-nodes-supported\">Supported node types</a>.</p>
+            node_type: <p>The node type filter value. Use this parameter to show only those reservations matching the specified node type. For more information, see <a href="https://docs.aws.amazon.com/memorydb/latest/devguide/nodes.reserved.html#reserved-nodes-supported">Supported node types</a>.</p>
             duration: <p>The duration filter value, specified in years or seconds. Use this parameter to show only reservations for this duration.</p>
-            offering_type: <p>The offering type filter value. Use this parameter to show only the available offerings matching the specified offering type. Valid values: \"All Upfront\"|\"Partial Upfront\"| \"No Upfront\"</p>
+            offering_type: <p>The offering type filter value. Use this parameter to show only the available offerings matching the specified offering type. Valid values: "All Upfront"|"Partial Upfront"| "No Upfront"</p>
             max_results: <p>The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a marker is included in the response so that the remaining results can be retrieved.</p>
             next_token: <p>An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords.</p>
 
@@ -2135,13 +2135,13 @@ class MemoryDBClient:
         ] = None,
         next_token: Optional["capo_memorydb.types.string.String"] = None,
     ) -> "capo_memorydb.types.describe_reserved_nodes_offerings_response.DescribeReservedNodesOfferingsResponse":
-        r"""<p>Lists available reserved node offerings.</p>
+        """<p>Lists available reserved node offerings.</p>
 
         Args:
             reserved_nodes_offering_id: <p>The offering identifier filter value. Use this parameter to show only the available offering that matches the specified reservation identifier.</p>
-            node_type: <p>The node type for the reserved nodes. For more information, see <a href=\"https://docs.aws.amazon.com/memorydb/latest/devguide/nodes.reserved.html#reserved-nodes-supported\">Supported node types</a>.</p>
+            node_type: <p>The node type for the reserved nodes. For more information, see <a href="https://docs.aws.amazon.com/memorydb/latest/devguide/nodes.reserved.html#reserved-nodes-supported">Supported node types</a>.</p>
             duration: <p>Duration filter value, specified in years or seconds. Use this parameter to show only reservations for a given duration.</p>
-            offering_type: <p>The offering type filter value. Use this parameter to show only the available offerings matching the specified offering type. Valid values: \"All Upfront\"|\"Partial Upfront\"| \"No Upfront\"</p>
+            offering_type: <p>The offering type filter value. Use this parameter to show only the available offerings matching the specified offering type. Valid values: "All Upfront"|"Partial Upfront"| "No Upfront"</p>
             max_results: <p>The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a marker is included in the response so that the remaining results can be retrieved.</p>
             next_token: <p>An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords.</p>
 
@@ -2739,7 +2739,7 @@ class MemoryDBClient:
         *,
         config_overrides: Optional[MemoryDBClientConfig] = None,
     ) -> "capo_memorydb.types.list_tags_response.ListTagsResponse":
-        r"""<p>Lists all tags currently on a named resource. A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track your MemoryDB resources. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html\">Tagging your MemoryDB resources</a>.</p> <p>When you add or remove tags from multi region clusters, you might not immediately see the latest effective tags in the ListTags API response due to it being eventually consistent specifically for multi region clusters. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html\">Tagging your MemoryDB resources</a>.</p> <p></p>
+        """<p>Lists all tags currently on a named resource. A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track your MemoryDB resources. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html">Tagging your MemoryDB resources</a>.</p> <p>When you add or remove tags from multi region clusters, you might not immediately see the latest effective tags in the ListTags API response due to it being eventually consistent specifically for multi region clusters. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html">Tagging your MemoryDB resources</a>.</p> <p></p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource for which you want the list of tags.</p>
@@ -2915,7 +2915,7 @@ class MemoryDBClient:
         *,
         config_overrides: Optional[MemoryDBClientConfig] = None,
     ) -> "capo_memorydb.types.tag_resource_response.TagResourceResponse":
-        r"""<p> Use this operation to add tags to a resource. A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track all your MemoryDB resources. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html\">Tagging your MemoryDB resources</a>.</p> <p>When you add tags to multi region clusters, you might not immediately see the latest effective tags in the ListTags API response due to it being eventually consistent specifically for multi region clusters. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html\">Tagging your MemoryDB resources</a>.</p> <p>You can specify cost-allocation tags for your MemoryDB resources, Amazon generates a cost allocation report as a comma-separated value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business categories (such as cost centers, application names, or owners) to organize your costs across multiple services. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/tagging.html\">Using Cost Allocation Tags</a>.</p>
+        """<p> Use this operation to add tags to a resource. A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track all your MemoryDB resources. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html">Tagging your MemoryDB resources</a>.</p> <p>When you add tags to multi region clusters, you might not immediately see the latest effective tags in the ListTags API response due to it being eventually consistent specifically for multi region clusters. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html">Tagging your MemoryDB resources</a>.</p> <p>You can specify cost-allocation tags for your MemoryDB resources, Amazon generates a cost allocation report as a comma-separated value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business categories (such as cost centers, application names, or owners) to organize your costs across multiple services. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/tagging.html">Using Cost Allocation Tags</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource to which the tags are to be added.</p>
@@ -2973,7 +2973,7 @@ class MemoryDBClient:
         *,
         config_overrides: Optional[MemoryDBClientConfig] = None,
     ) -> "capo_memorydb.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Use this operation to remove tags on a resource. A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track all your MemoryDB resources. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html\">Tagging your MemoryDB resources</a>.</p> <p>When you remove tags from multi region clusters, you might not immediately see the latest effective tags in the ListTags API response due to it being eventually consistent specifically for multi region clusters. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html\">Tagging your MemoryDB resources</a>.</p> <p>You can specify cost-allocation tags for your MemoryDB resources, Amazon generates a cost allocation report as a comma-separated value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business categories (such as cost centers, application names, or owners) to organize your costs across multiple services. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/tagging.html\">Using Cost Allocation Tags</a>.</p>
+        """<p>Use this operation to remove tags on a resource. A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track all your MemoryDB resources. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html">Tagging your MemoryDB resources</a>.</p> <p>When you remove tags from multi region clusters, you might not immediately see the latest effective tags in the ListTags API response due to it being eventually consistent specifically for multi region clusters. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/Tagging-Resources.html">Tagging your MemoryDB resources</a>.</p> <p>You can specify cost-allocation tags for your MemoryDB resources, Amazon generates a cost allocation report as a comma-separated value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business categories (such as cost centers, application names, or owners) to organize your costs across multiple services. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/tagging.html">Using Cost Allocation Tags</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource to which the tags are to be removed.</p>
@@ -3229,7 +3229,7 @@ class MemoryDBClient:
             "capo_memorydb.types.update_strategy.UpdateStrategy"
         ] = None,
     ) -> "capo_memorydb.types.update_multi_region_cluster_response.UpdateMultiRegionClusterResponse":
-        r"""<p>Updates the configuration of an existing multi-Region cluster.</p>
+        """<p>Updates the configuration of an existing multi-Region cluster.</p>
 
         Args:
             multi_region_cluster_name: <p>The name of the multi-Region cluster to be updated.</p>
@@ -3237,7 +3237,7 @@ class MemoryDBClient:
             description: <p>A new description for the multi-Region cluster.</p>
             engine_version: <p>The new engine version to be used for the multi-Region cluster.</p>
             multi_region_parameter_group_name: <p>The new multi-Region parameter group to be associated with the cluster.</p>
-            update_strategy: <p>The strategy to use for the update operation. Supported values are \"coordinated\" or \"uncoordinated\".</p>
+            update_strategy: <p>The strategy to use for the update operation. Supported values are "coordinated" or "uncoordinated".</p>
 
         Raises:
             capo_memorydb.errors.invalid_multi_region_cluster_state_fault.InvalidMultiRegionClusterStateFault: <p>The requested operation cannot be performed on the multi-Region cluster in its current state.</p>
@@ -3349,7 +3349,7 @@ class MemoryDBClient:
             "capo_memorydb.types.subnet_identifier_list.SubnetIdentifierList"
         ] = None,
     ) -> "capo_memorydb.types.update_subnet_group_response.UpdateSubnetGroupResponse":
-        r"""<p>Updates a subnet group. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/ubnetGroups.Modifying.html\">Updating a subnet group</a> </p>
+        """<p>Updates a subnet group. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/ubnetGroups.Modifying.html">Updating a subnet group</a> </p>
 
         Args:
             subnet_group_name: <p>The name of the subnet group</p>

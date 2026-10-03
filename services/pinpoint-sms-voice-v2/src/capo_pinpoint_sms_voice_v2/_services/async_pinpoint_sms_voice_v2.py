@@ -489,10 +489,10 @@ class AsyncPinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.associate_origination_identity_result.AssociateOriginationIdentityResult":
-        r"""<p>Associates the specified origination identity with a pool.</p> <p>If the origination identity is a phone number and is already associated with another pool, an error is returned. A sender ID can be associated with multiple pools.</p> <p>If the origination identity configuration doesn't match the pool's configuration, an error is returned.</p>
+        """<p>Associates the specified origination identity with a pool.</p> <p>If the origination identity is a phone number and is already associated with another pool, an error is returned. A sender ID can be associated with multiple pools.</p> <p>If the origination identity configuration doesn't match the pool's configuration, an error is returned.</p>
 
         Args:
-            pool_id: <p>The pool to update with the new Identity. This value can be either the PoolId or PoolArn, and you can find these values using <a href=\"https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_DescribePools.html\">DescribePools</a>.</p> <important> <p>If you are using a shared End User Messaging SMS; resource then you must use the full Amazon Resource Name(ARN).</p> </important>
+            pool_id: <p>The pool to update with the new Identity. This value can be either the PoolId or PoolArn, and you can find these values using <a href="https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_DescribePools.html">DescribePools</a>.</p> <important> <p>If you are using a shared End User Messaging SMS; resource then you must use the full Amazon Resource Name(ARN).</p> </important>
             origination_identity: <p>The origination identity to use, such as PhoneNumberId, PhoneNumberArn, SenderId, or SenderIdArn. You can use <a>DescribePhoneNumbers</a> to find the values for PhoneNumberId and PhoneNumberArn, while <a>DescribeSenderIds</a> can be used to get the values for SenderId and SenderIdArn.</p> <important> <p>If you are using a shared End User Messaging SMS resource then you must use the full Amazon Resource Name(ARN).</p> </important>
             iso_country_code: <p>The new two-character code, in ISO 3166-1 alpha-2 format, for the country or region of the origination identity. This field is optional and is not required for origination identity types that are not country-specific, such as RCS agents.</p>
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you don't specify a client token, a randomly generated token is used for the request to ensure idempotency.</p>
@@ -728,12 +728,12 @@ class AsyncPinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.create_event_destination_result.CreateEventDestinationResult":
-        r"""<p>Creates a new event destination in a configuration set.</p> <p>An event destination is a location where you send message events. The event options are Amazon CloudWatch, Amazon Data Firehose, or Amazon SNS. For example, when a message is delivered successfully, you can send information about that event to an event destination, or send notifications to endpoints that are subscribed to an Amazon SNS topic. </p> <p>You can only create one event destination at a time. You must provide a value for a single event destination using either <code>CloudWatchLogsDestination</code>, <code>KinesisFirehoseDestination</code> or <code>SnsDestination</code>. If an event destination isn't provided then an exception is returned.</p> <p>Each configuration set can contain between 0 and 5 event destinations. Each event destination can contain a reference to a single destination, such as a CloudWatch or Firehose destination.</p>
+        """<p>Creates a new event destination in a configuration set.</p> <p>An event destination is a location where you send message events. The event options are Amazon CloudWatch, Amazon Data Firehose, or Amazon SNS. For example, when a message is delivered successfully, you can send information about that event to an event destination, or send notifications to endpoints that are subscribed to an Amazon SNS topic. </p> <p>You can only create one event destination at a time. You must provide a value for a single event destination using either <code>CloudWatchLogsDestination</code>, <code>KinesisFirehoseDestination</code> or <code>SnsDestination</code>. If an event destination isn't provided then an exception is returned.</p> <p>Each configuration set can contain between 0 and 5 event destinations. Each event destination can contain a reference to a single destination, such as a CloudWatch or Firehose destination.</p>
 
         Args:
             configuration_set_name: <p>Either the name of the configuration set or the configuration set ARN to apply event logging to. The ConfigurateSetName and ConfigurationSetArn can be found using the <a>DescribeConfigurationSets</a> action.</p>
             event_destination_name: <p>The name that identifies the event destination.</p>
-            matching_event_types: <p>An array of event types that determine which events to log. If \"ALL\" is used, then End User Messaging SMS logs every event type.</p> <note> <p>The <code>TEXT_SENT</code> event type is not supported.</p> </note>
+            matching_event_types: <p>An array of event types that determine which events to log. If "ALL" is used, then End User Messaging SMS logs every event type.</p> <note> <p>The <code>TEXT_SENT</code> event type is not supported.</p> </note>
             cloud_watch_logs_destination: <p>An object that contains information about an event destination for logging to Amazon CloudWatch Logs.</p>
             kinesis_firehose_destination: <p>An object that contains information about an event destination for logging to Amazon Data Firehose.</p>
             sns_destination: <p>An object that contains information about an event destination for logging to Amazon SNS.</p>
@@ -894,7 +894,7 @@ class AsyncPinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.create_opt_out_list_result.CreateOptOutListResult":
-        r"""<p>Creates a new opt-out list.</p> <p>If the opt-out list name already exists, an error is returned.</p> <p>An opt-out list is a list of phone numbers that are opted out, meaning you can't send SMS or voice messages to them. If end user replies with the keyword \"STOP,\" an entry for the phone number is added to the opt-out list. In addition to STOP, your recipients can use any supported opt-out keyword, such as CANCEL or OPTOUT. For a list of supported opt-out keywords, see <a href=\"https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-manage.html#channels-sms-manage-optout\"> SMS opt out </a> in the End User Messaging SMS User Guide.</p>
+        """<p>Creates a new opt-out list.</p> <p>If the opt-out list name already exists, an error is returned.</p> <p>An opt-out list is a list of phone numbers that are opted out, meaning you can't send SMS or voice messages to them. If end user replies with the keyword "STOP," an entry for the phone number is added to the opt-out list. In addition to STOP, your recipients can use any supported opt-out keyword, such as CANCEL or OPTOUT. For a list of supported opt-out keywords, see <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-manage.html#channels-sms-manage-optout"> SMS opt out </a> in the End User Messaging SMS User Guide.</p>
 
         Args:
             opt_out_list_name: <p>The name of the new OptOutList.</p>
@@ -959,13 +959,13 @@ class AsyncPinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.create_pool_result.CreatePoolResult":
-        r"""<p>Creates a new pool and associates the specified origination identity to the pool. A pool can include one or more phone numbers and SenderIds that are associated with your Amazon Web Services account.</p> <p>The new pool inherits its configuration from the specified origination identity. This includes keywords, message type, opt-out list, two-way configuration, and self-managed opt-out configuration. Deletion protection isn't inherited from the origination identity and defaults to false.</p> <p>If the origination identity is a phone number and is already associated with another pool, an error is returned. A sender ID can be associated with multiple pools.</p>
+        """<p>Creates a new pool and associates the specified origination identity to the pool. A pool can include one or more phone numbers and SenderIds that are associated with your Amazon Web Services account.</p> <p>The new pool inherits its configuration from the specified origination identity. This includes keywords, message type, opt-out list, two-way configuration, and self-managed opt-out configuration. Deletion protection isn't inherited from the origination identity and defaults to false.</p> <p>If the origination identity is a phone number and is already associated with another pool, an error is returned. A sender ID can be associated with multiple pools.</p>
 
         Args:
-            origination_identity: <p>The origination identity to use such as a PhoneNumberId, PhoneNumberArn, SenderId or SenderIdArn. You can use <a href=\"https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_DescribePhoneNumbers.html\">DescribePhoneNumbers</a> to find the values for PhoneNumberId and PhoneNumberArn, and use <a href=\"https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_DescribeSenderIds.html\">DescribeSenderIds</a> can be used to get the values for SenderId and SenderIdArn.</p> <p>After the pool is created you can add more origination identities to the pool by using <a href=\"https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_AssociateOriginationIdentity.html\">AssociateOriginationIdentity</a>.</p> <important> <p>If you are using a shared End User Messaging SMS resource then you must use the full Amazon Resource Name(ARN).</p> </important>
+            origination_identity: <p>The origination identity to use such as a PhoneNumberId, PhoneNumberArn, SenderId or SenderIdArn. You can use <a href="https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_DescribePhoneNumbers.html">DescribePhoneNumbers</a> to find the values for PhoneNumberId and PhoneNumberArn, and use <a href="https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_DescribeSenderIds.html">DescribeSenderIds</a> can be used to get the values for SenderId and SenderIdArn.</p> <p>After the pool is created you can add more origination identities to the pool by using <a href="https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_AssociateOriginationIdentity.html">AssociateOriginationIdentity</a>.</p> <important> <p>If you are using a shared End User Messaging SMS resource then you must use the full Amazon Resource Name(ARN).</p> </important>
             iso_country_code: <p>The new two-character code, in ISO 3166-1 alpha-2 format, for the country or region of the new pool. This field is optional and is not required for origination identity types that are not country-specific, such as RCS agents.</p>
             message_type: <p>The type of message. Valid values are TRANSACTIONAL for messages that are critical or time-sensitive and PROMOTIONAL for messages that aren't critical or time-sensitive. After the pool is created the MessageType can't be changed.</p>
-            deletion_protection_enabled: <p>By default this is set to false. When set to true the pool can't be deleted. You can change this value using the <a href=\"https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_UpdatePool.html\">UpdatePool</a> action.</p>
+            deletion_protection_enabled: <p>By default this is set to false. When set to true the pool can't be deleted. You can change this value using the <a href="https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/API_UpdatePool.html">UpdatePool</a> action.</p>
             tags: <p>An array of tags (key and value pairs) associated with the pool.</p>
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you don't specify a client token, a randomly generated token is used for the request to ensure idempotency.</p>
 
@@ -1687,7 +1687,7 @@ class AsyncPinpointSMSVoiceV2Client:
         *,
         config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.delete_keyword_result.DeleteKeywordResult":
-        r"""<p>Deletes an existing keyword from an origination phone number or pool.</p> <p>A keyword is a word that you can search for on a particular phone number or pool. It is also a specific word or phrase that an end user can send to your number to elicit a response, such as an informational message or a special offer. When your number receives a message that begins with a keyword, End User Messaging SMS responds with a customizable message.</p> <p>Keywords \"HELP\" and \"STOP\" can't be deleted or modified.</p>
+        """<p>Deletes an existing keyword from an origination phone number or pool.</p> <p>A keyword is a word that you can search for on a particular phone number or pool. It is also a specific word or phrase that an end user can send to your number to elicit a response, such as an informational message or a special offer. When your number receives a message that begins with a keyword, End User Messaging SMS responds with a customizable message.</p> <p>Keywords "HELP" and "STOP" can't be deleted or modified.</p>
 
         Args:
             origination_identity: <p>The origination identity to use such as a PhoneNumberId, PhoneNumberArn, PoolId or PoolArn. You can use <a>DescribePhoneNumbers</a> to find the values for PhoneNumberId and PhoneNumberArn and <a>DescribePools</a> to find the values of PoolId and PoolArn.</p> <important> <p>If you are using a shared End User Messaging SMS resource then you must use the full Amazon Resource Name(ARN).</p> </important>
@@ -1735,7 +1735,7 @@ class AsyncPinpointSMSVoiceV2Client:
     async def delete_media_message_spend_limit_override(
         self, *, config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None
     ) -> "capo_pinpoint_sms_voice_v2.types.delete_media_message_spend_limit_override_result.DeleteMediaMessageSpendLimitOverrideResult":
-        r"""<p>Deletes an account-level monthly spending limit override for sending multimedia messages (MMS). Deleting a spend limit override will set the <code>EnforcedLimit</code> to equal the <code>MaxLimit</code>, which is controlled by Amazon Web Services. For more information on spend limits (quotas) see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html\">Quotas for Server Migration Service</a> in the <i>Server Migration Service User Guide</i>.</p>
+        """<p>Deletes an account-level monthly spending limit override for sending multimedia messages (MMS). Deleting a spend limit override will set the <code>EnforcedLimit</code> to equal the <code>MaxLimit</code>, which is controlled by Amazon Web Services. For more information on spend limits (quotas) see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html">Quotas for Server Migration Service</a> in the <i>Server Migration Service User Guide</i>.</p>
 
         Raises:
             capo_pinpoint_sms_voice_v2.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because you don't have sufficient permissions to access the resource.</p>
@@ -1829,7 +1829,7 @@ class AsyncPinpointSMSVoiceV2Client:
     async def delete_notify_message_spend_limit_override(
         self, *, config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None
     ) -> "capo_pinpoint_sms_voice_v2.types.delete_notify_message_spend_limit_override_result.DeleteNotifyMessageSpendLimitOverrideResult":
-        r"""<p>Deletes an account-level monthly spending limit override for sending notify messages. Deleting a spend limit override will set the <code>EnforcedLimit</code> to equal the <code>MaxLimit</code>, which is controlled by Amazon Web Services. For more information on spend limits (quotas) see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html\">Quotas </a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Deletes an account-level monthly spending limit override for sending notify messages. Deleting a spend limit override will set the <code>EnforcedLimit</code> to equal the <code>MaxLimit</code>, which is controlled by Amazon Web Services. For more information on spend limits (quotas) see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html">Quotas </a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Raises:
             capo_pinpoint_sms_voice_v2.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because you don't have sufficient permissions to access the resource.</p>
@@ -2412,7 +2412,7 @@ class AsyncPinpointSMSVoiceV2Client:
     async def delete_text_message_spend_limit_override(
         self, *, config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None
     ) -> "capo_pinpoint_sms_voice_v2.types.delete_text_message_spend_limit_override_result.DeleteTextMessageSpendLimitOverrideResult":
-        r"""<p>Deletes an account-level monthly spending limit override for sending text messages. Deleting a spend limit override will set the <code>EnforcedLimit</code> to equal the <code>MaxLimit</code>, which is controlled by Amazon Web Services. For more information on spend limits (quotas) see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html\">Quotas </a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Deletes an account-level monthly spending limit override for sending text messages. Deleting a spend limit override will set the <code>EnforcedLimit</code> to equal the <code>MaxLimit</code>, which is controlled by Amazon Web Services. For more information on spend limits (quotas) see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html">Quotas </a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Raises:
             capo_pinpoint_sms_voice_v2.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because you don't have sufficient permissions to access the resource.</p>
@@ -2500,7 +2500,7 @@ class AsyncPinpointSMSVoiceV2Client:
     async def delete_voice_message_spend_limit_override(
         self, *, config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None
     ) -> "capo_pinpoint_sms_voice_v2.types.delete_voice_message_spend_limit_override_result.DeleteVoiceMessageSpendLimitOverrideResult":
-        r"""<p>Deletes an account level monthly spend limit override for sending voice messages. Deleting a spend limit override sets the <code>EnforcedLimit</code> equal to the <code>MaxLimit</code>, which is controlled by Amazon Web Services. For more information on spending limits (quotas) see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html\">Quotas </a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Deletes an account level monthly spend limit override for sending voice messages. Deleting a spend limit override sets the <code>EnforcedLimit</code> equal to the <code>MaxLimit</code>, which is controlled by Amazon Web Services. For more information on spending limits (quotas) see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html">Quotas </a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Raises:
             capo_pinpoint_sms_voice_v2.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because you don't have sufficient permissions to access the resource.</p>
@@ -2602,7 +2602,7 @@ class AsyncPinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.describe_account_limits_result.DescribeAccountLimitsResult":
-        r"""<p>Describes the current End User Messaging SMS SMS Voice V2 resource quotas for your account. The description for a quota includes the quota name, current usage toward that quota, and the quota's maximum value.</p> <p>When you establish an Amazon Web Services account, the account has initial quotas on the maximum number of configuration sets, opt-out lists, phone numbers, and pools that you can create in a given Region. For more information see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html\">Quotas </a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Describes the current End User Messaging SMS SMS Voice V2 resource quotas for your account. The description for a quota includes the quota name, current usage toward that quota, and the quota's maximum value.</p> <p>When you establish an Amazon Web Services account, the account has initial quotas on the maximum number of configuration sets, opt-out lists, phone numbers, and pools that you can create in a given Region. For more information see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/quotas.html">Quotas </a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Args:
             next_token: <p>The token to be used for the next set of paginated results. You don't need to supply a value for this field in the initial request.</p>
@@ -4000,7 +4000,7 @@ class AsyncPinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.describe_spend_limits_result.DescribeSpendLimitsResult":
-        r"""<p>Describes the current monthly spend limits for sending voice and text messages.</p> <p>When you establish an Amazon Web Services account, the account has initial monthly spend limit in a given Region. For more information on increasing your monthly spend limit, see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/awssupport-spend-threshold.html\"> Requesting increases to your monthly SMS, MMS, or Voice spending quota </a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Describes the current monthly spend limits for sending voice and text messages.</p> <p>When you establish an Amazon Web Services account, the account has initial monthly spend limit in a given Region. For more information on increasing your monthly spend limit, see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/awssupport-spend-threshold.html"> Requesting increases to your monthly SMS, MMS, or Voice spending quota </a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Args:
             next_token: <p>The token to be used for the next set of paginated results. You don't need to supply a value for this field in the initial request.</p>
@@ -5101,7 +5101,7 @@ class AsyncPinpointSMSVoiceV2Client:
         *,
         config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.put_resource_policy_result.PutResourcePolicyResult":
-        r"""<p>Attaches a resource-based policy to a End User Messaging SMS resource(phone number, sender Id, phone poll, or opt-out list) that is used for sharing the resource. A shared resource can be a Pool, Opt-out list, Sender Id, or Phone number. For more information about resource-based policies, see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/shared-resources.html\">Working with shared resources</a> in the <i>End User Messaging SMS User Guide</i>. </p>
+        """<p>Attaches a resource-based policy to a End User Messaging SMS resource(phone number, sender Id, phone poll, or opt-out list) that is used for sharing the resource. A shared resource can be a Pool, Opt-out list, Sender Id, or Phone number. For more information about resource-based policies, see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/shared-resources.html">Working with shared resources</a> in the <i>End User Messaging SMS User Guide</i>. </p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the End User Messaging SMS resource to attach the resource-based policy to.</p>
@@ -5273,7 +5273,7 @@ class AsyncPinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.request_phone_number_result.RequestPhoneNumberResult":
-        r"""<p>Request an origination phone number for use in your account. For more information on phone number request see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-request.html\">Request a phone number</a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Request an origination phone number for use in your account. For more information on phone number request see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-request.html">Request a phone number</a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Args:
             iso_country_code: <p>The two-character code, in ISO 3166-1 alpha-2 format, for the country or region. </p>
@@ -5443,7 +5443,7 @@ class AsyncPinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.destination_country_parameters.DestinationCountryParameters"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.send_destination_number_verification_code_result.SendDestinationNumberVerificationCodeResult":
-        r"""<p>Before you can send test messages to a verified destination phone number you need to opt-in the verified destination phone number. Creates a new text message with a verification code and send it to a verified destination phone number. Once you have the verification code use <a>VerifyDestinationNumber</a> to opt-in the verified destination phone number to receive messages.</p>
+        """<p>Before you can send test messages to a verified destination phone number you need to opt-in the verified destination phone number. Creates a new text message with a verification code and send it to a verified destination phone number. Once you have the verification code use <a>VerifyDestinationNumber</a> to opt-in the verified destination phone number to receive messages.</p>
 
         Args:
             verified_destination_number_id: <p>The unique identifier for the verified destination phone number.</p>
@@ -5452,7 +5452,7 @@ class AsyncPinpointSMSVoiceV2Client:
             origination_identity: <p>The origination identity of the message. This can be either the PhoneNumber, PhoneNumberId, PhoneNumberArn, SenderId, SenderIdArn, PoolId, or PoolArn.</p> <important> <p>If you are using a shared End User Messaging SMS resource then you must use the full Amazon Resource Name(ARN).</p> </important>
             configuration_set_name: <p>The name of the configuration set to use. This can be either the ConfigurationSetName or ConfigurationSetArn.</p>
             context: <p>You can specify custom data in this field. If you do, that data is logged to the event destination.</p>
-            destination_country_parameters: <p>This field is used for any country-specific registration requirements. Currently, this setting is only used when you send messages to recipients in India using a sender ID. For more information see <a href=\"https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-senderid-india.html\">Special requirements for sending SMS messages to recipients in India</a>. </p>
+            destination_country_parameters: <p>This field is used for any country-specific registration requirements. Currently, this setting is only used when you send messages to recipients in India using a sender ID. For more information see <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-senderid-india.html">Special requirements for sending SMS messages to recipients in India</a>. </p>
 
         Raises:
             capo_pinpoint_sms_voice_v2.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because you don't have sufficient permissions to access the resource.</p>
@@ -5534,13 +5534,13 @@ class AsyncPinpointSMSVoiceV2Client:
         ] = None,
         message_feedback_enabled: Optional[bool] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.send_media_message_result.SendMediaMessageResult":
-        r"""<p>Creates a new multimedia message (MMS) and sends it to a recipient's phone number. </p>
+        """<p>Creates a new multimedia message (MMS) and sends it to a recipient's phone number. </p>
 
         Args:
             destination_phone_number: <p>The destination phone number in E.164 format.</p>
             origination_identity: <p>The origination identity of the message. This can be either the PhoneNumber, PhoneNumberId, PhoneNumberArn, SenderId, SenderIdArn, PoolId, or PoolArn.</p> <important> <p>If you are using a shared End User Messaging SMS resource then you must use the full Amazon Resource Name(ARN).</p> </important>
             message_body: <p>The text body of the message.</p>
-            media_urls: <p>An array of URLs to each media file to send. </p> <p>The media files have to be stored in an S3 bucket. Supported media file formats are listed in <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/mms-limitations-character.html\">MMS file types, size and character limits</a>. For more information on creating an S3 bucket and managing objects, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html\">Creating a bucket</a>, <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html\">Uploading objects</a> in the <i>Amazon S3 User Guide</i>, and <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/send-mms-message.html#send-mms-message-bucket\">Setting up an Amazon S3 bucket for MMS files</a> in the <i>Amazon Web Services End User Messaging SMS User Guide</i>.</p>
+            media_urls: <p>An array of URLs to each media file to send. </p> <p>The media files have to be stored in an S3 bucket. Supported media file formats are listed in <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/mms-limitations-character.html">MMS file types, size and character limits</a>. For more information on creating an S3 bucket and managing objects, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html">Creating a bucket</a>, <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html">Uploading objects</a> in the <i>Amazon S3 User Guide</i>, and <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/send-mms-message.html#send-mms-message-bucket">Setting up an Amazon S3 bucket for MMS files</a> in the <i>Amazon Web Services End User Messaging SMS User Guide</i>.</p>
             configuration_set_name: <p>The name of the configuration set to use. This can be either the ConfigurationSetName or ConfigurationSetArn.</p>
             max_price: <p>The maximum amount that you want to spend, in US dollars, per each MMS message.</p>
             time_to_live: <p>How long the media message is valid for. By default this is 72 hours.</p>
@@ -5629,13 +5629,13 @@ class AsyncPinpointSMSVoiceV2Client:
         dry_run: Optional[bool] = None,
         message_feedback_enabled: Optional[bool] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.send_notify_text_message_result.SendNotifyTextMessageResult":
-        r"""<p>Sends a templated text message through a notify configuration to a recipient's phone number.</p>
+        """<p>Sends a templated text message through a notify configuration to a recipient's phone number.</p>
 
         Args:
             notify_configuration_id: <p>The unique identifier of the notify configuration to use for sending the message. This can be either the NotifyConfigurationId or NotifyConfigurationArn.</p>
             destination_phone_number: <p>The destination phone number in E.164 format.</p>
             template_id: <p>The unique identifier of the template to use for the message.</p>
-            template_variables: <p>A map of template variable names and their values. All variable values are passed as strings regardless of the declared variable type. For example, pass <code>INTEGER</code> values as <code>\"42\"</code> and <code>BOOLEAN</code> values as <code>\"true\"</code> or <code>\"false\"</code>.</p>
+            template_variables: <p>A map of template variable names and their values. All variable values are passed as strings regardless of the declared variable type. For example, pass <code>INTEGER</code> values as <code>"42"</code> and <code>BOOLEAN</code> values as <code>"true"</code> or <code>"false"</code>.</p>
             time_to_live: <p>How long the text message is valid for, in seconds. By default this is 72 hours.</p>
             context: <p>You can specify custom data in this field. If you do, that data is logged to the event destination.</p>
             configuration_set_name: <p>The name of the configuration set to use. This can be either the ConfigurationSetName or ConfigurationSetArn.</p>
@@ -5724,13 +5724,13 @@ class AsyncPinpointSMSVoiceV2Client:
         dry_run: Optional[bool] = None,
         message_feedback_enabled: Optional[bool] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.send_notify_voice_message_result.SendNotifyVoiceMessageResult":
-        r"""<p>Sends a templated voice message through a notify configuration to a recipient's phone number.</p>
+        """<p>Sends a templated voice message through a notify configuration to a recipient's phone number.</p>
 
         Args:
             notify_configuration_id: <p>The unique identifier of the notify configuration to use for sending the message. This can be either the NotifyConfigurationId or NotifyConfigurationArn.</p>
             destination_phone_number: <p>The destination phone number in E.164 format.</p>
             template_id: <p>The unique identifier of the template to use for the message.</p>
-            template_variables: <p>A map of template variable names and their values. All variable values are passed as strings regardless of the declared variable type. For example, pass <code>INTEGER</code> values as <code>\"42\"</code> and <code>BOOLEAN</code> values as <code>\"true\"</code> or <code>\"false\"</code>.</p>
+            template_variables: <p>A map of template variable names and their values. All variable values are passed as strings regardless of the declared variable type. For example, pass <code>INTEGER</code> values as <code>"42"</code> and <code>BOOLEAN</code> values as <code>"true"</code> or <code>"false"</code>.</p>
             voice_id: <p>The voice ID to use for the voice message.</p>
             time_to_live: <p>How long the voice message is valid for, in seconds. By default this is 72 hours.</p>
             context: <p>You can specify custom data in this field. If you do, that data is logged to the event destination.</p>
@@ -5946,7 +5946,7 @@ class AsyncPinpointSMSVoiceV2Client:
         ] = None,
         message_feedback_enabled: Optional[bool] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.send_text_message_result.SendTextMessageResult":
-        r"""<p>Creates a new text message and sends it to a recipient's phone number. SendTextMessage only sends an SMS message to one recipient each time it is invoked.</p> <p>SMS throughput limits are measured in Message Parts per Second (MPS). Your MPS limit depends on the destination country of your messages, as well as the type of phone number (origination number) that you use to send the message. For more information about MPS, see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/sms-limitations-mps.html\">Message Parts per Second (MPS) limits</a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Creates a new text message and sends it to a recipient's phone number. SendTextMessage only sends an SMS message to one recipient each time it is invoked.</p> <p>SMS throughput limits are measured in Message Parts per Second (MPS). Your MPS limit depends on the destination country of your messages, as well as the type of phone number (origination number) that you use to send the message. For more information about MPS, see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/sms-limitations-mps.html">Message Parts per Second (MPS) limits</a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Args:
             destination_phone_number: <p>The destination phone number in E.164 format.</p>
@@ -5958,8 +5958,8 @@ class AsyncPinpointSMSVoiceV2Client:
             max_price: <p>The maximum amount that you want to spend, in US dollars, per each text message. If the calculated amount to send the text message is greater than <code>MaxPrice</code>, the message is not sent and an error is returned.</p>
             time_to_live: <p>How long the text message is valid for, in seconds. By default this is 72 hours. If the messages isn't handed off before the TTL expires we stop attempting to hand off the message and return <code>TTL_EXPIRED</code> event.</p>
             context: <p>You can specify custom data in this field. If you do, that data is logged to the event destination.</p>
-            destination_country_parameters: <p>This field is used for any country-specific registration requirements. Currently, this setting is only used when you send messages to recipients in India using a sender ID. For more information see <a href=\"https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-senderid-india.html\">Special requirements for sending SMS messages to recipients in India</a>. </p> <ul> <li> <p> <code>IN_ENTITY_ID</code> The entity ID or Principal Entity (PE) ID that you received after completing the sender ID registration process.</p> </li> <li> <p> <code>IN_TEMPLATE_ID</code> The template ID that you received after completing the sender ID registration process.</p> <important> <p>Make sure that the Template ID that you specify matches your message template exactly. If your message doesn't match the template that you provided during the registration process, the mobile carriers might reject your message.</p> </important> </li> </ul>
-            dry_run: <p>When set to true, the message is checked and validated, but isn't sent to the end recipient. You are not charged for using <code>DryRun</code>.</p> <p>The Message Parts per Second (MPS) limit when using <code>DryRun</code> is five. If your origination identity has a lower MPS limit then the lower MPS limit is used. For more information about MPS limits, see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/sms-limitations-mps.html\">Message Parts per Second (MPS) limits</a> in the <i>End User Messaging SMS User Guide</i>..</p>
+            destination_country_parameters: <p>This field is used for any country-specific registration requirements. Currently, this setting is only used when you send messages to recipients in India using a sender ID. For more information see <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-senderid-india.html">Special requirements for sending SMS messages to recipients in India</a>. </p> <ul> <li> <p> <code>IN_ENTITY_ID</code> The entity ID or Principal Entity (PE) ID that you received after completing the sender ID registration process.</p> </li> <li> <p> <code>IN_TEMPLATE_ID</code> The template ID that you received after completing the sender ID registration process.</p> <important> <p>Make sure that the Template ID that you specify matches your message template exactly. If your message doesn't match the template that you provided during the registration process, the mobile carriers might reject your message.</p> </important> </li> </ul>
+            dry_run: <p>When set to true, the message is checked and validated, but isn't sent to the end recipient. You are not charged for using <code>DryRun</code>.</p> <p>The Message Parts per Second (MPS) limit when using <code>DryRun</code> is five. If your origination identity has a lower MPS limit then the lower MPS limit is used. For more information about MPS limits, see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/sms-limitations-mps.html">Message Parts per Second (MPS) limits</a> in the <i>End User Messaging SMS User Guide</i>..</p>
             protect_configuration_id: <p>The unique identifier for the protect configuration.</p>
             message_feedback_enabled: <p>Set to true to enable message feedback for the message. When a user receives the message you need to update the message status using <a>PutMessageFeedback</a>.</p>
 
@@ -6057,14 +6057,14 @@ class AsyncPinpointSMSVoiceV2Client:
         ] = None,
         message_feedback_enabled: Optional[bool] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.send_voice_message_result.SendVoiceMessageResult":
-        r"""<p>Allows you to send a request that sends a voice message. This operation uses <a href=\"http://aws.amazon.com/polly/\">Amazon Polly</a> to convert a text script into a voice message.</p>
+        """<p>Allows you to send a request that sends a voice message. This operation uses <a href="http://aws.amazon.com/polly/">Amazon Polly</a> to convert a text script into a voice message.</p>
 
         Args:
             destination_phone_number: <p>The destination phone number in E.164 format.</p>
             origination_identity: <p>The origination identity to use for the voice call. This can be the PhoneNumber, PhoneNumberId, PhoneNumberArn, PoolId, or PoolArn.</p> <important> <p>If you are using a shared End User Messaging SMS resource then you must use the full Amazon Resource Name(ARN).</p> </important>
             message_body: <p>The text to convert to a voice message.</p>
-            message_body_text_type: <p>Specifies if the MessageBody field contains text or <a href=\"https://docs.aws.amazon.com/polly/latest/dg/what-is.html\">speech synthesis markup language (SSML)</a>.</p> <ul> <li> <p>TEXT: This is the default value. When used the maximum character limit is 3000.</p> </li> <li> <p>SSML: When used the maximum character limit is 6000 including SSML tagging.</p> </li> </ul>
-            voice_id: <p>The voice for the <a href=\"https://docs.aws.amazon.com/polly/latest/dg/what-is.html\">Amazon Polly</a> service to use. By default this is set to \"MATTHEW\".</p>
+            message_body_text_type: <p>Specifies if the MessageBody field contains text or <a href="https://docs.aws.amazon.com/polly/latest/dg/what-is.html">speech synthesis markup language (SSML)</a>.</p> <ul> <li> <p>TEXT: This is the default value. When used the maximum character limit is 3000.</p> </li> <li> <p>SSML: When used the maximum character limit is 6000 including SSML tagging.</p> </li> </ul>
+            voice_id: <p>The voice for the <a href="https://docs.aws.amazon.com/polly/latest/dg/what-is.html">Amazon Polly</a> service to use. By default this is set to "MATTHEW".</p>
             configuration_set_name: <p>The name of the configuration set to use. This can be either the ConfigurationSetName or ConfigurationSetArn.</p>
             max_price_per_minute: <p>The maximum amount to spend per voice message, in US dollars.</p>
             time_to_live: <p>How long the voice message is valid for. By default this is 72 hours.</p>
@@ -6635,7 +6635,7 @@ class AsyncPinpointSMSVoiceV2Client:
         *,
         config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.tag_resource_result.TagResourceResult":
-        r"""<p>Adds or overwrites only the specified tags for the specified resource. When you specify an existing tag key, the value is overwritten with the new value. Each tag consists of a key and an optional value. Tag keys must be unique per resource. For more information about tags, see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-tags.html\">Tags </a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Adds or overwrites only the specified tags for the specified resource. When you specify an existing tag key, the value is overwritten with the new value. Each tag consists of a key and an optional value. Tag keys must be unique per resource. For more information about tags, see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-tags.html">Tags </a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource.</p>
@@ -6687,7 +6687,7 @@ class AsyncPinpointSMSVoiceV2Client:
         *,
         config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.untag_resource_result.UntagResourceResult":
-        r"""<p>Removes the association of the specified tags from a resource. For more information on tags see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-tags.html\">Tags </a> in the <i>End User Messaging SMS User Guide</i>.</p>
+        """<p>Removes the association of the specified tags from a resource. For more information on tags see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-tags.html">Tags </a> in the <i>End User Messaging SMS User Guide</i>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource.</p>
@@ -7120,12 +7120,12 @@ class AsyncPinpointSMSVoiceV2Client:
         *,
         config_overrides: Optional[AsyncPinpointSMSVoiceV2ClientConfig] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.update_protect_configuration_country_rule_set_result.UpdateProtectConfigurationCountryRuleSetResult":
-        r"""<p>Update a country rule set to <code>ALLOW</code>, <code>BLOCK</code>, <code>MONITOR</code>, or <code>FILTER</code> messages to be sent to the specified destination counties. You can update one or multiple countries at a time. The updates are only applied to the specified NumberCapability type.</p>
+        """<p>Update a country rule set to <code>ALLOW</code>, <code>BLOCK</code>, <code>MONITOR</code>, or <code>FILTER</code> messages to be sent to the specified destination counties. You can update one or multiple countries at a time. The updates are only applied to the specified NumberCapability type.</p>
 
         Args:
             protect_configuration_id: <p>The unique identifier for the protect configuration.</p>
             number_capability: <p>The number capability to apply the CountryRuleSetUpdates updates to.</p>
-            country_rule_set_updates: <p>A map of ProtectConfigurationCountryRuleSetInformation objects that contain the details for the requested NumberCapability. The Key is the two-letter ISO country code. For a list of supported ISO country codes, see <a href=\"https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-sms-by-country.html\">Supported countries and regions (SMS channel)</a> in the End User Messaging SMS User Guide.</p> <p>For example, to set the United States as allowed and Canada as blocked, the <code>CountryRuleSetUpdates</code> would be formatted as: <code>\"CountryRuleSetUpdates\": { \"US\" : { \"ProtectStatus\": \"ALLOW\" } \"CA\" : { \"ProtectStatus\": \"BLOCK\" } }</code> </p>
+            country_rule_set_updates: <p>A map of ProtectConfigurationCountryRuleSetInformation objects that contain the details for the requested NumberCapability. The Key is the two-letter ISO country code. For a list of supported ISO country codes, see <a href="https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-sms-by-country.html">Supported countries and regions (SMS channel)</a> in the End User Messaging SMS User Guide.</p> <p>For example, to set the United States as allowed and Canada as blocked, the <code>CountryRuleSetUpdates</code> would be formatted as: <code>"CountryRuleSetUpdates": { "US" : { "ProtectStatus": "ALLOW" } "CA" : { "ProtectStatus": "BLOCK" } }</code> </p>
 
         Raises:
             capo_pinpoint_sms_voice_v2.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because you don't have sufficient permissions to access the resource.</p>

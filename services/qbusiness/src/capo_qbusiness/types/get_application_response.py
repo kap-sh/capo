@@ -69,7 +69,7 @@ class GetApplicationResponse(TypedDict, closed=True):
     personalization_configuration: NotRequired[
         "capo_qbusiness.types.personalization_configuration.PersonalizationConfiguration"
     ]
-    r"""<p>Configuration information about chat response personalization. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/personalizing-chat-responses.html\">Personalizing chat responses</a>.</p>"""
+    """<p>Configuration information about chat response personalization. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/personalizing-chat-responses.html">Personalizing chat responses</a>.</p>"""
     auto_subscription_configuration: NotRequired[
         "capo_qbusiness.types.auto_subscription_configuration.AutoSubscriptionConfiguration"
     ]

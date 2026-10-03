@@ -27,7 +27,7 @@ class UpdateIncidentRecordInput(TypedDict, closed=True):
     summary: NotRequired["capo_ssm_incidents.types.incident_summary.IncidentSummary"]
     """<p>A longer description of what occurred during the incident.</p>"""
     impact: NotRequired["capo_ssm_incidents.types.impact.Impact"]
-    r"""<p>Defines the impact of the incident to customers and applications. If you provide an impact for an incident, it overwrites the impact provided by the response plan.</p> <p class=\"title\"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>"""
+    """<p>Defines the impact of the incident to customers and applications. If you provide an impact for an incident, it overwrites the impact provided by the response plan.</p> <p class="title"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>"""
     status: NotRequired[
         "capo_ssm_incidents.types.incident_record_status.IncidentRecordStatus"
     ]

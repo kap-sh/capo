@@ -70,7 +70,7 @@ class EnvironmentDescription(TypedDict, closed=True):
     status: NotRequired[
         "capo_elastic_beanstalk.types.environment_status.EnvironmentStatus"
     ]
-    r"""<p>The current operational status of the environment:</p> <ul> <li> <p> <code>Aborting</code>: Environment is in the process of aborting a deployment.</p> </li> <li> <p> <code>Launching</code>: Environment is in the process of initial deployment.</p> </li> <li> <p> <code>LinkingFrom</code>: Environment is in the process of being linked to by another environment. See <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-links.html\">Environment links</a> for details.</p> </li> <li> <p> <code>LinkingTo</code>: Environment is in the process of linking to another environment. See <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-links.html\">Environment links</a> for details.</p> </li> <li> <p> <code>Updating</code>: Environment is in the process of updating its configuration settings or application version.</p> </li> <li> <p> <code>Ready</code>: Environment is available to have an action performed on it, such as update or terminate.</p> </li> <li> <p> <code>Terminating</code>: Environment is in the shut-down process.</p> </li> <li> <p> <code>Terminated</code>: Environment is not running.</p> </li> </ul>"""
+    """<p>The current operational status of the environment:</p> <ul> <li> <p> <code>Aborting</code>: Environment is in the process of aborting a deployment.</p> </li> <li> <p> <code>Launching</code>: Environment is in the process of initial deployment.</p> </li> <li> <p> <code>LinkingFrom</code>: Environment is in the process of being linked to by another environment. See <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-links.html">Environment links</a> for details.</p> </li> <li> <p> <code>LinkingTo</code>: Environment is in the process of linking to another environment. See <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-links.html">Environment links</a> for details.</p> </li> <li> <p> <code>Updating</code>: Environment is in the process of updating its configuration settings or application version.</p> </li> <li> <p> <code>Ready</code>: Environment is available to have an action performed on it, such as update or terminate.</p> </li> <li> <p> <code>Terminating</code>: Environment is in the shut-down process.</p> </li> <li> <p> <code>Terminated</code>: Environment is not running.</p> </li> </ul>"""
     abortable_operation_in_progress: NotRequired[
         "capo_elastic_beanstalk.types.abortable_operation_in_progress.AbortableOperationInProgress"
     ]
@@ -82,7 +82,7 @@ class EnvironmentDescription(TypedDict, closed=True):
     health_status: NotRequired[
         "capo_elastic_beanstalk.types.environment_health_status.EnvironmentHealthStatus"
     ]
-    r"""<p>Returns the health status of the application running in your environment. For more information, see <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html\">Health Colors and Statuses</a>.</p>"""
+    """<p>Returns the health status of the application running in your environment. For more information, see <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html">Health Colors and Statuses</a>.</p>"""
     resources: NotRequired[
         "capo_elastic_beanstalk.types.environment_resources_description.EnvironmentResourcesDescription"
     ]

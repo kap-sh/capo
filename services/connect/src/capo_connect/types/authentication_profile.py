@@ -34,9 +34,9 @@ class AuthenticationProfile(TypedDict, closed=True):
     ]
     """<p>The description for the authentication profile.</p>"""
     allowed_ips: NotRequired["capo_connect.types.ip_cidr_list.IpCidrList"]
-    r"""<p>A list of IP address range strings that are allowed to access the Connect Customer instance. For more information about how to configure IP addresses, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-ip-based-ac\">Configure IP address based access control</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>A list of IP address range strings that are allowed to access the Connect Customer instance. For more information about how to configure IP addresses, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-ip-based-ac">Configure IP address based access control</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
     blocked_ips: NotRequired["capo_connect.types.ip_cidr_list.IpCidrList"]
-    r"""<p>A list of IP address range strings that are blocked from accessing the Connect Customer instance. For more information about how to configure IP addresses, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-ip-based-ac\">Configure IP address based access control</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>A list of IP address range strings that are blocked from accessing the Connect Customer instance. For more information about how to configure IP addresses, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-ip-based-ac">Configure IP address based access control</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
     is_default: "capo_connect.types.boolean.Boolean"
     """<p>Shows whether the authentication profile is the default authentication profile for the Connect Customer instance. The default authentication profile applies to all agents in an Connect Customer instance, unless overridden by another authentication profile.</p>"""
     created_time: NotRequired["capo_connect.types.timestamp.Timestamp"]
@@ -48,11 +48,11 @@ class AuthenticationProfile(TypedDict, closed=True):
     periodic_session_duration: NotRequired[
         "capo_connect.types.access_token_duration.AccessTokenDuration"
     ]
-    r"""<p>The short lived session duration configuration for users logged in to Connect Customer, in minutes. This value determines the maximum possible time before an agent is authenticated. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts\">Configure the session duration</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>The short lived session duration configuration for users logged in to Connect Customer, in minutes. This value determines the maximum possible time before an agent is authenticated. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts">Configure the session duration</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
     max_session_duration: NotRequired[
         "capo_connect.types.refresh_token_duration.RefreshTokenDuration"
     ]
-    r"""<p>The long lived session duration for users logged in to Connect Customer, in minutes. After this time period, users must log in again. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts\">Configure the session duration</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>The long lived session duration for users logged in to Connect Customer, in minutes. After this time period, users must log in again. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts">Configure the session duration</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
     session_inactivity_duration: NotRequired[
         "capo_connect.types.inactivity_duration.InactivityDuration"
     ]

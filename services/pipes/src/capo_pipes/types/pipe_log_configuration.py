@@ -30,7 +30,7 @@ class PipeLogConfiguration(TypedDict, closed=True):
     include_execution_data: NotRequired[
         "capo_pipes.types.include_execution_data.IncludeExecutionData"
     ]
-    r"""<p>Whether the execution data (specifically, the <code>payload</code>, <code>awsRequest</code>, and <code>awsResponse</code> fields) is included in the log messages for this pipe.</p> <p>This applies to all log destinations for the pipe.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes-logs.html#eb-pipes-logs-execution-data\">Including execution data in logs</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>Whether the execution data (specifically, the <code>payload</code>, <code>awsRequest</code>, and <code>awsResponse</code> fields) is included in the log messages for this pipe.</p> <p>This applies to all log destinations for the pipe.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes-logs.html#eb-pipes-logs-execution-data">Including execution data in logs</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

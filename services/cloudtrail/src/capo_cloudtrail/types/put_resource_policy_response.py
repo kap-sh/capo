@@ -17,7 +17,7 @@ class PutResourcePolicyResponse(TypedDict, closed=True):
     delegated_admin_resource_policy: NotRequired[
         "capo_cloudtrail.types.resource_policy.ResourcePolicy"
     ]
-    r"""<p> The default resource-based policy that is automatically generated for the delegated administrator of an Organizations organization. This policy will be evaluated in tandem with any policy you submit for the resource. For more information about this policy, see <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake-organizations.html#cloudtrail-lake-organizations-eds-rbp\">Default resource policy for delegated administrators</a>. </p>"""
+    """<p> The default resource-based policy that is automatically generated for the delegated administrator of an Organizations organization. This policy will be evaluated in tandem with any policy you submit for the resource. For more information about this policy, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake-organizations.html#cloudtrail-lake-organizations-eds-rbp">Default resource policy for delegated administrators</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

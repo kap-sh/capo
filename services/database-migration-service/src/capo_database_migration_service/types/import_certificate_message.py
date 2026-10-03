@@ -23,7 +23,7 @@ class ImportCertificateMessage(TypedDict, closed=True):
     certificate_wallet: NotRequired[
         "capo_database_migration_service.types.certificate_wallet.CertificateWallet"
     ]
-    r"""<p>The location of an imported Oracle Wallet certificate for use with SSL. Provide the name of a <code>.sso</code> file using the <code>fileb://</code> prefix. You can't provide the certificate inline.</p> <p>Example: <code>filebase64(\"${path.root}/rds-ca-2019-root.sso\")</code> </p>"""
+    """<p>The location of an imported Oracle Wallet certificate for use with SSL. Provide the name of a <code>.sso</code> file using the <code>fileb://</code> prefix. You can't provide the certificate inline.</p> <p>Example: <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code> </p>"""
     tags: NotRequired["capo_database_migration_service.types.tag_list.TagList"]
     """<p>The tags associated with the certificate.</p>"""
     kms_key_id: NotRequired["capo_database_migration_service.types.string.String"]

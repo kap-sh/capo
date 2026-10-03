@@ -28,7 +28,7 @@ class SendNotifyTextMessageRequest(TypedDict, closed=True):
     ]
     """<p>The unique identifier of the template to use for the message.</p>"""
     template_variables: "capo_pinpoint_sms_voice_v2.types.template_variable_substitution_map.TemplateVariableSubstitutionMap"
-    r"""<p>A map of template variable names and their values. All variable values are passed as strings regardless of the declared variable type. For example, pass <code>INTEGER</code> values as <code>\"42\"</code> and <code>BOOLEAN</code> values as <code>\"true\"</code> or <code>\"false\"</code>.</p>"""
+    """<p>A map of template variable names and their values. All variable values are passed as strings regardless of the declared variable type. For example, pass <code>INTEGER</code> values as <code>"42"</code> and <code>BOOLEAN</code> values as <code>"true"</code> or <code>"false"</code>.</p>"""
     time_to_live: NotRequired[
         "capo_pinpoint_sms_voice_v2.types.time_to_live.TimeToLive"
     ]

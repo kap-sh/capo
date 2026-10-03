@@ -5,7 +5,7 @@ from typing_extensions import TypedDict
 
 class ListTagsForResourceInput(TypedDict, closed=True):
     resource_arn: "str"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of the view or index that you want to attach tags to.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of the view or index that you want to attach tags to.</p>"""
 
 
 # --- restJson1 ser/de ---

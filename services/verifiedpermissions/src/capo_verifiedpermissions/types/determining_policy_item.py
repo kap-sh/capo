@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DeterminingPolicyItem(TypedDict, closed=True):
     policy_id: "capo_verifiedpermissions.types.policy_id.PolicyId"
-    r"""<p>The Id of a policy that determined to an authorization decision.</p> <p>Example: <code>\"policyId\":\"SPEXAMPLEabcdefg111111\"</code> </p>"""
+    """<p>The Id of a policy that determined to an authorization decision.</p> <p>Example: <code>"policyId":"SPEXAMPLEabcdefg111111"</code> </p>"""
 
 
 # --- awsJson1_0 ser/de ---

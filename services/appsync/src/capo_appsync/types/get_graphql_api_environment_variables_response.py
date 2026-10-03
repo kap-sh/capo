@@ -12,7 +12,7 @@ class GetGraphqlApiEnvironmentVariablesResponse(TypedDict, closed=True):
     environment_variables: NotRequired[
         "capo_appsync.types.environment_variable_map.EnvironmentVariableMap"
     ]
-    r"""<p>The payload containing each environmental variable in the <code>\"key\" : \"value\"</code> format.</p>"""
+    """<p>The payload containing each environmental variable in the <code>"key" : "value"</code> format.</p>"""
 
 
 # --- restJson1 ser/de ---

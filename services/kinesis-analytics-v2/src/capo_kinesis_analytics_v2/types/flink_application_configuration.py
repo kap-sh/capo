@@ -14,7 +14,7 @@ class FlinkApplicationConfiguration(TypedDict, closed=True):
     checkpoint_configuration: NotRequired[
         "capo_kinesis_analytics_v2.types.checkpoint_configuration.CheckpointConfiguration"
     ]
-    r"""<p>Describes an application's checkpointing configuration. Checkpointing is the process of persisting application state for fault tolerance. For more information, see <a href=\"https://nightlies.apache.org/flink/flink-docs-release-2.3/docs/dev/datastream/fault-tolerance/checkpointing/#enabling-and-configuring-checkpointing\"> Checkpoints for Fault Tolerance</a> in the <a href=\"https://nightlies.apache.org/flink/flink-docs-release-2.3/\">Apache Flink Documentation</a>. </p>"""
+    """<p>Describes an application's checkpointing configuration. Checkpointing is the process of persisting application state for fault tolerance. For more information, see <a href="https://nightlies.apache.org/flink/flink-docs-release-2.3/docs/dev/datastream/fault-tolerance/checkpointing/#enabling-and-configuring-checkpointing"> Checkpoints for Fault Tolerance</a> in the <a href="https://nightlies.apache.org/flink/flink-docs-release-2.3/">Apache Flink Documentation</a>. </p>"""
     monitoring_configuration: NotRequired[
         "capo_kinesis_analytics_v2.types.monitoring_configuration.MonitoringConfiguration"
     ]

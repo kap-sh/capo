@@ -20,7 +20,7 @@ class ControlScope(TypedDict, closed=True):
     ]
     """<p>Describes whether the control scope includes one or more types of resources, such as <code>EFS</code> or <code>RDS</code>.</p>"""
     tags: NotRequired["capo_backup.types.string_map.stringMap"]
-    r"""<p>The tag key-value pair applied to those Amazon Web Services resources that you want to trigger an evaluation for a rule. A maximum of one key-value pair can be provided. The tag value is optional, but it cannot be an empty string if you are creating or editing a framework from the console (though the value can be an empty string when included in a CloudFormation template).</p> <p>The structure to assign a tag is: <code>[{\"Key\":\"string\",\"Value\":\"string\"}]</code>.</p>"""
+    """<p>The tag key-value pair applied to those Amazon Web Services resources that you want to trigger an evaluation for a rule. A maximum of one key-value pair can be provided. The tag value is optional, but it cannot be an empty string if you are creating or editing a framework from the console (though the value can be an empty string when included in a CloudFormation template).</p> <p>The structure to assign a tag is: <code>[{"Key":"string","Value":"string"}]</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""Nullable integer — no default, absence means \"not set\"."""
+"""Nullable integer — no default, absence means "not set"."""
 NullableInteger: TypeAlias = int

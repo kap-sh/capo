@@ -32,9 +32,9 @@ class PutPlaybackConfigurationResponse(TypedDict, closed=True):
     avail_suppression: NotRequired[
         "capo_mediatailor.types.avail_suppression.AvailSuppression"
     ]
-    r"""<p>The configuration for avail suppression, also known as ad suppression. For more information about ad suppression, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html\">Ad Suppression</a>.</p>"""
+    """<p>The configuration for avail suppression, also known as ad suppression. For more information about ad suppression, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Suppression</a>.</p>"""
     bumper: NotRequired["capo_mediatailor.types.bumper.Bumper"]
-    r"""<p>The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the end of an ad break. To learn more about bumpers, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html\">Bumpers</a>.</p>"""
+    """<p>The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the end of an ad break. To learn more about bumpers, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.</p>"""
     cdn_configuration: NotRequired[
         "capo_mediatailor.types.cdn_configuration.CdnConfiguration"
     ]
@@ -42,7 +42,7 @@ class PutPlaybackConfigurationResponse(TypedDict, closed=True):
     configuration_aliases: NotRequired[
         "capo_mediatailor.types.configuration_aliases_response.ConfigurationAliasesResponse"
     ]
-    r"""<p>The player parameters and aliases used as dynamic variables during session initialization. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domains.html\">Domain Variables</a>.</p>"""
+    """<p>The player parameters and aliases used as dynamic variables during session initialization. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domains.html">Domain Variables</a>.</p>"""
     dash_configuration: NotRequired[
         "capo_mediatailor.types.dash_configuration.DashConfiguration"
     ]
@@ -70,7 +70,7 @@ class PutPlaybackConfigurationResponse(TypedDict, closed=True):
     personalization_threshold_seconds: NotRequired[
         "capo_mediatailor.types.__integer_min1.__integerMin1"
     ]
-    r"""<p>Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration of underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is abandoned and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and VOD streams, rather than ad insertion, because it relies on an underlying content stream. For more information about ad break behavior, including ad replacement and insertion, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html\">Ad Behavior in AWS Elemental MediaTailor</a>.</p>"""
+    """<p>Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration of underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is abandoned and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and VOD streams, rather than ad insertion, because it relies on an underlying content stream. For more information about ad break behavior, including ad replacement and insertion, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental MediaTailor</a>.</p>"""
     playback_configuration_arn: NotRequired["capo_mediatailor.types.__string.__string"]
     """<p>The Amazon Resource Name (ARN) associated with the playback configuration.</p>"""
     playback_endpoint_prefix: NotRequired["capo_mediatailor.types.__string.__string"]
@@ -90,7 +90,7 @@ class PutPlaybackConfigurationResponse(TypedDict, closed=True):
     slate_ad_url: NotRequired["capo_mediatailor.types.__string.__string"]
     """<p>The URL for a high-quality video asset to transcode and use to fill in time that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in gaps in media content. Configuring the slate is optional for non-VPAID configurations. For VPAID, the slate is required because MediaTailor provides it in the slots that are designated for dynamic ad content. The slate must be a high-quality asset that contains both audio and video.</p>"""
     tags: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
-    r"""<p>The tags to assign to the playback configuration. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>"""
+    """<p>The tags to assign to the playback configuration. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>"""
     transcode_profile_name: NotRequired["capo_mediatailor.types.__string.__string"]
     """<p>The name that is used to associate this playback configuration with a custom transcode profile. This overrides the dynamic transcoding defaults of MediaTailor. Use this only if you have already set up custom profiles with the help of AWS Support.</p>"""
     video_content_source_url: NotRequired["capo_mediatailor.types.__string.__string"]
@@ -110,7 +110,7 @@ class PutPlaybackConfigurationResponse(TypedDict, closed=True):
     function_mapping: NotRequired[
         "capo_mediatailor.types.function_mapping.FunctionMapping"
     ]
-    r"""<p>A map of lifecycle hook event names to function identifiers. The function mapping specifies which function MediaTailor executes at each lifecycle hook during ad insertion. Valid keys are <code>PRE_SESSION_INITIALIZATION</code>, <code>PRE_ADS_REQUEST</code>, <code>POST_ADS_RESPONSE</code>, and <code>PRE_MANIFEST_INSERTION</code>. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-hooks.html\">Functions lifecycle hooks</a> in the <i>MediaTailor User Guide</i>.</p>"""
+    """<p>A map of lifecycle hook event names to function identifiers. The function mapping specifies which function MediaTailor executes at each lifecycle hook during ad insertion. Valid keys are <code>PRE_SESSION_INITIALIZATION</code>, <code>PRE_ADS_REQUEST</code>, <code>POST_ADS_RESPONSE</code>, and <code>PRE_MANIFEST_INSERTION</code>. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-hooks.html">Functions lifecycle hooks</a> in the <i>MediaTailor User Guide</i>.</p>"""
     ads_personalization_timeouts: NotRequired[
         "capo_mediatailor.types.ads_personalization_timeouts.AdsPersonalizationTimeouts"
     ]

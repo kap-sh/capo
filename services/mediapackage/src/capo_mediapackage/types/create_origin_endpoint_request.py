@@ -31,7 +31,7 @@ class CreateOriginEndpointRequest(TypedDict, closed=True):
     id: NotRequired["capo_mediapackage.types.__string.__string"]
     """The ID of the OriginEndpoint. The ID must be unique within the region and it cannot be changed after the OriginEndpoint is created."""
     manifest_name: NotRequired["capo_mediapackage.types.__string.__string"]
-    r"""A short string that will be used as the filename of the OriginEndpoint URL (defaults to \"index\")."""
+    """A short string that will be used as the filename of the OriginEndpoint URL (defaults to "index")."""
     mss_package: NotRequired["capo_mediapackage.types.mss_package.MssPackage"]
     origination: NotRequired["capo_mediapackage.types.origination.Origination"]
     """Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination"""

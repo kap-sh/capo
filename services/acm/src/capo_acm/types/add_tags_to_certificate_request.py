@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class AddTagsToCertificateRequest(TypedDict, closed=True):
     certificate_arn: "capo_acm.types.arn.Arn"
-    r"""<p>String that contains the ARN of the ACM certificate to which the tag is to be applied. This must be of the form:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a>.</p>"""
+    """<p>String that contains the ARN of the ACM certificate to which the tag is to be applied. This must be of the form:</p> <p> <code>arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012</code> </p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a>.</p>"""
     tags: "capo_acm.types.tag_list.TagList"
     """<p>The key-value pair that defines the tag. The tag value is optional.</p>"""
 

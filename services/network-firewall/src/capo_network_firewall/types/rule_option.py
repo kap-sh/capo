@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class RuleOption(TypedDict, closed=True):
     keyword: "capo_network_firewall.types.keyword.Keyword"
-    r"""<p>The keyword for the Suricata compatible rule option. You must include a <code>sid</code> (signature ID), and can optionally include other keywords. For information about Suricata compatible keywords, see <a href=\"https://suricata.readthedocs.io/en/suricata-7.0.8/rules/intro.html#rule-options\">Rule options</a> in the Suricata documentation.</p>"""
+    """<p>The keyword for the Suricata compatible rule option. You must include a <code>sid</code> (signature ID), and can optionally include other keywords. For information about Suricata compatible keywords, see <a href="https://suricata.readthedocs.io/en/suricata-7.0.8/rules/intro.html#rule-options">Rule options</a> in the Suricata documentation.</p>"""
     settings: NotRequired["capo_network_firewall.types.settings.Settings"]
-    r"""<p>The settings of the Suricata compatible rule option. Rule options have zero or more setting values, and the number of possible and required settings depends on the <code>Keyword</code>. For more information about the settings for specific options, see <a href=\"https://suricata.readthedocs.io/en/suricata-7.0.8/rules/intro.html#rule-options\">Rule options</a>.</p>"""
+    """<p>The settings of the Suricata compatible rule option. Rule options have zero or more setting values, and the number of possible and required settings depends on the <code>Keyword</code>. For more information about the settings for specific options, see <a href="https://suricata.readthedocs.io/en/suricata-7.0.8/rules/intro.html#rule-options">Rule options</a>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

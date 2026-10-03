@@ -38,7 +38,7 @@ class DBInstanceAutomatedBackup(TypedDict, closed=True):
     port: NotRequired["capo_rds.types.integer.Integer"]
     """<p>The port number that the automated backup used for connections.</p> <p>Default: Inherits from the source DB instance</p> <p>Valid Values: <code>1150-65535</code> </p>"""
     availability_zone: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The Availability Zone that the automated backup was created in. For information on Amazon Web Services Regions and Availability Zones, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html\">Regions and Availability Zones</a>.</p>"""
+    """<p>The Availability Zone that the automated backup was created in. For information on Amazon Web Services Regions and Availability Zones, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions and Availability Zones</a>.</p>"""
     vpc_id: NotRequired["capo_rds.types.string.String"]
     """<p>The VPC ID associated with the DB instance.</p>"""
     instance_create_time: NotRequired["capo_rds.types.t_stamp.TStamp"]

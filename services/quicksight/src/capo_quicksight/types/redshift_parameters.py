@@ -27,7 +27,7 @@ class RedshiftParameters(TypedDict, closed=True):
     iam_parameters: NotRequired[
         "capo_quicksight.types.redshift_iam_parameters.RedshiftIAMParameters"
     ]
-    r"""<p>An optional parameter that uses IAM authentication to grant Quick Sight access to your cluster. This parameter can be used instead of <a href=\"https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSourceCredentials.html\">DataSourceCredentials</a>.</p>"""
+    """<p>An optional parameter that uses IAM authentication to grant Quick Sight access to your cluster. This parameter can be used instead of <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSourceCredentials.html">DataSourceCredentials</a>.</p>"""
     identity_center_configuration: NotRequired[
         "capo_quicksight.types.identity_center_configuration.IdentityCenterConfiguration"
     ]

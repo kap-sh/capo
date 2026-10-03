@@ -15,7 +15,7 @@ class FilterCircle(TypedDict, closed=True):
     center: "capo_geo_places.types.position.Position"
     """<p>The center position in World Geodetic System (WGS 84) format: [longitude, latitude].</p>"""
     radius: "capo_geo_places.types.distance_meters.DistanceMeters"
-    r"""<p> The radius, in meters, of the <code>FilterCircle</code>. For <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers,<code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions support only up to a maximum value of 300,000. </p>"""
+    """<p> The radius, in meters, of the <code>FilterCircle</code>. For <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers,<code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions support only up to a maximum value of 300,000. </p>"""
 
 
 # --- restJson1 ser/de ---

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateInstanceResponse(TypedDict, closed=True):
     instance_arn: NotRequired["capo_sso_admin.types.instance_arn.InstanceArn"]
-    r"""<p>The ARN of the instance of IAM Identity Center under which the operation will run. </p> <p>For more information about ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The ARN of the instance of IAM Identity Center under which the operation will run. </p> <p>For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

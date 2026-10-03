@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 
 class ValidationError(TypedDict, closed=True):
     code: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The error code that indicates why the parameter or parameter combination is not valid. For more information about error codes, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html\">Error codes</a>.</p>"""
+    """<p>The error code that indicates why the parameter or parameter combination is not valid. For more information about error codes, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error codes</a>.</p>"""
     message: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The error message that describes why the parameter or parameter combination is not valid. For more information about error messages, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html\">Error codes</a>.</p>"""
+    """<p>The error message that describes why the parameter or parameter combination is not valid. For more information about error messages, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error codes</a>.</p>"""
 
 
 # --- ec2Query ser/de ---

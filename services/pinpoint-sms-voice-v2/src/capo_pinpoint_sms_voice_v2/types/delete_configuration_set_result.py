@@ -35,7 +35,7 @@ class DeleteConfigurationSetResult(TypedDict, closed=True):
     default_message_feedback_enabled: NotRequired["bool"]
     """<p>True if the configuration set has message feedback enabled. By default this is set to false. </p>"""
     created_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time that the deleted configuration set was created in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time that the deleted configuration set was created in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

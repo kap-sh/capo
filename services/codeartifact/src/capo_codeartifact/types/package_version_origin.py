@@ -13,7 +13,7 @@ class PackageVersionOrigin(TypedDict, closed=True):
     domain_entry_point: NotRequired[
         "capo_codeartifact.types.domain_entry_point.DomainEntryPoint"
     ]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_DomainEntryPoint.html\">DomainEntryPoint</a> object that contains information about from which repository or external connection the package version was added to the domain.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_DomainEntryPoint.html">DomainEntryPoint</a> object that contains information about from which repository or external connection the package version was added to the domain.</p>"""
     origin_type: NotRequired[
         "capo_codeartifact.types.package_version_origin_type.PackageVersionOriginType"
     ]

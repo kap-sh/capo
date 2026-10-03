@@ -17,7 +17,7 @@ class AdminScope(TypedDict, closed=True):
     organizational_unit_scope: NotRequired[
         "capo_fms.types.organizational_unit_scope.OrganizationalUnitScope"
     ]
-    r"""<p>Defines the Organizations organizational units that the specified Firewall Manager administrator can apply policies to. For more information about OUs in Organizations, see <a href=\"https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_ous.html\">Managing organizational units (OUs) </a> in the <i>Organizations User Guide</i>.</p>"""
+    """<p>Defines the Organizations organizational units that the specified Firewall Manager administrator can apply policies to. For more information about OUs in Organizations, see <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_ous.html">Managing organizational units (OUs) </a> in the <i>Organizations User Guide</i>.</p>"""
     region_scope: NotRequired["capo_fms.types.region_scope.RegionScope"]
     """<p>Defines the Amazon Web Services Regions that the specified Firewall Manager administrator can perform actions in.</p>"""
     policy_type_scope: NotRequired["capo_fms.types.policy_type_scope.PolicyTypeScope"]

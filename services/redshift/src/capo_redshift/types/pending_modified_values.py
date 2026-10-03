@@ -39,7 +39,7 @@ class PendingModifiedValues(TypedDict, closed=True):
     enhanced_vpc_routing: NotRequired[
         "capo_redshift.types.boolean_optional.BooleanOptional"
     ]
-    r"""<p>An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see <a href=\"https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html\">Enhanced VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default: false</p>"""
+    """<p>An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default: false</p>"""
     maintenance_track_name: NotRequired["capo_redshift.types.string.String"]
     """<p>The name of the maintenance track that the cluster will change to during the next maintenance window.</p>"""
     encryption_type: NotRequired["capo_redshift.types.string.String"]

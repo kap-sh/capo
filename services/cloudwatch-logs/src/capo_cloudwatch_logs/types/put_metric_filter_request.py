@@ -30,11 +30,11 @@ class PutMetricFilterRequest(TypedDict, closed=True):
     apply_on_transformed_logs: (
         "capo_cloudwatch_logs.types.apply_on_transformed_logs.ApplyOnTransformedLogs"
     )
-    r"""<p>This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutTransformer.html\">PutTransformer</a>.</p> <p>If the log group uses either a log-group level or account-level transformer, and you specify <code>true</code>, the metric filter will be applied on the transformed version of the log events instead of the original ingested log events.</p>"""
+    """<p>This parameter is valid only for log groups that have an active log transformer. For more information about log transformers, see <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutTransformer.html">PutTransformer</a>.</p> <p>If the log group uses either a log-group level or account-level transformer, and you specify <code>true</code>, the metric filter will be applied on the transformed version of the log events instead of the original ingested log events.</p>"""
     field_selection_criteria: NotRequired[
         "capo_cloudwatch_logs.types.field_selection_criteria.FieldSelectionCriteria"
     ]
-    r"""<p>A filter expression that specifies which log events should be processed by this metric filter based on system fields such as source account and source region. Uses selection criteria syntax with operators like <code>=</code>, <code>!=</code>, <code>AND</code>, <code>OR</code>, <code>IN</code>, <code>NOT IN</code>. Example: <code>@aws.region = \"us-east-1\"</code> or <code>@aws.account IN [\"123456789012\", \"987654321098\"]</code>. Maximum length: 2000 characters.</p>"""
+    """<p>A filter expression that specifies which log events should be processed by this metric filter based on system fields such as source account and source region. Uses selection criteria syntax with operators like <code>=</code>, <code>!=</code>, <code>AND</code>, <code>OR</code>, <code>IN</code>, <code>NOT IN</code>. Example: <code>@aws.region = "us-east-1"</code> or <code>@aws.account IN ["123456789012", "987654321098"]</code>. Maximum length: 2000 characters.</p>"""
     emit_system_field_dimensions: NotRequired[
         "capo_cloudwatch_logs.types.emit_system_fields.EmitSystemFields"
     ]

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DescribeOrganizationConfigurationRequest(TypedDict, closed=True):
     detector_id: "capo_guardduty.types.detector_id.DetectorId"
-    r"""<p>The detector ID of the delegated administrator for which you need to retrieve the information.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href=\"https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html\">ListDetectors</a> API.</p>"""
+    """<p>The detector ID of the delegated administrator for which you need to retrieve the information.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>"""
     max_results: NotRequired["capo_guardduty.types.max_results.MaxResults"]
     """<p>You can use this parameter to indicate the maximum number of items that you want in the response.</p>"""
     next_token: NotRequired["capo_guardduty.types.string.String"]

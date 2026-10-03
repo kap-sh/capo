@@ -21,15 +21,15 @@ class ConditionCheck(TypedDict, closed=True):
     table_name: "capo_dynamodb.types.table_arn.TableArn"
     """<p>Name of the table for the check item request. You can also provide the Amazon Resource Name (ARN) of the table in this parameter.</p>"""
     condition_expression: "capo_dynamodb.types.condition_expression.ConditionExpression"
-    r"""<p>A condition that must be satisfied in order for a conditional update to succeed. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html\">Condition expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>"""
+    """<p>A condition that must be satisfied in order for a conditional update to succeed. For more information, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html">Condition expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>"""
     expression_attribute_names: NotRequired[
         "capo_dynamodb.types.expression_attribute_name_map.ExpressionAttributeNameMap"
     ]
-    r"""<p>One or more substitution tokens for attribute names in an expression. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html\">Expression attribute names</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>"""
+    """<p>One or more substitution tokens for attribute names in an expression. For more information, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html">Expression attribute names</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>"""
     expression_attribute_values: NotRequired[
         "capo_dynamodb.types.expression_attribute_value_map.ExpressionAttributeValueMap"
     ]
-    r"""<p>One or more values that can be substituted in an expression. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html\">Condition expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>"""
+    """<p>One or more values that can be substituted in an expression. For more information, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html">Condition expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>"""
     return_values_on_condition_check_failure: NotRequired[
         "capo_dynamodb.types.return_values_on_condition_check_failure.ReturnValuesOnConditionCheckFailure"
     ]

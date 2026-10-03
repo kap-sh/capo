@@ -61,13 +61,13 @@ class JobResource:
         name: Optional["capo_location.types.resource_name.ResourceName"] = None,
         tags: Optional["capo_location.types.tag_map.TagMap"] = None,
     ) -> "capo_location.types.start_job_response.StartJobResponse":
-        r"""<p> <code>StartJob</code> starts a new asynchronous bulk processing job. You specify the input data location in Amazon S3, the action to perform, and the output location where results are written.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html\">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p> <code>StartJob</code> starts a new asynchronous bulk processing job. You specify the input data location in Amazon S3, the action to perform, and the output location where results are written.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             client_token: <p>A unique identifier for this request to ensure idempotency.</p>
             action: <p>The action to perform on the input data.</p>
             action_options: <p>Additional parameters that can be requested for each result.</p>
-            execution_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that Amazon Location Service assumes during job processing. Amazon Location Service uses this role to access the input and output locations specified for the job.</p> <note> <p>The IAM role must be created in the same Amazon Web Services account where you plan to run your job.</p> </note> <p>For more information about configuring IAM roles for Amazon Location jobs, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/configure-iam-role-policy-credentials.html\">Configure IAM permissions</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+            execution_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that Amazon Location Service assumes during job processing. Amazon Location Service uses this role to access the input and output locations specified for the job.</p> <note> <p>The IAM role must be created in the same Amazon Web Services account where you plan to run your job.</p> </note> <p>For more information about configuring IAM roles for Amazon Location jobs, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/configure-iam-role-policy-credentials.html">Configure IAM permissions</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
             input_options: <p>Configuration for input data location and format.</p> <note> <p>Input files have a limitation of 10gb per file, and 1gb per Parquet row-group within the file.</p> </note>
             name: <p>An optional name for the job resource.</p>
             output_options: <p>Configuration for output data location and format.</p>
@@ -126,7 +126,7 @@ class JobResource:
         *,
         config_overrides: Optional[LocationClientConfig] = None,
     ) -> "capo_location.types.get_job_response.GetJobResponse":
-        r"""<p> <code>GetJob</code> retrieves detailed information about a specific job, including its current status, configuration, and error information if the job failed.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html\">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p> <code>GetJob</code> retrieves detailed information about a specific job, including its current status, configuration, and error information if the job failed.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             job_id: <p>The unique identifier of the job to retrieve.</p>
@@ -171,7 +171,7 @@ class JobResource:
         max_results: Optional[int] = None,
         next_token: Optional["capo_location.types.large_token.LargeToken"] = None,
     ) -> "capo_location.types.list_jobs_response.ListJobsResponse":
-        r"""<p> <code>ListJobs</code> retrieves a list of jobs with optional filtering and pagination support.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html\">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p> <code>ListJobs</code> retrieves a list of jobs with optional filtering and pagination support.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             filter: <p>An optional structure containing criteria by which to filter job results.</p>
@@ -223,7 +223,7 @@ class JobResource:
         *,
         config_overrides: Optional[LocationClientConfig] = None,
     ) -> "capo_location.types.cancel_job_response.CancelJobResponse":
-        r"""<p> <code>CancelJob</code> cancels a job that is currently running or pending. If the job is already in a terminal state (<code>Completed</code>, <code>Failed</code>, or <code>Cancelled</code>), the operation returns successfully with the current status.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html\">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p> <code>CancelJob</code> cancels a job that is currently running or pending. If the job is already in a terminal state (<code>Completed</code>, <code>Failed</code>, or <code>Cancelled</code>), the operation returns successfully with the current status.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             job_id: <p>The unique identifier of the job to cancel.</p>
@@ -283,13 +283,13 @@ class AsyncJobResource:
         name: Optional["capo_location.types.resource_name.ResourceName"] = None,
         tags: Optional["capo_location.types.tag_map.TagMap"] = None,
     ) -> "capo_location.types.start_job_response.StartJobResponse":
-        r"""<p> <code>StartJob</code> starts a new asynchronous bulk processing job. You specify the input data location in Amazon S3, the action to perform, and the output location where results are written.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html\">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p> <code>StartJob</code> starts a new asynchronous bulk processing job. You specify the input data location in Amazon S3, the action to perform, and the output location where results are written.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             client_token: <p>A unique identifier for this request to ensure idempotency.</p>
             action: <p>The action to perform on the input data.</p>
             action_options: <p>Additional parameters that can be requested for each result.</p>
-            execution_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that Amazon Location Service assumes during job processing. Amazon Location Service uses this role to access the input and output locations specified for the job.</p> <note> <p>The IAM role must be created in the same Amazon Web Services account where you plan to run your job.</p> </note> <p>For more information about configuring IAM roles for Amazon Location jobs, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/configure-iam-role-policy-credentials.html\">Configure IAM permissions</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+            execution_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that Amazon Location Service assumes during job processing. Amazon Location Service uses this role to access the input and output locations specified for the job.</p> <note> <p>The IAM role must be created in the same Amazon Web Services account where you plan to run your job.</p> </note> <p>For more information about configuring IAM roles for Amazon Location jobs, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/configure-iam-role-policy-credentials.html">Configure IAM permissions</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
             input_options: <p>Configuration for input data location and format.</p> <note> <p>Input files have a limitation of 10gb per file, and 1gb per Parquet row-group within the file.</p> </note>
             name: <p>An optional name for the job resource.</p>
             output_options: <p>Configuration for output data location and format.</p>
@@ -349,7 +349,7 @@ class AsyncJobResource:
         *,
         config_overrides: Optional[AsyncLocationClientConfig] = None,
     ) -> "capo_location.types.get_job_response.GetJobResponse":
-        r"""<p> <code>GetJob</code> retrieves detailed information about a specific job, including its current status, configuration, and error information if the job failed.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html\">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p> <code>GetJob</code> retrieves detailed information about a specific job, including its current status, configuration, and error information if the job failed.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             job_id: <p>The unique identifier of the job to retrieve.</p>
@@ -397,7 +397,7 @@ class AsyncJobResource:
         max_results: Optional[int] = None,
         next_token: Optional["capo_location.types.large_token.LargeToken"] = None,
     ) -> "capo_location.types.list_jobs_response.ListJobsResponse":
-        r"""<p> <code>ListJobs</code> retrieves a list of jobs with optional filtering and pagination support.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html\">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p> <code>ListJobs</code> retrieves a list of jobs with optional filtering and pagination support.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             filter: <p>An optional structure containing criteria by which to filter job results.</p>
@@ -450,7 +450,7 @@ class AsyncJobResource:
         *,
         config_overrides: Optional[AsyncLocationClientConfig] = None,
     ) -> "capo_location.types.cancel_job_response.CancelJobResponse":
-        r"""<p> <code>CancelJob</code> cancels a job that is currently running or pending. If the job is already in a terminal state (<code>Completed</code>, <code>Failed</code>, or <code>Cancelled</code>), the operation returns successfully with the current status.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html\">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
+        """<p> <code>CancelJob</code> cancels a job that is currently running or pending. If the job is already in a terminal state (<code>Completed</code>, <code>Failed</code>, or <code>Cancelled</code>), the operation returns successfully with the current status.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/location/latest/developerguide/jobs-concepts.html">Job concepts</a> in the <i>Amazon Location Service Developer Guide</i>.</p>
 
         Args:
             job_id: <p>The unique identifier of the job to cancel.</p>

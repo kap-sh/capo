@@ -37,17 +37,17 @@ class FleetCapacityReservation(TypedDict, closed=True):
     total_instance_count: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>The total number of instances for which the Capacity Reservation reserves capacity.</p>"""
     fulfilled_capacity: NotRequired["capo_ec2.types.double.Double"]
-    r"""<p>The number of capacity units fulfilled by the Capacity Reservation. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity\">Total target capacity</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The number of capacity units fulfilled by the Capacity Reservation. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity">Total target capacity</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     ebs_optimized: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Indicates whether the Capacity Reservation reserves capacity for EBS-optimized instance types.</p>"""
     create_date: NotRequired["capo_ec2.types.millisecond_date_time.MillisecondDateTime"]
     """<p>The date and time at which the Capacity Reservation was created.</p>"""
     weight: NotRequired["capo_ec2.types.double_with_constraints.DoubleWithConstraints"]
-    r"""<p>The weight of the instance type in the Capacity Reservation Fleet. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-weight\">Instance type weight</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The weight of the instance type in the Capacity Reservation Fleet. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-weight">Instance type weight</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     priority: NotRequired[
         "capo_ec2.types.integer_with_constraints.IntegerWithConstraints"
     ]
-    r"""<p>The priority of the instance type in the Capacity Reservation Fleet. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-priority\">Instance type priority</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The priority of the instance type in the Capacity Reservation Fleet. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-priority">Instance type priority</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
 
 
 # --- ec2Query ser/de ---

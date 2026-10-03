@@ -28,7 +28,7 @@ class ReactiveOrganizationInsightSummary(TypedDict, closed=True):
     name: NotRequired["capo_devops_guru.types.insight_name.InsightName"]
     """<p>The name of the insight summary.</p>"""
     severity: NotRequired["capo_devops_guru.types.insight_severity.InsightSeverity"]
-    r"""<p> An array of severity values used to search for insights. For more information, see <a href=\"https://docs.aws.amazon.com/devops-guru/latest/userguide/working-with-insights.html#understanding-insights-severities\">Understanding insight severities</a> in the <i>Amazon DevOps Guru User Guide</i>.</p>"""
+    """<p> An array of severity values used to search for insights. For more information, see <a href="https://docs.aws.amazon.com/devops-guru/latest/userguide/working-with-insights.html#understanding-insights-severities">Understanding insight severities</a> in the <i>Amazon DevOps Guru User Guide</i>.</p>"""
     status: NotRequired["capo_devops_guru.types.insight_status.InsightStatus"]
     """<p> An array of status values used to search for insights. </p>"""
     insight_time_range: NotRequired[

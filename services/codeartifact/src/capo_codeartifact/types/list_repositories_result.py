@@ -13,7 +13,7 @@ class ListRepositoriesResult(TypedDict, closed=True):
     repositories: NotRequired[
         "capo_codeartifact.types.repository_summary_list.RepositorySummaryList"
     ]
-    r"""<p> The returned list of <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_RepositorySummary.html\">RepositorySummary</a> objects. </p>"""
+    """<p> The returned list of <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_RepositorySummary.html">RepositorySummary</a> objects. </p>"""
     next_token: NotRequired["capo_codeartifact.types.pagination_token.PaginationToken"]
     """<p> If there are additional results, this is the token for the next set of results. </p>"""
 

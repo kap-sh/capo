@@ -17,7 +17,7 @@ class GetStatisticsRequest(TypedDict, closed=True):
     index_name: NotRequired["capo_iot.types.index_name.IndexName"]
     """<p>The name of the index to search. The default value is <code>AWS_Things</code>.</p>"""
     query_string: "capo_iot.types.query_string.QueryString"
-    r"""<p>The query used to search. You can specify \"*\" for the query string to get the count of all indexed things in your Amazon Web Services account.</p>"""
+    """<p>The query used to search. You can specify "*" for the query string to get the count of all indexed things in your Amazon Web Services account.</p>"""
     aggregation_field: NotRequired["capo_iot.types.aggregation_field.AggregationField"]
     """<p>The aggregation field name.</p>"""
     query_version: NotRequired["capo_iot.types.query_version.QueryVersion"]

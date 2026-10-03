@@ -14,7 +14,7 @@ class ScanFilter(TypedDict, closed=True):
     types: NotRequired[
         "capo_cloudformation.types.resource_type_filters.ResourceTypeFilters"
     ]
-    r"""<p>An array of strings where each string represents an Amazon Web Services resource type you want to scan. Each string defines the resource type using the format <code>AWS::ServiceName::ResourceType</code>, for example, <code>AWS::DynamoDB::Table</code>. For the full list of supported resource types, see the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html\">Resource type support</a> table in the <i>CloudFormation User Guide</i>.</p> <p>To scan all resource types within a service, you can use a wildcard, represented by an asterisk (<code>*</code>). You can place an asterisk at only the end of the string, for example, <code>AWS::S3::*</code>.</p>"""
+    """<p>An array of strings where each string represents an Amazon Web Services resource type you want to scan. Each string defines the resource type using the format <code>AWS::ServiceName::ResourceType</code>, for example, <code>AWS::DynamoDB::Table</code>. For the full list of supported resource types, see the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html">Resource type support</a> table in the <i>CloudFormation User Guide</i>.</p> <p>To scan all resource types within a service, you can use a wildcard, represented by an asterisk (<code>*</code>). You can place an asterisk at only the end of the string, for example, <code>AWS::S3::*</code>.</p>"""
 
 
 # --- awsQuery ser/de ---

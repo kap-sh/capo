@@ -38,7 +38,7 @@ class DescribePredictorResponse(TypedDict, closed=True):
     forecast_horizon: NotRequired["capo_forecast.types.integer.Integer"]
     """<p>The number of time-steps of the forecast. The forecast horizon is also called the prediction length.</p>"""
     forecast_types: NotRequired["capo_forecast.types.forecast_types.ForecastTypes"]
-    r"""<p>The forecast types used during predictor training. Default value is <code>[\"0.1\",\"0.5\",\"0.9\"]</code> </p>"""
+    """<p>The forecast types used during predictor training. Default value is <code>["0.1","0.5","0.9"]</code> </p>"""
     perform_auto_ml: NotRequired["capo_forecast.types.boolean.Boolean"]
     """<p>Whether the predictor is set to perform AutoML.</p>"""
     auto_ml_override_strategy: NotRequired[

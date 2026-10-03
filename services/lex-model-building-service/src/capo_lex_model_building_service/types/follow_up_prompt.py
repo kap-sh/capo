@@ -15,7 +15,7 @@ class FollowUpPrompt(TypedDict, closed=True):
     prompt: "capo_lex_model_building_service.types.prompt.Prompt"
     """<p>Prompts for information from the user. </p>"""
     rejection_statement: "capo_lex_model_building_service.types.statement.Statement"
-    r"""<p>If the user answers \"no\" to the question defined in the <code>prompt</code> field, Amazon Lex responds with this statement to acknowledge that the intent was canceled. </p>"""
+    """<p>If the user answers "no" to the question defined in the <code>prompt</code> field, Amazon Lex responds with this statement to acknowledge that the intent was canceled. </p>"""
 
 
 # --- restJson1 ser/de ---

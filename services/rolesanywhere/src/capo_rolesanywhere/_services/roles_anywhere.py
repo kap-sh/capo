@@ -804,7 +804,7 @@ class RolesAnywhereClient:
         tags: Optional["capo_rolesanywhere.types.tag_list.TagList"] = None,
         accept_role_session_name: Optional[bool] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
-        r"""<p>Creates a <i>profile</i>, a list of the roles that Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:CreateProfile</code>. </p>
+        """<p>Creates a <i>profile</i>, a list of the roles that Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:CreateProfile</code>. </p>
 
         Args:
             name: <p>The name of the profile.</p>
@@ -812,7 +812,7 @@ class RolesAnywhereClient:
             session_policy: <p>A session policy that applies to the trust boundary of the vended session credentials. </p>
             role_arns: <p>A list of IAM roles that this profile can assume in a temporary credential request.</p>
             managed_policy_arns: <p>A list of managed policy ARNs that apply to the vended session credentials. </p>
-            duration_seconds: <p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href=\"https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object\">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>
+            duration_seconds: <p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>
             enabled: <p>Specifies whether the profile is enabled.</p>
             tags: <p>The tags to attach to the profile.</p>
             accept_role_session_name: <p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>
@@ -925,7 +925,7 @@ class RolesAnywhereClient:
         duration_seconds: Optional[int] = None,
         accept_role_session_name: Optional[bool] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
-        r"""<p>Updates a <i>profile</i>, a list of the roles that IAM Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateProfile</code>. </p>
+        """<p>Updates a <i>profile</i>, a list of the roles that IAM Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateProfile</code>. </p>
 
         Args:
             profile_id: <p>The unique identifier of the profile.</p>
@@ -933,7 +933,7 @@ class RolesAnywhereClient:
             session_policy: <p>A session policy that applies to the trust boundary of the vended session credentials. </p>
             role_arns: <p>A list of IAM roles that this profile can assume in a temporary credential request.</p>
             managed_policy_arns: <p>A list of managed policy ARNs that apply to the vended session credentials. </p>
-            duration_seconds: <p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href=\"https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object\">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>
+            duration_seconds: <p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>
             accept_role_session_name: <p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>
 
         Raises:

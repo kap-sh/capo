@@ -30,7 +30,7 @@ class CreatePipelineRequest(TypedDict, closed=True):
     computations: "capo_iotsitewise.types.compute_node_list.ComputeNodeList"
     """<p>The list of compute nodes that form the pipeline DAG. Each compute node references a task and can declare dependencies on other nodes.</p>"""
     tags: NotRequired["capo_iotsitewise.types.tag_map.TagMap"]
-    r"""<p>A list of key-value pairs that contain metadata for the pipeline. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your AWS IoT SiteWise resources</a> in the AWS IoT SiteWise User Guide.</p>"""
+    """<p>A list of key-value pairs that contain metadata for the pipeline. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your AWS IoT SiteWise resources</a> in the AWS IoT SiteWise User Guide.</p>"""
     client_token: NotRequired["capo_iotsitewise.types.client_token.ClientToken"]
     """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token, the server returns the cached result from the original successful request without performing the operation again.</p>"""
 

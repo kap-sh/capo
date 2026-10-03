@@ -15,7 +15,7 @@ class Filter(TypedDict, closed=True):
     name: "capo_memorydb.types.filter_name.FilterName"
     """<p>The property being filtered. For example, UserName.</p>"""
     values: "capo_memorydb.types.filter_value_list.FilterValueList"
-    r"""<p>The property values to filter on. For example, \"user-123\".</p>"""
+    """<p>The property values to filter on. For example, "user-123".</p>"""
 
 
 # --- awsJson1_1 ser/de ---

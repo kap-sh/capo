@@ -12,7 +12,7 @@ class RuntimeHints(TypedDict, closed=True):
     slot_hints: NotRequired[
         "capo_lex_runtime_v2.types.slot_hints_intent_map.SlotHintsIntentMap"
     ]
-    r"""<p>A list of the slots in the intent that should have runtime hints added, and the phrases that should be added for each slot.</p> <p>The first level of the <code>slotHints</code> map is the name of the intent. The second level is the name of the slot within the intent. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/using-hints.html\">Using hints to improve accuracy</a>.</p> <p>The intent name and slot name must exist.</p>"""
+    """<p>A list of the slots in the intent that should have runtime hints added, and the phrases that should be added for each slot.</p> <p>The first level of the <code>slotHints</code> map is the name of the intent. The second level is the name of the slot within the intent. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/using-hints.html">Using hints to improve accuracy</a>.</p> <p>The intent name and slot name must exist.</p>"""
 
 
 # --- restJson1 ser/de ---

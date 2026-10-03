@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListProfileObjectsItem(TypedDict, closed=True):
     object_type_name: NotRequired["capo_customer_profiles.types.type_name.typeName"]
-    r"""<p>Specifies the kind of object being added to a profile, such as \"Salesforce-Account.\"</p>"""
+    """<p>Specifies the kind of object being added to a profile, such as "Salesforce-Account."</p>"""
     profile_object_unique_key: NotRequired[
         "capo_customer_profiles.types.string1_to255.string1To255"
     ]

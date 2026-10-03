@@ -15,7 +15,7 @@ class HandshakeFilter(TypedDict, closed=True):
     parent_handshake_id: NotRequired[
         "capo_organizations.types.handshake_id.HandshakeId"
     ]
-    r"""<p>The parent handshake. Only used for handshake types that are a child of another type.</p> <p>If you specify <code>ParentHandshakeId</code>, you cannot also specify <code>ActionType</code>.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> for handshake ID string requires \"h-\" followed by from 8 to 32 lowercase letters or digits.</p>"""
+    """<p>The parent handshake. Only used for handshake types that are a child of another type.</p> <p>If you specify <code>ParentHandshakeId</code>, you cannot also specify <code>ActionType</code>.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

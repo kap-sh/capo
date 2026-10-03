@@ -14,7 +14,7 @@ class SpotMaintenanceStrategies(TypedDict, closed=True):
     capacity_rebalance: NotRequired[
         "capo_ec2.types.spot_capacity_rebalance.SpotCapacityRebalance"
     ]
-    r"""<p>The Spot Instance replacement strategy to use when Amazon EC2 emits a signal that your Spot Instance is at an elevated risk of being interrupted. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-capacity-rebalance.html\">Capacity rebalancing</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The Spot Instance replacement strategy to use when Amazon EC2 emits a signal that your Spot Instance is at an elevated risk of being interrupted. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-capacity-rebalance.html">Capacity rebalancing</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
 
 
 # --- ec2Query ser/de ---

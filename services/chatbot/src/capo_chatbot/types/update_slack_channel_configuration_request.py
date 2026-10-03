@@ -31,7 +31,7 @@ class UpdateSlackChannelConfigurationRequest(TypedDict, closed=True):
     sns_topic_arns: NotRequired["capo_chatbot.types.sns_topic_arn_list.SnsTopicArnList"]
     """<p>The Amazon Resource Names (ARNs) of the SNS topics that deliver notifications to AWS Chatbot.</p>"""
     iam_role_arn: NotRequired["capo_chatbot.types.arn.Arn"]
-    r"""<p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html\">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>"""
+    """<p>A user-defined role that AWS Chatbot assumes. This is not the service-linked role.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-iam-policies.html">IAM policies for AWS Chatbot</a> in the <i> AWS Chatbot Administrator Guide</i>. </p>"""
     logging_level: NotRequired[
         "capo_chatbot.types.customer_cw_log_level.CustomerCwLogLevel"
     ]

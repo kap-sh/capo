@@ -7,9 +7,9 @@ from capo_neptunedata.errors import DeserializationError
 
 class ExecuteGremlinQueryInput(TypedDict, closed=True):
     gremlin_query: "str"
-    r"""<p>Using this API, you can run Gremlin queries in string format much as you can using the HTTP endpoint. The interface is compatible with whatever Gremlin version your DB cluster is using (see the <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/access-graph-gremlin-client.html#best-practices-gremlin-java-latest\">Tinkerpop client section</a> to determine which Gremlin releases your engine version supports).</p>"""
+    """<p>Using this API, you can run Gremlin queries in string format much as you can using the HTTP endpoint. The interface is compatible with whatever Gremlin version your DB cluster is using (see the <a href="https://docs.aws.amazon.com/neptune/latest/userguide/access-graph-gremlin-client.html#best-practices-gremlin-java-latest">Tinkerpop client section</a> to determine which Gremlin releases your engine version supports).</p>"""
     serializer: NotRequired["str"]
-    r"""<p>If non-null, the query results are returned in a serialized response message in the format specified by this parameter. See the <a href=\"https://tinkerpop.apache.org/docs/current/reference/#_graphson\">GraphSON</a> section in the TinkerPop documentation for a list of the formats that are currently supported.</p>"""
+    """<p>If non-null, the query results are returned in a serialized response message in the format specified by this parameter. See the <a href="https://tinkerpop.apache.org/docs/current/reference/#_graphson">GraphSON</a> section in the TinkerPop documentation for a list of the formats that are currently supported.</p>"""
 
 
 # --- restJson1 ser/de ---

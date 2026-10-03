@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class InputLambdaProcessorDescription(TypedDict, closed=True):
     resource_arn: NotRequired["capo_kinesis_analytics.types.resource_arn.ResourceARN"]
-    r"""<p>The ARN of the <a href=\"https://docs.aws.amazon.com/lambda/\">AWS Lambda</a> function that is used to preprocess the records in the stream.</p>"""
+    """<p>The ARN of the <a href="https://docs.aws.amazon.com/lambda/">AWS Lambda</a> function that is used to preprocess the records in the stream.</p>"""
     role_arn: NotRequired["capo_kinesis_analytics.types.role_arn.RoleARN"]
     """<p>The ARN of the IAM role that is used to access the AWS Lambda function.</p>"""
 

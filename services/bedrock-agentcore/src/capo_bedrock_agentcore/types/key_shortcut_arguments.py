@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class KeyShortcutArguments(TypedDict, closed=True):
     keys: "capo_bedrock_agentcore.types.key_list.KeyList"
-    r"""<p>The key combination to press (for example, <code>[\"ctrl\", \"s\"]</code>). Maximum 5 keys.</p>"""
+    """<p>The key combination to press (for example, <code>["ctrl", "s"]</code>). Maximum 5 keys.</p>"""
 
 
 # --- restJson1 ser/de ---

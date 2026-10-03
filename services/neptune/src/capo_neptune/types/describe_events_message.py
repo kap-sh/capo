@@ -21,9 +21,9 @@ class DescribeEventsMessage(TypedDict, closed=True):
     source_type: NotRequired["capo_neptune.types.source_type.SourceType"]
     """<p>The event source to retrieve events for. If no value is specified, all events are returned.</p>"""
     start_time: NotRequired["capo_neptune.types.t_stamp.TStamp"]
-    r"""<p> The beginning of the time interval to retrieve events for, specified in ISO 8601 format. For more information about ISO 8601, go to the <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO8601 Wikipedia page.</a> </p> <p>Example: 2009-07-08T18:00Z</p>"""
+    """<p> The beginning of the time interval to retrieve events for, specified in ISO 8601 format. For more information about ISO 8601, go to the <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia page.</a> </p> <p>Example: 2009-07-08T18:00Z</p>"""
     end_time: NotRequired["capo_neptune.types.t_stamp.TStamp"]
-    r"""<p> The end of the time interval for which to retrieve events, specified in ISO 8601 format. For more information about ISO 8601, go to the <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO8601 Wikipedia page.</a> </p> <p>Example: 2009-07-08T18:00Z</p>"""
+    """<p> The end of the time interval for which to retrieve events, specified in ISO 8601 format. For more information about ISO 8601, go to the <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia page.</a> </p> <p>Example: 2009-07-08T18:00Z</p>"""
     duration: NotRequired["capo_neptune.types.integer_optional.IntegerOptional"]
     """<p>The number of minutes to retrieve events for.</p> <p>Default: 60</p>"""
     event_categories: NotRequired[

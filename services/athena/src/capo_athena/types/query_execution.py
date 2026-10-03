@@ -37,7 +37,7 @@ class QueryExecution(TypedDict, closed=True):
     result_configuration: NotRequired[
         "capo_athena.types.result_configuration.ResultConfiguration"
     ]
-    r"""<p>The location in Amazon S3 where query and calculation results are stored and the encryption option, if any, used for query results. These are known as \"client-side settings\". If workgroup settings override client-side settings, then the query uses the location for the query results and the encryption configuration that are specified for the workgroup.</p>"""
+    """<p>The location in Amazon S3 where query and calculation results are stored and the encryption option, if any, used for query results. These are known as "client-side settings". If workgroup settings override client-side settings, then the query uses the location for the query results and the encryption configuration that are specified for the workgroup.</p>"""
     result_reuse_configuration: NotRequired[
         "capo_athena.types.result_reuse_configuration.ResultReuseConfiguration"
     ]

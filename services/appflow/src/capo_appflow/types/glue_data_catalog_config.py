@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class GlueDataCatalogConfig(TypedDict, closed=True):
     role_arn: "capo_appflow.types.glue_data_catalog_iam_role.GlueDataCatalogIAMRole"
-    r"""<p>The Amazon Resource Name (ARN) of an IAM role that grants Amazon AppFlow the permissions it needs to create Data Catalog tables, databases, and partitions.</p> <p>For an example IAM policy that has the required permissions, see <a href=\"https://docs.aws.amazon.com/appflow/latest/userguide/security_iam_id-based-policy-examples.html\">Identity-based policy examples for Amazon AppFlow</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an IAM role that grants Amazon AppFlow the permissions it needs to create Data Catalog tables, databases, and partitions.</p> <p>For an example IAM policy that has the required permissions, see <a href="https://docs.aws.amazon.com/appflow/latest/userguide/security_iam_id-based-policy-examples.html">Identity-based policy examples for Amazon AppFlow</a>.</p>"""
     database_name: (
         "capo_appflow.types.glue_data_catalog_database_name.GlueDataCatalogDatabaseName"
     )

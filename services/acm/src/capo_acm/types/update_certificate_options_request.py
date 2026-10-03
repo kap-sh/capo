@@ -15,7 +15,7 @@ class UpdateCertificateOptionsRequest(TypedDict, closed=True):
     certificate_arn: "capo_acm.types.arn.Arn"
     """<p>ARN of the requested certificate to update. This must be of the form:</p> <p> <code>arn:aws:acm:us-east-1:<i>account</i>:certificate/<i>12345678-1234-1234-1234-123456789012</i> </code> </p>"""
     options: "capo_acm.types.certificate_options.CertificateOptions"
-    r"""<p>Use to update the options for your certificate. Currently, you can change the domain validation method or specify whether to export your certificate. For more information about migrating from email to DNS validation, see <a href=\"https://docs.aws.amazon.com/acm/latest/userguide/email-to-dns-migration.html\">Migrate from email to DNS validation</a>.</p>"""
+    """<p>Use to update the options for your certificate. Currently, you can change the domain validation method or specify whether to export your certificate. For more information about migrating from email to DNS validation, see <a href="https://docs.aws.amazon.com/acm/latest/userguide/email-to-dns-migration.html">Migrate from email to DNS validation</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -20,17 +20,17 @@ class DescribeAgentResponse(TypedDict, closed=True):
     name: NotRequired["capo_datasync.types.tag_value.TagValue"]
     """<p>The name of the agent.</p>"""
     status: NotRequired["capo_datasync.types.agent_status.AgentStatus"]
-    r"""<p>The status of the agent.</p> <ul> <li> <p>If the status is <code>ONLINE</code>, the agent is configured properly and ready to use.</p> </li> <li> <p>If the status is <code>OFFLINE</code>, the agent has been out of contact with DataSync for five minutes or longer. This can happen for a few reasons. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/troubleshooting-datasync-agents.html#troubleshoot-agent-offline\">What do I do if my agent is offline?</a> </p> </li> </ul>"""
+    """<p>The status of the agent.</p> <ul> <li> <p>If the status is <code>ONLINE</code>, the agent is configured properly and ready to use.</p> </li> <li> <p>If the status is <code>OFFLINE</code>, the agent has been out of contact with DataSync for five minutes or longer. This can happen for a few reasons. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/troubleshooting-datasync-agents.html#troubleshoot-agent-offline">What do I do if my agent is offline?</a> </p> </li> </ul>"""
     last_connection_time: NotRequired["capo_datasync.types.time.Time"]
     """<p>The last time that the agent was communicating with the DataSync service.</p>"""
     creation_time: NotRequired["capo_datasync.types.time.Time"]
-    r"""<p>The time that the agent was <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/activate-agent.html\">activated</a>.</p>"""
+    """<p>The time that the agent was <a href="https://docs.aws.amazon.com/datasync/latest/userguide/activate-agent.html">activated</a>.</p>"""
     endpoint_type: NotRequired["capo_datasync.types.endpoint_type.EndpointType"]
-    r"""<p>The type of <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/choose-service-endpoint.html\">service endpoint</a> that your agent is connected to.</p>"""
+    """<p>The type of <a href="https://docs.aws.amazon.com/datasync/latest/userguide/choose-service-endpoint.html">service endpoint</a> that your agent is connected to.</p>"""
     private_link_config: NotRequired[
         "capo_datasync.types.private_link_config.PrivateLinkConfig"
     ]
-    r"""<p>The network configuration that the agent uses when connecting to a <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/choose-service-endpoint.html#choose-service-endpoint-vpc\">VPC service endpoint</a>.</p>"""
+    """<p>The network configuration that the agent uses when connecting to a <a href="https://docs.aws.amazon.com/datasync/latest/userguide/choose-service-endpoint.html#choose-service-endpoint-vpc">VPC service endpoint</a>.</p>"""
     platform: NotRequired["capo_datasync.types.platform.Platform"]
     """<p>The platform-related details about the agent, such as the version number.</p>"""
 

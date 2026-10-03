@@ -49,7 +49,7 @@ class MySQLSettings(TypedDict, closed=True):
     ]
     """<p>Endpoint TCP port.</p>"""
     server_name: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>The host name of the endpoint database. </p> <p>For an Amazon RDS MySQL instance, this is the output of <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBInstances.html\">DescribeDBInstances</a>, in the <code> <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Endpoint.html\">Endpoint</a>.Address</code> field.</p> <p>For an Aurora MySQL instance, this is the output of <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBClusters.html\">DescribeDBClusters</a>, in the <code>Endpoint</code> field.</p>"""
+    """<p>The host name of the endpoint database. </p> <p>For an Amazon RDS MySQL instance, this is the output of <a href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBInstances.html">DescribeDBInstances</a>, in the <code> <a href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Endpoint.html">Endpoint</a>.Address</code> field.</p> <p>For an Aurora MySQL instance, this is the output of <a href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DescribeDBClusters.html">DescribeDBClusters</a>, in the <code>Endpoint</code> field.</p>"""
     server_timezone: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>Specifies the time zone for the source MySQL database.</p> <p>Example: <code>serverTimezone=US/Pacific;</code> </p> <p>Note: Do not enclose time zones in single quotes.</p>"""
     username: NotRequired["capo_database_migration_service.types.string.String"]
@@ -57,7 +57,7 @@ class MySQLSettings(TypedDict, closed=True):
     secrets_manager_access_role_arn: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>The full Amazon Resource Name (ARN) of the IAM role that specifies DMS as the trusted entity and grants the required permissions to access the value in <code>SecretsManagerSecret</code>. The role must allow the <code>iam:PassRole</code> action. <code>SecretsManagerSecret</code> has the value of the Amazon Web Services Secrets Manager secret that allows access to the MySQL endpoint.</p> <note> <p>You can specify one of two sets of values for these permissions. You can specify the values for this setting and <code>SecretsManagerSecretId</code>. Or you can specify clear-text values for <code>UserName</code>, <code>Password</code>, <code>ServerName</code>, and <code>Port</code>. You can't specify both. For more information on creating this <code>SecretsManagerSecret</code> and the <code>SecretsManagerAccessRoleArn</code> and <code>SecretsManagerSecretId</code> required to access it, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Security.html#security-iam-secretsmanager\">Using secrets to access Database Migration Service resources</a> in the <i>Database Migration Service User Guide</i>.</p> </note>"""
+    """<p>The full Amazon Resource Name (ARN) of the IAM role that specifies DMS as the trusted entity and grants the required permissions to access the value in <code>SecretsManagerSecret</code>. The role must allow the <code>iam:PassRole</code> action. <code>SecretsManagerSecret</code> has the value of the Amazon Web Services Secrets Manager secret that allows access to the MySQL endpoint.</p> <note> <p>You can specify one of two sets of values for these permissions. You can specify the values for this setting and <code>SecretsManagerSecretId</code>. Or you can specify clear-text values for <code>UserName</code>, <code>Password</code>, <code>ServerName</code>, and <code>Port</code>. You can't specify both. For more information on creating this <code>SecretsManagerSecret</code> and the <code>SecretsManagerAccessRoleArn</code> and <code>SecretsManagerSecretId</code> required to access it, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Security.html#security-iam-secretsmanager">Using secrets to access Database Migration Service resources</a> in the <i>Database Migration Service User Guide</i>.</p> </note>"""
     secrets_manager_secret_id: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
@@ -73,7 +73,7 @@ class MySQLSettings(TypedDict, closed=True):
     authentication_method: NotRequired[
         "capo_database_migration_service.types.my_sql_authentication_method.MySQLAuthenticationMethod"
     ]
-    r"""<p>This attribute allows you to specify the authentication method as \"iam auth\".</p>"""
+    """<p>This attribute allows you to specify the authentication method as "iam auth".</p>"""
 
 
 # --- awsJson1_1 ser/de ---

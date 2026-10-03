@@ -16,7 +16,7 @@ class UpdateManagedRuleSetVersionExpiryDateResponse(TypedDict, closed=True):
     ]
     """<p>The version that is set to expire. </p>"""
     expiry_timestamp: NotRequired["capo_wafv2.types.timestamp.Timestamp"]
-    r"""<p>The time that the version will expire. </p> <p>Times are in Coordinated Universal Time (UTC) format. UTC format includes the special designator, Z. For example, \"2016-09-27T14:50Z\". </p>"""
+    """<p>The time that the version will expire. </p> <p>Times are in Coordinated Universal Time (UTC) format. UTC format includes the special designator, Z. For example, "2016-09-27T14:50Z". </p>"""
     next_lock_token: NotRequired["capo_wafv2.types.lock_token.LockToken"]
     """<p>A token used for optimistic locking. WAF returns a token to your <code>get</code> and <code>list</code> requests, to mark the state of the entity at the time of the request. To make changes to the entity associated with the token, you provide the token to operations like <code>update</code> and <code>delete</code>. WAF uses the token to ensure that no changes have been made to the entity since you last retrieved it. If a change has been made, the update fails with a <code>WAFOptimisticLockException</code>. If this happens, perform another <code>get</code>, and use the new token returned by that operation. </p>"""
 

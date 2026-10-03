@@ -17,7 +17,7 @@ class GetBuiltinSlotTypesRequest(TypedDict, closed=True):
     signature_contains: NotRequired[
         "capo_lex_model_building_service.types.string.String"
     ]
-    r"""<p>Substring to match in built-in slot type signatures. A slot type will be returned if any part of its signature matches the substring. For example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"</p>"""
+    """<p>Substring to match in built-in slot type signatures. A slot type will be returned if any part of its signature matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."</p>"""
     next_token: NotRequired[
         "capo_lex_model_building_service.types.next_token.NextToken"
     ]

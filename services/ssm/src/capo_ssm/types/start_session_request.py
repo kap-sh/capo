@@ -17,13 +17,13 @@ class StartSessionRequest(TypedDict, closed=True):
     target: "capo_ssm.types.session_target.SessionTarget"
     """<p>The managed node to connect to for the session.</p>"""
     document_name: NotRequired["capo_ssm.types.document_arn.DocumentARN"]
-    r"""<p>The name of the SSM document you want to use to define the type of session, input parameters, or preferences for the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the <a>GetDocument</a> API to verify the document exists before attempting to start a session. If no document name is provided, a shell to the managed node is launched by default. For more information, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html\">Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>The name of the SSM document you want to use to define the type of session, input parameters, or preferences for the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the <a>GetDocument</a> API to verify the document exists before attempting to start a session. If no document name is provided, a shell to the managed node is launched by default. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html">Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
     reason: NotRequired["capo_ssm.types.session_reason.SessionReason"]
     """<p>The reason for connecting to the instance. This value is included in the details for the Amazon CloudWatch Events event created when you start the session.</p>"""
     parameters: NotRequired[
         "capo_ssm.types.session_manager_parameters.SessionManagerParameters"
     ]
-    r"""<p>The values you want to specify for the parameters defined in the Session document. For more information about these parameters, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/getting-started-create-preferences-cli.html\">Create a Session Manager preferences document</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>The values you want to specify for the parameters defined in the Session document. For more information about these parameters, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/getting-started-create-preferences-cli.html">Create a Session Manager preferences document</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

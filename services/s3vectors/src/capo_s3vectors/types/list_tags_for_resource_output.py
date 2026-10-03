@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceOutput(TypedDict, closed=True):
     tags: "capo_s3vectors.types.tags_map.TagsMap"
-    r"""<p>The user-defined tags that are applied to the S3 Vectors resource. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html\">Tagging for cost allocation or attribute-based access control (ABAC)</a>.</p>"""
+    """<p>The user-defined tags that are applied to the S3 Vectors resource. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html">Tagging for cost allocation or attribute-based access control (ABAC)</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

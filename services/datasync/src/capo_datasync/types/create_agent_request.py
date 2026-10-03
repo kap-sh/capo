@@ -17,13 +17,13 @@ if TYPE_CHECKING:
 
 class CreateAgentRequest(TypedDict, closed=True):
     activation_key: "capo_datasync.types.activation_key.ActivationKey"
-    r"""<p>Specifies your DataSync agent's activation key. If you don't have an activation key, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/activate-agent.html\">Activating your agent</a>.</p>"""
+    """<p>Specifies your DataSync agent's activation key. If you don't have an activation key, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/activate-agent.html">Activating your agent</a>.</p>"""
     agent_name: NotRequired["capo_datasync.types.tag_value.TagValue"]
     """<p>Specifies a name for your agent. We recommend specifying a name that you can remember.</p>"""
     tags: NotRequired["capo_datasync.types.input_tag_list.InputTagList"]
     """<p>Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We recommend creating at least one tag for your agent.</p>"""
     vpc_endpoint_id: NotRequired["capo_datasync.types.vpc_endpoint_id.VpcEndpointId"]
-    r"""<p>Specifies the ID of the <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/choose-service-endpoint.html#datasync-in-vpc\">VPC service endpoint</a> that you're using. For example, a VPC endpoint ID looks like <code>vpce-01234d5aff67890e1</code>.</p> <important> <p>The VPC service endpoint you use must include the DataSync service name (for example, <code>com.amazonaws.us-east-2.datasync</code>).</p> </important>"""
+    """<p>Specifies the ID of the <a href="https://docs.aws.amazon.com/datasync/latest/userguide/choose-service-endpoint.html#datasync-in-vpc">VPC service endpoint</a> that you're using. For example, a VPC endpoint ID looks like <code>vpce-01234d5aff67890e1</code>.</p> <important> <p>The VPC service endpoint you use must include the DataSync service name (for example, <code>com.amazonaws.us-east-2.datasync</code>).</p> </important>"""
     subnet_arns: NotRequired["capo_datasync.types.pl_subnet_arn_list.PLSubnetArnList"]
     """<p>Specifies the ARN of the subnet where your VPC service endpoint is located. You can only specify one ARN.</p>"""
     security_group_arns: NotRequired[

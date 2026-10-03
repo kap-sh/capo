@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ImageRepository(TypedDict, closed=True):
     image_identifier: "capo_apprunner.types.image_identifier.ImageIdentifier"
-    r"""<p>The identifier of an image.</p> <p>For an image in Amazon Elastic Container Registry (Amazon ECR), this is an image name. For the image name format, see <a href=\"https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-pull-ecr-image.html\">Pulling an image</a> in the <i>Amazon ECR User Guide</i>.</p>"""
+    """<p>The identifier of an image.</p> <p>For an image in Amazon Elastic Container Registry (Amazon ECR), this is an image name. For the image name format, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-pull-ecr-image.html">Pulling an image</a> in the <i>Amazon ECR User Guide</i>.</p>"""
     image_configuration: NotRequired[
         "capo_apprunner.types.image_configuration.ImageConfiguration"
     ]

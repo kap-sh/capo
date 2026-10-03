@@ -35,7 +35,7 @@ class StackResourceDetail(TypedDict, closed=True):
     ]
     """<p>The name or unique identifier that corresponds to a physical instance ID of a resource supported by CloudFormation.</p>"""
     resource_type: NotRequired["capo_cloudformation.types.resource_type.ResourceType"]
-    r"""<p>Type of resource. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html\">Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>Type of resource. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.</p>"""
     last_updated_timestamp: NotRequired["capo_cloudformation.types.timestamp.Timestamp"]
     """<p>Time the status was updated.</p>"""
     resource_status: NotRequired[
@@ -49,11 +49,11 @@ class StackResourceDetail(TypedDict, closed=True):
     description: NotRequired["capo_cloudformation.types.description.Description"]
     """<p>User defined description associated with the resource.</p>"""
     metadata: NotRequired["capo_cloudformation.types.metadata.Metadata"]
-    r"""<p>The content of the <code>Metadata</code> attribute declared for the resource. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html\">Metadata attribute</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>The content of the <code>Metadata</code> attribute declared for the resource. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html">Metadata attribute</a> in the <i>CloudFormation User Guide</i>.</p>"""
     drift_information: NotRequired[
         "capo_cloudformation.types.stack_resource_drift_information.StackResourceDriftInformation"
     ]
-    r"""<p>Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html\">Detect unmanaged configuration changes to stacks and resources with drift detection</a>.</p>"""
+    """<p>Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detect unmanaged configuration changes to stacks and resources with drift detection</a>.</p>"""
     module_info: NotRequired["capo_cloudformation.types.module_info.ModuleInfo"]
     """<p>Contains information about the module from which the resource was created, if the resource was created from a module included in the stack template.</p>"""
 

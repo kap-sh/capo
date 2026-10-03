@@ -15,7 +15,7 @@ class AudioLanguageSelection(TypedDict, closed=True):
     language_selection_policy: NotRequired[
         "capo_medialive.types.audio_language_selection_policy.AudioLanguageSelectionPolicy"
     ]
-    r"""When set to \"strict\", the transport stream demux strictly identifies audio streams by their language descriptor. If a PMT update occurs such that an audio stream matching the initially selected language is no longer present then mute will be encoded until the language returns. If \"loose\", then on a PMT update the demux will choose another audio stream in the program with the same stream type if it can't find one with the same language."""
+    """When set to "strict", the transport stream demux strictly identifies audio streams by their language descriptor. If a PMT update occurs such that an audio stream matching the initially selected language is no longer present then mute will be encoded until the language returns. If "loose", then on a PMT update the demux will choose another audio stream in the program with the same stream type if it can't find one with the same language."""
 
 
 # --- restJson1 ser/de ---

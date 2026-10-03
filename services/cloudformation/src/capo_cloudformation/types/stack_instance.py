@@ -45,7 +45,7 @@ class StackInstance(TypedDict, closed=True):
     organizational_unit_id: NotRequired[
         "capo_cloudformation.types.organizational_unit_id.OrganizationalUnitId"
     ]
-    r"""<p>[Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html\">DeploymentTargets</a>.</p>"""
+    """<p>[Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">DeploymentTargets</a>.</p>"""
     drift_status: NotRequired[
         "capo_cloudformation.types.stack_drift_status.StackDriftStatus"
     ]

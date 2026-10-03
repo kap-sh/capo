@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ListEdgeAgentConfigurationsInput(TypedDict, closed=True):
     hub_device_arn: "capo_kinesis_video.types.hub_device_arn.HubDeviceArn"
-    r"""<p>The \"Internet of Things (IoT) Thing\" Arn of the edge agent.</p>"""
+    """<p>The "Internet of Things (IoT) Thing" Arn of the edge agent.</p>"""
     max_results: NotRequired[
         "capo_kinesis_video.types.list_edge_agent_configurations_input_limit.ListEdgeAgentConfigurationsInputLimit"
     ]

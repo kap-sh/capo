@@ -41,7 +41,7 @@ class DocumentVersionInfo(TypedDict, closed=True):
     status_information: NotRequired[
         "capo_ssm.types.document_status_information.DocumentStatusInformation"
     ]
-    r"""<p>A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message, \"The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct.\"</p>"""
+    """<p>A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message, "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."</p>"""
     review_status: NotRequired["capo_ssm.types.review_status.ReviewStatus"]
     """<p>The current status of the approval review for the latest version of the document.</p>"""
 

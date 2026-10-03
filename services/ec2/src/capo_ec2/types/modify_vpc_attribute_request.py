@@ -19,7 +19,7 @@ class ModifyVpcAttributeRequest(TypedDict, closed=True):
     enable_dns_support: NotRequired[
         "capo_ec2.types.attribute_boolean_value.AttributeBooleanValue"
     ]
-    r"""<p>Indicates whether the DNS resolution is supported for the VPC. If enabled, queries to the Amazon provided DNS server at the 169.254.169.253 IP address, or the reserved IP address at the base of the VPC network range \"plus two\" succeed. If disabled, the Amazon provided DNS service in the VPC that resolves public DNS hostnames to IP addresses is not enabled.</p> <p>You cannot modify the DNS resolution and DNS hostnames attributes in the same request. Use separate requests for each attribute.</p>"""
+    """<p>Indicates whether the DNS resolution is supported for the VPC. If enabled, queries to the Amazon provided DNS server at the 169.254.169.253 IP address, or the reserved IP address at the base of the VPC network range "plus two" succeed. If disabled, the Amazon provided DNS service in the VPC that resolves public DNS hostnames to IP addresses is not enabled.</p> <p>You cannot modify the DNS resolution and DNS hostnames attributes in the same request. Use separate requests for each attribute.</p>"""
     vpc_id: NotRequired["capo_ec2.types.vpc_id.VpcId"]
     """<p>The ID of the VPC.</p>"""
     enable_network_address_usage_metrics: NotRequired[

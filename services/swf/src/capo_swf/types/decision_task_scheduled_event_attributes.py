@@ -16,7 +16,7 @@ class DecisionTaskScheduledEventAttributes(TypedDict, closed=True):
     task_list: "capo_swf.types.task_list.TaskList"
     """<p>The name of the task list in which the decision task was scheduled.</p>"""
     task_priority: NotRequired["capo_swf.types.task_priority.TaskPriority"]
-    r"""<p> A task priority that, if set, specifies the priority for this decision task. Valid values are integers that range from Java's <code>Integer.MIN_VALUE</code> (-2147483648) to <code>Integer.MAX_VALUE</code> (2147483647). Higher numbers indicate higher priority.</p> <p>For more information about setting task priority, see <a href=\"https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html\">Setting Task Priority</a> in the <i>Amazon SWF Developer Guide</i>.</p>"""
+    """<p> A task priority that, if set, specifies the priority for this decision task. Valid values are integers that range from Java's <code>Integer.MIN_VALUE</code> (-2147483648) to <code>Integer.MAX_VALUE</code> (2147483647). Higher numbers indicate higher priority.</p> <p>For more information about setting task priority, see <a href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html">Setting Task Priority</a> in the <i>Amazon SWF Developer Guide</i>.</p>"""
     start_to_close_timeout: NotRequired[
         "capo_swf.types.duration_in_seconds_optional.DurationInSecondsOptional"
     ]

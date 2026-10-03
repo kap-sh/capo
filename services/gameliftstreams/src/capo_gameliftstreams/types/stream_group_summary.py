@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class StreamGroupSummary(TypedDict, closed=True):
     arn: "capo_gameliftstreams.types.identifier.Identifier"
-    r"""<p>An <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that uniquely identifies the stream group resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. </p>"""
+    """<p>An <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that uniquely identifies the stream group resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. </p>"""
     id: NotRequired["capo_gameliftstreams.types.id.Id"]
     """<p>An ID that uniquely identifies the stream group resource. Example ID: <code>sg-1AB2C3De4</code>. </p>"""
     description: NotRequired["capo_gameliftstreams.types.description.Description"]

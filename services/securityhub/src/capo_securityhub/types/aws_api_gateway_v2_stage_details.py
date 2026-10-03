@@ -18,7 +18,7 @@ class AwsApiGatewayV2StageDetails(TypedDict, closed=True):
     ]
     """<p>The identifier of a client certificate for a stage. Supported only for WebSocket API calls.</p>"""
     created_date: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the stage was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the stage was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     description: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The description of the stage.</p>"""
     default_route_settings: NotRequired[
@@ -30,7 +30,7 @@ class AwsApiGatewayV2StageDetails(TypedDict, closed=True):
     last_updated_date: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the stage was most recently updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the stage was most recently updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     route_settings: NotRequired[
         "capo_securityhub.types.aws_api_gateway_v2_route_settings.AwsApiGatewayV2RouteSettings"
     ]

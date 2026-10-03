@@ -20,7 +20,7 @@ class LogGroupSummary(TypedDict, closed=True):
     log_group_class: NotRequired[
         "capo_cloudwatch_logs.types.log_group_class.LogGroupClass"
     ]
-    r"""<p>The log group class for this log group. For details about the features supported by each log group class, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch_Logs_Log_Classes.html\">Log classes</a> </p>"""
+    """<p>The log group class for this log group. For details about the features supported by each log group class, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch_Logs_Log_Classes.html">Log classes</a> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

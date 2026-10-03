@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class ListPermissionSetProvisioningStatusRequest(TypedDict, closed=True):
     instance_arn: "capo_sso_admin.types.instance_arn.InstanceArn"
-    r"""<p>The ARN of the IAM Identity Center instance under which the operation will be executed. For more information about ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The ARN of the IAM Identity Center instance under which the operation will be executed. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     max_results: NotRequired["capo_sso_admin.types.max_results.MaxResults"]
     """<p>The maximum number of results to display for the assignment.</p>"""
     next_token: NotRequired["capo_sso_admin.types.token.Token"]

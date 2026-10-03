@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class UpdateContactFlowModuleContentRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     contact_flow_module_id: (
         "capo_connect.types.contact_flow_module_id.ContactFlowModuleId"
     )
@@ -21,7 +21,7 @@ class UpdateContactFlowModuleContentRequest(TypedDict, closed=True):
     content: NotRequired[
         "capo_connect.types.contact_flow_module_content.ContactFlowModuleContent"
     ]
-    r"""<p>The JSON string that represents the content of the flow. For an example, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html\">Example flow in Connect Customer Flow language</a>. </p>"""
+    """<p>The JSON string that represents the content of the flow. For an example, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html">Example flow in Connect Customer Flow language</a>. </p>"""
     settings: NotRequired["capo_connect.types.flow_module_settings.FlowModuleSettings"]
     """<p>Serialized JSON string of the flow module Settings schema.</p>"""
 

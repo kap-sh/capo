@@ -32,7 +32,7 @@ class UpdateConnectionAuthRequestParameters(TypedDict, closed=True):
     connectivity_parameters: NotRequired[
         "capo_eventbridge.types.connectivity_resource_parameters.ConnectivityResourceParameters"
     ]
-    r"""<p>If you specify a private OAuth endpoint, the parameters for EventBridge to use when authenticating against the endpoint.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-target-connection-auth.html\">Authorization methods for connections</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.</p>"""
+    """<p>If you specify a private OAuth endpoint, the parameters for EventBridge to use when authenticating against the endpoint.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-target-connection-auth.html">Authorization methods for connections</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -20,7 +20,7 @@ class StorageOptimizer(TypedDict, closed=True):
     ]
     """<p>A map of the storage optimizer configuration. Currently contains only one key-value pair: <code>is_enabled</code> indicates true or false for acceleration.</p>"""
     error_message: NotRequired["capo_lakeformation.types.message_string.MessageString"]
-    r"""<p>A message that contains information about any error (if present).</p> <p>When an acceleration result has an enabled status, the error message is empty.</p> <p>When an acceleration result has a disabled status, the message describes an error or simply indicates \"disabled by the user\".</p>"""
+    """<p>A message that contains information about any error (if present).</p> <p>When an acceleration result has an enabled status, the error message is empty.</p> <p>When an acceleration result has a disabled status, the message describes an error or simply indicates "disabled by the user".</p>"""
     warnings: NotRequired["capo_lakeformation.types.message_string.MessageString"]
     """<p>A message that contains information about any warnings (if present).</p>"""
     last_run_details: NotRequired[

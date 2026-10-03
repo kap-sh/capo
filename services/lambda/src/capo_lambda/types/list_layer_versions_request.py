@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 
 class ListLayerVersionsRequest(TypedDict, closed=True):
     compatible_architecture: NotRequired["capo_lambda.types.architecture.Architecture"]
-    r"""<p>The compatible <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html\">instruction set architecture</a>.</p>"""
+    """<p>The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set architecture</a>.</p>"""
     compatible_runtime: NotRequired["capo_lambda.types.runtime.Runtime"]
-    r"""<p>A runtime identifier.</p> <p>The following list includes deprecated runtimes. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels\">Runtime use after deprecation</a>.</p> <p>For a list of all currently supported runtimes, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported\">Supported runtimes</a>.</p>"""
+    """<p>A runtime identifier.</p> <p>The following list includes deprecated runtimes. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels">Runtime use after deprecation</a>.</p> <p>For a list of all currently supported runtimes, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported">Supported runtimes</a>.</p>"""
     layer_name: "capo_lambda.types.layer_name.LayerName"
     """<p>The name or Amazon Resource Name (ARN) of the layer.</p>"""
     marker: NotRequired["capo_lambda.types.string.String"]

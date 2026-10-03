@@ -17,15 +17,15 @@ if TYPE_CHECKING:
 
 class ServerCertificateMetadata(TypedDict, closed=True):
     path: "capo_iam.types.path_type.pathType"
-    r"""<p> The path to the server certificate. For more information about paths, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p> The path to the server certificate. For more information about paths, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
     server_certificate_name: (
         "capo_iam.types.server_certificate_name_type.serverCertificateNameType"
     )
     """<p>The name that identifies the server certificate.</p>"""
     server_certificate_id: "capo_iam.types.id_type.idType"
-    r"""<p> The stable and unique string identifying the server certificate. For more information about IDs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p> The stable and unique string identifying the server certificate. For more information about IDs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
     arn: "capo_iam.types.arn_type.arnType"
-    r"""<p> The Amazon Resource Name (ARN) specifying the server certificate. For more information about ARNs and how to use them in policies, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
+    """<p> The Amazon Resource Name (ARN) specifying the server certificate. For more information about ARNs and how to use them in policies, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>. </p>"""
     upload_date: NotRequired["capo_iam.types.date_type.dateType"]
     """<p>The date when the server certificate was uploaded.</p>"""
     expiration: NotRequired["capo_iam.types.date_type.dateType"]

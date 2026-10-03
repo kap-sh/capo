@@ -29,9 +29,9 @@ class GetJobResponse(TypedDict, closed=True):
     ]
     """<p>Additional options for configuring job action parameters.</p>"""
     created_at: "capo_location.types.timestamp.Timestamp"
-    r"""<p>Job creation time in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sss</code>.</p>"""
+    """<p>Job creation time in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sss</code>.</p>"""
     ended_at: NotRequired["capo_location.types.timestamp.Timestamp"]
-    r"""<p>Job completion time in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sss</code>. Only returned for jobs in a terminal status: <code>Completed</code> | <code>Failed</code> | <code>Cancelled</code>.</p>"""
+    """<p>Job completion time in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sss</code>. Only returned for jobs in a terminal status: <code>Completed</code> | <code>Failed</code> | <code>Cancelled</code>.</p>"""
     error: NotRequired["capo_location.types.job_error.JobError"]
     """<p>Error information if the job failed.</p>"""
     execution_role_arn: "capo_location.types.iam_role_arn.IamRoleArn"
@@ -49,7 +49,7 @@ class GetJobResponse(TypedDict, closed=True):
     status: "capo_location.types.job_status.JobStatus"
     """<p>Current job status.</p>"""
     updated_at: "capo_location.types.timestamp.Timestamp"
-    r"""<p>Last update time in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sss</code>.</p>"""
+    """<p>Last update time in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sss</code>.</p>"""
     tags: NotRequired["capo_location.types.tag_map.TagMap"]
     """<p>Tags and corresponding values associated with the specified job.</p>"""
 

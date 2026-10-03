@@ -45,7 +45,7 @@ class BatchReadSuccessfulResponse(TypedDict, closed=True):
     list_object_parent_paths: NotRequired[
         "capo_clouddirectory.types.batch_list_object_parent_paths_response.BatchListObjectParentPathsResponse"
     ]
-    r"""<p>Retrieves all available parent paths for any object type such as node, leaf node, policy node, and index node objects. For more information about objects, see <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html\">Directory Structure</a>.</p>"""
+    """<p>Retrieves all available parent paths for any object type such as node, leaf node, policy node, and index node objects. For more information about objects, see <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html">Directory Structure</a>.</p>"""
     list_object_policies: NotRequired[
         "capo_clouddirectory.types.batch_list_object_policies_response.BatchListObjectPoliciesResponse"
     ]
@@ -57,7 +57,7 @@ class BatchReadSuccessfulResponse(TypedDict, closed=True):
     lookup_policy: NotRequired[
         "capo_clouddirectory.types.batch_lookup_policy_response.BatchLookupPolicyResponse"
     ]
-    r"""<p>Lists all policies from the root of the <a>Directory</a> to the object specified. If there are no policies present, an empty list is returned. If policies are present, and if some objects don't have the policies attached, it returns the <code>ObjectIdentifier</code> for such objects. If policies are present, it returns <code>ObjectIdentifier</code>, <code>policyId</code>, and <code>policyType</code>. Paths that don't lead to the root from the target object are ignored. For more information, see <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies\">Policies</a>.</p>"""
+    """<p>Lists all policies from the root of the <a>Directory</a> to the object specified. If there are no policies present, an empty list is returned. If policies are present, and if some objects don't have the policies attached, it returns the <code>ObjectIdentifier</code> for such objects. If policies are present, it returns <code>ObjectIdentifier</code>, <code>policyId</code>, and <code>policyType</code>. Paths that don't lead to the root from the target object are ignored. For more information, see <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies">Policies</a>.</p>"""
     list_index: NotRequired[
         "capo_clouddirectory.types.batch_list_index_response.BatchListIndexResponse"
     ]
@@ -65,11 +65,11 @@ class BatchReadSuccessfulResponse(TypedDict, closed=True):
     list_outgoing_typed_links: NotRequired[
         "capo_clouddirectory.types.batch_list_outgoing_typed_links_response.BatchListOutgoingTypedLinksResponse"
     ]
-    r"""<p>Returns a paginated list of all the outgoing <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink\">Typed Links</a>.</p>"""
+    """<p>Returns a paginated list of all the outgoing <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink">Typed Links</a>.</p>"""
     list_incoming_typed_links: NotRequired[
         "capo_clouddirectory.types.batch_list_incoming_typed_links_response.BatchListIncomingTypedLinksResponse"
     ]
-    r"""<p>Returns a paginated list of all the incoming <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink\">Typed Links</a>.</p>"""
+    """<p>Returns a paginated list of all the incoming <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink">Typed Links</a>.</p>"""
     get_link_attributes: NotRequired[
         "capo_clouddirectory.types.batch_get_link_attributes_response.BatchGetLinkAttributesResponse"
     ]

@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class ResourceShare(TypedDict, closed=True):
     resource_share_arn: NotRequired["capo_ram.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the resource share</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource share</p>"""
     name: NotRequired["capo_ram.types.string.String"]
     """<p>The name of the resource share.</p>"""
     owning_account_id: NotRequired["capo_ram.types.string.String"]

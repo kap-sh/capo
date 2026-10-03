@@ -18,7 +18,7 @@ class CreateSnapshotRequest(TypedDict, closed=True):
     description: NotRequired["capo_ec2.types.string.String"]
     """<p>A description for the snapshot.</p>"""
     outpost_arn: NotRequired["capo_ec2.types.string.String"]
-    r"""<note> <p>Only supported for volumes on Outposts. If the source volume is not on an Outpost, omit this parameter.</p> </note> <ul> <li> <p>To create the snapshot on the same Outpost as the source volume, specify the ARN of that Outpost. The snapshot must be created on the same Outpost as the volume.</p> </li> <li> <p>To create the snapshot in the parent Region of the Outpost, omit this parameter.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#create-snapshot\">Create local snapshots from volumes on an Outpost</a> in the <i>Amazon EBS User Guide</i>.</p>"""
+    """<note> <p>Only supported for volumes on Outposts. If the source volume is not on an Outpost, omit this parameter.</p> </note> <ul> <li> <p>To create the snapshot on the same Outpost as the source volume, specify the ARN of that Outpost. The snapshot must be created on the same Outpost as the volume.</p> </li> <li> <p>To create the snapshot in the parent Region of the Outpost, omit this parameter.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#create-snapshot">Create local snapshots from volumes on an Outpost</a> in the <i>Amazon EBS User Guide</i>.</p>"""
     volume_id: NotRequired["capo_ec2.types.volume_id.VolumeId"]
     """<p>The ID of the Amazon EBS volume.</p>"""
     tag_specifications: NotRequired[

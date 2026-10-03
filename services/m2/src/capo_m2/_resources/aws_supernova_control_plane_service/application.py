@@ -1356,7 +1356,7 @@ class Application:
         prefix: Optional["capo_m2.types.string200.String200"] = None,
         name_filter: Optional["capo_m2.types.string200.String200"] = None,
     ) -> "capo_m2.types.list_data_sets_response.ListDataSetsResponse":
-        r"""<p>Lists the data sets imported for a specific application. In Amazon Web Services Mainframe Modernization, data sets are associated with applications deployed on runtime environments. This is known as importing data sets. Currently, Amazon Web Services Mainframe Modernization can import data sets into catalogs using <a href=\"https://docs.aws.amazon.com/m2/latest/APIReference/API_CreateDataSetImportTask.html\">CreateDataSetImportTask</a>.</p>
+        """<p>Lists the data sets imported for a specific application. In Amazon Web Services Mainframe Modernization, data sets are associated with applications deployed on runtime environments. This is known as importing data sets. Currently, Amazon Web Services Mainframe Modernization can import data sets into catalogs using <a href="https://docs.aws.amazon.com/m2/latest/APIReference/API_CreateDataSetImportTask.html">CreateDataSetImportTask</a>.</p>
 
         Args:
             application_id: <p>The unique identifier of the application for which you want to list the associated data sets.</p>
@@ -1528,12 +1528,12 @@ class Application:
             "capo_m2.types.auth_secrets_manager_arn.AuthSecretsManagerArn"
         ] = None,
     ) -> "capo_m2.types.start_batch_job_response.StartBatchJobResponse":
-        r"""<p>Starts a batch job and returns the unique identifier of this execution of the batch job. The associated application must be running in order to start the batch job.</p>
+        """<p>Starts a batch job and returns the unique identifier of this execution of the batch job. The associated application must be running in order to start the batch job.</p>
 
         Args:
             application_id: <p>The unique identifier of the application associated with this batch job.</p>
             batch_job_identifier: <p>The unique identifier of the batch job.</p>
-            job_params: <p>The collection of batch job parameters. For details about limits for keys and values, see <a href=\"https://www.ibm.com/docs/en/workload-automation/9.3.0?topic=zos-coding-variables-in-jcl\">Coding variables in JCL</a>.</p>
+            job_params: <p>The collection of batch job parameters. For details about limits for keys and values, see <a href="https://www.ibm.com/docs/en/workload-automation/9.3.0?topic=zos-coding-variables-in-jcl">Coding variables in JCL</a>.</p>
             auth_secrets_manager_arn: <p>The Amazon Web Services Secrets Manager containing user's credentials for authentication and authorization for Start Batch Job execution operation.</p>
 
         Raises:
@@ -2904,7 +2904,7 @@ class AsyncApplication:
         prefix: Optional["capo_m2.types.string200.String200"] = None,
         name_filter: Optional["capo_m2.types.string200.String200"] = None,
     ) -> "capo_m2.types.list_data_sets_response.ListDataSetsResponse":
-        r"""<p>Lists the data sets imported for a specific application. In Amazon Web Services Mainframe Modernization, data sets are associated with applications deployed on runtime environments. This is known as importing data sets. Currently, Amazon Web Services Mainframe Modernization can import data sets into catalogs using <a href=\"https://docs.aws.amazon.com/m2/latest/APIReference/API_CreateDataSetImportTask.html\">CreateDataSetImportTask</a>.</p>
+        """<p>Lists the data sets imported for a specific application. In Amazon Web Services Mainframe Modernization, data sets are associated with applications deployed on runtime environments. This is known as importing data sets. Currently, Amazon Web Services Mainframe Modernization can import data sets into catalogs using <a href="https://docs.aws.amazon.com/m2/latest/APIReference/API_CreateDataSetImportTask.html">CreateDataSetImportTask</a>.</p>
 
         Args:
             application_id: <p>The unique identifier of the application for which you want to list the associated data sets.</p>
@@ -3079,12 +3079,12 @@ class AsyncApplication:
             "capo_m2.types.auth_secrets_manager_arn.AuthSecretsManagerArn"
         ] = None,
     ) -> "capo_m2.types.start_batch_job_response.StartBatchJobResponse":
-        r"""<p>Starts a batch job and returns the unique identifier of this execution of the batch job. The associated application must be running in order to start the batch job.</p>
+        """<p>Starts a batch job and returns the unique identifier of this execution of the batch job. The associated application must be running in order to start the batch job.</p>
 
         Args:
             application_id: <p>The unique identifier of the application associated with this batch job.</p>
             batch_job_identifier: <p>The unique identifier of the batch job.</p>
-            job_params: <p>The collection of batch job parameters. For details about limits for keys and values, see <a href=\"https://www.ibm.com/docs/en/workload-automation/9.3.0?topic=zos-coding-variables-in-jcl\">Coding variables in JCL</a>.</p>
+            job_params: <p>The collection of batch job parameters. For details about limits for keys and values, see <a href="https://www.ibm.com/docs/en/workload-automation/9.3.0?topic=zos-coding-variables-in-jcl">Coding variables in JCL</a>.</p>
             auth_secrets_manager_arn: <p>The Amazon Web Services Secrets Manager containing user's credentials for authentication and authorization for Start Batch Job execution operation.</p>
 
         Raises:

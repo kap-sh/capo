@@ -21,7 +21,7 @@ class PackageSummary(TypedDict, closed=True):
     origin_configuration: NotRequired[
         "capo_codeartifact.types.package_origin_configuration.PackageOriginConfiguration"
     ]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageOriginConfiguration.html\">PackageOriginConfiguration</a> object that contains a <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageOriginRestrictions.html\">PackageOriginRestrictions</a> object that contains information about the upstream and publish package origin restrictions.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageOriginConfiguration.html">PackageOriginConfiguration</a> object that contains a <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageOriginRestrictions.html">PackageOriginRestrictions</a> object that contains information about the upstream and publish package origin restrictions.</p>"""
 
 
 # --- restJson1 ser/de ---

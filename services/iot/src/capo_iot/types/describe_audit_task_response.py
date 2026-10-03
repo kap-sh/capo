@@ -15,9 +15,9 @@ if TYPE_CHECKING:
 
 class DescribeAuditTaskResponse(TypedDict, closed=True):
     task_status: NotRequired["capo_iot.types.audit_task_status.AuditTaskStatus"]
-    r"""<p>The status of the audit: one of \"IN_PROGRESS\", \"COMPLETED\", \"FAILED\", or \"CANCELED\".</p>"""
+    """<p>The status of the audit: one of "IN_PROGRESS", "COMPLETED", "FAILED", or "CANCELED".</p>"""
     task_type: NotRequired["capo_iot.types.audit_task_type.AuditTaskType"]
-    r"""<p>The type of audit: \"ON_DEMAND_AUDIT_TASK\" or \"SCHEDULED_AUDIT_TASK\".</p>"""
+    """<p>The type of audit: "ON_DEMAND_AUDIT_TASK" or "SCHEDULED_AUDIT_TASK".</p>"""
     task_start_time: NotRequired["capo_iot.types.timestamp.Timestamp"]
     """<p>The time the audit started.</p>"""
     task_statistics: NotRequired["capo_iot.types.task_statistics.TaskStatistics"]

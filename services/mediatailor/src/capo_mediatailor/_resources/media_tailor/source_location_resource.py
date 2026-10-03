@@ -65,7 +65,7 @@ class SourceLocationResource:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_source_location_response.CreateSourceLocationResponse":
-        r"""<p>Creates a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             access_configuration: <p>Access configuration parameters. Configures the type of authentication used to access content from your source location.</p>
@@ -73,7 +73,7 @@ class SourceLocationResource:
             http_configuration: <p>The source's HTTP package configurations.</p>
             segment_delivery_configurations: <p>A list of the segment delivery configurations associated with this resource.</p>
             source_location_name: <p>The name associated with the source location.</p>
-            tags: <p>The tags to assign to the source location. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the source location. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -123,7 +123,7 @@ class SourceLocationResource:
         *,
         config_overrides: Optional[MediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.describe_source_location_response.DescribeSourceLocationResponse":
-        r"""<p>Describes a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Describes a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             source_location_name: <p>The name of the source location.</p>
@@ -175,7 +175,7 @@ class SourceLocationResource:
             "capo_mediatailor.types.__list_of_segment_delivery_configuration.__listOfSegmentDeliveryConfiguration"
         ] = None,
     ) -> "capo_mediatailor.types.update_source_location_response.UpdateSourceLocationResponse":
-        r"""<p>Updates a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Updates a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             access_configuration: <p>Access configuration parameters. Configures the type of authentication used to access content from your source location.</p>
@@ -230,7 +230,7 @@ class SourceLocationResource:
         *,
         config_overrides: Optional[MediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_source_location_response.DeleteSourceLocationResponse":
-        r"""<p>Deletes a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             source_location_name: <p>The name of the source location.</p>
@@ -336,7 +336,7 @@ class AsyncSourceLocationResource:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_source_location_response.CreateSourceLocationResponse":
-        r"""<p>Creates a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             access_configuration: <p>Access configuration parameters. Configures the type of authentication used to access content from your source location.</p>
@@ -344,7 +344,7 @@ class AsyncSourceLocationResource:
             http_configuration: <p>The source's HTTP package configurations.</p>
             segment_delivery_configurations: <p>A list of the segment delivery configurations associated with this resource.</p>
             source_location_name: <p>The name associated with the source location.</p>
-            tags: <p>The tags to assign to the source location. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the source location. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -395,7 +395,7 @@ class AsyncSourceLocationResource:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.describe_source_location_response.DescribeSourceLocationResponse":
-        r"""<p>Describes a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Describes a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             source_location_name: <p>The name of the source location.</p>
@@ -448,7 +448,7 @@ class AsyncSourceLocationResource:
             "capo_mediatailor.types.__list_of_segment_delivery_configuration.__listOfSegmentDeliveryConfiguration"
         ] = None,
     ) -> "capo_mediatailor.types.update_source_location_response.UpdateSourceLocationResponse":
-        r"""<p>Updates a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Updates a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             access_configuration: <p>Access configuration parameters. Configures the type of authentication used to access content from your source location.</p>
@@ -504,7 +504,7 @@ class AsyncSourceLocationResource:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_source_location_response.DeleteSourceLocationResponse":
-        r"""<p>Deletes a source location. A source location is a container for sources. For more information about source locations, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html\">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a source location. A source location is a container for sources. For more information about source locations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-source-locations.html">Working with source locations</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             source_location_name: <p>The name of the source location.</p>

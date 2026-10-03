@@ -18,11 +18,11 @@ class WebAuthnConfigurationType(TypedDict, closed=True):
     user_verification: NotRequired[
         "capo_cognito_identity_provider.types.user_verification_type.UserVerificationType"
     ]
-    r"""<p>When <code>required</code>, users can only register and sign in users with passkeys that are capable of <a href=\"https://www.w3.org/TR/webauthn-2/#enum-userVerificationRequirement\">user verification</a>. When <code>preferred</code>, your user pool doesn't require the use of authenticators with user verification but encourages it.</p>"""
+    """<p>When <code>required</code>, users can only register and sign in users with passkeys that are capable of <a href="https://www.w3.org/TR/webauthn-2/#enum-userVerificationRequirement">user verification</a>. When <code>preferred</code>, your user pool doesn't require the use of authenticators with user verification but encourages it.</p>"""
     factor_configuration: NotRequired[
         "capo_cognito_identity_provider.types.web_authn_factor_configuration_type.WebAuthnFactorConfigurationType"
     ]
-    r"""<p>Sets whether passkeys can be used as multi-factor authentication (MFA). When set to <code>MULTI_FACTOR_WITH_USER_VERIFICATION</code>, passkey authentication with user verification satisfies MFA requirements. When set to <code>SINGLE_FACTOR</code> or not set, passkeys are a single authentication factor. To activate this setting, your user pool must be in the <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html\"> Essentials tier</a> or higher.</p>"""
+    """<p>Sets whether passkeys can be used as multi-factor authentication (MFA). When set to <code>MULTI_FACTOR_WITH_USER_VERIFICATION</code>, passkey authentication with user verification satisfies MFA requirements. When set to <code>SINGLE_FACTOR</code> or not set, passkeys are a single authentication factor. To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

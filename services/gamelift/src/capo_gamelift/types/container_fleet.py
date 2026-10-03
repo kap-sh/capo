@@ -31,9 +31,9 @@ class ContainerFleet(TypedDict, closed=True):
     fleet_id: NotRequired["capo_gamelift.types.fleet_id.FleetId"]
     """<p>A unique identifier for the container fleet to retrieve. </p>"""
     fleet_arn: NotRequired["capo_gamelift.types.fleet_arn.FleetArn"]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) that is assigned to a Amazon GameLift Servers fleet resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a GameLift fleet ARN, the resource ID matches the <code>FleetId</code> value.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a Amazon GameLift Servers fleet resource and uniquely identifies it. ARNs are unique across all Regions. Format is <code>arn:aws:gamelift:<region>::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a GameLift fleet ARN, the resource ID matches the <code>FleetId</code> value.</p>"""
     fleet_role_arn: NotRequired["capo_gamelift.types.iam_role_arn.IamRoleArn"]
-    r"""<p>The unique identifier for an Identity and Access Management (IAM) role with permissions to run your containers on resources that are managed by Amazon GameLift Servers. See <a href=\"https://docs.aws.amazon.com/gamelift/latest/developerguide/setting-up-role.html\">Set up an IAM service role</a>. This fleet property can't be changed.</p>"""
+    """<p>The unique identifier for an Identity and Access Management (IAM) role with permissions to run your containers on resources that are managed by Amazon GameLift Servers. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/setting-up-role.html">Set up an IAM service role</a>. This fleet property can't be changed.</p>"""
     game_server_container_group_definition_name: NotRequired[
         "capo_gamelift.types.container_group_definition_name.ContainerGroupDefinitionName"
     ]
@@ -41,7 +41,7 @@ class ContainerFleet(TypedDict, closed=True):
     game_server_container_group_definition_arn: NotRequired[
         "capo_gamelift.types.container_group_definition_arn.ContainerGroupDefinitionArn"
     ]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) that is assigned to the fleet's game server container group. The ARN value also identifies the specific container group definition version in use.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to the fleet's game server container group. The ARN value also identifies the specific container group definition version in use.</p>"""
     per_instance_container_group_definition_name: NotRequired[
         "capo_gamelift.types.container_group_definition_name.ContainerGroupDefinitionName"
     ]
@@ -49,7 +49,7 @@ class ContainerFleet(TypedDict, closed=True):
     per_instance_container_group_definition_arn: NotRequired[
         "capo_gamelift.types.container_group_definition_arn.ContainerGroupDefinitionArn"
     ]
-    r"""<p>The Amazon Resource Name (<a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html\">ARN</a>) that is assigned to the fleet's per-instance container group. The ARN value also identifies the specific container group definition version in use.</p>"""
+    """<p>The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to the fleet's per-instance container group. The ARN value also identifies the specific container group definition version in use.</p>"""
     instance_connection_port_range: NotRequired[
         "capo_gamelift.types.connection_port_range.ConnectionPortRange"
     ]
@@ -72,19 +72,19 @@ class ContainerFleet(TypedDict, closed=True):
     billing_type: NotRequired[
         "capo_gamelift.types.container_fleet_billing_type.ContainerFleetBillingType"
     ]
-    r"""<p>Indicates whether the fleet uses On-Demand or Spot instances for this fleet. Learn more about when to use <a href=\"https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-ec2-instances.html#gamelift-ec2-instances-spot\"> On-Demand versus Spot Instances</a>. You can't update this fleet property.</p> <p>By default, this property is set to <code>ON_DEMAND</code>.</p>"""
+    """<p>Indicates whether the fleet uses On-Demand or Spot instances for this fleet. Learn more about when to use <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-ec2-instances.html#gamelift-ec2-instances-spot"> On-Demand versus Spot Instances</a>. You can't update this fleet property.</p> <p>By default, this property is set to <code>ON_DEMAND</code>.</p>"""
     description: NotRequired[
         "capo_gamelift.types.non_zero_and_max_string.NonZeroAndMaxString"
     ]
     """<p>A meaningful description of the container fleet.</p>"""
     creation_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>).</p>"""
+    """<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).</p>"""
     metric_groups: NotRequired["capo_gamelift.types.metric_group_list.MetricGroupList"]
     """<p>The name of an Amazon Web Services CloudWatch metric group to add this fleet to. Metric groups aggregate metrics for multiple fleets. </p>"""
     new_game_session_protection_policy: NotRequired[
         "capo_gamelift.types.protection_policy.ProtectionPolicy"
     ]
-    r"""<p>Determines whether Amazon GameLift Servers can shut down game sessions on the fleet that are actively running and hosting players. Amazon GameLift Servers might prompt an instance shutdown when scaling down fleet capacity or when retiring unhealthy instances. You can also set game session protection for individual game sessions using <a href=\"gamelift/latest/apireference/API_UpdateGameSession.html\">UpdateGameSession</a>.</p> <ul> <li> <p> <b>NoProtection</b> -- Game sessions can be shut down during active gameplay. </p> </li> <li> <p> <b>FullProtection</b> -- Game sessions in <code>ACTIVE</code> status can't be shut down.</p> </li> </ul>"""
+    """<p>Determines whether Amazon GameLift Servers can shut down game sessions on the fleet that are actively running and hosting players. Amazon GameLift Servers might prompt an instance shutdown when scaling down fleet capacity or when retiring unhealthy instances. You can also set game session protection for individual game sessions using <a href="gamelift/latest/apireference/API_UpdateGameSession.html">UpdateGameSession</a>.</p> <ul> <li> <p> <b>NoProtection</b> -- Game sessions can be shut down during active gameplay. </p> </li> <li> <p> <b>FullProtection</b> -- Game sessions in <code>ACTIVE</code> status can't be shut down.</p> </li> </ul>"""
     game_session_creation_limit_policy: NotRequired[
         "capo_gamelift.types.game_session_creation_limit_policy.GameSessionCreationLimitPolicy"
     ]

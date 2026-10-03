@@ -116,7 +116,7 @@ class Input(TypedDict, closed=True):
     supplemental_imps: NotRequired[
         "capo_mediaconvert.types.__list_of__string_pattern_s3_assetmap_xml.__listOf__stringPatternS3ASSETMAPXml"
     ]
-    r"""Provide a list of any necessary supplemental IMPs. You need supplemental IMPs if the CPL that you're using for your input is in an incomplete IMP. Specify either the supplemental IMP directories with a trailing slash or the ASSETMAP.xml files. For example [\"s3://bucket/ov/\", \"s3://bucket/vf2/ASSETMAP.xml\"]. You don't need to specify the IMP that contains your input CPL, because the service automatically detects it."""
+    """Provide a list of any necessary supplemental IMPs. You need supplemental IMPs if the CPL that you're using for your input is in an incomplete IMP. Specify either the supplemental IMP directories with a trailing slash or the ASSETMAP.xml files. For example ["s3://bucket/ov/", "s3://bucket/vf2/ASSETMAP.xml"]. You don't need to specify the IMP that contains your input CPL, because the service automatically detects it."""
     tams_settings: NotRequired[
         "capo_mediaconvert.types.input_tams_settings.InputTamsSettings"
     ]

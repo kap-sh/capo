@@ -23,7 +23,7 @@ class RestoreTestingSelectionForGet(TypedDict, closed=True):
     iam_role_arn: "str"
     """<p>The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for example:<code>arn:aws:iam::123456789012:role/S3Access</code>.</p>"""
     protected_resource_arns: NotRequired["capo_backup.types.string_list.stringList"]
-    r"""<p>You can include specific ARNs, such as <code>ProtectedResourceArns: [\"arn:aws:...\", \"arn:aws:...\"]</code> or you can include a wildcard: <code>ProtectedResourceArns: [\"*\"]</code>, but not both.</p>"""
+    """<p>You can include specific ARNs, such as <code>ProtectedResourceArns: ["arn:aws:...", "arn:aws:..."]</code> or you can include a wildcard: <code>ProtectedResourceArns: ["*"]</code>, but not both.</p>"""
     protected_resource_conditions: NotRequired[
         "capo_backup.types.protected_resource_conditions.ProtectedResourceConditions"
     ]
@@ -33,7 +33,7 @@ class RestoreTestingSelectionForGet(TypedDict, closed=True):
     restore_metadata_overrides: NotRequired[
         "capo_backup.types.sensitive_string_map.SensitiveStringMap"
     ]
-    r"""<p>You can override certain restore metadata keys by including the parameter <code>RestoreMetadataOverrides</code> in the body of <code>RestoreTestingSelection</code>. Key values are not case sensitive.</p> <p>See the complete list of <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing-inferred-metadata.html\">restore testing inferred metadata</a>.</p>"""
+    """<p>You can override certain restore metadata keys by including the parameter <code>RestoreMetadataOverrides</code> in the body of <code>RestoreTestingSelection</code>. Key values are not case sensitive.</p> <p>See the complete list of <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing-inferred-metadata.html">restore testing inferred metadata</a>.</p>"""
     restore_testing_plan_name: "str"
     """<p>The RestoreTestingPlanName is a unique string that is the name of the restore testing plan.</p>"""
     restore_testing_selection_name: "str"

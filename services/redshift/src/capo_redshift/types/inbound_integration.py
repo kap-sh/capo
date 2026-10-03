@@ -31,7 +31,7 @@ class InboundIntegration(TypedDict, closed=True):
     errors: NotRequired[
         "capo_redshift.types.integration_error_list.IntegrationErrorList"
     ]
-    r"""<p>The outstanding errors of an inbound integration. Each item is an \"IntegrationError\". This is null if there is no error.</p>"""
+    """<p>The outstanding errors of an inbound integration. Each item is an "IntegrationError". This is null if there is no error.</p>"""
     create_time: NotRequired["capo_redshift.types.t_stamp.TStamp"]
     """<p>The creation time of an inbound integration.</p>"""
 

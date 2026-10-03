@@ -28,17 +28,17 @@ class CreateLogAnomalyDetectorRequest(TypedDict, closed=True):
     filter_pattern: NotRequired[
         "capo_cloudwatch_logs.types.filter_pattern.FilterPattern"
     ]
-    r"""<p>You can use this parameter to limit the anomaly detection model to examine only log events that match the pattern you specify here. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html\">Filter and Pattern Syntax</a>.</p>"""
+    """<p>You can use this parameter to limit the anomaly detection model to examine only log events that match the pattern you specify here. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html">Filter and Pattern Syntax</a>.</p>"""
     kms_key_id: NotRequired[
         "capo_cloudwatch_logs.types.detector_kms_key_arn.DetectorKmsKeyArn"
     ]
-    r"""<p>Optionally assigns a KMS key to secure this anomaly detector and its findings. If a key is assigned, the anomalies found and the model used by this detector are encrypted at rest with the key. If a key is assigned to an anomaly detector, a user must have permissions for both this key and for the anomaly detector to retrieve information about the anomalies that it finds.</p> <p> Make sure the value provided is a valid KMS key ARN. For more information about using a KMS key and to see the required IAM policy, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/LogsAnomalyDetection-KMS.html\">Use a KMS key with an anomaly detector</a>.</p>"""
+    """<p>Optionally assigns a KMS key to secure this anomaly detector and its findings. If a key is assigned, the anomalies found and the model used by this detector are encrypted at rest with the key. If a key is assigned to an anomaly detector, a user must have permissions for both this key and for the anomaly detector to retrieve information about the anomalies that it finds.</p> <p> Make sure the value provided is a valid KMS key ARN. For more information about using a KMS key and to see the required IAM policy, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/LogsAnomalyDetection-KMS.html">Use a KMS key with an anomaly detector</a>.</p>"""
     anomaly_visibility_time: NotRequired[
         "capo_cloudwatch_logs.types.anomaly_visibility_time.AnomalyVisibilityTime"
     ]
     """<p>The number of days to have visibility on an anomaly. After this time period has elapsed for an anomaly, it will be automatically baselined and the anomaly detector will treat new occurrences of a similar anomaly as normal. Therefore, if you do not correct the cause of an anomaly during the time period specified in <code>anomalyVisibilityTime</code>, it will be considered normal going forward and will not be detected as an anomaly.</p>"""
     tags: NotRequired["capo_cloudwatch_logs.types.tags.Tags"]
-    r"""<p>An optional list of key-value pairs to associate with the resource.</p> <p>For more information about tagging, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services resources</a> </p>"""
+    """<p>An optional list of key-value pairs to associate with the resource.</p> <p>For more information about tagging, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

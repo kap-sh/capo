@@ -25,11 +25,11 @@ class GetServiceLastAccessedDetailsResponse(TypedDict, closed=True):
     ]
     """<p>The type of job. Service jobs return information about when each service was last accessed. Action jobs also include information about when tracked actions within the service were last accessed.</p>"""
     job_creation_date: "capo_iam.types.date_type.dateType"
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the report job was created.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the report job was created.</p>"""
     services_last_accessed: "capo_iam.types.services_last_accessed.ServicesLastAccessed"
     """<p> A <code>ServiceLastAccessed</code> object that contains details about the most recent attempt to access the service.</p>"""
     job_completion_date: "capo_iam.types.date_type.dateType"
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the generated report job was completed or failed.</p> <p>This field is null if the job is still in progress, as indicated by a job status value of <code>IN_PROGRESS</code>.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the generated report job was completed or failed.</p> <p>This field is null if the job is still in progress, as indicated by a job status value of <code>IN_PROGRESS</code>.</p>"""
     is_truncated: "capo_iam.types.boolean_type.booleanType"
     """<p>A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the <code>Marker</code> request parameter to retrieve more items. Note that IAM might return fewer than the <code>MaxItems</code> number of results even when there are more results available. We recommend that you check <code>IsTruncated</code> after every call to ensure that you receive all your results.</p>"""
     marker: NotRequired["capo_iam.types.response_marker_type.responseMarkerType"]

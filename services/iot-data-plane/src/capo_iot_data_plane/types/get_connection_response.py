@@ -46,7 +46,7 @@ class GetConnectionResponse(TypedDict, closed=True):
     disconnect_reason: NotRequired[
         "capo_iot_data_plane.types.disconnect_reason.DisconnectReason"
     ]
-    r"""<p>The reason for the last disconnection, if the client is currently disconnected. See the <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html#connect-disconnect\">developer guide</a> for valid disconnect reasons.</p>"""
+    """<p>The reason for the last disconnection, if the client is currently disconnected. See the <a href="https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html#connect-disconnect">developer guide</a> for valid disconnect reasons.</p>"""
     session_expiry: "capo_iot_data_plane.types.session_expiry.SessionExpiry"
     """<p>The session expiry interval in seconds for the MQTT client connection. This is configured by the user. This value indicates how long the session will remain active after the client disconnects.</p>"""
     client_id: NotRequired["capo_iot_data_plane.types.client_id.ClientId"]
@@ -54,7 +54,7 @@ class GetConnectionResponse(TypedDict, closed=True):
     vpc_endpoint_id: NotRequired[
         "capo_iot_data_plane.types.vpc_endpoint_id.VpcEndpointId"
     ]
-    r"""<p>The ID of the VPC endpoint. Present for clients connected to IoT Core via a <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/IoTCore-VPC.html\">VPC endpoint</a>. </p>"""
+    """<p>The ID of the VPC endpoint. Present for clients connected to IoT Core via a <a href="https://docs.aws.amazon.com/iot/latest/developerguide/IoTCore-VPC.html">VPC endpoint</a>. </p>"""
 
 
 # --- restJson1 ser/de ---

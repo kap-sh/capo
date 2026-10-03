@@ -15,7 +15,7 @@ class CreateLibraryItemOutput(TypedDict, closed=True):
     library_item_id: "capo_qapps.types.uuid.UUID"
     """<p>The unique identifier of the new library item.</p>"""
     status: "str"
-    r"""<p>The status of the new library item, such as \"Published\".</p>"""
+    """<p>The status of the new library item, such as "Published".</p>"""
     created_at: "capo_qapps.types.q_apps_timestamp.QAppsTimestamp"
     """<p>The date and time the library item was created.</p>"""
     created_by: "str"

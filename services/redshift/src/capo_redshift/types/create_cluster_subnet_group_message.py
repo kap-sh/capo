@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class CreateClusterSubnetGroupMessage(TypedDict, closed=True):
     cluster_subnet_group_name: NotRequired["capo_redshift.types.string.String"]
-    r"""<p>The name for the subnet group. Amazon Redshift stores the value as a lowercase string.</p> <p>Constraints:</p> <ul> <li> <p>Must contain no more than 255 alphanumeric characters or hyphens.</p> </li> <li> <p>Must not be \"Default\".</p> </li> <li> <p>Must be unique for all subnet groups that are created by your Amazon Web Services account.</p> </li> </ul> <p>Example: <code>examplesubnetgroup</code> </p>"""
+    """<p>The name for the subnet group. Amazon Redshift stores the value as a lowercase string.</p> <p>Constraints:</p> <ul> <li> <p>Must contain no more than 255 alphanumeric characters or hyphens.</p> </li> <li> <p>Must not be "Default".</p> </li> <li> <p>Must be unique for all subnet groups that are created by your Amazon Web Services account.</p> </li> </ul> <p>Example: <code>examplesubnetgroup</code> </p>"""
     description: NotRequired["capo_redshift.types.string.String"]
     """<p>A description for the subnet group.</p>"""
     subnet_ids: NotRequired[

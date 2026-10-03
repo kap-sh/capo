@@ -430,10 +430,10 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> "capo_pca_connector_ad.types.get_connector_response.GetConnectorResponse":
-        r"""<p>Lists information about your connector. You specify the connector on input by its ARN (Amazon Resource Name). </p>
+        """<p>Lists information about your connector. You specify the connector on input by its ARN (Amazon Resource Name). </p>
 
         Args:
-            connector_arn: <p> The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html\">CreateConnector</a>.</p>
+            connector_arn: <p> The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html">CreateConnector</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -478,10 +478,10 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a connector for Active Directory. You must provide the Amazon Resource Name (ARN) of the connector that you want to delete. You can find the ARN by calling the <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_ListConnectors\">https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_ListConnectors</a> action. Deleting a connector does not deregister your directory with Amazon Web Services Private CA. You can deregister your directory by calling the <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_DeleteDirectoryRegistration\">https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_DeleteDirectoryRegistration</a> action.</p>
+        """<p>Deletes a connector for Active Directory. You must provide the Amazon Resource Name (ARN) of the connector that you want to delete. You can find the ARN by calling the <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_ListConnectors">https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_ListConnectors</a> action. Deleting a connector does not deregister your directory with Amazon Web Services Private CA. You can deregister your directory by calling the <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_DeleteDirectoryRegistration">https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_DeleteDirectoryRegistration</a> action.</p>
 
         Args:
-            connector_arn: <p> The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html\">CreateConnector</a>.</p>
+            connector_arn: <p> The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html">CreateConnector</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -528,7 +528,7 @@ class AsyncPcaConnectorAdClient:
         ] = None,
         next_token: Optional["capo_pca_connector_ad.types.next_token.NextToken"] = None,
     ) -> "capo_pca_connector_ad.types.list_connectors_response.ListConnectorsResponse":
-        r"""<p>Lists the connectors that you created by using the <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector\">https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector</a> action.</p>
+        """<p>Lists the connectors that you created by using the <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector">https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector</a> action.</p>
 
         Args:
             max_results: <p>Use this parameter when paginating results to specify the maximum number of items to return in the response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.</p>
@@ -663,10 +663,10 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> "capo_pca_connector_ad.types.get_directory_registration_response.GetDirectoryRegistrationResponse":
-        r"""<p>A structure that contains information about your directory registration.</p>
+        """<p>A structure that contains information about your directory registration.</p>
 
         Args:
-            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html\">CreateDirectoryRegistration</a>.</p>
+            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html">CreateDirectoryRegistration</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -711,10 +711,10 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a directory registration. Deleting a directory registration deauthorizes Amazon Web Services Private CA with the directory. </p>
+        """<p>Deletes a directory registration. Deleting a directory registration deauthorizes Amazon Web Services Private CA with the directory. </p>
 
         Args:
-            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html\">CreateDirectoryRegistration</a>.</p>
+            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html">CreateDirectoryRegistration</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -760,7 +760,7 @@ class AsyncPcaConnectorAdClient:
         ] = None,
         next_token: Optional["capo_pca_connector_ad.types.next_token.NextToken"] = None,
     ) -> "capo_pca_connector_ad.types.list_directory_registrations_response.ListDirectoryRegistrationsResponse":
-        r"""<p>Lists the directory registrations that you created by using the <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration\">https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration</a> action.</p>
+        """<p>Lists the directory registrations that you created by using the <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration">https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration</a> action.</p>
 
         Args:
             max_results: <p>Use this parameter when paginating results to specify the maximum number of items to return in the response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.</p>
@@ -837,11 +837,11 @@ class AsyncPcaConnectorAdClient:
             "capo_pca_connector_ad.types.client_token.ClientToken"
         ] = None,
     ) -> None:
-        r"""<p>Creates a service principal name (SPN) for the service account in Active Directory. Kerberos authentication uses SPNs to associate a service instance with a service sign-in account.</p>
+        """<p>Creates a service principal name (SPN) for the service account in Active Directory. Kerberos authentication uses SPNs to associate a service instance with a service sign-in account.</p>
 
         Args:
-            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html\">CreateDirectoryRegistration</a>.</p>
-            connector_arn: <p> The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html\">CreateConnector</a>.</p>
+            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html">CreateDirectoryRegistration</a>.</p>
+            connector_arn: <p> The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html">CreateConnector</a>.</p>
             client_token: <p>Idempotency token.</p>
 
         Raises:
@@ -891,11 +891,11 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> "capo_pca_connector_ad.types.get_service_principal_name_response.GetServicePrincipalNameResponse":
-        r"""<p>Lists the service principal name that the connector uses to authenticate with Active Directory.</p>
+        """<p>Lists the service principal name that the connector uses to authenticate with Active Directory.</p>
 
         Args:
-            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html\">CreateDirectoryRegistration</a>.</p>
-            connector_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html\">CreateConnector</a>.</p>
+            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html">CreateDirectoryRegistration</a>.</p>
+            connector_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html">CreateConnector</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -942,11 +942,11 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes the service principal name (SPN) used by a connector to authenticate with your Active Directory.</p>
+        """<p>Deletes the service principal name (SPN) used by a connector to authenticate with your Active Directory.</p>
 
         Args:
-            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html\">CreateDirectoryRegistration</a>.</p>
-            connector_arn: <p> The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html\">CreateConnector</a>.</p>
+            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html">CreateDirectoryRegistration</a>.</p>
+            connector_arn: <p> The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html">CreateConnector</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -994,12 +994,12 @@ class AsyncPcaConnectorAdClient:
         ] = None,
         next_token: Optional["capo_pca_connector_ad.types.next_token.NextToken"] = None,
     ) -> "capo_pca_connector_ad.types.list_service_principal_names_response.ListServicePrincipalNamesResponse":
-        r"""<p>Lists the service principal names that the connector uses to authenticate with Active Directory.</p>
+        """<p>Lists the service principal names that the connector uses to authenticate with Active Directory.</p>
 
         Args:
             max_results: <p>Use this parameter when paginating results to specify the maximum number of items to return in the response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.</p>
             next_token: <p>Use this parameter when paginating results in a subsequent request after you receive a response with truncated results. Set it to the value of the <code>NextToken</code> parameter from the response you just received.</p>
-            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html\">CreateDirectoryRegistration</a>.</p>
+            directory_registration_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateDirectoryRegistration.html">CreateDirectoryRegistration</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -1079,11 +1079,11 @@ class AsyncPcaConnectorAdClient:
             "capo_pca_connector_ad.types.client_token.ClientToken"
         ] = None,
     ) -> None:
-        r"""<p>Create a group access control entry. Allow or deny Active Directory groups from enrolling and/or autoenrolling with the template based on the group security identifiers (SIDs).</p>
+        """<p>Create a group access control entry. Allow or deny Active Directory groups from enrolling and/or autoenrolling with the template based on the group security identifiers (SIDs).</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
             group_display_name: <p>Name of the Active Directory group. This name does not need to match the group name in Active Directory.</p>
             access_rights: <p> Allow or deny permissions for an Active Directory group to enroll or autoenroll certificates for a template.</p>
             client_token: <p>Idempotency token.</p>
@@ -1138,11 +1138,11 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> "capo_pca_connector_ad.types.get_template_group_access_control_entry_response.GetTemplateGroupAccessControlEntryResponse":
-        r"""<p>Retrieves the group access control entries for a template.</p>
+        """<p>Retrieves the group access control entries for a template.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -1195,11 +1195,11 @@ class AsyncPcaConnectorAdClient:
             "capo_pca_connector_ad.types.access_rights.AccessRights"
         ] = None,
     ) -> None:
-        r"""<p>Update a group access control entry you created using <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplateGroupAccessControlEntry.html\">CreateTemplateGroupAccessControlEntry</a>. </p>
+        """<p>Update a group access control entry you created using <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplateGroupAccessControlEntry.html">CreateTemplateGroupAccessControlEntry</a>. </p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
             group_display_name: <p>Name of the Active Directory group. This name does not need to match the group name in Active Directory.</p>
             access_rights: <p>Allow or deny permissions for an Active Directory group to enroll or autoenroll certificates for a template.</p>
 
@@ -1251,11 +1251,11 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a group access control entry.</p>
+        """<p>Deletes a group access control entry.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -1304,12 +1304,12 @@ class AsyncPcaConnectorAdClient:
         ] = None,
         next_token: Optional["capo_pca_connector_ad.types.next_token.NextToken"] = None,
     ) -> "capo_pca_connector_ad.types.list_template_group_access_control_entries_response.ListTemplateGroupAccessControlEntriesResponse":
-        r"""<p>Lists group access control entries you created. </p>
+        """<p>Lists group access control entries you created. </p>
 
         Args:
             max_results: <p>Use this parameter when paginating results to specify the maximum number of items to return in the response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.</p>
             next_token: <p>Use this parameter when paginating results in a subsequent request after you receive a response with truncated results. Set it to the value of the <code>NextToken</code> parameter from the response you just received.</p>
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -1389,10 +1389,10 @@ class AsyncPcaConnectorAdClient:
         ] = None,
         tags: Optional["capo_pca_connector_ad.types.tags.Tags"] = None,
     ) -> "capo_pca_connector_ad.types.create_template_response.CreateTemplateResponse":
-        r"""<p>Creates an Active Directory compatible certificate template. The connectors issues certificates using these templates based on the requester’s Active Directory group membership.</p>
+        """<p>Creates an Active Directory compatible certificate template. The connectors issues certificates using these templates based on the requester’s Active Directory group membership.</p>
 
         Args:
-            connector_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html\">CreateConnector</a>.</p>
+            connector_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html">CreateConnector</a>.</p>
             name: <p>Name of the template. The template name must be unique.</p>
             definition: <p>Template configuration to define the information included in certificates. Define certificate validity and renewal periods, certificate request handling and enrollment options, key usage extensions, application policies, and cryptography settings.</p>
             client_token: <p>Idempotency token.</p>
@@ -1450,10 +1450,10 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> "capo_pca_connector_ad.types.get_template_response.GetTemplateResponse":
-        r"""<p>Retrieves a certificate template that the connector uses to issue certificates from a private CA.</p>
+        """<p>Retrieves a certificate template that the connector uses to issue certificates from a private CA.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -1502,10 +1502,10 @@ class AsyncPcaConnectorAdClient:
         ] = None,
         reenroll_all_certificate_holders: Optional[bool] = None,
     ) -> None:
-        r"""<p>Update template configuration to define the information included in certificates.</p>
+        """<p>Update template configuration to define the information included in certificates.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
             definition: <p>Template configuration to define the information included in certificates. Define certificate validity and renewal periods, certificate request handling and enrollment options, key usage extensions, application policies, and cryptography settings.</p>
             reenroll_all_certificate_holders: <p>This setting allows the major version of a template to be increased automatically. All members of Active Directory groups that are allowed to enroll with a template will receive a new certificate issued using that template.</p>
 
@@ -1557,10 +1557,10 @@ class AsyncPcaConnectorAdClient:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a template. Certificates issued using the template are still valid until they are revoked or expired.</p>
+        """<p>Deletes a template. Certificates issued using the template are still valid until they are revoked or expired.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -1608,12 +1608,12 @@ class AsyncPcaConnectorAdClient:
         ] = None,
         next_token: Optional["capo_pca_connector_ad.types.next_token.NextToken"] = None,
     ) -> "capo_pca_connector_ad.types.list_templates_response.ListTemplatesResponse":
-        r"""<p>Lists the templates, if any, that are associated with a connector.</p>
+        """<p>Lists the templates, if any, that are associated with a connector.</p>
 
         Args:
             max_results: <p>Use this parameter when paginating results to specify the maximum number of items to return in the response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.</p>
             next_token: <p>Use this parameter when paginating results in a subsequent request after you receive a response with truncated results. Set it to the value of the <code>NextToken</code> parameter from the response you just received.</p>
-            connector_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html\">CreateConnector</a>.</p>
+            connector_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateConnector.html">CreateConnector</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>

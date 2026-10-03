@@ -17,7 +17,7 @@ class ProfilingStatus(TypedDict, closed=True):
     latest_aggregated_profile: NotRequired[
         "capo_codeguruprofiler.types.aggregated_profile_time.AggregatedProfileTime"
     ]
-    r"""<p> An <a href=\"https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AggregatedProfileTime.html\"> <code>AggregatedProfileTime</code> </a> object that contains the aggregation period and start time for an aggregated profile. </p>"""
+    """<p> An <a href="https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AggregatedProfileTime.html"> <code>AggregatedProfileTime</code> </a> object that contains the aggregation period and start time for an aggregated profile. </p>"""
     latest_agent_orchestrated_at: NotRequired[
         "capo_codeguruprofiler.types.timestamp.Timestamp"
     ]

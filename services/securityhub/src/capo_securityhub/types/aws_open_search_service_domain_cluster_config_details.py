@@ -27,7 +27,7 @@ class AwsOpenSearchServiceDomainClusterConfigDetails(TypedDict, closed=True):
     dedicated_master_count: NotRequired["capo_securityhub.types.integer.Integer"]
     """<p>The number of instances to use for the master node. If this attribute is specified, then <code>DedicatedMasterEnabled</code> must be <code>true</code>.</p>"""
     instance_type: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>The instance type for your data nodes.</p> <p>For a list of valid values, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html\">Supported instance types in Amazon OpenSearch Service</a> in the <i>Amazon OpenSearch Service Developer Guide</i>.</p>"""
+    """<p>The instance type for your data nodes.</p> <p>For a list of valid values, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html">Supported instance types in Amazon OpenSearch Service</a> in the <i>Amazon OpenSearch Service Developer Guide</i>.</p>"""
     warm_type: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The type of UltraWarm instance.</p>"""
     zone_awareness_enabled: NotRequired["capo_securityhub.types.boolean.Boolean"]

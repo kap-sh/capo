@@ -23,7 +23,7 @@ class GetLibraryItemOutput(TypedDict, closed=True):
     categories: "capo_qapps.types.category_list.CategoryList"
     """<p>The categories associated with the library item for discovery.</p>"""
     status: "str"
-    r"""<p>The status of the library item, such as \"Published\".</p>"""
+    """<p>The status of the library item, such as "Published".</p>"""
     created_at: "capo_qapps.types.q_apps_timestamp.QAppsTimestamp"
     """<p>The date and time the library item was created.</p>"""
     created_by: "str"

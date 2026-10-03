@@ -14,7 +14,7 @@ class GetBucketLocationOutput(TypedDict, closed=True):
     location_constraint: NotRequired[
         "capo_s3.types.bucket_location_constraint.BucketLocationConstraint"
     ]
-    r"""<p>Specifies the Region where the bucket resides. For a list of all the Amazon S3 supported location constraints by Region, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region\">Regions and Endpoints</a>.</p> <p>Buckets in Region <code>us-east-1</code> have a LocationConstraint of <code>null</code>. Buckets with a LocationConstraint of <code>EU</code> reside in <code>eu-west-1</code>.</p>"""
+    """<p>Specifies the Region where the bucket resides. For a list of all the Amazon S3 supported location constraints by Region, see <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">Regions and Endpoints</a>.</p> <p>Buckets in Region <code>us-east-1</code> have a LocationConstraint of <code>null</code>. Buckets with a LocationConstraint of <code>EU</code> reside in <code>eu-west-1</code>.</p>"""
 
 
 # --- restXml ser/de ---

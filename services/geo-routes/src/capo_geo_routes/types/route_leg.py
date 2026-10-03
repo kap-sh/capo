@@ -23,11 +23,11 @@ class RouteLeg(TypedDict, closed=True):
     ferry_leg_details: NotRequired[
         "capo_geo_routes.types.route_ferry_leg_details.RouteFerryLegDetails"
     ]
-    r"""<p> FerryLegDetails is populated when the Leg type is Ferry, and provides additional information that is specific to ferry travel. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p>"""
+    """<p> FerryLegDetails is populated when the Leg type is Ferry, and provides additional information that is specific to ferry travel. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p>"""
     geometry: "capo_geo_routes.types.route_leg_geometry.RouteLegGeometry"
     """<p>Geometry of the area to be avoided.</p>"""
     language: NotRequired["capo_geo_routes.types.language_tag.LanguageTag"]
-    r"""<p> List of languages for instructions within steps in the response. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p>"""
+    """<p> List of languages for instructions within steps in the response. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p>"""
     pedestrian_leg_details: NotRequired[
         "capo_geo_routes.types.route_pedestrian_leg_details.RoutePedestrianLegDetails"
     ]
@@ -43,11 +43,11 @@ class RouteLeg(TypedDict, closed=True):
     rental_leg_details: NotRequired[
         "capo_geo_routes.types.route_rental_leg_details.RouteRentalLegDetails"
     ]
-    r"""<p>Details related to the rental leg.</p> <note> <p>Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers.</p> </note>"""
+    """<p>Details related to the rental leg.</p> <note> <p>Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers.</p> </note>"""
     taxi_leg_details: NotRequired[
         "capo_geo_routes.types.route_taxi_leg_details.RouteTaxiLegDetails"
     ]
-    r"""<p>Details related to the taxi leg.</p> <note> <p>Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers.</p> </note>"""
+    """<p>Details related to the taxi leg.</p> <note> <p>Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers.</p> </note>"""
     transit_leg_details: NotRequired[
         "capo_geo_routes.types.route_transit_leg_details.RouteTransitLegDetails"
     ]

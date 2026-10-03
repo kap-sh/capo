@@ -24,7 +24,7 @@ class CreateIndexRequest(TypedDict, closed=True):
     description: NotRequired["capo_qbusiness.types.description.Description"]
     """<p>A description for the Amazon Q Business index.</p>"""
     type: NotRequired["capo_qbusiness.types.index_type.IndexType"]
-    r"""<p>The index type that's suitable for your needs. For more information on what's included in each type of index, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/tiers.html#index-tiers\">Amazon Q Business tiers</a>.</p>"""
+    """<p>The index type that's suitable for your needs. For more information on what's included in each type of index, see <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/tiers.html#index-tiers">Amazon Q Business tiers</a>.</p>"""
     tags: NotRequired["capo_qbusiness.types.tags.Tags"]
     """<p>A list of key-value pairs that identify or categorize the index. You can also use tags to help control access to the index. Tag keys and values can consist of Unicode letters, digits, white space, and any of the following symbols: _ . : / = + - @.</p>"""
     capacity_configuration: NotRequired[

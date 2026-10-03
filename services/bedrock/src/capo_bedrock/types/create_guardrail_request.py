@@ -56,7 +56,7 @@ class CreateGuardrailRequest(TypedDict, closed=True):
     cross_region_config: NotRequired[
         "capo_bedrock.types.guardrail_cross_region_config.GuardrailCrossRegionConfig"
     ]
-    r"""<p>The system-defined guardrail profile that you're using with your guardrail. Guardrail profiles define the destination Amazon Web Services Regions where guardrail inference requests can be automatically routed.</p> <p>For more information, see the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-cross-region.html\">Amazon Bedrock User Guide</a>.</p>"""
+    """<p>The system-defined guardrail profile that you're using with your guardrail. Guardrail profiles define the destination Amazon Web Services Regions where guardrail inference requests can be automatically routed.</p> <p>For more information, see the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-cross-region.html">Amazon Bedrock User Guide</a>.</p>"""
     blocked_input_messaging: (
         "capo_bedrock.types.guardrail_blocked_messaging.GuardrailBlockedMessaging"
     )
@@ -72,7 +72,7 @@ class CreateGuardrailRequest(TypedDict, closed=True):
     client_request_token: NotRequired[
         "capo_bedrock.types.idempotency_token.IdempotencyToken"
     ]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than once. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than once. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon S3 User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

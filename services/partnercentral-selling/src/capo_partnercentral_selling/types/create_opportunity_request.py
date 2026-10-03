@@ -50,7 +50,7 @@ class CreateOpportunityRequest(TypedDict, closed=True):
     ]
     """<p>Specifies details of a customer's procurement terms. This is required only for partners in eligible programs.</p>"""
     client_token: "capo_partnercentral_selling.types.client_token.ClientToken"
-    r"""<p>Required to be unique, and should be unchanging, it can be randomly generated or a meaningful string.</p> <p>Default: None</p> <p>Best practice: To help ensure uniqueness and avoid conflicts, use a Universally Unique Identifier (UUID) as the <code>ClientToken</code>. You can use standard libraries from most programming languages to generate this. If you use the same client token, the API returns the following error: \"Conflicting client token submitted for a new request body.\"</p>"""
+    """<p>Required to be unique, and should be unchanging, it can be randomly generated or a meaningful string.</p> <p>Default: None</p> <p>Best practice: To help ensure uniqueness and avoid conflicts, use a Universally Unique Identifier (UUID) as the <code>ClientToken</code>. You can use standard libraries from most programming languages to generate this. If you use the same client token, the API returns the following error: "Conflicting client token submitted for a new request body."</p>"""
     life_cycle: NotRequired["capo_partnercentral_selling.types.life_cycle.LifeCycle"]
     """<p>An object that contains lifecycle details for the <code>Opportunity</code>.</p>"""
     origin: NotRequired[

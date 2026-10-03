@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class RegexMatchStatement(TypedDict, closed=True):
     regex_string: "capo_wafv2.types.regex_pattern_string.RegexPatternString"
-    r"""<p>The string representing the regular expression. WAF enforces a quota on the maximum number of characters in a regex pattern. For the current limit, see <a href=\"https://docs.aws.amazon.com/waf/latest/developerguide/limits.html\">WAF quotas</a> in the <i>WAF Developer Guide</i>.</p>"""
+    """<p>The string representing the regular expression. WAF enforces a quota on the maximum number of characters in a regex pattern. For the current limit, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF Developer Guide</i>.</p>"""
     field_to_match: "capo_wafv2.types.field_to_match.FieldToMatch"
     """<p>The part of the web request that you want WAF to inspect. </p>"""
     text_transformations: "capo_wafv2.types.text_transformations.TextTransformations"

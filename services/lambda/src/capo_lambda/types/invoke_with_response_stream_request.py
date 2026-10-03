@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class InvokeWithResponseStreamRequest(TypedDict, closed=True):
     function_name: "capo_lambda.types.namespaced_function_name.NamespacedFunctionName"
-    r"""<p>The name or ARN of the Lambda function.</p> <p class=\"title\"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>"""
+    """<p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>"""
     log_type: NotRequired["capo_lambda.types.log_type.LogType"]
     """<p>Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked functions only.</p>"""
     client_context: NotRequired["capo_lambda.types.string.String"]
@@ -26,7 +26,7 @@ class InvokeWithResponseStreamRequest(TypedDict, closed=True):
     ]
     """<p>The alias name.</p>"""
     payload: NotRequired["capo_lambda.types.blob.Blob"]
-    r"""<p>The JSON that you want to provide to your Lambda function as input.</p> <p>You can enter the JSON directly. For example, <code>--payload '{ \"key\": \"value\" }'</code>. You can also specify a file path. For example, <code>--payload file://payload.json</code>.</p>"""
+    """<p>The JSON that you want to provide to your Lambda function as input.</p> <p>You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also specify a file path. For example, <code>--payload file://payload.json</code>.</p>"""
     tenant_id: NotRequired["capo_lambda.types.tenant_id.TenantId"]
     """<p>The identifier of the tenant in a multi-tenant Lambda function.</p>"""
     invocation_type: NotRequired[

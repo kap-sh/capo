@@ -31,7 +31,7 @@ class SpaceSettings(TypedDict, closed=True):
     ]
     """<p>The settings for the JupyterLab application.</p>"""
     app_type: NotRequired["capo_sagemaker.types.app_type.AppType"]
-    r"""<p>The type of app created within the space.</p> <p>If using the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateSpace.html\"> UpdateSpace</a> API, you can't change the app type of your space by specifying a different value for this field.</p>"""
+    """<p>The type of app created within the space.</p> <p>If using the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateSpace.html"> UpdateSpace</a> API, you can't change the app type of your space by specifying a different value for this field.</p>"""
     space_storage_settings: NotRequired[
         "capo_sagemaker.types.space_storage_settings.SpaceStorageSettings"
     ]

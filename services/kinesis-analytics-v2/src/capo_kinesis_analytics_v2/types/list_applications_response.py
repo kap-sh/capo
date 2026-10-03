@@ -19,7 +19,7 @@ class ListApplicationsResponse(TypedDict, closed=True):
     next_token: NotRequired[
         "capo_kinesis_analytics_v2.types.application_name.ApplicationName"
     ]
-    r"""<p>The pagination token for the next set of results, or <code>null</code> if there are no additional results. Pass this token into a subsequent command to retrieve the next set of items For more information about pagination, see <a href=\"https://docs.aws.amazon.com/cli/latest/userguide/pagination.html\">Using the Amazon Command Line Interface's Pagination Options</a>.</p>"""
+    """<p>The pagination token for the next set of results, or <code>null</code> if there are no additional results. Pass this token into a subsequent command to retrieve the next set of items For more information about pagination, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the Amazon Command Line Interface's Pagination Options</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

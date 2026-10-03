@@ -23,7 +23,7 @@ class DescribeComputationModelResponse(TypedDict, closed=True):
     computation_model_id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the computation model.</p>"""
     computation_model_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the computation model, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:computation-model/${ComputationModelId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the computation model, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:computation-model/${ComputationModelId}</code> </p>"""
     computation_model_name: "capo_iotsitewise.types.restricted_name.RestrictedName"
     """<p>The name of the computation model.</p>"""
     computation_model_description: NotRequired[

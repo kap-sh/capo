@@ -43,7 +43,7 @@ class Job(TypedDict, closed=True):
     encryption_key_arn: NotRequired[
         "capo_databrew.types.encryption_key_arn.EncryptionKeyArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of an encryption key that is used to protect the job output. For more information, see <a href=\"https://docs.aws.amazon.com/databrew/latest/dg/encryption-security-configuration.html\">Encrypting data written by DataBrew jobs</a> </p>"""
+    """<p>The Amazon Resource Name (ARN) of an encryption key that is used to protect the job output. For more information, see <a href="https://docs.aws.amazon.com/databrew/latest/dg/encryption-security-configuration.html">Encrypting data written by DataBrew jobs</a> </p>"""
     encryption_mode: NotRequired["capo_databrew.types.encryption_mode.EncryptionMode"]
     """<p>The encryption mode for the job, which can be one of the following:</p> <ul> <li> <p> <code>SSE-KMS</code> - Server-side encryption with keys managed by KMS.</p> </li> <li> <p> <code>SSE-S3</code> - Server-side encryption with keys managed by Amazon S3.</p> </li> </ul>"""
     name: "capo_databrew.types.job_name.JobName"

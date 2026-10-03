@@ -38,7 +38,7 @@ class CreateRemoteAccessSessionRequest(TypedDict, closed=True):
     ]
     """<p>The interaction mode of the remote access session. Changing the interactive mode of remote access sessions is no longer available.</p>"""
     skip_app_resign: NotRequired["capo_device_farm.types.boolean.Boolean"]
-    r"""<p>When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again.</p> <p>For more information on how Device Farm modifies your uploads during tests, see <a href=\"http://aws.amazon.com/device-farm/faqs/\">Do you modify my app?</a> </p>"""
+    """<p>When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again.</p> <p>For more information on how Device Farm modifies your uploads during tests, see <a href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

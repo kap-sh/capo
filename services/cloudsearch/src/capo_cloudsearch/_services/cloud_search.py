@@ -193,11 +193,11 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.build_suggesters_response.BuildSuggestersResponse":
-        r"""<p>Indexes the search suggestions. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html#configuring-suggesters\">Configuring Suggesters</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Indexes the search suggestions. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html#configuring-suggesters">Configuring Suggesters</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.validation_exception.ValidationException: <p>The request was rejected because it has invalid parameters.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -236,14 +236,14 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.create_domain_response.CreateDomainResponse":
-        r"""<p>Creates a new search domain. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/creating-domains.html\" target=\"_blank\">Creating a Search Domain</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Creates a new search domain. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/creating-domains.html" target="_blank">Creating a Search Domain</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>A name for the domain you are creating. Allowed characters are a-z (lower-case letters), 0-9, and hyphen (-). Domain names must start with a letter or number and be at least 3 and no more than 28 characters long.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The request was rejected because it attempted to create a resource that already exists.</p>
             capo_cloudsearch.errors.validation_exception.ValidationException: <p>The request was rejected because it has invalid parameters.</p>
@@ -284,11 +284,11 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.define_analysis_scheme_response.DefineAnalysisSchemeResponse":
-        r"""<p>Configures an analysis scheme that can be applied to a <code>text</code> or <code>text-array</code> field to define language-specific text processing options. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html\" target=\"_blank\">Configuring Analysis Schemes</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Configures an analysis scheme that can be applied to a <code>text</code> or <code>text-array</code> field to define language-specific text processing options. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html" target="_blank">Configuring Analysis Schemes</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
@@ -331,11 +331,11 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.define_expression_response.DefineExpressionResponse":
-        r"""<p>Configures an <code><a>Expression</a></code> for the search domain. Used to create new expressions and modify existing ones. If the expression exists, the new configuration replaces the old one. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html\" target=\"_blank\">Configuring Expressions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Configures an <code><a>Expression</a></code> for the search domain. Used to create new expressions and modify existing ones. If the expression exists, the new configuration replaces the old one. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html" target="_blank">Configuring Expressions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
@@ -378,14 +378,14 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.define_index_field_response.DefineIndexFieldResponse":
-        r"""<p>Configures an <code><a>IndexField</a></code> for the search domain. Used to create new fields and modify existing ones. You must specify the name of the domain you are configuring and an index field configuration. The index field configuration specifies a unique name, the index field type, and the options you want to configure for the field. The options you can specify depend on the <code><a>IndexFieldType</a></code>. If the field exists, the new configuration replaces the old one. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html\" target=\"_blank\">Configuring Index Fields</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
+        """<p>Configures an <code><a>IndexField</a></code> for the search domain. Used to create new fields and modify existing ones. You must specify the name of the domain you are configuring and an index field configuration. The index field configuration specifies a unique name, the index field type, and the options you want to configure for the field. The options you can specify depend on the <code><a>IndexFieldType</a></code>. If the field exists, the new configuration replaces the old one. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html" target="_blank">Configuring Index Fields</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
 
         Args:
             index_field: <p>The index field and field options you want to configure. </p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
@@ -428,11 +428,11 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.define_suggester_response.DefineSuggesterResponse":
-        r"""<p>Configures a suggester for a domain. A suggester enables you to display possible matches before users finish typing their queries. When you configure a suggester, you must specify the name of the text field you want to search for possible matches and a unique name for the suggester. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html\" target=\"_blank\">Getting Search Suggestions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Configures a suggester for a domain. A suggester enables you to display possible matches before users finish typing their queries. When you configure a suggester, you must specify the name of the text field you want to search for possible matches and a unique name for the suggester. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html" target="_blank">Getting Search Suggestions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
@@ -475,14 +475,14 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.delete_analysis_scheme_response.DeleteAnalysisSchemeResponse":
-        r"""<p>Deletes an analysis scheme. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html\" target=\"_blank\">Configuring Analysis Schemes</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
+        """<p>Deletes an analysis scheme. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html" target="_blank">Configuring Analysis Schemes</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
 
         Args:
             analysis_scheme_name: <p>The name of the analysis scheme you want to delete.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.validation_exception.ValidationException: <p>The request was rejected because it has invalid parameters.</p>
@@ -523,14 +523,14 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.delete_domain_response.DeleteDomainResponse":
-        r"""<p>Permanently deletes a search domain and all of its data. Once a domain has been deleted, it cannot be recovered. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/deleting-domains.html\" target=\"_blank\">Deleting a Search Domain</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
+        """<p>Permanently deletes a search domain and all of its data. Once a domain has been deleted, it cannot be recovered. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/deleting-domains.html" target="_blank">Deleting a Search Domain</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
 
         Args:
             domain_name: <p>The name of the domain you want to permanently delete.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -568,14 +568,14 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.delete_expression_response.DeleteExpressionResponse":
-        r"""<p>Removes an <code><a>Expression</a></code> from the search domain. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html\" target=\"_blank\">Configuring Expressions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Removes an <code><a>Expression</a></code> from the search domain. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html" target="_blank">Configuring Expressions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             expression_name: <p>The name of the <code><a>Expression</a></code> to delete.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.validation_exception.ValidationException: <p>The request was rejected because it has invalid parameters.</p>
@@ -617,14 +617,14 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.delete_index_field_response.DeleteIndexFieldResponse":
-        r"""<p>Removes an <code><a>IndexField</a></code> from the search domain. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html\" target=\"_blank\">Configuring Index Fields</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Removes an <code><a>IndexField</a></code> from the search domain. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html" target="_blank">Configuring Index Fields</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             index_field_name: <p>The name of the index field your want to remove from the domain's indexing options.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.validation_exception.ValidationException: <p>The request was rejected because it has invalid parameters.</p>
@@ -666,14 +666,14 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.delete_suggester_response.DeleteSuggesterResponse":
-        r"""<p>Deletes a suggester. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html\" target=\"_blank\">Getting Search Suggestions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Deletes a suggester. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html" target="_blank">Getting Search Suggestions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             suggester_name: <p>Specifies the name of the suggester you want to delete.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.validation_exception.ValidationException: <p>The request was rejected because it has invalid parameters.</p>
@@ -718,7 +718,7 @@ class CloudSearchClient:
         ] = None,
         deployed: Optional["capo_cloudsearch.types.boolean.Boolean"] = None,
     ) -> "capo_cloudsearch.types.describe_analysis_schemes_response.DescribeAnalysisSchemesResponse":
-        r"""<p>Gets the analysis schemes configured for a domain. An analysis scheme defines language-specific text processing options for a <code>text</code> field. Can be limited to specific analysis schemes by name. By default, shows all analysis schemes and includes any pending changes to the configuration. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html\" target=\"_blank\">Configuring Analysis Schemes</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Gets the analysis schemes configured for a domain. An analysis scheme defines language-specific text processing options for a <code>text</code> field. Can be limited to specific analysis schemes by name. By default, shows all analysis schemes and includes any pending changes to the configuration. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html" target="_blank">Configuring Analysis Schemes</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>The name of the domain you want to describe.</p>
@@ -727,7 +727,7 @@ class CloudSearchClient:
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -770,7 +770,7 @@ class CloudSearchClient:
         config_overrides: Optional[CloudSearchClientConfig] = None,
         deployed: Optional["capo_cloudsearch.types.boolean.Boolean"] = None,
     ) -> "capo_cloudsearch.types.describe_availability_options_response.DescribeAvailabilityOptionsResponse":
-        r"""<p>Gets the availability options configured for a domain. By default, shows the configuration with any pending changes. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html\" target=\"_blank\">Configuring Availability Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Gets the availability options configured for a domain. By default, shows the configuration with any pending changes. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html" target="_blank">Configuring Availability Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>The name of the domain you want to describe.</p>
@@ -779,7 +779,7 @@ class CloudSearchClient:
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
             capo_cloudsearch.errors.disabled_operation_exception.DisabledOperationException: <p>The request was rejected because it attempted an operation which is not enabled.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
@@ -822,7 +822,7 @@ class CloudSearchClient:
         config_overrides: Optional[CloudSearchClientConfig] = None,
         deployed: Optional["capo_cloudsearch.types.boolean.Boolean"] = None,
     ) -> "capo_cloudsearch.types.describe_domain_endpoint_options_response.DescribeDomainEndpointOptionsResponse":
-        r"""<p>Returns the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html\" target=\"_blank\">Configuring Domain Endpoint Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Returns the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html" target="_blank">Configuring Domain Endpoint Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>A string that represents the name of a domain.</p>
@@ -831,7 +831,7 @@ class CloudSearchClient:
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
             capo_cloudsearch.errors.disabled_operation_exception.DisabledOperationException: <p>The request was rejected because it attempted an operation which is not enabled.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -874,14 +874,14 @@ class CloudSearchClient:
             "capo_cloudsearch.types.domain_name_list.DomainNameList"
         ] = None,
     ) -> "capo_cloudsearch.types.describe_domains_response.DescribeDomainsResponse":
-        r"""<p>Gets information about the search domains owned by this account. Can be limited to specific domains. Shows all domains by default. To get the number of searchable documents in a domain, use the console or submit a <code>matchall</code> request to your domain's search endpoint: <code>q=matchall&amp;q.parser=structured&amp;size=0</code>. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html\" target=\"_blank\">Getting Information about a Search Domain</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Gets information about the search domains owned by this account. Can be limited to specific domains. Shows all domains by default. To get the number of searchable documents in a domain, use the console or submit a <code>matchall</code> request to your domain's search endpoint: <code>q=matchall&amp;q.parser=structured&amp;size=0</code>. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html" target="_blank">Getting Information about a Search Domain</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_names: <p>The names of the domains you want to include in the response.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -922,7 +922,7 @@ class CloudSearchClient:
         ] = None,
         deployed: Optional["capo_cloudsearch.types.boolean.Boolean"] = None,
     ) -> "capo_cloudsearch.types.describe_expressions_response.DescribeExpressionsResponse":
-        r"""<p>Gets the expressions configured for the search domain. Can be limited to specific expressions by name. By default, shows all expressions and includes any pending changes to the configuration. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html\" target=\"_blank\">Configuring Expressions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Gets the expressions configured for the search domain. Can be limited to specific expressions by name. By default, shows all expressions and includes any pending changes to the configuration. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html" target="_blank">Configuring Expressions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>The name of the domain you want to describe.</p>
@@ -931,7 +931,7 @@ class CloudSearchClient:
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -977,7 +977,7 @@ class CloudSearchClient:
         ] = None,
         deployed: Optional["capo_cloudsearch.types.boolean.Boolean"] = None,
     ) -> "capo_cloudsearch.types.describe_index_fields_response.DescribeIndexFieldsResponse":
-        r"""<p>Gets information about the index fields configured for the search domain. Can be limited to specific fields by name. By default, shows all fields and includes any pending changes to the configuration. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html\" target=\"_blank\">Getting Domain Information</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Gets information about the index fields configured for the search domain. Can be limited to specific fields by name. By default, shows all fields and includes any pending changes to the configuration. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html" target="_blank">Getting Domain Information</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>The name of the domain you want to describe.</p>
@@ -986,7 +986,7 @@ class CloudSearchClient:
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1028,11 +1028,11 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.describe_scaling_parameters_response.DescribeScalingParametersResponse":
-        r"""<p>Gets the scaling parameters configured for a domain. A domain's scaling parameters specify the desired search instance type and replication count. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html\" target=\"_blank\">Configuring Scaling Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Gets the scaling parameters configured for a domain. A domain's scaling parameters specify the desired search instance type and replication count. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html" target="_blank">Configuring Scaling Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1071,7 +1071,7 @@ class CloudSearchClient:
         config_overrides: Optional[CloudSearchClientConfig] = None,
         deployed: Optional["capo_cloudsearch.types.boolean.Boolean"] = None,
     ) -> "capo_cloudsearch.types.describe_service_access_policies_response.DescribeServiceAccessPoliciesResponse":
-        r"""<p>Gets information about the access policies that control access to the domain's document and search endpoints. By default, shows the configuration with any pending changes. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html\" target=\"_blank\">Configuring Access for a Search Domain</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Gets information about the access policies that control access to the domain's document and search endpoints. By default, shows the configuration with any pending changes. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html" target="_blank">Configuring Access for a Search Domain</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>The name of the domain you want to describe.</p>
@@ -1079,7 +1079,7 @@ class CloudSearchClient:
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1125,7 +1125,7 @@ class CloudSearchClient:
     ) -> (
         "capo_cloudsearch.types.describe_suggesters_response.DescribeSuggestersResponse"
     ):
-        r"""<p>Gets the suggesters configured for a domain. A suggester enables you to display possible matches before users finish typing their queries. Can be limited to specific suggesters by name. By default, shows all suggesters and includes any pending changes to the configuration. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html\" target=\"_blank\">Getting Search Suggestions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Gets the suggesters configured for a domain. A suggester enables you to display possible matches before users finish typing their queries. Can be limited to specific suggesters by name. By default, shows all suggesters and includes any pending changes to the configuration. Set the <code>Deployed</code> option to <code>true</code> to show the active configuration and exclude pending changes. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html" target="_blank">Getting Search Suggestions</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>The name of the domain you want to describe.</p>
@@ -1134,7 +1134,7 @@ class CloudSearchClient:
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1180,7 +1180,7 @@ class CloudSearchClient:
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
             capo_cloudsearch.errors.validation_exception.ValidationException: <p>The request was rejected because it has invalid parameters.</p>
             capo_cloudsearch.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -1254,7 +1254,7 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.update_availability_options_response.UpdateAvailabilityOptionsResponse":
-        r"""<p>Configures the availability options for a domain. Enabling the Multi-AZ option expands an Amazon CloudSearch domain to an additional Availability Zone in the same Region to increase fault tolerance in the event of a service disruption. Changes to the Multi-AZ option can take about half an hour to become active. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html\" target=\"_blank\">Configuring Availability Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Configures the availability options for a domain. Enabling the Multi-AZ option expands an Amazon CloudSearch domain to an additional Availability Zone in the same Region to increase fault tolerance in the event of a service disruption. Changes to the Multi-AZ option can take about half an hour to become active. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html" target="_blank">Configuring Availability Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             multi_az: <p>You expand an existing search domain to a second Availability Zone by setting the Multi-AZ option to true. Similarly, you can turn off the Multi-AZ option to downgrade the domain to a single Availability Zone by setting the Multi-AZ option to <code>false</code>. </p>
@@ -1262,7 +1262,7 @@ class CloudSearchClient:
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
             capo_cloudsearch.errors.disabled_operation_exception.DisabledOperationException: <p>The request was rejected because it attempted an operation which is not enabled.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
@@ -1305,7 +1305,7 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.update_domain_endpoint_options_response.UpdateDomainEndpointOptionsResponse":
-        r"""<p>Updates the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html\" target=\"_blank\">Configuring Domain Endpoint Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
+        """<p>Updates the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html" target="_blank">Configuring Domain Endpoint Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.</p>
 
         Args:
             domain_name: <p>A string that represents the name of a domain.</p>
@@ -1314,7 +1314,7 @@ class CloudSearchClient:
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
             capo_cloudsearch.errors.disabled_operation_exception.DisabledOperationException: <p>The request was rejected because it attempted an operation which is not enabled.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
@@ -1357,11 +1357,11 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.update_scaling_parameters_response.UpdateScalingParametersResponse":
-        r"""<p>Configures scaling parameters for a domain. A domain's scaling parameters specify the desired search instance type and replication count. Amazon CloudSearch will still automatically scale your domain based on the volume of data and traffic, but not below the desired instance type and replication count. If the Multi-AZ option is enabled, these values control the resources used per Availability Zone. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html\" target=\"_blank\">Configuring Scaling Options</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
+        """<p>Configures scaling parameters for a domain. A domain's scaling parameters specify the desired search instance type and replication count. Amazon CloudSearch will still automatically scale your domain based on the volume of data and traffic, but not below the desired instance type and replication count. If the Multi-AZ option is enabled, these values control the resources used per Availability Zone. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html" target="_blank">Configuring Scaling Options</a> in the <i>Amazon CloudSearch Developer Guide</i>. </p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>
@@ -1404,14 +1404,14 @@ class CloudSearchClient:
         *,
         config_overrides: Optional[CloudSearchClientConfig] = None,
     ) -> "capo_cloudsearch.types.update_service_access_policies_response.UpdateServiceAccessPoliciesResponse":
-        r"""<p>Configures the access rules that control access to the domain's document and search endpoints. For more information, see <a href=\"http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html\" target=\"_blank\"> Configuring Access for an Amazon CloudSearch Domain</a>.</p>
+        """<p>Configures the access rules that control access to the domain's document and search endpoints. For more information, see <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html" target="_blank"> Configuring Access for an Amazon CloudSearch Domain</a>.</p>
 
         Args:
             access_policies: <p>The access rules you want to configure. These rules replace any existing rules. </p>
 
         Raises:
             capo_cloudsearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
-            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href=\"http://status.aws.amazon.com/\" target=\"_blank\">Service Health Dashboard</a>.</p>
+            capo_cloudsearch.errors.internal_exception.InternalException: <p>An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.</p>
             capo_cloudsearch.errors.invalid_type_exception.InvalidTypeException: <p>The request was rejected because it specified an invalid type definition.</p>
             capo_cloudsearch.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because a resource limit has already been met.</p>
             capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because it attempted to reference a resource that does not exist.</p>

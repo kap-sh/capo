@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class BatchGetViewInput(TypedDict, closed=True):
     view_arns: NotRequired["capo_resource_explorer_2.types.view_arn_list.ViewArnList"]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource names (ARNs)</a> that identify the views you want details for.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource names (ARNs)</a> that identify the views you want details for.</p>"""
 
 
 # --- restJson1 ser/de ---

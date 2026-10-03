@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class EntityIdentifier(TypedDict, closed=True):
     entity_type: "capo_verifiedpermissions.types.entity_type.EntityType"
-    r"""<p>The type of an entity.</p> <p>Example: <code>\"entityType\":\"<i>typeName</i>\"</code> </p>"""
+    """<p>The type of an entity.</p> <p>Example: <code>"entityType":"<i>typeName</i>"</code> </p>"""
     entity_id: "capo_verifiedpermissions.types.entity_id.EntityId"
-    r"""<p>The identifier of an entity.</p> <p> <code>\"entityId\":\"<i>identifier</i>\"</code> </p>"""
+    """<p>The identifier of an entity.</p> <p> <code>"entityId":"<i>identifier</i>"</code> </p>"""
 
 
 # --- awsJson1_0 ser/de ---

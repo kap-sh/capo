@@ -54,13 +54,13 @@ class LiveSourceResource:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_live_source_response.CreateLiveSourceResponse":
-        r"""<p>The live source configuration.</p>
+        """<p>The live source configuration.</p>
 
         Args:
             http_package_configurations: <p>A list of HTTP package configuration parameters for this live source.</p>
             live_source_name: <p>The name of the live source.</p>
             source_location_name: <p>The name of the source location.</p>
-            tags: <p>The tags to assign to the live source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the live source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -301,13 +301,13 @@ class AsyncLiveSourceResource:
             "capo_mediatailor.types.__map_of__string.__mapOf__string"
         ] = None,
     ) -> "capo_mediatailor.types.create_live_source_response.CreateLiveSourceResponse":
-        r"""<p>The live source configuration.</p>
+        """<p>The live source configuration.</p>
 
         Args:
             http_package_configurations: <p>A list of HTTP package configuration parameters for this live source.</p>
             live_source_name: <p>The name of the live source.</p>
             source_location_name: <p>The name of the source location.</p>
-            tags: <p>The tags to assign to the live source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the live source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.

@@ -16,7 +16,7 @@ class AutomationRulesMetadata(TypedDict, closed=True):
     rule_arn: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p> The Amazon Resource Name (ARN) for the rule. </p>"""
     rule_status: NotRequired["capo_securityhub.types.rule_status.RuleStatus"]
-    r"""<p> Whether the rule is active after it is created. If this parameter is equal to <code>ENABLED</code>, Security Hub CSPM starts applying the rule to findings and finding updates after the rule is created. To change the value of this parameter after creating a rule, use <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateAutomationRules.html\"> <code>BatchUpdateAutomationRules</code> </a>. </p>"""
+    """<p> Whether the rule is active after it is created. If this parameter is equal to <code>ENABLED</code>, Security Hub CSPM starts applying the rule to findings and finding updates after the rule is created. To change the value of this parameter after creating a rule, use <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateAutomationRules.html"> <code>BatchUpdateAutomationRules</code> </a>. </p>"""
     rule_order: NotRequired["capo_securityhub.types.rule_order_value.RuleOrderValue"]
     """<p>An integer ranging from 1 to 1000 that represents the order in which the rule action is applied to findings. Security Hub CSPM applies rules with lower values for this parameter first. </p>"""
     rule_name: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
@@ -26,9 +26,9 @@ class AutomationRulesMetadata(TypedDict, closed=True):
     is_terminal: NotRequired["capo_securityhub.types.boolean.Boolean"]
     """<p>Specifies whether a rule is the last to be applied with respect to a finding that matches the rule criteria. This is useful when a finding matches the criteria for multiple rules, and each rule has different actions. If a rule is terminal, Security Hub CSPM applies the rule action to a finding that matches the rule criteria and doesn't evaluate other rules for the finding. By default, a rule isn't terminal. </p>"""
     created_at: NotRequired["capo_securityhub.types.timestamp.Timestamp"]
-    r"""<p> A timestamp that indicates when the rule was created. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p> A timestamp that indicates when the rule was created. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     updated_at: NotRequired["capo_securityhub.types.timestamp.Timestamp"]
-    r"""<p> A timestamp that indicates when the rule was most recently updated. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p> A timestamp that indicates when the rule was most recently updated. </p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     created_by: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p> The principal that created a rule. </p>"""
 

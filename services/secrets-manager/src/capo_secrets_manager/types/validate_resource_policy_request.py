@@ -15,7 +15,7 @@ class ValidateResourcePolicyRequest(TypedDict, closed=True):
     secret_id: NotRequired["capo_secrets_manager.types.secret_id_type.SecretIdType"]
     """<p>The ARN or name of the secret with the resource-based policy you want to validate.</p>"""
     resource_policy: "capo_secrets_manager.types.non_empty_resource_policy_type.NonEmptyResourcePolicyType"
-    r"""<p>A JSON-formatted string that contains an Amazon Web Services resource-based policy. The policy in the string identifies who can access or manage this secret and its versions. For example policies, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html\">Permissions policy examples</a>.</p>"""
+    """<p>A JSON-formatted string that contains an Amazon Web Services resource-based policy. The policy in the string identifies who can access or manage this secret and its versions. For example policies, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions policy examples</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

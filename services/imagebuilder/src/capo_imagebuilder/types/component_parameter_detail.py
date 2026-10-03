@@ -17,7 +17,7 @@ class ComponentParameterDetail(TypedDict, closed=True):
     name: "capo_imagebuilder.types.component_parameter_name.ComponentParameterName"
     """<p>The name of this input parameter.</p>"""
     type: "capo_imagebuilder.types.component_parameter_type.ComponentParameterType"
-    r"""<p>The type of input this parameter provides. The currently supported value is \"string\".</p>"""
+    """<p>The type of input this parameter provides. The currently supported value is "string".</p>"""
     default_value: NotRequired[
         "capo_imagebuilder.types.component_parameter_value_list.ComponentParameterValueList"
     ]

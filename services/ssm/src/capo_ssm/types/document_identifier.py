@@ -50,7 +50,7 @@ class DocumentIdentifier(TypedDict, closed=True):
     document_format: NotRequired["capo_ssm.types.document_format.DocumentFormat"]
     """<p>The document format, either JSON or YAML.</p>"""
     target_type: NotRequired["capo_ssm.types.target_type.TargetType"]
-    r"""<p>The target type which defines the kinds of resources the document can run on. For example, <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html\">Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>. </p>"""
+    """<p>The target type which defines the kinds of resources the document can run on. For example, <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>. </p>"""
     tags: NotRequired["capo_ssm.types.tag_list.TagList"]
     """<p>The tags, or metadata, that have been applied to the document.</p>"""
     requires: NotRequired["capo_ssm.types.document_requires_list.DocumentRequiresList"]

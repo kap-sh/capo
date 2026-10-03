@@ -16,7 +16,7 @@ class CalculateRoutesResponse(TypedDict, closed=True):
     leg_geometry_format: "capo_geo_routes.types.geometry_format.GeometryFormat"
     """<p>Specifies the format of the geometry returned for each leg of the route.</p>"""
     notices: "capo_geo_routes.types.route_response_notice_list.RouteResponseNoticeList"
-    r"""<p> Notices are additional information returned that indicate issues that occurred during route calculation. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p>"""
+    """<p> Notices are additional information returned that indicate issues that occurred during route calculation. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p>"""
     pricing_bucket: "str"
     """<p>The pricing bucket for which the query is charged at.</p>"""
     routes: "capo_geo_routes.types.route_list.RouteList"

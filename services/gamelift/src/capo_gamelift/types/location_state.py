@@ -20,7 +20,7 @@ class LocationState(TypedDict, closed=True):
     player_gateway_status: NotRequired[
         "capo_gamelift.types.player_gateway_status.PlayerGatewayStatus"
     ]
-    r"""<p>The current status of player gateway in this location for this fleet. Note, even if a fleet has PlayerGatewayMode configured as <code>ENABLED</code>, player gateway might not be available in a specific location. For more information about locations where player gateway is supported, see <a href=\"https://docs.aws.amazon.com/gameliftservers/latest/developerguide/gamelift-regions.html\">Amazon GameLift Servers service locations</a>.</p> <p>Possible values include:</p> <ul> <li> <p> <code>ENABLED</code> -- Player gateway is available for this fleet location.</p> </li> <li> <p> <code>DISABLED</code> -- Player gateway is not available for this fleet location.</p> </li> </ul>"""
+    """<p>The current status of player gateway in this location for this fleet. Note, even if a fleet has PlayerGatewayMode configured as <code>ENABLED</code>, player gateway might not be available in a specific location. For more information about locations where player gateway is supported, see <a href="https://docs.aws.amazon.com/gameliftservers/latest/developerguide/gamelift-regions.html">Amazon GameLift Servers service locations</a>.</p> <p>Possible values include:</p> <ul> <li> <p> <code>ENABLED</code> -- Player gateway is available for this fleet location.</p> </li> <li> <p> <code>DISABLED</code> -- Player gateway is not available for this fleet location.</p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---

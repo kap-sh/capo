@@ -23,7 +23,7 @@ class UpdateBillingViewRequest(TypedDict, closed=True):
     ]
     """<p> The description of the billing view. </p>"""
     data_filter_expression: NotRequired["capo_billing.types.expression.Expression"]
-    r"""<p>See <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html\">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>"""
+    """<p>See <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>"""
 
 
 # --- awsJson1_0 ser/de ---

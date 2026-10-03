@@ -102,7 +102,7 @@ class LogAlarm(TypedDict, closed=True):
     warm_up_configuration: NotRequired[
         "capo_cloudwatch.types.warm_up_configuration.WarmUpConfiguration"
     ]
-    r"""<p>The warm-up configuration for the alarm. A warm-up period delays alarm evaluation after you create or update the alarm. During the warm-up period, the alarm stays in <code>INSUFFICIENT_DATA</code> and does not perform alarm actions.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-warm-up.html\">Alarm warm-up periods</a> in the <i>Amazon CloudWatch User Guide</i>.</p>"""
+    """<p>The warm-up configuration for the alarm. A warm-up period delays alarm evaluation after you create or update the alarm. During the warm-up period, the alarm stays in <code>INSUFFICIENT_DATA</code> and does not perform alarm actions.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-warm-up.html">Alarm warm-up periods</a> in the <i>Amazon CloudWatch User Guide</i>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

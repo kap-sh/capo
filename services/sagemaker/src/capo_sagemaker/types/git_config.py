@@ -16,7 +16,7 @@ class GitConfig(TypedDict, closed=True):
     branch: NotRequired["capo_sagemaker.types.branch.Branch"]
     """<p>The default branch for the Git repository.</p>"""
     secret_arn: NotRequired["capo_sagemaker.types.secret_arn.SecretArn"]
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the credentials used to access the git repository. The secret must have a staging label of <code>AWSCURRENT</code> and must be in the following format:</p> <p> <code>{\"username\": <i>UserName</i>, \"password\": <i>Password</i>}</code> </p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the credentials used to access the git repository. The secret must have a staging label of <code>AWSCURRENT</code> and must be in the following format:</p> <p> <code>{"username": <i>UserName</i>, "password": <i>Password</i>}</code> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

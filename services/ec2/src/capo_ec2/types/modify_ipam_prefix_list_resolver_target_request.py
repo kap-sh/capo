@@ -26,7 +26,7 @@ class ModifyIpamPrefixListResolverTargetRequest(TypedDict, closed=True):
     track_latest_version: NotRequired["capo_ec2.types.boxed_boolean.BoxedBoolean"]
     """<p>Indicates whether the resolver target should automatically track the latest version of the prefix list. When enabled, the target will always synchronize with the most current version.</p> <p>Choose this for automatic updates when you want your prefix lists to stay current with infrastructure changes without manual intervention.</p>"""
     client_token: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.</p>"""
 
 
 # --- ec2Query ser/de ---

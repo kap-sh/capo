@@ -28,7 +28,7 @@ class DiscoverInputSchemaRequest(TypedDict, closed=True):
     input_processing_configuration: NotRequired[
         "capo_kinesis_analytics.types.input_processing_configuration.InputProcessingConfiguration"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html\">InputProcessingConfiguration</a> to use to preprocess the records before discovering the schema of the records.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html">InputProcessingConfiguration</a> to use to preprocess the records before discovering the schema of the records.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

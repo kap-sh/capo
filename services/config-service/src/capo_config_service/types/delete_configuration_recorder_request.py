@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DeleteConfigurationRecorderRequest(TypedDict, closed=True):
     configuration_recorder_name: "capo_config_service.types.recorder_name.RecorderName"
-    r"""<p>The name of the customer managed configuration recorder that you want to delete. You can retrieve the name of your configuration recorders by using the <a href=\"https://docs.aws.amazon.com/config/latest/APIReference/API_DescribeConfigurationRecorders.html\">DescribeConfigurationRecorders</a> operation.</p>"""
+    """<p>The name of the customer managed configuration recorder that you want to delete. You can retrieve the name of your configuration recorders by using the <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_DescribeConfigurationRecorders.html">DescribeConfigurationRecorders</a> operation.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

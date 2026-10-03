@@ -14,13 +14,13 @@ if TYPE_CHECKING:
 
 class ListAuditTasksRequest(TypedDict, closed=True):
     start_time: "capo_iot.types.timestamp.Timestamp"
-    r"""<p>The beginning of the time period. Audit information is retained for a limited time (90 days). Requesting a start time prior to what is retained results in an \"InvalidRequestException\".</p>"""
+    """<p>The beginning of the time period. Audit information is retained for a limited time (90 days). Requesting a start time prior to what is retained results in an "InvalidRequestException".</p>"""
     end_time: "capo_iot.types.timestamp.Timestamp"
     """<p>The end of the time period.</p>"""
     task_type: NotRequired["capo_iot.types.audit_task_type.AuditTaskType"]
-    r"""<p>A filter to limit the output to the specified type of audit: can be one of \"ON_DEMAND_AUDIT_TASK\" or \"SCHEDULED__AUDIT_TASK\".</p>"""
+    """<p>A filter to limit the output to the specified type of audit: can be one of "ON_DEMAND_AUDIT_TASK" or "SCHEDULED__AUDIT_TASK".</p>"""
     task_status: NotRequired["capo_iot.types.audit_task_status.AuditTaskStatus"]
-    r"""<p>A filter to limit the output to audits with the specified completion status: can be one of \"IN_PROGRESS\", \"COMPLETED\", \"FAILED\", or \"CANCELED\".</p>"""
+    """<p>A filter to limit the output to audits with the specified completion status: can be one of "IN_PROGRESS", "COMPLETED", "FAILED", or "CANCELED".</p>"""
     next_token: NotRequired["capo_iot.types.next_token.NextToken"]
     """<p>The token for the next set of results.</p>"""
     max_results: NotRequired["capo_iot.types.max_results.MaxResults"]

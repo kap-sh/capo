@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class SpotInstanceStatus(TypedDict, closed=True):
     code: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The status code. For a list of status codes, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html#spot-instance-request-status-understand\">Spot request status codes</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The status code. For a list of status codes, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html#spot-instance-request-status-understand">Spot request status codes</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     message: NotRequired["capo_ec2.types.string.String"]
     """<p>The description for the status code.</p>"""
     update_time: NotRequired["capo_ec2.types.date_time.DateTime"]

@@ -23,7 +23,7 @@ class CreateUserProfileRequest(TypedDict, closed=True):
     single_sign_on_user_identifier: NotRequired[
         "capo_sagemaker.types.single_sign_on_user_identifier.SingleSignOnUserIdentifier"
     ]
-    r"""<p>A specifier for the type of value specified in SingleSignOnUserValue. Currently, the only supported value is \"UserName\". If the Domain's AuthMode is IAM Identity Center, this field is required. If the Domain's AuthMode is not IAM Identity Center, this field cannot be specified. </p>"""
+    """<p>A specifier for the type of value specified in SingleSignOnUserValue. Currently, the only supported value is "UserName". If the Domain's AuthMode is IAM Identity Center, this field is required. If the Domain's AuthMode is not IAM Identity Center, this field cannot be specified. </p>"""
     single_sign_on_user_value: NotRequired["capo_sagemaker.types.string256.String256"]
     """<p>The username of the associated Amazon Web Services Single Sign-On User for this UserProfile. If the Domain's AuthMode is IAM Identity Center, this field is required, and must match a valid username of a user in your directory. If the Domain's AuthMode is not IAM Identity Center, this field cannot be specified. </p>"""
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]

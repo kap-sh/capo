@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class BatchDisassociateAnalyticsDataSetRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     data_set_ids: "capo_connect.types.data_set_ids.DataSetIds"
     """<p>An array of associated dataset identifiers to remove.</p>"""
     target_account_id: NotRequired["capo_connect.types.aws_account_id.AWSAccountId"]

@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class MppPaymentOutput(TypedDict, closed=True):
     version: "capo_bedrock_agentcore.types.version.Version"
-    r"""<p>The MPP protocol version, for example \"1\" or \"2\".</p>"""
+    """<p>The MPP protocol version, for example "1" or "2".</p>"""
     selected_payment_id: "str"
     """<p>The id of the challenge that was paid, echoed from the input challenge so you can correlate the result without decoding the credential.</p>"""
     payment_credential: (
         "capo_bedrock_agentcore.types.mpp_payment_credential.MppPaymentCredential"
     )
-    r"""<p>Ready-to-send value for the <code>Authorization</code> header, in the form \"Payment &lt;base64url-token&gt;\". Attach this header and retry the original request. To inspect the full credential, base64url-decode the token.</p>"""
+    """<p>Ready-to-send value for the <code>Authorization</code> header, in the form "Payment &lt;base64url-token&gt;". Attach this header and retry the original request. To inspect the full credential, base64url-decode the token.</p>"""
 
 
 # --- restJson1 ser/de ---

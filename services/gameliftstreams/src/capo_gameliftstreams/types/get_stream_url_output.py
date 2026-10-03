@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 
 class GetStreamUrlOutput(TypedDict, closed=True):
     arn: "capo_gameliftstreams.types.arn.Arn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that uniquely identifies the stream URL across all Amazon Web Services Regions. Format is <code>arn:aws:gameliftstreams:[AWS Region]:[AWS account]:streamurl/[stream group resource ID]/[stream URL resource ID]</code>.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that uniquely identifies the stream URL across all Amazon Web Services Regions. Format is <code>arn:aws:gameliftstreams:[AWS Region]:[AWS account]:streamurl/[stream group resource ID]/[stream URL resource ID]</code>.</p>"""
     stream_url_id: NotRequired["capo_gameliftstreams.types.id.Id"]
     """<p>The unique identifier for the stream URL resource, for example <code>su-1AB2C3De4</code>.</p>"""
     stream_url: NotRequired[
@@ -53,13 +53,13 @@ class GetStreamUrlOutput(TypedDict, closed=True):
     ]
     """<p>The number of times the stream URL can still be used to start a stream session.</p>"""
     stream_group_arn: NotRequired["capo_gameliftstreams.types.arn.Arn"]
-    r"""<p>The stream group that runs the stream sessions.</p> <p>This value is an <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that uniquely identifies the stream group resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. </p>"""
+    """<p>The stream group that runs the stream sessions.</p> <p>This value is an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that uniquely identifies the stream group resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. </p>"""
     application_arn: NotRequired["capo_gameliftstreams.types.arn.Arn"]
-    r"""<p>The application that runs in the stream sessions.</p> <p>This value is an <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that uniquely identifies the application resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6</code>. </p>"""
+    """<p>The application that runs in the stream sessions.</p> <p>This value is an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that uniquely identifies the application resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6</code>. </p>"""
     protocol: NotRequired["capo_gameliftstreams.types.protocol.Protocol"]
     """<p>The data transport protocol used for stream sessions started from this stream URL.</p>"""
     locations: NotRequired["capo_gameliftstreams.types.location_list.LocationList"]
-    r"""<p>The list of locations, in order of preference, where Amazon GameLift Streams places the stream session. For a complete list of locations that Amazon GameLift Streams supports, refer to <a href=\"https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/regions-quotas.html\">Regions, quotas, and limitations</a> in the <i>Amazon GameLift Streams Developer Guide</i>. </p>"""
+    """<p>The list of locations, in order of preference, where Amazon GameLift Streams places the stream session. For a complete list of locations that Amazon GameLift Streams supports, refer to <a href="https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/regions-quotas.html">Regions, quotas, and limitations</a> in the <i>Amazon GameLift Streams Developer Guide</i>. </p>"""
     session_length_seconds: NotRequired[
         "capo_gameliftstreams.types.session_length_seconds.SessionLengthSeconds"
     ]
@@ -75,7 +75,7 @@ class GetStreamUrlOutput(TypedDict, closed=True):
     ]
     """<p>The environment variables made available to the application when a stream session starts.</p>"""
     role_arn: NotRequired["capo_gameliftstreams.types.iam_role_arn.IamRoleArn"]
-    r"""<p>The Amazon Resource Name (ARN) of the IAM role that Amazon GameLift Streams assumes during stream sessions started from this stream URL. For more information, see <a href=\"https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/session-credentials.html\">Provide AWS credentials to your streaming application</a> in the <i>Amazon GameLift Streams Developer Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM role that Amazon GameLift Streams assumes during stream sessions started from this stream URL. For more information, see <a href="https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/session-credentials.html">Provide AWS credentials to your streaming application</a> in the <i>Amazon GameLift Streams Developer Guide</i>.</p>"""
     display_configuration: NotRequired[
         "capo_gameliftstreams.types.display_configuration.DisplayConfiguration"
     ]

@@ -17,9 +17,9 @@ if TYPE_CHECKING:
 
 class KafkaSettings(TypedDict, closed=True):
     broker: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>A comma-separated list of one or more broker locations in your Kafka cluster that host your Kafka instance. Specify each broker location in the form <code> <i>broker-hostname-or-ip</i>:<i>port</i> </code>. For example, <code>\"ec2-12-345-678-901.compute-1.amazonaws.com:2345\"</code>. For more information and examples of specifying a list of broker locations, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html\">Using Apache Kafka as a target for Database Migration Service</a> in the <i>Database Migration Service User Guide</i>. </p>"""
+    """<p>A comma-separated list of one or more broker locations in your Kafka cluster that host your Kafka instance. Specify each broker location in the form <code> <i>broker-hostname-or-ip</i>:<i>port</i> </code>. For example, <code>"ec2-12-345-678-901.compute-1.amazonaws.com:2345"</code>. For more information and examples of specifying a list of broker locations, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html">Using Apache Kafka as a target for Database Migration Service</a> in the <i>Database Migration Service User Guide</i>. </p>"""
     topic: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>The topic to which you migrate the data. If you don't specify a topic, DMS specifies <code>\"kafka-default-topic\"</code> as the migration topic.</p>"""
+    """<p>The topic to which you migrate the data. If you don't specify a topic, DMS specifies <code>"kafka-default-topic"</code> as the migration topic.</p>"""
     message_format: NotRequired[
         "capo_database_migration_service.types.message_format_value.MessageFormatValue"
     ]

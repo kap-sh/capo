@@ -27,11 +27,11 @@ class ModifyInstanceAttributeRequest(TypedDict, closed=True):
     enclave_options: NotRequired[
         "capo_ec2.types.enclave_options_request.EnclaveOptionsRequest"
     ]
-    r"""<p>Enables or disables the instance for Amazon Web Services Nitro Enclaves. For more information, see the <a href=\"https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html\">Amazon Web Services Nitro Enclaves User Guide</a>.</p>"""
+    """<p>Enables or disables the instance for Amazon Web Services Nitro Enclaves. For more information, see the <a href="https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html">Amazon Web Services Nitro Enclaves User Guide</a>.</p>"""
     disable_api_stop: NotRequired[
         "capo_ec2.types.attribute_boolean_value.AttributeBooleanValue"
     ]
-    r"""<p>Indicates whether an instance is enabled for stop protection. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html\">Enable stop protection for your instance</a>.</p> <p></p>"""
+    """<p>Indicates whether an instance is enabled for stop protection. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for your instance</a>.</p> <p></p>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
     instance_id: NotRequired["capo_ec2.types.instance_id.InstanceId"]
@@ -47,21 +47,21 @@ class ModifyInstanceAttributeRequest(TypedDict, closed=True):
     block_device_mappings: NotRequired[
         "capo_ec2.types.instance_block_device_mapping_specification_list.InstanceBlockDeviceMappingSpecificationList"
     ]
-    r"""<p>Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The volume must be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the default is <code>true</code> and the volume is deleted when the instance is terminated. You can't modify the <code>DeleteOnTermination</code> attribute for volumes that are attached to Amazon Web Services-managed resources.</p> <p>To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM\">Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The volume must be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the default is <code>true</code> and the volume is deleted when the instance is terminated. You can't modify the <code>DeleteOnTermination</code> attribute for volumes that are attached to Amazon Web Services-managed resources.</p> <p>To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM">Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     disable_api_termination: NotRequired[
         "capo_ec2.types.attribute_boolean_value.AttributeBooleanValue"
     ]
     """<p>Enable or disable termination protection for the instance. If the value is <code>true</code>, you can't terminate the instance using the Amazon EC2 console, command line interface, or API. You can't enable termination protection for Spot Instances.</p>"""
     instance_type: NotRequired["capo_ec2.types.attribute_value.AttributeValue"]
-    r"""<p>Changes the instance type to the specified value. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html\">Instance types</a> in the <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.</p>"""
+    """<p>Changes the instance type to the specified value. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.</p>"""
     kernel: NotRequired["capo_ec2.types.attribute_value.AttributeValue"]
-    r"""<p>Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html\">PV-GRUB</a>.</p>"""
+    """<p>Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.</p>"""
     ramdisk: NotRequired["capo_ec2.types.attribute_value.AttributeValue"]
-    r"""<p>Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html\">PV-GRUB</a>.</p>"""
+    """<p>Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.</p>"""
     user_data: NotRequired[
         "capo_ec2.types.secure_blob_attribute_value.SecureBlobAttributeValue"
     ]
-    r"""<p>Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on the tool or SDK that you're using, the base64-encoding might be performed for you. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html\">Work with instance user data</a>.</p>"""
+    """<p>Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on the tool or SDK that you're using, the base64-encoding might be performed for you. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html">Work with instance user data</a>.</p>"""
     instance_initiated_shutdown_behavior: NotRequired[
         "capo_ec2.types.attribute_value.AttributeValue"
     ]

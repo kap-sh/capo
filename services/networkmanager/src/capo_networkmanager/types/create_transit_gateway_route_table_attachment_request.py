@@ -18,7 +18,7 @@ class CreateTransitGatewayRouteTableAttachmentRequest(TypedDict, closed=True):
     peering_id: "capo_networkmanager.types.peering_id.PeeringId"
     """<p>The ID of the peer for the </p>"""
     transit_gateway_route_table_arn: "capo_networkmanager.types.transit_gateway_route_table_arn.TransitGatewayRouteTableArn"
-    r"""<p>The ARN of the transit gateway route table for the attachment request. For example, <code>\"TransitGatewayRouteTableArn\": \"arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456\"</code>.</p>"""
+    """<p>The ARN of the transit gateway route table for the attachment request. For example, <code>"TransitGatewayRouteTableArn": "arn:aws:ec2:us-west-2:123456789012:transit-gateway-route-table/tgw-rtb-9876543210123456"</code>.</p>"""
     routing_policy_label: NotRequired[
         "capo_networkmanager.types.constrained_string.ConstrainedString"
     ]

@@ -22,13 +22,13 @@ class BaselineOverride(TypedDict, closed=True):
     global_filters: NotRequired["capo_ssm.types.patch_filter_group.PatchFilterGroup"]
     approval_rules: NotRequired["capo_ssm.types.patch_rule_group.PatchRuleGroup"]
     approved_patches: NotRequired["capo_ssm.types.patch_id_list.PatchIdList"]
-    r"""<p>A list of explicitly approved patches for the baseline.</p> <p>For information about accepted formats for lists of approved patches and rejected patches, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html\">Package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>A list of explicitly approved patches for the baseline.</p> <p>For information about accepted formats for lists of approved patches and rejected patches, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html">Package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
     approved_patches_compliance_level: NotRequired[
         "capo_ssm.types.patch_compliance_level.PatchComplianceLevel"
     ]
     """<p>Defines the compliance level for approved patches. When an approved patch is reported as missing, this value describes the severity of the compliance violation.</p>"""
     rejected_patches: NotRequired["capo_ssm.types.patch_id_list.PatchIdList"]
-    r"""<p>A list of explicitly rejected patches for the baseline.</p> <p>For information about accepted formats for lists of approved patches and rejected patches, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html\">Package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>A list of explicitly rejected patches for the baseline.</p> <p>For information about accepted formats for lists of approved patches and rejected patches, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html">Package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
     rejected_patches_action: NotRequired["capo_ssm.types.patch_action.PatchAction"]
     """<p>The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list. A patch can be allowed only if it is a dependency of another package, or blocked entirely along with packages that include it as a dependency.</p>"""
     approved_patches_enable_non_security: "capo_ssm.types.boolean.Boolean"

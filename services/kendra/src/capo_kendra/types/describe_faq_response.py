@@ -41,7 +41,7 @@ class DescribeFaqResponse(TypedDict, closed=True):
     file_format: NotRequired["capo_kendra.types.faq_file_format.FaqFileFormat"]
     """<p>The file format used for the FAQ file.</p>"""
     language_code: NotRequired["capo_kendra.types.language_code.LanguageCode"]
-    r"""<p>The code for a language. This shows a supported language for the FAQ document. English is supported by default. For more information on supported languages, including their codes, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/in-adding-languages.html\">Adding documents in languages other than English</a>.</p>"""
+    """<p>The code for a language. This shows a supported language for the FAQ document. English is supported by default. For more information on supported languages, including their codes, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/in-adding-languages.html">Adding documents in languages other than English</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

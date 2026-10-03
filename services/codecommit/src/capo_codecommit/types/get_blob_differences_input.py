@@ -19,9 +19,9 @@ class GetBlobDifferencesInput(TypedDict, closed=True):
     repository_name: "capo_codecommit.types.repository_name.RepositoryName"
     """<p>The name of the repository that contains the blobs to compare.</p>"""
     after_blob_id: "capo_codecommit.types.object_id.ObjectId"
-    r"""<p>The ID of the \"after\" (destination) blob in the diff. Typically the value of <code>afterBlob.blobId</code> from a <code>Difference</code> object returned by <a>GetDifferences</a>.</p>"""
+    """<p>The ID of the "after" (destination) blob in the diff. Typically the value of <code>afterBlob.blobId</code> from a <code>Difference</code> object returned by <a>GetDifferences</a>.</p>"""
     before_blob_id: NotRequired["capo_codecommit.types.object_id.ObjectId"]
-    r"""<p>The ID of the \"before\" (source) blob in the diff. Typically the value of <code>beforeBlob.blobId</code> from a <code>Difference</code> object returned by <a>GetDifferences</a>.</p> <p>If you do not specify a value, the operation returns a diff against an empty before-state. This is equivalent to treating the file as newly added.</p>"""
+    """<p>The ID of the "before" (source) blob in the diff. Typically the value of <code>beforeBlob.blobId</code> from a <code>Difference</code> object returned by <a>GetDifferences</a>.</p> <p>If you do not specify a value, the operation returns a diff against an empty before-state. This is equivalent to treating the file as newly added.</p>"""
     context_lines: NotRequired["capo_codecommit.types.diff_context.DiffContext"]
     """<p>The number of unchanged lines of context to include before and after each block of changes in a hunk. Valid values are 0 through 20. Defaults to <code>3</code>.</p>"""
     ignore_whitespace: NotRequired[

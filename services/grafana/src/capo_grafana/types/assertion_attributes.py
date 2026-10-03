@@ -10,17 +10,17 @@ if TYPE_CHECKING:
 
 class AssertionAttributes(TypedDict, closed=True):
     name: NotRequired["capo_grafana.types.assertion_attribute.AssertionAttribute"]
-    r"""<p>The name of the attribute within the SAML assertion to use as the user full \"friendly\" names for SAML users.</p>"""
+    """<p>The name of the attribute within the SAML assertion to use as the user full "friendly" names for SAML users.</p>"""
     login: NotRequired["capo_grafana.types.assertion_attribute.AssertionAttribute"]
     """<p>The name of the attribute within the SAML assertion to use as the login names for SAML users.</p>"""
     email: NotRequired["capo_grafana.types.assertion_attribute.AssertionAttribute"]
     """<p>The name of the attribute within the SAML assertion to use as the email names for SAML users.</p>"""
     groups: NotRequired["capo_grafana.types.assertion_attribute.AssertionAttribute"]
-    r"""<p>The name of the attribute within the SAML assertion to use as the user full \"friendly\" names for user groups.</p>"""
+    """<p>The name of the attribute within the SAML assertion to use as the user full "friendly" names for user groups.</p>"""
     role: NotRequired["capo_grafana.types.assertion_attribute.AssertionAttribute"]
     """<p>The name of the attribute within the SAML assertion to use as the user roles.</p>"""
     org: NotRequired["capo_grafana.types.assertion_attribute.AssertionAttribute"]
-    r"""<p>The name of the attribute within the SAML assertion to use as the user full \"friendly\" names for the users' organizations.</p>"""
+    """<p>The name of the attribute within the SAML assertion to use as the user full "friendly" names for the users' organizations.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -26,7 +26,7 @@ class DescribeStateMachineForExecutionOutput(TypedDict, closed=True):
     name: "capo_sfn.types.name.Name"
     """<p>The name of the state machine associated with the execution.</p>"""
     definition: "capo_sfn.types.definition.Definition"
-    r"""<p>The Amazon States Language definition of the state machine. See <a href=\"https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html\">Amazon States Language</a>.</p>"""
+    """<p>The Amazon States Language definition of the state machine. See <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon States Language</a>.</p>"""
     role_arn: "capo_sfn.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the IAM role of the State Machine for the execution. </p>"""
     update_date: "capo_sfn.types.timestamp.Timestamp"

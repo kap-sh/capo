@@ -25,7 +25,7 @@ class CreateDirectConnectGatewayAssociationRequest(TypedDict, closed=True):
     add_allowed_prefixes_to_direct_connect_gateway: NotRequired[
         "capo_direct_connect.types.route_filter_prefix_list.RouteFilterPrefixList"
     ]
-    r"""<p>The Amazon VPC prefixes to advertise to the Direct Connect gateway</p> <p>This parameter is required when you create an association to a transit gateway.</p> <p>For information about how to set the prefixes, see <a href=\"https://docs.aws.amazon.com/directconnect/latest/UserGuide/multi-account-associate-vgw.html#allowed-prefixes\">Allowed Prefixes</a> in the <i>Direct Connect User Guide</i>.</p>"""
+    """<p>The Amazon VPC prefixes to advertise to the Direct Connect gateway</p> <p>This parameter is required when you create an association to a transit gateway.</p> <p>For information about how to set the prefixes, see <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/multi-account-associate-vgw.html#allowed-prefixes">Allowed Prefixes</a> in the <i>Direct Connect User Guide</i>.</p>"""
     virtual_gateway_id: NotRequired[
         "capo_direct_connect.types.virtual_gateway_id.VirtualGatewayId"
     ]

@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class LambdaFunctionRecipeSource(TypedDict, closed=True):
     lambda_arn: "capo_greengrassv2.types.non_empty_string.NonEmptyString"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the Lambda function. The ARN must include the version of the function to import. You can't use version aliases like <code>$LATEST</code>.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the Lambda function. The ARN must include the version of the function to import. You can't use version aliases like <code>$LATEST</code>.</p>"""
     component_name: NotRequired[
         "capo_greengrassv2.types.component_name_string.ComponentNameString"
     ]

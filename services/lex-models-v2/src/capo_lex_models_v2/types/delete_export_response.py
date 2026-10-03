@@ -13,7 +13,7 @@ class DeleteExportResponse(TypedDict, closed=True):
     export_id: NotRequired["capo_lex_models_v2.types.id.Id"]
     """<p>The unique identifier of the deleted export.</p>"""
     export_status: NotRequired["capo_lex_models_v2.types.export_status.ExportStatus"]
-    r"""<p>The current status of the deletion. When the deletion is complete, the export will no longer be returned by the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListExports.html\">ListExports</a> operation and calls to the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DescribeExport.html\"> DescribeExport</a> operation with the export identifier will fail.</p>"""
+    """<p>The current status of the deletion. When the deletion is complete, the export will no longer be returned by the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListExports.html">ListExports</a> operation and calls to the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DescribeExport.html"> DescribeExport</a> operation with the export identifier will fail.</p>"""
 
 
 # --- restJson1 ser/de ---

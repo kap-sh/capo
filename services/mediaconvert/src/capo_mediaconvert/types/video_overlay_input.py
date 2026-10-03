@@ -16,7 +16,7 @@ class VideoOverlayInput(TypedDict, closed=True):
     audio_selectors: NotRequired[
         "capo_mediaconvert.types.__map_of_audio_selector.__mapOfAudioSelector"
     ]
-    r"""Use Audio selectors to specify audio to use during your Video overlay. You can use multiple Audio selectors per Video overlay. When you include an Audio selector within a Video overlay, MediaConvert mutes any Audio selectors with the same name from the underlying input. For example, if your underlying input has Audio selector 1 and Audio selector 2, and your Video overlay only has Audio selector 1, then MediaConvert replaces all audio for Audio selector 1 during the Video overlay. To replace all audio for all Audio selectors from the underlying input by using a single Audio selector in your overlay, set DefaultSelection to DEFAULT (Check \\"Use as default\\" in the MediaConvert console)."""
+    r"""Use Audio selectors to specify audio to use during your Video overlay. You can use multiple Audio selectors per Video overlay. When you include an Audio selector within a Video overlay, MediaConvert mutes any Audio selectors with the same name from the underlying input. For example, if your underlying input has Audio selector 1 and Audio selector 2, and your Video overlay only has Audio selector 1, then MediaConvert replaces all audio for Audio selector 1 during the Video overlay. To replace all audio for all Audio selectors from the underlying input by using a single Audio selector in your overlay, set DefaultSelection to DEFAULT (Check \"Use as default\" in the MediaConvert console)."""
     file_input: NotRequired[
         "capo_mediaconvert.types.__string_pattern_s3_https.__stringPatternS3Https"
     ]

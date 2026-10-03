@@ -12,7 +12,7 @@ class LogDestination(TypedDict, closed=True):
     cloud_watch_logs_log_group: NotRequired[
         "capo_sfn.types.cloud_watch_logs_log_group.CloudWatchLogsLogGroup"
     ]
-    r"""<p>An object describing a CloudWatch log group. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html\">AWS::Logs::LogGroup</a> in the CloudFormation User Guide.</p>"""
+    """<p>An object describing a CloudWatch log group. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html">AWS::Logs::LogGroup</a> in the CloudFormation User Guide.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

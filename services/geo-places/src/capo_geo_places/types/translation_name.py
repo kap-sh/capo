@@ -17,7 +17,7 @@ class TranslationName(TypedDict, closed=True):
     value: "capo_geo_places.types.sensitive_string.SensitiveString"
     """<p>The translated or alternative name value.</p>"""
     language: NotRequired["capo_geo_places.types.language_tag.LanguageTag"]
-    r"""<p>A <a href=\"https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\">BCP 47</a> compliant language code for the translation name.</p>"""
+    """<p>A <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">BCP 47</a> compliant language code for the translation name.</p>"""
     type: "capo_geo_places.types.translation_name_type.TranslationNameType"
     """<p>The type of translation name. Valid values are <code>Abbreviation</code>, <code>AreaCode</code>, <code>BaseName</code>, <code>Exonym</code>, <code>Shortened</code>, and <code>Synonym</code>.</p>"""
     primary: NotRequired["capo_geo_places.types.sensitive_boolean.SensitiveBoolean"]

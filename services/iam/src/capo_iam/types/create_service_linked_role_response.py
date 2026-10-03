@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class CreateServiceLinkedRoleResponse(TypedDict, closed=True):
     role: NotRequired["capo_iam.types.role.Role"]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_Role.html\">Role</a> object that contains details about the newly created role.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_Role.html">Role</a> object that contains details about the newly created role.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -19,7 +19,7 @@ class PutRecordsResultEntry(TypedDict, closed=True):
     error_code: NotRequired["capo_kinesis.types.error_code.ErrorCode"]
     """<p>The error code for an individual record result. <code>ErrorCodes</code> can be either <code>ProvisionedThroughputExceededException</code> or <code>InternalFailure</code>.</p>"""
     error_message: NotRequired["capo_kinesis.types.error_message.ErrorMessage"]
-    r"""<p>The error message for an individual record result. An <code>ErrorCode</code> value of <code>ProvisionedThroughputExceededException</code> has an error message that includes the account ID, stream name, and shard ID. An <code>ErrorCode</code> value of <code>InternalFailure</code> has the error message <code>\"Internal Service Failure\"</code>.</p>"""
+    """<p>The error message for an individual record result. An <code>ErrorCode</code> value of <code>ProvisionedThroughputExceededException</code> has an error message that includes the account ID, stream name, and shard ID. An <code>ErrorCode</code> value of <code>InternalFailure</code> has the error message <code>"Internal Service Failure"</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

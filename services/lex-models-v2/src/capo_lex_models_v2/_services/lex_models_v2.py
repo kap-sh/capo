@@ -476,12 +476,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.batch_create_custom_vocabulary_item_response.BatchCreateCustomVocabularyItemResponse":
-        r"""<p>Create a batch of custom vocabulary items for a given bot locale's custom vocabulary.</p>
+        """<p>Create a batch of custom vocabulary items for a given bot locale's custom vocabulary.</p>
 
         Args:
             bot_id: <p>The identifier of the bot associated with this custom vocabulary.</p>
             bot_version: <p>The identifier of the version of the bot associated with this custom vocabulary.</p>
-            locale_id: <p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\"> Supported Languages </a>.</p>
+            locale_id: <p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html"> Supported Languages </a>.</p>
             custom_vocabulary_item_list: <p>A list of new custom vocabulary items. Each entry must contain a phrase and can optionally contain a displayAs and/or a weight.</p>
 
         Raises:
@@ -532,12 +532,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.batch_delete_custom_vocabulary_item_response.BatchDeleteCustomVocabularyItemResponse":
-        r"""<p>Delete a batch of custom vocabulary items for a given bot locale's custom vocabulary.</p>
+        """<p>Delete a batch of custom vocabulary items for a given bot locale's custom vocabulary.</p>
 
         Args:
             bot_id: <p>The identifier of the bot associated with this custom vocabulary.</p>
             bot_version: <p>The identifier of the version of the bot associated with this custom vocabulary.</p>
-            locale_id: <p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\"> Supported Languages </a>.</p>
+            locale_id: <p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html"> Supported Languages </a>.</p>
             custom_vocabulary_item_list: <p>A list of custom vocabulary items requested to be deleted. Each entry must contain the unique custom vocabulary entry identifier.</p>
 
         Raises:
@@ -588,12 +588,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.batch_update_custom_vocabulary_item_response.BatchUpdateCustomVocabularyItemResponse":
-        r"""<p>Update a batch of custom vocabulary items for a given bot locale's custom vocabulary.</p>
+        """<p>Update a batch of custom vocabulary items for a given bot locale's custom vocabulary.</p>
 
         Args:
             bot_id: <p>The identifier of the bot associated with this custom vocabulary</p>
             bot_version: <p>The identifier of the version of the bot associated with this custom vocabulary.</p>
-            locale_id: <p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\"> Supported Languages </a>.</p>
+            locale_id: <p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html"> Supported Languages </a>.</p>
             custom_vocabulary_item_list: <p>A list of custom vocabulary items with updated fields. Each entry must contain a phrase and can optionally contain a displayAs and/or a weight.</p>
 
         Raises:
@@ -643,12 +643,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.build_bot_locale_response.BuildBotLocaleResponse":
-        r"""<p>Builds a bot, its intents, and its slot types into a specific locale. A bot can be built into multiple locales. At runtime the locale is used to choose a specific build of the bot.</p>
+        """<p>Builds a bot, its intents, and its slot types into a specific locale. A bot can be built into multiple locales. At runtime the locale is used to choose a specific build of the bot.</p>
 
         Args:
-            bot_id: <p>The identifier of the bot to build. The identifier is returned in the response from the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateBot.html\">CreateBot</a> operation.</p>
+            bot_id: <p>The identifier of the bot to build. The identifier is returned in the response from the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateBot.html">CreateBot</a> operation.</p>
             bot_version: <p>The version of the bot to build. This can only be the draft version of the bot.</p>
-            locale_id: <p>The identifier of the language and locale that the bot will be used in. The string must match one of the supported locales. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that the bot will be used in. The string must match one of the supported locales. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
 
         Raises:
             capo_lex_models_v2.errors.conflict_exception.ConflictException: <p>The action that you tried to perform couldn't be completed because the resource is in a conflicting state. For example, deleting a bot that is in the CREATING state. Try your request again. </p>
@@ -797,12 +797,12 @@ class LexModelsV2Client:
         ] = None,
         tags: Optional["capo_lex_models_v2.types.tag_map.TagMap"] = None,
     ) -> "capo_lex_models_v2.types.create_bot_alias_response.CreateBotAliasResponse":
-        r"""<p>Creates an alias for the specified version of a bot. Use an alias to enable you to change the version of a bot without updating applications that use the bot.</p> <p>For example, you can create an alias called \"PROD\" that your applications use to call the Amazon Lex bot. </p>
+        """<p>Creates an alias for the specified version of a bot. Use an alias to enable you to change the version of a bot without updating applications that use the bot.</p> <p>For example, you can create an alias called "PROD" that your applications use to call the Amazon Lex bot. </p>
 
         Args:
             bot_alias_name: <p>The alias to create. The name must be unique for the bot.</p>
             description: <p>A description of the alias. Use this description to help identify the alias.</p>
-            bot_version: <p>The version of the bot that this alias points to. You can use the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_UpdateBotAlias.html\">UpdateBotAlias</a> operation to change the bot version associated with the alias.</p>
+            bot_version: <p>The version of the bot that this alias points to. You can use the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_UpdateBotAlias.html">UpdateBotAlias</a> operation to change the bot version associated with the alias.</p>
             bot_alias_locale_settings: <p>Maps configuration information to a specific locale. You can use this parameter to specify a specific Lambda function to run different functions in different locales.</p>
             conversation_log_settings: <p>Specifies whether Amazon Lex logs text and audio for a conversation with the bot. When you enable conversation logs, text logs store text input, transcripts of audio input, and associated metadata in Amazon CloudWatch Logs. Audio logs store audio input in Amazon S3.</p>
             bot_id: <p>The unique identifier of the bot that the alias applies to.</p>
@@ -891,12 +891,12 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.speaker_diarization_settings.SpeakerDiarizationSettings"
         ] = None,
     ) -> "capo_lex_models_v2.types.create_bot_locale_response.CreateBotLocaleResponse":
-        r"""<p>Creates a locale in the bot. The locale contains the intents and slot types that the bot uses in conversations with users in the specified language and locale. You must add a locale to a bot before you can add intents and slot types to the bot.</p>
+        """<p>Creates a locale in the bot. The locale contains the intents and slot types that the bot uses in conversations with users in the specified language and locale. You must add a locale to a bot before you can add intents and slot types to the bot.</p>
 
         Args:
             bot_id: <p>The identifier of the bot to create the locale for.</p>
             bot_version: <p>The version of the bot to create the locale for. This can only be the draft version of the bot.</p>
-            locale_id: <p>The identifier of the language and locale that the bot will be used in. The string must match one of the supported locales. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that the bot will be used in. The string must match one of the supported locales. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             description: <p>A description of the bot locale. Use this to help identify the bot locale in lists.</p>
             nlu_intent_confidence_threshold: <p>Determines the threshold where Amazon Lex will insert the <code>AMAZON.FallbackIntent</code>, <code>AMAZON.KendraSearchIntent</code>, or both when returning alternative intents. <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> are only inserted if they are configured for the bot.</p> <p>For example, suppose a bot is configured with the confidence threshold of 0.80 and the <code>AMAZON.FallbackIntent</code>. Amazon Lex returns three alternative intents with the following confidence scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the <code>RecognizeText</code> operation would be:</p> <ul> <li> <p>AMAZON.FallbackIntent</p> </li> <li> <p>IntentA</p> </li> <li> <p>IntentB</p> </li> <li> <p>IntentC</p> </li> </ul>
             voice_settings: <p>The Amazon Polly voice ID that Amazon Lex uses for voice interaction with the user.</p>
@@ -1084,7 +1084,7 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.import_export_file_password.ImportExportFilePassword"
         ] = None,
     ) -> "capo_lex_models_v2.types.create_export_response.CreateExportResponse":
-        r"""<p>Creates a zip archive containing the contents of a bot or a bot locale. The archive contains a directory structure that contains JSON files that define the bot.</p> <p>You can create an archive that contains the complete definition of a bot, or you can specify that the archive contain only the definition of a single bot locale.</p> <p>For more information about exporting bots, and about the structure of the export archive, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/importing-exporting.html\"> Importing and exporting bots </a> </p>
+        """<p>Creates a zip archive containing the contents of a bot or a bot locale. The archive contains a directory structure that contains JSON files that define the bot.</p> <p>You can create an archive that contains the complete definition of a bot, or you can specify that the archive contain only the definition of a single bot locale.</p> <p>For more information about exporting bots, and about the structure of the export archive, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/importing-exporting.html"> Importing and exporting bots </a> </p>
 
         Args:
             resource_specification: <p>Specifies the type of resource to export, either a bot or a bot locale. You can only specify one type of resource to export.</p>
@@ -1182,24 +1182,24 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.q_in_connect_intent_configuration.QInConnectIntentConfiguration"
         ] = None,
     ) -> "capo_lex_models_v2.types.create_intent_response.CreateIntentResponse":
-        r"""<p>Creates an intent.</p> <p>To define the interaction between the user and your bot, you define one or more intents. For example, for a pizza ordering bot you would create an <code>OrderPizza</code> intent.</p> <p>When you create an intent, you must provide a name. You can optionally provide the following:</p> <ul> <li> <p>Sample utterances. For example, \"I want to order a pizza\" and \"Can I order a pizza.\" You can't provide utterances for built-in intents.</p> </li> <li> <p>Information to be gathered. You specify slots for the information that you bot requests from the user. You can specify standard slot types, such as date and time, or custom slot types for your application.</p> </li> <li> <p>How the intent is fulfilled. You can provide a Lambda function or configure the intent to return the intent information to your client application. If you use a Lambda function, Amazon Lex invokes the function when all of the intent information is available.</p> </li> <li> <p>A confirmation prompt to send to the user to confirm an intent. For example, \"Shall I order your pizza?\"</p> </li> <li> <p>A conclusion statement to send to the user after the intent is fulfilled. For example, \"I ordered your pizza.\"</p> </li> <li> <p>A follow-up prompt that asks the user for additional activity. For example, \"Do you want a drink with your pizza?\"</p> </li> </ul>
+        """<p>Creates an intent.</p> <p>To define the interaction between the user and your bot, you define one or more intents. For example, for a pizza ordering bot you would create an <code>OrderPizza</code> intent.</p> <p>When you create an intent, you must provide a name. You can optionally provide the following:</p> <ul> <li> <p>Sample utterances. For example, "I want to order a pizza" and "Can I order a pizza." You can't provide utterances for built-in intents.</p> </li> <li> <p>Information to be gathered. You specify slots for the information that you bot requests from the user. You can specify standard slot types, such as date and time, or custom slot types for your application.</p> </li> <li> <p>How the intent is fulfilled. You can provide a Lambda function or configure the intent to return the intent information to your client application. If you use a Lambda function, Amazon Lex invokes the function when all of the intent information is available.</p> </li> <li> <p>A confirmation prompt to send to the user to confirm an intent. For example, "Shall I order your pizza?"</p> </li> <li> <p>A conclusion statement to send to the user after the intent is fulfilled. For example, "I ordered your pizza."</p> </li> <li> <p>A follow-up prompt that asks the user for additional activity. For example, "Do you want a drink with your pizza?"</p> </li> </ul>
 
         Args:
             intent_name: <p>The name of the intent. Intent names must be unique in the locale that contains the intent and cannot match the name of any built-in intent.</p>
             intent_display_name: <p>A display name for the intent. If configured, This name will be shown to users during Intent Disambiguation instead of the intent name. Display names should be user-friendly, descriptive and match the intent's purpose to improve user experience during disambiguation.</p>
             description: <p>A description of the intent. Use the description to help identify the intent in lists.</p>
             parent_intent_signature: <p>A unique identifier for the built-in intent to base this intent on.</p>
-            sample_utterances: <p>An array of strings that a user might say to signal the intent. For example, \"I want a pizza\", or \"I want a {PizzaSize} pizza\". </p> <p>In an utterance, slot names are enclosed in curly braces (\"{\", \"}\") to indicate where they should be displayed in the utterance shown to the user.. </p>
+            sample_utterances: <p>An array of strings that a user might say to signal the intent. For example, "I want a pizza", or "I want a {PizzaSize} pizza". </p> <p>In an utterance, slot names are enclosed in curly braces ("{", "}") to indicate where they should be displayed in the utterance shown to the user.. </p>
             dialog_code_hook: <p>Specifies that Amazon Lex invokes the alias Lambda function for each user input. You can invoke this Lambda function to personalize user interaction.</p> <p>For example, suppose that your bot determines that the user's name is John. You Lambda function might retrieve John's information from a backend database and prepopulate some of the values. For example, if you find that John is gluten intolerant, you might set the corresponding intent slot, <code>glutenIntolerant</code> to <code>true</code>. You might find John's phone number and set the corresponding session attribute.</p>
             fulfillment_code_hook: <p>Specifies that Amazon Lex invokes the alias Lambda function when the intent is ready for fulfillment. You can invoke this function to complete the bot's transaction with the user.</p> <p>For example, in a pizza ordering bot, the Lambda function can look up the closest pizza restaurant to the customer's location and then place an order on the customer's behalf.</p>
-            intent_confirmation_setting: <p>Provides prompts that Amazon Lex sends to the user to confirm the completion of an intent. If the user answers \"no,\" the settings contain a statement that is sent to the user to end the intent.</p>
+            intent_confirmation_setting: <p>Provides prompts that Amazon Lex sends to the user to confirm the completion of an intent. If the user answers "no," the settings contain a statement that is sent to the user to end the intent.</p>
             intent_closing_setting: <p>Sets the response that Amazon Lex sends to the user when the intent is closed.</p>
             input_contexts: <p>A list of contexts that must be active for this intent to be considered by Amazon Lex.</p> <p>When an intent has an input context list, Amazon Lex only considers using the intent in an interaction with the user when the specified contexts are included in the active context list for the session. If the contexts are not active, then Amazon Lex will not use the intent.</p> <p>A context can be automatically activated using the <code>outputContexts</code> property or it can be set at runtime.</p> <p> For example, if there are two intents with different input contexts that respond to the same utterances, only the intent with the active context will respond.</p> <p>An intent may have up to 5 input contexts. If an intent has multiple input contexts, all of the contexts must be active to consider the intent.</p>
             output_contexts: <p>A lists of contexts that the intent activates when it is fulfilled.</p> <p>You can use an output context to indicate the intents that Amazon Lex should consider for the next turn of the conversation with a customer. </p> <p>When you use the <code>outputContextsList</code> property, all of the contexts specified in the list are activated when the intent is fulfilled. You can set up to 10 output contexts. You can also set the number of conversation turns that the context should be active, or the length of time that the context should be active.</p>
             kendra_configuration: <p>Configuration information required to use the <code>AMAZON.KendraSearchIntent</code> intent to connect to an Amazon Kendra index. The <code>AMAZON.KendraSearchIntent</code> intent is called when Amazon Lex can't determine another intent to invoke.</p>
             bot_id: <p>The identifier of the bot associated with this intent.</p>
             bot_version: <p>The version of the bot associated with this intent.</p>
-            locale_id: <p>The identifier of the language and locale where this intent is used. All of the bots, slot types, and slots used by the intent must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale where this intent is used. All of the bots, slot types, and slots used by the intent must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             initial_response_setting: <p>Configuration settings for the response that is sent to the user at the beginning of a conversation, before eliciting slot values.</p>
             qn_a_intent_configuration: <p>Specifies the configuration of the built-in <code>Amazon.QnAIntent</code>. The <code>AMAZON.QnAIntent</code> intent is called when Amazon Lex can't determine another intent to invoke. If you specify this field, you can't specify the <code>kendraConfiguration</code> field.</p>
             q_in_connect_intent_configuration: <p>Qinconnect intent configuration details for the create intent request.</p>
@@ -1281,11 +1281,11 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.create_resource_policy_response.CreateResourcePolicyResponse":
-        r"""<p>Creates a new resource policy with the specified policy statements.</p>
+        """<p>Creates a new resource policy with the specified policy statements.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the bot or bot alias that the resource policy is attached to.</p>
-            policy: <p>A resource policy to add to the resource. The policy is a JSON structure that contains one or more statements that define the policy. The policy must follow the IAM syntax. For more information about the contents of a JSON policy document, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html\"> IAM JSON policy reference </a>. </p> <p>If the policy isn't valid, Amazon Lex returns a validation exception.</p>
+            policy: <p>A resource policy to add to the resource. The policy is a JSON structure that contains one or more statements that define the policy. The policy must follow the IAM syntax. For more information about the contents of a JSON policy document, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html"> IAM JSON policy reference </a>. </p> <p>If the policy isn't valid, Amazon Lex returns a validation exception.</p>
 
         Raises:
             capo_lex_models_v2.errors.internal_server_exception.InternalServerException: <p>The service encountered an unexpected condition. Try your request again.</p>
@@ -1341,15 +1341,15 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.revision_id.RevisionId"
         ] = None,
     ) -> "capo_lex_models_v2.types.create_resource_policy_statement_response.CreateResourcePolicyStatementResponse":
-        r"""<p>Adds a new resource policy statement to a bot or bot alias. If a resource policy exists, the statement is added to the current resource policy. If a policy doesn't exist, a new policy is created.</p> <p>You can't create a resource policy statement that allows cross-account access.</p> <p>You need to add the <code>CreateResourcePolicy</code> or <code>UpdateResourcePolicy</code> action to the bot role in order to call the API.</p>
+        """<p>Adds a new resource policy statement to a bot or bot alias. If a resource policy exists, the statement is added to the current resource policy. If a policy doesn't exist, a new policy is created.</p> <p>You can't create a resource policy statement that allows cross-account access.</p> <p>You need to add the <code>CreateResourcePolicy</code> or <code>UpdateResourcePolicy</code> action to the bot role in order to call the API.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the bot or bot alias that the resource policy is attached to.</p>
-            statement_id: <p>The name of the statement. The ID is the same as the <code>Sid</code> IAM property. The statement name must be unique within the policy. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_sid.html\">IAM JSON policy elements: Sid</a>. </p>
+            statement_id: <p>The name of the statement. The ID is the same as the <code>Sid</code> IAM property. The statement name must be unique within the policy. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_sid.html">IAM JSON policy elements: Sid</a>. </p>
             effect: <p>Determines whether the statement allows or denies access to the resource.</p>
-            principal: <p>An IAM principal, such as an IAM user, IAM role, or Amazon Web Services services that is allowed or denied access to a resource. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html\">Amazon Web Services JSON policy elements: Principal</a>.</p>
-            action: <p>The Amazon Lex action that this policy either allows or denies. The action must apply to the resource type of the specified ARN. For more information, see <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonlexv2.html\"> Actions, resources, and condition keys for Amazon Lex V2</a>.</p>
-            condition: <p>Specifies a condition when the policy is in effect. If the principal of the policy is a service principal, you must provide two condition blocks, one with a SourceAccount global condition key and one with a SourceArn global condition key.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html\">IAM JSON policy elements: Condition </a>.</p>
+            principal: <p>An IAM principal, such as an IAM user, IAM role, or Amazon Web Services services that is allowed or denied access to a resource. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html">Amazon Web Services JSON policy elements: Principal</a>.</p>
+            action: <p>The Amazon Lex action that this policy either allows or denies. The action must apply to the resource type of the specified ARN. For more information, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonlexv2.html"> Actions, resources, and condition keys for Amazon Lex V2</a>.</p>
+            condition: <p>Specifies a condition when the policy is in effect. If the principal of the policy is a service principal, you must provide two condition blocks, one with a SourceAccount global condition key and one with a SourceArn global condition key.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">IAM JSON policy elements: Condition </a>.</p>
             expected_revision_id: <p>The identifier of the revision of the policy to edit. If this revision ID doesn't match the current revision ID, Amazon Lex throws an exception.</p> <p>If you don't specify a revision, Amazon Lex overwrites the contents of the policy with the new values.</p>
 
         Raises:
@@ -1424,7 +1424,7 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.sub_slot_setting.SubSlotSetting"
         ] = None,
     ) -> "capo_lex_models_v2.types.create_slot_response.CreateSlotResponse":
-        r"""<p>Creates a slot in an intent. A slot is a variable needed to fulfill an intent. For example, an <code>OrderPizza</code> intent might need slots for size, crust, and number of pizzas. For each slot, you define one or more utterances that Amazon Lex uses to elicit a response from the user. </p>
+        """<p>Creates a slot in an intent. A slot is a variable needed to fulfill an intent. For example, an <code>OrderPizza</code> intent might need slots for size, crust, and number of pizzas. For each slot, you define one or more utterances that Amazon Lex uses to elicit a response from the user. </p>
 
         Args:
             slot_name: <p>The name of the slot. Slot names must be unique within the bot that contains the slot.</p>
@@ -1434,7 +1434,7 @@ class LexModelsV2Client:
             obfuscation_setting: <p>Determines how slot values are used in Amazon CloudWatch logs. If the value of the <code>obfuscationSetting</code> parameter is <code>DefaultObfuscation</code>, slot values are obfuscated in the log output. If the value is <code>None</code>, the actual value is present in the log output.</p> <p>The default is to obfuscate values in the CloudWatch logs.</p>
             bot_id: <p>The identifier of the bot associated with the slot.</p>
             bot_version: <p>The version of the bot associated with the slot.</p>
-            locale_id: <p>The identifier of the language and locale that the slot will be used in. The string must match one of the supported locales. All of the bots, intents, slot types used by the slot must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that the slot will be used in. The string must match one of the supported locales. All of the bots, intents, slot types used by the slot must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             intent_id: <p>The identifier of the intent that contains the slot.</p>
             multiple_values_setting: <p>Indicates whether the slot returns multiple values in one response. Multi-value slots are only available in the <code>en-US</code> locale. If you set this value to <code>true</code> in any other locale, Amazon Lex throws a <code>ValidationException</code>. </p> <p>If the <code>multipleValuesSetting</code> is not set, the default value is <code>false</code>.</p>
             sub_slot_setting: <p>Specifications for the constituent sub slots and the expression for the composite slot.</p>
@@ -1518,7 +1518,7 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.composite_slot_type_setting.CompositeSlotTypeSetting"
         ] = None,
     ) -> "capo_lex_models_v2.types.create_slot_type_response.CreateSlotTypeResponse":
-        r"""<p>Creates a custom slot type</p> <p> To create a custom slot type, specify a name for the slot type and a set of enumeration values, the values that a slot of this type can assume. </p>
+        """<p>Creates a custom slot type</p> <p> To create a custom slot type, specify a name for the slot type and a set of enumeration values, the values that a slot of this type can assume. </p>
 
         Args:
             slot_type_name: <p>The name for the slot. A slot type name must be unique within the intent.</p>
@@ -1528,7 +1528,7 @@ class LexModelsV2Client:
             parent_slot_type_signature: <p>The built-in slot type used as a parent of this slot type. When you define a parent slot type, the new slot type has the configuration of the parent slot type.</p> <p>Only <code>AMAZON.AlphaNumeric</code> is supported.</p>
             bot_id: <p>The identifier of the bot associated with this slot type.</p>
             bot_version: <p>The identifier of the bot version associated with this slot type.</p>
-            locale_id: <p>The identifier of the language and locale that the slot type will be used in. The string must match one of the supported locales. All of the bots, intents, and slots used by the slot type must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that the slot type will be used in. The string must match one of the supported locales. All of the bots, intents, and slots used by the slot type must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             external_source_setting: <p>Sets the type of external information used to create the slot type.</p>
             composite_slot_type_setting: <p>Specifications for a composite slot type.</p>
 
@@ -1842,12 +1842,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.delete_bot_locale_response.DeleteBotLocaleResponse":
-        r"""<p>Removes a locale from a bot.</p> <p>When you delete a locale, all intents, slots, and slot types defined for the locale are also deleted.</p>
+        """<p>Removes a locale from a bot.</p> <p>When you delete a locale, all intents, slots, and slot types defined for the locale are also deleted.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot that contains the locale.</p>
             bot_version: <p>The version of the bot that contains the locale. </p>
-            locale_id: <p>The identifier of the language and locale that will be deleted. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that will be deleted. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
 
         Raises:
             capo_lex_models_v2.errors.conflict_exception.ConflictException: <p>The action that you tried to perform couldn't be completed because the resource is in a conflicting state. For example, deleting a bot that is in the CREATING state. Try your request again. </p>
@@ -1953,7 +1953,7 @@ class LexModelsV2Client:
     ) -> (
         "capo_lex_models_v2.types.delete_bot_version_response.DeleteBotVersionResponse"
     ):
-        r"""<p>Deletes a specific version of a bot. To delete all versions of a bot, use the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DeleteBot.html\">DeleteBot</a> operation.</p>
+        """<p>Deletes a specific version of a bot. To delete all versions of a bot, use the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DeleteBot.html">DeleteBot</a> operation.</p>
 
         Args:
             bot_id: <p>The identifier of the bot that contains the version.</p>
@@ -2157,13 +2157,13 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> None:
-        r"""<p>Removes the specified intent.</p> <p>Deleting an intent also deletes the slots associated with the intent.</p>
+        """<p>Removes the specified intent.</p> <p>Deleting an intent also deletes the slots associated with the intent.</p>
 
         Args:
             intent_id: <p>The unique identifier of the intent to delete.</p>
             bot_id: <p>The identifier of the bot associated with the intent.</p>
             bot_version: <p>The version of the bot associated with the intent.</p>
-            locale_id: <p>The identifier of the language and locale where the bot will be deleted. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale where the bot will be deleted. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
 
         Raises:
             capo_lex_models_v2.errors.conflict_exception.ConflictException: <p>The action that you tried to perform couldn't be completed because the resource is in a conflicting state. For example, deleting a bot that is in the CREATING state. Try your request again. </p>
@@ -2320,13 +2320,13 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes the specified slot from an intent.</p>
+        """<p>Deletes the specified slot from an intent.</p>
 
         Args:
             slot_id: <p>The identifier of the slot to delete. </p>
             bot_id: <p>The identifier of the bot associated with the slot to delete.</p>
             bot_version: <p>The version of the bot associated with the slot to delete.</p>
-            locale_id: <p>The identifier of the language and locale that the slot will be deleted from. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that the slot will be deleted from. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             intent_id: <p>The identifier of the intent associated with the slot.</p>
 
         Raises:
@@ -2380,13 +2380,13 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.skip_resource_in_use_check.SkipResourceInUseCheck"
         ] = None,
     ) -> None:
-        r"""<p>Deletes a slot type from a bot locale.</p> <p>If a slot is using the slot type, Amazon Lex throws a <code>ResourceInUseException</code> exception. To avoid the exception, set the <code>skipResourceInUseCheck</code> parameter to <code>true</code>.</p>
+        """<p>Deletes a slot type from a bot locale.</p> <p>If a slot is using the slot type, Amazon Lex throws a <code>ResourceInUseException</code> exception. To avoid the exception, set the <code>skipResourceInUseCheck</code> parameter to <code>true</code>.</p>
 
         Args:
             slot_type_id: <p>The identifier of the slot type to delete.</p>
             bot_id: <p>The identifier of the bot associated with the slot type.</p>
             bot_version: <p>The version of the bot associated with the slot type.</p>
-            locale_id: <p>The identifier of the language and locale that the slot type will be deleted from. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that the slot type will be deleted from. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             skip_resource_in_use_check: <p>By default, the <code>DeleteSlotType</code> operations throws a <code>ResourceInUseException</code> exception if you try to delete a slot type used by a slot. Set the <code>skipResourceInUseCheck</code> parameter to <code>true</code> to skip this check and remove the slot type even if a slot uses it.</p>
 
         Raises:
@@ -2483,12 +2483,12 @@ class LexModelsV2Client:
         locale_id: Optional["capo_lex_models_v2.types.locale_id.LocaleId"] = None,
         session_id: Optional["capo_lex_models_v2.types.session_id.SessionId"] = None,
     ) -> "capo_lex_models_v2.types.delete_utterances_response.DeleteUtterancesResponse":
-        r"""<p>Deletes stored utterances.</p> <p>Amazon Lex stores the utterances that users send to your bot. Utterances are stored for 15 days for use with the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListAggregatedUtterances.html\">ListAggregatedUtterances</a> operation, and then stored indefinitely for use in improving the ability of your bot to respond to user input..</p> <p>Use the <code>DeleteUtterances</code> operation to manually delete utterances for a specific session. When you use the <code>DeleteUtterances</code> operation, utterances stored for improving your bot's ability to respond to user input are deleted immediately. Utterances stored for use with the <code>ListAggregatedUtterances</code> operation are deleted after 15 days.</p>
+        """<p>Deletes stored utterances.</p> <p>Amazon Lex stores the utterances that users send to your bot. Utterances are stored for 15 days for use with the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListAggregatedUtterances.html">ListAggregatedUtterances</a> operation, and then stored indefinitely for use in improving the ability of your bot to respond to user input..</p> <p>Use the <code>DeleteUtterances</code> operation to manually delete utterances for a specific session. When you use the <code>DeleteUtterances</code> operation, utterances stored for improving your bot's ability to respond to user input are deleted immediately. Utterances stored for use with the <code>ListAggregatedUtterances</code> operation are deleted after 15 days.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot that contains the utterances.</p>
-            locale_id: <p>The identifier of the language and locale where the utterances were collected. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
-            session_id: <p>The unique identifier of the session with the user. The ID is returned in the response from the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_runtime_RecognizeText.html\">RecognizeText</a> and <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_runtime_RecognizeUtterance.html\">RecognizeUtterance</a> operations.</p>
+            locale_id: <p>The identifier of the language and locale where the utterances were collected. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
+            session_id: <p>The unique identifier of the session with the user. The ID is returned in the response from the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_runtime_RecognizeText.html">RecognizeText</a> and <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_runtime_RecognizeUtterance.html">RecognizeUtterance</a> operations.</p>
 
         Raises:
             capo_lex_models_v2.errors.internal_server_exception.InternalServerException: <p>The service encountered an unexpected condition. Try your request again.</p>
@@ -2717,12 +2717,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.describe_bot_locale_response.DescribeBotLocaleResponse":
-        r"""<p>Describes the settings that a bot has for a specific locale. </p>
+        """<p>Describes the settings that a bot has for a specific locale. </p>
 
         Args:
             bot_id: <p>The identifier of the bot associated with the locale.</p>
             bot_version: <p>The version of the bot associated with the locale.</p>
-            locale_id: <p>The unique identifier of the locale to describe. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>. </p>
+            locale_id: <p>The unique identifier of the locale to describe. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>. </p>
 
         Raises:
             capo_lex_models_v2.errors.internal_server_exception.InternalServerException: <p>The service encountered an unexpected condition. Try your request again.</p>
@@ -2771,12 +2771,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.describe_bot_recommendation_response.DescribeBotRecommendationResponse":
-        r"""<p>Provides metadata information about a bot recommendation. This information will enable you to get a description on the request inputs, to download associated transcripts after processing is complete, and to download intents and slot-types generated by the bot recommendation.</p>
+        """<p>Provides metadata information about a bot recommendation. This information will enable you to get a description on the request inputs, to download associated transcripts after processing is complete, and to download intents and slot-types generated by the bot recommendation.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot associated with the bot recommendation.</p>
             bot_version: <p>The version of the bot associated with the bot recommendation.</p>
-            locale_id: <p>The identifier of the language and locale of the bot recommendation to describe. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the bot recommendation to describe. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             bot_recommendation_id: <p>The identifier of the bot recommendation to describe.</p>
 
         Raises:
@@ -3126,13 +3126,13 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.describe_intent_response.DescribeIntentResponse":
-        r"""<p>Returns metadata about an intent.</p>
+        """<p>Returns metadata about an intent.</p>
 
         Args:
             intent_id: <p>The identifier of the intent to describe.</p>
             bot_id: <p>The identifier of the bot associated with the intent.</p>
             bot_version: <p>The version of the bot associated with the intent.</p>
-            locale_id: <p>The identifier of the language and locale of the intent to describe. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the intent to describe. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
 
         Raises:
             capo_lex_models_v2.errors.internal_server_exception.InternalServerException: <p>The service encountered an unexpected condition. Try your request again.</p>
@@ -3228,13 +3228,13 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.describe_slot_response.DescribeSlotResponse":
-        r"""<p>Gets metadata information about a slot.</p>
+        """<p>Gets metadata information about a slot.</p>
 
         Args:
             slot_id: <p>The unique identifier for the slot.</p>
             bot_id: <p>The identifier of the bot associated with the slot.</p>
             bot_version: <p>The version of the bot associated with the slot.</p>
-            locale_id: <p>The identifier of the language and locale of the slot to describe. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the slot to describe. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             intent_id: <p>The identifier of the intent that contains the slot.</p>
 
         Raises:
@@ -3288,13 +3288,13 @@ class LexModelsV2Client:
     ) -> (
         "capo_lex_models_v2.types.describe_slot_type_response.DescribeSlotTypeResponse"
     ):
-        r"""<p>Gets metadata information about a slot type.</p>
+        """<p>Gets metadata information about a slot type.</p>
 
         Args:
             slot_type_id: <p>The identifier of the slot type.</p>
             bot_id: <p>The identifier of the bot associated with the slot type.</p>
             bot_version: <p>The version of the bot associated with the slot type.</p>
-            locale_id: <p>The identifier of the language and locale of the slot type to describe. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the slot type to describe. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
 
         Raises:
             capo_lex_models_v2.errors.internal_server_exception.InternalServerException: <p>The service encountered an unexpected condition. Try your request again.</p>
@@ -3648,13 +3648,13 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_aggregated_utterances_response.ListAggregatedUtterancesResponse":
-        r"""<p>Provides a list of utterances that users have sent to the bot.</p> <p>Utterances are aggregated by the text of the utterance. For example, all instances where customers used the phrase \"I want to order pizza\" are aggregated into the same line in the response.</p> <p>You can see both detected utterances and missed utterances. A detected utterance is where the bot properly recognized the utterance and activated the associated intent. A missed utterance was not recognized by the bot and didn't activate an intent.</p> <p>Utterances can be aggregated for a bot alias or for a bot version, but not both at the same time.</p> <p>Utterances statistics are not generated under the following conditions:</p> <ul> <li> <p>The <code>childDirected</code> field was set to true when the bot was created.</p> </li> <li> <p>You are using slot obfuscation with one or more slots.</p> </li> <li> <p>You opted out of participating in improving Amazon Lex.</p> </li> </ul>
+        """<p>Provides a list of utterances that users have sent to the bot.</p> <p>Utterances are aggregated by the text of the utterance. For example, all instances where customers used the phrase "I want to order pizza" are aggregated into the same line in the response.</p> <p>You can see both detected utterances and missed utterances. A detected utterance is where the bot properly recognized the utterance and activated the associated intent. A missed utterance was not recognized by the bot and didn't activate an intent.</p> <p>Utterances can be aggregated for a bot alias or for a bot version, but not both at the same time.</p> <p>Utterances statistics are not generated under the following conditions:</p> <ul> <li> <p>The <code>childDirected</code> field was set to true when the bot was created.</p> </li> <li> <p>You are using slot obfuscation with one or more slots.</p> </li> <li> <p>You opted out of participating in improving Amazon Lex.</p> </li> </ul>
 
         Args:
             bot_id: <p>The unique identifier of the bot associated with this request.</p>
             bot_alias_id: <p>The identifier of the bot alias associated with this request. If you specify the bot alias, you can't specify the bot version.</p>
             bot_version: <p>The identifier of the bot version associated with this request. If you specify the bot version, you can't specify the bot alias.</p>
-            locale_id: <p>The identifier of the language and locale where the utterances were collected. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale where the utterances were collected. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             aggregation_duration: <p>The time window for aggregating the utterance information. You can specify a time between one hour and two weeks.</p>
             sort_by: <p>Specifies sorting parameters for the list of utterances. You can sort by the hit count, the missed count, or the number of distinct sessions the utterance appeared in.</p>
             filters: <p>Provides the specification of a filter used to limit the utterances in the response to only those that match the filter specification. You can only specify one filter and one string to filter on.</p>
@@ -4592,10 +4592,10 @@ class LexModelsV2Client:
         ] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_built_in_intents_response.ListBuiltInIntentsResponse":
-        r"""<p>Gets a list of built-in intents provided by Amazon Lex that you can use in your bot. </p> <p>To use a built-in intent as a the base for your own intent, include the built-in intent signature in the <code>parentIntentSignature</code> parameter when you call the <code>CreateIntent</code> operation. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateIntent.html\">CreateIntent</a>.</p>
+        """<p>Gets a list of built-in intents provided by Amazon Lex that you can use in your bot. </p> <p>To use a built-in intent as a the base for your own intent, include the built-in intent signature in the <code>parentIntentSignature</code> parameter when you call the <code>CreateIntent</code> operation. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateIntent.html">CreateIntent</a>.</p>
 
         Args:
-            locale_id: <p>The identifier of the language and locale of the intents to list. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the intents to list. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             sort_by: <p>Specifies sorting parameters for the list of built-in intents. You can specify that the list be sorted by the built-in intent signature in either ascending or descending order.</p>
             max_results: <p>The maximum number of built-in intents to return in each page of results. If there are fewer results than the max page size, only the actual number of results are returned.</p>
             next_token: <p>If the response from the <code>ListBuiltInIntents</code> operation contains more results than specified in the <code>maxResults</code> parameter, a token is returned in the response. Use that token in the <code>nextToken</code> parameter to return the next page of results.</p>
@@ -4681,10 +4681,10 @@ class LexModelsV2Client:
         ] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_built_in_slot_types_response.ListBuiltInSlotTypesResponse":
-        r"""<p>Gets a list of built-in slot types that meet the specified criteria.</p>
+        """<p>Gets a list of built-in slot types that meet the specified criteria.</p>
 
         Args:
-            locale_id: <p>The identifier of the language and locale of the slot types to list. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the slot types to list. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             sort_by: <p>Determines the sort order for the response from the <code>ListBuiltInSlotTypes</code> operation. You can choose to sort by the slot type signature in either ascending or descending order.</p>
             max_results: <p>The maximum number of built-in slot types to return in each page of results. If there are fewer results than the max page size, only the actual number of results are returned.</p>
             next_token: <p>If the response from the <code>ListBuiltInSlotTypes</code> operation contains more results than specified in the <code>maxResults</code> parameter, a token is returned in the response. Use that token in the <code>nextToken</code> parameter to return the next page of results.</p>
@@ -5079,7 +5079,7 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_intent_metrics_response.ListIntentMetricsResponse":
-        r"""<p>Retrieves summary metrics for the intents in your bot. The following fields are required:</p> <ul> <li> <p> <code>metrics</code> – A list of <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_AnalyticsIntentMetric.html\">AnalyticsIntentMetric</a> objects. In each object, use the <code>name</code> field to specify the metric to calculate, the <code>statistic</code> field to specify whether to calculate the <code>Sum</code>, <code>Average</code>, or <code>Max</code> number, and the <code>order</code> field to specify whether to sort the results in <code>Ascending</code> or <code>Descending</code> order.</p> </li> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results, the <code>groupBy</code> field to specify categories by which to group the results, and the <code>binBy</code> field to specify time intervals by which to group the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul> <p>Note that an <code>order</code> field exists in both <code>binBy</code> and <code>metrics</code>. You can specify only one <code>order</code> in a given request.</p>
+        """<p>Retrieves summary metrics for the intents in your bot. The following fields are required:</p> <ul> <li> <p> <code>metrics</code> – A list of <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_AnalyticsIntentMetric.html">AnalyticsIntentMetric</a> objects. In each object, use the <code>name</code> field to specify the metric to calculate, the <code>statistic</code> field to specify whether to calculate the <code>Sum</code>, <code>Average</code>, or <code>Max</code> number, and the <code>order</code> field to specify whether to sort the results in <code>Ascending</code> or <code>Descending</code> order.</p> </li> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results, the <code>groupBy</code> field to specify categories by which to group the results, and the <code>binBy</code> field to specify time intervals by which to group the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul> <p>Note that an <code>order</code> field exists in both <code>binBy</code> and <code>metrics</code>. You can specify only one <code>order</code> in a given request.</p>
 
         Args:
             bot_id: <p>The identifier for the bot for which you want to retrieve intent metrics.</p>
@@ -5087,7 +5087,7 @@ class LexModelsV2Client:
             end_date_time: <p>The date and time that marks the end of the range of time for which you want to see intent metrics.</p>
             metrics: <p>A list of objects, each of which contains a metric you want to list, the statistic for the metric you want to return, and the order by which to organize the results.</p>
             bin_by: <p>A list of objects, each of which contains specifications for organizing the results by time.</p>
-            group_by: <p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>IntentName</code> – The name of the intent.</p> </li> <li> <p> <code>IntentEndState</code> – The final state of the intent. The possible end states are detailed in <a href=\"https://docs.aws.amazon.com/analytics-key-definitions-intents\">Key definitions</a> in the user guide.</p> </li> </ul>
+            group_by: <p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>IntentName</code> – The name of the intent.</p> </li> <li> <p> <code>IntentEndState</code> – The final state of the intent. The possible end states are detailed in <a href="https://docs.aws.amazon.com/analytics-key-definitions-intents">Key definitions</a> in the user guide.</p> </li> </ul>
             filters: <p>A list of objects, each of which describes a condition by which you want to filter the results.</p>
             max_results: <p>The maximum number of results to return in each page of results. If there are fewer results than the maximum page size, only the actual number of results are returned.</p>
             next_token: <p>If the response from the ListIntentMetrics operation contains more results than specified in the maxResults parameter, a token is returned in the response.</p> <p>Use the returned token in the nextToken parameter of a ListIntentMetrics request to return the next page of results. For a complete set of results, call the ListIntentMetrics operation until the nextToken returned in the response is null.</p>
@@ -5258,12 +5258,12 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_intents_response.ListIntentsResponse":
-        r"""<p>Get a list of intents that meet the specified criteria.</p>
+        """<p>Get a list of intents that meet the specified criteria.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot that contains the intent.</p>
             bot_version: <p>The version of the bot that contains the intent.</p>
-            locale_id: <p>The identifier of the language and locale of the intents to list. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the intents to list. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             sort_by: <p>Determines the sort order for the response from the <code>ListIntents</code> operation. You can choose to sort by the intent name or last updated date in either ascending or descending order.</p>
             filters: <p>Provides the specification of a filter used to limit the intents in the response to only those that match the filter specification. You can only specify one filter and only one string to filter on.</p>
             max_results: <p>The maximum number of intents to return in each page of results. If there are fewer results than the max page size, only the actual number of results are returned.</p>
@@ -5367,7 +5367,7 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_intent_stage_metrics_response.ListIntentStageMetricsResponse":
-        r"""<p>Retrieves summary metrics for the stages within intents in your bot. The following fields are required:</p> <ul> <li> <p> <code>metrics</code> – A list of <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_AnalyticsIntentStageMetric.html\">AnalyticsIntentStageMetric</a> objects. In each object, use the <code>name</code> field to specify the metric to calculate, the <code>statistic</code> field to specify whether to calculate the <code>Sum</code>, <code>Average</code>, or <code>Max</code> number, and the <code>order</code> field to specify whether to sort the results in <code>Ascending</code> or <code>Descending</code> order.</p> </li> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results, the <code>groupBy</code> field to specify categories by which to group the results, and the <code>binBy</code> field to specify time intervals by which to group the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul> <p>Note that an <code>order</code> field exists in both <code>binBy</code> and <code>metrics</code>. You can only specify one <code>order</code> in a given request.</p>
+        """<p>Retrieves summary metrics for the stages within intents in your bot. The following fields are required:</p> <ul> <li> <p> <code>metrics</code> – A list of <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_AnalyticsIntentStageMetric.html">AnalyticsIntentStageMetric</a> objects. In each object, use the <code>name</code> field to specify the metric to calculate, the <code>statistic</code> field to specify whether to calculate the <code>Sum</code>, <code>Average</code>, or <code>Max</code> number, and the <code>order</code> field to specify whether to sort the results in <code>Ascending</code> or <code>Descending</code> order.</p> </li> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results, the <code>groupBy</code> field to specify categories by which to group the results, and the <code>binBy</code> field to specify time intervals by which to group the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul> <p>Note that an <code>order</code> field exists in both <code>binBy</code> and <code>metrics</code>. You can only specify one <code>order</code> in a given request.</p>
 
         Args:
             bot_id: <p>The identifier for the bot for which you want to retrieve intent stage metrics.</p>
@@ -5685,7 +5685,7 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_session_metrics_response.ListSessionMetricsResponse":
-        r"""<p>Retrieves summary metrics for the user sessions with your bot. The following fields are required:</p> <ul> <li> <p> <code>metrics</code> – A list of <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_AnalyticsSessionMetric.html\">AnalyticsSessionMetric</a> objects. In each object, use the <code>name</code> field to specify the metric to calculate, the <code>statistic</code> field to specify whether to calculate the <code>Sum</code>, <code>Average</code>, or <code>Max</code> number, and the <code>order</code> field to specify whether to sort the results in <code>Ascending</code> or <code>Descending</code> order.</p> </li> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results, the <code>groupBy</code> field to specify categories by which to group the results, and the <code>binBy</code> field to specify time intervals by which to group the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul> <p>Note that an <code>order</code> field exists in both <code>binBy</code> and <code>metrics</code>. Currently, you can specify it in either field, but not in both.</p>
+        """<p>Retrieves summary metrics for the user sessions with your bot. The following fields are required:</p> <ul> <li> <p> <code>metrics</code> – A list of <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_AnalyticsSessionMetric.html">AnalyticsSessionMetric</a> objects. In each object, use the <code>name</code> field to specify the metric to calculate, the <code>statistic</code> field to specify whether to calculate the <code>Sum</code>, <code>Average</code>, or <code>Max</code> number, and the <code>order</code> field to specify whether to sort the results in <code>Ascending</code> or <code>Descending</code> order.</p> </li> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results, the <code>groupBy</code> field to specify categories by which to group the results, and the <code>binBy</code> field to specify time intervals by which to group the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul> <p>Note that an <code>order</code> field exists in both <code>binBy</code> and <code>metrics</code>. Currently, you can specify it in either field, but not in both.</p>
 
         Args:
             bot_id: <p>The identifier for the bot for which you want to retrieve session metrics.</p>
@@ -5693,7 +5693,7 @@ class LexModelsV2Client:
             end_date_time: <p>The date and time that marks the end of the range of time for which you want to see session metrics.</p>
             metrics: <p>A list of objects, each of which contains a metric you want to list, the statistic for the metric you want to return, and the method by which to organize the results.</p>
             bin_by: <p>A list of objects, each of which contains specifications for organizing the results by time.</p>
-            group_by: <p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>ConversationEndState</code> – The final state of the conversation. The possible end states are detailed in <a href=\"https://docs.aws.amazon.com/analytics-key-definitions-conversations\">Key definitions</a> in the user guide.</p> </li> <li> <p> <code>LocaleId</code> – The unique identifier of the bot locale.</p> </li> </ul>
+            group_by: <p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>ConversationEndState</code> – The final state of the conversation. The possible end states are detailed in <a href="https://docs.aws.amazon.com/analytics-key-definitions-conversations">Key definitions</a> in the user guide.</p> </li> <li> <p> <code>LocaleId</code> – The unique identifier of the bot locale.</p> </li> </ul>
             filters: <p>A list of objects, each of which describes a condition by which you want to filter the results.</p>
             max_results: <p>The maximum number of results to return in each page of results. If there are fewer results than the maximum page size, only the actual number of results are returned.</p>
             next_token: <p>If the response from the ListSessionMetrics operation contains more results than specified in the maxResults parameter, a token is returned in the response.</p> <p>Use the returned token in the nextToken parameter of a ListSessionMetrics request to return the next page of results. For a complete set of results, call the ListSessionMetrics operation until the nextToken returned in the response is null.</p>
@@ -5799,12 +5799,12 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_slots_response.ListSlotsResponse":
-        r"""<p>Gets a list of slots that match the specified criteria.</p>
+        """<p>Gets a list of slots that match the specified criteria.</p>
 
         Args:
             bot_id: <p>The identifier of the bot that contains the slot.</p>
             bot_version: <p>The version of the bot that contains the slot.</p>
-            locale_id: <p>The identifier of the language and locale of the slots to list. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the slots to list. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             intent_id: <p>The unique identifier of the intent that contains the slot.</p>
             sort_by: <p>Determines the sort order for the response from the <code>ListSlots</code> operation. You can choose to sort by the slot name or last updated date in either ascending or descending order.</p>
             filters: <p>Provides the specification of a filter used to limit the slots in the response to only those that match the filter specification. You can only specify one filter and only one string to filter on.</p>
@@ -5904,12 +5904,12 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_slot_types_response.ListSlotTypesResponse":
-        r"""<p>Gets a list of slot types that match the specified criteria.</p>
+        """<p>Gets a list of slot types that match the specified criteria.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot that contains the slot types.</p>
             bot_version: <p>The version of the bot that contains the slot type.</p>
-            locale_id: <p>The identifier of the language and locale of the slot types to list. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale of the slot types to list. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             sort_by: <p>Determines the sort order for the response from the <code>ListSlotTypes</code> operation. You can choose to sort by the slot type name or last updated date in either ascending or descending order.</p>
             filters: <p>Provides the specification of a filter used to limit the slot types in the response to only those that match the filter specification. You can only specify one filter and only one string to filter on.</p>
             max_results: <p>The maximum number of slot types to return in each page of results. If there are fewer results than the max page size, only the actual number of results are returned.</p>
@@ -6370,7 +6370,7 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_utterance_analytics_data_response.ListUtteranceAnalyticsDataResponse":
-        r"""<note> <p>To use this API operation, your IAM role must have permissions to perform the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListAggregatedUtterances.html\">ListAggregatedUtterances</a> operation, which provides access to utterance-related analytics. See <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/monitoring-utterances.html\">Viewing utterance statistics</a> for the IAM policy to apply to the IAM role.</p> </note> <p>Retrieves a list of metadata for individual user utterances to your bot. The following fields are required:</p> <ul> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results and the <code>sortBy</code> field to specify the values by which to sort the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul>
+        """<note> <p>To use this API operation, your IAM role must have permissions to perform the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListAggregatedUtterances.html">ListAggregatedUtterances</a> operation, which provides access to utterance-related analytics. See <a href="https://docs.aws.amazon.com/lexv2/latest/dg/monitoring-utterances.html">Viewing utterance statistics</a> for the IAM policy to apply to the IAM role.</p> </note> <p>Retrieves a list of metadata for individual user utterances to your bot. The following fields are required:</p> <ul> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results and the <code>sortBy</code> field to specify the values by which to sort the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul>
 
         Args:
             bot_id: <p>The identifier for the bot for which you want to retrieve utterance analytics.</p>
@@ -6483,7 +6483,7 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_lex_models_v2.types.next_token.NextToken"] = None,
     ) -> "capo_lex_models_v2.types.list_utterance_metrics_response.ListUtteranceMetricsResponse":
-        r"""<note> <p>To use this API operation, your IAM role must have permissions to perform the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListAggregatedUtterances.html\">ListAggregatedUtterances</a> operation, which provides access to utterance-related analytics. See <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/monitoring-utterances.html\">Viewing utterance statistics</a> for the IAM policy to apply to the IAM role.</p> </note> <p>Retrieves summary metrics for the utterances in your bot. The following fields are required:</p> <ul> <li> <p> <code>metrics</code> – A list of <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_AnalyticsUtteranceMetric.html\">AnalyticsUtteranceMetric</a> objects. In each object, use the <code>name</code> field to specify the metric to calculate, the <code>statistic</code> field to specify whether to calculate the <code>Sum</code>, <code>Average</code>, or <code>Max</code> number, and the <code>order</code> field to specify whether to sort the results in <code>Ascending</code> or <code>Descending</code> order.</p> </li> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results, the <code>groupBy</code> field to specify categories by which to group the results, and the <code>binBy</code> field to specify time intervals by which to group the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul> <p>Note that an <code>order</code> field exists in both <code>binBy</code> and <code>metrics</code>. Currently, you can specify it in either field, but not in both.</p>
+        """<note> <p>To use this API operation, your IAM role must have permissions to perform the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListAggregatedUtterances.html">ListAggregatedUtterances</a> operation, which provides access to utterance-related analytics. See <a href="https://docs.aws.amazon.com/lexv2/latest/dg/monitoring-utterances.html">Viewing utterance statistics</a> for the IAM policy to apply to the IAM role.</p> </note> <p>Retrieves summary metrics for the utterances in your bot. The following fields are required:</p> <ul> <li> <p> <code>metrics</code> – A list of <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_AnalyticsUtteranceMetric.html">AnalyticsUtteranceMetric</a> objects. In each object, use the <code>name</code> field to specify the metric to calculate, the <code>statistic</code> field to specify whether to calculate the <code>Sum</code>, <code>Average</code>, or <code>Max</code> number, and the <code>order</code> field to specify whether to sort the results in <code>Ascending</code> or <code>Descending</code> order.</p> </li> <li> <p> <code>startDateTime</code> and <code>endDateTime</code> – Define a time range for which you want to retrieve results.</p> </li> </ul> <p>Of the optional fields, you can organize the results in the following ways:</p> <ul> <li> <p>Use the <code>filters</code> field to filter the results, the <code>groupBy</code> field to specify categories by which to group the results, and the <code>binBy</code> field to specify time intervals by which to group the results.</p> </li> <li> <p>Use the <code>maxResults</code> field to limit the number of results to return in a single response and the <code>nextToken</code> field to return the next batch of results if the response does not return the full set of results.</p> </li> </ul> <p>Note that an <code>order</code> field exists in both <code>binBy</code> and <code>metrics</code>. Currently, you can specify it in either field, but not in both.</p>
 
         Args:
             bot_id: <p>The identifier for the bot for which you want to retrieve utterance metrics.</p>
@@ -6491,7 +6491,7 @@ class LexModelsV2Client:
             end_date_time: <p>The date and time that marks the end of the range of time for which you want to see utterance metrics.</p>
             metrics: <p>A list of objects, each of which contains a metric you want to list, the statistic for the metric you want to return, and the method by which to organize the results.</p>
             bin_by: <p>A list of objects, each of which contains specifications for organizing the results by time.</p>
-            group_by: <p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>UtteranceText</code> – The transcription of the utterance.</p> </li> <li> <p> <code>UtteranceState</code> – The state of the utterance. The possible states are detailed in <a href=\"https://docs.aws.amazon.com/analytics-key-definitions-utterances\">Key definitions</a> in the user guide.</p> </li> </ul>
+            group_by: <p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>UtteranceText</code> – The transcription of the utterance.</p> </li> <li> <p> <code>UtteranceState</code> – The state of the utterance. The possible states are detailed in <a href="https://docs.aws.amazon.com/analytics-key-definitions-utterances">Key definitions</a> in the user guide.</p> </li> </ul>
             attributes: <p>A list containing attributes related to the utterance that you want the response to return. The following attributes are possible:</p> <ul> <li> <p> <code>LastUsedIntent</code> – The last used intent at the time of the utterance.</p> </li> </ul>
             filters: <p>A list of objects, each of which describes a condition by which you want to filter the results.</p>
             max_results: <p>The maximum number of results to return in each page of results. If there are fewer results than the maximum page size, only the actual number of results are returned.</p>
@@ -6606,12 +6606,12 @@ class LexModelsV2Client:
         max_results: Optional["capo_lex_models_v2.types.max_results.MaxResults"] = None,
         next_index: Optional["capo_lex_models_v2.types.next_index.NextIndex"] = None,
     ) -> "capo_lex_models_v2.types.search_associated_transcripts_response.SearchAssociatedTranscriptsResponse":
-        r"""<p>Search for associated transcripts that meet the specified criteria.</p>
+        """<p>Search for associated transcripts that meet the specified criteria.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot associated with the transcripts that you are searching.</p>
             bot_version: <p>The version of the bot containing the transcripts that you are searching.</p>
-            locale_id: <p>The identifier of the language and locale of the transcripts to search. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a> </p>
+            locale_id: <p>The identifier of the language and locale of the transcripts to search. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a> </p>
             bot_recommendation_id: <p>The unique identifier of the bot recommendation associated with the transcripts to search.</p>
             search_order: <p>How SearchResults are ordered. Valid values are Ascending or Descending. The default is Descending.</p>
             filters: <p>A list of filter objects.</p>
@@ -6738,12 +6738,12 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.encryption_setting.EncryptionSetting"
         ] = None,
     ) -> "capo_lex_models_v2.types.start_bot_recommendation_response.StartBotRecommendationResponse":
-        r"""<p>Use this to provide your transcript data, and to start the bot recommendation process.</p>
+        """<p>Use this to provide your transcript data, and to start the bot recommendation process.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot containing the bot recommendation.</p>
             bot_version: <p>The version of the bot containing the bot recommendation.</p>
-            locale_id: <p>The identifier of the language and locale of the bot recommendation to start. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a> </p>
+            locale_id: <p>The identifier of the language and locale of the bot recommendation to start. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a> </p>
             transcript_source_setting: <p>The object representing the Amazon S3 bucket containing the transcript, as well as the associated metadata.</p>
             encryption_setting: <p>The object representing the passwords that will be used to encrypt the data related to the bot recommendation results, as well as the KMS key ARN used to encrypt the associated metadata.</p>
 
@@ -6858,10 +6858,10 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.import_export_file_password.ImportExportFilePassword"
         ] = None,
     ) -> "capo_lex_models_v2.types.start_import_response.StartImportResponse":
-        r"""<p>Starts importing a bot, bot locale, or custom vocabulary from a zip archive that you uploaded to an S3 bucket.</p>
+        """<p>Starts importing a bot, bot locale, or custom vocabulary from a zip archive that you uploaded to an S3 bucket.</p>
 
         Args:
-            import_id: <p>The unique identifier for the import. It is included in the response from the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateUploadUrl.html\">CreateUploadUrl</a> operation.</p>
+            import_id: <p>The unique identifier for the import. It is included in the response from the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateUploadUrl.html">CreateUploadUrl</a> operation.</p>
             resource_specification: <p>Parameters for creating the bot, bot locale or custom vocabulary.</p>
             merge_strategy: <p>The strategy to use when there is a name conflict between the imported resource and an existing resource. When the merge strategy is <code>FailOnConflict</code> existing resources are not overwritten and the import fails.</p>
             file_password: <p>The password used to encrypt the zip archive that contains the resource definition. You should always encrypt the zip archive to protect it during transit between your site and Amazon Lex.</p>
@@ -7092,12 +7092,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.stop_bot_recommendation_response.StopBotRecommendationResponse":
-        r"""<p>Stop an already running Bot Recommendation request.</p>
+        """<p>Stop an already running Bot Recommendation request.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot containing the bot recommendation to be stopped.</p>
             bot_version: <p>The version of the bot containing the bot recommendation.</p>
-            locale_id: <p>The identifier of the language and locale of the bot recommendation to stop. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a> </p>
+            locale_id: <p>The identifier of the language and locale of the bot recommendation to stop. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a> </p>
             bot_recommendation_id: <p>The unique identifier of the bot recommendation to be stopped.</p>
 
         Raises:
@@ -7257,10 +7257,10 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.error_log_settings.ErrorLogSettings"
         ] = None,
     ) -> "capo_lex_models_v2.types.update_bot_response.UpdateBotResponse":
-        r"""<p>Updates the configuration of an existing bot. </p>
+        """<p>Updates the configuration of an existing bot. </p>
 
         Args:
-            bot_id: <p>The unique identifier of the bot to update. This identifier is returned by the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateBot.html\">CreateBot</a> operation.</p>
+            bot_id: <p>The unique identifier of the bot to update. This identifier is returned by the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateBot.html">CreateBot</a> operation.</p>
             bot_name: <p>The new name of the bot. The name must be unique in the account that creates the bot.</p>
             description: <p>A description of the bot.</p>
             role_arn: <p>The Amazon Resource Name (ARN) of an IAM role that has permissions to access the bot.</p>
@@ -7433,12 +7433,12 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.speaker_diarization_settings.SpeakerDiarizationSettings"
         ] = None,
     ) -> "capo_lex_models_v2.types.update_bot_locale_response.UpdateBotLocaleResponse":
-        r"""<p>Updates the settings that a bot has for a specific locale.</p>
+        """<p>Updates the settings that a bot has for a specific locale.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot that contains the locale.</p>
             bot_version: <p>The version of the bot that contains the locale to be updated. The version can only be the <code>DRAFT</code> version.</p>
-            locale_id: <p>The identifier of the language and locale to update. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale to update. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             description: <p>The new description of the locale.</p>
             nlu_intent_confidence_threshold: <p>The new confidence threshold where Amazon Lex inserts the <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> intents in the list of possible intents for an utterance.</p>
             voice_settings: <p>The new Amazon Polly voice Amazon Lex should use for voice interaction with the user.</p>
@@ -7515,12 +7515,12 @@ class LexModelsV2Client:
         *,
         config_overrides: Optional[LexModelsV2ClientConfig] = None,
     ) -> "capo_lex_models_v2.types.update_bot_recommendation_response.UpdateBotRecommendationResponse":
-        r"""<p>Updates an existing bot recommendation request.</p>
+        """<p>Updates an existing bot recommendation request.</p>
 
         Args:
             bot_id: <p>The unique identifier of the bot containing the bot recommendation to be updated.</p>
             bot_version: <p>The version of the bot containing the bot recommendation to be updated.</p>
-            locale_id: <p>The identifier of the language and locale of the bot recommendation to update. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a> </p>
+            locale_id: <p>The identifier of the language and locale of the bot recommendation to update. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a> </p>
             bot_recommendation_id: <p>The unique identifier of the bot recommendation to be updated.</p>
             encryption_setting: <p>The object representing the passwords that will be used to encrypt the data related to the bot recommendation results, as well as the KMS key ARN used to encrypt the associated metadata.</p>
 
@@ -7575,7 +7575,7 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.import_export_file_password.ImportExportFilePassword"
         ] = None,
     ) -> "capo_lex_models_v2.types.update_export_response.UpdateExportResponse":
-        r"""<p>Updates the password used to protect an export zip archive.</p> <p>The password is not required. If you don't supply a password, Amazon Lex generates a zip file that is not protected by a password. This is the archive that is available at the pre-signed S3 URL provided by the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DescribeExport.html\">DescribeExport</a> operation.</p>
+        """<p>Updates the password used to protect an export zip archive.</p> <p>The password is not required. If you don't supply a password, Amazon Lex generates a zip file that is not protected by a password. This is the archive that is available at the pre-signed S3 URL provided by the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DescribeExport.html">DescribeExport</a> operation.</p>
 
         Args:
             export_id: <p>The unique identifier Amazon Lex assigned to the export.</p>
@@ -7675,7 +7675,7 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.q_in_connect_intent_configuration.QInConnectIntentConfiguration"
         ] = None,
     ) -> "capo_lex_models_v2.types.update_intent_response.UpdateIntentResponse":
-        r"""<p>Updates the settings for an intent.</p>
+        """<p>Updates the settings for an intent.</p>
 
         Args:
             intent_id: <p>The unique identifier of the intent to update.</p>
@@ -7694,7 +7694,7 @@ class LexModelsV2Client:
             kendra_configuration: <p>New configuration settings for connecting to an Amazon Kendra index.</p>
             bot_id: <p>The identifier of the bot that contains the intent.</p>
             bot_version: <p>The version of the bot that contains the intent. Must be <code>DRAFT</code>.</p>
-            locale_id: <p>The identifier of the language and locale where this intent is used. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale where this intent is used. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             initial_response_setting: <p>Configuration settings for a response sent to the user before Amazon Lex starts eliciting slots.</p>
             qn_a_intent_configuration: <p>Specifies the configuration of the built-in <code>Amazon.QnAIntent</code>. The <code>AMAZON.QnAIntent</code> intent is called when Amazon Lex can't determine another intent to invoke. If you specify this field, you can't specify the <code>kendraConfiguration</code> field.</p>
             q_in_connect_intent_configuration: <p>Qinconnect intent configuration details for the update intent request.</p>
@@ -7782,11 +7782,11 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.revision_id.RevisionId"
         ] = None,
     ) -> "capo_lex_models_v2.types.update_resource_policy_response.UpdateResourcePolicyResponse":
-        r"""<p>Replaces the existing resource policy for a bot or bot alias with a new one. If the policy doesn't exist, Amazon Lex returns an exception.</p>
+        """<p>Replaces the existing resource policy for a bot or bot alias with a new one. If the policy doesn't exist, Amazon Lex returns an exception.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the bot or bot alias that the resource policy is attached to.</p>
-            policy: <p>A resource policy to add to the resource. The policy is a JSON structure that contains one or more statements that define the policy. The policy must follow the IAM syntax. For more information about the contents of a JSON policy document, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html\"> IAM JSON policy reference </a>. </p> <p>If the policy isn't valid, Amazon Lex returns a validation exception.</p>
+            policy: <p>A resource policy to add to the resource. The policy is a JSON structure that contains one or more statements that define the policy. The policy must follow the IAM syntax. For more information about the contents of a JSON policy document, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html"> IAM JSON policy reference </a>. </p> <p>If the policy isn't valid, Amazon Lex returns a validation exception.</p>
             expected_revision_id: <p>The identifier of the revision of the policy to update. If this revision ID doesn't match the current revision ID, Amazon Lex throws an exception.</p> <p>If you don't specify a revision, Amazon Lex overwrites the contents of the policy with the new values.</p>
 
         Raises:
@@ -7856,7 +7856,7 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.sub_slot_setting.SubSlotSetting"
         ] = None,
     ) -> "capo_lex_models_v2.types.update_slot_response.UpdateSlotResponse":
-        r"""<p>Updates the settings for a slot.</p>
+        """<p>Updates the settings for a slot.</p>
 
         Args:
             slot_id: <p>The unique identifier for the slot to update.</p>
@@ -7867,7 +7867,7 @@ class LexModelsV2Client:
             obfuscation_setting: <p>New settings that determine how slot values are formatted in Amazon CloudWatch logs. </p>
             bot_id: <p>The unique identifier of the bot that contains the slot.</p>
             bot_version: <p>The version of the bot that contains the slot. Must always be <code>DRAFT</code>.</p>
-            locale_id: <p>The identifier of the language and locale that contains the slot. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that contains the slot. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             intent_id: <p>The identifier of the intent that contains the slot.</p>
             multiple_values_setting: <p>Determines whether the slot accepts multiple values in one response. Multiple value slots are only available in the en-US locale. If you set this value to <code>true</code> in any other locale, Amazon Lex throws a <code>ValidationException</code>.</p> <p>If the <code>multipleValuesSetting</code> is not set, the default value is <code>false</code>.</p>
             sub_slot_setting: <p>Specifications for the constituent sub slots and the expression for the composite slot.</p>
@@ -7953,7 +7953,7 @@ class LexModelsV2Client:
             "capo_lex_models_v2.types.composite_slot_type_setting.CompositeSlotTypeSetting"
         ] = None,
     ) -> "capo_lex_models_v2.types.update_slot_type_response.UpdateSlotTypeResponse":
-        r"""<p>Updates the configuration of an existing slot type.</p>
+        """<p>Updates the configuration of an existing slot type.</p>
 
         Args:
             slot_type_id: <p>The unique identifier of the slot type to update.</p>
@@ -7964,7 +7964,7 @@ class LexModelsV2Client:
             parent_slot_type_signature: <p>The new built-in slot type that should be used as the parent of this slot type.</p>
             bot_id: <p>The identifier of the bot that contains the slot type.</p>
             bot_version: <p>The version of the bot that contains the slot type. Must be <code>DRAFT</code>.</p>
-            locale_id: <p>The identifier of the language and locale that contains the slot type. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>
+            locale_id: <p>The identifier of the language and locale that contains the slot type. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>
             composite_slot_type_setting: <p>Specifications for a composite slot type.</p>
 
         Raises:

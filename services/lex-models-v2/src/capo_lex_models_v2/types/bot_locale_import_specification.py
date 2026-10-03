@@ -25,7 +25,7 @@ class BotLocaleImportSpecification(TypedDict, closed=True):
     bot_version: "capo_lex_models_v2.types.draft_bot_version.DraftBotVersion"
     """<p>The version of the bot to import the locale to. This can only be the <code>DRAFT</code> version of the bot.</p>"""
     locale_id: "capo_lex_models_v2.types.locale_id.LocaleId"
-    r"""<p>The identifier of the language and locale that the bot will be used in. The string must match one of the supported locales. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>"""
+    """<p>The identifier of the language and locale that the bot will be used in. The string must match one of the supported locales. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>"""
     nlu_intent_confidence_threshold: NotRequired[
         "capo_lex_models_v2.types.confidence_threshold.ConfidenceThreshold"
     ]

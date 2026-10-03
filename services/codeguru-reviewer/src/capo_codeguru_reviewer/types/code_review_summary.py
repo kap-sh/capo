@@ -21,7 +21,7 @@ class CodeReviewSummary(TypedDict, closed=True):
     name: NotRequired["capo_codeguru_reviewer.types.name.Name"]
     """<p>The name of the code review.</p>"""
     code_review_arn: NotRequired["capo_codeguru_reviewer.types.arn.Arn"]
-    r"""<p>The Amazon Resource Name (ARN) of the <a href=\"https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html\">CodeReview</a> object. </p>"""
+    """<p>The Amazon Resource Name (ARN) of the <a href="https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html">CodeReview</a> object. </p>"""
     repository_name: NotRequired["capo_codeguru_reviewer.types.name.Name"]
     """<p>The name of the repository.</p>"""
     owner: NotRequired["capo_codeguru_reviewer.types.owner.Owner"]

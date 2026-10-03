@@ -16,7 +16,7 @@ class IpPermission(TypedDict, closed=True):
     to_port: NotRequired["capo_gamelift.types.port_number.PortNumber"]
     """<p>An ending value for a range of allowed port numbers. Port numbers are end-inclusive. This value must be equal to or greater than <code>FromPort</code>.</p> <p>For fleets using Linux builds, only ports <code>22</code> and <code>1026-60000</code> are valid.</p> <p>For fleets using Windows builds, only ports <code>1026-60000</code> are valid.</p>"""
     ip_range: NotRequired["capo_gamelift.types.ip_range.IpRange"]
-    r"""<p>A range of allowed IP addresses. This value must be expressed in CIDR notation. Example: \"<code>000.000.000.000/[subnet mask]</code>\" or optionally the shortened version \"<code>0.0.0.0/[subnet mask]</code>\".</p>"""
+    """<p>A range of allowed IP addresses. This value must be expressed in CIDR notation. Example: "<code>000.000.000.000/[subnet mask]</code>" or optionally the shortened version "<code>0.0.0.0/[subnet mask]</code>".</p>"""
     protocol: NotRequired["capo_gamelift.types.ip_protocol.IpProtocol"]
     """<p>The network communication protocol used by the fleet.</p>"""
 

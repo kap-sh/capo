@@ -21,7 +21,7 @@ class CreateConfigurationSetResult(TypedDict, closed=True):
     tags: NotRequired["capo_pinpoint_sms_voice_v2.types.tag_list.TagList"]
     """<p>An array of key and value pair tags that's associated with the configuration set.</p>"""
     created_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the configuration set was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the configuration set was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

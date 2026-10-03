@@ -37,7 +37,7 @@ class Finding(TypedDict, closed=True):
     ]
     """<p>An object that describes the detected security vulnerability.</p>"""
     severity: NotRequired["capo_codeguru_security.types.severity.Severity"]
-    r"""<p>The severity of the finding. Severity can be critical, high, medium, low, or informational. For information on severity levels, see <a href=\"https://docs.aws.amazon.com/codeguru/latest/security-ug/findings-overview.html#severity-distribution\">Finding severity</a> in the <i>Amazon CodeGuru Security User Guide</i>.</p>"""
+    """<p>The severity of the finding. Severity can be critical, high, medium, low, or informational. For information on severity levels, see <a href="https://docs.aws.amazon.com/codeguru/latest/security-ug/findings-overview.html#severity-distribution">Finding severity</a> in the <i>Amazon CodeGuru Security User Guide</i>.</p>"""
     remediation: NotRequired["capo_codeguru_security.types.remediation.Remediation"]
     """<p>An object that contains the details about how to remediate a finding.</p>"""
     title: NotRequired["str"]

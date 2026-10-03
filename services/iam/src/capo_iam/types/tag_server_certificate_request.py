@@ -16,7 +16,7 @@ class TagServerCertificateRequest(TypedDict, closed=True):
     server_certificate_name: (
         "capo_iam.types.server_certificate_name_type.serverCertificateNameType"
     )
-    r"""<p>The name of the IAM server certificate to which you want to add tags.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
+    """<p>The name of the IAM server certificate to which you want to add tags.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
     tags: "capo_iam.types.tag_list_type.tagListType"
     """<p>The list of tags that you want to attach to the IAM server certificate. Each tag consists of a key name and an associated value.</p>"""
 

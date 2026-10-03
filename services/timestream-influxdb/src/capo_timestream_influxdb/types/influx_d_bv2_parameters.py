@@ -24,7 +24,7 @@ class InfluxDBv2Parameters(TypedDict, closed=True):
     tracing_type: NotRequired["capo_timestream_influxdb.types.tracing_type.TracingType"]
     """<p>Enable tracing in InfluxDB and specifies the tracing type. Tracing is disabled by default.</p>"""
     metrics_disabled: NotRequired["bool"]
-    r"""<p>Disable the HTTP /metrics endpoint which exposes <a href=\"https://docs.influxdata.com/influxdb/v2/reference/internals/metrics/\">internal InfluxDB metrics</a>.</p> <p>Default: false</p>"""
+    """<p>Disable the HTTP /metrics endpoint which exposes <a href="https://docs.influxdata.com/influxdb/v2/reference/internals/metrics/">internal InfluxDB metrics</a>.</p> <p>Default: false</p>"""
     http_idle_timeout: NotRequired["capo_timestream_influxdb.types.duration.Duration"]
     """<p>Maximum duration the server should keep established connections alive while waiting for new requests. Set to 0 for no timeout.</p> <p>Default: 3 minutes</p>"""
     http_read_header_timeout: NotRequired[
@@ -52,7 +52,7 @@ class InfluxDBv2Parameters(TypedDict, closed=True):
     session_length: NotRequired["int"]
     """<p>Specifies the Time to Live (TTL) in minutes for newly created user sessions.</p> <p>Default: 60</p>"""
     session_renew_disabled: NotRequired["bool"]
-    r"""<p>Disables automatically extending a user’s session TTL on each request. By default, every request sets the session’s expiration time to five minutes from now. When disabled, sessions expire after the specified <a href=\"https://docs.influxdata.com/influxdb/v2/reference/config-options/#session-length\">session length</a> and the user is redirected to the login page, even if recently active.</p> <p>Default: false</p>"""
+    """<p>Disables automatically extending a user’s session TTL on each request. By default, every request sets the session’s expiration time to five minutes from now. When disabled, sessions expire after the specified <a href="https://docs.influxdata.com/influxdb/v2/reference/config-options/#session-length">session length</a> and the user is redirected to the login page, even if recently active.</p> <p>Default: false</p>"""
     storage_cache_max_memory_size: NotRequired["int"]
     """<p>Maximum size (in bytes) a shard’s cache can reach before it starts rejecting writes. Must be greater than storageCacheSnapShotMemorySize and lower than instance’s total memory capacity. We recommend setting it to below 15% of the total memory capacity.</p> <p>Default: 1073741824</p>"""
     storage_cache_snapshot_memory_size: NotRequired["int"]
@@ -86,7 +86,7 @@ class InfluxDBv2Parameters(TypedDict, closed=True):
     storage_wal_max_write_delay: NotRequired[
         "capo_timestream_influxdb.types.duration.Duration"
     ]
-    r"""<p>Maximum amount of time a write request to the WAL directory will wait when the <a href=\"https://docs.influxdata.com/influxdb/v2/reference/config-options/#storage-wal-max-concurrent-writes\">maximum number of concurrent active writes to the WAL directory has been met</a>. Set to 0 to disable the timeout.</p> <p>Default: 10 minutes</p>"""
+    """<p>Maximum amount of time a write request to the WAL directory will wait when the <a href="https://docs.influxdata.com/influxdb/v2/reference/config-options/#storage-wal-max-concurrent-writes">maximum number of concurrent active writes to the WAL directory has been met</a>. Set to 0 to disable the timeout.</p> <p>Default: 10 minutes</p>"""
     ui_disabled: NotRequired["bool"]
     """<p>Disable the InfluxDB user interface (UI). The UI is enabled by default.</p> <p>Default: false</p>"""
 

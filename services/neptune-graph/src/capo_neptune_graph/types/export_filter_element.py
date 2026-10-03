@@ -12,7 +12,7 @@ class ExportFilterElement(TypedDict, closed=True):
     properties: NotRequired[
         "capo_neptune_graph.types.export_filter_property_map.ExportFilterPropertyMap"
     ]
-    r"""<p>Each property is defined by a key-value pair, where the key is the desired output property name (e.g. \"name\"), and the value is an object.</p>"""
+    """<p>Each property is defined by a key-value pair, where the key is the desired output property name (e.g. "name"), and the value is an object.</p>"""
 
 
 # --- restJson1 ser/de ---

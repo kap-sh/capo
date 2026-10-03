@@ -29,7 +29,7 @@ class UpdateNotificationRuleRequest(TypedDict, closed=True):
     event_type_ids: NotRequired[
         "capo_codestar_notifications.types.event_type_ids.EventTypeIds"
     ]
-    r"""<p>A list of event types associated with this notification rule. For a complete list of event types and IDs, see <a href=\"https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api\">Notification concepts</a> in the <i>Developer Tools Console User Guide</i>.</p>"""
+    """<p>A list of event types associated with this notification rule. For a complete list of event types and IDs, see <a href="https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api">Notification concepts</a> in the <i>Developer Tools Console User Guide</i>.</p>"""
     targets: NotRequired["capo_codestar_notifications.types.targets.Targets"]
     """<p>The address and type of the targets to receive notifications from this notification rule.</p>"""
     detail_type: NotRequired["capo_codestar_notifications.types.detail_type.DetailType"]

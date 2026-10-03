@@ -18,7 +18,7 @@ class ListClusterJobsRequest(TypedDict, closed=True):
     max_results: NotRequired["capo_snowball.types.list_limit.ListLimit"]
     """<p>The number of <code>JobListEntry</code> objects to return.</p>"""
     next_token: NotRequired["capo_snowball.types.string.String"]
-    r"""<p>HTTP requests are stateless. To identify what object comes \"next\" in the list of <code>JobListEntry</code> objects, you have the option of specifying <code>NextToken</code> as the starting point for your returned list.</p>"""
+    """<p>HTTP requests are stateless. To identify what object comes "next" in the list of <code>JobListEntry</code> objects, you have the option of specifying <code>NextToken</code> as the starting point for your returned list.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

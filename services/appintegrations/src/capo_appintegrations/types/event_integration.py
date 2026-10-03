@@ -27,7 +27,7 @@ class EventIntegration(TypedDict, closed=True):
     ]
     """<p>The Amazon EventBridge bus for the event integration.</p>"""
     tags: NotRequired["capo_appintegrations.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -17,7 +17,7 @@ class Statement(TypedDict, closed=True):
     response_card: NotRequired[
         "capo_lex_model_building_service.types.response_card.ResponseCard"
     ]
-    r"""<p> At runtime, if the client is using the <a href=\"http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html\">PostText</a> API, Amazon Lex includes the response card in the response. It substitutes all of the session attributes and slot values for placeholders in the response card. </p>"""
+    """<p> At runtime, if the client is using the <a href="http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> API, Amazon Lex includes the response card in the response. It substitutes all of the session attributes and slot values for placeholders in the response card. </p>"""
 
 
 # --- restJson1 ser/de ---

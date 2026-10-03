@@ -24,7 +24,7 @@ class CreateExportResponse(TypedDict, closed=True):
     ]
     """<p>The file format used for the bot or bot locale definition files.</p>"""
     export_status: NotRequired["capo_lex_models_v2.types.export_status.ExportStatus"]
-    r"""<p>The status of the export. When the status is <code>Completed</code>, you can use the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DescribeExport.html\">DescribeExport</a> operation to get the pre-signed S3 URL link to your exported bot or bot locale.</p>"""
+    """<p>The status of the export. When the status is <code>Completed</code>, you can use the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DescribeExport.html">DescribeExport</a> operation to get the pre-signed S3 URL link to your exported bot or bot locale.</p>"""
     creation_date_time: NotRequired["capo_lex_models_v2.types.timestamp.Timestamp"]
     """<p>The date and time that the request to export a bot was created.</p>"""
 

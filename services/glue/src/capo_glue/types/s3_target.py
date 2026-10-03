@@ -16,7 +16,7 @@ class S3Target(TypedDict, closed=True):
     path: NotRequired["capo_glue.types.path.Path"]
     """<p>The path to the Amazon S3 target.</p>"""
     exclusions: NotRequired["capo_glue.types.path_list.PathList"]
-    r"""<p>A list of glob patterns used to exclude from the crawl. For more information, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html\">Catalog Tables with a Crawler</a>.</p>"""
+    """<p>A list of glob patterns used to exclude from the crawl. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html">Catalog Tables with a Crawler</a>.</p>"""
     connection_name: NotRequired["capo_glue.types.connection_name.ConnectionName"]
     """<p>The name of a connection which allows a job or crawler to access data in Amazon S3 within an Amazon Virtual Private Cloud environment (Amazon VPC).</p>"""
     sample_size: NotRequired["capo_glue.types.nullable_integer.NullableInteger"]

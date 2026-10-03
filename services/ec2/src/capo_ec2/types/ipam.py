@@ -36,13 +36,13 @@ class Ipam(TypedDict, closed=True):
     private_default_scope_id: NotRequired["capo_ec2.types.ipam_scope_id.IpamScopeId"]
     """<p>The ID of the IPAM's default private scope.</p>"""
     scope_count: NotRequired["capo_ec2.types.integer.Integer"]
-    r"""<p>The number of scopes in the IPAM. The scope quota is 5. For more information on quotas, see <a href=\"https://docs.aws.amazon.com/vpc/latest/ipam/quotas-ipam.html\">Quotas in IPAM</a> in the <i>Amazon VPC IPAM User Guide</i>. </p>"""
+    """<p>The number of scopes in the IPAM. The scope quota is 5. For more information on quotas, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/quotas-ipam.html">Quotas in IPAM</a> in the <i>Amazon VPC IPAM User Guide</i>. </p>"""
     description: NotRequired["capo_ec2.types.string.String"]
     """<p>The description for the IPAM.</p>"""
     operating_regions: NotRequired[
         "capo_ec2.types.ipam_operating_region_set.IpamOperatingRegionSet"
     ]
-    r"""<p>The operating Regions for an IPAM. Operating Regions are Amazon Web Services Regions where the IPAM is allowed to manage IP address CIDRs. IPAM only discovers and monitors resources in the Amazon Web Services Regions you select as operating Regions.</p> <p>For more information about operating Regions, see <a href=\"https://docs.aws.amazon.com/vpc/latest/ipam/create-ipam.html\">Create an IPAM</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
+    """<p>The operating Regions for an IPAM. Operating Regions are Amazon Web Services Regions where the IPAM is allowed to manage IP address CIDRs. IPAM only discovers and monitors resources in the Amazon Web Services Regions you select as operating Regions.</p> <p>For more information about operating Regions, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/create-ipam.html">Create an IPAM</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
     state: NotRequired["capo_ec2.types.ipam_state.IpamState"]
     """<p>The state of the IPAM.</p>"""
     tags: NotRequired["capo_ec2.types.tag_list.TagList"]
@@ -60,13 +60,13 @@ class Ipam(TypedDict, closed=True):
     state_message: NotRequired["capo_ec2.types.string.String"]
     """<p>The state message.</p>"""
     tier: NotRequired["capo_ec2.types.ipam_tier.IpamTier"]
-    r"""<p>IPAM is offered in a Free Tier and an Advanced Tier. For more information about the features available in each tier and the costs associated with the tiers, see <a href=\"http://aws.amazon.com/vpc/pricing/\">Amazon VPC pricing > IPAM tab</a>.</p>"""
+    """<p>IPAM is offered in a Free Tier and an Advanced Tier. For more information about the features available in each tier and the costs associated with the tiers, see <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing > IPAM tab</a>.</p>"""
     enable_private_gua: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Enable this option to use your own GUA ranges as private IPv6 addresses. This option is disabled by default.</p>"""
     metered_account: NotRequired[
         "capo_ec2.types.ipam_metered_account.IpamMeteredAccount"
     ]
-    r"""<p>A metered account is an Amazon Web Services account that is charged for active IP addresses managed in IPAM. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/ipam/ipam-enable-cost-distro.html\">Enable cost distribution</a> in the <i>Amazon VPC IPAM User Guide</i>.</p> <p>Possible values:</p> <ul> <li> <p> <code>ipam-owner</code> (default): The Amazon Web Services account which owns the IPAM is charged for all active IP addresses managed in IPAM.</p> </li> <li> <p> <code>resource-owner</code>: The Amazon Web Services account that owns the IP address is charged for the active IP address.</p> </li> </ul>"""
+    """<p>A metered account is an Amazon Web Services account that is charged for active IP addresses managed in IPAM. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/ipam-enable-cost-distro.html">Enable cost distribution</a> in the <i>Amazon VPC IPAM User Guide</i>.</p> <p>Possible values:</p> <ul> <li> <p> <code>ipam-owner</code> (default): The Amazon Web Services account which owns the IPAM is charged for all active IP addresses managed in IPAM.</p> </li> <li> <p> <code>resource-owner</code>: The Amazon Web Services account that owns the IP address is charged for the active IP address.</p> </li> </ul>"""
 
 
 # --- ec2Query ser/de ---

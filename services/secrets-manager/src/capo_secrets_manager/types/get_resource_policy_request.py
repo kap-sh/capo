@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GetResourcePolicyRequest(TypedDict, closed=True):
     secret_id: "capo_secrets_manager.types.secret_id_type.SecretIdType"
-    r"""<p>The ARN or name of the secret to retrieve the attached resource-based policy for.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen\">Finding a secret from a partial ARN</a>.</p>"""
+    """<p>The ARN or name of the secret to retrieve the attached resource-based policy for.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

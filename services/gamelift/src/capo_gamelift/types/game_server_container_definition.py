@@ -32,7 +32,7 @@ class GameServerContainerDefinition(TypedDict, closed=True):
     environment_override: NotRequired[
         "capo_gamelift.types.container_environment_list.ContainerEnvironmentList"
     ]
-    r"""<p>A set of environment variables that's passed to the container on startup. See the <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html#ECS-Type-ContainerDefinition-environment\">ContainerDefinition::environment</a> parameter in the <i>Amazon Elastic Container Service API Reference</i>.</p>"""
+    """<p>A set of environment variables that's passed to the container on startup. See the <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html#ECS-Type-ContainerDefinition-environment">ContainerDefinition::environment</a> parameter in the <i>Amazon Elastic Container Service API Reference</i>.</p>"""
     image_uri: NotRequired["capo_gamelift.types.image_uri_string.ImageUriString"]
     """<p>The URI to the image that Amazon GameLift Servers uses when deploying this container to a container fleet. For a more specific identifier, see <code>ResolvedImageDigest</code>. </p>"""
     port_configuration: NotRequired[
@@ -48,7 +48,7 @@ class GameServerContainerDefinition(TypedDict, closed=True):
     linux_capabilities: NotRequired[
         "capo_gamelift.types.linux_capabilities.LinuxCapabilities"
     ]
-    r"""<p>Linux-specific modifications that are applied to the default Docker container configuration, such as Linux capabilities. For more information see <a href=\"https://docs.aws.amazon.com/gamelift/latest/apireference/API_LinuxCapabilities.html\">LinuxCapabilities</a>.</p>"""
+    """<p>Linux-specific modifications that are applied to the default Docker container configuration, such as Linux capabilities. For more information see <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_LinuxCapabilities.html">LinuxCapabilities</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

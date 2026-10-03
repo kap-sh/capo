@@ -15,7 +15,7 @@ class AttributeDetails(TypedDict, closed=True):
     attributes: "capo_customer_profiles.types.attribute_list.AttributeList"
     """<p>A list of attribute items specified in the mathematical expression.</p>"""
     expression: "capo_customer_profiles.types.string1_to255.string1To255"
-    r"""<p>Mathematical expression that is performed on attribute items provided in the attribute list. Each element in the expression should follow the structure of \\"{ObjectTypeName.AttributeName}\\".</p>"""
+    r"""<p>Mathematical expression that is performed on attribute items provided in the attribute list. Each element in the expression should follow the structure of \"{ObjectTypeName.AttributeName}\".</p>"""
 
 
 # --- restJson1 ser/de ---

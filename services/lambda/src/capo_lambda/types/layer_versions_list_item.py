@@ -28,11 +28,11 @@ class LayerVersionsListItem(TypedDict, closed=True):
     compatible_architectures: NotRequired[
         "capo_lambda.types.compatible_architectures.CompatibleArchitectures"
     ]
-    r"""<p>A list of compatible <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html\">instruction set architectures</a>.</p>"""
+    """<p>A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set architectures</a>.</p>"""
     compatible_runtimes: NotRequired[
         "capo_lambda.types.compatible_runtimes.CompatibleRuntimes"
     ]
-    r"""<p>The layer's compatible runtimes.</p> <p>The following list includes deprecated runtimes. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels\">Runtime use after deprecation</a>.</p> <p>For a list of all currently supported runtimes, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported\">Supported runtimes</a>.</p>"""
+    """<p>The layer's compatible runtimes.</p> <p>The following list includes deprecated runtimes. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels">Runtime use after deprecation</a>.</p> <p>For a list of all currently supported runtimes, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported">Supported runtimes</a>.</p>"""
     license_info: NotRequired["capo_lambda.types.license_info.LicenseInfo"]
     """<p>The layer's open-source license.</p>"""
 

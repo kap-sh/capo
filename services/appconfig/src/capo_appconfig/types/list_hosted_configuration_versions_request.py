@@ -22,7 +22,7 @@ class ListHostedConfigurationVersionsRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_appconfig.types.next_token.NextToken"]
     """<p>A token to start the list. Use this token to get the next set of results. </p>"""
     version_label: NotRequired["capo_appconfig.types.query_name.QueryName"]
-    r"""<p>An optional filter that can be used to specify the version label of an AppConfig hosted configuration version. This parameter supports filtering by prefix using a wildcard, for example \"v2*\". If you don't specify an asterisk at the end of the value, only an exact match is returned.</p>"""
+    """<p>An optional filter that can be used to specify the version label of an AppConfig hosted configuration version. This parameter supports filtering by prefix using a wildcard, for example "v2*". If you don't specify an asterisk at the end of the value, only an exact match is returned.</p>"""
 
 
 # --- restJson1 ser/de ---

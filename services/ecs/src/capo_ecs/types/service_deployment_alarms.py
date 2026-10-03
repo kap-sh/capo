@@ -15,9 +15,9 @@ class ServiceDeploymentAlarms(TypedDict, closed=True):
     ]
     """<p>The status of the alarms check. Amazon ECS is not using alarms for service deployment failures when the status is <code>DISABLED</code>.</p>"""
     alarm_names: NotRequired["capo_ecs.types.string_list.StringList"]
-    r"""<p>The name of the CloudWatch alarms that determine when a service deployment failed. A \",\" separates the alarms.</p>"""
+    """<p>The name of the CloudWatch alarms that determine when a service deployment failed. A "," separates the alarms.</p>"""
     triggered_alarm_names: NotRequired["capo_ecs.types.string_list.StringList"]
-    r"""<p>One or more CloudWatch alarm names that have been triggered during the service deployment. A \",\" separates the alarm names.</p>"""
+    """<p>One or more CloudWatch alarm names that have been triggered during the service deployment. A "," separates the alarm names.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

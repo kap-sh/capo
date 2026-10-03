@@ -28,7 +28,7 @@ class CreatePackageVersionResponse(TypedDict, closed=True):
     attributes: NotRequired["capo_iot.types.resource_attributes.ResourceAttributes"]
     """<p>Metadata that were added to the package version that can be used to define a package version’s configuration.</p>"""
     status: NotRequired["capo_iot.types.package_version_status.PackageVersionStatus"]
-    r"""<p>The status of the package version. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p>"""
+    """<p>The status of the package version. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p>"""
     error_reason: NotRequired[
         "capo_iot.types.package_version_error_reason.PackageVersionErrorReason"
     ]

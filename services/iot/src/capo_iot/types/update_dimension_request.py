@@ -15,7 +15,7 @@ class UpdateDimensionRequest(TypedDict, closed=True):
     name: "capo_iot.types.dimension_name.DimensionName"
     """<p>A unique identifier for the dimension. Choose something that describes the type and value to make it easy to remember what it does.</p>"""
     string_values: "capo_iot.types.dimension_string_values.DimensionStringValues"
-    r"""<p>Specifies the value or list of values for the dimension. For <code>TOPIC_FILTER</code> dimensions, this is a pattern used to match the MQTT topic (for example, \"admin/#\").</p>"""
+    """<p>Specifies the value or list of values for the dimension. For <code>TOPIC_FILTER</code> dimensions, this is a pattern used to match the MQTT topic (for example, "admin/#").</p>"""
 
 
 # --- restJson1 ser/de ---

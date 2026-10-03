@@ -24,7 +24,7 @@ class DescribeLocationFsxWindowsResponse(TypedDict, closed=True):
     security_group_arns: NotRequired[
         "capo_datasync.types.ec2_security_group_arn_list.Ec2SecurityGroupArnList"
     ]
-    r"""<p>The ARNs of the Amazon EC2 security groups that provide access to your file system's preferred subnet.</p> <p>For information about configuring security groups for file system access, see the <a href=\"https://docs.aws.amazon.com/fsx/latest/WindowsGuide/limit-access-security-groups.html\"> <i>Amazon FSx for Windows File Server User Guide</i> </a>.</p>"""
+    """<p>The ARNs of the Amazon EC2 security groups that provide access to your file system's preferred subnet.</p> <p>For information about configuring security groups for file system access, see the <a href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/limit-access-security-groups.html"> <i>Amazon FSx for Windows File Server User Guide</i> </a>.</p>"""
     creation_time: NotRequired["capo_datasync.types.time.Time"]
     """<p>The time that the FSx for Windows File Server location was created.</p>"""
     user: NotRequired["capo_datasync.types.smb_user.SmbUser"]

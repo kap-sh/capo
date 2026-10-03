@@ -55,12 +55,12 @@ class KnowledgeBaseDocumentResource:
             "capo_bedrock_agent.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_bedrock_agent.types.delete_knowledge_base_documents_response.DeleteKnowledgeBaseDocumentsResponse":
-        r"""<p>Deletes documents from a data source and syncs the changes to the knowledge base that is connected to it. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html\">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Deletes documents from a data source and syncs the changes to the knowledge base that is connected to it. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base that is connected to the data source.</p>
             data_source_id: <p>The unique identifier of the data source that contains the documents.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             document_identifiers: <p>A list of objects, each of which contains information to identify a document to delete.</p>
 
         Raises:
@@ -113,7 +113,7 @@ class KnowledgeBaseDocumentResource:
         *,
         config_overrides: Optional[BedrockAgentClientConfig] = None,
     ) -> "capo_bedrock_agent.types.get_knowledge_base_documents_response.GetKnowledgeBaseDocumentsResponse":
-        r"""<p>Retrieves specific documents from a data source that is connected to a knowledge base. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html\">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Retrieves specific documents from a data source that is connected to a knowledge base. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base that is connected to the data source.</p>
@@ -170,12 +170,12 @@ class KnowledgeBaseDocumentResource:
             "capo_bedrock_agent.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_bedrock_agent.types.ingest_knowledge_base_documents_response.IngestKnowledgeBaseDocumentsResponse":
-        r"""<p>Ingests documents directly into the knowledge base that is connected to the data source. The <code>dataSourceType</code> specified in the content for each document must match the type of the data source that you specify in the header. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html\">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Ingests documents directly into the knowledge base that is connected to the data source. The <code>dataSourceType</code> specified in the content for each document must match the type of the data source that you specify in the header. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base to ingest the documents into.</p>
             data_source_id: <p>The unique identifier of the data source connected to the knowledge base that you're adding documents to.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             documents: <p>A list of objects, each of which contains information about the documents to add.</p>
 
         Raises:
@@ -229,7 +229,7 @@ class KnowledgeBaseDocumentResource:
         max_results: Optional["capo_bedrock_agent.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_bedrock_agent.types.next_token.NextToken"] = None,
     ) -> "capo_bedrock_agent.types.list_knowledge_base_documents_response.ListKnowledgeBaseDocumentsResponse":
-        r"""<p>Retrieves all the documents contained in a data source that is connected to a knowledge base. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html\">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Retrieves all the documents contained in a data source that is connected to a knowledge base. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base that is connected to the data source.</p>
@@ -295,12 +295,12 @@ class AsyncKnowledgeBaseDocumentResource:
             "capo_bedrock_agent.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_bedrock_agent.types.delete_knowledge_base_documents_response.DeleteKnowledgeBaseDocumentsResponse":
-        r"""<p>Deletes documents from a data source and syncs the changes to the knowledge base that is connected to it. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html\">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Deletes documents from a data source and syncs the changes to the knowledge base that is connected to it. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base that is connected to the data source.</p>
             data_source_id: <p>The unique identifier of the data source that contains the documents.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             document_identifiers: <p>A list of objects, each of which contains information to identify a document to delete.</p>
 
         Raises:
@@ -354,7 +354,7 @@ class AsyncKnowledgeBaseDocumentResource:
         *,
         config_overrides: Optional[AsyncBedrockAgentClientConfig] = None,
     ) -> "capo_bedrock_agent.types.get_knowledge_base_documents_response.GetKnowledgeBaseDocumentsResponse":
-        r"""<p>Retrieves specific documents from a data source that is connected to a knowledge base. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html\">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Retrieves specific documents from a data source that is connected to a knowledge base. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base that is connected to the data source.</p>
@@ -412,12 +412,12 @@ class AsyncKnowledgeBaseDocumentResource:
             "capo_bedrock_agent.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_bedrock_agent.types.ingest_knowledge_base_documents_response.IngestKnowledgeBaseDocumentsResponse":
-        r"""<p>Ingests documents directly into the knowledge base that is connected to the data source. The <code>dataSourceType</code> specified in the content for each document must match the type of the data source that you specify in the header. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html\">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Ingests documents directly into the knowledge base that is connected to the data source. The <code>dataSourceType</code> specified in the content for each document must match the type of the data source that you specify in the header. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base to ingest the documents into.</p>
             data_source_id: <p>The unique identifier of the data source connected to the knowledge base that you're adding documents to.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             documents: <p>A list of objects, each of which contains information about the documents to add.</p>
 
         Raises:
@@ -472,7 +472,7 @@ class AsyncKnowledgeBaseDocumentResource:
         max_results: Optional["capo_bedrock_agent.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_bedrock_agent.types.next_token.NextToken"] = None,
     ) -> "capo_bedrock_agent.types.list_knowledge_base_documents_response.ListKnowledgeBaseDocumentsResponse":
-        r"""<p>Retrieves all the documents contained in a data source that is connected to a knowledge base. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html\">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Retrieves all the documents contained in a data source that is connected to a knowledge base. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-direct-ingestion.html">Ingest changes directly into a knowledge base</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             knowledge_base_id: <p>The unique identifier of the knowledge base that is connected to the data source.</p>

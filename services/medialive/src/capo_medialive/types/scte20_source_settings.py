@@ -13,7 +13,7 @@ class Scte20SourceSettings(TypedDict, closed=True):
     convert608_to708: NotRequired[
         "capo_medialive.types.scte20_convert608_to708.Scte20Convert608To708"
     ]
-    r"""If upconvert, 608 data is both passed through via the \"608 compatibility bytes\" fields of the 708 wrapper as well as translated into 708. 708 data present in the source content will be discarded."""
+    """If upconvert, 608 data is both passed through via the "608 compatibility bytes" fields of the 708 wrapper as well as translated into 708. 708 data present in the source content will be discarded."""
     source608_channel_number: NotRequired[
         "capo_medialive.types.__integer_min1_max4.__integerMin1Max4"
     ]

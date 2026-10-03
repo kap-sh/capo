@@ -123,7 +123,7 @@ class Cluster(TypedDict, closed=True):
     kms_key_id: NotRequired["capo_redshift.types.string.String"]
     """<p>The Key Management Service (KMS) key ID of the encryption key used to encrypt data in the cluster.</p>"""
     enhanced_vpc_routing: NotRequired["capo_redshift.types.boolean.Boolean"]
-    r"""<p>An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see <a href=\"https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html\">Enhanced VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default: false</p>"""
+    """<p>An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default: false</p>"""
     iam_roles: NotRequired[
         "capo_redshift.types.cluster_iam_role_list.ClusterIamRoleList"
     ]

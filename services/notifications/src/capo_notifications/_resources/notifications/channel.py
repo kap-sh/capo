@@ -44,7 +44,7 @@ class Channel:
         *,
         config_overrides: Optional[NotificationsClientConfig] = None,
     ) -> "capo_notifications.types.associate_channel_response.AssociateChannelResponse":
-        r"""<p>Associates a delivery <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/managing-delivery-channels.html\">Channel</a> with a particular <code>NotificationConfiguration</code>. Supported Channels include Amazon Q Developer in chat applications, the Console Mobile Application, and emails (notifications-contacts).</p>
+        """<p>Associates a delivery <a href="https://docs.aws.amazon.com/notifications/latest/userguide/managing-delivery-channels.html">Channel</a> with a particular <code>NotificationConfiguration</code>. Supported Channels include Amazon Q Developer in chat applications, the Console Mobile Application, and emails (notifications-contacts).</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the Channel to associate with the <code>NotificationConfiguration</code>.</p> <p>Supported ARNs include Amazon Q Developer in chat applications, the Console Mobile Application, and notifications-contacts.</p>
@@ -206,7 +206,7 @@ class AsyncChannel:
         *,
         config_overrides: Optional[AsyncNotificationsClientConfig] = None,
     ) -> "capo_notifications.types.associate_channel_response.AssociateChannelResponse":
-        r"""<p>Associates a delivery <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/managing-delivery-channels.html\">Channel</a> with a particular <code>NotificationConfiguration</code>. Supported Channels include Amazon Q Developer in chat applications, the Console Mobile Application, and emails (notifications-contacts).</p>
+        """<p>Associates a delivery <a href="https://docs.aws.amazon.com/notifications/latest/userguide/managing-delivery-channels.html">Channel</a> with a particular <code>NotificationConfiguration</code>. Supported Channels include Amazon Q Developer in chat applications, the Console Mobile Application, and emails (notifications-contacts).</p>
 
         Args:
             arn: <p>The Amazon Resource Name (ARN) of the Channel to associate with the <code>NotificationConfiguration</code>.</p> <p>Supported ARNs include Amazon Q Developer in chat applications, the Console Mobile Application, and notifications-contacts.</p>

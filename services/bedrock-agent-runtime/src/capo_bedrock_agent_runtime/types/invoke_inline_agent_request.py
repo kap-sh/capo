@@ -37,7 +37,7 @@ class InvokeInlineAgentRequest(TypedDict, closed=True):
     foundation_model: (
         "capo_bedrock_agent_runtime.types.model_identifier.ModelIdentifier"
     )
-    r"""<p> The <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-ids.html#model-ids-arns\">model identifier (ID)</a> of the model to use for orchestration by the inline agent. For example, <code>meta.llama3-1-70b-instruct-v1:0</code>. </p>"""
+    """<p> The <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-ids.html#model-ids-arns">model identifier (ID)</a> of the model to use for orchestration by the inline agent. For example, <code>meta.llama3-1-70b-instruct-v1:0</code>. </p>"""
     instruction: "capo_bedrock_agent_runtime.types.instruction.Instruction"
     """<p> The instructions that tell the inline agent what it should do and how it should interact with users. </p>"""
     idle_session_ttl_in_seconds: NotRequired[
@@ -55,7 +55,7 @@ class InvokeInlineAgentRequest(TypedDict, closed=True):
     guardrail_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.guardrail_configuration_with_arn.GuardrailConfigurationWithArn"
     ]
-    r"""<p> The <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html\">guardrails</a> to assign to the inline agent. </p>"""
+    """<p> The <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html">guardrails</a> to assign to the inline agent. </p>"""
     prompt_override_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.prompt_override_configuration.PromptOverrideConfiguration"
     ]
@@ -67,7 +67,7 @@ class InvokeInlineAgentRequest(TypedDict, closed=True):
     collaborator_configurations: NotRequired[
         "capo_bedrock_agent_runtime.types.collaborator_configurations.CollaboratorConfigurations"
     ]
-    r"""<p> Settings for an inline agent collaborator called with <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_InvokeInlineAgent.html\">InvokeInlineAgent</a>. </p>"""
+    """<p> Settings for an inline agent collaborator called with <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_InvokeInlineAgent.html">InvokeInlineAgent</a>. </p>"""
     agent_name: NotRequired["capo_bedrock_agent_runtime.types.name.Name"]
     """<p>The name for the agent.</p>"""
     session_id: "capo_bedrock_agent_runtime.types.session_id.SessionId"
@@ -75,7 +75,7 @@ class InvokeInlineAgentRequest(TypedDict, closed=True):
     end_session: NotRequired["bool"]
     """<p> Specifies whether to end the session with the inline agent or not. </p>"""
     enable_trace: NotRequired["bool"]
-    r"""<p> Specifies whether to turn on the trace or not to track the agent's reasoning process. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/trace-events.html\">Using trace</a>. </p>"""
+    """<p> Specifies whether to turn on the trace or not to track the agent's reasoning process. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/trace-events.html">Using trace</a>. </p>"""
     input_text: NotRequired["capo_bedrock_agent_runtime.types.input_text.InputText"]
     """<p> The prompt text to send to the agent. </p> <note> <p>If you include <code>returnControlInvocationResults</code> in the <code>sessionState</code> field, the <code>inputText</code> field will be ignored.</p> </note>"""
     streaming_configurations: NotRequired[
@@ -89,7 +89,7 @@ class InvokeInlineAgentRequest(TypedDict, closed=True):
     inline_session_state: NotRequired[
         "capo_bedrock_agent_runtime.types.inline_session_state.InlineSessionState"
     ]
-    r"""<p> Parameters that specify the various attributes of a sessions. You can include attributes for the session or prompt or, if you configured an action group to return control, results from invocation of the action group. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/agents-session-state.html\">Control session context</a>. </p> <note> <p>If you include <code>returnControlInvocationResults</code> in the <code>sessionState</code> field, the <code>inputText</code> field will be ignored.</p> </note>"""
+    """<p> Parameters that specify the various attributes of a sessions. You can include attributes for the session or prompt or, if you configured an action group to return control, results from invocation of the action group. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-session-state.html">Control session context</a>. </p> <note> <p>If you include <code>returnControlInvocationResults</code> in the <code>sessionState</code> field, the <code>inputText</code> field will be ignored.</p> </note>"""
     collaborators: NotRequired[
         "capo_bedrock_agent_runtime.types.collaborators.Collaborators"
     ]

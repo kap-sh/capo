@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class PendingCreateStandbyWorkspacesRequest(TypedDict, closed=True):
     user_name: NotRequired["capo_workspaces.types.user_name.UserName"]
-    r"""<p>Describes the standby WorkSpace that was created.</p> <p>Because this operation is asynchronous, the identifier returned is not immediately available for use with other operations. For example, if you call <a href=\"https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html\"> DescribeWorkspaces</a> before the WorkSpace is created, the information returned can be incomplete. </p>"""
+    """<p>Describes the standby WorkSpace that was created.</p> <p>Because this operation is asynchronous, the identifier returned is not immediately available for use with other operations. For example, if you call <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkspaces</a> before the WorkSpace is created, the information returned can be incomplete. </p>"""
     directory_id: NotRequired["capo_workspaces.types.directory_id.DirectoryId"]
     """<p>The identifier of the directory for the standby WorkSpace.</p>"""
     state: NotRequired["capo_workspaces.types.workspace_state.WorkspaceState"]

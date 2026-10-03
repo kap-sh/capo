@@ -18,7 +18,7 @@ class ConvertRecoveryPointToSnapshotRequest(TypedDict, closed=True):
     retention_period: NotRequired["int"]
     """<p>How long to retain the snapshot.</p>"""
     tags: NotRequired["capo_redshift_serverless.types.tag_list.TagList"]
-    r"""<p>An array of <a href=\"https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html\">Tag objects</a> to associate with the created snapshot.</p>"""
+    """<p>An array of <a href="https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html">Tag objects</a> to associate with the created snapshot.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class DateFilter(TypedDict, closed=True):
     start: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>A timestamp that provides the start date for the date filter.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that provides the start date for the date filter.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     end: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>A timestamp that provides the end date for the date filter.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that provides the end date for the date filter.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     date_range: NotRequired["capo_securityhub.types.date_range.DateRange"]
     """<p>A date range for the date filter.</p>"""
 

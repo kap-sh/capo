@@ -11,17 +11,17 @@ if TYPE_CHECKING:
 
 class MetricMetadata(TypedDict, closed=True):
     name: NotRequired["str"]
-    r"""The metric name as emitted, such as \"Duration\"."""
+    """The metric name as emitted, such as "Duration"."""
     namespace: NotRequired["str"]
-    r"""DEPRECATED: read attributes[\"service.namespace\"] instead. Retained (deprecated) for backward compatibility with existing consumers; will be removed once they migrate. The logical service grouping the metric belongs to."""
+    """DEPRECATED: read attributes["service.namespace"] instead. Retained (deprecated) for backward compatibility with existing consumers; will be removed once they migrate. The logical service grouping the metric belongs to."""
     preferred_stat: NotRequired["str"]
-    r"""The statistic to chart or alarm on, such as \"p99\" or \"Sum\". Free-form and frequently absent."""
+    """The statistic to chart or alarm on, such as "p99" or "Sum". Free-form and frequently absent."""
     metric_type: NotRequired["str"]
-    r"""OTel metric kind: \"gauge\", \"sum\", \"histogram\", \"exponential_histogram\", or \"summary\" (CloudWatch-vended metrics carry the same kinds). Absent when the producer did not report one."""
+    """OTel metric kind: "gauge", "sum", "histogram", "exponential_histogram", or "summary" (CloudWatch-vended metrics carry the same kinds). Absent when the producer did not report one."""
     attributes: NotRequired[
         "capo_cloudwatchomni.types.metadata_attribute_map.MetadataAttributeMap"
     ]
-    r"""Per-metric qualifying attributes the console uses to query this metric's telemetry. These are the RAW, store-matching values keyed by their OTel names (\"service.name\", \"service.namespace\", \"cloud.provider\", \"cloud.account.id\", \"cloud.region\", \"instrumentation_scope\") — deliberately NOT the node's normalized/merged identity, so the query selectors match the emitted series. A merged node can carry different values per metric, which is why they live here rather than on the node."""
+    """Per-metric qualifying attributes the console uses to query this metric's telemetry. These are the RAW, store-matching values keyed by their OTel names ("service.name", "service.namespace", "cloud.provider", "cloud.account.id", "cloud.region", "instrumentation_scope") — deliberately NOT the node's normalized/merged identity, so the query selectors match the emitted series. A merged node can carry different values per metric, which is why they live here rather than on the node."""
     semantics: NotRequired["capo_cloudwatchomni.types.metric_semantics.MetricSemantics"]
     """What the metric means and the unit it is reported in."""
 

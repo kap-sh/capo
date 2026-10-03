@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class SnsDestination(TypedDict, closed=True):
     topic_arn: "capo_sesv2.types.amazon_resource_name.AmazonResourceName"
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon SNS topic to publish email events to. For more information about Amazon SNS topics, see the <a href=\"https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html\">Amazon SNS Developer Guide</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon SNS topic to publish email events to. For more information about Amazon SNS topics, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html">Amazon SNS Developer Guide</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

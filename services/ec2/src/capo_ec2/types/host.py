@@ -33,7 +33,7 @@ class Host(TypedDict, closed=True):
     ]
     """<p>Information about the instances running on the Dedicated Host.</p>"""
     client_token: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring Idempotency</a>.</p>"""
+    """<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring Idempotency</a>.</p>"""
     host_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the Dedicated Host.</p>"""
     host_properties: NotRequired["capo_ec2.types.host_properties.HostProperties"]

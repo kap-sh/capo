@@ -18,7 +18,7 @@ class PutBackupVaultNotificationsInput(TypedDict, closed=True):
     sns_topic_arn: "capo_backup.types.arn.ARN"
     """<p>The Amazon Resource Name (ARN) that specifies the topic for a backup vault’s events; for example, <code>arn:aws:sns:us-west-2:111122223333:MyVaultTopic</code>.</p>"""
     backup_vault_events: "capo_backup.types.backup_vault_events.BackupVaultEvents"
-    r"""<p>An array of events that indicate the status of jobs to back up resources to the backup vault. For the list of supported events, common use cases, and code samples, see <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/backup-notifications.html\">Notification options with Backup</a>.</p>"""
+    """<p>An array of events that indicate the status of jobs to back up resources to the backup vault. For the list of supported events, common use cases, and code samples, see <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/backup-notifications.html">Notification options with Backup</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

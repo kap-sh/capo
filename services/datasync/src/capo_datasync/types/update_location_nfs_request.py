@@ -18,7 +18,7 @@ class UpdateLocationNfsRequest(TypedDict, closed=True):
     location_arn: "capo_datasync.types.location_arn.LocationArn"
     """<p>Specifies the Amazon Resource Name (ARN) of the NFS transfer location that you want to update.</p>"""
     subdirectory: NotRequired["capo_datasync.types.nfs_subdirectory.NfsSubdirectory"]
-    r"""<p>Specifies the export path in your NFS file server that you want DataSync to mount.</p> <p>This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on configuring an export for DataSync, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs\">Accessing NFS file servers</a>.</p>"""
+    """<p>Specifies the export path in your NFS file server that you want DataSync to mount.</p> <p>This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on configuring an export for DataSync, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs">Accessing NFS file servers</a>.</p>"""
     server_hostname: NotRequired["capo_datasync.types.server_hostname.ServerHostname"]
     """<p>Specifies the DNS name or IP address (IPv4 or IPv6) of the NFS file server that your DataSync agent connects to.</p>"""
     on_prem_config: NotRequired["capo_datasync.types.on_prem_config.OnPremConfig"]

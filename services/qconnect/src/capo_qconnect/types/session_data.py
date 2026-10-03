@@ -41,7 +41,7 @@ class SessionData(TypedDict, closed=True):
     ]
     """<p>The configuration of the AI Agents (mapped by AI Agent Type to AI Agent version) that should be used by Amazon Q in Connect for this Session.</p>"""
     origin: NotRequired["capo_qconnect.types.origin.Origin"]
-    r"""<p>The origin of the Session to be listed. <code>SYSTEM</code> for a default Session created by Amazon Q in Connect or <code>CUSTOMER</code> for a Session created by calling <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_amazon-q-connect_CreateSession.html\">CreateSession</a> API.</p>"""
+    """<p>The origin of the Session to be listed. <code>SYSTEM</code> for a default Session created by Amazon Q in Connect or <code>CUSTOMER</code> for a Session created by calling <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_amazon-q-connect_CreateSession.html">CreateSession</a> API.</p>"""
     orchestrator_configuration_list: NotRequired[
         "capo_qconnect.types.orchestrator_configuration_list.OrchestratorConfigurationList"
     ]

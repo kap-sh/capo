@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class MppPaymentInput(TypedDict, closed=True):
     version: "capo_bedrock_agentcore.types.version.Version"
-    r"""<p>The MPP protocol version, for example \"1\" or \"2\".</p>"""
+    """<p>The MPP protocol version, for example "1" or "2".</p>"""
     www_authenticate_headers: "capo_bedrock_agentcore.types.www_authenticate_header_list.WwwAuthenticateHeaderList"
     """<p>The raw <code>WWW-Authenticate: Payment</code> header value from the 402 response, passed verbatim. Provide exactly one entry. The service uses this value to generate the payment credential.</p>"""
     buyer_pays_gas_fees: NotRequired["bool"]

@@ -50,7 +50,7 @@ class ListManagedThingsRequest(TypedDict, closed=True):
     provisioning_status_filter: NotRequired[
         "capo_iot_managed_integrations.types.provisioning_status.ProvisioningStatus"
     ]
-    r"""<p>Filter on the status of the device. For more information, see <a href=\"https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html\">Device Provisioning</a>.</p>"""
+    """<p>Filter on the status of the device. For more information, see <a href="https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html">Device Provisioning</a>.</p>"""
     next_token: NotRequired["capo_iot_managed_integrations.types.next_token.NextToken"]
     """<p>A token that can be used to retrieve the next set of results.</p>"""
     max_results: NotRequired[

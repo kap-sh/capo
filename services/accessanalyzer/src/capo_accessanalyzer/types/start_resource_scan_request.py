@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class StartResourceScanRequest(TypedDict, closed=True):
     analyzer_arn: "capo_accessanalyzer.types.analyzer_arn.AnalyzerArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources\">ARN of the analyzer</a> to use to scan the policies applied to the specified resource.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources">ARN of the analyzer</a> to use to scan the policies applied to the specified resource.</p>"""
     resource_arn: "capo_accessanalyzer.types.resource_arn.ResourceArn"
     """<p>The ARN of the resource to scan.</p>"""
     resource_owner_account: NotRequired["str"]

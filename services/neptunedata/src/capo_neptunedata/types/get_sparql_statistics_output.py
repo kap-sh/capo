@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GetSparqlStatisticsOutput(TypedDict, closed=True):
     status: "str"
-    r"""<p>The HTTP return code of the request. If the request succeeded, the code is 200. See <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/neptune-dfe-statistics.html#neptune-dfe-statistics-errors\">Common error codes for DFE statistics request</a> for a list of common errors.</p> <p>When invoking this operation in a Neptune cluster that has IAM authentication enabled, the IAM user or role making the request must have a policy attached that allows the <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/iam-dp-actions.html#getstatisticsstatus\">neptune-db:GetStatisticsStatus</a> IAM action in that cluster.</p>"""
+    """<p>The HTTP return code of the request. If the request succeeded, the code is 200. See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-dfe-statistics.html#neptune-dfe-statistics-errors">Common error codes for DFE statistics request</a> for a list of common errors.</p> <p>When invoking this operation in a Neptune cluster that has IAM authentication enabled, the IAM user or role making the request must have a policy attached that allows the <a href="https://docs.aws.amazon.com/neptune/latest/userguide/iam-dp-actions.html#getstatisticsstatus">neptune-db:GetStatisticsStatus</a> IAM action in that cluster.</p>"""
     payload: "capo_neptunedata.types.statistics.Statistics"
     """<p>Statistics for RDF data.</p>"""
 

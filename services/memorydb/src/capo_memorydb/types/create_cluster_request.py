@@ -76,7 +76,7 @@ class CreateClusterRequest(TypedDict, closed=True):
     ]
     """<p>When set to true, the cluster will automatically receive minor engine version upgrades after launch.</p>"""
     data_tiering: NotRequired["capo_memorydb.types.boolean_optional.BooleanOptional"]
-    r"""<p>Enables data tiering. Data tiering is only supported for clusters using the r6gd node type. This parameter must be set when using r6gd nodes. For more information, see <a href=\"https://docs.aws.amazon.com/memorydb/latest/devguide/data-tiering.html\">Data tiering</a>.</p>"""
+    """<p>Enables data tiering. Data tiering is only supported for clusters using the r6gd node type. This parameter must be set when using r6gd nodes. For more information, see <a href="https://docs.aws.amazon.com/memorydb/latest/devguide/data-tiering.html">Data tiering</a>.</p>"""
     network_type: NotRequired["capo_memorydb.types.network_type.NetworkType"]
     """<p>Specifies the IP address type for the cluster. Valid values are 'ipv4', 'ipv6', or 'dual_stack'. When set to 'ipv4', the cluster will only be accessible via IPv4 addresses. When set to 'ipv6', the cluster will only be accessible via IPv6 addresses. When set to 'dual_stack', the cluster will be accessible via both IPv4 and IPv6 addresses. If not specified, the default is 'ipv4'.</p>"""
     ip_discovery: NotRequired["capo_memorydb.types.ip_discovery.IpDiscovery"]

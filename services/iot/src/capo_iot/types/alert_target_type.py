@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""<p>The type of alert target: one of \"SNS\".</p>"""
+"""<p>The type of alert target: one of "SNS".</p>"""
 AlertTargetType: TypeAlias = Literal["SNS",]
 
 

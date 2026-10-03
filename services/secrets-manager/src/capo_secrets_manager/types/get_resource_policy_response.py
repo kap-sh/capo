@@ -18,7 +18,7 @@ class GetResourcePolicyResponse(TypedDict, closed=True):
     resource_policy: NotRequired[
         "capo_secrets_manager.types.non_empty_resource_policy_type.NonEmptyResourcePolicyType"
     ]
-    r"""<p>A JSON-formatted string that contains the permissions policy attached to the secret. For more information about permissions policies, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html\">Authentication and access control for Secrets Manager</a>.</p>"""
+    """<p>A JSON-formatted string that contains the permissions policy attached to the secret. For more information about permissions policies, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control for Secrets Manager</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

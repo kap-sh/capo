@@ -18,7 +18,7 @@ class ComposeEnvironmentsMessage(TypedDict, closed=True):
     ]
     """<p>The name of the application to which the specified source bundles belong.</p>"""
     group_name: NotRequired["capo_elastic_beanstalk.types.group_name.GroupName"]
-    r"""<p>The name of the group to which the target environments belong. Specify a group name only if the environment name defined in each target environment's manifest ends with a + (plus) character. See <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html\">Environment Manifest (env.yaml)</a> for details.</p>"""
+    """<p>The name of the group to which the target environments belong. Specify a group name only if the environment name defined in each target environment's manifest ends with a + (plus) character. See <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html">Environment Manifest (env.yaml)</a> for details.</p>"""
     version_labels: NotRequired[
         "capo_elastic_beanstalk.types.version_labels.VersionLabels"
     ]

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class ArtifactRevision(TypedDict, closed=True):
     name: NotRequired["capo_codepipeline.types.artifact_name.ArtifactName"]
-    r"""<p>The name of an artifact. This name might be system-generated, such as \"MyApp\", or defined by the user when an action is created.</p>"""
+    """<p>The name of an artifact. This name might be system-generated, such as "MyApp", or defined by the user when an action is created.</p>"""
     revision_id: NotRequired["capo_codepipeline.types.revision.Revision"]
     """<p>The revision ID of the artifact.</p>"""
     revision_change_identifier: NotRequired[

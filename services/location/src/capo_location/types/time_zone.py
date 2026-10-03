@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class TimeZone(TypedDict, closed=True):
     name: "capo_location.types.sensitive_string.SensitiveString"
-    r"""<p>The name of the time zone, following the <a href=\"https://www.iana.org/time-zones\"> IANA time zone standard</a>. For example, <code>America/Los_Angeles</code>.</p>"""
+    """<p>The name of the time zone, following the <a href="https://www.iana.org/time-zones"> IANA time zone standard</a>. For example, <code>America/Los_Angeles</code>.</p>"""
     offset: NotRequired["capo_location.types.sensitive_integer.SensitiveInteger"]
     """<p>The time zone's offset, in seconds, from UTC.</p>"""
 

@@ -23,7 +23,7 @@ class CreateWhatIfAnalysisRequest(TypedDict, closed=True):
     ]
     """<p>Defines the set of time series that are used in the what-if analysis with a <code>TimeSeriesIdentifiers</code> object. What-if analyses are performed only for the time series in this object.</p> <p>The <code>TimeSeriesIdentifiers</code> object needs the following information:</p> <ul> <li> <p> <code>DataSource</code> </p> </li> <li> <p> <code>Format</code> </p> </li> <li> <p> <code>Schema</code> </p> </li> </ul>"""
     tags: NotRequired["capo_forecast.types.tags.Tags"]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/forecast/latest/dg/tagging-forecast-resources.html\">tags</a> to apply to the what if forecast.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/forecast/latest/dg/tagging-forecast-resources.html">tags</a> to apply to the what if forecast.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

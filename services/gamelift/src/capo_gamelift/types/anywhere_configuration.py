@@ -12,7 +12,7 @@ class AnywhereConfiguration(TypedDict, closed=True):
     cost: NotRequired[
         "capo_gamelift.types.non_negative_limited_length_double.NonNegativeLimitedLengthDouble"
     ]
-    r"""<p>The cost to run your fleet per hour. Amazon GameLift Servers uses the provided cost of your fleet to balance usage in queues. For more information about queues, see <a href=\"https://docs.aws.amazon.com/gamelift/latest/developerguide/queues-intro.html\">Setting up queues</a> in the <i>Amazon GameLift Servers Developer Guide</i>.</p>"""
+    """<p>The cost to run your fleet per hour. Amazon GameLift Servers uses the provided cost of your fleet to balance usage in queues. For more information about queues, see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/queues-intro.html">Setting up queues</a> in the <i>Amazon GameLift Servers Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

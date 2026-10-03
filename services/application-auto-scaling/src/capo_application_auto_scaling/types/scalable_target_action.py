@@ -16,7 +16,7 @@ class ScalableTargetAction(TypedDict, closed=True):
     max_capacity: NotRequired[
         "capo_application_auto_scaling.types.resource_capacity.ResourceCapacity"
     ]
-    r"""<p>The maximum capacity.</p> <p>Although you can specify a large maximum capacity, note that service quotas may impose lower limits. Each service has its own default quotas for the maximum capacity of the resource. If you want to specify a higher limit, you can request an increase. For more information, consult the documentation for that service. For information about the default quotas for each service, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html\">Service endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The maximum capacity.</p> <p>Although you can specify a large maximum capacity, note that service quotas may impose lower limits. Each service has its own default quotas for the maximum capacity of the resource. If you want to specify a higher limit, you can request an increase. For more information, consult the documentation for that service. For information about the default quotas for each service, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html">Service endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

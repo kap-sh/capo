@@ -19,7 +19,7 @@ class ModifyTransitGatewayVpcAttachmentRequestOptions(TypedDict, closed=True):
     security_group_referencing_support: NotRequired[
         "capo_ec2.types.security_group_referencing_support_value.SecurityGroupReferencingSupportValue"
     ]
-    r"""<p>Enables you to reference a security group across VPCs attached to a transit gateway to simplify security group management. </p> <p>This option is disabled by default.</p> <p>For more information about security group referencing, see <a href=\"https://docs.aws.amazon.com/vpc/latest/tgw/tgw-vpc-attachments.html#vpc-attachment-security\">Security group referencing</a> in the <i>Amazon Web Services Transit Gateways Guide</i>.</p>"""
+    """<p>Enables you to reference a security group across VPCs attached to a transit gateway to simplify security group management. </p> <p>This option is disabled by default.</p> <p>For more information about security group referencing, see <a href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-vpc-attachments.html#vpc-attachment-security">Security group referencing</a> in the <i>Amazon Web Services Transit Gateways Guide</i>.</p>"""
     ipv6_support: NotRequired["capo_ec2.types.ipv6_support_value.Ipv6SupportValue"]
     """<p>Specifies whether IPv6 support is enabled for the attachment. When enabled, the transit gateway network interface receives an IPv6 address. When you enable route propagation, IPv6 VPC CIDRs propagate to the transit gateway route tables. When disabled, the network interface does not receive an IPv6 address, and IPv6 routes do not propagate. The setting does not filter IPv6 traffic.</p>"""
     appliance_mode_support: NotRequired[

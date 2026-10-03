@@ -31,7 +31,7 @@ class ManagedProductDescriptor(TypedDict, closed=True):
     ]
     """<p>A short description of the managed rule group.</p>"""
     sns_topic_arn: NotRequired["capo_wafv2.types.resource_arn.ResourceArn"]
-    r"""<p>The Amazon resource name (ARN) of the Amazon Simple Notification Service SNS topic that's used to provide notification of changes to the managed rule group. You can subscribe to the SNS topic to receive notifications when the managed rule group is modified, such as for new versions and for version expiration. For more information, see the <a href=\"https://docs.aws.amazon.com/sns/latest/dg/welcome.html\">Amazon Simple Notification Service Developer Guide</a>.</p>"""
+    """<p>The Amazon resource name (ARN) of the Amazon Simple Notification Service SNS topic that's used to provide notification of changes to the managed rule group. You can subscribe to the SNS topic to receive notifications when the managed rule group is modified, such as for new versions and for version expiration. For more information, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon Simple Notification Service Developer Guide</a>.</p>"""
     is_versioning_supported: "capo_wafv2.types.boolean.Boolean"
     """<p>Indicates whether the rule group is versioned. </p>"""
     is_advanced_managed_rule_set: "capo_wafv2.types.boolean.Boolean"

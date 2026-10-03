@@ -21,7 +21,7 @@ class GetViolationDetailsRequest(TypedDict, closed=True):
     resource_id: "capo_fms.types.resource_id.ResourceId"
     """<p>The ID of the resource that has violations.</p>"""
     resource_type: "capo_fms.types.resource_type.ResourceType"
-    r"""<p>The resource type. This is in the format shown in the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html\">Amazon Web Services Resource Types Reference</a>. Supported resource types are: <code>AWS::WAFv2::WebACL</code>, <code>AWS::EC2::Instance</code>, <code>AWS::EC2::NetworkInterface</code>, <code>AWS::EC2::SecurityGroup</code>, <code>AWS::NetworkFirewall::FirewallPolicy</code>, and <code>AWS::EC2::Subnet</code>. </p>"""
+    """<p>The resource type. This is in the format shown in the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon Web Services Resource Types Reference</a>. Supported resource types are: <code>AWS::WAFv2::WebACL</code>, <code>AWS::EC2::Instance</code>, <code>AWS::EC2::NetworkInterface</code>, <code>AWS::EC2::SecurityGroup</code>, <code>AWS::NetworkFirewall::FirewallPolicy</code>, and <code>AWS::EC2::Subnet</code>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

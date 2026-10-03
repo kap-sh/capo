@@ -13,7 +13,7 @@ class GuardrailCrossRegionDetails(TypedDict, closed=True):
     guardrail_profile_id: NotRequired[
         "capo_bedrock.types.guardrail_cross_region_guardrail_profile_id.GuardrailCrossRegionGuardrailProfileId"
     ]
-    r"""<p>The ID of the guardrail profile that your guardrail is using. Profile availability depends on your current Amazon Web Services Region. For more information, see the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-cross-region-support.html\">Amazon Bedrock User Guide</a>.</p>"""
+    """<p>The ID of the guardrail profile that your guardrail is using. Profile availability depends on your current Amazon Web Services Region. For more information, see the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-cross-region-support.html">Amazon Bedrock User Guide</a>.</p>"""
     guardrail_profile_arn: NotRequired[
         "capo_bedrock.types.guardrail_cross_region_guardrail_profile_arn.GuardrailCrossRegionGuardrailProfileArn"
     ]

@@ -7,7 +7,7 @@ from capo_neptunedata.errors import DeserializationError
 
 class SparqlData(TypedDict, closed=True):
     stmt: "str"
-    r"""<p>Holds an <a href=\"https://www.w3.org/TR/n-quads/\">N-QUADS</a> statement expressing the changed quad.</p>"""
+    """<p>Holds an <a href="https://www.w3.org/TR/n-quads/">N-QUADS</a> statement expressing the changed quad.</p>"""
 
 
 # --- restJson1 ser/de ---

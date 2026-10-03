@@ -18,7 +18,7 @@ class SessionMappingDetail(TypedDict, closed=True):
     identity_name: NotRequired[
         "capo_emr.types.xml_string_max_len256.XmlStringMaxLen256"
     ]
-    r"""<p>The name of the user or group. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName\">UserName</a> and <a href=\"https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName\">DisplayName</a> in the <i>IAM Identity Center Identity Store API Reference</i>.</p>"""
+    """<p>The name of the user or group. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName">UserName</a> and <a href="https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName">DisplayName</a> in the <i>IAM Identity Center Identity Store API Reference</i>.</p>"""
     identity_type: NotRequired["capo_emr.types.identity_type.IdentityType"]
     """<p>Specifies whether the identity mapped to the Amazon EMR Studio is a user or a group.</p>"""
     session_policy_arn: NotRequired[

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ListPolicyEnginesRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_bedrock_agentcore_control.types.next_token.NextToken"]
-    r"""<p>A pagination token returned from a previous <a href=\"https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_ListPolicyEngines.html\">ListPolicyEngines</a> call. Use this token to retrieve the next page of results when the response is paginated.</p>"""
+    """<p>A pagination token returned from a previous <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_ListPolicyEngines.html">ListPolicyEngines</a> call. Use this token to retrieve the next page of results when the response is paginated.</p>"""
     max_results: NotRequired[
         "capo_bedrock_agentcore_control.types.max_results.MaxResults"
     ]

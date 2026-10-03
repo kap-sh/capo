@@ -39,7 +39,7 @@ class CreateFleetMetricRequest(TypedDict, closed=True):
     index_name: NotRequired["capo_iot.types.index_name.IndexName"]
     """<p>The name of the index to search.</p>"""
     unit: NotRequired["capo_iot.types.fleet_metric_unit.FleetMetricUnit"]
-    r"""<p>Used to support unit transformation such as milliseconds to seconds. The unit must be supported by <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html\">CW metric</a>. Default to null.</p>"""
+    """<p>Used to support unit transformation such as milliseconds to seconds. The unit must be supported by <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html">CW metric</a>. Default to null.</p>"""
     tags: NotRequired["capo_iot.types.tag_list.TagList"]
     """<p>Metadata, which can be used to manage the fleet metric.</p>"""
 

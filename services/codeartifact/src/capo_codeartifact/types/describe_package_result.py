@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DescribePackageResult(TypedDict, closed=True):
     package: "capo_codeartifact.types.package_description.PackageDescription"
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageDescription.html\">PackageDescription</a> object that contains information about the requested package.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageDescription.html">PackageDescription</a> object that contains information about the requested package.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -19,7 +19,7 @@ class ProtectConfigurationInformation(TypedDict, closed=True):
     protect_configuration_id: "capo_pinpoint_sms_voice_v2.types.protect_configuration_id.ProtectConfigurationId"
     """<p>The unique identifier for the protect configuration.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the protect configuration was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the protect configuration was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     account_default: "bool"
     """<p>This is true if the protect configuration is set as your account default protect configuration.</p>"""
     deletion_protection_enabled: "bool"

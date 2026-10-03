@@ -13,7 +13,7 @@ class BuiltinSlotTypeMetadata(TypedDict, closed=True):
     signature: NotRequired[
         "capo_lex_model_building_service.types.builtin_slot_type_signature.BuiltinSlotTypeSignature"
     ]
-    r"""<p>A unique identifier for the built-in slot type. To find the signature for a slot type, see <a href=\"https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference\">Slot Type Reference</a> in the <i>Alexa Skills Kit</i>.</p>"""
+    """<p>A unique identifier for the built-in slot type. To find the signature for a slot type, see <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference">Slot Type Reference</a> in the <i>Alexa Skills Kit</i>.</p>"""
     supported_locales: NotRequired[
         "capo_lex_model_building_service.types.locale_list.LocaleList"
     ]

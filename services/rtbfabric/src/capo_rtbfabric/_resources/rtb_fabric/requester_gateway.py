@@ -52,13 +52,13 @@ class RequesterGateway:
         description: Optional[str] = None,
         tags: Optional["capo_rtbfabric.types.tags_map.TagsMap"] = None,
     ) -> "capo_rtbfabric.types.create_requester_gateway_response.CreateRequesterGatewayResponse":
-        r"""<p>Creates a requester gateway.</p>
+        """<p>Creates a requester gateway.</p>
 
         Args:
             vpc_id: <p>The unique identifier of the Virtual Private Cloud (VPC).</p>
             subnet_ids: <p>The unique identifiers of the subnets.</p>
             security_group_ids: <p>The unique identifiers of the security groups.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>clientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>clientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             description: <p>An optional description for the requester gateway.</p>
             tags: <p>A map of the key-value pairs of the tag or tags to assign to the resource.</p>
 
@@ -227,10 +227,10 @@ class RequesterGateway:
         config_overrides: Optional[RTBFabricClientConfig] = None,
         description: Optional[str] = None,
     ) -> "capo_rtbfabric.types.update_requester_gateway_response.UpdateRequesterGatewayResponse":
-        r"""<p>Updates a requester gateway.</p>
+        """<p>Updates a requester gateway.</p>
 
         Args:
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>clientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>clientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             gateway_id: <p>The unique identifier of the gateway.</p>
             description: <p>An optional description for the requester gateway.</p>
 
@@ -296,13 +296,13 @@ class AsyncRequesterGateway:
         description: Optional[str] = None,
         tags: Optional["capo_rtbfabric.types.tags_map.TagsMap"] = None,
     ) -> "capo_rtbfabric.types.create_requester_gateway_response.CreateRequesterGatewayResponse":
-        r"""<p>Creates a requester gateway.</p>
+        """<p>Creates a requester gateway.</p>
 
         Args:
             vpc_id: <p>The unique identifier of the Virtual Private Cloud (VPC).</p>
             subnet_ids: <p>The unique identifiers of the subnets.</p>
             security_group_ids: <p>The unique identifiers of the security groups.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>clientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>clientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             description: <p>An optional description for the requester gateway.</p>
             tags: <p>A map of the key-value pairs of the tag or tags to assign to the resource.</p>
 
@@ -474,10 +474,10 @@ class AsyncRequesterGateway:
         config_overrides: Optional[AsyncRTBFabricClientConfig] = None,
         description: Optional[str] = None,
     ) -> "capo_rtbfabric.types.update_requester_gateway_response.UpdateRequesterGatewayResponse":
-        r"""<p>Updates a requester gateway.</p>
+        """<p>Updates a requester gateway.</p>
 
         Args:
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>clientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>clientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             gateway_id: <p>The unique identifier of the gateway.</p>
             description: <p>An optional description for the requester gateway.</p>
 

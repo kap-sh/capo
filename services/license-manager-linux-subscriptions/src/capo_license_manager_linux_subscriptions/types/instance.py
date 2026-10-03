@@ -22,11 +22,11 @@ class Instance(TypedDict, closed=True):
     region: NotRequired["str"]
     """<p>The Region the instance is running in.</p>"""
     usage_operation: NotRequired["str"]
-    r"""<p>The usage operation of the instance. For more information, see For more information, see <a href=\"https://docs.aws.amazon.com/license-manager/latest/userguide/linux-subscriptions-usage-operation.html\">Usage operation values</a> in the <i>License Manager User Guide</i>.</p>"""
+    """<p>The usage operation of the instance. For more information, see For more information, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/linux-subscriptions-usage-operation.html">Usage operation values</a> in the <i>License Manager User Guide</i>.</p>"""
     product_code: NotRequired[
         "capo_license_manager_linux_subscriptions.types.product_code_list.ProductCodeList"
     ]
-    r"""<p>The product code for the instance. For more information, see <a href=\"https://docs.aws.amazon.com/license-manager/latest/userguide/linux-subscriptions-usage-operation.html\">Usage operation values</a> in the <i>License Manager User Guide</i> .</p>"""
+    """<p>The product code for the instance. For more information, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/linux-subscriptions-usage-operation.html">Usage operation values</a> in the <i>License Manager User Guide</i> .</p>"""
     last_updated_time: NotRequired["str"]
     """<p>The time in which the last discovery updated the instance details.</p>"""
     subscription_name: NotRequired["str"]

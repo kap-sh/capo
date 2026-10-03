@@ -30,15 +30,15 @@ class SnowflakeDestinationUpdate(TypedDict, closed=True):
     account_url: NotRequired[
         "capo_firehose.types.snowflake_account_url.SnowflakeAccountUrl"
     ]
-    r"""<p>URL for accessing your Snowflake account. This URL must include your <a href=\"https://docs.snowflake.com/en/user-guide/admin-account-identifier\">account identifier</a>. Note that the protocol (https://) and port number are optional.</p>"""
+    """<p>URL for accessing your Snowflake account. This URL must include your <a href="https://docs.snowflake.com/en/user-guide/admin-account-identifier">account identifier</a>. Note that the protocol (https://) and port number are optional.</p>"""
     private_key: NotRequired[
         "capo_firehose.types.snowflake_private_key.SnowflakePrivateKey"
     ]
-    r"""<p>The private key used to encrypt your Snowflake client. For information, see <a href=\"https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-configuration#using-key-pair-authentication-key-rotation\">Using Key Pair Authentication & Key Rotation</a>.</p>"""
+    """<p>The private key used to encrypt your Snowflake client. For information, see <a href="https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-configuration#using-key-pair-authentication-key-rotation">Using Key Pair Authentication & Key Rotation</a>.</p>"""
     key_passphrase: NotRequired[
         "capo_firehose.types.snowflake_key_passphrase.SnowflakeKeyPassphrase"
     ]
-    r"""<p>Passphrase to decrypt the private key when the key is encrypted. For information, see <a href=\"https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-configuration#using-key-pair-authentication-key-rotation\">Using Key Pair Authentication & Key Rotation</a>.</p>"""
+    """<p>Passphrase to decrypt the private key when the key is encrypted. For information, see <a href="https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-configuration#using-key-pair-authentication-key-rotation">Using Key Pair Authentication & Key Rotation</a>.</p>"""
     user: NotRequired["capo_firehose.types.snowflake_user.SnowflakeUser"]
     """<p>User login name for the Snowflake account.</p>"""
     database: NotRequired["capo_firehose.types.snowflake_database.SnowflakeDatabase"]

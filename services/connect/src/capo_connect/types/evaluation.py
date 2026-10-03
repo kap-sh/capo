@@ -43,7 +43,7 @@ class Evaluation(TypedDict, closed=True):
     evaluation_type: NotRequired["capo_connect.types.evaluation_type.EvaluationType"]
     """<p>Type of the evaluation. </p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

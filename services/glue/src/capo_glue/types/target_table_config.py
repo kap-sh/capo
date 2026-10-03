@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class TargetTableConfig(TypedDict, closed=True):
     unnest_spec: NotRequired["capo_glue.types.unnest_spec.UnnestSpec"]
-    r"""<p>Specifies how nested objects are flattened to top-level elements. Valid values are: \"TOPLEVEL\", \"FULL\", or \"NOUNNEST\".</p>"""
+    """<p>Specifies how nested objects are flattened to top-level elements. Valid values are: "TOPLEVEL", "FULL", or "NOUNNEST".</p>"""
     partition_spec: NotRequired[
         "capo_glue.types.integration_partition_spec_list.IntegrationPartitionSpecList"
     ]

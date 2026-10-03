@@ -15,7 +15,7 @@ class Button(TypedDict, closed=True):
     text: "capo_lex_runtime_service.types.button_text_string_with_length.ButtonTextStringWithLength"
     """<p>Text that is visible to the user on the button.</p>"""
     value: "capo_lex_runtime_service.types.button_value_string_with_length.ButtonValueStringWithLength"
-    r"""<p>The value sent to Amazon Lex when a user chooses the button. For example, consider button text \"NYC.\" When the user chooses the button, the value sent can be \"New York City.\"</p>"""
+    """<p>The value sent to Amazon Lex when a user chooses the button. For example, consider button text "NYC." When the user chooses the button, the value sent can be "New York City."</p>"""
 
 
 # --- restJson1 ser/de ---

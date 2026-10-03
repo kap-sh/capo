@@ -41,7 +41,7 @@ class KnowledgeBaseSummary(TypedDict, closed=True):
     server_side_encryption_configuration: NotRequired[
         "capo_wisdom.types.server_side_encryption_configuration.ServerSideEncryptionConfiguration"
     ]
-    r"""<p>The configuration information for the customer managed key used for encryption. </p> <p>This KMS key must have a policy that allows <code>kms:CreateGrant</code>, <code>kms:DescribeKey</code>, <code>kms:Decrypt/kms:GenerateDataKey</code> permissions to the IAM identity using the key to invoke Wisdom. </p> <p>For more information about setting up a customer managed key for Wisdom, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-wisdom.html\">Enable Amazon Connect Wisdom for your instance</a>.</p>"""
+    """<p>The configuration information for the customer managed key used for encryption. </p> <p>This KMS key must have a policy that allows <code>kms:CreateGrant</code>, <code>kms:DescribeKey</code>, <code>kms:Decrypt/kms:GenerateDataKey</code> permissions to the IAM identity using the key to invoke Wisdom. </p> <p>For more information about setting up a customer managed key for Wisdom, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-wisdom.html">Enable Amazon Connect Wisdom for your instance</a>.</p>"""
     description: NotRequired["capo_wisdom.types.description.Description"]
     """<p>The description of the knowledge base.</p>"""
     tags: NotRequired["capo_wisdom.types.tags.Tags"]

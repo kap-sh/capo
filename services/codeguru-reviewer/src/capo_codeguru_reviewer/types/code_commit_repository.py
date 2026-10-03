@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class CodeCommitRepository(TypedDict, closed=True):
     name: "capo_codeguru_reviewer.types.name.Name"
-    r"""<p>The name of the Amazon Web Services CodeCommit repository. For more information, see <a href=\"https://docs.aws.amazon.com/codecommit/latest/APIReference/API_GetRepository.html#CodeCommit-GetRepository-request-repositoryName\">repositoryName</a> in the <i>Amazon Web Services CodeCommit API Reference</i>.</p>"""
+    """<p>The name of the Amazon Web Services CodeCommit repository. For more information, see <a href="https://docs.aws.amazon.com/codecommit/latest/APIReference/API_GetRepository.html#CodeCommit-GetRepository-request-repositoryName">repositoryName</a> in the <i>Amazon Web Services CodeCommit API Reference</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

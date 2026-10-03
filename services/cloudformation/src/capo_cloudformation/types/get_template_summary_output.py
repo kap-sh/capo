@@ -27,7 +27,7 @@ class GetTemplateSummaryOutput(TypedDict, closed=True):
     description: NotRequired["capo_cloudformation.types.description.Description"]
     """<p>The value that's defined in the <code>Description</code> property of the template.</p>"""
     capabilities: NotRequired["capo_cloudformation.types.capabilities.Capabilities"]
-    r"""<p>The capabilities found within the template. If your template contains IAM resources, you must specify the <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an <code>InsufficientCapabilities</code> error.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/control-access-with-iam.html#using-iam-capabilities\">Acknowledging IAM resources in CloudFormation templates</a>.</p>"""
+    """<p>The capabilities found within the template. If your template contains IAM resources, you must specify the <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an <code>InsufficientCapabilities</code> error.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/control-access-with-iam.html#using-iam-capabilities">Acknowledging IAM resources in CloudFormation templates</a>.</p>"""
     capabilities_reason: NotRequired[
         "capo_cloudformation.types.capabilities_reason.CapabilitiesReason"
     ]

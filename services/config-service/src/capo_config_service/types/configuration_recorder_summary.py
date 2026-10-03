@@ -24,7 +24,7 @@ class ConfigurationRecorderSummary(TypedDict, closed=True):
     ]
     """<p>For service-linked configuration recorders, indicates which Amazon Web Services service the configuration recorder is linked to.</p>"""
     recording_scope: "capo_config_service.types.recording_scope.RecordingScope"
-    r"""<p>Indicates whether the <a href=\"https://docs.aws.amazon.com/config/latest/APIReference/API_ConfigurationItem.html\">ConfigurationItems</a> in scope for the configuration recorder are recorded for free (<code>INTERNAL</code>) or if you are charged a service fee for recording (<code>PAID</code>).</p>"""
+    """<p>Indicates whether the <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_ConfigurationItem.html">ConfigurationItems</a> in scope for the configuration recorder are recorded for free (<code>INTERNAL</code>) or if you are charged a service fee for recording (<code>PAID</code>).</p>"""
     provider: NotRequired["capo_config_service.types.provider.Provider"]
     """<p>For service-linked configuration recorders that record resources from a third-party cloud service provider, indicates the cloud service provider. Currently, <code>AZURE</code> is supported.</p>"""
 

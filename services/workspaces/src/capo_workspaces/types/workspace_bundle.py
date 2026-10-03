@@ -34,7 +34,7 @@ class WorkspaceBundle(TypedDict, closed=True):
     user_storage: NotRequired["capo_workspaces.types.user_storage.UserStorage"]
     """<p>The size of the user volume.</p>"""
     compute_type: NotRequired["capo_workspaces.types.compute_type.ComputeType"]
-    r"""<p>The compute type of the bundle. For more information, see <a href=\"http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles\">Amazon WorkSpaces Bundles</a>.</p>"""
+    """<p>The compute type of the bundle. For more information, see <a href="http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles">Amazon WorkSpaces Bundles</a>.</p>"""
     last_updated_time: NotRequired["capo_workspaces.types.timestamp.Timestamp"]
     """<p>The last time that the bundle was updated.</p>"""
     creation_time: NotRequired["capo_workspaces.types.timestamp.Timestamp"]

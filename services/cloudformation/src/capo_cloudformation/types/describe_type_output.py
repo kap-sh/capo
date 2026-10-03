@@ -37,11 +37,11 @@ class DescribeTypeOutput(TypedDict, closed=True):
     type: NotRequired["capo_cloudformation.types.registry_type.RegistryType"]
     """<p>The kind of extension.</p>"""
     type_name: NotRequired["capo_cloudformation.types.type_name.TypeName"]
-    r"""<p>The name of the extension.</p> <p>If the extension is a public third-party type you have activated with a type name alias, CloudFormation returns the type name alias. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html\">ActivateType</a>.</p>"""
+    """<p>The name of the extension.</p> <p>If the extension is a public third-party type you have activated with a type name alias, CloudFormation returns the type name alias. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html">ActivateType</a>.</p>"""
     default_version_id: NotRequired[
         "capo_cloudformation.types.type_version_id.TypeVersionId"
     ]
-    r"""<p>The ID of the default version of the extension. The default version is used when the extension version isn't specified.</p> <p>This applies only to private extensions you have registered in your account. For public extensions, both those provided by Amazon Web Services and published by third parties, CloudFormation returns <code>null</code>. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html\">RegisterType</a>.</p> <p>To set the default version of an extension, use <a>SetTypeDefaultVersion</a>.</p>"""
+    """<p>The ID of the default version of the extension. The default version is used when the extension version isn't specified.</p> <p>This applies only to private extensions you have registered in your account. For public extensions, both those provided by Amazon Web Services and published by third parties, CloudFormation returns <code>null</code>. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html">RegisterType</a>.</p> <p>To set the default version of an extension, use <a>SetTypeDefaultVersion</a>.</p>"""
     is_default_version: NotRequired[
         "capo_cloudformation.types.is_default_version.IsDefaultVersion"
     ]
@@ -49,7 +49,7 @@ class DescribeTypeOutput(TypedDict, closed=True):
     type_tests_status: NotRequired[
         "capo_cloudformation.types.type_tests_status.TypeTestsStatus"
     ]
-    r"""<p>The contract test status of the registered extension version. To return the extension test status of a specific extension version, you must specify <code>VersionId</code>.</p> <p>This applies only to registered private extension versions. CloudFormation doesn't return this information for public extensions, whether they are activated in your account.</p> <ul> <li> <p> <code>PASSED</code>: The extension has passed all its contract tests.</p> <p>An extension must have a test status of <code>PASSED</code> before it can be published. For more information, see <a href=\"https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-publish.html\">Publishing extensions to make them available for public use</a> in the <i>CloudFormation Command Line Interface (CLI) User Guide</i>.</p> </li> <li> <p> <code>FAILED</code>: The extension has failed one or more contract tests.</p> </li> <li> <p> <code>IN_PROGRESS</code>: Contract tests are currently being performed on the extension.</p> </li> <li> <p> <code>NOT_TESTED</code>: Contract tests haven't been performed on the extension.</p> </li> </ul>"""
+    """<p>The contract test status of the registered extension version. To return the extension test status of a specific extension version, you must specify <code>VersionId</code>.</p> <p>This applies only to registered private extension versions. CloudFormation doesn't return this information for public extensions, whether they are activated in your account.</p> <ul> <li> <p> <code>PASSED</code>: The extension has passed all its contract tests.</p> <p>An extension must have a test status of <code>PASSED</code> before it can be published. For more information, see <a href="https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-publish.html">Publishing extensions to make them available for public use</a> in the <i>CloudFormation Command Line Interface (CLI) User Guide</i>.</p> </li> <li> <p> <code>FAILED</code>: The extension has failed one or more contract tests.</p> </li> <li> <p> <code>IN_PROGRESS</code>: Contract tests are currently being performed on the extension.</p> </li> <li> <p> <code>NOT_TESTED</code>: Contract tests haven't been performed on the extension.</p> </li> </ul>"""
     type_tests_status_description: NotRequired[
         "capo_cloudformation.types.type_tests_status_description.TypeTestsStatusDescription"
     ]
@@ -57,7 +57,7 @@ class DescribeTypeOutput(TypedDict, closed=True):
     description: NotRequired["capo_cloudformation.types.description.Description"]
     """<p>The description of the extension.</p>"""
     schema: NotRequired["capo_cloudformation.types.type_schema.TypeSchema"]
-    r"""<p>The schema that defines the extension.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-schema.html\">Resource type schema</a> in the <i>CloudFormation Command Line Interface (CLI) User Guide</i> and the <a href=\"https://docs.aws.amazon.com/cloudformation-cli/latest/hooks-userguide/what-is-cloudformation-hooks.html\">CloudFormation Hooks User Guide</a>.</p>"""
+    """<p>The schema that defines the extension.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-schema.html">Resource type schema</a> in the <i>CloudFormation Command Line Interface (CLI) User Guide</i> and the <a href="https://docs.aws.amazon.com/cloudformation-cli/latest/hooks-userguide/what-is-cloudformation-hooks.html">CloudFormation Hooks User Guide</a>.</p>"""
     provisioning_type: NotRequired[
         "capo_cloudformation.types.provisioning_type.ProvisioningType"
     ]
@@ -69,13 +69,13 @@ class DescribeTypeOutput(TypedDict, closed=True):
     logging_config: NotRequired[
         "capo_cloudformation.types.logging_config.LoggingConfig"
     ]
-    r"""<p>Contains logging configuration information for private extensions. This applies only to private extensions you have registered in your account. For public extensions, both those provided by Amazon Web Services and published by third parties, CloudFormation returns <code>null</code>. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html\">RegisterType</a>.</p>"""
+    """<p>Contains logging configuration information for private extensions. This applies only to private extensions you have registered in your account. For public extensions, both those provided by Amazon Web Services and published by third parties, CloudFormation returns <code>null</code>. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html">RegisterType</a>.</p>"""
     required_activated_types: NotRequired[
         "capo_cloudformation.types.required_activated_types.RequiredActivatedTypes"
     ]
     """<p>For extensions that are modules, the public third-party extensions that must be activated in your account in order for the module itself to be activated.</p>"""
     execution_role_arn: NotRequired["capo_cloudformation.types.role_arn2.RoleARN2"]
-    r"""<p>The Amazon Resource Name (ARN) of the IAM execution role used to register the extension. This applies only to private extensions you have registered in your account. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html\">RegisterType</a>.</p> <p>If the registered extension calls any Amazon Web Services APIs, you must create an <i> <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html\">IAM execution role</a> </i> that includes the necessary permissions to call those Amazon Web Services APIs, and provision that execution role in your account. CloudFormation then assumes that execution role to provide your extension with the appropriate credentials.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM execution role used to register the extension. This applies only to private extensions you have registered in your account. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html">RegisterType</a>.</p> <p>If the registered extension calls any Amazon Web Services APIs, you must create an <i> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM execution role</a> </i> that includes the necessary permissions to call those Amazon Web Services APIs, and provision that execution role in your account. CloudFormation then assumes that execution role to provide your extension with the appropriate credentials.</p>"""
     visibility: NotRequired["capo_cloudformation.types.visibility.Visibility"]
     """<p>The scope at which the extension is visible and usable in CloudFormation operations.</p> <p>Valid values include:</p> <ul> <li> <p> <code>PRIVATE</code>: The extension is only visible and usable within the account in which it is registered. CloudFormation marks any extensions you register as <code>PRIVATE</code>.</p> </li> <li> <p> <code>PUBLIC</code>: The extension is publicly visible and usable within any Amazon Web Services account.</p> </li> </ul>"""
     source_url: NotRequired[
@@ -87,17 +87,17 @@ class DescribeTypeOutput(TypedDict, closed=True):
     ]
     """<p>The URL of a page providing detailed documentation for this extension.</p>"""
     last_updated: NotRequired["capo_cloudformation.types.timestamp.Timestamp"]
-    r"""<p>When the specified extension version was registered. This applies only to:</p> <ul> <li> <p>Private extensions you have registered in your account. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html\">RegisterType</a>.</p> </li> <li> <p>Public extensions you have activated in your account with auto-update specified. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html\">ActivateType</a>.</p> </li> </ul>"""
+    """<p>When the specified extension version was registered. This applies only to:</p> <ul> <li> <p>Private extensions you have registered in your account. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html">RegisterType</a>.</p> </li> <li> <p>Public extensions you have activated in your account with auto-update specified. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html">ActivateType</a>.</p> </li> </ul>"""
     time_created: NotRequired["capo_cloudformation.types.timestamp.Timestamp"]
     """<p>When the specified private extension version was registered or activated in your account.</p>"""
     configuration_schema: NotRequired[
         "capo_cloudformation.types.configuration_schema.ConfigurationSchema"
     ]
-    r"""<p>A JSON string that represent the current configuration data for the extension in this account and Region.</p> <p>To set the configuration data for an extension, use <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html\">SetTypeConfiguration</a>.</p>"""
+    """<p>A JSON string that represent the current configuration data for the extension in this account and Region.</p> <p>To set the configuration data for an extension, use <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html">SetTypeConfiguration</a>.</p>"""
     publisher_id: NotRequired["capo_cloudformation.types.publisher_id.PublisherId"]
     """<p>The publisher ID of the extension publisher.</p> <p>This applies only to public third-party extensions. For private registered extensions, and extensions provided by Amazon Web Services, CloudFormation returns <code>null</code>.</p>"""
     original_type_name: NotRequired["capo_cloudformation.types.type_name.TypeName"]
-    r"""<p>For public extensions that have been activated for this account and Region, the type name of the public extension.</p> <p>If you specified a <code>TypeNameAlias</code> when enabling the extension in this account and Region, CloudFormation treats that alias as the extension's type name within the account and Region, not the type name of the public extension. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-alias\">Use aliases to refer to extensions</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>For public extensions that have been activated for this account and Region, the type name of the public extension.</p> <p>If you specified a <code>TypeNameAlias</code> when enabling the extension in this account and Region, CloudFormation treats that alias as the extension's type name within the account and Region, not the type name of the public extension. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-alias">Use aliases to refer to extensions</a> in the <i>CloudFormation User Guide</i>.</p>"""
     original_type_arn: NotRequired["capo_cloudformation.types.type_arn.TypeArn"]
     """<p>For public extensions that have been activated for this account and Region, the Amazon Resource Name (ARN) of the public extension.</p>"""
     public_version_number: NotRequired[
@@ -111,7 +111,7 @@ class DescribeTypeOutput(TypedDict, closed=True):
     is_activated: NotRequired["capo_cloudformation.types.is_activated.IsActivated"]
     """<p>Whether the extension is activated in the account and Region.</p> <p>This only applies to public third-party extensions. For all other extensions, CloudFormation returns <code>null</code>.</p>"""
     auto_update: NotRequired["capo_cloudformation.types.auto_update.AutoUpdate"]
-    r"""<p>Whether CloudFormation automatically updates the extension in this account and Region when a new <i>minor</i> version is published by the extension publisher. Major versions released by the publisher must be manually updated. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-auto\">Automatically use new versions of extensions</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>Whether CloudFormation automatically updates the extension in this account and Region when a new <i>minor</i> version is published by the extension publisher. Major versions released by the publisher must be manually updated. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-auto">Automatically use new versions of extensions</a> in the <i>CloudFormation User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

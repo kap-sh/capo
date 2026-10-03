@@ -219,14 +219,14 @@ class AsyncCognitoIdentityClient:
             "capo_cognito_identity.types.identity_pool_tags_type.IdentityPoolTagsType"
         ] = None,
     ) -> "capo_cognito_identity.types.identity_pool.IdentityPool":
-        r"""<p>Creates a new identity pool. The identity pool is a store of user identity information that is specific to your Amazon Web Services account. The keys for <code>SupportedLoginProviders</code> are as follows:</p> <ul> <li> <p>Facebook: <code>graph.facebook.com</code> </p> </li> <li> <p>Google: <code>accounts.google.com</code> </p> </li> <li> <p>Sign in With Apple: <code>appleid.apple.com</code> </p> </li> <li> <p>Amazon: <code>www.amazon.com</code> </p> </li> <li> <p>Twitter: <code>api.twitter.com</code> </p> </li> <li> <p>Digits: <code>www.digits.com</code> </p> </li> </ul> <important> <p>If you don't provide a value for a parameter, Amazon Cognito sets it to its default value. </p> </important> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
+        """<p>Creates a new identity pool. The identity pool is a store of user identity information that is specific to your Amazon Web Services account. The keys for <code>SupportedLoginProviders</code> are as follows:</p> <ul> <li> <p>Facebook: <code>graph.facebook.com</code> </p> </li> <li> <p>Google: <code>accounts.google.com</code> </p> </li> <li> <p>Sign in With Apple: <code>appleid.apple.com</code> </p> </li> <li> <p>Amazon: <code>www.amazon.com</code> </p> </li> <li> <p>Twitter: <code>api.twitter.com</code> </p> </li> <li> <p>Digits: <code>www.digits.com</code> </p> </li> </ul> <important> <p>If you don't provide a value for a parameter, Amazon Cognito sets it to its default value. </p> </important> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
 
         Args:
             identity_pool_name: <p>A string that you provide.</p>
             allow_unauthenticated_identities: <p>TRUE if the identity pool supports unauthenticated logins.</p>
-            allow_classic_flow: <p>Enables or disables the Basic (Classic) authentication flow. For more information, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html\">Identity Pools (Federated Identities) Authentication Flow</a> in the <i>Amazon Cognito Developer Guide</i>.</p>
+            allow_classic_flow: <p>Enables or disables the Basic (Classic) authentication flow. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html">Identity Pools (Federated Identities) Authentication Flow</a> in the <i>Amazon Cognito Developer Guide</i>.</p>
             supported_login_providers: <p>Optional key:value pairs mapping provider names to provider app IDs.</p>
-            developer_provider_name: <p>The \"domain\" by which Cognito will refer to your users. This name acts as a placeholder that allows your backend and the Cognito service to communicate about the developer provider. For the <code>DeveloperProviderName</code>, you can use letters as well as period (<code>.</code>), underscore (<code>_</code>), and dash (<code>-</code>).</p> <p>Once you have set a developer provider name, you cannot change it. Please take care in setting this parameter.</p>
+            developer_provider_name: <p>The "domain" by which Cognito will refer to your users. This name acts as a placeholder that allows your backend and the Cognito service to communicate about the developer provider. For the <code>DeveloperProviderName</code>, you can use letters as well as period (<code>.</code>), underscore (<code>_</code>), and dash (<code>-</code>).</p> <p>Once you have set a developer provider name, you cannot change it. Please take care in setting this parameter.</p>
             open_id_connect_provider_ar_ns: <p>The Amazon Resource Names (ARN) of the OpenID Connect providers.</p>
             cognito_identity_providers: <p>An array of Amazon Cognito user pools and their client IDs.</p>
             saml_provider_ar_ns: <p>An array of Amazon Resource Names (ARNs) of the SAML provider for your identity pool.</p>
@@ -483,11 +483,11 @@ class AsyncCognitoIdentityClient:
             "capo_cognito_identity.types.arn_string.ARNString"
         ] = None,
     ) -> "capo_cognito_identity.types.get_credentials_for_identity_response.GetCredentialsForIdentityResponse":
-        r"""<p>Returns credentials for the provided identity ID. Any provided logins will be validated against supported login providers. If the token is for <code>cognito-identity.amazonaws.com</code>, it will be passed through to Security Token Service with the appropriate role for the token.</p> <p>This is a public API. You do not need any credentials to call this API.</p>
+        """<p>Returns credentials for the provided identity ID. Any provided logins will be validated against supported login providers. If the token is for <code>cognito-identity.amazonaws.com</code>, it will be passed through to Security Token Service with the appropriate role for the token.</p> <p>This is a public API. You do not need any credentials to call this API.</p>
 
         Args:
             identity_id: <p>A unique identifier in the format REGION:GUID.</p>
-            logins: <p>A set of optional name-value pairs that map provider names to provider tokens. The name-value pair will follow the syntax \"provider_name\": \"provider_user_identifier\".</p> <p>Logins should not be specified when trying to get credentials for an unauthenticated identity.</p> <p>The Logins parameter is required when using identities associated with external identity providers such as Facebook. For examples of <code>Logins</code> maps, see the code examples in the <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/external-identity-providers.html\">External Identity Providers</a> section of the Amazon Cognito Developer Guide.</p>
+            logins: <p>A set of optional name-value pairs that map provider names to provider tokens. The name-value pair will follow the syntax "provider_name": "provider_user_identifier".</p> <p>Logins should not be specified when trying to get credentials for an unauthenticated identity.</p> <p>The Logins parameter is required when using identities associated with external identity providers such as Facebook. For examples of <code>Logins</code> maps, see the code examples in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/external-identity-providers.html">External Identity Providers</a> section of the Amazon Cognito Developer Guide.</p>
             custom_role_arn: <p>The Amazon Resource Name (ARN) of the role to be assumed when multiple roles were received in the token from the identity provider. For example, a SAML-based identity provider. This parameter is optional for identity providers that do not support role customization.</p>
 
         Raises:
@@ -714,12 +714,12 @@ class AsyncCognitoIdentityClient:
             "capo_cognito_identity.types.token_duration.TokenDuration"
         ] = None,
     ) -> "capo_cognito_identity.types.get_open_id_token_for_developer_identity_response.GetOpenIdTokenForDeveloperIdentityResponse":
-        r"""<p>Registers (or retrieves) a Cognito <code>IdentityId</code> and an OpenID Connect token for a user authenticated by your backend authentication process. Supplying multiple logins will create an implicit linked account. You can only specify one developer provider as part of the <code>Logins</code> map, which is linked to the identity pool. The developer provider is the \"domain\" by which Cognito will refer to your users.</p> <p>You can use <code>GetOpenIdTokenForDeveloperIdentity</code> to create a new identity and to link new logins (that is, user credentials issued by a public provider or developer provider) to an existing identity. When you want to create a new identity, the <code>IdentityId</code> should be null. When you want to associate a new login with an existing authenticated/unauthenticated identity, you can do so by providing the existing <code>IdentityId</code>. This API will create the identity in the specified <code>IdentityPoolId</code>.</p> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
+        """<p>Registers (or retrieves) a Cognito <code>IdentityId</code> and an OpenID Connect token for a user authenticated by your backend authentication process. Supplying multiple logins will create an implicit linked account. You can only specify one developer provider as part of the <code>Logins</code> map, which is linked to the identity pool. The developer provider is the "domain" by which Cognito will refer to your users.</p> <p>You can use <code>GetOpenIdTokenForDeveloperIdentity</code> to create a new identity and to link new logins (that is, user credentials issued by a public provider or developer provider) to an existing identity. When you want to create a new identity, the <code>IdentityId</code> should be null. When you want to associate a new login with an existing authenticated/unauthenticated identity, you can do so by providing the existing <code>IdentityId</code>. This API will create the identity in the specified <code>IdentityPoolId</code>.</p> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
 
         Args:
             identity_pool_id: <p>An identity pool ID in the format REGION:GUID.</p>
             identity_id: <p>A unique identifier in the format REGION:GUID.</p>
-            logins: <p>A set of optional name-value pairs that map provider names to provider tokens. Each name-value pair represents a user from a public provider or developer provider. If the user is from a developer provider, the name-value pair will follow the syntax <code>\"developer_provider_name\": \"developer_user_identifier\"</code>. The developer provider is the \"domain\" by which Cognito will refer to your users; you provided this domain while creating/updating the identity pool. The developer user identifier is an identifier from your backend that uniquely identifies a user. When you create an identity pool, you can specify the supported logins.</p>
+            logins: <p>A set of optional name-value pairs that map provider names to provider tokens. Each name-value pair represents a user from a public provider or developer provider. If the user is from a developer provider, the name-value pair will follow the syntax <code>"developer_provider_name": "developer_user_identifier"</code>. The developer provider is the "domain" by which Cognito will refer to your users; you provided this domain while creating/updating the identity pool. The developer user identifier is an identifier from your backend that uniquely identifies a user. When you create an identity pool, you can specify the supported logins.</p>
             principal_tags: <p>Use this operation to configure attribute mappings for custom providers. </p>
             token_duration: <p>The expiration time of the token, in seconds. You can specify a custom expiration time for the token so that you can cache it. If you don't provide an expiration time, the token is valid for 15 minutes. You can exchange the token with Amazon STS for temporary Amazon Web Services credentials, which are valid for a maximum of one hour. The maximum token duration you can set is 24 hours. You should take care in setting the expiration time for a token, as there are significant security implications: an attacker could use a leaked token to access your Amazon Web Services resources for the token's duration.</p> <note> <p>Please provide for a small grace period, usually no more than 5 minutes, to account for clock skew.</p> </note>
 
@@ -1090,12 +1090,12 @@ class AsyncCognitoIdentityClient:
         *,
         config_overrides: Optional[AsyncCognitoIdentityClientConfig] = None,
     ) -> "capo_cognito_identity.types.merge_developer_identities_response.MergeDeveloperIdentitiesResponse":
-        r"""<p>Merges two users having different <code>IdentityId</code>s, existing in the same identity pool, and identified by the same developer provider. You can use this action to request that discrete users be merged and identified as a single user in the Cognito environment. Cognito associates the given source user (<code>SourceUserIdentifier</code>) with the <code>IdentityId</code> of the <code>DestinationUserIdentifier</code>. Only developer-authenticated users can be merged. If the users to be merged are associated with the same public provider, but as two different users, an exception will be thrown.</p> <p>The number of linked logins is limited to 20. So, the number of linked logins for the source user, <code>SourceUserIdentifier</code>, and the destination user, <code>DestinationUserIdentifier</code>, together should not be larger than 20. Otherwise, an exception will be thrown.</p> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
+        """<p>Merges two users having different <code>IdentityId</code>s, existing in the same identity pool, and identified by the same developer provider. You can use this action to request that discrete users be merged and identified as a single user in the Cognito environment. Cognito associates the given source user (<code>SourceUserIdentifier</code>) with the <code>IdentityId</code> of the <code>DestinationUserIdentifier</code>. Only developer-authenticated users can be merged. If the users to be merged are associated with the same public provider, but as two different users, an exception will be thrown.</p> <p>The number of linked logins is limited to 20. So, the number of linked logins for the source user, <code>SourceUserIdentifier</code>, and the destination user, <code>DestinationUserIdentifier</code>, together should not be larger than 20. Otherwise, an exception will be thrown.</p> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
 
         Args:
             source_user_identifier: <p>User identifier for the source user. The value should be a <code>DeveloperUserIdentifier</code>.</p>
             destination_user_identifier: <p>User identifier for the destination user. The value should be a <code>DeveloperUserIdentifier</code>.</p>
-            developer_provider_name: <p>The \"domain\" by which Cognito will refer to your users. This is a (pseudo) domain name that you provide while creating an identity pool. This name acts as a placeholder that allows your backend and the Cognito service to communicate about the developer provider. For the <code>DeveloperProviderName</code>, you can use letters as well as period (.), underscore (_), and dash (-).</p>
+            developer_provider_name: <p>The "domain" by which Cognito will refer to your users. This is a (pseudo) domain name that you provide while creating an identity pool. This name acts as a placeholder that allows your backend and the Cognito service to communicate about the developer provider. For the <code>DeveloperProviderName</code>, you can use letters as well as period (.), underscore (_), and dash (-).</p>
             identity_pool_id: <p>An identity pool ID in the format REGION:GUID.</p>
 
         Raises:
@@ -1149,11 +1149,11 @@ class AsyncCognitoIdentityClient:
             "capo_cognito_identity.types.role_mapping_map.RoleMappingMap"
         ] = None,
     ) -> None:
-        r"""<p>Sets the roles for an identity pool. These roles are used when making calls to <a>GetCredentialsForIdentity</a> action.</p> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
+        """<p>Sets the roles for an identity pool. These roles are used when making calls to <a>GetCredentialsForIdentity</a> action.</p> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
 
         Args:
             identity_pool_id: <p>An identity pool ID in the format REGION:GUID.</p>
-            roles: <p>The map of roles associated with this pool. For a given role, the key will be either \"authenticated\" or \"unauthenticated\" and the value will be the Role ARN.</p>
+            roles: <p>The map of roles associated with this pool. For a given role, the key will be either "authenticated" or "unauthenticated" and the value will be the Role ARN.</p>
             role_mappings: <p>How users for a specific identity provider are to mapped to roles. This is a string to <a>RoleMapping</a> object map. The string identifies the identity provider, for example, <code>graph.facebook.com</code> or <code>cognito-idp.us-east-1.amazonaws.com/us-east-1_abcdefghi:app_client_id</code>.</p> <p>Up to 25 rules can be specified per identity provider.</p>
 
         Raises:
@@ -1319,12 +1319,12 @@ class AsyncCognitoIdentityClient:
         *,
         config_overrides: Optional[AsyncCognitoIdentityClientConfig] = None,
     ) -> None:
-        r"""<p>Unlinks a <code>DeveloperUserIdentifier</code> from an existing identity. Unlinked developer users will be considered new identities next time they are seen. If, for a given Cognito identity, you remove all federated identities as well as the developer user identifier, the Cognito identity becomes inaccessible.</p> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
+        """<p>Unlinks a <code>DeveloperUserIdentifier</code> from an existing identity. Unlinked developer users will be considered new identities next time they are seen. If, for a given Cognito identity, you remove all federated identities as well as the developer user identifier, the Cognito identity becomes inaccessible.</p> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
 
         Args:
             identity_id: <p>A unique identifier in the format REGION:GUID.</p>
             identity_pool_id: <p>An identity pool ID in the format REGION:GUID.</p>
-            developer_provider_name: <p>The \"domain\" by which Cognito will refer to your users.</p>
+            developer_provider_name: <p>The "domain" by which Cognito will refer to your users.</p>
             developer_user_identifier: <p>A unique ID used by your backend authentication process to identify a user.</p>
 
         Raises:
@@ -1500,15 +1500,15 @@ class AsyncCognitoIdentityClient:
             "capo_cognito_identity.types.identity_pool_tags_type.IdentityPoolTagsType"
         ] = None,
     ) -> "capo_cognito_identity.types.identity_pool.IdentityPool":
-        r"""<p>Updates the configuration of an identity pool.</p> <important> <p>If you don't provide a value for a parameter, Amazon Cognito sets it to its default value. </p> </important> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
+        """<p>Updates the configuration of an identity pool.</p> <important> <p>If you don't provide a value for a parameter, Amazon Cognito sets it to its default value. </p> </important> <p>You must use Amazon Web Services developer credentials to call this operation.</p>
 
         Args:
             identity_pool_id: <p>An identity pool ID in the format REGION:GUID.</p>
             identity_pool_name: <p>A string that you provide.</p>
             allow_unauthenticated_identities: <p>TRUE if the identity pool supports unauthenticated logins.</p>
-            allow_classic_flow: <p>Enables or disables the Basic (Classic) authentication flow. For more information, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html\">Identity Pools (Federated Identities) Authentication Flow</a> in the <i>Amazon Cognito Developer Guide</i>.</p>
+            allow_classic_flow: <p>Enables or disables the Basic (Classic) authentication flow. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html">Identity Pools (Federated Identities) Authentication Flow</a> in the <i>Amazon Cognito Developer Guide</i>.</p>
             supported_login_providers: <p>Optional key:value pairs mapping provider names to provider app IDs.</p>
-            developer_provider_name: <p>The \"domain\" by which Cognito will refer to your users.</p>
+            developer_provider_name: <p>The "domain" by which Cognito will refer to your users.</p>
             open_id_connect_provider_ar_ns: <p>The ARNs of the OpenID Connect providers.</p>
             cognito_identity_providers: <p>A list representing an Amazon Cognito user pool and its client ID.</p>
             saml_provider_ar_ns: <p>An array of Amazon Resource Names (ARNs) of the SAML provider for your identity pool.</p>

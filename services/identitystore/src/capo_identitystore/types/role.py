@@ -13,11 +13,11 @@ class Role(TypedDict, closed=True):
     value: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string containing a role name. For example, \"Researcher.\"</p>"""
+    """<p>A string containing a role name. For example, "Researcher."</p>"""
     type: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string representing the type of role. For example, \"Work.\"</p>"""
+    """<p>A string representing the type of role. For example, "Work."</p>"""
     primary: "capo_identitystore.types.boolean_type.BooleanType"
     """<p>A Boolean value representing whether this is the primary role for the associated resource.</p>"""
 

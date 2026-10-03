@@ -16,7 +16,7 @@ class BatchUpdateDevicePositionError(TypedDict, closed=True):
     device_id: "capo_location.types.id.Id"
     """<p>The device associated with the failed location update.</p>"""
     sample_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp at which the device position was determined. Uses <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp at which the device position was determined. Uses <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601</a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
     error: "capo_location.types.batch_item_error.BatchItemError"
     """<p>Contains details related to the error code such as the error code and error message.</p>"""
 

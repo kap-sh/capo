@@ -17,7 +17,7 @@ class DeletePrincipalMappingRequest(TypedDict, closed=True):
     index_id: "capo_kendra.types.index_id.IndexId"
     """<p>The identifier of the index you want to delete a group from.</p>"""
     data_source_id: NotRequired["capo_kendra.types.data_source_id.DataSourceId"]
-    r"""<p>The identifier of the data source you want to delete a group from.</p> <p>A group can be tied to multiple data sources. You can delete a group from accessing documents in a certain data source. For example, the groups \"Research\", \"Engineering\", and \"Sales and Marketing\" are all tied to the company's documents stored in the data sources Confluence and Salesforce. You want to delete \"Research\" and \"Engineering\" groups from Salesforce, so that these groups cannot access customer-related documents stored in Salesforce. Only \"Sales and Marketing\" should access documents in the Salesforce data source.</p>"""
+    """<p>The identifier of the data source you want to delete a group from.</p> <p>A group can be tied to multiple data sources. You can delete a group from accessing documents in a certain data source. For example, the groups "Research", "Engineering", and "Sales and Marketing" are all tied to the company's documents stored in the data sources Confluence and Salesforce. You want to delete "Research" and "Engineering" groups from Salesforce, so that these groups cannot access customer-related documents stored in Salesforce. Only "Sales and Marketing" should access documents in the Salesforce data source.</p>"""
     group_id: "capo_kendra.types.group_id.GroupId"
     """<p>The identifier of the group you want to delete.</p>"""
     ordering_id: NotRequired[

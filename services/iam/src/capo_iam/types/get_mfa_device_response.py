@@ -18,13 +18,13 @@ class GetMFADeviceResponse(TypedDict, closed=True):
     user_name: NotRequired["capo_iam.types.user_name_type.userNameType"]
     """<p>The friendly name identifying the user.</p>"""
     serial_number: "capo_iam.types.serial_number_type.serialNumberType"
-    r"""<p>Serial number that uniquely identifies the MFA device. For this API, we only accept FIDO security key <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">ARNs</a>.</p>"""
+    """<p>Serial number that uniquely identifies the MFA device. For this API, we only accept FIDO security key <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">ARNs</a>.</p>"""
     enable_date: NotRequired["capo_iam.types.date_type.dateType"]
     """<p>The date that a specified user's MFA device was first enabled.</p>"""
     certifications: NotRequired[
         "capo_iam.types.certification_map_type.CertificationMapType"
     ]
-    r"""<p>The certifications of a specified user's MFA device. We currently provide FIPS-140-2, FIPS-140-3, and FIDO certification levels obtained from <a href=\"https://fidoalliance.org/metadata/\"> FIDO Alliance Metadata Service (MDS)</a>.</p>"""
+    """<p>The certifications of a specified user's MFA device. We currently provide FIPS-140-2, FIPS-140-3, and FIDO certification levels obtained from <a href="https://fidoalliance.org/metadata/"> FIDO Alliance Metadata Service (MDS)</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

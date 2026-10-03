@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ListPermissionSetsRequest(TypedDict, closed=True):
     instance_arn: "capo_sso_admin.types.instance_arn.InstanceArn"
-    r"""<p>The ARN of the IAM Identity Center instance under which the operation will be executed. For more information about ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The ARN of the IAM Identity Center instance under which the operation will be executed. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     next_token: NotRequired["capo_sso_admin.types.token.Token"]
     """<p>The pagination token for the list API. Initially the value is null. Use the output of previous API calls to make subsequent calls.</p>"""
     max_results: NotRequired["capo_sso_admin.types.max_results.MaxResults"]

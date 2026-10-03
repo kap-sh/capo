@@ -28,7 +28,7 @@ class HlsSettings(TypedDict, closed=True):
     descriptive_video_service_flag: NotRequired[
         "capo_mediaconvert.types.hls_descriptive_video_service_flag.HlsDescriptiveVideoServiceFlag"
     ]
-    r"""Specify whether to flag this audio track as descriptive video service (DVS) in your HLS parent manifest. When you choose Flag, MediaConvert includes the parameter CHARACTERISTICS=\"public.accessibility.describes-video\" in the EXT-X-MEDIA entry for this track. When you keep the default choice, Don't flag, MediaConvert leaves this parameter out. The DVS flag can help with accessibility on Apple devices. For more information, see the Apple documentation."""
+    """Specify whether to flag this audio track as descriptive video service (DVS) in your HLS parent manifest. When you choose Flag, MediaConvert includes the parameter CHARACTERISTICS="public.accessibility.describes-video" in the EXT-X-MEDIA entry for this track. When you keep the default choice, Don't flag, MediaConvert leaves this parameter out. The DVS flag can help with accessibility on Apple devices. For more information, see the Apple documentation."""
     i_frame_only_manifest: NotRequired[
         "capo_mediaconvert.types.hls_i_frame_only_manifest.HlsIFrameOnlyManifest"
     ]

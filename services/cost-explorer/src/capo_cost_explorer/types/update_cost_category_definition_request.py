@@ -26,7 +26,7 @@ class UpdateCostCategoryDefinitionRequest(TypedDict, closed=True):
         "capo_cost_explorer.types.cost_category_rule_version.CostCategoryRuleVersion"
     )
     rules: "capo_cost_explorer.types.cost_category_rules_list.CostCategoryRulesList"
-    r"""<p>The <code>Expression</code> object used to categorize costs. For more information, see <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_CostCategoryRule.html\">CostCategoryRule </a>. </p>"""
+    """<p>The <code>Expression</code> object used to categorize costs. For more information, see <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_CostCategoryRule.html">CostCategoryRule </a>. </p>"""
     default_value: NotRequired[
         "capo_cost_explorer.types.cost_category_value.CostCategoryValue"
     ]

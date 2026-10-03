@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class Message(TypedDict, closed=True):
     message_id: "capo_iot_events_data.types.message_id.MessageId"
-    r"""<p>The ID to assign to the message. Within each batch sent, each <code>\"messageId\"</code> must be unique.</p>"""
+    """<p>The ID to assign to the message. Within each batch sent, each <code>"messageId"</code> must be unique.</p>"""
     input_name: "capo_iot_events_data.types.ephemeral_input_name.EphemeralInputName"
     """<p>The name of the input into which the message payload is transformed.</p>"""
     payload: "capo_iot_events_data.types.payload.Payload"

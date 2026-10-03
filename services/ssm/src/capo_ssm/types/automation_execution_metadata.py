@@ -84,7 +84,7 @@ class AutomationExecutionMetadata(TypedDict, closed=True):
     target: NotRequired["capo_ssm.types.string.String"]
     """<p>The list of execution outputs as defined in the Automation runbook.</p>"""
     automation_type: NotRequired["capo_ssm.types.automation_type.AutomationType"]
-    r"""<p>Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount. CrossAccount is an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services accounts. For more information, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html\">Running automations in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. </p>"""
+    """<p>Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount. CrossAccount is an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services accounts. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html">Running automations in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. </p>"""
     alarm_configuration: NotRequired[
         "capo_ssm.types.alarm_configuration.AlarmConfiguration"
     ]

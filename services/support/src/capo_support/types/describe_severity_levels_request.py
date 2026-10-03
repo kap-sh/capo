@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class DescribeSeverityLevelsRequest(TypedDict, closed=True):
     language: NotRequired["capo_support.types.language.Language"]
-    r"""<p>The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently supports Chinese (“zh”), English (\"en\"), Japanese (\"ja\") , Chinese (\"zh\"), Spanish (\"es\"), Portuguese (\"pt\"), French (\"fr\"), Korean (“ko”), and Turkish (\"tr\"). You must specify the ISO 639-1 code for the <code>language</code> parameter if you want support in that language.</p>"""
+    """<p>The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently supports Chinese (“zh”), English ("en"), Japanese ("ja") , Chinese ("zh"), Spanish ("es"), Portuguese ("pt"), French ("fr"), Korean (“ko”), and Turkish ("tr"). You must specify the ISO 639-1 code for the <code>language</code> parameter if you want support in that language.</p>"""
     dry_run: NotRequired["capo_support.types.nullable_boolean_type.NullableBooleanType"]
     """<p>Specifies whether to validate the request without actually returning severity levels. When set to <code>true</code>, the request is validated but no severity levels are returned, and the operation returns a <code>DryRunOperationException</code>. When omitted or set to <code>false</code>, the request runs normally.</p>"""
 

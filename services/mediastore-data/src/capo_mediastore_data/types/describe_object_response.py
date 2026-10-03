@@ -24,7 +24,7 @@ class DescribeObjectResponse(TypedDict, closed=True):
     cache_control: NotRequired[
         "capo_mediastore_data.types.string_primitive.StringPrimitive"
     ]
-    r"""<p>An optional <code>CacheControl</code> header that allows the caller to control the object's cache behavior. Headers can be passed in as specified in the HTTP at <a href=\"https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9\">https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9</a>.</p> <p>Headers with a custom user-defined value are also accepted.</p>"""
+    """<p>An optional <code>CacheControl</code> header that allows the caller to control the object's cache behavior. Headers can be passed in as specified in the HTTP at <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9">https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9</a>.</p> <p>Headers with a custom user-defined value are also accepted.</p>"""
     last_modified: NotRequired["capo_mediastore_data.types.time_stamp.TimeStamp"]
     """<p>The date and time that the object was last modified.</p>"""
 

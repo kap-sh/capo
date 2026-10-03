@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class TemplateConfiguration(TypedDict, closed=True):
     template: NotRequired["capo_kendra.types.template.Template"]
-    r"""<p>The template schema used for the data source, where templates schemas are supported.</p> <p>See <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/ds-schemas.html\">Data source template schemas</a>.</p>"""
+    """<p>The template schema used for the data source, where templates schemas are supported.</p> <p>See <a href="https://docs.aws.amazon.com/kendra/latest/dg/ds-schemas.html">Data source template schemas</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

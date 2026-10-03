@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class GetResourcePolicyRequest(TypedDict, closed=True):
     resource_arn: "capo_eventbridgev2.types.event_bus_arn.EventBusArn"
     policy_name: NotRequired["capo_eventbridgev2.types.policy_name.PolicyName"]
-    r"""Which named policy to read. Defaults to \"default\" when omitted (a read AWS Resource Access Manager makes on the owner's behalf resolves to \"AWS_RAM\" instead). Unlike writing, neither name is reserved on a read: the bus owner can read both. There is no fallback between the two, so a bus shared only through Resource Access Manager fails with ResourceNotFoundException until \"AWS_RAM\" is named explicitly. A well-formed name that is neither of the two fails with InvalidInputException."""
+    """Which named policy to read. Defaults to "default" when omitted (a read AWS Resource Access Manager makes on the owner's behalf resolves to "AWS_RAM" instead). Unlike writing, neither name is reserved on a read: the bus owner can read both. There is no fallback between the two, so a bus shared only through Resource Access Manager fails with ResourceNotFoundException until "AWS_RAM" is named explicitly. A well-formed name that is neither of the two fails with InvalidInputException."""
 
 
 # --- rpcv2Cbor ser/de ---

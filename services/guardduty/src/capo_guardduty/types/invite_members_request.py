@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class InviteMembersRequest(TypedDict, closed=True):
     detector_id: "capo_guardduty.types.detector_id.DetectorId"
-    r"""<p>The unique ID of the detector of the GuardDuty account with which you want to invite members.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href=\"https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html\">ListDetectors</a> API.</p>"""
+    """<p>The unique ID of the detector of the GuardDuty account with which you want to invite members.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>"""
     account_ids: NotRequired["capo_guardduty.types.account_ids.AccountIds"]
     """<p>A list of account IDs of the accounts that you want to invite to GuardDuty as members.</p>"""
     disable_email_notification: NotRequired["capo_guardduty.types.boolean.Boolean"]

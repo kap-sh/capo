@@ -15,7 +15,7 @@ class ScheduleConfig(TypedDict, closed=True):
     schedule_expression: (
         "capo_kinesis_video.types.schedule_expression.ScheduleExpression"
     )
-    r"""<p>The Quartz cron expression that takes care of scheduling jobs to record from the camera, or local media file, onto the Edge Agent. If the <code>ScheduleExpression</code> is not provided for the <code>RecorderConfig</code>, then the Edge Agent will always be set to recording mode.</p> <p>For more information about Quartz, refer to the <a href=\"https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html\"> <i>Cron Trigger Tutorial</i> </a> page to understand the valid expressions and its use.</p>"""
+    """<p>The Quartz cron expression that takes care of scheduling jobs to record from the camera, or local media file, onto the Edge Agent. If the <code>ScheduleExpression</code> is not provided for the <code>RecorderConfig</code>, then the Edge Agent will always be set to recording mode.</p> <p>For more information about Quartz, refer to the <a href="https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html"> <i>Cron Trigger Tutorial</i> </a> page to understand the valid expressions and its use.</p>"""
     duration_in_seconds: (
         "capo_kinesis_video.types.duration_in_seconds.DurationInSeconds"
     )

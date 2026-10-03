@@ -101,7 +101,7 @@ class MetricDefinition(TypedDict, closed=True):
     last_modified_user: NotRequired["capo_connect.types.created_by_info.CreatedByInfo"]
     """<p>The user that last modified the metric. For modifications made through the API, this will be <code>Amazon Connect API</code>.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

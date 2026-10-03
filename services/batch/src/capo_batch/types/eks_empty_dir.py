@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class EksEmptyDir(TypedDict, closed=True):
     medium: NotRequired["capo_batch.types.string.String"]
-    r"""<p>The medium to store the volume. The default value is an empty string, which uses the storage of the node.</p> <dl> <dt>\"\"</dt> <dd> <p> <b>(Default)</b> Use the disk storage of the node.</p> </dd> <dt>\"Memory\"</dt> <dd> <p>Use the <code>tmpfs</code> volume that's backed by the RAM of the node. Contents of the volume are lost when the node reboots, and any storage on the volume counts against the container's memory limit.</p> </dd> </dl>"""
+    """<p>The medium to store the volume. The default value is an empty string, which uses the storage of the node.</p> <dl> <dt>""</dt> <dd> <p> <b>(Default)</b> Use the disk storage of the node.</p> </dd> <dt>"Memory"</dt> <dd> <p>Use the <code>tmpfs</code> volume that's backed by the RAM of the node. Contents of the volume are lost when the node reboots, and any storage on the volume counts against the container's memory limit.</p> </dd> </dl>"""
     size_limit: NotRequired["capo_batch.types.quantity.Quantity"]
     """<p>The maximum size of the volume. By default, there's no maximum size defined.</p>"""
 

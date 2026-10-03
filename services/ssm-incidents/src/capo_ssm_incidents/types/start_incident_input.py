@@ -23,7 +23,7 @@ class StartIncidentInput(TypedDict, closed=True):
     title: NotRequired["capo_ssm_incidents.types.incident_title.IncidentTitle"]
     """<p>Provide a title for the incident. Providing a title overwrites the title provided by the response plan. </p>"""
     impact: NotRequired["capo_ssm_incidents.types.impact.Impact"]
-    r"""<p>Defines the impact to the customers. Providing an impact overwrites the impact provided by a response plan.</p> <p class=\"title\"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>"""
+    """<p>Defines the impact to the customers. Providing an impact overwrites the impact provided by a response plan.</p> <p class="title"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>"""
     trigger_details: NotRequired[
         "capo_ssm_incidents.types.trigger_details.TriggerDetails"
     ]

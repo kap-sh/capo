@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class CreatePermissionRequest(TypedDict, closed=True):
     certificate_authority_arn: "capo_acm_pca.types.arn.Arn"
-    r"""<p>The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the <a href=\"https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html\">ListCertificateAuthorities</a> action. This must have the following form: </p> <p> <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>. </p>"""
+    """<p>The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the <a href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html">ListCertificateAuthorities</a> action. This must have the following form: </p> <p> <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>. </p>"""
     principal: "capo_acm_pca.types.principal.Principal"
     """<p>The Amazon Web Services service or identity that receives the permission. At this time, the only valid principal is <code>acm.amazonaws.com</code>.</p>"""
     source_account: NotRequired["capo_acm_pca.types.account_id.AccountId"]

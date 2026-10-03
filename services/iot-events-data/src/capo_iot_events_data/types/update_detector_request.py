@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class UpdateDetectorRequest(TypedDict, closed=True):
     message_id: "capo_iot_events_data.types.message_id.MessageId"
-    r"""<p>The ID to assign to the detector update <code>\"message\"</code>. Each <code>\"messageId\"</code> must be unique within each batch sent.</p>"""
+    """<p>The ID to assign to the detector update <code>"message"</code>. Each <code>"messageId"</code> must be unique within each batch sent.</p>"""
     detector_model_name: (
         "capo_iot_events_data.types.detector_model_name.DetectorModelName"
     )

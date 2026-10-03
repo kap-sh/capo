@@ -31,7 +31,7 @@ class VodSource(TypedDict, closed=True):
     source_location_name: "capo_mediatailor.types.__string.__string"
     """<p>The name of the source location that the VOD source is associated with.</p>"""
     tags: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
-    r"""<p>The tags assigned to the VOD source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>"""
+    """<p>The tags assigned to the VOD source. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>"""
     vod_source_name: "capo_mediatailor.types.__string.__string"
     """<p>The name of the VOD source.</p>"""
 

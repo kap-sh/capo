@@ -22,7 +22,7 @@ class CreateAddonInstanceRequest(TypedDict, closed=True):
     )
     """<p>The unique ID of a previously created subscription that an Add On instance is created for. You can only have one instance per subscription.</p>"""
     tags: NotRequired["capo_mailmanager.types.tag_list.TagList"]
-    r"""<p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

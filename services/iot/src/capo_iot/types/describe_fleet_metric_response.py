@@ -46,7 +46,7 @@ class DescribeFleetMetricResponse(TypedDict, closed=True):
     ]
     """<p>The date when the fleet metric is last modified.</p>"""
     unit: NotRequired["capo_iot.types.fleet_metric_unit.FleetMetricUnit"]
-    r"""<p>Used to support unit transformation such as milliseconds to seconds. The unit must be supported by <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html\">CW metric</a>.</p>"""
+    """<p>Used to support unit transformation such as milliseconds to seconds. The unit must be supported by <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html">CW metric</a>.</p>"""
     version: "capo_iot.types.version.Version"
     """<p>The version of the fleet metric.</p>"""
     metric_arn: NotRequired["capo_iot.types.fleet_metric_arn.FleetMetricArn"]

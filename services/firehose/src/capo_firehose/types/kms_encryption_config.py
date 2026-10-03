@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class KMSEncryptionConfig(TypedDict, closed=True):
     awskms_key_arn: "capo_firehose.types.awskms_key_arn.AWSKMSKeyARN"
-    r"""<p>The Amazon Resource Name (ARN) of the encryption key. Must belong to the same Amazon Web Services Region as the destination Amazon S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the encryption key. Must belong to the same Amazon Web Services Region as the destination Amazon S3 bucket. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

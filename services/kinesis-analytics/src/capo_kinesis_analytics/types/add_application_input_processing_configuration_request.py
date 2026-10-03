@@ -19,11 +19,11 @@ class AddApplicationInputProcessingConfigurationRequest(TypedDict, closed=True):
     current_application_version_id: (
         "capo_kinesis_analytics.types.application_version_id.ApplicationVersionId"
     )
-    r"""<p>Version of the application to which you want to add the input processing configuration. You can use the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html\">DescribeApplication</a> operation to get the current application version. If the version specified is not the current version, the <code>ConcurrentModificationException</code> is returned.</p>"""
+    """<p>Version of the application to which you want to add the input processing configuration. You can use the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a> operation to get the current application version. If the version specified is not the current version, the <code>ConcurrentModificationException</code> is returned.</p>"""
     input_id: "capo_kinesis_analytics.types.id.Id"
-    r"""<p>The ID of the input configuration to add the input processing configuration to. You can get a list of the input IDs for an application using the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html\">DescribeApplication</a> operation.</p>"""
+    """<p>The ID of the input configuration to add the input processing configuration to. You can get a list of the input IDs for an application using the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a> operation.</p>"""
     input_processing_configuration: "capo_kinesis_analytics.types.input_processing_configuration.InputProcessingConfiguration"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html\">InputProcessingConfiguration</a> to add to the application.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html">InputProcessingConfiguration</a> to add to the application.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

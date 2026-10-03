@@ -14,7 +14,7 @@ class ExportFilterPropertyAttributes(TypedDict, closed=True):
     output_type: NotRequired[
         "capo_neptune_graph.types.export_filter_output_data_type.ExportFilterOutputDataType"
     ]
-    r"""<p>Specifies the data type to use for the property in the exported data (e.g. \"String\", \"Int\", \"Float\"). If a type is not provided, the export process will determine the type. If a given property is present as multiple types (e.g. one vertex has \"height\" stored as a double, and another edge has it stored as a string), the type will be of Any type, otherwise, it will be the type of the property as present in vertices.</p>"""
+    """<p>Specifies the data type to use for the property in the exported data (e.g. "String", "Int", "Float"). If a type is not provided, the export process will determine the type. If a given property is present as multiple types (e.g. one vertex has "height" stored as a double, and another edge has it stored as a string), the type will be of Any type, otherwise, it will be the type of the property as present in vertices.</p>"""
     source_property_name: NotRequired[
         "capo_neptune_graph.types.export_filter_source_property_name.ExportFilterSourcePropertyName"
     ]

@@ -36,11 +36,11 @@ class UpdateFeaturedResultsSetRequest(TypedDict, closed=True):
     ]
     """<p>You can set the status to <code>ACTIVE</code> or <code>INACTIVE</code>. When the value is <code>ACTIVE</code>, featured results are ready for use. You can still configure your settings before setting the status to <code>ACTIVE</code>. The queries you specify for featured results must be unique per featured results set for each index, whether the status is <code>ACTIVE</code> or <code>INACTIVE</code>.</p>"""
     query_texts: NotRequired["capo_kendra.types.query_text_list.QueryTextList"]
-    r"""<p>A list of queries for featuring results. For more information on the list of queries, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html\">FeaturedResultsSet</a>.</p>"""
+    """<p>A list of queries for featuring results. For more information on the list of queries, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html">FeaturedResultsSet</a>.</p>"""
     featured_documents: NotRequired[
         "capo_kendra.types.featured_document_list.FeaturedDocumentList"
     ]
-    r"""<p>A list of document IDs for the documents you want to feature at the top of the search results page. For more information on the list of featured documents, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html\">FeaturedResultsSet</a>.</p>"""
+    """<p>A list of document IDs for the documents you want to feature at the top of the search results page. For more information on the list of featured documents, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_FeaturedResultsSet.html">FeaturedResultsSet</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

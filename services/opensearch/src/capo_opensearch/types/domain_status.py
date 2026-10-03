@@ -49,7 +49,7 @@ class DomainStatus(TypedDict, closed=True):
     domain_name: "capo_opensearch.types.domain_name.DomainName"
     """<p>Name of the domain. Domain names are unique across all domains owned by the same account within an Amazon Web Services Region.</p>"""
     arn: "capo_opensearch.types.arn.ARN"
-    r"""<p>The Amazon Resource Name (ARN) of the domain. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html\">IAM identifiers </a> in the <i>Amazon Web Services Identity and Access Management User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the domain. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM identifiers </a> in the <i>Amazon Web Services Identity and Access Management User Guide</i>.</p>"""
     created: NotRequired["capo_opensearch.types.boolean.Boolean"]
     """<p>Creation status of an OpenSearch Service domain. True if domain creation is complete. False if domain creation is still in progress.</p>"""
     deleted: NotRequired["capo_opensearch.types.boolean.Boolean"]

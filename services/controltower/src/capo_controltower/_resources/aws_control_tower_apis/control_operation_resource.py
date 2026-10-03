@@ -45,7 +45,7 @@ class ControlOperationResource:
     ) -> (
         "capo_controltower.types.get_control_operation_output.GetControlOperationOutput"
     ):
-        r"""<p>Returns the status of a particular <code>EnableControl</code> or <code>DisableControl</code> operation. Displays a message in case of error. Details for an operation are available for 90 days. For usage examples, see the <a href=\"https://docs.aws.amazon.com/controltower/latest/controlreference/control-api-examples-short.html\"> <i>Controls Reference Guide</i> </a>.</p>
+        """<p>Returns the status of a particular <code>EnableControl</code> or <code>DisableControl</code> operation. Displays a message in case of error. Details for an operation are available for 90 days. For usage examples, see the <a href="https://docs.aws.amazon.com/controltower/latest/controlreference/control-api-examples-short.html"> <i>Controls Reference Guide</i> </a>.</p>
 
         Args:
             operation_identifier: <p>The ID of the asynchronous operation, which is used to track status. The operation is available for 90 days.</p>
@@ -100,7 +100,7 @@ class ControlOperationResource:
             "capo_controltower.types.list_control_operations_max_results.ListControlOperationsMaxResults"
         ] = None,
     ) -> "capo_controltower.types.list_control_operations_output.ListControlOperationsOutput":
-        r"""<p>Provides a list of operations in progress or queued. For usage examples, see <a href=\"https://docs.aws.amazon.com/controltower/latest/controlreference/control-api-examples-short.html#list-control-operations-api-examples\">ListControlOperation examples</a>.</p>
+        """<p>Provides a list of operations in progress or queued. For usage examples, see <a href="https://docs.aws.amazon.com/controltower/latest/controlreference/control-api-examples-short.html#list-control-operations-api-examples">ListControlOperation examples</a>.</p>
 
         Args:
             filter: <p>An input filter for the <code>ListControlOperations</code> API that lets you select the types of control operations to view.</p>
@@ -159,7 +159,7 @@ class AsyncControlOperationResource:
     ) -> (
         "capo_controltower.types.get_control_operation_output.GetControlOperationOutput"
     ):
-        r"""<p>Returns the status of a particular <code>EnableControl</code> or <code>DisableControl</code> operation. Displays a message in case of error. Details for an operation are available for 90 days. For usage examples, see the <a href=\"https://docs.aws.amazon.com/controltower/latest/controlreference/control-api-examples-short.html\"> <i>Controls Reference Guide</i> </a>.</p>
+        """<p>Returns the status of a particular <code>EnableControl</code> or <code>DisableControl</code> operation. Displays a message in case of error. Details for an operation are available for 90 days. For usage examples, see the <a href="https://docs.aws.amazon.com/controltower/latest/controlreference/control-api-examples-short.html"> <i>Controls Reference Guide</i> </a>.</p>
 
         Args:
             operation_identifier: <p>The ID of the asynchronous operation, which is used to track status. The operation is available for 90 days.</p>
@@ -215,7 +215,7 @@ class AsyncControlOperationResource:
             "capo_controltower.types.list_control_operations_max_results.ListControlOperationsMaxResults"
         ] = None,
     ) -> "capo_controltower.types.list_control_operations_output.ListControlOperationsOutput":
-        r"""<p>Provides a list of operations in progress or queued. For usage examples, see <a href=\"https://docs.aws.amazon.com/controltower/latest/controlreference/control-api-examples-short.html#list-control-operations-api-examples\">ListControlOperation examples</a>.</p>
+        """<p>Provides a list of operations in progress or queued. For usage examples, see <a href="https://docs.aws.amazon.com/controltower/latest/controlreference/control-api-examples-short.html#list-control-operations-api-examples">ListControlOperation examples</a>.</p>
 
         Args:
             filter: <p>An input filter for the <code>ListControlOperations</code> API that lets you select the types of control operations to view.</p>

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ReportOverride(TypedDict, closed=True):
     report_level: NotRequired["capo_datasync.types.report_level.ReportLevel"]
-    r"""<p>Specifies whether your task report includes errors only or successes and errors.</p> <p>For example, your report might mostly include only what didn't go well in your transfer (<code>ERRORS_ONLY</code>). At the same time, you want to verify that your <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html\">task filter</a> is working correctly. In this situation, you can get a list of what files DataSync successfully skipped and if something transferred that you didn't to transfer (<code>SUCCESSES_AND_ERRORS</code>).</p>"""
+    """<p>Specifies whether your task report includes errors only or successes and errors.</p> <p>For example, your report might mostly include only what didn't go well in your transfer (<code>ERRORS_ONLY</code>). At the same time, you want to verify that your <a href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">task filter</a> is working correctly. In this situation, you can get a list of what files DataSync successfully skipped and if something transferred that you didn't to transfer (<code>SUCCESSES_AND_ERRORS</code>).</p>"""
 
 
 # --- awsJson1_1 ser/de ---

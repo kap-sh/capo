@@ -18,7 +18,7 @@ class CreateConfigurationPolicyRequest(TypedDict, closed=True):
     configuration_policy: NotRequired["capo_securityhub.types.policy.Policy"]
     """<p> An object that defines how Security Hub CSPM is configured. It includes whether Security Hub CSPM is enabled or disabled, a list of enabled security standards, a list of enabled or disabled security controls, and a list of custom parameter values for specified controls. If you provide a list of security controls that are enabled in the configuration policy, Security Hub CSPM disables all other controls (including newly released controls). If you provide a list of security controls that are disabled in the configuration policy, Security Hub CSPM enables all other controls (including newly released controls). </p>"""
     tags: NotRequired["capo_securityhub.types.tag_map.TagMap"]
-    r"""<p> User-defined tags associated with a configuration policy. For more information, see <a href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/tagging-resources.html\">Tagging Security Hub CSPM resources</a> in the <i>Security Hub CSPM user guide</i>. </p>"""
+    """<p> User-defined tags associated with a configuration policy. For more information, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/tagging-resources.html">Tagging Security Hub CSPM resources</a> in the <i>Security Hub CSPM user guide</i>. </p>"""
 
 
 # --- restJson1 ser/de ---

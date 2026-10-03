@@ -15,15 +15,15 @@ class ParameterRanges(TypedDict, closed=True):
     integer_parameter_ranges: NotRequired[
         "capo_sagemaker.types.integer_parameter_ranges.IntegerParameterRanges"
     ]
-    r"""<p>The array of <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_IntegerParameterRange.html\">IntegerParameterRange</a> objects that specify ranges of integer hyperparameters that a hyperparameter tuning job searches.</p>"""
+    """<p>The array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_IntegerParameterRange.html">IntegerParameterRange</a> objects that specify ranges of integer hyperparameters that a hyperparameter tuning job searches.</p>"""
     continuous_parameter_ranges: NotRequired[
         "capo_sagemaker.types.continuous_parameter_ranges.ContinuousParameterRanges"
     ]
-    r"""<p>The array of <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ContinuousParameterRange.html\">ContinuousParameterRange</a> objects that specify ranges of continuous hyperparameters that a hyperparameter tuning job searches.</p>"""
+    """<p>The array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ContinuousParameterRange.html">ContinuousParameterRange</a> objects that specify ranges of continuous hyperparameters that a hyperparameter tuning job searches.</p>"""
     categorical_parameter_ranges: NotRequired[
         "capo_sagemaker.types.categorical_parameter_ranges.CategoricalParameterRanges"
     ]
-    r"""<p>The array of <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CategoricalParameterRange.html\">CategoricalParameterRange</a> objects that specify ranges of categorical hyperparameters that a hyperparameter tuning job searches.</p>"""
+    """<p>The array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CategoricalParameterRange.html">CategoricalParameterRange</a> objects that specify ranges of categorical hyperparameters that a hyperparameter tuning job searches.</p>"""
     auto_parameters: NotRequired["capo_sagemaker.types.auto_parameters.AutoParameters"]
     """<p>A list containing hyperparameter names and example values to be used by Autotune to determine optimal ranges for your tuning job.</p>"""
 

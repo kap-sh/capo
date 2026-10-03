@@ -38,7 +38,7 @@ class AwsLambdaFunctionDetails(TypedDict, closed=True):
     kms_key_arn: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The KMS key that is used to encrypt the function's environment variables. This key is only returned if you've configured a customer managed customer managed key.</p>"""
     last_modified: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the function was last updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the function was last updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     layers: NotRequired[
         "capo_securityhub.types.aws_lambda_function_layer_list.AwsLambdaFunctionLayerList"
     ]

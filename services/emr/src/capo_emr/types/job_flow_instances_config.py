@@ -33,11 +33,11 @@ class JobFlowInstancesConfig(TypedDict, closed=True):
     ]
     """<note> <p>The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x versions.</p> </note> <p>Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet configuration.</p>"""
     ec2_key_name: NotRequired["capo_emr.types.xml_string_max_len256.XmlStringMaxLen256"]
-    r"""<p>The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user called \"hadoop.\"</p>"""
+    """<p>The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user called "hadoop."</p>"""
     placement: NotRequired["capo_emr.types.placement_type.PlacementType"]
     """<p>The Availability Zone in which the cluster runs.</p>"""
     keep_job_flow_alive_when_no_steps: NotRequired["capo_emr.types.boolean.Boolean"]
-    r"""<p>Specifies whether the cluster should remain available after completing all steps. Defaults to <code>false</code>. For more information about configuring cluster termination, see <a href=\"https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html\">Control Cluster Termination</a> in the <i>EMR Management Guide</i>.</p>"""
+    """<p>Specifies whether the cluster should remain available after completing all steps. Defaults to <code>false</code>. For more information about configuring cluster termination, see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster Termination</a> in the <i>EMR Management Guide</i>.</p>"""
     termination_protected: NotRequired["capo_emr.types.boolean.Boolean"]
     """<p>Specifies whether to lock the cluster to prevent the Amazon EC2 instances from being terminated by API call, user intervention, or in the event of a job-flow error.</p>"""
     unhealthy_node_replacement: NotRequired[
@@ -47,7 +47,7 @@ class JobFlowInstancesConfig(TypedDict, closed=True):
     hadoop_version: NotRequired[
         "capo_emr.types.xml_string_max_len256.XmlStringMaxLen256"
     ]
-    r"""<p>Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid inputs are \"0.18\" (no longer maintained), \"0.20\" (no longer maintained), \"0.20.205\" (no longer maintained), \"1.0.3\", \"2.2.0\", or \"2.4.0\". If you do not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default version of Hadoop for that AMI version is used.</p>"""
+    """<p>Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid inputs are "0.18" (no longer maintained), "0.20" (no longer maintained), "0.20.205" (no longer maintained), "1.0.3", "2.2.0", or "2.4.0". If you do not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default version of Hadoop for that AMI version is used.</p>"""
     ec2_subnet_id: NotRequired[
         "capo_emr.types.xml_string_max_len256.XmlStringMaxLen256"
     ]

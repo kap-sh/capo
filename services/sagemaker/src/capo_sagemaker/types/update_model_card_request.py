@@ -16,7 +16,7 @@ class UpdateModelCardRequest(TypedDict, closed=True):
     ]
     """<p>The name or Amazon Resource Name (ARN) of the model card to update.</p>"""
     content: NotRequired["capo_sagemaker.types.model_card_content.ModelCardContent"]
-    r"""<p>The updated model card content. Content must be in <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html#model-cards-json-schema\">model card JSON schema</a> and provided as a string.</p> <p>When updating model card content, be sure to include the full content and not just updated content.</p>"""
+    """<p>The updated model card content. Content must be in <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html#model-cards-json-schema">model card JSON schema</a> and provided as a string.</p> <p>When updating model card content, be sure to include the full content and not just updated content.</p>"""
     model_card_status: NotRequired[
         "capo_sagemaker.types.model_card_status.ModelCardStatus"
     ]

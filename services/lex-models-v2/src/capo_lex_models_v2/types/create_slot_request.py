@@ -39,7 +39,7 @@ class CreateSlotRequest(TypedDict, closed=True):
     bot_version: "capo_lex_models_v2.types.draft_bot_version.DraftBotVersion"
     """<p>The version of the bot associated with the slot.</p>"""
     locale_id: "capo_lex_models_v2.types.locale_id.LocaleId"
-    r"""<p>The identifier of the language and locale that the slot will be used in. The string must match one of the supported locales. All of the bots, intents, slot types used by the slot must have the same locale. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>"""
+    """<p>The identifier of the language and locale that the slot will be used in. The string must match one of the supported locales. All of the bots, intents, slot types used by the slot must have the same locale. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>"""
     intent_id: "capo_lex_models_v2.types.id.Id"
     """<p>The identifier of the intent that contains the slot.</p>"""
     multiple_values_setting: NotRequired[

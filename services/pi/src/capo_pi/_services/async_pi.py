@@ -310,7 +310,7 @@ class AsyncPIClient:
         max_results: Optional["capo_pi.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_pi.types.next_token.NextToken"] = None,
     ) -> "capo_pi.types.describe_dimension_keys_response.DescribeDimensionKeysResponse":
-        r"""<p>For a specific time period, retrieve the top <code>N</code> dimension keys for a metric. </p> <note> <p>Each response element returns a maximum of 500 bytes. For larger elements, such as SQL statements, only the first 500 bytes are returned.</p> </note>
+        """<p>For a specific time period, retrieve the top <code>N</code> dimension keys for a metric. </p> <note> <p>Each response element returns a maximum of 500 bytes. For larger elements, such as SQL statements, only the first 500 bytes are returned.</p> </note>
 
         Args:
             service_type: <p>The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as follows:</p> <ul> <li> <p> <code>RDS</code> </p> </li> <li> <p> <code>DOCDB</code> </p> </li> </ul>
@@ -320,7 +320,7 @@ class AsyncPIClient:
             metric: <p>The name of a Performance Insights metric to be measured.</p> <p>Valid values for <code>Metric</code> are:</p> <ul> <li> <p> <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine. </p> </li> <li> <p> <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine. </p> </li> </ul> <p>If the number of active sessions is less than an internal Performance Insights threshold, <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions is greater than the internal threshold, Performance Insights samples the active sessions, with <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query <code>db.load.avg</code> only. </p>
             period_in_seconds: <p>The granularity, in seconds, of the data points returned from Performance Insights. A period can be as short as one second, or as long as one day (86400 seconds). Valid values are: </p> <ul> <li> <p> <code>1</code> (one second)</p> </li> <li> <p> <code>60</code> (one minute)</p> </li> <li> <p> <code>300</code> (five minutes)</p> </li> <li> <p> <code>3600</code> (one hour)</p> </li> <li> <p> <code>86400</code> (twenty-four hours)</p> </li> </ul> <p>If you don't specify <code>PeriodInSeconds</code>, then Performance Insights chooses a value for you, with a goal of returning roughly 100-200 data points in the response. </p>
             group_by: <p>A specification for how to aggregate the data points from a query result. You must specify a valid dimension group. Performance Insights returns all dimensions within this group, unless you provide the names of specific dimensions within this group. You can also request that Performance Insights return a limited number of values for a dimension. </p>
-            additional_metrics: <p>Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the values for the top <code>N</code> SQL digests. The response syntax is as follows: <code>\"AdditionalMetrics\" : { \"<i>string</i>\" : \"<i>string</i>\" }</code>.</p> <p>The only supported statistic function is <code>.avg</code>.</p>
+            additional_metrics: <p>Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the values for the top <code>N</code> SQL digests. The response syntax is as follows: <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.</p> <p>The only supported statistic function is <code>.avg</code>.</p>
             partition_by: <p>For each dimension specified in <code>GroupBy</code>, specify a secondary dimension to further subdivide the partition keys in the response. </p>
             filter: <p>One or more filters to apply in the request. Restrictions:</p> <ul> <li> <p>Any number of filters by the same dimension, as specified in the <code>GroupBy</code> or <code>Partition</code> parameters.</p> </li> <li> <p>A single filter for any other dimension in this dimension group.</p> </li> </ul> <note> <p>The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.</p> </note>
             max_results: <p>The maximum number of items to return in the response. If more items exist than the specified <code>MaxRecords</code> value, a pagination token is included in the response so that the remaining results can be retrieved. </p>
@@ -1074,11 +1074,11 @@ class AsyncPIClient:
         *,
         config_overrides: Optional[AsyncPIClientConfig] = None,
     ) -> "capo_pi.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>Retrieves all the metadata tags associated with Amazon RDS Performance Insights resource.</p>
+        """<p>Retrieves all the metadata tags associated with Amazon RDS Performance Insights resource.</p>
 
         Args:
             service_type: <p>List the tags for the Amazon Web Services service for which Performance Insights returns metrics. Valid value is <code>RDS</code>.</p>
-            resource_arn: <p>Lists all the tags for the Amazon RDS Performance Insights resource. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing\"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>
+            resource_arn: <p>Lists all the tags for the Amazon RDS Performance Insights resource. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>
 
         Raises:
             capo_pi.errors.internal_service_error.InternalServiceError: <p>The request failed due to an unknown error.</p>
@@ -1124,11 +1124,11 @@ class AsyncPIClient:
         *,
         config_overrides: Optional[AsyncPIClientConfig] = None,
     ) -> "capo_pi.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds metadata tags to the Amazon RDS Performance Insights resource.</p>
+        """<p>Adds metadata tags to the Amazon RDS Performance Insights resource.</p>
 
         Args:
             service_type: <p>The Amazon Web Services service for which Performance Insights returns metrics. Valid value is <code>RDS</code>.</p>
-            resource_arn: <p>The Amazon RDS Performance Insights resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing\"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>
+            resource_arn: <p>The Amazon RDS Performance Insights resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>
             tags: <p>The metadata assigned to an Amazon RDS resource consisting of a key-value pair.</p>
 
         Raises:
@@ -1176,11 +1176,11 @@ class AsyncPIClient:
         *,
         config_overrides: Optional[AsyncPIClientConfig] = None,
     ) -> "capo_pi.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Deletes the metadata tags from the Amazon RDS Performance Insights resource.</p>
+        """<p>Deletes the metadata tags from the Amazon RDS Performance Insights resource.</p>
 
         Args:
             service_type: <p>List the tags for the Amazon Web Services service for which Performance Insights returns metrics. Valid value is <code>RDS</code>.</p>
-            resource_arn: <p>The Amazon RDS Performance Insights resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing\"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>
+            resource_arn: <p>The Amazon RDS Performance Insights resource that the tags are added to. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"> Constructing an RDS Amazon Resource Name (ARN)</a>.</p>
             tag_keys: <p>The metadata assigned to an Amazon RDS Performance Insights resource consisting of a key-value pair.</p>
 
         Raises:

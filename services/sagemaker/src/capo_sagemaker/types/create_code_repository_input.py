@@ -16,7 +16,7 @@ class CreateCodeRepositoryInput(TypedDict, closed=True):
     git_config: NotRequired["capo_sagemaker.types.git_config.GitConfig"]
     """<p>Specifies details about the repository, including the URL where the repository is located, the default branch, and credentials to use to access the repository.</p>"""
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways, for example, by purpose, owner, or environment. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html\">Tagging Amazon Web Services Resources</a>.</p>"""
+    """<p>An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways, for example, by purpose, owner, or environment. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

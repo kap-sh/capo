@@ -28,11 +28,11 @@ class TargetTrackingScalingPolicyConfiguration(TypedDict, closed=True):
     scale_out_cooldown: NotRequired[
         "capo_application_auto_scaling.types.cooldown.Cooldown"
     ]
-    r"""<p>The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more information and for default values, see <a href=\"https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown\">Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.</p>"""
+    """<p>The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more information and for default values, see <a href="https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown">Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.</p>"""
     scale_in_cooldown: NotRequired[
         "capo_application_auto_scaling.types.cooldown.Cooldown"
     ]
-    r"""<p>The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can start. For more information and for default values, see <a href=\"https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown\">Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.</p>"""
+    """<p>The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can start. For more information and for default values, see <a href="https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown">Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.</p>"""
     disable_scale_in: NotRequired[
         "capo_application_auto_scaling.types.disable_scale_in.DisableScaleIn"
     ]

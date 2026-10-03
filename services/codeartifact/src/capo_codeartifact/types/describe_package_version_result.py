@@ -14,7 +14,7 @@ class DescribePackageVersionResult(TypedDict, closed=True):
     package_version: (
         "capo_codeartifact.types.package_version_description.PackageVersionDescription"
     )
-    r"""<p> A <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionDescription.html\">PackageVersionDescription</a> object that contains information about the requested package version. </p>"""
+    """<p> A <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionDescription.html">PackageVersionDescription</a> object that contains information about the requested package version. </p>"""
 
 
 # --- restJson1 ser/de ---

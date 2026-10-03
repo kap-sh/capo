@@ -20,7 +20,7 @@ class SpotMarketOptions(TypedDict, closed=True):
     spot_instance_type: NotRequired[
         "capo_ec2.types.spot_instance_type.SpotInstanceType"
     ]
-    r"""<p>The Spot Instance request type. For <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances\">RunInstances</a>, persistent Spot Instance requests are only supported when the instance interruption behavior is either <code>hibernate</code> or <code>stop</code>.</p>"""
+    """<p>The Spot Instance request type. For <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>, persistent Spot Instance requests are only supported when the instance interruption behavior is either <code>hibernate</code> or <code>stop</code>.</p>"""
     block_duration_minutes: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>Deprecated.</p>"""
     valid_until: NotRequired["capo_ec2.types.date_time.DateTime"]
@@ -28,7 +28,7 @@ class SpotMarketOptions(TypedDict, closed=True):
     instance_interruption_behavior: NotRequired[
         "capo_ec2.types.instance_interruption_behavior.InstanceInterruptionBehavior"
     ]
-    r"""<p>The behavior when a Spot Instance is interrupted.</p> <p>If <code>Configured</code> (for <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html\"> <code>HibernationOptions</code> </a>) is set to <code>true</code>, the <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>hibernate</code>. If you set it to <code>stop</code> or <code>terminate</code>, you'll get an error.</p> <p>If <code>Configured</code> (for <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html\"> <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You can also set it to <code>stop</code> or <code>hibernate</code>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html\">Interruption behavior</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The behavior when a Spot Instance is interrupted.</p> <p>If <code>Configured</code> (for <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html"> <code>HibernationOptions</code> </a>) is set to <code>true</code>, the <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>hibernate</code>. If you set it to <code>stop</code> or <code>terminate</code>, you'll get an error.</p> <p>If <code>Configured</code> (for <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html"> <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You can also set it to <code>stop</code> or <code>hibernate</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption behavior</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
 
 
 # --- ec2Query ser/de ---

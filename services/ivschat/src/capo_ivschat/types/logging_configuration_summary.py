@@ -40,7 +40,7 @@ class LoggingConfigurationSummary(TypedDict, closed=True):
     ]
     """<p>The state of the logging configuration. When this is <code>ACTIVE</code>, the configuration is ready for logging chat content.</p>"""
     tags: NotRequired["capo_ivschat.types.tags.Tags"]
-    r"""<p>Tags to attach to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS Chat has no constraints on tags beyond what is documented there.</p>"""
+    """<p>Tags to attach to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS Chat has no constraints on tags beyond what is documented there.</p>"""
 
 
 # --- restJson1 ser/de ---

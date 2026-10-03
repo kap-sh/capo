@@ -18,7 +18,7 @@ class HttpRequestConfiguration(TypedDict, closed=True):
     runtime: "capo_mediatailor.types.runtime_type.RuntimeType"
     """<p>The expression language used to evaluate expressions in the function configuration. Set this to <code>JSONata</code>.</p>"""
     output: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
-    r"""<p>A map of output bindings. Each key is a namespaced output path (such as <code>player_params.device_type</code> or <code>temp.identity</code>), and each value is an expression that MediaTailor evaluates at runtime. Output expressions in an <code>HTTP_REQUEST</code> function can reference the <code>response</code> object returned by the HTTP call. For more information about expression syntax, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-jsonata.html\">JSONata expression reference</a> in the <i>MediaTailor User Guide</i>.</p>"""
+    """<p>A map of output bindings. Each key is a namespaced output path (such as <code>player_params.device_type</code> or <code>temp.identity</code>), and each value is an expression that MediaTailor evaluates at runtime. Output expressions in an <code>HTTP_REQUEST</code> function can reference the <code>response</code> object returned by the HTTP call. For more information about expression syntax, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-jsonata.html">JSONata expression reference</a> in the <i>MediaTailor User Guide</i>.</p>"""
     method_type: "capo_mediatailor.types.method_type.MethodType"
     """<p>The HTTP method for the request. Valid values: <code>GET</code> and <code>POST</code>.</p>"""
     request_timeout_milliseconds: "capo_mediatailor.types.__integer.__integer"

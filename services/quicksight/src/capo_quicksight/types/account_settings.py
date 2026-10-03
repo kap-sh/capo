@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class AccountSettings(TypedDict, closed=True):
     account_name: NotRequired["capo_quicksight.types.string.String"]
-    r"""<p>The \"account name\" you provided for the Quick Sight subscription in your Amazon Web Services account. You create this name when you sign up for Quick Sight. It is unique in all of Amazon Web Services and it appears only when users sign in.</p>"""
+    """<p>The "account name" you provided for the Quick Sight subscription in your Amazon Web Services account. You create this name when you sign up for Quick Sight. It is unique in all of Amazon Web Services and it appears only when users sign in.</p>"""
     edition: NotRequired["capo_quicksight.types.edition.Edition"]
     """<p>The edition of Quick Sight that you're currently subscribed to: Enterprise edition or Standard edition.</p>"""
     default_namespace: NotRequired["capo_quicksight.types.namespace.Namespace"]
@@ -21,7 +21,7 @@ class AccountSettings(TypedDict, closed=True):
     notification_email: NotRequired["capo_quicksight.types.string.String"]
     """<p>The main notification email for your Quick Sight subscription.</p>"""
     public_sharing_enabled: "capo_quicksight.types.boolean.Boolean"
-    r"""<p>A Boolean value that indicates whether public sharing is turned on for an Quick account. For more information about turning on public sharing, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdatePublicSharingSettings.html\">UpdatePublicSharingSettings</a>.</p>"""
+    """<p>A Boolean value that indicates whether public sharing is turned on for an Quick account. For more information about turning on public sharing, see <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_UpdatePublicSharingSettings.html">UpdatePublicSharingSettings</a>.</p>"""
     termination_protection_enabled: "capo_quicksight.types.boolean.Boolean"
     """<p>A boolean value that determines whether or not an Quick Sight account can be deleted. A <code>True</code> value doesn't allow the account to be deleted and results in an error message if a user tries to make a <code>DeleteAccountSubsctiption</code> request. A <code>False</code> value will allow the ccount to be deleted. </p>"""
 

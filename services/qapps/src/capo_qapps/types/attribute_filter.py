@@ -18,23 +18,23 @@ class AttributeFilter(TypedDict, closed=True):
     not_filter: NotRequired["capo_qapps.types.attribute_filter.AttributeFilter"]
     """<p>Performs a logical <code>NOT</code> operation on all supplied filters. </p>"""
     equals_to: NotRequired["capo_qapps.types.document_attribute.DocumentAttribute"]
-    r"""<p>Performs an <i>equals</i> operation on two document attributes or metadata fields. Supported for the following <a href=\"https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html\">document attribute value types</a>: <code>dateValue</code>, <code>longValue</code>, <code>stringListValue</code> and <code>stringValue</code>.</p>"""
+    """<p>Performs an <i>equals</i> operation on two document attributes or metadata fields. Supported for the following <a href="https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html">document attribute value types</a>: <code>dateValue</code>, <code>longValue</code>, <code>stringListValue</code> and <code>stringValue</code>.</p>"""
     contains_all: NotRequired["capo_qapps.types.document_attribute.DocumentAttribute"]
-    r"""<p>Returns <code>true</code> when a document contains all the specified document attributes or metadata fields. Supported for the following <a href=\"https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html\">document attribute value types</a>: <code>stringListValue</code>.</p>"""
+    """<p>Returns <code>true</code> when a document contains all the specified document attributes or metadata fields. Supported for the following <a href="https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html">document attribute value types</a>: <code>stringListValue</code>.</p>"""
     contains_any: NotRequired["capo_qapps.types.document_attribute.DocumentAttribute"]
-    r"""<p>Returns <code>true</code> when a document contains any of the specified document attributes or metadata fields. Supported for the following <a href=\"https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html\">document attribute value types</a>: <code>stringListValue</code>.</p>"""
+    """<p>Returns <code>true</code> when a document contains any of the specified document attributes or metadata fields. Supported for the following <a href="https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html">document attribute value types</a>: <code>stringListValue</code>.</p>"""
     greater_than: NotRequired["capo_qapps.types.document_attribute.DocumentAttribute"]
-    r"""<p>Performs a <i>greater than</i> operation on two document attributes or metadata fields. Supported for the following <a href=\"https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html\">document attribute value types</a>: <code>dateValue</code> and <code>longValue</code>.</p>"""
+    """<p>Performs a <i>greater than</i> operation on two document attributes or metadata fields. Supported for the following <a href="https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html">document attribute value types</a>: <code>dateValue</code> and <code>longValue</code>.</p>"""
     greater_than_or_equals: NotRequired[
         "capo_qapps.types.document_attribute.DocumentAttribute"
     ]
-    r"""<p>Performs a <i>greater than or equals</i> operation on two document attributes or metadata fields. Supported for the following <a href=\"https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html\">document attribute value types</a>: <code>dateValue</code> and <code>longValue</code>. </p>"""
+    """<p>Performs a <i>greater than or equals</i> operation on two document attributes or metadata fields. Supported for the following <a href="https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html">document attribute value types</a>: <code>dateValue</code> and <code>longValue</code>. </p>"""
     less_than: NotRequired["capo_qapps.types.document_attribute.DocumentAttribute"]
-    r"""<p>Performs a <i>less than</i> operation on two document attributes or metadata fields. Supported for the following <a href=\"https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html\">document attribute value types</a>: <code>dateValue</code> and <code>longValue</code>.</p>"""
+    """<p>Performs a <i>less than</i> operation on two document attributes or metadata fields. Supported for the following <a href="https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html">document attribute value types</a>: <code>dateValue</code> and <code>longValue</code>.</p>"""
     less_than_or_equals: NotRequired[
         "capo_qapps.types.document_attribute.DocumentAttribute"
     ]
-    r"""<p>Performs a <i>less than or equals</i> operation on two document attributes or metadata fields.Supported for the following <a href=\"https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html\">document attribute value type</a>: <code>dateValue</code> and <code>longValue</code>. </p>"""
+    """<p>Performs a <i>less than or equals</i> operation on two document attributes or metadata fields.Supported for the following <a href="https://docs.aws.amazon.com/amazonq/latest/api-reference/API_DocumentAttributeValue.html">document attribute value type</a>: <code>dateValue</code> and <code>longValue</code>. </p>"""
 
 
 # --- restJson1 ser/de ---

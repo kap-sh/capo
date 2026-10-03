@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class HolidayConfigAttributes(TypedDict, closed=True):
     country_code: NotRequired["capo_sagemaker.types.country_code.CountryCode"]
-    r"""<p>The country code for the holiday calendar.</p> <p>For the list of public holiday calendars supported by AutoML job V2, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-timeseries-forecasting-holiday-calendars.html#holiday-country-codes\">Country Codes</a>. Use the country code corresponding to the country of your choice.</p>"""
+    """<p>The country code for the holiday calendar.</p> <p>For the list of public holiday calendars supported by AutoML job V2, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-timeseries-forecasting-holiday-calendars.html#holiday-country-codes">Country Codes</a>. Use the country code corresponding to the country of your choice.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

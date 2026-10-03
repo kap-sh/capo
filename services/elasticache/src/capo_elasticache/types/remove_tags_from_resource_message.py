@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class RemoveTagsFromResourceMessage(TypedDict, closed=True):
     resource_name: NotRequired["capo_elasticache.types.string.String"]
-    r"""<p>The Amazon Resource Name (ARN) of the resource from which you want the tags removed, for example <code>arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster</code> or <code>arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot</code>.</p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Service Namespaces</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the resource from which you want the tags removed, for example <code>arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster</code> or <code>arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot</code>.</p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Service Namespaces</a>.</p>"""
     tag_keys: NotRequired["capo_elasticache.types.key_list.KeyList"]
     """<p>A list of <code>TagKeys</code> identifying the tags you want removed from the named resource.</p>"""
 

@@ -23,9 +23,9 @@ class AutoTuneOptions(TypedDict, closed=True):
     maintenance_schedules: NotRequired[
         "capo_opensearch.types.auto_tune_maintenance_schedule_list.AutoTuneMaintenanceScheduleList"
     ]
-    r"""<p>DEPRECATED. Use <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/off-peak.html\">off-peak window</a> instead.</p> <p>A list of maintenance schedules during which Auto-Tune can deploy changes.</p>"""
+    """<p>DEPRECATED. Use <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/off-peak.html">off-peak window</a> instead.</p> <p>A list of maintenance schedules during which Auto-Tune can deploy changes.</p>"""
     use_off_peak_window: NotRequired["capo_opensearch.types.boolean.Boolean"]
-    r"""<p>Whether to use the domain's <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_OffPeakWindow.html\">off-peak window</a> to deploy configuration changes on the domain rather than a maintenance schedule.</p>"""
+    """<p>Whether to use the domain's <a href="https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_OffPeakWindow.html">off-peak window</a> to deploy configuration changes on the domain rather than a maintenance schedule.</p>"""
 
 
 # --- restJson1 ser/de ---

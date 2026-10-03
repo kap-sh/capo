@@ -17,7 +17,7 @@ class ComplianceViolator(TypedDict, closed=True):
     violation_reason: NotRequired["capo_fms.types.violation_reason.ViolationReason"]
     """<p>The reason that the resource is not protected by the policy.</p>"""
     resource_type: NotRequired["capo_fms.types.resource_type.ResourceType"]
-    r"""<p>The resource type. This is in the format shown in the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html\">Amazon Web Services Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, <code>AWS::CloudFront::Distribution</code>, or <code>AWS::NetworkFirewall::FirewallPolicy</code>.</p>"""
+    """<p>The resource type. This is in the format shown in the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon Web Services Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, <code>AWS::CloudFront::Distribution</code>, or <code>AWS::NetworkFirewall::FirewallPolicy</code>.</p>"""
     metadata: NotRequired[
         "capo_fms.types.compliance_violator_metadata.ComplianceViolatorMetadata"
     ]

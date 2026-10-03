@@ -214,7 +214,7 @@ class AsyncWorkSpacesThinClientClient:
             "capo_workspaces_thin_client.types.device_creation_tags_map.DeviceCreationTagsMap"
         ] = None,
     ) -> "capo_workspaces_thin_client.types.create_environment_response.CreateEnvironmentResponse":
-        r"""<p>Creates an environment for your thin client devices.</p>
+        """<p>Creates an environment for your thin client devices.</p>
 
         Args:
             name: <p>The name for the environment.</p>
@@ -225,7 +225,7 @@ class AsyncWorkSpacesThinClientClient:
             software_set_update_mode: <p>An option to define which software updates to apply.</p>
             desired_software_set_id: <p>The ID of the software set to apply.</p>
             kms_key_arn: <p>The Amazon Resource Name (ARN) of the Key Management Service key to use to encrypt the environment.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
             tags: <p>A map of the key-value pairs of the tag or tags to assign to the resource.</p>
             device_creation_tags: <p>A map of the key-value pairs of the tag or tags to assign to the newly created devices for this environment.</p>
 
@@ -300,11 +300,11 @@ class AsyncWorkSpacesThinClientClient:
     ) -> (
         "capo_workspaces_thin_client.types.delete_device_response.DeleteDeviceResponse"
     ):
-        r"""<p>Deletes a thin client device.</p>
+        """<p>Deletes a thin client device.</p>
 
         Args:
             id: <p>The ID of the device to delete.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
 
         Raises:
             capo_workspaces_thin_client.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -356,11 +356,11 @@ class AsyncWorkSpacesThinClientClient:
             "capo_workspaces_thin_client.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_workspaces_thin_client.types.delete_environment_response.DeleteEnvironmentResponse":
-        r"""<p>Deletes an environment.</p>
+        """<p>Deletes an environment.</p>
 
         Args:
             id: <p>The ID of the environment to delete.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
 
         Raises:
             capo_workspaces_thin_client.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -415,12 +415,12 @@ class AsyncWorkSpacesThinClientClient:
             "capo_workspaces_thin_client.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_workspaces_thin_client.types.deregister_device_response.DeregisterDeviceResponse":
-        r"""<p>Deregisters a thin client device.</p>
+        """<p>Deregisters a thin client device.</p>
 
         Args:
             id: <p>The ID of the device to deregister.</p>
             target_device_status: <p>The desired new status for the device.</p>
-            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href=\"https://wikipedia.org/wiki/Universally_unique_identifier\">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
+            client_token: <p>Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This lets you safely retry the request without accidentally performing the same operation a second time. Passing the same value to a later call to an operation requires that you also pass the same value for all other parameters. We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value</a>.</p> <p>If you don't provide this value, then Amazon Web Services generates a random one for you.</p> <p>If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails with an <code>IdempotentParameterMismatch</code> error.</p>
 
         Raises:
             capo_workspaces_thin_client.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>

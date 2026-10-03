@@ -15,7 +15,7 @@ class ListPolicyEnginesResponse(TypedDict, closed=True):
     policy_engines: "capo_bedrock_agentcore_control.types.policy_engines.PolicyEngines"
     """<p>An array of policy engine objects that exist in the account. Each policy engine object contains the engine metadata, status, and key identifiers for further operations.</p>"""
     next_token: NotRequired["capo_bedrock_agentcore_control.types.next_token.NextToken"]
-    r"""<p>A pagination token that can be used in subsequent <a href=\"https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_ListPolicyEngines.html\">ListPolicyEngines</a> calls to retrieve additional results. This token is only present when there are more results available. </p>"""
+    """<p>A pagination token that can be used in subsequent <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_ListPolicyEngines.html">ListPolicyEngines</a> calls to retrieve additional results. This token is only present when there are more results available. </p>"""
 
 
 # --- restJson1 ser/de ---

@@ -17,7 +17,7 @@ class BaseScreenshot(TypedDict, closed=True):
     ignore_coordinates: NotRequired[
         "capo_synthetics.types.base_screenshot_ignore_coordinates.BaseScreenshotIgnoreCoordinates"
     ]
-    r"""<p>Coordinates that define the part of a screen to ignore during screenshot comparisons. To obtain the coordinates to use here, use the CloudWatch console to draw the boundaries on the screen. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/synthetics_canaries_deletion.html\"> Editing or deleting a canary</a> </p>"""
+    """<p>Coordinates that define the part of a screen to ignore during screenshot comparisons. To obtain the coordinates to use here, use the CloudWatch console to draw the boundaries on the screen. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/synthetics_canaries_deletion.html"> Editing or deleting a canary</a> </p>"""
 
 
 # --- restJson1 ser/de ---

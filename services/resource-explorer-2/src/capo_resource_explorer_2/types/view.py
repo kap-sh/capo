@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class View(TypedDict, closed=True):
     view_arn: NotRequired["str"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of the view.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of the view.</p>"""
     view_name: NotRequired["capo_resource_explorer_2.types.view_name.ViewName"]
     """<p>The name of the view.</p>"""
     owner: NotRequired["str"]
@@ -22,7 +22,7 @@ class View(TypedDict, closed=True):
     last_updated_at: NotRequired["datetime.datetime"]
     """<p>The date and time when this view was last modified.</p>"""
     scope: NotRequired["str"]
-    r"""<p>An <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of an Amazon Web Services account, an organization, or an organizational unit (OU) that specifies whether this view includes resources from only the specified Amazon Web Services account, all accounts in the specified organization, or all accounts in the specified OU.</p> <p>If not specified, the value defaults to the Amazon Web Services account used to call this operation.</p>"""
+    """<p>An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of an Amazon Web Services account, an organization, or an organizational unit (OU) that specifies whether this view includes resources from only the specified Amazon Web Services account, all accounts in the specified organization, or all accounts in the specified OU.</p> <p>If not specified, the value defaults to the Amazon Web Services account used to call this operation.</p>"""
     included_properties: NotRequired[
         "capo_resource_explorer_2.types.included_property_list.IncludedPropertyList"
     ]

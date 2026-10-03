@@ -30,7 +30,7 @@ class ListPackageVersionAssetsResult(TypedDict, closed=True):
     next_token: NotRequired["capo_codeartifact.types.pagination_token.PaginationToken"]
     """<p> If there are additional results, this is the token for the next set of results. </p>"""
     assets: NotRequired["capo_codeartifact.types.asset_summary_list.AssetSummaryList"]
-    r"""<p> The returned list of <a href=\"https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_AssetSummary.html\">AssetSummary</a> objects. </p>"""
+    """<p> The returned list of <a href="https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_AssetSummary.html">AssetSummary</a> objects. </p>"""
 
 
 # --- restJson1 ser/de ---

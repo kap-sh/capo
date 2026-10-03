@@ -435,7 +435,7 @@ class ServiceQuotasClient:
     def get_auto_management_configuration(
         self, *, config_overrides: Optional[ServiceQuotasClientConfig] = None
     ) -> "capo_service_quotas.types.get_auto_management_configuration_response.GetAutoManagementConfigurationResponse":
-        r"""<p>Retrieves information about your <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html\">Service Quotas Automatic Management</a> configuration. Automatic Management monitors your Service Quotas utilization and notifies you before you run out of your allocated quotas.</p>
+        """<p>Retrieves information about your <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html">Service Quotas Automatic Management</a> configuration. Automatic Management monitors your Service Quotas utilization and notifies you before you run out of your allocated quotas.</p>
 
         Raises:
             capo_service_quotas.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permission to perform this action.</p>
@@ -1315,10 +1315,10 @@ class ServiceQuotasClient:
         *,
         config_overrides: Optional[ServiceQuotasClientConfig] = None,
     ) -> "capo_service_quotas.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>Returns a list of the tags assigned to the specified applied quota.</p>
+        """<p>Returns a list of the tags assigned to the specified applied quota.</p>
 
         Args:
-            resource_arn: <p>The Amazon Resource Name (ARN) for the applied quota for which you want to list tags. You can get this information by using the Service Quotas console, or by listing the quotas using the <a href=\"https://docs.aws.amazon.com/cli/latest/reference/service-quotas/list-service-quotas.html\">list-service-quotas</a> CLI command or the <a href=\"https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListServiceQuotas.html\">ListServiceQuotas</a> Amazon Web Services API operation.</p>
+            resource_arn: <p>The Amazon Resource Name (ARN) for the applied quota for which you want to list tags. You can get this information by using the Service Quotas console, or by listing the quotas using the <a href="https://docs.aws.amazon.com/cli/latest/reference/service-quotas/list-service-quotas.html">list-service-quotas</a> CLI command or the <a href="https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListServiceQuotas.html">ListServiceQuotas</a> Amazon Web Services API operation.</p>
 
         Raises:
             capo_service_quotas.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permission to perform this action.</p>
@@ -1499,12 +1499,12 @@ class ServiceQuotasClient:
             "capo_service_quotas.types.exclusion_list.ExclusionList"
         ] = None,
     ) -> "capo_service_quotas.types.start_auto_management_response.StartAutoManagementResponse":
-        r"""<p>Starts <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html\">Service Quotas Automatic Management</a> for an Amazon Web Services account, including notification preferences and excluded quotas configurations. Automatic Management monitors your Service Quotas utilization and notifies you before you run out of your allocated quotas.</p>
+        """<p>Starts <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html">Service Quotas Automatic Management</a> for an Amazon Web Services account, including notification preferences and excluded quotas configurations. Automatic Management monitors your Service Quotas utilization and notifies you before you run out of your allocated quotas.</p>
 
         Args:
             opt_in_level: <p>Sets the opt-in level for Automatic Management. Only Amazon Web Services account level is supported.</p>
             opt_in_type: <p>Sets the opt-in type for Automatic Management. There are two modes: Notify only and Notify and Auto-Adjust. Currently, only NotifyOnly is available.</p>
-            notification_arn: <p>The <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/resource-level-permissions.html#rlp-table\">User Notifications</a> Amazon Resource Name (ARN) for Automatic Management notifications.</p>
+            notification_arn: <p>The <a href="https://docs.aws.amazon.com/notifications/latest/userguide/resource-level-permissions.html#rlp-table">User Notifications</a> Amazon Resource Name (ARN) for Automatic Management notifications.</p>
             exclusion_list: <p>List of Amazon Web Services services excluded from Automatic Management. You won't be notified of Service Quotas utilization for Amazon Web Services services added to the Automatic Management exclusion list. </p>
 
         Raises:
@@ -1591,7 +1591,7 @@ class ServiceQuotasClient:
     def stop_auto_management(
         self, *, config_overrides: Optional[ServiceQuotasClientConfig] = None
     ) -> "capo_service_quotas.types.stop_auto_management_response.StopAutoManagementResponse":
-        r"""<p>Stops <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html\">Service Quotas Automatic Management</a> for an Amazon Web Services account and removes all associated configurations. Automatic Management monitors your Service Quotas utilization and notifies you before you run out of your allocated quotas.</p>
+        """<p>Stops <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html">Service Quotas Automatic Management</a> for an Amazon Web Services account and removes all associated configurations. Automatic Management monitors your Service Quotas utilization and notifies you before you run out of your allocated quotas.</p>
 
         Raises:
             capo_service_quotas.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permission to perform this action.</p>
@@ -1634,10 +1634,10 @@ class ServiceQuotasClient:
         *,
         config_overrides: Optional[ServiceQuotasClientConfig] = None,
     ) -> "capo_service_quotas.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds tags to the specified applied quota. You can include one or more tags to add to the quota.</p>
+        """<p>Adds tags to the specified applied quota. You can include one or more tags to add to the quota.</p>
 
         Args:
-            resource_arn: <p>The Amazon Resource Name (ARN) for the applied quota. You can get this information by using the Service Quotas console, or by listing the quotas using the <a href=\"https://docs.aws.amazon.com/cli/latest/reference/service-quotas/list-service-quotas.html\">list-service-quotas</a> CLI command or the <a href=\"https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListServiceQuotas.html\">ListServiceQuotas</a> Amazon Web Services API operation.</p>
+            resource_arn: <p>The Amazon Resource Name (ARN) for the applied quota. You can get this information by using the Service Quotas console, or by listing the quotas using the <a href="https://docs.aws.amazon.com/cli/latest/reference/service-quotas/list-service-quotas.html">list-service-quotas</a> CLI command or the <a href="https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListServiceQuotas.html">ListServiceQuotas</a> Amazon Web Services API operation.</p>
             tags: <p>The tags that you want to add to the resource.</p>
 
         Raises:
@@ -1647,7 +1647,7 @@ class ServiceQuotasClient:
             capo_service_quotas.errors.service_exception.ServiceException: <p>Something went wrong.</p>
             capo_service_quotas.errors.tag_policy_violation_exception.TagPolicyViolationException: <p>The specified tag is a reserved word and cannot be used.</p>
             capo_service_quotas.errors.too_many_requests_exception.TooManyRequestsException: <p>Due to throttling, the request was denied. Slow down the rate of request calls, or request an increase for this quota.</p>
-            capo_service_quotas.errors.too_many_tags_exception.TooManyTagsException: <p>You've exceeded the number of tags allowed for a resource. For more information, see <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/sq-tagging.html#sq-tagging-restrictions\">Tag restrictions</a> in the <i>Service Quotas User Guide</i>.</p>
+            capo_service_quotas.errors.too_many_tags_exception.TooManyTagsException: <p>You've exceeded the number of tags allowed for a resource. For more information, see <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/sq-tagging.html#sq-tagging-restrictions">Tag restrictions</a> in the <i>Service Quotas User Guide</i>.</p>
             capo_service_quotas.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1686,10 +1686,10 @@ class ServiceQuotasClient:
         *,
         config_overrides: Optional[ServiceQuotasClientConfig] = None,
     ) -> "capo_service_quotas.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Removes tags from the specified applied quota. You can specify one or more tags to remove.</p>
+        """<p>Removes tags from the specified applied quota. You can specify one or more tags to remove.</p>
 
         Args:
-            resource_arn: <p>The Amazon Resource Name (ARN) for the applied quota that you want to untag. You can get this information by using the Service Quotas console, or by listing the quotas using the <a href=\"https://docs.aws.amazon.com/cli/latest/reference/service-quotas/list-service-quotas.html\">list-service-quotas</a> CLI command or the <a href=\"https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListServiceQuotas.html\">ListServiceQuotas</a> Amazon Web Services API operation.</p>
+            resource_arn: <p>The Amazon Resource Name (ARN) for the applied quota that you want to untag. You can get this information by using the Service Quotas console, or by listing the quotas using the <a href="https://docs.aws.amazon.com/cli/latest/reference/service-quotas/list-service-quotas.html">list-service-quotas</a> CLI command or the <a href="https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListServiceQuotas.html">ListServiceQuotas</a> Amazon Web Services API operation.</p>
             tag_keys: <p>The keys of the tags that you want to remove from the resource.</p>
 
         Raises:
@@ -1741,11 +1741,11 @@ class ServiceQuotasClient:
             "capo_service_quotas.types.exclusion_list.ExclusionList"
         ] = None,
     ) -> "capo_service_quotas.types.update_auto_management_response.UpdateAutoManagementResponse":
-        r"""<p>Updates your <a href=\"https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html\">Service Quotas Automatic Management</a> configuration, including notification preferences and excluded quotas. Automatic Management monitors your Service Quotas utilization and notifies you before you run out of your allocated quotas.</p>
+        """<p>Updates your <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html">Service Quotas Automatic Management</a> configuration, including notification preferences and excluded quotas. Automatic Management monitors your Service Quotas utilization and notifies you before you run out of your allocated quotas.</p>
 
         Args:
             opt_in_type: <p>Information on the opt-in type for your Automatic Management configuration. There are two modes: Notify only and Notify and Auto-Adjust. Currently, only NotifyOnly is available.</p>
-            notification_arn: <p>The <a href=\"https://docs.aws.amazon.com/notifications/latest/userguide/resource-level-permissions.html#rlp-table\">User Notifications</a> Amazon Resource Name (ARN) for Automatic Management notifications you want to update.</p>
+            notification_arn: <p>The <a href="https://docs.aws.amazon.com/notifications/latest/userguide/resource-level-permissions.html#rlp-table">User Notifications</a> Amazon Resource Name (ARN) for Automatic Management notifications you want to update.</p>
             exclusion_list: <p>List of Amazon Web Services services you want to exclude from Automatic Management. You won't be notified of Service Quotas utilization for Amazon Web Services services added to the Automatic Management exclusion list. </p>
 
         Raises:

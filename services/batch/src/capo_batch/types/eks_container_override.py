@@ -19,15 +19,15 @@ class EksContainerOverride(TypedDict, closed=True):
     command: NotRequired["capo_batch.types.string_list.StringList"]
     """<p>The command to send to the container that overrides the default command from the Docker image or the job definition.</p>"""
     args: NotRequired["capo_batch.types.string_list.StringList"]
-    r"""<p>The arguments to the entrypoint to send to the container that overrides the default arguments from the Docker image or the job definition. For more information, see <a href=\"https://docs.docker.com/engine/reference/builder/#cmd\">Dockerfile reference: CMD</a> and <a href=\"https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/\">Define a command an arguments for a pod</a> in the <i>Kubernetes documentation</i>.</p>"""
+    """<p>The arguments to the entrypoint to send to the container that overrides the default arguments from the Docker image or the job definition. For more information, see <a href="https://docs.docker.com/engine/reference/builder/#cmd">Dockerfile reference: CMD</a> and <a href="https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/">Define a command an arguments for a pod</a> in the <i>Kubernetes documentation</i>.</p>"""
     env: NotRequired[
         "capo_batch.types.eks_container_environment_variables.EksContainerEnvironmentVariables"
     ]
-    r"""<p>The environment variables to send to the container. You can add new environment variables, which are added to the container at launch. Or, you can override the existing environment variables from the Docker image or the job definition.</p> <note> <p>Environment variables cannot start with \"<code>AWS_BATCH</code>\". This naming convention is reserved for variables that Batch sets.</p> </note>"""
+    """<p>The environment variables to send to the container. You can add new environment variables, which are added to the container at launch. Or, you can override the existing environment variables from the Docker image or the job definition.</p> <note> <p>Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for variables that Batch sets.</p> </note>"""
     resources: NotRequired[
         "capo_batch.types.eks_container_resource_requirements.EksContainerResourceRequirements"
     ]
-    r"""<p>The type and amount of resources to assign to a container. These override the settings in the job definition. The supported resources include <code>memory</code>, <code>cpu</code>, and <code>nvidia.com/gpu</code>. For more information, see <a href=\"https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/\">Resource management for pods and containers</a> in the <i>Kubernetes documentation</i>.</p>"""
+    """<p>The type and amount of resources to assign to a container. These override the settings in the job definition. The supported resources include <code>memory</code>, <code>cpu</code>, and <code>nvidia.com/gpu</code>. For more information, see <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">Resource management for pods and containers</a> in the <i>Kubernetes documentation</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -37,7 +37,7 @@ class ImageScanFinding(TypedDict, closed=True):
     remediation: NotRequired["capo_imagebuilder.types.remediation.Remediation"]
     """<p>An object that contains the details about how to remediate the finding.</p>"""
     severity: NotRequired["capo_imagebuilder.types.non_empty_string.NonEmptyString"]
-    r"""<p>The severity of the finding. For more information, see <a href=\"https://docs.aws.amazon.com/inspector/latest/user/findings-understanding-severity.html\">Severity levels for Amazon Inspector findings</a> in the <i>Amazon Inspector User Guide</i>.</p>"""
+    """<p>The severity of the finding. For more information, see <a href="https://docs.aws.amazon.com/inspector/latest/user/findings-understanding-severity.html">Severity levels for Amazon Inspector findings</a> in the <i>Amazon Inspector User Guide</i>.</p>"""
     first_observed_at: NotRequired[
         "capo_imagebuilder.types.date_time_timestamp.DateTimeTimestamp"
     ]

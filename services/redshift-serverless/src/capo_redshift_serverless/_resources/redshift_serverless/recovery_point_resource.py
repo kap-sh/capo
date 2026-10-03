@@ -50,13 +50,13 @@ class RecoveryPointResource:
         retention_period: Optional[int] = None,
         tags: Optional["capo_redshift_serverless.types.tag_list.TagList"] = None,
     ) -> "capo_redshift_serverless.types.convert_recovery_point_to_snapshot_response.ConvertRecoveryPointToSnapshotResponse":
-        r"""<p>Converts a recovery point to a snapshot. For more information about recovery points and snapshots, see <a href=\"https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html\">Working with snapshots and recovery points</a>.</p>
+        """<p>Converts a recovery point to a snapshot. For more information about recovery points and snapshots, see <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html">Working with snapshots and recovery points</a>.</p>
 
         Args:
             recovery_point_id: <p>The unique identifier of the recovery point.</p>
             snapshot_name: <p>The name of the snapshot.</p>
             retention_period: <p>How long to retain the snapshot.</p>
-            tags: <p>An array of <a href=\"https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html\">Tag objects</a> to associate with the created snapshot.</p>
+            tags: <p>An array of <a href="https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html">Tag objects</a> to associate with the created snapshot.</p>
 
         Raises:
             capo_redshift_serverless.errors.conflict_exception.ConflictException: <p>The submitted action has conflicts.</p>
@@ -361,13 +361,13 @@ class AsyncRecoveryPointResource:
         retention_period: Optional[int] = None,
         tags: Optional["capo_redshift_serverless.types.tag_list.TagList"] = None,
     ) -> "capo_redshift_serverless.types.convert_recovery_point_to_snapshot_response.ConvertRecoveryPointToSnapshotResponse":
-        r"""<p>Converts a recovery point to a snapshot. For more information about recovery points and snapshots, see <a href=\"https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html\">Working with snapshots and recovery points</a>.</p>
+        """<p>Converts a recovery point to a snapshot. For more information about recovery points and snapshots, see <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html">Working with snapshots and recovery points</a>.</p>
 
         Args:
             recovery_point_id: <p>The unique identifier of the recovery point.</p>
             snapshot_name: <p>The name of the snapshot.</p>
             retention_period: <p>How long to retain the snapshot.</p>
-            tags: <p>An array of <a href=\"https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html\">Tag objects</a> to associate with the created snapshot.</p>
+            tags: <p>An array of <a href="https://docs.aws.amazon.com/redshift-serverless/latest/APIReference/API_Tag.html">Tag objects</a> to associate with the created snapshot.</p>
 
         Raises:
             capo_redshift_serverless.errors.conflict_exception.ConflictException: <p>The submitted action has conflicts.</p>

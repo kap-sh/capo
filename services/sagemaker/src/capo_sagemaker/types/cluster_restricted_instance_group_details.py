@@ -43,7 +43,7 @@ class ClusterRestrictedInstanceGroupDetails(TypedDict, closed=True):
     threads_per_core: NotRequired[
         "capo_sagemaker.types.cluster_threads_per_core.ClusterThreadsPerCore"
     ]
-    r"""<p>The number you specified to <code>TreadsPerCore</code> in <code>CreateCluster</code> for enabling or disabling multithreading. For instance types that support multithreading, you can specify 1 for disabling multithreading and 2 for enabling multithreading. For more information, see the reference table of <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cpu-options-supported-instances-values.html\">CPU cores and threads per CPU core per instance type</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>"""
+    """<p>The number you specified to <code>TreadsPerCore</code> in <code>CreateCluster</code> for enabling or disabling multithreading. For instance types that support multithreading, you can specify 1 for disabling multithreading and 2 for enabling multithreading. For more information, see the reference table of <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cpu-options-supported-instances-values.html">CPU cores and threads per CPU core per instance type</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>"""
     instance_storage_configs: NotRequired[
         "capo_sagemaker.types.cluster_instance_storage_configs.ClusterInstanceStorageConfigs"
     ]
@@ -59,7 +59,7 @@ class ClusterRestrictedInstanceGroupDetails(TypedDict, closed=True):
     training_plan_arn: NotRequired[
         "capo_sagemaker.types.training_plan_arn.TrainingPlanArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of the training plan to filter clusters by. For more information about reserving GPU capacity for your SageMaker HyperPod clusters using Amazon SageMaker Training Plan, see <code> <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingPlan.html\">CreateTrainingPlan</a> </code>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the training plan to filter clusters by. For more information about reserving GPU capacity for your SageMaker HyperPod clusters using Amazon SageMaker Training Plan, see <code> <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingPlan.html">CreateTrainingPlan</a> </code>.</p>"""
     training_plan_status: NotRequired[
         "capo_sagemaker.types.instance_group_training_plan_status.InstanceGroupTrainingPlanStatus"
     ]

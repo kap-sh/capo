@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class IAMRoleIdentity(TypedDict, closed=True):
     arn: "capo_iotsitewise.types.iam_arn.IamArn"
-    r"""<p>The ARN of the IAM role. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html\">IAM ARNs</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The ARN of the IAM role. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM ARNs</a> in the <i>IAM User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

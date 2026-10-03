@@ -15,7 +15,7 @@ class DisassociateDelegationSignerFromDomainRequest(TypedDict, closed=True):
     domain_name: "capo_route_53_domains.types.domain_name.DomainName"
     """<p>Name of the domain.</p>"""
     id: "capo_route_53_domains.types.string.String"
-    r"""<p>An internal identification number assigned to each DS record after it’s created. You can retrieve it as part of DNSSEC information returned by <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetDomainDetail.html\">GetDomainDetail</a>.</p>"""
+    """<p>An internal identification number assigned to each DS record after it’s created. You can retrieve it as part of DNSSEC information returned by <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetDomainDetail.html">GetDomainDetail</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

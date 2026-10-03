@@ -32,7 +32,7 @@ class Connector(TypedDict, closed=True):
     open_id_configuration: NotRequired[
         "capo_pca_connector_scep.types.open_id_configuration.OpenIdConfiguration"
     ]
-    r"""<p>Contains OpenID Connect (OIDC) parameters for use with Connector for SCEP for Microsoft Intune. For more information about using Connector for SCEP for Microsoft Intune, see <a href=\"https://docs.aws.amazon.com/privateca/latest/userguide/scep-connector.htmlconnector-for-scep-intune.html\">Using Connector for SCEP for Microsoft Intune</a>.</p>"""
+    """<p>Contains OpenID Connect (OIDC) parameters for use with Connector for SCEP for Microsoft Intune. For more information about using Connector for SCEP for Microsoft Intune, see <a href="https://docs.aws.amazon.com/privateca/latest/userguide/scep-connector.htmlconnector-for-scep-intune.html">Using Connector for SCEP for Microsoft Intune</a>.</p>"""
     status: NotRequired[
         "capo_pca_connector_scep.types.connector_status.ConnectorStatus"
     ]

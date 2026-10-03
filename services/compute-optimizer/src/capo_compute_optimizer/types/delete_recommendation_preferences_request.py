@@ -16,7 +16,7 @@ class DeleteRecommendationPreferencesRequest(TypedDict, closed=True):
     resource_type: "capo_compute_optimizer.types.resource_type.ResourceType"
     """<p>The target resource type of the recommendation preference to delete.</p> <p>The <code>Ec2Instance</code> option encompasses standalone instances and instances that are part of Auto Scaling groups. The <code>AutoScalingGroup</code> option encompasses only instances that are part of an Auto Scaling group.</p>"""
     scope: NotRequired["capo_compute_optimizer.types.scope.Scope"]
-    r"""<p>An object that describes the scope of the recommendation preference to delete.</p> <p>You can delete recommendation preferences that are created at the organization level (for management accounts of an organization only), account level, and resource level. For more information, see <a href=\"https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html\">Activating enhanced infrastructure metrics</a> in the <i>Compute Optimizer User Guide</i>.</p>"""
+    """<p>An object that describes the scope of the recommendation preference to delete.</p> <p>You can delete recommendation preferences that are created at the organization level (for management accounts of an organization only), account level, and resource level. For more information, see <a href="https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html">Activating enhanced infrastructure metrics</a> in the <i>Compute Optimizer User Guide</i>.</p>"""
     recommendation_preference_names: "capo_compute_optimizer.types.recommendation_preference_names.RecommendationPreferenceNames"
     """<p>The name of the recommendation preference to delete.</p>"""
 

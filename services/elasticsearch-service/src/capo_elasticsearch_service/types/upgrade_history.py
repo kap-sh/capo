@@ -19,7 +19,7 @@ class UpgradeHistory(TypedDict, closed=True):
     start_timestamp: NotRequired[
         "capo_elasticsearch_service.types.start_timestamp.StartTimestamp"
     ]
-    r"""<p>UTC Timestamp at which the Upgrade API call was made in \"yyyy-MM-ddTHH:mm:ssZ\" format.</p>"""
+    """<p>UTC Timestamp at which the Upgrade API call was made in "yyyy-MM-ddTHH:mm:ssZ" format.</p>"""
     upgrade_status: NotRequired[
         "capo_elasticsearch_service.types.upgrade_status.UpgradeStatus"
     ]

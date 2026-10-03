@@ -18,14 +18,14 @@ if TYPE_CHECKING:
 
 class GroupDetail(TypedDict, closed=True):
     path: NotRequired["capo_iam.types.path_type.pathType"]
-    r"""<p>The path to the group. For more information about paths, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The path to the group. For more information about paths, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
     group_name: NotRequired["capo_iam.types.group_name_type.groupNameType"]
     """<p>The friendly name that identifies the group.</p>"""
     group_id: NotRequired["capo_iam.types.id_type.idType"]
-    r"""<p>The stable and unique string identifying the group. For more information about IDs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The stable and unique string identifying the group. For more information about IDs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
     arn: NotRequired["capo_iam.types.arn_type.arnType"]
     create_date: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the group was created.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the group was created.</p>"""
     group_policy_list: NotRequired[
         "capo_iam.types.policy_detail_list_type.policyDetailListType"
     ]

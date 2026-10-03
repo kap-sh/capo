@@ -19,7 +19,7 @@ class GetWhatsAppMessageMediaInput(TypedDict, closed=True):
     origination_phone_number_id: (
         "capo_socialmessaging.types.whats_app_phone_number_id.WhatsAppPhoneNumberId"
     )
-    r"""<p>The unique identifier of the originating phone number for the WhatsApp message media. The phone number identifiers are formatted as <code>phone-number-id-01234567890123456789012345678901</code>. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_GetLinkedWhatsAppBusinessAccount.html\">GetLinkedWhatsAppBusinessAccount</a> to find a phone number's id.</p>"""
+    """<p>The unique identifier of the originating phone number for the WhatsApp message media. The phone number identifiers are formatted as <code>phone-number-id-01234567890123456789012345678901</code>. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_GetLinkedWhatsAppBusinessAccount.html">GetLinkedWhatsAppBusinessAccount</a> to find a phone number's id.</p>"""
     metadata_only: NotRequired["bool"]
     """<p>Set to <code>True</code> to get only the metadata for the file.</p>"""
     destination_s3_presigned_url: NotRequired[

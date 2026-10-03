@@ -18,9 +18,9 @@ class GetDevicePositionResponse(TypedDict, closed=True):
     device_id: NotRequired["capo_location.types.id.Id"]
     """<p>The device whose position you retrieved.</p>"""
     sample_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp at which the device's position was determined. Uses <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601 </a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp at which the device's position was determined. Uses <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601 </a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
     received_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp for when the tracker resource received the device position. Uses <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601 </a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp for when the tracker resource received the device position. Uses <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601 </a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
     position: "capo_location.types.position.Position"
     """<p>The last known device position.</p>"""
     accuracy: NotRequired["capo_location.types.positional_accuracy.PositionalAccuracy"]

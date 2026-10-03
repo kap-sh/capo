@@ -28,7 +28,7 @@ class CreateIdentityPoolInput(TypedDict, closed=True):
     allow_classic_flow: NotRequired[
         "capo_cognito_identity.types.classic_flow.ClassicFlow"
     ]
-    r"""<p>Enables or disables the Basic (Classic) authentication flow. For more information, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html\">Identity Pools (Federated Identities) Authentication Flow</a> in the <i>Amazon Cognito Developer Guide</i>.</p>"""
+    """<p>Enables or disables the Basic (Classic) authentication flow. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html">Identity Pools (Federated Identities) Authentication Flow</a> in the <i>Amazon Cognito Developer Guide</i>.</p>"""
     supported_login_providers: NotRequired[
         "capo_cognito_identity.types.identity_providers.IdentityProviders"
     ]
@@ -36,7 +36,7 @@ class CreateIdentityPoolInput(TypedDict, closed=True):
     developer_provider_name: NotRequired[
         "capo_cognito_identity.types.developer_provider_name.DeveloperProviderName"
     ]
-    r"""<p>The \"domain\" by which Cognito will refer to your users. This name acts as a placeholder that allows your backend and the Cognito service to communicate about the developer provider. For the <code>DeveloperProviderName</code>, you can use letters as well as period (<code>.</code>), underscore (<code>_</code>), and dash (<code>-</code>).</p> <p>Once you have set a developer provider name, you cannot change it. Please take care in setting this parameter.</p>"""
+    """<p>The "domain" by which Cognito will refer to your users. This name acts as a placeholder that allows your backend and the Cognito service to communicate about the developer provider. For the <code>DeveloperProviderName</code>, you can use letters as well as period (<code>.</code>), underscore (<code>_</code>), and dash (<code>-</code>).</p> <p>Once you have set a developer provider name, you cannot change it. Please take care in setting this parameter.</p>"""
     open_id_connect_provider_ar_ns: NotRequired[
         "capo_cognito_identity.types.oidc_provider_list.OIDCProviderList"
     ]

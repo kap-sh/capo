@@ -17,7 +17,7 @@ class ListApplicationsRequest(TypedDict, closed=True):
     next_token: NotRequired[
         "capo_kinesis_analytics_v2.types.application_name.ApplicationName"
     ]
-    r"""<p>If a previous command returned a pagination token, pass it into this value to retrieve the next set of results. For more information about pagination, see <a href=\"https://docs.aws.amazon.com/cli/latest/userguide/pagination.html\">Using the Amazon Command Line Interface's Pagination Options</a>.</p>"""
+    """<p>If a previous command returned a pagination token, pass it into this value to retrieve the next set of results. For more information about pagination, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the Amazon Command Line Interface's Pagination Options</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

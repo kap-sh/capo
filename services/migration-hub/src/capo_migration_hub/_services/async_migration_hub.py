@@ -211,14 +211,14 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -273,7 +273,7 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
@@ -281,7 +281,7 @@ class AsyncMigrationHubClient:
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -336,13 +336,13 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -393,13 +393,13 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -440,7 +440,7 @@ class AsyncMigrationHubClient:
         config_overrides: Optional[AsyncMigrationHubClientConfig] = None,
         dry_run: Optional["capo_migration_hub.types.dry_run.DryRun"] = None,
     ) -> "capo_migration_hub.types.delete_progress_update_stream_result.DeleteProgressUpdateStreamResult":
-        r"""<p>Deletes a progress update stream, including all of its tasks, which was previously created as an AWS resource used for access control. This API has the following traits:</p> <ul> <li> <p>The only parameter needed for <code>DeleteProgressUpdateStream</code> is the stream name (same as a <code>CreateProgressUpdateStream</code> call).</p> </li> <li> <p>The call will return, and a background process will asynchronously delete the stream and all of its resources (tasks, associated resources, resource attributes, created artifacts).</p> </li> <li> <p>If the stream takes time to be deleted, it might still show up on a <code>ListProgressUpdateStreams</code> call.</p> </li> <li> <p> <code>CreateProgressUpdateStream</code>, <code>ImportMigrationTask</code>, <code>NotifyMigrationTaskState</code>, and all Associate[*] APIs related to the tasks belonging to the stream will throw \"InvalidInputException\" if the stream of the same name is in the process of being deleted.</p> </li> <li> <p>Once the stream and all of its resources are deleted, <code>CreateProgressUpdateStream</code> for a stream of the same name will succeed, and that stream will be an entirely new logical resource (without any resources associated with the old stream).</p> </li> </ul>
+        """<p>Deletes a progress update stream, including all of its tasks, which was previously created as an AWS resource used for access control. This API has the following traits:</p> <ul> <li> <p>The only parameter needed for <code>DeleteProgressUpdateStream</code> is the stream name (same as a <code>CreateProgressUpdateStream</code> call).</p> </li> <li> <p>The call will return, and a background process will asynchronously delete the stream and all of its resources (tasks, associated resources, resource attributes, created artifacts).</p> </li> <li> <p>If the stream takes time to be deleted, it might still show up on a <code>ListProgressUpdateStreams</code> call.</p> </li> <li> <p> <code>CreateProgressUpdateStream</code>, <code>ImportMigrationTask</code>, <code>NotifyMigrationTaskState</code>, and all Associate[*] APIs related to the tasks belonging to the stream will throw "InvalidInputException" if the stream of the same name is in the process of being deleted.</p> </li> <li> <p>Once the stream and all of its resources are deleted, <code>CreateProgressUpdateStream</code> for a stream of the same name will succeed, and that stream will be an entirely new logical resource (without any resources associated with the old stream).</p> </li> </ul>
 
         Args:
             progress_update_stream_name: <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this field.</i> </p>
@@ -448,14 +448,14 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -612,14 +612,14 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -674,14 +674,14 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -736,13 +736,13 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -795,14 +795,14 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1460,7 +1460,7 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
@@ -1468,7 +1468,7 @@ class AsyncMigrationHubClient:
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1528,14 +1528,14 @@ class AsyncMigrationHubClient:
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1582,24 +1582,24 @@ class AsyncMigrationHubClient:
         config_overrides: Optional[AsyncMigrationHubClientConfig] = None,
         dry_run: Optional["capo_migration_hub.types.dry_run.DryRun"] = None,
     ) -> "capo_migration_hub.types.put_resource_attributes_result.PutResourceAttributesResult":
-        r"""<p>Provides identifying details of the resource being migrated so that it can be associated in the Application Discovery Service repository. This association occurs asynchronously after <code>PutResourceAttributes</code> returns.</p> <important> <ul> <li> <p>Keep in mind that subsequent calls to PutResourceAttributes will override previously stored attributes. For example, if it is first called with a MAC address, but later, it is desired to <i>add</i> an IP address, it will then be required to call it with <i>both</i> the IP and MAC addresses to prevent overriding the MAC address.</p> </li> <li> <p>Note the instructions regarding the special use case of the <a href=\"https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#migrationhub-PutResourceAttributes-request-ResourceAttributeList\"> <code>ResourceAttributeList</code> </a> parameter when specifying any \"VM\" related value.</p> </li> </ul> </important> <note> <p>Because this is an asynchronous call, it will always return 200, whether an association occurs or not. To confirm if an association was found based on the provided details, call <code>ListDiscoveredResources</code>.</p> </note>
+        """<p>Provides identifying details of the resource being migrated so that it can be associated in the Application Discovery Service repository. This association occurs asynchronously after <code>PutResourceAttributes</code> returns.</p> <important> <ul> <li> <p>Keep in mind that subsequent calls to PutResourceAttributes will override previously stored attributes. For example, if it is first called with a MAC address, but later, it is desired to <i>add</i> an IP address, it will then be required to call it with <i>both</i> the IP and MAC addresses to prevent overriding the MAC address.</p> </li> <li> <p>Note the instructions regarding the special use case of the <a href="https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#migrationhub-PutResourceAttributes-request-ResourceAttributeList"> <code>ResourceAttributeList</code> </a> parameter when specifying any "VM" related value.</p> </li> </ul> </important> <note> <p>Because this is an asynchronous call, it will always return 200, whether an association occurs or not. To confirm if an association was found based on the provided details, call <code>ListDiscoveredResources</code>.</p> </note>
 
         Args:
             progress_update_stream: <p>The name of the ProgressUpdateStream. </p>
             migration_task_name: <p>Unique identifier that references the migration task. <i>Do not store personal data in this field.</i> </p>
-            resource_attribute_list: <p>Information about the resource that is being migrated. This data will be used to map the task to a resource in the Application Discovery Service repository.</p> <note> <p>Takes the object array of <code>ResourceAttribute</code> where the <code>Type</code> field is reserved for the following values: <code>IPV4_ADDRESS | IPV6_ADDRESS | MAC_ADDRESS | FQDN | VM_MANAGER_ID | VM_MANAGED_OBJECT_REFERENCE | VM_NAME | VM_PATH | BIOS_ID | MOTHERBOARD_SERIAL_NUMBER</code> where the identifying value can be a string up to 256 characters.</p> </note> <important> <ul> <li> <p>If any \"VM\" related value is set for a <code>ResourceAttribute</code> object, it is required that <code>VM_MANAGER_ID</code>, as a minimum, is always set. If <code>VM_MANAGER_ID</code> is not set, then all \"VM\" fields will be discarded and \"VM\" fields will not be used for matching the migration task to a server in Application Discovery Service repository. See the <a href=\"https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples\">Example</a> section below for a use case of specifying \"VM\" related values.</p> </li> <li> <p> If a server you are trying to match has multiple IP or MAC addresses, you should provide as many as you know in separate type/value pairs passed to the <code>ResourceAttributeList</code> parameter to maximize the chances of matching.</p> </li> </ul> </important>
+            resource_attribute_list: <p>Information about the resource that is being migrated. This data will be used to map the task to a resource in the Application Discovery Service repository.</p> <note> <p>Takes the object array of <code>ResourceAttribute</code> where the <code>Type</code> field is reserved for the following values: <code>IPV4_ADDRESS | IPV6_ADDRESS | MAC_ADDRESS | FQDN | VM_MANAGER_ID | VM_MANAGED_OBJECT_REFERENCE | VM_NAME | VM_PATH | BIOS_ID | MOTHERBOARD_SERIAL_NUMBER</code> where the identifying value can be a string up to 256 characters.</p> </note> <important> <ul> <li> <p>If any "VM" related value is set for a <code>ResourceAttribute</code> object, it is required that <code>VM_MANAGER_ID</code>, as a minimum, is always set. If <code>VM_MANAGER_ID</code> is not set, then all "VM" fields will be discarded and "VM" fields will not be used for matching the migration task to a server in Application Discovery Service repository. See the <a href="https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples">Example</a> section below for a use case of specifying "VM" related values.</p> </li> <li> <p> If a server you are trying to match has multiple IP or MAC addresses, you should provide as many as you know in separate type/value pairs passed to the <code>ResourceAttributeList</code> parameter to maximize the chances of matching.</p> </li> </ul> </important>
             dry_run: <p>Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.</p>
 
         Raises:
             capo_migration_hub.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.dry_run_operation.DryRunOperation: <p>Exception raised to indicate a successfully authorized action when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException: <p>The home region is not set. Set the home region to continue.</p>
             capo_migration_hub.errors.internal_server_error.InternalServerError: <p>Exception raised when an internal, configuration, or dependency error is encountered.</p>
             capo_migration_hub.errors.invalid_input_exception.InvalidInputException: <p>Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.</p>
             capo_migration_hub.errors.resource_not_found_exception.ResourceNotFoundException: <p>Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.</p>
             capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException: <p>Exception raised when there is an internal, configuration, or dependency error encountered.</p>
             capo_migration_hub.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to \"true\".</p>
+            capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation: <p>Exception raised to indicate a request was not authorized when the <code>DryRun</code> flag is set to "true".</p>
             capo_migration_hub.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

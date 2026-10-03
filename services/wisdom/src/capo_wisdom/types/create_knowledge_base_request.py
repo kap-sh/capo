@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class CreateKnowledgeBaseRequest(TypedDict, closed=True):
     client_token: NotRequired["capo_wisdom.types.non_empty_string.NonEmptyString"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
     name: "capo_wisdom.types.name.Name"
     """<p>The name of the knowledge base.</p>"""
     knowledge_base_type: "capo_wisdom.types.knowledge_base_type.KnowledgeBaseType"
@@ -35,7 +35,7 @@ class CreateKnowledgeBaseRequest(TypedDict, closed=True):
     server_side_encryption_configuration: NotRequired[
         "capo_wisdom.types.server_side_encryption_configuration.ServerSideEncryptionConfiguration"
     ]
-    r"""<p>The configuration information for the customer managed key used for encryption. </p> <p>This KMS key must have a policy that allows <code>kms:CreateGrant</code>, <code>kms:DescribeKey</code>, and <code>kms:Decrypt/kms:GenerateDataKey</code> permissions to the IAM identity using the key to invoke Wisdom.</p> <p>For more information about setting up a customer managed key for Wisdom, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-wisdom.html\">Enable Amazon Connect Wisdom for your instance</a>.</p>"""
+    """<p>The configuration information for the customer managed key used for encryption. </p> <p>This KMS key must have a policy that allows <code>kms:CreateGrant</code>, <code>kms:DescribeKey</code>, and <code>kms:Decrypt/kms:GenerateDataKey</code> permissions to the IAM identity using the key to invoke Wisdom.</p> <p>For more information about setting up a customer managed key for Wisdom, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-wisdom.html">Enable Amazon Connect Wisdom for your instance</a>.</p>"""
     description: NotRequired["capo_wisdom.types.description.Description"]
     """<p>The description.</p>"""
     tags: NotRequired["capo_wisdom.types.tags.Tags"]

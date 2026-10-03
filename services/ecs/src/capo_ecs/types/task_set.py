@@ -47,13 +47,13 @@ class TaskSet(TypedDict, closed=True):
     updated_at: NotRequired["capo_ecs.types.timestamp.Timestamp"]
     """<p>The Unix timestamp for the time when the task set was last updated.</p>"""
     launch_type: NotRequired["capo_ecs.types.launch_type.LaunchType"]
-    r"""<p>The launch type the tasks in the task set are using. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html\">Amazon ECS launch types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
+    """<p>The launch type the tasks in the task set are using. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
     capacity_provider_strategy: NotRequired[
         "capo_ecs.types.capacity_provider_strategy.CapacityProviderStrategy"
     ]
     """<p>The capacity provider strategy that are associated with the task set.</p>"""
     platform_version: NotRequired["capo_ecs.types.string.String"]
-    r"""<p>The Fargate platform version where the tasks in the task set are running. A platform version is only specified for tasks run on Fargate. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html\">Fargate platform versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
+    """<p>The Fargate platform version where the tasks in the task set are running. A platform version is only specified for tasks run on Fargate. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate platform versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p>"""
     platform_family: NotRequired["capo_ecs.types.string.String"]
     """<p>The operating system that your tasks in the set are running on. A platform family is specified only for tasks that use the Fargate launch type. </p> <p> All tasks in the set must have the same value.</p>"""
     network_configuration: NotRequired[
@@ -65,7 +65,7 @@ class TaskSet(TypedDict, closed=True):
     service_registries: NotRequired[
         "capo_ecs.types.service_registries.ServiceRegistries"
     ]
-    r"""<p>The details for the service discovery registries to assign to this task set. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html\">Service discovery</a>.</p>"""
+    """<p>The details for the service discovery registries to assign to this task set. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service discovery</a>.</p>"""
     scale: NotRequired["capo_ecs.types.scale.Scale"]
     """<p>A floating-point percentage of your desired number of tasks to place and keep running in the task set.</p>"""
     stability_status: NotRequired["capo_ecs.types.stability_status.StabilityStatus"]

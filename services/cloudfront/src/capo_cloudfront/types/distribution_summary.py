@@ -60,7 +60,7 @@ class DistributionSummary(TypedDict, closed=True):
     comment: "capo_cloudfront.types.sensitive_string_type.sensitiveStringType"
     """<p>The comment originally specified when this distribution was created.</p>"""
     price_class: "capo_cloudfront.types.price_class.PriceClass"
-    r"""<note> <p>This field only supports standard distributions. You can't specify this field for multi-tenant distributions. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-config-options.html#unsupported-saas\">Unsupported features for SaaS Manager for Amazon CloudFront</a> in the <i>Amazon CloudFront Developer Guide</i>.</p> </note> <p>A complex type that contains information about price class for this streaming distribution.</p>"""
+    """<note> <p>This field only supports standard distributions. You can't specify this field for multi-tenant distributions. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-config-options.html#unsupported-saas">Unsupported features for SaaS Manager for Amazon CloudFront</a> in the <i>Amazon CloudFront Developer Guide</i>.</p> </note> <p>A complex type that contains information about price class for this streaming distribution.</p>"""
     enabled: "capo_cloudfront.types.boolean.boolean"
     """<p>Whether the distribution is enabled to accept user requests for content.</p>"""
     viewer_certificate: "capo_cloudfront.types.viewer_certificate.ViewerCertificate"
@@ -76,7 +76,7 @@ class DistributionSummary(TypedDict, closed=True):
     alias_icp_recordals: NotRequired[
         "capo_cloudfront.types.alias_icp_recordals.AliasICPRecordals"
     ]
-    r"""<p>Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.</p> <p>For more information about ICP recordals, see <a href=\"https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html\"> Signup, Accounts, and Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.</p>"""
+    """<p>Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.</p> <p>For more information about ICP recordals, see <a href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup, Accounts, and Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.</p>"""
     staging: "capo_cloudfront.types.boolean.boolean"
     """<p>A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a staging distribution. When this value is <code>false</code>, this is not a staging distribution.</p>"""
     connection_mode: NotRequired["capo_cloudfront.types.connection_mode.ConnectionMode"]

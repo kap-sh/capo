@@ -26,7 +26,7 @@ class CreateEventDestinationRequest(TypedDict, closed=True):
     matching_event_types: (
         "capo_pinpoint_sms_voice_v2.types.event_type_list.EventTypeList"
     )
-    r"""<p>An array of event types that determine which events to log. If \"ALL\" is used, then End User Messaging SMS logs every event type.</p> <note> <p>The <code>TEXT_SENT</code> event type is not supported.</p> </note>"""
+    """<p>An array of event types that determine which events to log. If "ALL" is used, then End User Messaging SMS logs every event type.</p> <note> <p>The <code>TEXT_SENT</code> event type is not supported.</p> </note>"""
     cloud_watch_logs_destination: NotRequired[
         "capo_pinpoint_sms_voice_v2.types.cloud_watch_logs_destination.CloudWatchLogsDestination"
     ]

@@ -15,7 +15,7 @@ class TagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_savingsplans.types.savings_plan_arn.SavingsPlanArn"
     """<p>The Amazon Resource Name (ARN) of the resource.</p>"""
     tags: "capo_savingsplans.types.tag_map.TagMap"
-    r"""<p>One or more tags. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>One or more tags. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

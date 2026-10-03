@@ -40,7 +40,7 @@ class DescribeTransformJobResponse(TypedDict, closed=True):
     ]
     """<p>The status of the transform job. If the transform job failed, the reason is returned in the <code>FailureReason</code> field.</p>"""
     failure_reason: NotRequired["capo_sagemaker.types.failure_reason.FailureReason"]
-    r"""<p>If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates a log file, which includes error messages, and stores it as an Amazon S3 object. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html\">Log Amazon SageMaker Events with Amazon CloudWatch</a>.</p>"""
+    """<p>If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates a log file, which includes error messages, and stores it as an Amazon S3 object. For more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with Amazon CloudWatch</a>.</p>"""
     model_name: NotRequired["capo_sagemaker.types.model_name.ModelName"]
     """<p>The name of the model used in the transform job.</p>"""
     max_concurrent_transforms: NotRequired[

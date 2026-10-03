@@ -15,7 +15,7 @@ class TagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_personalize.types.arn.Arn"
     """<p>The resource's Amazon Resource Name (ARN).</p>"""
     tags: "capo_personalize.types.tags.Tags"
-    r"""<p>Tags to apply to the resource. For more information see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html\">Tagging Amazon Personalize resources</a>.</p>"""
+    """<p>Tags to apply to the resource. For more information see <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">Tagging Amazon Personalize resources</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

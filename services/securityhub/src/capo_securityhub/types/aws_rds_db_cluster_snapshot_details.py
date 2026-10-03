@@ -18,7 +18,7 @@ class AwsRdsDbClusterSnapshotDetails(TypedDict, closed=True):
     snapshot_create_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the snapshot was taken.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the snapshot was taken.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     engine: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The name of the database engine that you want to use for this DB instance.</p>"""
     allocated_storage: NotRequired["capo_securityhub.types.integer.Integer"]
@@ -32,7 +32,7 @@ class AwsRdsDbClusterSnapshotDetails(TypedDict, closed=True):
     cluster_create_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the DB cluster was created, in Universal Coordinated Time (UTC).</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the DB cluster was created, in Universal Coordinated Time (UTC).</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     master_username: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]

@@ -19,7 +19,7 @@ class StreamSummary(TypedDict, closed=True):
     stream_id: NotRequired["capo_ivs.types.stream_id.StreamId"]
     """<p>Unique identifier for a live or previously live stream in the specified channel.</p>"""
     state: NotRequired["capo_ivs.types.stream_state.StreamState"]
-    r"""<p>The stream’s state. Do not rely on the <code>OFFLINE</code> state, as the API may not return it; instead, a \"NotBroadcasting\" error will indicate that the stream is not live.</p>"""
+    """<p>The stream’s state. Do not rely on the <code>OFFLINE</code> state, as the API may not return it; instead, a "NotBroadcasting" error will indicate that the stream is not live.</p>"""
     health: NotRequired["capo_ivs.types.stream_health.StreamHealth"]
     """<p>The stream’s health.</p>"""
     viewer_count: "capo_ivs.types.stream_viewer_count.StreamViewerCount"

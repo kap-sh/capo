@@ -54,7 +54,7 @@ class OrganizationCustomPolicyRuleMetadata(TypedDict, closed=True):
     ]
     """<p>The optional part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category (key).</p>"""
     policy_runtime: "capo_config_service.types.policy_runtime.PolicyRuntime"
-    r"""<p>The runtime system for your organization Config Custom Policy rules. Guard is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. For more information about Guard, see the <a href=\"https://github.com/aws-cloudformation/cloudformation-guard\">Guard GitHub Repository</a>.</p>"""
+    """<p>The runtime system for your organization Config Custom Policy rules. Guard is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. For more information about Guard, see the <a href="https://github.com/aws-cloudformation/cloudformation-guard">Guard GitHub Repository</a>.</p>"""
     policy_text: "capo_config_service.types.policy_text.PolicyText"
     """<p>The policy definition containing the logic for your organization Config Custom Policy rule.</p>"""
     debug_log_delivery_accounts: NotRequired[

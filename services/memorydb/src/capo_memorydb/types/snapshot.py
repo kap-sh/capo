@@ -28,7 +28,7 @@ class Snapshot(TypedDict, closed=True):
     data_tiering: NotRequired[
         "capo_memorydb.types.data_tiering_status.DataTieringStatus"
     ]
-    r"""<p>Enables data tiering. Data tiering is only supported for clusters using the r6gd node type. This parameter must be set when using r6gd nodes. For more information, see <a href=\"https://docs.aws.amazon.com/memorydb/latest/devguide/data-tiering.html\">Data tiering</a>.</p>"""
+    """<p>Enables data tiering. Data tiering is only supported for clusters using the r6gd node type. This parameter must be set when using r6gd nodes. For more information, see <a href="https://docs.aws.amazon.com/memorydb/latest/devguide/data-tiering.html">Data tiering</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -15,7 +15,7 @@ class ListOrganizationsResponse(TypedDict, closed=True):
     ]
     """<p>The overview of owned organizations presented as a list of organization summaries.</p>"""
     next_token: NotRequired["capo_workmail.types.next_token.NextToken"]
-    r"""<p>The token to use to retrieve the next page of results. The value is \"null\" when there are no more results to return.</p>"""
+    """<p>The token to use to retrieve the next page of results. The value is "null" when there are no more results to return.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

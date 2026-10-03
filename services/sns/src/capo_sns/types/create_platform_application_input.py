@@ -18,7 +18,7 @@ class CreatePlatformApplicationInput(TypedDict, closed=True):
     platform: "capo_sns.types.string.String"
     """<p>The following platforms are supported: ADM (Amazon Device Messaging), APNS (Apple Push Notification Service), APNS_SANDBOX, and GCM (Firebase Cloud Messaging).</p>"""
     attributes: "capo_sns.types.map_string_to_string.MapStringToString"
-    r"""<p>For a list of attributes, see <a href=\"https://docs.aws.amazon.com/sns/latest/api/API_SetPlatformApplicationAttributes.html\"> <code>SetPlatformApplicationAttributes</code> </a>.</p>"""
+    """<p>For a list of attributes, see <a href="https://docs.aws.amazon.com/sns/latest/api/API_SetPlatformApplicationAttributes.html"> <code>SetPlatformApplicationAttributes</code> </a>.</p>"""
 
 
 # --- awsQuery ser/de ---

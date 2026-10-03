@@ -12,7 +12,7 @@ class AwsDynamoDbTableSseDescription(TypedDict, closed=True):
     inaccessible_encryption_date_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>If the key is inaccessible, the date and time when DynamoDB detected that the key was inaccessible.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>If the key is inaccessible, the date and time when DynamoDB detected that the key was inaccessible.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     status: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The status of the server-side encryption.</p>"""
     sse_type: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

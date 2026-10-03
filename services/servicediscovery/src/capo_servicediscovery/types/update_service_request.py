@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class UpdateServiceRequest(TypedDict, closed=True):
     id: "capo_servicediscovery.types.arn.Arn"
-    r"""<p>The ID or Amazon Resource Name (ARN) of the service that you want to update. If the namespace associated with the service is shared with your Amazon Web Services account, specify the service ARN. For more information about shared namespaces, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html\">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i> </p>"""
+    """<p>The ID or Amazon Resource Name (ARN) of the service that you want to update. If the namespace associated with the service is shared with your Amazon Web Services account, specify the service ARN. For more information about shared namespaces, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i> </p>"""
     service: "capo_servicediscovery.types.service_change.ServiceChange"
     """<p>A complex type that contains the new settings for the service. You can specify a maximum of 30 attributes (key-value pairs).</p>"""
 

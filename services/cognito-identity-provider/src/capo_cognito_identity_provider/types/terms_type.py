@@ -35,7 +35,7 @@ class TermsType(TypedDict, closed=True):
     enforcement: "capo_cognito_identity_provider.types.terms_enforcement_type.TermsEnforcementType"
     """<p>This parameter is reserved for future use and currently accepts one value.</p>"""
     links: "capo_cognito_identity_provider.types.links_type.LinksType"
-    r"""<p>A map of URLs to languages. For each localized language that will view the requested <code>TermsName</code>, assign a URL. A selection of <code>cognito:default</code> displays for all languages that don't have a language-specific URL.</p> <p>For example, <code>\"cognito:default\": \"https://terms.example.com\", \"cognito:spanish\": \"https://terms.example.com/es\"</code>.</p>"""
+    """<p>A map of URLs to languages. For each localized language that will view the requested <code>TermsName</code>, assign a URL. A selection of <code>cognito:default</code> displays for all languages that don't have a language-specific URL.</p> <p>For example, <code>"cognito:default": "https://terms.example.com", "cognito:spanish": "https://terms.example.com/es"</code>.</p>"""
     creation_date: "capo_cognito_identity_provider.types.date_type.DateType"
     """<p>The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.</p>"""
     last_modified_date: "capo_cognito_identity_provider.types.date_type.DateType"

@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 class StreamUrlSummary(TypedDict, closed=True):
     arn: "capo_gameliftstreams.types.arn.Arn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that uniquely identifies the stream URL across all Amazon Web Services Regions. Format is <code>arn:aws:gameliftstreams:[AWS Region]:[AWS account]:streamurl/[stream group resource ID]/[stream URL resource ID]</code>.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that uniquely identifies the stream URL across all Amazon Web Services Regions. Format is <code>arn:aws:gameliftstreams:[AWS Region]:[AWS account]:streamurl/[stream group resource ID]/[stream URL resource ID]</code>.</p>"""
     stream_url_id: NotRequired["capo_gameliftstreams.types.id.Id"]
     """<p>The unique identifier for the stream URL resource, for example <code>su-1AB2C3De4</code>.</p>"""
     stream_url: NotRequired[
@@ -46,9 +46,9 @@ class StreamUrlSummary(TypedDict, closed=True):
     ]
     """<p>The number of times the stream URL can still be used to start a stream session.</p>"""
     stream_group_arn: NotRequired["capo_gameliftstreams.types.arn.Arn"]
-    r"""<p>The stream group that runs the stream sessions.</p> <p>This value is an <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that uniquely identifies the stream group resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. </p>"""
+    """<p>The stream group that runs the stream sessions.</p> <p>This value is an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that uniquely identifies the stream group resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. </p>"""
     application_arn: NotRequired["capo_gameliftstreams.types.arn.Arn"]
-    r"""<p>The application that runs in the stream sessions.</p> <p>This value is an <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> that uniquely identifies the application resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6</code>. </p>"""
+    """<p>The application that runs in the stream sessions.</p> <p>This value is an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> that uniquely identifies the application resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6</code>. </p>"""
     session_length_seconds: NotRequired[
         "capo_gameliftstreams.types.session_length_seconds.SessionLengthSeconds"
     ]

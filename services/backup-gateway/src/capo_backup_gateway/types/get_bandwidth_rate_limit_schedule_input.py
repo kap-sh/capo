@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GetBandwidthRateLimitScheduleInput(TypedDict, closed=True):
     gateway_arn: "capo_backup_gateway.types.gateway_arn.GatewayArn"
-    r"""<p>The Amazon Resource Name (ARN) of the gateway. Use the <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BGW_ListGateways.html\"> <code>ListGateways</code> </a> operation to return a list of gateways for your account and Amazon Web Services Region.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the gateway. Use the <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BGW_ListGateways.html"> <code>ListGateways</code> </a> operation to return a list of gateways for your account and Amazon Web Services Region.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

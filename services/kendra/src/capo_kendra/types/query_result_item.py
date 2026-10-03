@@ -49,7 +49,7 @@ class QueryResultItem(TypedDict, closed=True):
     score_attributes: NotRequired["capo_kendra.types.score_attributes.ScoreAttributes"]
     """<p>Indicates the confidence level of Amazon Kendra providing a relevant result for the query. Each result is placed into a bin that indicates the confidence, <code>VERY_HIGH</code>, <code>HIGH</code>, <code>MEDIUM</code> and <code>LOW</code>. You can use the score to determine if a response meets the confidence needed for your application.</p> <p>The field is only set to <code>LOW</code> when the <code>Type</code> field is set to <code>DOCUMENT</code> and Amazon Kendra is not confident that the result is relevant to the query.</p>"""
     feedback_token: NotRequired["capo_kendra.types.feedback_token.FeedbackToken"]
-    r"""<p>A token that identifies a particular result from a particular query. Use this token to provide click-through feedback for the result. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/submitting-feedback.html\">Submitting feedback</a>.</p>"""
+    """<p>A token that identifies a particular result from a particular query. Use this token to provide click-through feedback for the result. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/submitting-feedback.html">Submitting feedback</a>.</p>"""
     table_excerpt: NotRequired["capo_kendra.types.table_excerpt.TableExcerpt"]
     """<p>An excerpt from a table within a document.</p>"""
     collapsed_result_detail: NotRequired[

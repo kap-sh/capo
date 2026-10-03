@@ -59,7 +59,7 @@ class DeploymentGroupInfo(TypedDict, closed=True):
     ]
     """<p>A list of associated Auto Scaling groups.</p>"""
     service_role_arn: NotRequired["capo_codedeploy.types.role.Role"]
-    r"""<p>A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web Services services on your behalf. For more information, see <a href=\"https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html\">Create a Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.</p>"""
+    """<p>A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web Services services on your behalf. For more information, see <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html">Create a Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.</p>"""
     target_revision: NotRequired[
         "capo_codedeploy.types.revision_location.RevisionLocation"
     ]
@@ -113,7 +113,7 @@ class DeploymentGroupInfo(TypedDict, closed=True):
     ecs_services: NotRequired["capo_codedeploy.types.ecs_service_list.ECSServiceList"]
     """<p> The target Amazon ECS services in the deployment group. This applies only to deployment groups that use the Amazon ECS compute platform. A target Amazon ECS service is specified as an Amazon ECS cluster and service name pair using the format <code><clustername>:<servicename></code>. </p>"""
     termination_hook_enabled: "capo_codedeploy.types.boolean.Boolean"
-    r"""<p>Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into an Auto Scaling group.</p> <p>For more information about the termination hook, see <a href=\"https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors\">How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.</p>"""
+    """<p>Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into an Auto Scaling group.</p> <p>For more information about the termination hook, see <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors">How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

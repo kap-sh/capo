@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceResponse(TypedDict, closed=True):
     tags: "capo_mailmanager.types.tag_list.TagList"
-    r"""<p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

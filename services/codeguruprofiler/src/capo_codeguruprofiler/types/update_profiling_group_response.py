@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class UpdateProfilingGroupResponse(TypedDict, closed=True):
     profiling_group: "capo_codeguruprofiler.types.profiling_group_description.ProfilingGroupDescription"
-    r"""<p> A <a href=\"https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_ProfilingGroupDescription.html\"> <code>ProfilingGroupDescription</code> </a> that contains information about the returned updated profiling group. </p>"""
+    """<p> A <a href="https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_ProfilingGroupDescription.html"> <code>ProfilingGroupDescription</code> </a> that contains information about the returned updated profiling group. </p>"""
 
 
 # --- restJson1 ser/de ---

@@ -20,7 +20,7 @@ class FsxUpdateProtocolSmb(TypedDict, closed=True):
     password: NotRequired["capo_datasync.types.smb_password.SmbPassword"]
     """<p>Specifies the password of a user who has permission to access your SVM.</p>"""
     user: NotRequired["capo_datasync.types.smb_user.SmbUser"]
-    r"""<p>Specifies a user that can mount and access the files, folders, and metadata in your SVM.</p> <p>For information about choosing a user with the right level of access for your transfer, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-ontap-location.html#create-ontap-location-smb\">Using the SMB protocol</a>.</p>"""
+    """<p>Specifies a user that can mount and access the files, folders, and metadata in your SVM.</p> <p>For information about choosing a user with the right level of access for your transfer, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-ontap-location.html#create-ontap-location-smb">Using the SMB protocol</a>.</p>"""
     cmk_secret_config: NotRequired[
         "capo_datasync.types.cmk_secret_config.CmkSecretConfig"
     ]

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class ListSAMLProviderTagsRequest(TypedDict, closed=True):
     saml_provider_arn: "capo_iam.types.arn_type.arnType"
-    r"""<p>The ARN of the Security Assertion Markup Language (SAML) identity provider whose tags you want to see.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
+    """<p>The ARN of the Security Assertion Markup Language (SAML) identity provider whose tags you want to see.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
     marker: NotRequired["capo_iam.types.marker_type.markerType"]
     """<p>Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the <code>Marker</code> element in the response that you received to indicate where the next call should start.</p>"""
     max_items: NotRequired["capo_iam.types.max_items_type.maxItemsType"]

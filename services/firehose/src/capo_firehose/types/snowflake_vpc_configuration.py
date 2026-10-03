@@ -14,7 +14,7 @@ class SnowflakeVpcConfiguration(TypedDict, closed=True):
     private_link_vpce_id: (
         "capo_firehose.types.snowflake_private_link_vpce_id.SnowflakePrivateLinkVpceId"
     )
-    r"""<p>The VPCE ID for Firehose to privately connect with Snowflake. The ID format is com.amazonaws.vpce.[region].vpce-svc-<[id]>. For more information, see <a href=\"https://docs.snowflake.com/en/user-guide/admin-security-privatelink\">Amazon PrivateLink & Snowflake</a> </p>"""
+    """<p>The VPCE ID for Firehose to privately connect with Snowflake. The ID format is com.amazonaws.vpce.[region].vpce-svc-<[id]>. For more information, see <a href="https://docs.snowflake.com/en/user-guide/admin-security-privatelink">Amazon PrivateLink & Snowflake</a> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

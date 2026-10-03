@@ -15,7 +15,7 @@ class VcfVersionInfo(TypedDict, closed=True):
     vcf_version: "capo_evs.types.vcf_version.VcfVersion"
     """<p>The VCF version number.</p>"""
     status: "str"
-    r"""<p>The status for this VCF version. Valid values are:</p> <ul> <li> <p> <code>AVAILABLE</code> - This VCF version is available to you.</p> </li> <li> <p> <code>RESTRICTED</code> - This VCF version has limited availability.</p> </li> </ul> <note> <p> If the version you need shows RESTRICTED, and you require, check out <a href=\"https://docs.aws.amazon.com/evs/latest/userguide/versions-provided.html\">VCF versions and EC2 instance types provided by Amazon EVS</a> for more information. </p> </note>"""
+    """<p>The status for this VCF version. Valid values are:</p> <ul> <li> <p> <code>AVAILABLE</code> - This VCF version is available to you.</p> </li> <li> <p> <code>RESTRICTED</code> - This VCF version has limited availability.</p> </li> </ul> <note> <p> If the version you need shows RESTRICTED, and you require, check out <a href="https://docs.aws.amazon.com/evs/latest/userguide/versions-provided.html">VCF versions and EC2 instance types provided by Amazon EVS</a> for more information. </p> </note>"""
     default_esx_version: "str"
     """<p>The default ESX version for this VCF version. It is based on Broadcom's Bill Of Materials (BOM).</p>"""
     instance_types: "capo_evs.types.instance_type_list.InstanceTypeList"

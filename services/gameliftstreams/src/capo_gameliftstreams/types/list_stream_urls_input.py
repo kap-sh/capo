@@ -17,7 +17,7 @@ class ListStreamUrlsInput(TypedDict, closed=True):
     stream_group_identifier: NotRequired[
         "capo_gameliftstreams.types.identifier.Identifier"
     ]
-    r"""<p>Filters the list to stream URLs that belong to the specified stream group.</p> <p>This value is an <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> or ID that uniquely identifies the stream group resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. Example ID: <code>sg-1AB2C3De4</code>. </p>"""
+    """<p>Filters the list to stream URLs that belong to the specified stream group.</p> <p>This value is an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> or ID that uniquely identifies the stream group resource. Example ARN: <code>arn:aws:gameliftstreams:us-west-2:111122223333:streamgroup/sg-1AB2C3De4</code>. Example ID: <code>sg-1AB2C3De4</code>. </p>"""
     next_token: NotRequired["capo_gameliftstreams.types.next_token.NextToken"]
     """<p>The token that marks the start of the next set of results. Use this token when you retrieve results as sequential pages. To get the first page of results, omit a token value. To get the remaining pages, provide the token returned with the previous result set. </p>"""
     max_results: NotRequired["capo_gameliftstreams.types.max_results.MaxResults"]

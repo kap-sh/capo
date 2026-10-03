@@ -38,7 +38,7 @@ class ContainerRecipe(TypedDict, closed=True):
     components: NotRequired[
         "capo_imagebuilder.types.component_configuration_list.ComponentConfigurationList"
     ]
-    r"""<p>Build and test components that are included in the container recipe. A recipe can contain a maximum of 20 build and test components in any combination, by default. This maximum is an adjustable quota. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html\">EC2 Image Builder endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>Build and test components that are included in the container recipe. A recipe can contain a maximum of 20 build and test components in any combination, by default. This maximum is an adjustable quota. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html">EC2 Image Builder endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     instance_configuration: NotRequired[
         "capo_imagebuilder.types.instance_configuration.InstanceConfiguration"
     ]
@@ -46,9 +46,9 @@ class ContainerRecipe(TypedDict, closed=True):
     dockerfile_template_data: NotRequired[
         "capo_imagebuilder.types.docker_file_template.DockerFileTemplate"
     ]
-    r"""<p>The Dockerfile template that Image Builder uses to build the container image. The template can include contextual variables that Image Builder replaces with build information at build time. For the contextual variables that the template can include, see <a href=\"https://docs.aws.amazon.com/imagebuilder/latest/userguide/create-container-recipes.html\">Create a new version of a container recipe</a> in the <i>EC2 Image Builder User Guide</i>.</p>"""
+    """<p>The Dockerfile template that Image Builder uses to build the container image. The template can include contextual variables that Image Builder replaces with build information at build time. For the contextual variables that the template can include, see <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/create-container-recipes.html">Create a new version of a container recipe</a> in the <i>EC2 Image Builder User Guide</i>.</p>"""
     kms_key_id: NotRequired["capo_imagebuilder.types.non_empty_string.NonEmptyString"]
-    r"""<p>The KMS key that Image Builder uses to encrypt the recipe's Dockerfile template data at rest. This can be either the Key ARN or the Alias ARN. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">Key identifiers (KeyId)</a> in the <i>Key Management Service Developer Guide</i>. If you don't specify a key, Image Builder encrypts the template data with a KMS key that Image Builder owns. This key isn't used to encrypt the output container image.</p>"""
+    """<p>The KMS key that Image Builder uses to encrypt the recipe's Dockerfile template data at rest. This can be either the Key ARN or the Alias ARN. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">Key identifiers (KeyId)</a> in the <i>Key Management Service Developer Guide</i>. If you don't specify a key, Image Builder encrypts the template data with a KMS key that Image Builder owns. This key isn't used to encrypt the output container image.</p>"""
     encrypted: NotRequired["capo_imagebuilder.types.nullable_boolean.NullableBoolean"]
     """<p>Specifies whether the recipe's Dockerfile template data is encrypted at rest. Image Builder encrypts all Dockerfile template data at rest, so this value is always <code>true</code>. This field is retained for backward compatibility, and doesn't describe encryption of the output container image.</p>"""
     parent_image: NotRequired["capo_imagebuilder.types.non_empty_string.NonEmptyString"]

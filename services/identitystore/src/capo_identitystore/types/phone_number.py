@@ -13,11 +13,11 @@ class PhoneNumber(TypedDict, closed=True):
     value: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string containing a phone number. For example, \"8675309\" or \"+1 (800) 123-4567\". </p>"""
+    """<p>A string containing a phone number. For example, "8675309" or "+1 (800) 123-4567". </p>"""
     type: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string representing the type of a phone number. For example, \"Mobile.\"</p>"""
+    """<p>A string representing the type of a phone number. For example, "Mobile."</p>"""
     primary: "capo_identitystore.types.boolean_type.BooleanType"
     """<p>A Boolean value representing whether this is the primary phone number for the associated resource.</p>"""
 

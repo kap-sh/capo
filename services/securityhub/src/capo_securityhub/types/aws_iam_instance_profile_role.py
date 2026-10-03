@@ -17,7 +17,7 @@ class AwsIamInstanceProfileRole(TypedDict, closed=True):
     ]
     """<p>The policy that grants an entity permission to assume the role.</p>"""
     create_date: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the role was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the role was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     path: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The path to the role.</p>"""
     role_id: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

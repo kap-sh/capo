@@ -16,7 +16,7 @@ class Configuration(TypedDict, closed=True):
     configuration_version: NotRequired["capo_appconfig.types.version.Version"]
     """<p>The configuration version.</p>"""
     content_type: NotRequired["capo_appconfig.types.string.String"]
-    r"""<p>A standard MIME type describing the format of the configuration content. For more information, see <a href=\"http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17\">Content-Type</a>.</p>"""
+    """<p>A standard MIME type describing the format of the configuration content. For more information, see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

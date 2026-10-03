@@ -39,7 +39,7 @@ class NetworkInterface(TypedDict, closed=True):
     connection_tracking_configuration: NotRequired[
         "capo_ec2.types.connection_tracking_configuration.ConnectionTrackingConfiguration"
     ]
-    r"""<p>A security group connection tracking configuration that enables you to set the timeout for connection tracking on an Elastic network interface. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts\">Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>A security group connection tracking configuration that enables you to set the timeout for connection tracking on an Elastic network interface. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts">Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     description: NotRequired["capo_ec2.types.string.String"]
     """<p>A description.</p>"""
     groups: NotRequired["capo_ec2.types.group_identifier_list.GroupIdentifierList"]
@@ -61,13 +61,13 @@ class NetworkInterface(TypedDict, closed=True):
     owner_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The Amazon Web Services account ID of the owner of the network interface.</p>"""
     private_dns_name: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The private hostname. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html\">EC2 instance hostnames, DNS names, and domains</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The private hostname. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html">EC2 instance hostnames, DNS names, and domains</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     public_dns_name: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>A public hostname. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html\">EC2 instance hostnames, DNS names, and domains</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>A public hostname. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html">EC2 instance hostnames, DNS names, and domains</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     public_ip_dns_name_options: NotRequired[
         "capo_ec2.types.public_ip_dns_name_options.PublicIpDnsNameOptions"
     ]
-    r"""<p>Public hostname type options. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html\">EC2 instance hostnames, DNS names, and domains</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Public hostname type options. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html">EC2 instance hostnames, DNS names, and domains</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     private_ip_address: NotRequired["capo_ec2.types.string.String"]
     """<p>The IPv4 address of the network interface within the subnet.</p>"""
     private_ip_addresses: NotRequired[

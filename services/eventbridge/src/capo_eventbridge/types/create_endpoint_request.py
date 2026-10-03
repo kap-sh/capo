@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class CreateEndpointRequest(TypedDict, closed=True):
     name: "capo_eventbridge.types.endpoint_name.EndpointName"
-    r"""<p>The name of the global endpoint. For example, <code>\"Name\":\"us-east-2-custom_bus_A-endpoint\"</code>.</p>"""
+    """<p>The name of the global endpoint. For example, <code>"Name":"us-east-2-custom_bus_A-endpoint"</code>.</p>"""
     description: NotRequired[
         "capo_eventbridge.types.endpoint_description.EndpointDescription"
     ]

@@ -14,7 +14,7 @@ class CreateEmailIdentityResponse(TypedDict, closed=True):
     identity_type: NotRequired["capo_pinpoint_email.types.identity_type.IdentityType"]
     """<p>The email identity type.</p>"""
     verified_for_sending_status: "capo_pinpoint_email.types.enabled.Enabled"
-    r"""<p>Specifies whether or not the identity is verified. In Amazon Pinpoint, you can only send email from verified email addresses or domains. For more information about verifying identities, see the <a href=\"https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-manage-verify.html\">Amazon Pinpoint User Guide</a>.</p>"""
+    """<p>Specifies whether or not the identity is verified. In Amazon Pinpoint, you can only send email from verified email addresses or domains. For more information about verifying identities, see the <a href="https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-manage-verify.html">Amazon Pinpoint User Guide</a>.</p>"""
     dkim_attributes: NotRequired[
         "capo_pinpoint_email.types.dkim_attributes.DkimAttributes"
     ]

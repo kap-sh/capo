@@ -62,7 +62,7 @@ class ServiceNetwork:
             "capo_vpc_lattice.types.sharing_config.SharingConfig"
         ] = None,
     ) -> "capo_vpc_lattice.types.create_service_network_response.CreateServiceNetworkResponse":
-        r"""<p>Creates a service network. A service network is a logical boundary for a collection of services. You can associate services and VPCs with a service network.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html\">Service networks</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Creates a service network. A service network is a logical boundary for a collection of services. You can associate services and VPCs with a service network.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html">Service networks</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token and parameters, the retry succeeds without performing any actions. If the parameters aren't identical, the retry fails.</p>
@@ -224,7 +224,7 @@ class ServiceNetwork:
         *,
         config_overrides: Optional[VPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.delete_service_network_response.DeleteServiceNetworkResponse":
-        r"""<p>Deletes a service network. You can only delete the service network if there is no service or VPC associated with it. If you delete a service network, all resources related to the service network, such as the resource policy, auth policy, and access log subscriptions, are also deleted. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#delete-service-network\">Delete a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Deletes a service network. You can only delete the service network if there is no service or VPC associated with it. If you delete a service network, all resources related to the service network, such as the resource policy, auth policy, and access log subscriptions, are also deleted. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#delete-service-network">Delete a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_network_identifier: <p>The ID or ARN of the service network.</p>
@@ -335,7 +335,7 @@ class AsyncServiceNetwork:
             "capo_vpc_lattice.types.sharing_config.SharingConfig"
         ] = None,
     ) -> "capo_vpc_lattice.types.create_service_network_response.CreateServiceNetworkResponse":
-        r"""<p>Creates a service network. A service network is a logical boundary for a collection of services. You can associate services and VPCs with a service network.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html\">Service networks</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Creates a service network. A service network is a logical boundary for a collection of services. You can associate services and VPCs with a service network.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html">Service networks</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token and parameters, the retry succeeds without performing any actions. If the parameters aren't identical, the retry fails.</p>
@@ -500,7 +500,7 @@ class AsyncServiceNetwork:
         *,
         config_overrides: Optional[AsyncVPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.delete_service_network_response.DeleteServiceNetworkResponse":
-        r"""<p>Deletes a service network. You can only delete the service network if there is no service or VPC associated with it. If you delete a service network, all resources related to the service network, such as the resource policy, auth policy, and access log subscriptions, are also deleted. For more information, see <a href=\"https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#delete-service-network\">Delete a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Deletes a service network. You can only delete the service network if there is no service or VPC associated with it. If you delete a service network, all resources related to the service network, such as the resource policy, auth policy, and access log subscriptions, are also deleted. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#delete-service-network">Delete a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_network_identifier: <p>The ID or ARN of the service network.</p>

@@ -24,7 +24,7 @@ class ConverseStreamMetadataEvent(TypedDict, closed=True):
     trace: NotRequired[
         "capo_bedrock_runtime.types.converse_stream_trace.ConverseStreamTrace"
     ]
-    r"""<p>The trace object in the response from <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html\">ConverseStream</a> that contains information about the guardrail behavior.</p>"""
+    """<p>The trace object in the response from <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html">ConverseStream</a> that contains information about the guardrail behavior.</p>"""
     performance_config: NotRequired[
         "capo_bedrock_runtime.types.performance_configuration.PerformanceConfiguration"
     ]

@@ -20,7 +20,7 @@ class DescribeCreateCaseOptionsRequest(TypedDict, closed=True):
     service_code: "capo_support.types.service_code2.ServiceCode2"
     """<p>The code for the Amazon Web Services service. You can use the <a>DescribeServices</a> operation to get the possible <code>serviceCode</code> values.</p>"""
     language: "capo_support.types.language.Language"
-    r"""<p>The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently supports Chinese (“zh”), English (\"en\"), Japanese (\"ja\") , Chinese (\"zh\"), Spanish (\"es\"), Portuguese (\"pt\"), French (\"fr\"), Korean (“ko”), and Turkish (\"tr\"). You must specify the ISO 639-1 code for the <code>language</code> parameter if you want support in that language.</p>"""
+    """<p>The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently supports Chinese (“zh”), English ("en"), Japanese ("ja") , Chinese ("zh"), Spanish ("es"), Portuguese ("pt"), French ("fr"), Korean (“ko”), and Turkish ("tr"). You must specify the ISO 639-1 code for the <code>language</code> parameter if you want support in that language.</p>"""
     category_code: "capo_support.types.category_code.CategoryCode"
     """<p>The category of problem for the support case. You also use the <a>DescribeServices</a> operation to get the category code for a service. Each Amazon Web Services service defines its own set of category codes.</p>"""
     dry_run: NotRequired["capo_support.types.nullable_boolean_type.NullableBooleanType"]

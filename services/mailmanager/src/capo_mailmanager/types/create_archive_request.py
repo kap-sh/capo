@@ -26,7 +26,7 @@ class CreateArchiveRequest(TypedDict, closed=True):
     kms_key_arn: NotRequired["capo_mailmanager.types.kms_key_arn.KmsKeyArn"]
     """<p>The Amazon Resource Name (ARN) of the KMS key for encrypting emails in the archive.</p>"""
     tags: NotRequired["capo_mailmanager.types.tag_list.TagList"]
-    r"""<p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

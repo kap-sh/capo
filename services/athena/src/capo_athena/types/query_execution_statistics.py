@@ -17,7 +17,7 @@ class QueryExecutionStatistics(TypedDict, closed=True):
     data_scanned_in_bytes: NotRequired["capo_athena.types.long.Long"]
     """<p>The number of bytes in the data that was queried.</p>"""
     data_manifest_location: NotRequired["capo_athena.types.string.String"]
-    r"""<p>The location and file name of a data manifest file. The manifest file is saved to the Athena query results location in Amazon S3. The manifest file tracks files that the query wrote to Amazon S3. If the query fails, the manifest file also tracks files that the query intended to write. The manifest is useful for identifying orphaned files resulting from a failed query. For more information, see <a href=\"https://docs.aws.amazon.com/athena/latest/ug/querying.html\">Working with Query Results, Output Files, and Query History</a> in the <i>Amazon Athena User Guide</i>.</p>"""
+    """<p>The location and file name of a data manifest file. The manifest file is saved to the Athena query results location in Amazon S3. The manifest file tracks files that the query wrote to Amazon S3. If the query fails, the manifest file also tracks files that the query intended to write. The manifest is useful for identifying orphaned files resulting from a failed query. For more information, see <a href="https://docs.aws.amazon.com/athena/latest/ug/querying.html">Working with Query Results, Output Files, and Query History</a> in the <i>Amazon Athena User Guide</i>.</p>"""
     total_execution_time_in_millis: NotRequired["capo_athena.types.long.Long"]
     """<p>The number of milliseconds that Athena took to run the query.</p>"""
     query_queue_time_in_millis: NotRequired["capo_athena.types.long.Long"]

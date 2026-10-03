@@ -17,7 +17,7 @@ class IdentitySourceDetails(TypedDict, closed=True):
     user_pool_arn: NotRequired[
         "capo_verifiedpermissions.types.user_pool_arn.UserPoolArn"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the Amazon Cognito user pool whose identities are accessible to this Verified Permissions policy store.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the Amazon Cognito user pool whose identities are accessible to this Verified Permissions policy store.</p>"""
     discovery_url: NotRequired[
         "capo_verifiedpermissions.types.discovery_url.DiscoveryUrl"
     ]

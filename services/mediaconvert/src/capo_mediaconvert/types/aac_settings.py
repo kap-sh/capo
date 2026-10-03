@@ -24,7 +24,7 @@ class AacSettings(TypedDict, closed=True):
     audio_description_broadcaster_mix: NotRequired[
         "capo_mediaconvert.types.aac_audio_description_broadcaster_mix.AacAudioDescriptionBroadcasterMix"
     ]
-    r"""Choose BROADCASTER_MIXED_AD when the input contains pre-mixed main audio + audio description (AD) as a stereo pair. The value for AudioType will be set to 3, which signals to downstream systems that this stream contains \"broadcaster mixed AD\". Note that the input received by the encoder must contain pre-mixed audio; the encoder does not perform the mixing. When you choose BROADCASTER_MIXED_AD, the encoder ignores any values you provide in AudioType and FollowInputAudioType. Choose NORMAL when the input does not contain pre-mixed audio + audio description (AD). In this case, the encoder will use any values you provide for AudioType and FollowInputAudioType."""
+    """Choose BROADCASTER_MIXED_AD when the input contains pre-mixed main audio + audio description (AD) as a stereo pair. The value for AudioType will be set to 3, which signals to downstream systems that this stream contains "broadcaster mixed AD". Note that the input received by the encoder must contain pre-mixed audio; the encoder does not perform the mixing. When you choose BROADCASTER_MIXED_AD, the encoder ignores any values you provide in AudioType and FollowInputAudioType. Choose NORMAL when the input does not contain pre-mixed audio + audio description (AD). In this case, the encoder will use any values you provide for AudioType and FollowInputAudioType."""
     bitrate: NotRequired[
         "capo_mediaconvert.types.__integer_min6000_max1024000.__integerMin6000Max1024000"
     ]
@@ -52,7 +52,7 @@ class AacSettings(TypedDict, closed=True):
     ]
     """Specify the AAC rate control mode. For a constant bitrate: Choose CBR. Your AAC output bitrate will be equal to the value that you choose for Bitrate. For a variable bitrate: Choose VBR. Your AAC output bitrate will vary according to your audio content and the value that you choose for Bitrate quality."""
     raw_format: NotRequired["capo_mediaconvert.types.aac_raw_format.AacRawFormat"]
-    r"""Enables LATM/LOAS AAC output. Note that if you use LATM/LOAS AAC in an output, you must choose \"No container\" for the output container."""
+    """Enables LATM/LOAS AAC output. Note that if you use LATM/LOAS AAC in an output, you must choose "No container" for the output container."""
     sample_rate: NotRequired[
         "capo_mediaconvert.types.__integer_min8000_max96000.__integerMin8000Max96000"
     ]
@@ -64,7 +64,7 @@ class AacSettings(TypedDict, closed=True):
     target_loudness_range: NotRequired[
         "capo_mediaconvert.types.__integer_min6_max16.__integerMin6Max16"
     ]
-    r"""Specify the xHE-AAC loudness target. Enter an integer from 6 to 16, representing \"loudness units\". For more information, see the following specification: Supplementary information for R 128 EBU Tech 3342-2023."""
+    """Specify the xHE-AAC loudness target. Enter an integer from 6 to 16, representing "loudness units". For more information, see the following specification: Supplementary information for R 128 EBU Tech 3342-2023."""
     vbr_quality: NotRequired["capo_mediaconvert.types.aac_vbr_quality.AacVbrQuality"]
     """Specify the quality of your variable bitrate (VBR) AAC audio. For a list of approximate VBR bitrates, see: https://docs.aws.amazon.com/mediaconvert/latest/ug/aac-support.html#aac_vbr"""
 

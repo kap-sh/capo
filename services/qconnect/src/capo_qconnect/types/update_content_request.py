@@ -29,7 +29,7 @@ class UpdateContentRequest(TypedDict, closed=True):
     metadata: NotRequired["capo_qconnect.types.content_metadata.ContentMetadata"]
     """<p>A key/value map to store attributes without affecting tagging or recommendations. For example, when synchronizing data between an external system and Amazon Q in Connect, you can store an external version identifier as metadata to utilize for determining drift.</p>"""
     upload_id: NotRequired["capo_qconnect.types.upload_id.UploadId"]
-    r"""<p>A pointer to the uploaded asset. This value is returned by <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_StartContentUpload.html\">StartContentUpload</a>. </p>"""
+    """<p>A pointer to the uploaded asset. This value is returned by <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_StartContentUpload.html">StartContentUpload</a>. </p>"""
 
 
 # --- restJson1 ser/de ---

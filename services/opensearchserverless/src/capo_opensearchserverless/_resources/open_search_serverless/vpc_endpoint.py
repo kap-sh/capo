@@ -54,7 +54,7 @@ class VpcEndpoint:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_vpc_endpoint_response.CreateVpcEndpointResponse":
-        r"""<p>Creates an OpenSearch Serverless-managed interface VPC endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Creates an OpenSearch Serverless-managed interface VPC endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             name: <p>The name of the interface endpoint.</p>
@@ -114,7 +114,7 @@ class VpcEndpoint:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_vpc_endpoint_response.DeleteVpcEndpointResponse":
-        r"""<p>Deletes an OpenSearch Serverless-managed interface endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Deletes an OpenSearch Serverless-managed interface endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             id: <p>The VPC endpoint identifier.</p>
@@ -168,7 +168,7 @@ class VpcEndpoint:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_vpc_endpoints_response.ListVpcEndpointsResponse":
-        r"""<p>Returns the OpenSearch Serverless-managed interface VPC endpoints associated with the current account. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Returns the OpenSearch Serverless-managed interface VPC endpoints associated with the current account. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             vpc_endpoint_filters: <p>Filter the results according to the current status of the VPC endpoint. Possible statuses are <code>CREATING</code>, <code>DELETING</code>, <code>UPDATING</code>, <code>ACTIVE</code>, and <code>FAILED</code>.</p>
@@ -231,7 +231,7 @@ class AsyncVpcEndpoint:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_vpc_endpoint_response.CreateVpcEndpointResponse":
-        r"""<p>Creates an OpenSearch Serverless-managed interface VPC endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Creates an OpenSearch Serverless-managed interface VPC endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             name: <p>The name of the interface endpoint.</p>
@@ -292,7 +292,7 @@ class AsyncVpcEndpoint:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_vpc_endpoint_response.DeleteVpcEndpointResponse":
-        r"""<p>Deletes an OpenSearch Serverless-managed interface endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Deletes an OpenSearch Serverless-managed interface endpoint. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             id: <p>The VPC endpoint identifier.</p>
@@ -347,7 +347,7 @@ class AsyncVpcEndpoint:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_vpc_endpoints_response.ListVpcEndpointsResponse":
-        r"""<p>Returns the OpenSearch Serverless-managed interface VPC endpoints associated with the current account. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html\">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
+        """<p>Returns the OpenSearch Serverless-managed interface VPC endpoints associated with the current account. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vpc.html">Access Amazon OpenSearch Serverless using an interface endpoint</a>.</p>
 
         Args:
             vpc_endpoint_filters: <p>Filter the results according to the current status of the VPC endpoint. Possible statuses are <code>CREATING</code>, <code>DELETING</code>, <code>UPDATING</code>, <code>ACTIVE</code>, and <code>FAILED</code>.</p>

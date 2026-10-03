@@ -14,7 +14,7 @@ class GetDataLakeSourcesResponse(TypedDict, closed=True):
     data_lake_arn: NotRequired[
         "capo_securitylake.types.amazon_resource_name.AmazonResourceName"
     ]
-    r"""<p>The Amazon Resource Name (ARN) created by you to provide to the subscriber. For more information about ARNs and how to use them in policies, see the <a href=\"https://docs.aws.amazon.com/security-lake/latest/userguide/subscriber-management.html\">Amazon Security Lake User Guide</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) created by you to provide to the subscriber. For more information about ARNs and how to use them in policies, see the <a href="https://docs.aws.amazon.com/security-lake/latest/userguide/subscriber-management.html">Amazon Security Lake User Guide</a>.</p>"""
     data_lake_sources: NotRequired[
         "capo_securitylake.types.data_lake_source_list.DataLakeSourceList"
     ]

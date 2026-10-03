@@ -637,13 +637,13 @@ class AsyncIoTManagedIntegrationsClient:
             "capo_iot_managed_integrations.types.matter_endpoint.MatterEndpoint"
         ] = None,
     ) -> "capo_iot_managed_integrations.types.send_connector_event_response.SendConnectorEventResponse":
-        r"""<p>Relays third-party device events for a connector such as a new device or a device state change event.</p>
+        """<p>Relays third-party device events for a connector such as a new device or a device state change event.</p>
 
         Args:
             connector_id: <p>The id of the connector between the third-party cloud provider and IoT managed integrations.</p>
             user_id: <p>The id of the third-party cloud provider.</p>
-            operation: <p>The Open Connectivity Foundation (OCF) operation requested to be performed on the managed thing.</p> <note> <p>The field op can have a value of \"I\" or \"U\". The field \"cn\" will contain the capability types.</p> </note>
-            operation_version: <p>The Open Connectivity Foundation (OCF) security specification version for the operation being requested on the managed thing. For more information, see <a href=\"https://openconnectivity.org/specs/OCF_Security_Specification_v1.0.0.pdf\">OCF Security Specification</a>.</p>
+            operation: <p>The Open Connectivity Foundation (OCF) operation requested to be performed on the managed thing.</p> <note> <p>The field op can have a value of "I" or "U". The field "cn" will contain the capability types.</p> </note>
+            operation_version: <p>The Open Connectivity Foundation (OCF) security specification version for the operation being requested on the managed thing. For more information, see <a href="https://openconnectivity.org/specs/OCF_Security_Specification_v1.0.0.pdf">OCF Security Specification</a>.</p>
             status_code: <p>The status code of the Open Connectivity Foundation (OCF) operation being performed on the managed thing.</p>
             message: <p>The device state change event payload.</p> <p>This parameter will include the following three fields:</p> <ul> <li> <p> <code>uri</code>: <code>schema auc://&lt;PARTNER-DEVICE-ID&gt;/ResourcePath</code> (The <code>Resourcepath</code> corresponds to an OCF resource.)</p> </li> <li> <p> <code>op</code>: For device state changes, this field must populate as <code>n+d</code>.</p> </li> <li> <p> <code>cn</code>: The content depends on the OCF resource referenced in <code>ResourcePath</code>.</p> </li> </ul>
             device_discovery_id: <p>The id for the device discovery job.</p>
@@ -3208,7 +3208,7 @@ class AsyncIoTManagedIntegrationsClient:
         *,
         config_overrides: Optional[AsyncIoTManagedIntegrationsClientConfig] = None,
     ) -> "capo_iot_managed_integrations.types.get_default_encryption_configuration_response.GetDefaultEncryptionConfigurationResponse":
-        r"""<p> Retrieves information about the default encryption configuration for the Amazon Web Services account in the default or specified region. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/key-management.html\">Key management</a> in the <i>AWS IoT SiteWise User Guide</i>.</p>
+        """<p> Retrieves information about the default encryption configuration for the Amazon Web Services account in the default or specified region. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/key-management.html">Key management</a> in the <i>AWS IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iot_managed_integrations.errors.access_denied_exception.AccessDeniedException: <p>User is not authorized.</p>
@@ -3256,7 +3256,7 @@ class AsyncIoTManagedIntegrationsClient:
             "capo_iot_managed_integrations.types.kms_key_arn.KmsKeyArn"
         ] = None,
     ) -> "capo_iot_managed_integrations.types.put_default_encryption_configuration_response.PutDefaultEncryptionConfigurationResponse":
-        r"""<p>Sets the default encryption configuration for the Amazon Web Services account. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/key-management.html\">Key management</a> in the AWS IoT SiteWise User Guide.</p>
+        """<p>Sets the default encryption configuration for the Amazon Web Services account. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/key-management.html">Key management</a> in the AWS IoT SiteWise User Guide.</p>
 
         Args:
             encryption_type: <p>The type of encryption used for the encryption configuration.</p>
@@ -3967,7 +3967,7 @@ class AsyncIoTManagedIntegrationsClient:
             "capo_iot_managed_integrations.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_iot_managed_integrations.types.list_managed_things_response.ListManagedThingsResponse":
-        r"""<p>Listing all managed things with provision for filters.</p>
+        """<p>Listing all managed things with provision for filters.</p>
 
         Args:
             owner_filter: <p>Filter on device owners when listing managed things.</p>
@@ -3978,7 +3978,7 @@ class AsyncIoTManagedIntegrationsClient:
             connector_destination_id_filter: <p>Filter managed things by the connector destination ID they are associated with.</p>
             connector_device_id_filter: <p>Filter managed things by the connector device ID they are associated with. When specified, only managed things with this connector device ID will be returned.</p>
             serial_number_filter: <p>Filter on the serial number of the device.</p>
-            provisioning_status_filter: <p>Filter on the status of the device. For more information, see <a href=\"https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html\">Device Provisioning</a>.</p>
+            provisioning_status_filter: <p>Filter on the status of the device. For more information, see <a href="https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html">Device Provisioning</a>.</p>
             next_token: <p>A token that can be used to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return at one time.</p>
 

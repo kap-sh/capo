@@ -29,7 +29,7 @@ class CreateFlowResponse(TypedDict, closed=True):
     execution_role_arn: (
         "capo_bedrock_agent.types.flow_execution_role_arn.FlowExecutionRoleArn"
     )
-    r"""<p>The Amazon Resource Name (ARN) of the service role with permissions to create a flow. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/flows-permissions.html\">Create a service role for flows in Amazon Bedrock</a> in the Amazon Bedrock User Guide.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the service role with permissions to create a flow. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/flows-permissions.html">Create a service role for flows in Amazon Bedrock</a> in the Amazon Bedrock User Guide.</p>"""
     customer_encryption_key_arn: NotRequired[
         "capo_bedrock_agent.types.kms_key_arn.KmsKeyArn"
     ]

@@ -40,13 +40,13 @@ class StackSet(TypedDict, closed=True):
     parameters: NotRequired["capo_cloudformation.types.parameters.Parameters"]
     """<p>A list of input parameters for a StackSet.</p>"""
     capabilities: NotRequired["capo_cloudformation.types.capabilities.Capabilities"]
-    r"""<p>The capabilities that are allowed in the StackSet. Some StackSet templates might include resources that can affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access Management (IAM) users. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/control-access-with-iam.html#using-iam-capabilities\">Acknowledging IAM resources in CloudFormation templates</a>.</p>"""
+    """<p>The capabilities that are allowed in the StackSet. Some StackSet templates might include resources that can affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access Management (IAM) users. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/control-access-with-iam.html#using-iam-capabilities">Acknowledging IAM resources in CloudFormation templates</a>.</p>"""
     tags: NotRequired["capo_cloudformation.types.tags.Tags"]
     """<p>A list of tags that specify information about the StackSet. A maximum number of 50 tags can be specified.</p>"""
     stack_set_arn: NotRequired["capo_cloudformation.types.stack_set_arn.StackSetARN"]
     """<p>The Amazon Resource Name (ARN) of the StackSet.</p>"""
     administration_role_arn: NotRequired["capo_cloudformation.types.role_arn.RoleARN"]
-    r"""<p>The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.</p> <p>Use customized administrator roles to control which users or groups can manage specific StackSets within the same administrator account. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html\">Prerequisites for using CloudFormation StackSets</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.</p> <p>Use customized administrator roles to control which users or groups can manage specific StackSets within the same administrator account. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites for using CloudFormation StackSets</a> in the <i>CloudFormation User Guide</i>.</p>"""
     execution_role_name: NotRequired[
         "capo_cloudformation.types.execution_role_name.ExecutionRoleName"
     ]
@@ -62,11 +62,11 @@ class StackSet(TypedDict, closed=True):
     permission_model: NotRequired[
         "capo_cloudformation.types.permission_models.PermissionModels"
     ]
-    r"""<p>Describes how the IAM roles required for StackSet operations are created.</p> <ul> <li> <p>With <code>self-managed</code> permissions, you must create the administrator and execution roles required to deploy to target accounts. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html\">Grant self-managed permissions</a>.</p> </li> <li> <p>With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to deploy to accounts managed by Organizations. For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-activate-trusted-access.html\">Activate trusted access for StackSets with Organizations</a>.</p> </li> </ul>"""
+    """<p>Describes how the IAM roles required for StackSet operations are created.</p> <ul> <li> <p>With <code>self-managed</code> permissions, you must create the administrator and execution roles required to deploy to target accounts. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant self-managed permissions</a>.</p> </li> <li> <p>With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to deploy to accounts managed by Organizations. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-activate-trusted-access.html">Activate trusted access for StackSets with Organizations</a>.</p> </li> </ul>"""
     organizational_unit_ids: NotRequired[
         "capo_cloudformation.types.organizational_unit_id_list.OrganizationalUnitIdList"
     ]
-    r"""<p>[Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html\">DeploymentTargets</a>.</p>"""
+    """<p>[Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">DeploymentTargets</a>.</p>"""
     managed_execution: NotRequired[
         "capo_cloudformation.types.managed_execution.ManagedExecution"
     ]

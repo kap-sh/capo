@@ -23,7 +23,7 @@ class UpdateCustomVerificationEmailTemplateRequest(TypedDict, closed=True):
     template_subject: "capo_sesv2.types.email_template_subject.EmailTemplateSubject"
     """<p>The subject line of the custom verification email.</p>"""
     template_content: "capo_sesv2.types.template_content.TemplateContent"
-    r"""<p>The content of the custom verification email. The total size of the email must be less than 10 MB. The message body may contain HTML, with some limitations. For more information, see <a href=\"https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom-faq\">Custom verification email frequently asked questions</a> in the <i>Amazon SES Developer Guide</i>.</p>"""
+    """<p>The content of the custom verification email. The total size of the email must be less than 10 MB. The message body may contain HTML, with some limitations. For more information, see <a href="https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom-faq">Custom verification email frequently asked questions</a> in the <i>Amazon SES Developer Guide</i>.</p>"""
     success_redirection_url: (
         "capo_sesv2.types.success_redirection_url.SuccessRedirectionURL"
     )

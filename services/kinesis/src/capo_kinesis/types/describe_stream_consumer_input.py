@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DescribeStreamConsumerInput(TypedDict, closed=True):
     stream_arn: NotRequired["capo_kinesis.types.stream_arn.StreamARN"]
-    r"""<p>The ARN of the Kinesis data stream that the consumer is registered with. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
+    """<p>The ARN of the Kinesis data stream that the consumer is registered with. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
     consumer_name: NotRequired["capo_kinesis.types.consumer_name.ConsumerName"]
     """<p>The name that you gave to the consumer.</p>"""
     consumer_arn: NotRequired["capo_kinesis.types.consumer_arn.ConsumerARN"]

@@ -21,7 +21,7 @@ class InvokeAgentRequest(TypedDict, closed=True):
     session_state: NotRequired[
         "capo_bedrock_agent_runtime.types.session_state.SessionState"
     ]
-    r"""<p>Contains parameters that specify various attributes of the session. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/agents-session-state.html\">Control session context</a>.</p> <note> <p>If you include <code>returnControlInvocationResults</code> in the <code>sessionState</code> field, the <code>inputText</code> field will be ignored.</p> </note>"""
+    """<p>Contains parameters that specify various attributes of the session. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-session-state.html">Control session context</a>.</p> <note> <p>If you include <code>returnControlInvocationResults</code> in the <code>sessionState</code> field, the <code>inputText</code> field will be ignored.</p> </note>"""
     agent_id: "capo_bedrock_agent_runtime.types.agent_id.AgentId"
     """<p>The unique identifier of the agent to use.</p>"""
     agent_alias_id: "capo_bedrock_agent_runtime.types.agent_alias_id.AgentAliasId"
@@ -31,7 +31,7 @@ class InvokeAgentRequest(TypedDict, closed=True):
     end_session: NotRequired["bool"]
     """<p>Specifies whether to end the session with the agent or not.</p>"""
     enable_trace: NotRequired["bool"]
-    r"""<p>Specifies whether to turn on the trace or not to track the agent's reasoning process. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/agents-test.html#trace-events\">Trace enablement</a>.</p>"""
+    """<p>Specifies whether to turn on the trace or not to track the agent's reasoning process. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-test.html#trace-events">Trace enablement</a>.</p>"""
     input_text: NotRequired["capo_bedrock_agent_runtime.types.input_text.InputText"]
     """<p>The prompt text to send the agent.</p> <note> <p>If you include <code>returnControlInvocationResults</code> in the <code>sessionState</code> field, the <code>inputText</code> field will be ignored.</p> </note>"""
     memory_id: NotRequired["capo_bedrock_agent_runtime.types.memory_id.MemoryId"]

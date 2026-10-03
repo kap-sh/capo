@@ -163,7 +163,7 @@ class DBInstance(TypedDict, closed=True):
     deletion_protection: NotRequired[
         "capo_neptune.types.boolean_optional.BooleanOptional"
     ]
-    r"""<p>Indicates whether or not the DB instance has deletion protection enabled. The instance can't be deleted when deletion protection is enabled. See <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html\">Deleting a DB Instance</a>.</p>"""
+    """<p>Indicates whether or not the DB instance has deletion protection enabled. The instance can't be deleted when deletion protection is enabled. See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting a DB Instance</a>.</p>"""
     network_type: NotRequired["capo_neptune.types.string.String"]
     """<p>The network type of the DB instance. Inherited from the DB cluster.</p> <p>Valid Values: <code>IPV4</code>, <code>DUAL</code> </p>"""
 

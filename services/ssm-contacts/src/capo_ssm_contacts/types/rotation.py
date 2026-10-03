@@ -27,7 +27,7 @@ class Rotation(TypedDict, closed=True):
     start_time: NotRequired["capo_ssm_contacts.types.date_time.DateTime"]
     """<p>The date and time the rotation becomes active.</p>"""
     time_zone_id: NotRequired["capo_ssm_contacts.types.time_zone_id.TimeZoneId"]
-    r"""<p>The time zone the rotation’s activity is based on, in Internet Assigned Numbers Authority (IANA) format. For example: \"America/Los_Angeles\", \"UTC\", or \"Asia/Seoul\". </p>"""
+    """<p>The time zone the rotation’s activity is based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". </p>"""
     recurrence: NotRequired[
         "capo_ssm_contacts.types.recurrence_settings.RecurrenceSettings"
     ]

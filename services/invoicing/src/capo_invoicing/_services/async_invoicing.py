@@ -367,7 +367,7 @@ class AsyncInvoicingClient:
             "capo_invoicing.types.basic_string_without_space.BasicStringWithoutSpace"
         ] = None,
     ) -> "capo_invoicing.types.create_procurement_portal_preference_response.CreateProcurementPortalPreferenceResponse":
-        r"""<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href=\"https://aws.amazon.com/service-terms/\">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Creates a procurement portal preference configuration for e-invoice delivery and purchase order retrieval. This preference defines how invoices are delivered to a procurement portal and how purchase orders are retrieved.</p>
+        """<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href="https://aws.amazon.com/service-terms/">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Creates a procurement portal preference configuration for e-invoice delivery and purchase order retrieval. This preference defines how invoices are delivered to a procurement portal and how purchase orders are retrieved.</p>
 
         Args:
             procurement_portal_name: <p>The name of the procurement portal.</p>
@@ -523,7 +523,7 @@ class AsyncInvoicingClient:
             "capo_invoicing.types.basic_string_without_space.BasicStringWithoutSpace"
         ] = None,
     ) -> "capo_invoicing.types.delete_procurement_portal_preference_response.DeleteProcurementPortalPreferenceResponse":
-        r"""<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href=\"https://aws.amazon.com/service-terms/\">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Deletes an existing procurement portal preference. This action cannot be undone. Active e-invoice delivery and PO retrieval configurations will be terminated.</p>
+        """<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href="https://aws.amazon.com/service-terms/">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Deletes an existing procurement portal preference. This action cannot be undone. Active e-invoice delivery and PO retrieval configurations will be terminated.</p>
 
         Args:
             procurement_portal_preference_arn: <p>The Amazon Resource Name (ARN) of the procurement portal preference to delete.</p>
@@ -697,7 +697,7 @@ class AsyncInvoicingClient:
         *,
         config_overrides: Optional[AsyncInvoicingClientConfig] = None,
     ) -> "capo_invoicing.types.get_procurement_portal_preference_response.GetProcurementPortalPreferenceResponse":
-        r"""<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href=\"https://aws.amazon.com/service-terms/\">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Retrieves the details of a specific procurement portal preference configuration.</p>
+        """<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href="https://aws.amazon.com/service-terms/">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Retrieves the details of a specific procurement portal preference configuration.</p>
 
         Args:
             procurement_portal_preference_arn: <p>The Amazon Resource Name (ARN) of the procurement portal preference to retrieve.</p>
@@ -978,7 +978,7 @@ class AsyncInvoicingClient:
         ] = None,
         max_results: Optional["capo_invoicing.types.max_results.MaxResults"] = None,
     ) -> "capo_invoicing.types.list_procurement_portal_preferences_response.ListProcurementPortalPreferencesResponse":
-        r"""<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href=\"https://aws.amazon.com/service-terms/\">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Retrieves a list of procurement portal preferences associated with the Amazon Web Services account.</p>
+        """<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href="https://aws.amazon.com/service-terms/">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Retrieves a list of procurement portal preferences associated with the Amazon Web Services account.</p>
 
         Args:
             next_token: <p>The token for the next set of results. (You received this token from a previous call.)</p>
@@ -1304,7 +1304,7 @@ class AsyncInvoicingClient:
             "capo_invoicing.types.basic_string_without_space.BasicStringWithoutSpace"
         ] = None,
     ) -> "capo_invoicing.types.put_procurement_portal_preference_response.PutProcurementPortalPreferenceResponse":
-        r"""<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href=\"https://aws.amazon.com/service-terms/\">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Updates an existing procurement portal preference configuration. This operation can modify settings for e-invoice delivery and purchase order retrieval.</p>
+        """<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href="https://aws.amazon.com/service-terms/">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Updates an existing procurement portal preference configuration. This operation can modify settings for e-invoice delivery and purchase order retrieval.</p>
 
         Args:
             procurement_portal_preference_arn: <p>The Amazon Resource Name (ARN) of the procurement portal preference to update.</p>
@@ -1390,7 +1390,7 @@ class AsyncInvoicingClient:
             "capo_invoicing.types.basic_string_without_space.BasicStringWithoutSpace"
         ] = None,
     ) -> "capo_invoicing.types.send_procurement_portal_validation_response.SendProcurementPortalValidationResponse":
-        r"""<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href=\"https://aws.amazon.com/service-terms/\">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Sends a validation request for a procurement portal preference. This operation initiates the validation process by issuing a validation code that confirms ownership and connectivity of the configured procurement portal endpoint. Use <code>VerifyProcurementPortalValidation</code> to submit the received code and complete validation.</p>
+        """<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href="https://aws.amazon.com/service-terms/">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Sends a validation request for a procurement portal preference. This operation initiates the validation process by issuing a validation code that confirms ownership and connectivity of the configured procurement portal endpoint. Use <code>VerifyProcurementPortalValidation</code> to submit the received code and complete validation.</p>
 
         Args:
             procurement_portal_preference_arn: <p>The Amazon Resource Name (ARN) of the procurement portal preference to validate.</p>
@@ -1654,7 +1654,7 @@ class AsyncInvoicingClient:
             "capo_invoicing.types.basic_string_without_space.BasicStringWithoutSpace"
         ] = None,
     ) -> "capo_invoicing.types.update_procurement_portal_preference_status_response.UpdateProcurementPortalPreferenceStatusResponse":
-        r"""<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href=\"https://aws.amazon.com/service-terms/\">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Updates the status of a procurement portal preference, including the activation state of e-invoice delivery and purchase order retrieval features.</p>
+        """<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href="https://aws.amazon.com/service-terms/">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Updates the status of a procurement portal preference, including the activation state of e-invoice delivery and purchase order retrieval features.</p>
 
         Args:
             procurement_portal_preference_arn: <p>The Amazon Resource Name (ARN) of the procurement portal preference to update.</p>
@@ -1737,7 +1737,7 @@ class AsyncInvoicingClient:
             "capo_invoicing.types.basic_string_without_space.BasicStringWithoutSpace"
         ] = None,
     ) -> "capo_invoicing.types.verify_procurement_portal_validation_response.VerifyProcurementPortalValidationResponse":
-        r"""<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href=\"https://aws.amazon.com/service-terms/\">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Submits a validation code to complete the validation of a procurement portal preference. Use this operation after calling <code>SendProcurementPortalValidation</code> to confirm ownership and connectivity of the configured procurement portal endpoint.</p>
+        """<p> <i> <b>This feature API is subject to changing at any time. For more information, see the <a href="https://aws.amazon.com/service-terms/">Amazon Web Services Service Terms</a> (Betas and Previews).</b> </i> </p> <p>Submits a validation code to complete the validation of a procurement portal preference. Use this operation after calling <code>SendProcurementPortalValidation</code> to confirm ownership and connectivity of the configured procurement portal endpoint.</p>
 
         Args:
             procurement_portal_preference_arn: <p>The Amazon Resource Name (ARN) of the procurement portal preference to validate.</p>

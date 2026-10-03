@@ -14,9 +14,9 @@ class UpdateAccountCustomizationsInput(TypedDict, closed=True):
     account_color: NotRequired["capo_uxc.types.account_color.AccountColor"]
     """<p>The account color preference to set. Set to <code>none</code> to reset to the default (no color).</p>"""
     visible_services: NotRequired["capo_uxc.types.service_list.ServiceList"]
-    r"""<p>The list of Amazon Web Services service identifiers to make visible in the Amazon Web Services Management Console. Set to <code>null</code> to reset to the default, which makes all services visible. For valid service identifiers, call <a href=\"https://docs.aws.amazon.com/awsconsolehelpdocs/latest/APIReference/API_ListServices.html\">ListServices</a>.</p>"""
+    """<p>The list of Amazon Web Services service identifiers to make visible in the Amazon Web Services Management Console. Set to <code>null</code> to reset to the default, which makes all services visible. For valid service identifiers, call <a href="https://docs.aws.amazon.com/awsconsolehelpdocs/latest/APIReference/API_ListServices.html">ListServices</a>.</p>"""
     visible_regions: NotRequired["capo_uxc.types.regions_list.RegionsList"]
-    r"""<p>The list of Amazon Web Services Region codes to make visible in the Amazon Web Services Management Console. Set to <code>null</code> to reset to the default, which makes all Regions visible. For a list of valid Region codes, see <a href=\"https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions.html\">Amazon Web Services Regions</a>.</p>"""
+    """<p>The list of Amazon Web Services Region codes to make visible in the Amazon Web Services Management Console. Set to <code>null</code> to reset to the default, which makes all Regions visible. For a list of valid Region codes, see <a href="https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions.html">Amazon Web Services Regions</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

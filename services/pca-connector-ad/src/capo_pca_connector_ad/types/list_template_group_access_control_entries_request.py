@@ -16,7 +16,7 @@ class ListTemplateGroupAccessControlEntriesRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_pca_connector_ad.types.next_token.NextToken"]
     """<p>Use this parameter when paginating results in a subsequent request after you receive a response with truncated results. Set it to the value of the <code>NextToken</code> parameter from the response you just received.</p>"""
     template_arn: "capo_pca_connector_ad.types.template_arn.TemplateArn"
-    r"""<p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

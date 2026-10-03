@@ -26,7 +26,7 @@ class PatchComplianceData(TypedDict, closed=True):
     severity: "capo_ssm.types.patch_severity.PatchSeverity"
     """<p>The severity of the patch such as <code>Critical</code>, <code>Important</code>, and <code>Moderate</code>.</p>"""
     state: "capo_ssm.types.patch_compliance_data_state.PatchComplianceDataState"
-    r"""<p>The state of the patch on the managed node, such as INSTALLED or FAILED.</p> <p>For descriptions of each patch state, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/compliance-about.html#compliance-monitor-patch\">About patch compliance</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>The state of the patch on the managed node, such as INSTALLED or FAILED.</p> <p>For descriptions of each patch state, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/compliance-about.html#compliance-monitor-patch">About patch compliance</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
     installed_time: "capo_ssm.types.date_time.DateTime"
     """<p>The date/time the patch was installed on the managed node. Not all operating systems provide this level of information.</p>"""
     cve_ids: NotRequired["capo_ssm.types.patch_cve_ids.PatchCVEIds"]

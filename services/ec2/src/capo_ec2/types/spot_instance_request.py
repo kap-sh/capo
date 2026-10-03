@@ -55,7 +55,7 @@ class SpotInstanceRequest(TypedDict, closed=True):
     spot_price: NotRequired["capo_ec2.types.string.String"]
     """<p>The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the current Spot price.</p> <important> <p>If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify this parameter.</p> </important>"""
     state: NotRequired["capo_ec2.types.spot_instance_state.SpotInstanceState"]
-    r"""<p>The state of the Spot Instance request. Spot request status information helps track your Spot Instance requests. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html\">Spot request status</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The state of the Spot Instance request. Spot request status information helps track your Spot Instance requests. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     status: NotRequired["capo_ec2.types.spot_instance_status.SpotInstanceStatus"]
     """<p>The status code and status message describing the Spot Instance request.</p>"""
     tags: NotRequired["capo_ec2.types.tag_list.TagList"]

@@ -30,7 +30,7 @@ class AgentKnowledgeBase(TypedDict, closed=True):
     knowledge_base_state: (
         "capo_bedrock_agent.types.knowledge_base_state.KnowledgeBaseState"
     )
-    r"""<p>Specifies whether to use the knowledge base or not when sending an <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_InvokeAgent.html\">InvokeAgent</a> request.</p>"""
+    """<p>Specifies whether to use the knowledge base or not when sending an <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_InvokeAgent.html">InvokeAgent</a> request.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -59,7 +59,7 @@ class RelayResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_relay_response.CreateRelayResponse":
-        r"""<p>Creates a relay resource which can be used in rules to relay incoming emails to defined relay destinations. </p>
+        """<p>Creates a relay resource which can be used in rules to relay incoming emails to defined relay destinations. </p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -67,7 +67,7 @@ class RelayResource:
             server_name: <p>The destination relay server address.</p>
             server_port: <p>The destination relay server port.</p>
             authentication: <p>Authentication for the relay destination server—specify the secretARN where the SMTP credentials are stored.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -334,7 +334,7 @@ class AsyncRelayResource:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_relay_response.CreateRelayResponse":
-        r"""<p>Creates a relay resource which can be used in rules to relay incoming emails to defined relay destinations. </p>
+        """<p>Creates a relay resource which can be used in rules to relay incoming emails to defined relay destinations. </p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -342,7 +342,7 @@ class AsyncRelayResource:
             server_name: <p>The destination relay server address.</p>
             server_port: <p>The destination relay server port.</p>
             authentication: <p>Authentication for the relay destination server—specify the secretARN where the SMTP credentials are stored.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>

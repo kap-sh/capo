@@ -19,7 +19,7 @@ class AccessPoint(TypedDict, closed=True):
     primary: NotRequired["capo_geo_places.types.sensitive_boolean.SensitiveBoolean"]
     """<p>Set to <code>true</code> for the primary access position when the place has more than one access point.</p>"""
     label: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
-    r"""<p>A short textual description of the access point, such as <code>\"North Entrance\"</code>.</p>"""
+    """<p>A short textual description of the access point, such as <code>"North Entrance"</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

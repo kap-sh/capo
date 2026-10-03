@@ -26,11 +26,11 @@ class CreateRotationRequest(TypedDict, closed=True):
     start_time: NotRequired["capo_ssm_contacts.types.date_time.DateTime"]
     """<p>The date and time that the rotation goes into effect.</p>"""
     time_zone_id: "capo_ssm_contacts.types.time_zone_id.TimeZoneId"
-    r"""<p>The time zone to base the rotation’s activity on in Internet Assigned Numbers Authority (IANA) format. For example: \"America/Los_Angeles\", \"UTC\", or \"Asia/Seoul\". For more information, see the <a href=\"https://www.iana.org/time-zones\">Time Zone Database</a> on the IANA website.</p> <note> <p>Designators for time zones that don’t support Daylight Savings Time rules, such as Pacific Standard Time (PST), are not supported.</p> </note>"""
+    """<p>The time zone to base the rotation’s activity on in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <a href="https://www.iana.org/time-zones">Time Zone Database</a> on the IANA website.</p> <note> <p>Designators for time zones that don’t support Daylight Savings Time rules, such as Pacific Standard Time (PST), are not supported.</p> </note>"""
     recurrence: "capo_ssm_contacts.types.recurrence_settings.RecurrenceSettings"
     """<p>Information about the rule that specifies when a shift's team members rotate.</p>"""
     tags: NotRequired["capo_ssm_contacts.types.tags_list.TagsList"]
-    r"""<p>Optional metadata to assign to the rotation. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For more information, see <a href=\"https://docs.aws.amazon.com/incident-manager/latest/userguide/tagging.html\">Tagging Incident Manager resources</a> in the <i>Incident Manager User Guide</i>.</p>"""
+    """<p>Optional metadata to assign to the rotation. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For more information, see <a href="https://docs.aws.amazon.com/incident-manager/latest/userguide/tagging.html">Tagging Incident Manager resources</a> in the <i>Incident Manager User Guide</i>.</p>"""
     idempotency_token: NotRequired[
         "capo_ssm_contacts.types.idempotency_token.IdempotencyToken"
     ]

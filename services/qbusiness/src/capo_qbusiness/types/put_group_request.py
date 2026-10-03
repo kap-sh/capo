@@ -22,9 +22,9 @@ class PutGroupRequest(TypedDict, closed=True):
     index_id: "capo_qbusiness.types.index_id.IndexId"
     """<p>The identifier of the index in which you want to map users to their groups.</p>"""
     group_name: "capo_qbusiness.types.group_name.GroupName"
-    r"""<p>The list that contains your users or sub groups that belong the same group. For example, the group \"Company\" includes the user \"CEO\" and the sub groups \"Research\", \"Engineering\", and \"Sales and Marketing\".</p>"""
+    """<p>The list that contains your users or sub groups that belong the same group. For example, the group "Company" includes the user "CEO" and the sub groups "Research", "Engineering", and "Sales and Marketing".</p>"""
     data_source_id: NotRequired["capo_qbusiness.types.data_source_id.DataSourceId"]
-    r"""<p>The identifier of the data source for which you want to map users to their groups. This is useful if a group is tied to multiple data sources, but you only want the group to access documents of a certain data source. For example, the groups \"Research\", \"Engineering\", and \"Sales and Marketing\" are all tied to the company's documents stored in the data sources Confluence and Salesforce. However, \"Sales and Marketing\" team only needs access to customer-related documents stored in Salesforce.</p>"""
+    """<p>The identifier of the data source for which you want to map users to their groups. This is useful if a group is tied to multiple data sources, but you only want the group to access documents of a certain data source. For example, the groups "Research", "Engineering", and "Sales and Marketing" are all tied to the company's documents stored in the data sources Confluence and Salesforce. However, "Sales and Marketing" team only needs access to customer-related documents stored in Salesforce.</p>"""
     type: "capo_qbusiness.types.membership_type.MembershipType"
     """<p>The type of the group.</p>"""
     group_members: "capo_qbusiness.types.group_members.GroupMembers"

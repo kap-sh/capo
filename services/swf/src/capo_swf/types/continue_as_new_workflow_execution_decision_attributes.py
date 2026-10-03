@@ -25,7 +25,7 @@ class ContinueAsNewWorkflowExecutionDecisionAttributes(TypedDict, closed=True):
     task_list: NotRequired["capo_swf.types.task_list.TaskList"]
     """<p>The task list to use for the decisions of the new (continued) workflow execution.</p>"""
     task_priority: NotRequired["capo_swf.types.task_priority.TaskPriority"]
-    r"""<p> The task priority that, if set, specifies the priority for the decision tasks for this workflow execution. This overrides the defaultTaskPriority specified when registering the workflow type. Valid values are integers that range from Java's <code>Integer.MIN_VALUE</code> (-2147483648) to <code>Integer.MAX_VALUE</code> (2147483647). Higher numbers indicate higher priority.</p> <p>For more information about setting task priority, see <a href=\"https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html\">Setting Task Priority</a> in the <i>Amazon SWF Developer Guide</i>.</p>"""
+    """<p> The task priority that, if set, specifies the priority for the decision tasks for this workflow execution. This overrides the defaultTaskPriority specified when registering the workflow type. Valid values are integers that range from Java's <code>Integer.MIN_VALUE</code> (-2147483648) to <code>Integer.MAX_VALUE</code> (2147483647). Higher numbers indicate higher priority.</p> <p>For more information about setting task priority, see <a href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html">Setting Task Priority</a> in the <i>Amazon SWF Developer Guide</i>.</p>"""
     task_start_to_close_timeout: NotRequired[
         "capo_swf.types.duration_in_seconds_optional.DurationInSecondsOptional"
     ]

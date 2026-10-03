@@ -58,7 +58,7 @@ class AccessPolicy:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_access_policy_response.CreateAccessPolicyResponse":
-        r"""<p>Creates a data access policy for OpenSearch Serverless. Access policies limit access to collections and the resources within them, and allow a user to access that data irrespective of the access mechanism or network source. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Creates a data access policy for OpenSearch Serverless. Access policies limit access to collections and the resources within them, and allow a user to access that data irrespective of the access mechanism or network source. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>
@@ -116,7 +116,7 @@ class AccessPolicy:
         *,
         config_overrides: Optional[OpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.get_access_policy_response.GetAccessPolicyResponse":
-        r"""<p>Returns an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Returns an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>Tye type of policy. Currently, the only supported value is <code>data</code>.</p>
@@ -174,7 +174,7 @@ class AccessPolicy:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_access_policy_response.UpdateAccessPolicyResponse":
-        r"""<p>Updates an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Updates an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>
@@ -238,7 +238,7 @@ class AccessPolicy:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_access_policy_response.DeleteAccessPolicyResponse":
-        r"""<p>Deletes an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Deletes an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>
@@ -361,7 +361,7 @@ class AsyncAccessPolicy:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_access_policy_response.CreateAccessPolicyResponse":
-        r"""<p>Creates a data access policy for OpenSearch Serverless. Access policies limit access to collections and the resources within them, and allow a user to access that data irrespective of the access mechanism or network source. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Creates a data access policy for OpenSearch Serverless. Access policies limit access to collections and the resources within them, and allow a user to access that data irrespective of the access mechanism or network source. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>
@@ -420,7 +420,7 @@ class AsyncAccessPolicy:
         *,
         config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
     ) -> "capo_opensearchserverless.types.get_access_policy_response.GetAccessPolicyResponse":
-        r"""<p>Returns an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Returns an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>Tye type of policy. Currently, the only supported value is <code>data</code>.</p>
@@ -479,7 +479,7 @@ class AsyncAccessPolicy:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.update_access_policy_response.UpdateAccessPolicyResponse":
-        r"""<p>Updates an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Updates an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>
@@ -544,7 +544,7 @@ class AsyncAccessPolicy:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_access_policy_response.DeleteAccessPolicyResponse":
-        r"""<p>Deletes an OpenSearch Serverless access policy. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html\">Data access control for Amazon OpenSearch Serverless</a>.</p>
+        """<p>Deletes an OpenSearch Serverless access policy. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">Data access control for Amazon OpenSearch Serverless</a>.</p>
 
         Args:
             type: <p>The type of policy.</p>

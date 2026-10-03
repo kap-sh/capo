@@ -15,7 +15,7 @@ class UpdateConnectionGroupRequest(TypedDict, closed=True):
     id: "capo_cloudfront.types.string.string"
     """<p>The ID of the connection group.</p>"""
     ipv6_enabled: NotRequired["capo_cloudfront.types.boolean.boolean"]
-    r"""<p>Enable IPv6 for the connection group. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesEnableIPv6\">Enable IPv6</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
+    """<p>Enable IPv6 for the connection group. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesEnableIPv6">Enable IPv6</a> in the <i>Amazon CloudFront Developer Guide</i>.</p>"""
     if_match: "capo_cloudfront.types.string.string"
     """<p>The value of the <code>ETag</code> header that you received when retrieving the connection group that you're updating.</p>"""
     anycast_ip_list_id: NotRequired["capo_cloudfront.types.string.string"]

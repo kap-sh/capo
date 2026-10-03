@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ListDeploymentsRequest(TypedDict, closed=True):
     target_arn: NotRequired["capo_greengrassv2.types.target_arn.TargetARN"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the target IoT thing or thing group.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the target IoT thing or thing group.</p>"""
     history_filter: NotRequired[
         "capo_greengrassv2.types.deployment_history_filter.DeploymentHistoryFilter"
     ]
@@ -22,7 +22,7 @@ class ListDeploymentsRequest(TypedDict, closed=True):
     parent_target_arn: NotRequired[
         "capo_greengrassv2.types.thing_group_arn.ThingGroupARN"
     ]
-    r"""<p>The parent deployment's target <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> within a subdeployment.</p>"""
+    """<p>The parent deployment's target <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> within a subdeployment.</p>"""
     max_results: NotRequired[
         "capo_greengrassv2.types.default_max_results.DefaultMaxResults"
     ]

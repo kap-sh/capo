@@ -638,22 +638,22 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> None:
-        r"""<p>Associates a child asset with the given parent asset through a hierarchy defined in the parent asset's model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/add-associated-assets.html\">Associating assets</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Associates a child asset with the given parent asset through a hierarchy defined in the parent asset's model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/add-associated-assets.html">Associating assets</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
-            asset_id: <p>The ID of the parent asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            hierarchy_id: <p>The ID of a hierarchy in the parent asset's model. (This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.) Hierarchies allow different groupings of assets to be formed that all come from the same asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html\">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            child_asset_id: <p>The ID of the child asset to be associated. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the parent asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            hierarchy_id: <p>The ID of a hierarchy in the parent asset's model. (This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.) Hierarchies allow different groupings of assets to be formed that all come from the same asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            child_asset_id: <p>The ID of the child asset to be associated. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -699,12 +699,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> None:
-        r"""<p>Associates a time series (data stream) with an asset property.</p>
+        """<p>Associates a time series (data stream) with an asset property.</p>
 
         Args:
             alias: <p>The alias that identifies the time series.</p>
-            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
 
         Raises:
@@ -712,7 +712,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -770,9 +770,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -819,7 +819,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotsitewise.types.batch_associate_project_assets_response.BatchAssociateProjectAssetsResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Associates a group (batch) of assets with an IoT SiteWise Monitor project.</p>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Associates a group (batch) of assets with an IoT SiteWise Monitor project.</p>
 
         Args:
             project_id: <p>The ID of the project to which to associate the assets.</p>
@@ -829,9 +829,9 @@ class AsyncIoTSiteWiseClient:
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -891,7 +891,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -952,7 +952,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1010,7 +1010,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1056,7 +1056,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.batch_get_asset_property_aggregates_max_results.BatchGetAssetPropertyAggregatesMaxResults"
         ] = None,
     ) -> "capo_iotsitewise.types.batch_get_asset_property_aggregates_response.BatchGetAssetPropertyAggregatesResponse":
-        r"""<p>Gets aggregated values (for example, average, minimum, and maximum) for one or more asset properties. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#aggregates\">Querying aggregates</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Gets aggregated values (for example, average, minimum, and maximum) for one or more asset properties. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#aggregates">Querying aggregates</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             entries: <p>The list of asset property aggregate entries for the batch get request. You can specify up to 16 entries per request.</p>
@@ -1067,7 +1067,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1133,7 +1133,7 @@ class AsyncIoTSiteWiseClient:
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
         next_token: Optional["capo_iotsitewise.types.next_token.NextToken"] = None,
     ) -> "capo_iotsitewise.types.batch_get_asset_property_value_response.BatchGetAssetPropertyValueResponse":
-        r"""<p>Gets the current value for one or more asset properties. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#current-values\">Querying current values</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Gets the current value for one or more asset properties. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#current-values">Querying current values</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             entries: <p>The list of asset property value entries for the batch get request. You can specify up to 128 entries per request.</p>
@@ -1143,7 +1143,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1206,7 +1206,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.batch_get_asset_property_value_history_max_results.BatchGetAssetPropertyValueHistoryMaxResults"
         ] = None,
     ) -> "capo_iotsitewise.types.batch_get_asset_property_value_history_response.BatchGetAssetPropertyValueHistoryResponse":
-        r"""<p>Gets the historical values for one or more asset properties. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#historical-values\">Querying historical values</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Gets the historical values for one or more asset properties. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#historical-values">Querying historical values</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             entries: <p>The list of asset property historical value entries for the batch get request. You can specify up to 16 entries per request.</p>
@@ -1217,7 +1217,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1285,7 +1285,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.boolean_value.BooleanValue"
         ] = None,
     ) -> "capo_iotsitewise.types.batch_put_asset_property_value_response.BatchPutAssetPropertyValueResponse":
-        r"""<p>Sends a list of asset property values to IoT SiteWise. Each value is a timestamp-quality-value (TQV) data point. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/ingest-api.html\">Ingesting data using the API</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html\">UpdateAssetProperty</a>.</p> </li> </ul> <important> <p>With respect to Unix epoch time, IoT SiteWise accepts only TQVs that have a timestamp of no more than 7 days in the past and no more than 10 minutes in the future. IoT SiteWise rejects timestamps outside of the inclusive range of [-7 days, +10 minutes] and returns a <code>TimestampOutOfRangeException</code> error.</p> <p>For each asset property, IoT SiteWise overwrites TQVs with duplicate timestamps unless the newer TQV has a different quality. For example, if you store a TQV <code>{T1, GOOD, V1}</code>, then storing <code>{T1, GOOD, V2}</code> replaces the existing TQV.</p> </important> <p>IoT SiteWise authorizes access to each <code>BatchPutAssetPropertyValue</code> entry individually. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-batchputassetpropertyvalue-action\">BatchPutAssetPropertyValue authorization</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Sends a list of asset property values to IoT SiteWise. Each value is a timestamp-quality-value (TQV) data point. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/ingest-api.html">Ingesting data using the API</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html">UpdateAssetProperty</a>.</p> </li> </ul> <important> <p>With respect to Unix epoch time, IoT SiteWise accepts only TQVs that have a timestamp of no more than 7 days in the past and no more than 10 minutes in the future. IoT SiteWise rejects timestamps outside of the inclusive range of [-7 days, +10 minutes] and returns a <code>TimestampOutOfRangeException</code> error.</p> <p>For each asset property, IoT SiteWise overwrites TQVs with duplicate timestamps unless the newer TQV has a different quality. For example, if you store a TQV <code>{T1, GOOD, V1}</code>, then storing <code>{T1, GOOD, V2}</code> replaces the existing TQV.</p> </important> <p>IoT SiteWise authorizes access to each <code>BatchPutAssetPropertyValue</code> entry individually. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-batchputassetpropertyvalue-action">BatchPutAssetPropertyValue authorization</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             enable_partial_entry_processing: <p>This setting enables partial ingestion at entry-level. If set to <code>true</code>, we ingest all TQVs not resulting in an error. If set to <code>false</code>, an invalid TQV fails ingestion of the entire entry that contains it.</p>
@@ -1295,10 +1295,10 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1350,9 +1350,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1410,7 +1410,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1465,7 +1465,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1510,21 +1510,21 @@ class AsyncIoTSiteWiseClient:
         ] = None,
         tags: Optional["capo_iotsitewise.types.tag_map.TagMap"] = None,
     ) -> "capo_iotsitewise.types.create_access_policy_response.CreateAccessPolicyResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Creates an access policy that grants the specified identity (IAM Identity Center user, IAM Identity Center group, or IAM user) access to the specified IoT SiteWise Monitor portal or project resource.</p> <note> <p>Support for access policies that use an SSO Group as the identity is not supported at this time.</p> </note>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Creates an access policy that grants the specified identity (IAM Identity Center user, IAM Identity Center group, or IAM user) access to the specified IoT SiteWise Monitor portal or project resource.</p> <note> <p>Support for access policies that use an SSO Group as the identity is not supported at this time.</p> </note>
 
         Args:
             access_policy_identity: <p>The identity for this access policy. Choose an IAM Identity Center user, an IAM Identity Center group, or an IAM user.</p>
             access_policy_resource: <p>The IoT SiteWise Monitor resource for this access policy. Choose either a portal or a project.</p>
             access_policy_permission: <p>The permission level for this access policy. Note that a project <code>ADMINISTRATOR</code> is also known as a project owner.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the access policy. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the access policy. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1591,9 +1591,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1652,25 +1652,25 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.description.Description"
         ] = None,
     ) -> "capo_iotsitewise.types.create_asset_response.CreateAssetResponse":
-        r"""<p>Creates an asset from an existing asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-assets.html\">Creating assets</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Creates an asset from an existing asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-assets.html">Creating assets</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             asset_name: <p>A friendly name for the asset.</p>
-            asset_model_id: <p>The ID of the asset model from which to create the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model from which to create the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             asset_id: <p>The ID to assign to the asset, if desired. IoT SiteWise automatically generates a unique ID for you, so this parameter is never required. However, if you prefer to supply your own ID instead, you can specify it here in UUID format. If you specify your own ID, it must be globally unique.</p>
-            asset_external_id: <p>An external ID to assign to the asset. The external ID must be unique within your Amazon Web Services account. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids\">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_external_id: <p>An external ID to assign to the asset. The external ID must be unique within your Amazon Web Services account. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the asset. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the asset. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
             asset_description: <p>A description for the asset.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1743,28 +1743,28 @@ class AsyncIoTSiteWiseClient:
         ] = None,
         tags: Optional["capo_iotsitewise.types.tag_map.TagMap"] = None,
     ) -> "capo_iotsitewise.types.create_asset_model_response.CreateAssetModelResponse":
-        r"""<p>Creates an asset model from specified property and hierarchy definitions. You create assets from asset models. With asset models, you can easily create assets of the same type that have standardized definitions. Each asset created from a model inherits the asset model's property and hierarchy definitions. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/define-models.html\">Defining asset models</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can create three types of asset models, <code>ASSET_MODEL</code>, <code>COMPONENT_MODEL</code>, or an <code>INTERFACE</code>.</p> <ul> <li> <p> <b>ASSET_MODEL</b> – (default) An asset model that you can use to create assets. Can't be included as a component in another asset model.</p> </li> <li> <p> <b>COMPONENT_MODEL</b> – A reusable component that you can include in the composite models of other asset models. You can't create assets directly from this type of asset model. </p> </li> <li> <p> <b>INTERFACE</b> – An interface is a type of model that defines a standard structure that can be applied to different asset models.</p> </li> </ul>
+        """<p>Creates an asset model from specified property and hierarchy definitions. You create assets from asset models. With asset models, you can easily create assets of the same type that have standardized definitions. Each asset created from a model inherits the asset model's property and hierarchy definitions. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/define-models.html">Defining asset models</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can create three types of asset models, <code>ASSET_MODEL</code>, <code>COMPONENT_MODEL</code>, or an <code>INTERFACE</code>.</p> <ul> <li> <p> <b>ASSET_MODEL</b> – (default) An asset model that you can use to create assets. Can't be included as a component in another asset model.</p> </li> <li> <p> <b>COMPONENT_MODEL</b> – A reusable component that you can include in the composite models of other asset models. You can't create assets directly from this type of asset model. </p> </li> <li> <p> <b>INTERFACE</b> – An interface is a type of model that defines a standard structure that can be applied to different asset models.</p> </li> </ul>
 
         Args:
             asset_model_name: <p>A unique name for the asset model.</p>
             asset_model_type: <p>The type of asset model.</p> <ul> <li> <p> <b>ASSET_MODEL</b> – (default) An asset model that you can use to create assets. Can't be included as a component in another asset model.</p> </li> <li> <p> <b>COMPONENT_MODEL</b> – A reusable component that you can include in the composite models of other asset models. You can't create assets directly from this type of asset model. </p> </li> </ul>
             asset_model_id: <p>The ID to assign to the asset model, if desired. IoT SiteWise automatically generates a unique ID for you, so this parameter is never required. However, if you prefer to supply your own ID instead, you can specify it here in UUID format. If you specify your own ID, it must be globally unique.</p>
-            asset_model_external_id: <p>An external ID to assign to the asset model. The external ID must be unique within your Amazon Web Services account. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids\">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_external_id: <p>An external ID to assign to the asset model. The external ID must be unique within your Amazon Web Services account. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             asset_model_description: <p>A description for the asset model.</p>
-            asset_model_properties: <p>The property definitions of the asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html\">Asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 200 properties per asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_model_hierarchies: <p>The hierarchy definitions of the asset model. Each hierarchy specifies an asset model whose assets can be children of any other assets created from this asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html\">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 10 hierarchies per asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_model_composite_models: <p>The composite models that are part of this asset model. It groups properties (such as attributes, measurements, transforms, and metrics) and child composite models that model parts of your industrial equipment. Each composite model has a type that defines the properties that the composite model supports. Use composite models to define alarms on this asset model.</p> <note> <p>When creating custom composite models, you need to use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_CreateAssetModelCompositeModel.html\">CreateAssetModelCompositeModel</a>. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-custom-composite-models.html\">Creating custom composite models (Components)</a> in the <i>IoT SiteWise User Guide</i>.</p> </note>
+            asset_model_properties: <p>The property definitions of the asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html">Asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 200 properties per asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_hierarchies: <p>The hierarchy definitions of the asset model. Each hierarchy specifies an asset model whose assets can be children of any other assets created from this asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 10 hierarchies per asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_composite_models: <p>The composite models that are part of this asset model. It groups properties (such as attributes, measurements, transforms, and metrics) and child composite models that model parts of your industrial equipment. Each composite model has a type that defines the properties that the composite model supports. Use composite models to define alarms on this asset model.</p> <note> <p>When creating custom composite models, you need to use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_CreateAssetModelCompositeModel.html">CreateAssetModelCompositeModel</a>. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-custom-composite-models.html">Creating custom composite models (Components)</a> in the <i>IoT SiteWise User Guide</i>.</p> </note>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1847,7 +1847,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_type.AssetModelVersionType"
         ] = None,
     ) -> "capo_iotsitewise.types.create_asset_model_composite_model_response.CreateAssetModelCompositeModelResponse":
-        r"""<p>Creates a custom composite model from specified property and hierarchy definitions. There are two types of custom composite models, <code>inline</code> and <code>component-model-based</code>. </p> <p>Use component-model-based custom composite models to define standard, reusable components. A component-model-based custom composite model consists of a name, a description, and the ID of the component model it references. A component-model-based custom composite model has no properties of its own; its referenced component model provides its associated properties to any created assets. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/custom-composite-models.html\">Custom composite models (Components)</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>Use inline custom composite models to organize the properties of an asset model. The properties of inline custom composite models are local to the asset model where they are included and can't be used to create multiple assets.</p> <p>To create a component-model-based model, specify the <code>composedAssetModelId</code> of an existing asset model with <code>assetModelType</code> of <code>COMPONENT_MODEL</code>.</p> <p>To create an inline model, specify the <code>assetModelCompositeModelProperties</code> and don't include an <code>composedAssetModelId</code>.</p>
+        """<p>Creates a custom composite model from specified property and hierarchy definitions. There are two types of custom composite models, <code>inline</code> and <code>component-model-based</code>. </p> <p>Use component-model-based custom composite models to define standard, reusable components. A component-model-based custom composite model consists of a name, a description, and the ID of the component model it references. A component-model-based custom composite model has no properties of its own; its referenced component model provides its associated properties to any created assets. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/custom-composite-models.html">Custom composite models (Components)</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>Use inline custom composite models to organize the properties of an asset model. The properties of inline custom composite models are local to the asset model where they are included and can't be used to create multiple assets.</p> <p>To create a component-model-based model, specify the <code>composedAssetModelId</code> of an existing asset model with <code>assetModelType</code> of <code>COMPONENT_MODEL</code>.</p> <p>To create an inline model, specify the <code>assetModelCompositeModelProperties</code> and don't include an <code>composedAssetModelId</code>.</p>
 
         Args:
             asset_model_id: <p>The ID of the asset model this composite model is a part of.</p>
@@ -1859,8 +1859,8 @@ class AsyncIoTSiteWiseClient:
             asset_model_composite_model_type: <p>The composite model type. Valid values are <code>AWS/ALARM</code>, <code>CUSTOM</code>, or <code> AWS/L4E_ANOMALY</code>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
             composed_asset_model_id: <p>The ID of a component model which is reused to create this composite model.</p>
-            asset_model_composite_model_properties: <p>The property definitions of the composite model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/custom-composite-models.html#inline-composite-models\"> Inline custom composite models</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 200 properties per composite model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The create request is rejected if the tag does not match the latest or active version's current entity tag. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html\">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_composite_model_properties: <p>The property definitions of the composite model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/custom-composite-models.html#inline-composite-models"> Inline custom composite models</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 200 properties per composite model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The create request is rejected if the tag does not match the latest or active version's current entity tag. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
             if_none_match: <p>Accepts <b>*</b> to reject the create request if an active version (specified using <code>matchForVersionType</code> as <code>ACTIVE</code>) already exists for the asset model.</p>
             match_for_version_type: <p>Specifies the asset model version type (<code>LATEST</code> or <code>ACTIVE</code>) used in conjunction with <code>If-Match</code> or <code>If-None-Match</code> headers to determine the target ETag for the create operation.</p>
 
@@ -1868,11 +1868,11 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.precondition_failed_exception.PreconditionFailedException: <p>The precondition in one or more of the request-header fields evaluated to <code>FALSE</code>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1957,11 +1957,11 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.workspace_name.WorkspaceName"
         ] = None,
     ) -> "capo_iotsitewise.types.create_bulk_import_job_response.CreateBulkImportJobResponse":
-        r"""<p>Defines a job to ingest data to IoT SiteWise from Amazon S3. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/CreateBulkImportJob.html\">Create a bulk import job (CLI)</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p> <important> <p>Before you create a bulk import job that ingests data into time series outside of a workspace, you must enable IoT SiteWise warm tier or IoT SiteWise cold tier. For more information about how to configure storage settings, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_PutStorageConfiguration.html\">PutStorageConfiguration</a>. This requirement doesn't apply to bulk import jobs that ingest data into a session dataset in a workspace (jobs that specify a <code>workspaceName</code> and <code>datasetId</code>). Those jobs don't use IoT SiteWise warm or cold tier storage.</p> <p>Bulk import is designed to store historical data to IoT SiteWise.</p> <ul> <li> <p>Newly ingested data in the hot tier triggers notifications and computations.</p> </li> <li> <p>After data moves from the hot tier to the warm or cold tier based on retention settings, it does not trigger computations or notifications.</p> </li> <li> <p>Data older than 7 days does not trigger computations or notifications.</p> </li> </ul> </important>
+        """<p>Defines a job to ingest data to IoT SiteWise from Amazon S3. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/CreateBulkImportJob.html">Create a bulk import job (CLI)</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p> <important> <p>Before you create a bulk import job that ingests data into time series outside of a workspace, you must enable IoT SiteWise warm tier or IoT SiteWise cold tier. For more information about how to configure storage settings, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_PutStorageConfiguration.html">PutStorageConfiguration</a>. This requirement doesn't apply to bulk import jobs that ingest data into a session dataset in a workspace (jobs that specify a <code>workspaceName</code> and <code>datasetId</code>). Those jobs don't use IoT SiteWise warm or cold tier storage.</p> <p>Bulk import is designed to store historical data to IoT SiteWise.</p> <ul> <li> <p>Newly ingested data in the hot tier triggers notifications and computations.</p> </li> <li> <p>After data moves from the hot tier to the warm or cold tier based on retention settings, it does not trigger computations or notifications.</p> </li> <li> <p>Data older than 7 days does not trigger computations or notifications.</p> </li> </ul> </important>
 
         Args:
             job_name: <p>The unique name that helps identify the job request.</p>
-            job_role_arn: <p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the IAM role that allows IoT SiteWise to read Amazon S3 data.</p>
+            job_role_arn: <p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the IAM role that allows IoT SiteWise to read Amazon S3 data.</p>
             files: <p>The files in the specified Amazon S3 bucket that contain your data. You can specify up to 100 files for each bulk import job. Each file supports the following size limits:</p> <ul> <li> <p>Parquet files – Up to 256 MiB.</p> </li> <li> <p>Other file formats – Up to 5 GiB.</p> </li> </ul>
             error_report_location: <p>The Amazon S3 destination where errors associated with the job creation request are saved.</p>
             job_configuration: <p>Contains the configuration information of a job, such as the file format used to save data in Amazon S3.</p>
@@ -1974,10 +1974,10 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2037,7 +2037,7 @@ class AsyncIoTSiteWiseClient:
         ] = None,
         tags: Optional["capo_iotsitewise.types.tag_map.TagMap"] = None,
     ) -> "capo_iotsitewise.types.create_computation_model_response.CreateComputationModelResponse":
-        r"""<p>Create a computation model with a configuration and data binding.</p>
+        """<p>Create a computation model with a configuration and data binding.</p>
 
         Args:
             computation_model_name: <p>The name of the computation model.</p>
@@ -2045,16 +2045,16 @@ class AsyncIoTSiteWiseClient:
             computation_model_configuration: <p>The configuration for the computation model.</p>
             computation_model_data_binding: <p>The data binding for the computation model. Key is a variable name defined in configuration. Value is a <code>ComputationModelDataBindingValue</code> referenced by the variable.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the asset. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the asset. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2110,22 +2110,22 @@ class AsyncIoTSiteWiseClient:
         ] = None,
         tags: Optional["capo_iotsitewise.types.tag_map.TagMap"] = None,
     ) -> "capo_iotsitewise.types.create_dashboard_response.CreateDashboardResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Creates a dashboard in an IoT SiteWise Monitor project.</p>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Creates a dashboard in an IoT SiteWise Monitor project.</p>
 
         Args:
             project_id: <p>The ID of the project in which to create the dashboard.</p>
             dashboard_name: <p>A friendly name for the dashboard.</p>
             dashboard_description: <p>A description for the dashboard.</p>
-            dashboard_definition: <p>The dashboard definition specified in a JSON literal.</p> <ul> <li> <p>IoT SiteWise Monitor (Classic) see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-using-aws-cli.html\">Create dashboards (CLI)</a> </p> </li> <li> <p>IoT SiteWise Monitor (AI-aware) see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-ai-dashboard-cli.html\">Create dashboards (CLI)</a> </p> </li> </ul> <p>in the <i>IoT SiteWise User Guide</i> </p>
+            dashboard_definition: <p>The dashboard definition specified in a JSON literal.</p> <ul> <li> <p>IoT SiteWise Monitor (Classic) see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-using-aws-cli.html">Create dashboards (CLI)</a> </p> </li> <li> <p>IoT SiteWise Monitor (AI-aware) see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-ai-dashboard-cli.html">Create dashboards (CLI)</a> </p> </li> </ul> <p>in the <i>IoT SiteWise User Guide</i> </p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the dashboard. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the dashboard. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2191,7 +2191,7 @@ class AsyncIoTSiteWiseClient:
         ] = None,
         tags: Optional["capo_iotsitewise.types.tag_map.TagMap"] = None,
     ) -> "capo_iotsitewise.types.create_dataset_response.CreateDatasetResponse":
-        r"""<p>Creates a dataset. Session and curated datasets are created in a workspace. A session dataset contains data segments of time series data, and a curated dataset curates data segments selected from source session datasets. A dataset that connects to an external datasource is created outside of a workspace.</p>
+        """<p>Creates a dataset. Session and curated datasets are created in a workspace. A session dataset contains data segments of time series data, and a curated dataset curates data segments selected from source session datasets. A dataset that connects to an external datasource is created outside of a workspace.</p>
 
         Args:
             dataset_id: <p>The ID of the dataset.</p>
@@ -2203,16 +2203,16 @@ class AsyncIoTSiteWiseClient:
             metadata: <p>The metadata for the dataset, provided as key-value pairs.</p>
             dataset_source: <p>The data source for the dataset.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the access policy. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the access policy. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2289,7 +2289,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2349,9 +2349,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2398,20 +2398,20 @@ class AsyncIoTSiteWiseClient:
         ] = None,
         tags: Optional["capo_iotsitewise.types.tag_map.TagMap"] = None,
     ) -> "capo_iotsitewise.types.create_gateway_response.CreateGatewayResponse":
-        r"""<p>Creates a gateway, which is a virtual or edge device that delivers industrial data streams from local servers to IoT SiteWise. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/gateway-connector.html\">Ingesting data using a gateway</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Creates a gateway, which is a virtual or edge device that delivers industrial data streams from local servers to IoT SiteWise. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/gateway-connector.html">Ingesting data using a gateway</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             gateway_name: <p>A unique name for the gateway.</p>
             gateway_platform: <p>The gateway's platform. You can only specify one platform in a gateway.</p>
-            gateway_version: <p>The version of the gateway to create. Specify <code>3</code> to create an MQTT-enabled, V3 gateway and <code>2</code> to create a Classic streams, V2 gateway. If not specified, the default is <code>2</code> (Classic streams, V2 gateway).</p> <note> <p>When creating a V3 gateway (<code>gatewayVersion=3</code>) with the <code>GreengrassV2</code> platform, you must also specify the <code>coreDeviceOperatingSystem</code> parameter.</p> </note> <p> We recommend creating an MQTT-enabled gateway for self-hosted gateways and Siemens Industrial Edge gateways. For more information on gateway versions, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/gateways.html\">Use Amazon Web Services IoT SiteWise Edge Edge gateways</a>.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the gateway. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            gateway_version: <p>The version of the gateway to create. Specify <code>3</code> to create an MQTT-enabled, V3 gateway and <code>2</code> to create a Classic streams, V2 gateway. If not specified, the default is <code>2</code> (Classic streams, V2 gateway).</p> <note> <p>When creating a V3 gateway (<code>gatewayVersion=3</code>) with the <code>GreengrassV2</code> platform, you must also specify the <code>coreDeviceOperatingSystem</code> parameter.</p> </note> <p> We recommend creating an MQTT-enabled gateway for self-hosted gateways and Siemens Industrial Edge gateways. For more information on gateway versions, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/gateways.html">Use Amazon Web Services IoT SiteWise Edge Edge gateways</a>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the gateway. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2464,7 +2464,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotsitewise.types.create_pipeline_response.CreatePipelineResponse":
-        r"""<p>Creates a new pipeline in the specified workspace. A pipeline defines a directed acyclic graph (DAG) of compute nodes, where each node references a task and can declare dependencies on other nodes. Cyclic dependencies are not allowed. Nodes without dependencies run in parallel, while nodes with dependencies wait for all upstream nodes to complete successfully before starting.</p> <p>You can set environment variables at the pipeline level that are shared across all compute nodes, and override them at the individual compute node level.</p>
+        """<p>Creates a new pipeline in the specified workspace. A pipeline defines a directed acyclic graph (DAG) of compute nodes, where each node references a task and can declare dependencies on other nodes. Cyclic dependencies are not allowed. Nodes without dependencies run in parallel, while nodes with dependencies wait for all upstream nodes to complete successfully before starting.</p> <p>You can set environment variables at the pipeline level that are shared across all compute nodes, and override them at the individual compute node level.</p>
 
         Args:
             workspace_name: <p>The name of the workspace.</p>
@@ -2472,7 +2472,7 @@ class AsyncIoTSiteWiseClient:
             description: <p>A description of the pipeline.</p>
             environment_variables: <p>Environment variables shared across all compute nodes in the pipeline. Individual compute nodes can override these values with their own environment variables.</p>
             computations: <p>The list of compute nodes that form the pipeline DAG. Each compute node references a task and can declare dependencies on other nodes.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the pipeline. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your AWS IoT SiteWise resources</a> in the AWS IoT SiteWise User Guide.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the pipeline. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your AWS IoT SiteWise resources</a> in the AWS IoT SiteWise User Guide.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token, the server returns the cached result from the original successful request without performing the operation again.</p>
 
         Raises:
@@ -2480,9 +2480,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2552,7 +2552,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.portal_type_configuration.PortalTypeConfiguration"
         ] = None,
     ) -> "capo_iotsitewise.types.create_portal_response.CreatePortalResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Creates a portal, which can contain projects and dashboards. IoT SiteWise Monitor uses IAM Identity Center or IAM to authenticate portal users and manage user permissions.</p> <note> <p>Before you can sign in to a new portal, you must add at least one identity to that portal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/administer-portals.html#portal-change-admins\">Adding or removing portal administrators</a> in the <i>IoT SiteWise User Guide</i>.</p> </note>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Creates a portal, which can contain projects and dashboards. IoT SiteWise Monitor uses IAM Identity Center or IAM to authenticate portal users and manage user permissions.</p> <note> <p>Before you can sign in to a new portal, you must add at least one identity to that portal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/administer-portals.html#portal-change-admins">Adding or removing portal administrators</a> in the <i>IoT SiteWise User Guide</i>.</p> </note>
 
         Args:
             portal_name: <p>A friendly name for the portal.</p>
@@ -2560,20 +2560,20 @@ class AsyncIoTSiteWiseClient:
             portal_contact_email: <p>The Amazon Web Services administrator's contact email address.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
             portal_logo_image_file: <p>A logo image to display in the portal. Upload a square, high-resolution image. The image is displayed on a dark background.</p>
-            role_arn: <p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of a service role that allows the portal's users to access your IoT SiteWise resources on your behalf. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-service-role.html\">Using service roles for IoT SiteWise Monitor</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the portal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            portal_auth_mode: <p>The service to use to authenticate users to the portal. Choose from the following options:</p> <ul> <li> <p> <code>SSO</code> – The portal uses IAM Identity Center to authenticate users and manage user permissions. Before you can create a portal that uses IAM Identity Center, you must enable IAM Identity Center. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-get-started.html#mon-gs-sso\">Enabling IAM Identity Center</a> in the <i>IoT SiteWise User Guide</i>. This option is only available in Amazon Web Services Regions other than the China Regions.</p> </li> <li> <p> <code>IAM</code> – The portal uses Identity and Access Management to authenticate users and manage user permissions.</p> </li> </ul> <p>You can't change this value after you create a portal.</p> <p>Default: <code>SSO</code> </p>
-            notification_sender_email: <p>The email address that sends alarm notifications.</p> <important> <p>If you use the <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/lambda-support.html\">IoT Events managed Lambda function</a> to manage your emails, you must <a href=\"https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html\">verify the sender email address in Amazon SES</a>.</p> </important>
-            alarms: <p>Contains the configuration information of an alarm created in an IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/monitor-alarms.html\">Monitoring with alarms</a> in the <i>IoT SiteWise Application Guide</i>.</p>
+            role_arn: <p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of a service role that allows the portal's users to access your IoT SiteWise resources on your behalf. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-service-role.html">Using service roles for IoT SiteWise Monitor</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the portal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            portal_auth_mode: <p>The service to use to authenticate users to the portal. Choose from the following options:</p> <ul> <li> <p> <code>SSO</code> – The portal uses IAM Identity Center to authenticate users and manage user permissions. Before you can create a portal that uses IAM Identity Center, you must enable IAM Identity Center. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-get-started.html#mon-gs-sso">Enabling IAM Identity Center</a> in the <i>IoT SiteWise User Guide</i>. This option is only available in Amazon Web Services Regions other than the China Regions.</p> </li> <li> <p> <code>IAM</code> – The portal uses Identity and Access Management to authenticate users and manage user permissions.</p> </li> </ul> <p>You can't change this value after you create a portal.</p> <p>Default: <code>SSO</code> </p>
+            notification_sender_email: <p>The email address that sends alarm notifications.</p> <important> <p>If you use the <a href="https://docs.aws.amazon.com/iotevents/latest/developerguide/lambda-support.html">IoT Events managed Lambda function</a> to manage your emails, you must <a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html">verify the sender email address in Amazon SES</a>.</p> </important>
+            alarms: <p>Contains the configuration information of an alarm created in an IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/monitor-alarms.html">Monitoring with alarms</a> in the <i>IoT SiteWise Application Guide</i>.</p>
             portal_type: <p>Define the type of portal. The value for IoT SiteWise Monitor (Classic) is <code>SITEWISE_PORTAL_V1</code>. The value for IoT SiteWise Monitor (AI-aware) is <code>SITEWISE_PORTAL_V2</code>.</p>
             portal_type_configuration: <p>The configuration entry associated with the specific portal type. The value for IoT SiteWise Monitor (Classic) is <code>SITEWISE_PORTAL_V1</code>. The value for IoT SiteWise Monitor (AI-aware) is <code>SITEWISE_PORTAL_V2</code>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2640,21 +2640,21 @@ class AsyncIoTSiteWiseClient:
         ] = None,
         tags: Optional["capo_iotsitewise.types.tag_map.TagMap"] = None,
     ) -> "capo_iotsitewise.types.create_project_response.CreateProjectResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Creates a project in the specified portal.</p> <note> <p>Make sure that the project name and description don't contain confidential information.</p> </note>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Creates a project in the specified portal.</p> <note> <p>Make sure that the project name and description don't contain confidential information.</p> </note>
 
         Args:
             portal_id: <p>The ID of the portal in which to create the project.</p>
             project_name: <p>A friendly name for the project.</p>
             project_description: <p>A description for the project.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the project. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the project. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2707,14 +2707,14 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotsitewise.types.create_task_response.CreateTaskResponse":
-        r"""<p>Creates a new task in the specified workspace. A task defines a reusable containerized compute workload that can be referenced by one or more pipeline compute nodes.</p> <p>Specify a <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ContainerTaskConfiguration.html\"><code>containerTaskConfiguration</code></a> for custom container workloads with configurable ECR image, processing type, processing unit, and environment variables.</p>
+        """<p>Creates a new task in the specified workspace. A task defines a reusable containerized compute workload that can be referenced by one or more pipeline compute nodes.</p> <p>Specify a <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ContainerTaskConfiguration.html"><code>containerTaskConfiguration</code></a> for custom container workloads with configurable ECR image, processing type, processing unit, and environment variables.</p>
 
         Args:
             workspace_name: <p>The name of the workspace.</p>
             task_name: <p>The name of the task to create. Must be unique within the workspace.</p>
             description: <p>A description of the task.</p>
-            task_configuration: <p>The task execution configuration. Specify a <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ContainerTaskConfiguration.html\">containerTaskConfiguration</a> for custom container workloads.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the task. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your AWS IoT SiteWise resources</a> in the AWS IoT SiteWise User Guide.</p>
+            task_configuration: <p>The task execution configuration. Specify a <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ContainerTaskConfiguration.html">containerTaskConfiguration</a> for custom container workloads.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the task. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your AWS IoT SiteWise resources</a> in the AWS IoT SiteWise User Guide.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token, the server returns the cached result from the original successful request without performing the operation again.</p>
 
         Raises:
@@ -2722,9 +2722,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2779,13 +2779,13 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotsitewise.types.create_workspace_response.CreateWorkspaceResponse":
-        r"""<p>Creates a workspace in IoT SiteWise. A workspace isolates its resources, such as datasets, time series, pipelines, and tasks, and their data from other workspaces, and has its own quotas and throttling limits. You must specify an encryption configuration when you create a workspace. The operation returns immediately with the workspace in the <code>CREATING</code> state. Provisioning completes asynchronously, after which the workspace state is <code>ACTIVE</code>, or <code>FAILED</code> if provisioning doesn't complete.</p>
+        """<p>Creates a workspace in IoT SiteWise. A workspace isolates its resources, such as datasets, time series, pipelines, and tasks, and their data from other workspaces, and has its own quotas and throttling limits. You must specify an encryption configuration when you create a workspace. The operation returns immediately with the workspace in the <code>CREATING</code> state. Provisioning completes asynchronously, after which the workspace state is <code>ACTIVE</code>, or <code>FAILED</code> if provisioning doesn't complete.</p>
 
         Args:
             workspace_name: <p>The name of the workspace to create.</p>
             workspace_description: <p>A description for the workspace.</p>
             encryption_configuration: <p>The encryption configuration for the workspace.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the workspace. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the workspace. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure that the request is idempotent. If you retry a request that completed successfully using the same client token, the retry succeeds without performing any further actions.</p>
 
         Raises:
@@ -2793,8 +2793,8 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2853,7 +2853,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2907,7 +2907,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2949,10 +2949,10 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotsitewise.types.delete_asset_response.DeleteAssetResponse":
-        r"""<p>Deletes an asset. This action can't be undone. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/delete-assets-and-models.html\">Deleting assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p> <note> <p>You can't delete an asset that's associated to another asset. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DisassociateAssets.html\">DisassociateAssets</a>.</p> </note>
+        """<p>Deletes an asset. This action can't be undone. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/delete-assets-and-models.html">Deleting assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p> <note> <p>You can't delete an asset that's associated to another asset. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DisassociateAssets.html">DisassociateAssets</a>.</p> </note>
 
         Args:
-            asset_id: <p>The ID of the asset to delete. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset to delete. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
 
         Raises:
@@ -2960,7 +2960,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3009,12 +3009,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_type.AssetModelVersionType"
         ] = None,
     ) -> "capo_iotsitewise.types.delete_asset_model_response.DeleteAssetModelResponse":
-        r"""<p>Deletes an asset model. This action can't be undone. You must delete all assets created from an asset model before you can delete the model. Also, you can't delete an asset model if a parent asset model exists that contains a property formula expression that depends on the asset model that you want to delete. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/delete-assets-and-models.html\">Deleting assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Deletes an asset model. This action can't be undone. You must delete all assets created from an asset model before you can delete the model. Also, you can't delete an asset model if a parent asset model exists that contains a property formula expression that depends on the asset model that you want to delete. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/delete-assets-and-models.html">Deleting assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
-            asset_model_id: <p>The ID of the asset model to delete. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model to delete. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The delete request is rejected if the tag does not match the latest or active version's current entity tag. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html\">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The delete request is rejected if the tag does not match the latest or active version's current entity tag. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
             if_none_match: <p>Accepts <b>*</b> to reject the delete request if an active version (specified using <code>matchForVersionType</code> as <code>ACTIVE</code>) already exists for the asset model.</p>
             match_for_version_type: <p>Specifies the asset model version type (<code>LATEST</code> or <code>ACTIVE</code>) used in conjunction with <code>If-Match</code> or <code>If-None-Match</code> headers to determine the target ETag for the delete operation.</p>
 
@@ -3024,7 +3024,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.precondition_failed_exception.PreconditionFailedException: <p>The precondition in one or more of the request-header fields evaluated to <code>FALSE</code>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3080,13 +3080,13 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_type.AssetModelVersionType"
         ] = None,
     ) -> "capo_iotsitewise.types.delete_asset_model_composite_model_response.DeleteAssetModelCompositeModelResponse":
-        r"""<p>Deletes a composite model. This action can't be undone. You must delete all assets created from a composite model before you can delete the model. Also, you can't delete a composite model if a parent asset model exists that contains a property formula expression that depends on the asset model that you want to delete. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/delete-assets-and-models.html\">Deleting assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Deletes a composite model. This action can't be undone. You must delete all assets created from a composite model before you can delete the model. Also, you can't delete a composite model if a parent asset model exists that contains a property formula expression that depends on the asset model that you want to delete. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/delete-assets-and-models.html">Deleting assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             asset_model_id: <p>The ID of the asset model, in UUID format.</p>
             asset_model_composite_model_id: <p>The ID of a composite model on this asset model.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The delete request is rejected if the tag does not match the latest or active version's current entity tag. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html\">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The delete request is rejected if the tag does not match the latest or active version's current entity tag. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
             if_none_match: <p>Accepts <b>*</b> to reject the delete request if an active version (specified using <code>matchForVersionType</code> as <code>ACTIVE</code>) already exists for the asset model.</p>
             match_for_version_type: <p>Specifies the asset model version type (<code>LATEST</code> or <code>ACTIVE</code>) used in conjunction with <code>If-Match</code> or <code>If-None-Match</code> headers to determine the target ETag for the delete operation.</p>
 
@@ -3096,7 +3096,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.precondition_failed_exception.PreconditionFailedException: <p>The precondition in one or more of the request-header fields evaluated to <code>FALSE</code>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3160,7 +3160,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3216,7 +3216,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3270,7 +3270,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3329,7 +3329,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3382,7 +3382,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3419,7 +3419,7 @@ class AsyncIoTSiteWiseClient:
         *,
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
     ) -> "capo_iotsitewise.types.delete_pipeline_response.DeletePipelineResponse":
-        r"""<p>Deletes a pipeline from the specified workspace. A pipeline cannot be deleted if it has any active executions. Wait for all executions to complete before attempting to delete the pipeline, or use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_CancelPipelineExecution.html\">CancelPipelineExecution</a> to stop a running execution.</p>
+        """<p>Deletes a pipeline from the specified workspace. A pipeline cannot be deleted if it has any active executions. Wait for all executions to complete before attempting to delete the pipeline, or use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_CancelPipelineExecution.html">CancelPipelineExecution</a> to stop a running execution.</p>
 
         Args:
             workspace_name: <p>The name of the workspace.</p>
@@ -3431,7 +3431,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3484,7 +3484,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3538,7 +3538,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3592,7 +3592,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3639,12 +3639,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.workspace_name.WorkspaceName"
         ] = None,
     ) -> None:
-        r"""<p>Deletes a time series (data stream). If you delete a time series that's associated with an asset property, the asset property still exists, but the time series will no longer be associated with this asset property. You can't delete a time series until all of its data segments have been deleted from session datasets.</p> <p>To identify a time series, do one of the following:</p> <ul> <li> <p>If the time series isn't associated with an asset property, specify the <code>alias</code> of the time series.</p> </li> <li> <p>If the time series is associated with an asset property, specify one of the following: </p> <ul> <li> <p>The <code>alias</code> of the time series.</p> </li> <li> <p>The <code>assetId</code> and <code>propertyId</code> that identifies the asset property.</p> </li> </ul> </li> </ul>
+        """<p>Deletes a time series (data stream). If you delete a time series that's associated with an asset property, the asset property still exists, but the time series will no longer be associated with this asset property. You can't delete a time series until all of its data segments have been deleted from session datasets.</p> <p>To identify a time series, do one of the following:</p> <ul> <li> <p>If the time series isn't associated with an asset property, specify the <code>alias</code> of the time series.</p> </li> <li> <p>If the time series is associated with an asset property, specify one of the following: </p> <ul> <li> <p>The <code>alias</code> of the time series.</p> </li> <li> <p>The <code>assetId</code> and <code>propertyId</code> that identifies the asset property.</p> </li> </ul> </li> </ul>
 
         Args:
             alias: <p>The alias that identifies the time series.</p>
-            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
             workspace_name: <p>The name of the workspace.</p>
 
@@ -3653,7 +3653,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3713,7 +3713,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3763,7 +3763,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3810,7 +3810,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3860,7 +3860,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3902,17 +3902,17 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.exclude_properties.ExcludeProperties"
         ] = None,
     ) -> "capo_iotsitewise.types.describe_asset_response.DescribeAssetResponse":
-        r"""<p>Retrieves information about an asset.</p>
+        """<p>Retrieves information about an asset.</p>
 
         Args:
-            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             exclude_properties: <p> Whether or not to exclude asset properties from the response. </p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3958,10 +3958,10 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.exclude_properties.ExcludeProperties"
         ] = None,
     ) -> ServiceError:
-        r"""Wait for asset_not_exists.
+        """Wait for asset_not_exists.
 
         Args:
-            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             max_wait_time: Maximum total seconds to wait before raising WaiterTimeoutError.
             min_delay: Minimum seconds between operation attempts (spec default 2).
             max_delay: Maximum seconds between operation attempts (spec default 120).
@@ -3999,17 +3999,17 @@ class AsyncIoTSiteWiseClient:
         *,
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
     ) -> "capo_iotsitewise.types.describe_asset_composite_model_response.DescribeAssetCompositeModelResponse":
-        r"""<p>Retrieves information about an asset composite model (also known as an asset component). An <code>AssetCompositeModel</code> is an instance of an <code>AssetModelCompositeModel</code>. If you want to see information about the model this is based on, call <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeAssetModelCompositeModel.html\">DescribeAssetModelCompositeModel</a>.</p>
+        """<p>Retrieves information about an asset composite model (also known as an asset component). An <code>AssetCompositeModel</code> is an instance of an <code>AssetModelCompositeModel</code>. If you want to see information about the model this is based on, call <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeAssetModelCompositeModel.html">DescribeAssetModelCompositeModel</a>.</p>
 
         Args:
-            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_composite_model_id: <p>The ID of a composite model on this asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_composite_model_id: <p>The ID of a composite model on this asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4054,18 +4054,18 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_filter.AssetModelVersionFilter"
         ] = None,
     ) -> "capo_iotsitewise.types.describe_asset_model_response.DescribeAssetModelResponse":
-        r"""<p>Retrieves information about an asset model. This includes details about the asset model's properties, hierarchies, composite models, and any interface relationships if the asset model implements interfaces.</p>
+        """<p>Retrieves information about an asset model. This includes details about the asset model's properties, hierarchies, composite models, and any interface relationships if the asset model implements interfaces.</p>
 
         Args:
-            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             exclude_properties: <p> Whether or not to exclude asset model properties from the response. </p>
-            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html\"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4116,15 +4116,15 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_filter.AssetModelVersionFilter"
         ] = None,
     ) -> ServiceError:
-        r"""Wait for asset_model_not_exists.
+        """Wait for asset_model_not_exists.
 
         Args:
-            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             max_wait_time: Maximum total seconds to wait before raising WaiterTimeoutError.
             min_delay: Minimum seconds between operation attempts (spec default 2).
             max_delay: Maximum seconds between operation attempts (spec default 120).
             exclude_properties: <p> Whether or not to exclude asset model properties from the response. </p>
-            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html\"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
         """
         start = time.monotonic()
         attempt = 0
@@ -4162,18 +4162,18 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_filter.AssetModelVersionFilter"
         ] = None,
     ) -> "capo_iotsitewise.types.describe_asset_model_composite_model_response.DescribeAssetModelCompositeModelResponse":
-        r"""<p>Retrieves information about an asset model composite model (also known as an asset model component). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/custom-composite-models.html\">Custom composite models (Components)</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Retrieves information about an asset model composite model (also known as an asset model component). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/custom-composite-models.html">Custom composite models (Components)</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
-            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_model_composite_model_id: <p>The ID of a composite model on this asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html\"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_composite_model_id: <p>The ID of a composite model on this asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4225,7 +4225,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4265,17 +4265,17 @@ class AsyncIoTSiteWiseClient:
         *,
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
     ) -> "capo_iotsitewise.types.describe_asset_property_response.DescribeAssetPropertyResponse":
-        r"""<p>Retrieves information about an asset property.</p> <note> <p>When you call this operation for an attribute property, this response includes the default attribute value that you define in the asset model. If you update the default value in the model, this operation's response includes the new default value.</p> </note> <p>This operation doesn't return the value of the asset property. To get the value of an asset property, use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_GetAssetPropertyValue.html\">GetAssetPropertyValue</a>.</p>
+        """<p>Retrieves information about an asset property.</p> <note> <p>When you call this operation for an attribute property, this response includes the default attribute value that you define in the asset model. If you update the default value in the model, this operation's response includes the new default value.</p> </note> <p>This operation doesn't return the value of the asset property. To get the value of an asset property, use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_GetAssetPropertyValue.html">GetAssetPropertyValue</a>.</p>
 
         Args:
-            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4317,7 +4317,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.workspace_name.WorkspaceName"
         ] = None,
     ) -> "capo_iotsitewise.types.describe_bulk_import_job_response.DescribeBulkImportJobResponse":
-        r"""<p>Retrieves information about a bulk import job request. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/DescribeBulkImportJob.html\">Describe a bulk import job (CLI)</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>
+        """<p>Retrieves information about a bulk import job request. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/DescribeBulkImportJob.html">Describe a bulk import job (CLI)</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>
 
         Args:
             job_id: <p>The ID of the job.</p>
@@ -4327,7 +4327,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4380,7 +4380,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4435,7 +4435,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4486,7 +4486,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4539,7 +4539,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4593,7 +4593,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4629,13 +4629,13 @@ class AsyncIoTSiteWiseClient:
     async def describe_default_encryption_configuration(
         self, *, config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None
     ) -> "capo_iotsitewise.types.describe_default_encryption_configuration_response.DescribeDefaultEncryptionConfigurationResponse":
-        r"""<p>Retrieves information about the default encryption configuration for the Amazon Web Services account in the default or specified Region. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/key-management.html\">Key management</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Retrieves information about the default encryption configuration for the Amazon Web Services account in the default or specified Region. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/key-management.html">Key management</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4683,9 +4683,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4733,7 +4733,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4780,7 +4780,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4829,7 +4829,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4879,7 +4879,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4931,7 +4931,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -4994,7 +4994,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5078,7 +5078,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5165,7 +5165,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5215,7 +5215,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5266,7 +5266,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5308,9 +5308,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5360,7 +5360,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5406,19 +5406,19 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.workspace_name.WorkspaceName"
         ] = None,
     ) -> "capo_iotsitewise.types.describe_time_series_response.DescribeTimeSeriesResponse":
-        r"""<p>Retrieves information about a time series (data stream).</p> <p>To identify a time series, do one of the following:</p> <ul> <li> <p>If the time series isn't associated with an asset property, specify the <code>alias</code> of the time series.</p> </li> <li> <p>If the time series is associated with an asset property, specify one of the following: </p> <ul> <li> <p>The <code>alias</code> of the time series.</p> </li> <li> <p>The <code>assetId</code> and <code>propertyId</code> that identifies the asset property.</p> </li> </ul> </li> </ul>
+        """<p>Retrieves information about a time series (data stream).</p> <p>To identify a time series, do one of the following:</p> <ul> <li> <p>If the time series isn't associated with an asset property, specify the <code>alias</code> of the time series.</p> </li> <li> <p>If the time series is associated with an asset property, specify one of the following: </p> <ul> <li> <p>The <code>alias</code> of the time series.</p> </li> <li> <p>The <code>assetId</code> and <code>propertyId</code> that identifies the asset property.</p> </li> </ul> </li> </ul>
 
         Args:
             alias: <p>The alias that identifies the time series.</p>
-            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             workspace_name: <p>The name of the workspace.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5472,7 +5472,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5515,12 +5515,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> None:
-        r"""<p>Disassociates a child asset from the given parent asset through a hierarchy defined in the parent asset's model.</p>
+        """<p>Disassociates a child asset from the given parent asset through a hierarchy defined in the parent asset's model.</p>
 
         Args:
-            asset_id: <p>The ID of the parent asset from which to disassociate the child asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            hierarchy_id: <p>The ID of a hierarchy in the parent asset's model. (This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.) Hierarchies allow different groupings of assets to be formed that all come from the same asset model. You can use the hierarchy ID to identify the correct asset to disassociate. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html\">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            child_asset_id: <p>The ID of the child asset to disassociate. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the parent asset from which to disassociate the child asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            hierarchy_id: <p>The ID of a hierarchy in the parent asset's model. (This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.) Hierarchies allow different groupings of assets to be formed that all come from the same asset model. You can use the hierarchy ID to identify the correct asset to disassociate. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            child_asset_id: <p>The ID of the child asset to disassociate. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
 
         Raises:
@@ -5528,7 +5528,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5574,12 +5574,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> None:
-        r"""<p>Disassociates a time series (data stream) from an asset property.</p>
+        """<p>Disassociates a time series (data stream) from an asset property.</p>
 
         Args:
             alias: <p>The alias that identifies the time series.</p>
-            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_id: <p>The ID of the asset property. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
 
         Raises:
@@ -5587,7 +5587,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5647,9 +5647,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5716,7 +5716,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.query_timeout_exception.QueryTimeoutException: <p>The query timed out.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.validation_exception.ValidationException: <p>The validation failed for this query.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -5809,12 +5809,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.get_asset_property_value_aggregates_max_results.GetAssetPropertyValueAggregatesMaxResults"
         ] = None,
     ) -> "capo_iotsitewise.types.get_asset_property_aggregates_response.GetAssetPropertyAggregatesResponse":
-        r"""<p>Gets aggregated values for an asset property. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#aggregates\">Querying aggregates</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html\">UpdateAssetProperty</a>.</p> </li> </ul>
+        """<p>Gets aggregated values for an asset property. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#aggregates">Querying aggregates</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html">UpdateAssetProperty</a>.</p> </li> </ul>
 
         Args:
             asset_id: <p>The ID of the asset, in UUID format.</p>
             property_id: <p>The ID of the asset property, in UUID format.</p>
-            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>
             aggregate_types: <p>The data aggregating function.</p>
             resolution: <p>The time interval over which to aggregate data.</p>
             qualities: <p>The quality by which to filter asset data.</p>
@@ -5829,7 +5829,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -5933,19 +5933,19 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_property_alias.AssetPropertyAlias"
         ] = None,
     ) -> "capo_iotsitewise.types.get_asset_property_value_response.GetAssetPropertyValueResponse":
-        r"""<p>Gets an asset property's current value. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#current-values\">Querying current values</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html\">UpdateAssetProperty</a>.</p> </li> </ul>
+        """<p>Gets an asset property's current value. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#current-values">Querying current values</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html">UpdateAssetProperty</a>.</p> </li> </ul>
 
         Args:
             asset_id: <p>The ID of the asset, in UUID format.</p>
             property_id: <p>The ID of the asset property, in UUID format.</p>
-            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6001,12 +6001,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.get_asset_property_value_history_max_results.GetAssetPropertyValueHistoryMaxResults"
         ] = None,
     ) -> "capo_iotsitewise.types.get_asset_property_value_history_response.GetAssetPropertyValueHistoryResponse":
-        r"""<p>Gets the history of an asset property's values. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#historical-values\">Querying historical values</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html\">UpdateAssetProperty</a>.</p> </li> </ul>
+        """<p>Gets the history of an asset property's values. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/query-industrial-data.html#historical-values">Querying historical values</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html">UpdateAssetProperty</a>.</p> </li> </ul>
 
         Args:
             asset_id: <p>The ID of the asset, in UUID format.</p>
             property_id: <p>The ID of the asset property, in UUID format.</p>
-            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>
             start_date: <p>The exclusive start of the range from which to query historical data, expressed in seconds in Unix epoch time.</p>
             end_date: <p>The inclusive end of the range from which to query historical data, expressed in seconds in Unix epoch time.</p>
             qualities: <p>The quality by which to filter asset data.</p>
@@ -6019,7 +6019,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6146,7 +6146,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6216,12 +6216,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.interval_window_in_seconds.IntervalWindowInSeconds"
         ] = None,
     ) -> "capo_iotsitewise.types.get_interpolated_asset_property_values_response.GetInterpolatedAssetPropertyValuesResponse":
-        r"""<p>Get interpolated values for an asset property for a specified time interval, during a period of time. If your time series is missing data points during the specified time interval, you can use interpolation to estimate the missing data.</p> <p>For example, you can use this operation to return the interpolated temperature values for a wind turbine every 24 hours over a duration of 7 days.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html\">UpdateAssetProperty</a>.</p> </li> </ul>
+        """<p>Get interpolated values for an asset property for a specified time interval, during a period of time. If your time series is missing data points during the specified time interval, you can use interpolation to estimate the missing data.</p> <p>For example, you can use this operation to return the interpolated temperature values for a wind turbine every 24 hours over a duration of 7 days.</p> <p>To identify an asset property, you must specify one of the following:</p> <ul> <li> <p>The <code>assetId</code> and <code>propertyId</code> of an asset property.</p> </li> <li> <p>A <code>propertyAlias</code>, which is a data stream alias (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). To define an asset property's alias, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_UpdateAssetProperty.html">UpdateAssetProperty</a>.</p> </li> </ul>
 
         Args:
             asset_id: <p>The ID of the asset, in UUID format.</p>
             property_id: <p>The ID of the asset property, in UUID format.</p>
-            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>
             start_time_in_seconds: <p>The exclusive start of the range from which to interpolate data, expressed in seconds in Unix epoch time.</p>
             start_time_offset_in_nanos: <p>The nanosecond offset converted from <code>startTimeInSeconds</code>.</p>
             end_time_in_seconds: <p>The inclusive end of the range from which to interpolate data, expressed in seconds in Unix epoch time.</p>
@@ -6230,7 +6230,7 @@ class AsyncIoTSiteWiseClient:
             interval_in_seconds: <p>The time interval in seconds over which to interpolate data. Each interval starts when the previous one ends.</p>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request. If not specified, the default value is 10.</p>
-            type: <p>The interpolation type.</p> <p>Valid values: <code>LINEAR_INTERPOLATION | LOCF_INTERPOLATION</code> </p> <ul> <li> <p> <code>LINEAR_INTERPOLATION</code> – Estimates missing data using <a href=\"https://en.wikipedia.org/wiki/Linear_interpolation\">linear interpolation</a>.</p> <p>For example, you can use this operation to return the interpolated temperature values for a wind turbine every 24 hours over a duration of 7 days. If the interpolation starts July 1, 2021, at 9 AM, IoT SiteWise returns the first interpolated value on July 2, 2021, at 9 AM, the second interpolated value on July 3, 2021, at 9 AM, and so on.</p> </li> <li> <p> <code>LOCF_INTERPOLATION</code> – Estimates missing data using last observation carried forward interpolation</p> <p>If no data point is found for an interval, IoT SiteWise returns the last observed data point for the previous interval and carries forward this interpolated value until a new data point is found.</p> <p>For example, you can get the state of an on-off valve every 24 hours over a duration of 7 days. If the interpolation starts July 1, 2021, at 9 AM, IoT SiteWise returns the last observed data point between July 1, 2021, at 9 AM and July 2, 2021, at 9 AM as the first interpolated value. If a data point isn't found after 9 AM on July 2, 2021, IoT SiteWise uses the same interpolated value for the rest of the days.</p> </li> </ul>
+            type: <p>The interpolation type.</p> <p>Valid values: <code>LINEAR_INTERPOLATION | LOCF_INTERPOLATION</code> </p> <ul> <li> <p> <code>LINEAR_INTERPOLATION</code> – Estimates missing data using <a href="https://en.wikipedia.org/wiki/Linear_interpolation">linear interpolation</a>.</p> <p>For example, you can use this operation to return the interpolated temperature values for a wind turbine every 24 hours over a duration of 7 days. If the interpolation starts July 1, 2021, at 9 AM, IoT SiteWise returns the first interpolated value on July 2, 2021, at 9 AM, the second interpolated value on July 3, 2021, at 9 AM, and so on.</p> </li> <li> <p> <code>LOCF_INTERPOLATION</code> – Estimates missing data using last observation carried forward interpolation</p> <p>If no data point is found for an interval, IoT SiteWise returns the last observed data point for the previous interval and carries forward this interpolated value until a new data point is found.</p> <p>For example, you can get the state of an on-off valve every 24 hours over a duration of 7 days. If the interpolation starts July 1, 2021, at 9 AM, IoT SiteWise returns the last observed data point between July 1, 2021, at 9 AM and July 2, 2021, at 9 AM as the first interpolated value. If a data point isn't found after 9 AM on July 2, 2021, IoT SiteWise uses the same interpolated value for the rest of the days.</p> </li> </ul>
             interval_window_in_seconds: <p>The query interval for the window, in seconds. IoT SiteWise computes each interpolated value by using data points from the timestamp of each interval, minus the window to the timestamp of each interval plus the window. If not specified, the window ranges between the start time minus the interval and the end time plus the interval.</p> <note> <ul> <li> <p>If you specify a value for the <code>intervalWindowInSeconds</code> parameter, the value for the <code>type</code> parameter must be <code>LINEAR_INTERPOLATION</code>.</p> </li> <li> <p>If a data point isn't found during the specified query window, IoT SiteWise won't return an interpolated value for the interval. This indicates that there's a gap in the ingested data points.</p> </li> </ul> </note> <p>For example, you can get the interpolated temperature values for a wind turbine every 24 hours over a duration of 7 days. If the interpolation starts on July 1, 2021, at 9 AM with a window of 2 hours, IoT SiteWise uses the data points from 7 AM (9 AM minus 2 hours) to 11 AM (9 AM plus 2 hours) on July 2, 2021 to compute the first interpolated value. Next, IoT SiteWise uses the data points from 7 AM (9 AM minus 2 hours) to 11 AM (9 AM plus 2 hours) on July 3, 2021 to compute the second interpolated value, and so on. </p>
 
         Raises:
@@ -6238,7 +6238,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
             capo_iotsitewise.errors.service_unavailable_exception.ServiceUnavailableException: <p>The requested service is unavailable.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6369,7 +6369,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6459,7 +6459,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6546,9 +6546,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6602,21 +6602,21 @@ class AsyncIoTSiteWiseClient:
         next_token: Optional["capo_iotsitewise.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iotsitewise.types.max_results.MaxResults"] = None,
     ) -> "capo_iotsitewise.types.list_access_policies_response.ListAccessPoliciesResponse":
-        r"""<p>Retrieves a paginated list of access policies for an identity (an IAM Identity Center user, an IAM Identity Center group, or an IAM user) or an IoT SiteWise Monitor resource (a portal or project).</p>
+        """<p>Retrieves a paginated list of access policies for an identity (an IAM Identity Center user, an IAM Identity Center group, or an IAM user) or an IoT SiteWise Monitor resource (a portal or project).</p>
 
         Args:
             identity_type: <p>The type of identity (IAM Identity Center user, IAM Identity Center group, or IAM user). This parameter is required if you specify <code>identityId</code>.</p>
             identity_id: <p>The ID of the identity. This parameter is required if you specify <code>USER</code> or <code>GROUP</code> for <code>identityType</code>.</p>
             resource_type: <p>The type of resource (portal or project). This parameter is required if you specify <code>resourceId</code>.</p>
             resource_id: <p>The ID of the resource. This parameter is required if you specify <code>resourceType</code>.</p>
-            iam_arn: <p>The ARN of the IAM user. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html\">IAM ARNs</a> in the <i>IAM User Guide</i>. This parameter is required if you specify <code>IAM</code> for <code>identityType</code>.</p>
+            iam_arn: <p>The ARN of the IAM user. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM ARNs</a> in the <i>IAM User Guide</i>. This parameter is required if you specify <code>IAM</code> for <code>identityType</code>.</p>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request.</p> <p>Default: 50</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6722,7 +6722,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6812,7 +6812,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6878,19 +6878,19 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_filter.AssetModelVersionFilter"
         ] = None,
     ) -> "capo_iotsitewise.types.list_asset_model_composite_models_response.ListAssetModelCompositeModelsResponse":
-        r"""<p>Retrieves a paginated list of composite models associated with the asset model</p>
+        """<p>Retrieves a paginated list of composite models associated with the asset model</p>
 
         Args:
-            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request.</p> <p>Default: 50</p>
-            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html\"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -6969,20 +6969,20 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_filter.AssetModelVersionFilter"
         ] = None,
     ) -> "capo_iotsitewise.types.list_asset_model_properties_response.ListAssetModelPropertiesResponse":
-        r"""<p>Retrieves a paginated list of properties associated with an asset model. If you update properties associated with the model before you finish listing all the properties, you need to start all over again.</p>
+        """<p>Retrieves a paginated list of properties associated with an asset model. If you update properties associated with the model before you finish listing all the properties, you need to start all over again.</p>
 
         Args:
-            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request. If not specified, the default value is 50.</p>
             filter: <p> Filters the requested list of asset model properties. You can choose one of the following options:</p> <ul> <li> <p> <code>ALL</code> – The list includes all asset model properties for a given asset model ID. </p> </li> <li> <p> <code>BASE</code> – The list includes only base asset model properties for a given asset model ID. </p> </li> </ul> <p>Default: <code>BASE</code> </p>
-            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html\"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7066,19 +7066,19 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_filter.AssetModelVersionFilter"
         ] = None,
     ) -> "capo_iotsitewise.types.list_asset_models_response.ListAssetModelsResponse":
-        r"""<p>Retrieves a paginated list of summaries of all asset models.</p>
+        """<p>Retrieves a paginated list of summaries of all asset models.</p>
 
         Args:
             asset_model_types: <p>The type of asset model. If you don't provide an <code>assetModelTypes</code>, all types of asset models are returned.</p> <ul> <li> <p> <b>ASSET_MODEL</b> – An asset model that you can use to create assets. Can't be included as a component in another asset model.</p> </li> <li> <p> <b>COMPONENT_MODEL</b> – A reusable component that you can include in the composite models of other asset models. You can't create assets directly from this type of asset model. </p> </li> <li> <p> <b>INTERFACE</b> – An interface is a type of model that defines a standard structure that can be applied to different asset models.</p> </li> </ul>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request.</p> <p>Default: 50</p>
-            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html\"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_version: <p>The version alias that specifies the latest or active version of the asset model. The details are returned in the response. The default value is <code>LATEST</code>. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7156,10 +7156,10 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.list_asset_properties_filter.ListAssetPropertiesFilter"
         ] = None,
     ) -> "capo_iotsitewise.types.list_asset_properties_response.ListAssetPropertiesResponse":
-        r"""<p>Retrieves a paginated list of properties associated with an asset. If you update properties associated with the model before you finish listing all the properties, you need to start all over again.</p>
+        """<p>Retrieves a paginated list of properties associated with an asset. If you update properties associated with the model before you finish listing all the properties, you need to start all over again.</p>
 
         Args:
-            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request. If not specified, the default value is 50.</p>
             filter: <p> Filters the requested list of asset properties. You can choose one of the following options:</p> <ul> <li> <p> <code>ALL</code> – The list includes all asset properties for a given asset model ID. </p> </li> <li> <p> <code>BASE</code> – The list includes only base asset properties for a given asset model ID. </p> </li> </ul> <p>Default: <code>BASE</code> </p>
@@ -7168,7 +7168,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7242,10 +7242,10 @@ class AsyncIoTSiteWiseClient:
         next_token: Optional["capo_iotsitewise.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iotsitewise.types.max_results.MaxResults"] = None,
     ) -> "capo_iotsitewise.types.list_asset_relationships_response.ListAssetRelationshipsResponse":
-        r"""<p>Retrieves a paginated list of asset relationships for an asset. You can use this operation to identify an asset's root asset and all associated assets between that asset and its root.</p>
+        """<p>Retrieves a paginated list of asset relationships for an asset. You can use this operation to identify an asset's root asset and all associated assets between that asset and its root.</p>
 
         Args:
-            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             traversal_type: <p>The type of traversal to use to identify asset relationships. Choose the following option:</p> <ul> <li> <p> <code>PATH_TO_ROOT</code> – Identify the asset's parent assets up to the root asset. The asset that you specify in <code>assetId</code> is the first result in the list of <code>assetRelationshipSummaries</code>, and the root asset is the last result.</p> </li> </ul>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request.</p>
@@ -7254,7 +7254,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7327,19 +7327,19 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.list_assets_filter.ListAssetsFilter"
         ] = None,
     ) -> "capo_iotsitewise.types.list_assets_response.ListAssetsResponse":
-        r"""<p>Retrieves a paginated list of asset summaries.</p> <p>You can use this operation to do the following:</p> <ul> <li> <p>List assets based on a specific asset model.</p> </li> <li> <p>List top-level assets.</p> </li> </ul> <p>You can't use this operation to list all assets. To retrieve summaries for all of your assets, use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ListAssetModels.html\">ListAssetModels</a> to get all of your asset model IDs. Then, use ListAssets to get all assets for each asset model.</p>
+        """<p>Retrieves a paginated list of asset summaries.</p> <p>You can use this operation to do the following:</p> <ul> <li> <p>List assets based on a specific asset model.</p> </li> <li> <p>List top-level assets.</p> </li> </ul> <p>You can't use this operation to list all assets. To retrieve summaries for all of your assets, use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_ListAssetModels.html">ListAssetModels</a> to get all of your asset model IDs. Then, use ListAssets to get all assets for each asset model.</p>
 
         Args:
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request.</p> <p>Default: 50</p>
-            asset_model_id: <p>The ID of the asset model by which to filter the list of assets. This parameter is required if you choose <code>ALL</code> for <code>filter</code>. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model by which to filter the list of assets. This parameter is required if you choose <code>ALL</code> for <code>filter</code>. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             filter: <p>The filter for the requested list of assets. Choose one of the following options:</p> <ul> <li> <p> <code>ALL</code> – The list includes all assets for a given asset model ID. The <code>assetModelId</code> parameter is required if you filter by <code>ALL</code>.</p> </li> <li> <p> <code>TOP_LEVEL</code> – The list includes only top-level assets in the asset hierarchy tree.</p> </li> </ul> <p>Default: <code>ALL</code> </p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7416,11 +7416,11 @@ class AsyncIoTSiteWiseClient:
         next_token: Optional["capo_iotsitewise.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iotsitewise.types.max_results.MaxResults"] = None,
     ) -> "capo_iotsitewise.types.list_associated_assets_response.ListAssociatedAssetsResponse":
-        r"""<p>Retrieves a paginated list of associated assets.</p> <p>You can use this operation to do the following:</p> <ul> <li> <p> <code>CHILD</code> - List all child assets associated to the asset.</p> </li> <li> <p> <code>PARENT</code> - List the asset's parent asset.</p> </li> </ul>
+        """<p>Retrieves a paginated list of associated assets.</p> <p>You can use this operation to do the following:</p> <ul> <li> <p> <code>CHILD</code> - List all child assets associated to the asset.</p> </li> <li> <p> <code>PARENT</code> - List the asset's parent asset.</p> </li> </ul>
 
         Args:
-            asset_id: <p>The ID of the asset to query. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            hierarchy_id: <p>(Optional) If you don't provide a <code>hierarchyId</code>, all the immediate assets in the <code>traversalDirection</code> will be returned. </p> <p> The ID of the hierarchy by which child assets are associated to the asset. (This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.)</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html\">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset to query. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            hierarchy_id: <p>(Optional) If you don't provide a <code>hierarchyId</code>, all the immediate assets in the <code>traversalDirection</code> will be returned. </p> <p> The ID of the hierarchy by which child assets are associated to the asset. (This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.)</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p>
             traversal_direction: <p>The direction to list associated assets. Choose one of the following options:</p> <ul> <li> <p> <code>CHILD</code> – The list includes all child assets associated to the asset.</p> </li> <li> <p> <code>PARENT</code> – The list includes the asset's parent asset.</p> </li> </ul> <p>Default: <code>CHILD</code> </p>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request.</p> <p>Default: 50</p>
@@ -7429,7 +7429,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7511,7 +7511,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.workspace_name.WorkspaceName"
         ] = None,
     ) -> "capo_iotsitewise.types.list_bulk_import_jobs_response.ListBulkImportJobsResponse":
-        r"""<p>Retrieves a paginated list of bulk import job requests. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/ListBulkImportJobs.html\">List bulk import jobs (CLI)</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Retrieves a paginated list of bulk import job requests. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/ListBulkImportJobs.html">List bulk import jobs (CLI)</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             next_token: <p>The token to be used for the next set of paginated results.</p>
@@ -7523,7 +7523,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7598,10 +7598,10 @@ class AsyncIoTSiteWiseClient:
         next_token: Optional["capo_iotsitewise.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iotsitewise.types.max_results.MaxResults"] = None,
     ) -> "capo_iotsitewise.types.list_composition_relationships_response.ListCompositionRelationshipsResponse":
-        r"""<p>Retrieves a paginated list of composition relationships for an asset model of type <code>COMPONENT_MODEL</code>.</p>
+        """<p>Retrieves a paginated list of composition relationships for an asset model of type <code>COMPONENT_MODEL</code>.</p>
 
         Args:
-            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request.</p> <p>Default: 50</p>
 
@@ -7609,7 +7609,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7686,7 +7686,7 @@ class AsyncIoTSiteWiseClient:
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7764,7 +7764,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7845,7 +7845,7 @@ class AsyncIoTSiteWiseClient:
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -7924,7 +7924,7 @@ class AsyncIoTSiteWiseClient:
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8004,7 +8004,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8089,7 +8089,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8185,7 +8185,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8281,7 +8281,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8392,9 +8392,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8516,7 +8516,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8608,7 +8608,7 @@ class AsyncIoTSiteWiseClient:
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8682,7 +8682,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8781,7 +8781,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8883,7 +8883,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.list_pipelines_request_max_results_integer.ListPipelinesRequestMaxResultsInteger"
         ] = None,
     ) -> "capo_iotsitewise.types.list_pipelines_response.ListPipelinesResponse":
-        r"""<p>Lists pipelines in a workspace. To get complete details about a pipeline, use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribePipeline.html\">DescribePipeline</a>.</p>
+        """<p>Lists pipelines in a workspace. To get complete details about a pipeline, use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribePipeline.html">DescribePipeline</a>.</p>
 
         Args:
             workspace_name: <p>The name of the workspace.</p>
@@ -8895,7 +8895,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -8974,7 +8974,7 @@ class AsyncIoTSiteWiseClient:
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9049,7 +9049,7 @@ class AsyncIoTSiteWiseClient:
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9126,7 +9126,7 @@ class AsyncIoTSiteWiseClient:
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9211,7 +9211,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9304,7 +9304,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9377,18 +9377,18 @@ class AsyncIoTSiteWiseClient:
         *,
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
     ) -> "capo_iotsitewise.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>Retrieves the list of tags for an IoT SiteWise resource.</p>
+        """<p>Retrieves the list of tags for an IoT SiteWise resource.</p>
 
         Args:
-            resource_arn: <p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the resource.</p>
+            resource_arn: <p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the resource.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.unauthorized_exception.UnauthorizedException: <p>You are not authorized.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -9433,7 +9433,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.list_tasks_request_max_results_integer.ListTasksRequestMaxResultsInteger"
         ] = None,
     ) -> "capo_iotsitewise.types.list_tasks_response.ListTasksResponse":
-        r"""<p>Lists tasks in a workspace. To get complete details about a task, use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeTask.html\">DescribeTask</a>.</p>
+        """<p>Lists tasks in a workspace. To get complete details about a task, use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeTask.html">DescribeTask</a>.</p>
 
         Args:
             workspace_name: <p>The name of the workspace.</p>
@@ -9445,7 +9445,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9525,12 +9525,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.workspace_name.WorkspaceName"
         ] = None,
     ) -> "capo_iotsitewise.types.list_time_series_response.ListTimeSeriesResponse":
-        r"""<p>Retrieves a paginated list of time series (data streams).</p>
+        """<p>Retrieves a paginated list of time series (data streams).</p>
 
         Args:
             next_token: <p>The token to be used for the next set of paginated results.</p>
             max_results: <p>The maximum number of results to return for each paginated request.</p>
-            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset in which the asset property was created. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             alias_prefix: <p>The alias prefix of the time series.</p>
             time_series_type: <p>The type of the time series. The time series type can be one of the following values:</p> <ul> <li> <p> <code>ASSOCIATED</code> – The time series is associated with an asset property.</p> </li> <li> <p> <code>DISASSOCIATED</code> – The time series isn't associated with any asset property.</p> </li> </ul>
             workspace_name: <p>The name of the workspace.</p>
@@ -9539,7 +9539,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9633,7 +9633,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.access_denied_exception.AccessDeniedException: <p>Access is denied.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9711,9 +9711,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9757,7 +9757,7 @@ class AsyncIoTSiteWiseClient:
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
         kms_key_id: Optional["capo_iotsitewise.types.kms_key_id.KmsKeyId"] = None,
     ) -> "capo_iotsitewise.types.put_default_encryption_configuration_response.PutDefaultEncryptionConfigurationResponse":
-        r"""<p>Sets the default encryption configuration for the Amazon Web Services account. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/key-management.html\">Key management</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Sets the default encryption configuration for the Amazon Web Services account. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/key-management.html">Key management</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
             encryption_type: <p>The type of encryption used for the encryption configuration.</p>
@@ -9767,9 +9767,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9825,7 +9825,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9883,12 +9883,12 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.disallow_ingest_null_na_n.DisallowIngestNullNaN"
         ] = None,
     ) -> "capo_iotsitewise.types.put_storage_configuration_response.PutStorageConfigurationResponse":
-        r"""<p>Configures storage settings for IoT SiteWise.</p>
+        """<p>Configures storage settings for IoT SiteWise.</p>
 
         Args:
             storage_type: <p>The storage tier that you specified for your data. The <code>storageType</code> parameter can be one of the following values:</p> <ul> <li> <p> <code>SITEWISE_DEFAULT_STORAGE</code> – IoT SiteWise saves your data into the hot tier. The hot tier is a service-managed database.</p> </li> <li> <p> <code>MULTI_LAYER_STORAGE</code> – IoT SiteWise saves your data in both the cold tier and the hot tier. The cold tier is a customer-managed Amazon S3 bucket.</p> </li> </ul>
             multi_layer_storage: <p>Identifies a storage destination. If you specified <code>MULTI_LAYER_STORAGE</code> for the storage type, you must specify a <code>MultiLayerStorage</code> object.</p>
-            disassociated_data_storage: <p>Contains the storage configuration for time series (data streams) that aren't associated with asset properties. The <code>disassociatedDataStorage</code> can be one of the following values:</p> <ul> <li> <p> <code>ENABLED</code> – IoT SiteWise accepts time series that aren't associated with asset properties.</p> <important> <p>After the <code>disassociatedDataStorage</code> is enabled, you can't disable it.</p> </important> </li> <li> <p> <code>DISABLED</code> – IoT SiteWise doesn't accept time series (data streams) that aren't associated with asset properties.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/data-streams.html\">Data streams</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            disassociated_data_storage: <p>Contains the storage configuration for time series (data streams) that aren't associated with asset properties. The <code>disassociatedDataStorage</code> can be one of the following values:</p> <ul> <li> <p> <code>ENABLED</code> – IoT SiteWise accepts time series that aren't associated with asset properties.</p> <important> <p>After the <code>disassociatedDataStorage</code> is enabled, you can't disable it.</p> </important> </li> <li> <p> <code>DISABLED</code> – IoT SiteWise doesn't accept time series (data streams) that aren't associated with asset properties.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/data-streams.html">Data streams</a> in the <i>IoT SiteWise User Guide</i>.</p>
             warm_tier: <p>A service managed storage tier optimized for analytical queries. It stores periodically uploaded, buffered and historical data ingested with the CreaeBulkImportJob API.</p>
             warm_tier_retention_period: <p>Set this period to specify how long your data is stored in the warm tier before it is deleted. You can set this only if cold tier is enabled.</p>
             disallow_ingest_null_na_n: <p>Describes the configuration for ingesting NULL and NaN data. By default the feature is allowed. The feature is disallowed if the value is <code>true</code>.</p>
@@ -9897,10 +9897,10 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -9978,9 +9978,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10047,7 +10047,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10113,9 +10113,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10164,20 +10164,20 @@ class AsyncIoTSiteWiseClient:
         *,
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
     ) -> "capo_iotsitewise.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds tags to an IoT SiteWise resource. If a tag already exists for the resource, this operation updates the tag's value.</p>
+        """<p>Adds tags to an IoT SiteWise resource. If a tag already exists for the resource, this operation updates the tag's value.</p>
 
         Args:
-            resource_arn: <p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the resource to tag.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the resource. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html\">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            resource_arn: <p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the resource to tag.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the resource. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html">Tagging your IoT SiteWise resources</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            capo_iotsitewise.errors.too_many_tags_exception.TooManyTagsException: <p>You've reached the quota for the number of tags allowed for a resource. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions\">Tag naming limits and requirements</a> in the <i>Amazon Web Services General Reference</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.too_many_tags_exception.TooManyTagsException: <p>You've reached the quota for the number of tags allowed for a resource. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions">Tag naming limits and requirements</a> in the <i>Amazon Web Services General Reference</i>.</p>
             capo_iotsitewise.errors.unauthorized_exception.UnauthorizedException: <p>You are not authorized.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -10218,19 +10218,19 @@ class AsyncIoTSiteWiseClient:
         *,
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
     ) -> "capo_iotsitewise.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Removes a tag from an IoT SiteWise resource.</p>
+        """<p>Removes a tag from an IoT SiteWise resource.</p>
 
         Args:
-            resource_arn: <p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the resource to untag.</p>
+            resource_arn: <p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the resource to untag.</p>
             tag_keys: <p>A list of keys for tags to remove from the resource.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.unauthorized_exception.UnauthorizedException: <p>You are not authorized.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -10276,7 +10276,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotsitewise.types.update_access_policy_response.UpdateAccessPolicyResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Updates an existing access policy that specifies an identity's access to an IoT SiteWise Monitor portal or project resource.</p>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Updates an existing access policy that specifies an identity's access to an IoT SiteWise Monitor portal or project resource.</p>
 
         Args:
             access_policy_id: <p>The ID of the access policy.</p>
@@ -10289,7 +10289,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10343,11 +10343,11 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.description.Description"
         ] = None,
     ) -> "capo_iotsitewise.types.update_asset_response.UpdateAssetResponse":
-        r"""<p>Updates an asset's name. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/update-assets-and-models.html\">Updating assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p>
+        """<p>Updates an asset's name. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/update-assets-and-models.html">Updating assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Args:
-            asset_id: <p>The ID of the asset to update. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_external_id: <p>An external ID to assign to the asset. The asset must not already have an external ID. The external ID must be unique within your Amazon Web Services account. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids\">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_id: <p>The ID of the asset to update. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_external_id: <p>An external ID to assign to the asset. The asset must not already have an external ID. The external ID must be unique within your Amazon Web Services account. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             asset_name: <p>A friendly name for the asset.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
             asset_description: <p>A description for the asset.</p>
@@ -10358,7 +10358,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10428,18 +10428,18 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_type.AssetModelVersionType"
         ] = None,
     ) -> "capo_iotsitewise.types.update_asset_model_response.UpdateAssetModelResponse":
-        r"""<p>Updates an asset model and all of the assets that were created from the model. Each asset created from the model inherits the updated asset model's property and hierarchy definitions. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/update-assets-and-models.html\">Updating assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p> <important> <p>If you remove a property from an asset model, IoT SiteWise deletes all previous data for that property. You can’t change the type or data type of an existing property.</p> <p>To replace an existing asset model property with a new one with the same <code>name</code>, do the following:</p> <ol> <li> <p>Submit an <code>UpdateAssetModel</code> request with the entire existing property removed.</p> </li> <li> <p>Submit a second <code>UpdateAssetModel</code> request that includes the new property. The new asset property will have the same <code>name</code> as the previous one and IoT SiteWise will generate a new unique <code>id</code>.</p> </li> </ol> </important>
+        """<p>Updates an asset model and all of the assets that were created from the model. Each asset created from the model inherits the updated asset model's property and hierarchy definitions. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/update-assets-and-models.html">Updating assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p> <important> <p>If you remove a property from an asset model, IoT SiteWise deletes all previous data for that property. You can’t change the type or data type of an existing property.</p> <p>To replace an existing asset model property with a new one with the same <code>name</code>, do the following:</p> <ol> <li> <p>Submit an <code>UpdateAssetModel</code> request with the entire existing property removed.</p> </li> <li> <p>Submit a second <code>UpdateAssetModel</code> request that includes the new property. The new asset property will have the same <code>name</code> as the previous one and IoT SiteWise will generate a new unique <code>id</code>.</p> </li> </ol> </important>
 
         Args:
-            asset_model_id: <p>The ID of the asset model to update. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_model_external_id: <p>An external ID to assign to the asset model. The asset model must not already have an external ID. The external ID must be unique within your Amazon Web Services account. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids\">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_id: <p>The ID of the asset model to update. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_external_id: <p>An external ID to assign to the asset model. The asset model must not already have an external ID. The external ID must be unique within your Amazon Web Services account. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
             asset_model_name: <p>A unique name for the asset model.</p>
             asset_model_description: <p>A description for the asset model.</p>
-            asset_model_properties: <p>The updated property definitions of the asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html\">Asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 200 properties per asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_model_hierarchies: <p>The updated hierarchy definitions of the asset model. Each hierarchy specifies an asset model whose assets can be children of any other assets created from this asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html\">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 10 hierarchies per asset model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            asset_model_composite_models: <p>The composite models that are part of this asset model. It groups properties (such as attributes, measurements, transforms, and metrics) and child composite models that model parts of your industrial equipment. Each composite model has a type that defines the properties that the composite model supports. Use composite models to define alarms on this asset model.</p> <note> <p>When creating custom composite models, you need to use <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_CreateAssetModelCompositeModel.html\">CreateAssetModelCompositeModel</a>. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-custom-composite-models.html\">Creating custom composite models (Components)</a> in the <i>IoT SiteWise User Guide</i>.</p> </note>
+            asset_model_properties: <p>The updated property definitions of the asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html">Asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 200 properties per asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_hierarchies: <p>The updated hierarchy definitions of the asset model. Each hierarchy specifies an asset model whose assets can be children of any other assets created from this asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html">Asset hierarchies</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 10 hierarchies per asset model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_composite_models: <p>The composite models that are part of this asset model. It groups properties (such as attributes, measurements, transforms, and metrics) and child composite models that model parts of your industrial equipment. Each composite model has a type that defines the properties that the composite model supports. Use composite models to define alarms on this asset model.</p> <note> <p>When creating custom composite models, you need to use <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_CreateAssetModelCompositeModel.html">CreateAssetModelCompositeModel</a>. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-custom-composite-models.html">Creating custom composite models (Components)</a> in the <i>IoT SiteWise User Guide</i>.</p> </note>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The update request is rejected if the tag does not match the latest or active version's current entity tag. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html\">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The update request is rejected if the tag does not match the latest or active version's current entity tag. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
             if_none_match: <p>Accepts <b>*</b> to reject the update request if an active version (specified using <code>matchForVersionType</code> as <code>ACTIVE</code>) already exists for the asset model.</p>
             match_for_version_type: <p>Specifies the asset model version type (<code>LATEST</code> or <code>ACTIVE</code>) used in conjunction with <code>If-Match</code> or <code>If-None-Match</code> headers to determine the target ETag for the update operation.</p>
 
@@ -10447,11 +10447,11 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.precondition_failed_exception.PreconditionFailedException: <p>The precondition in one or more of the request-header fields evaluated to <code>FALSE</code>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10528,7 +10528,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.asset_model_version_type.AssetModelVersionType"
         ] = None,
     ) -> "capo_iotsitewise.types.update_asset_model_composite_model_response.UpdateAssetModelCompositeModelResponse":
-        r"""<p>Updates a composite model and all of the assets that were created from the model. Each asset created from the model inherits the updated asset model's property and hierarchy definitions. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/update-assets-and-models.html\">Updating assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p> <important> <p>If you remove a property from a composite asset model, IoT SiteWise deletes all previous data for that property. You can’t change the type or data type of an existing property.</p> <p>To replace an existing composite asset model property with a new one with the same <code>name</code>, do the following:</p> <ol> <li> <p>Submit an <code>UpdateAssetModelCompositeModel</code> request with the entire existing property removed.</p> </li> <li> <p>Submit a second <code>UpdateAssetModelCompositeModel</code> request that includes the new property. The new asset property will have the same <code>name</code> as the previous one and IoT SiteWise will generate a new unique <code>id</code>.</p> </li> </ol> </important>
+        """<p>Updates a composite model and all of the assets that were created from the model. Each asset created from the model inherits the updated asset model's property and hierarchy definitions. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/update-assets-and-models.html">Updating assets and models</a> in the <i>IoT SiteWise User Guide</i>.</p> <important> <p>If you remove a property from a composite asset model, IoT SiteWise deletes all previous data for that property. You can’t change the type or data type of an existing property.</p> <p>To replace an existing composite asset model property with a new one with the same <code>name</code>, do the following:</p> <ol> <li> <p>Submit an <code>UpdateAssetModelCompositeModel</code> request with the entire existing property removed.</p> </li> <li> <p>Submit a second <code>UpdateAssetModelCompositeModel</code> request that includes the new property. The new asset property will have the same <code>name</code> as the previous one and IoT SiteWise will generate a new unique <code>id</code>.</p> </li> </ol> </important>
 
         Args:
             asset_model_id: <p>The ID of the asset model, in UUID format.</p>
@@ -10537,8 +10537,8 @@ class AsyncIoTSiteWiseClient:
             asset_model_composite_model_description: <p>A description for the composite model.</p>
             asset_model_composite_model_name: <p>A unique name for the composite model.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
-            asset_model_composite_model_properties: <p>The property definitions of the composite model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/custom-composite-models.html#inline-composite-models\"> Inline custom composite models</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 200 properties per composite model. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The update request is rejected if the tag does not match the latest or active version's current entity tag. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html\">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            asset_model_composite_model_properties: <p>The property definitions of the composite model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/custom-composite-models.html#inline-composite-models"> Inline custom composite models</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>You can specify up to 200 properties per composite model. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            if_match: <p>The expected current entity tag (ETag) for the asset model’s latest or active version (specified using <code>matchForVersionType</code>). The update request is rejected if the tag does not match the latest or active version's current entity tag. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>
             if_none_match: <p>Accepts <b>*</b> to reject the update request if an active version (specified using <code>matchForVersionType</code> as <code>ACTIVE</code>) already exists for the asset model.</p>
             match_for_version_type: <p>Specifies the asset model version type (<code>LATEST</code> or <code>ACTIVE</code>) used in conjunction with <code>If-Match</code> or <code>If-None-Match</code> headers to determine the target ETag for the update operation.</p>
 
@@ -10546,11 +10546,11 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.precondition_failed_exception.PreconditionFailedException: <p>The precondition in one or more of the request-header fields evaluated to <code>FALSE</code>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10624,13 +10624,13 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.property_unit.PropertyUnit"
         ] = None,
     ) -> None:
-        r"""<p>Updates an asset property's alias and notification state.</p> <important> <p>This operation overwrites the property's existing alias and notification state. To keep your existing property's alias or notification state, you must include the existing values in the UpdateAssetProperty request. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeAssetProperty.html\">DescribeAssetProperty</a>.</p> </important>
+        """<p>Updates an asset property's alias and notification state.</p> <important> <p>This operation overwrites the property's existing alias and notification state. To keep your existing property's alias or notification state, you must include the existing values in the UpdateAssetProperty request. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_DescribeAssetProperty.html">DescribeAssetProperty</a>.</p> </important>
 
         Args:
-            asset_id: <p>The ID of the asset to be updated. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            property_id: <p>The ID of the asset property to be updated. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references\">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
-            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>If you omit this parameter, the alias is removed from the property.</p>
-            property_notification_state: <p>The MQTT notification state (enabled or disabled) for this asset property. When the notification state is enabled, IoT SiteWise publishes property value updates to a unique MQTT topic. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/interact-with-other-services.html\">Interacting with other services</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>If you omit this parameter, the notification state is set to <code>DISABLED</code>.</p>
+            asset_id: <p>The ID of the asset to be updated. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_id: <p>The ID of the asset property to be updated. This can be either the actual ID in UUID format, or else <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references">Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            property_alias: <p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>If you omit this parameter, the alias is removed from the property.</p>
+            property_notification_state: <p>The MQTT notification state (enabled or disabled) for this asset property. When the notification state is enabled, IoT SiteWise publishes property value updates to a unique MQTT topic. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/interact-with-other-services.html">Interacting with other services</a> in the <i>IoT SiteWise User Guide</i>.</p> <p>If you omit this parameter, the notification state is set to <code>DISABLED</code>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
             property_unit: <p>The unit of measure (such as Newtons or RPM) of the asset property. If you don't specify a value for this parameter, the service uses the value of the <code>assetModelProperty</code> in the asset model.</p>
 
@@ -10639,7 +10639,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10708,10 +10708,10 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10765,20 +10765,20 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotsitewise.types.update_dashboard_response.UpdateDashboardResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Updates an IoT SiteWise Monitor dashboard.</p>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Updates an IoT SiteWise Monitor dashboard.</p>
 
         Args:
             dashboard_id: <p>The ID of the dashboard to update.</p>
             dashboard_name: <p>A new friendly name for the dashboard.</p>
             dashboard_description: <p>A new description for the dashboard.</p>
-            dashboard_definition: <p>The new dashboard definition, as specified in a JSON literal.</p> <ul> <li> <p>IoT SiteWise Monitor (Classic) see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-using-aws-cli.html\">Create dashboards (CLI)</a> </p> </li> <li> <p>IoT SiteWise Monitor (AI-aware) see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-ai-dashboard-cli.html\">Create dashboards (CLI)</a> </p> </li> </ul> <p>in the <i>IoT SiteWise User Guide</i> </p>
+            dashboard_definition: <p>The new dashboard definition, as specified in a JSON literal.</p> <ul> <li> <p>IoT SiteWise Monitor (Classic) see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-using-aws-cli.html">Create dashboards (CLI)</a> </p> </li> <li> <p>IoT SiteWise Monitor (AI-aware) see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/create-dashboards-ai-dashboard-cli.html">Create dashboards (CLI)</a> </p> </li> </ul> <p>in the <i>IoT SiteWise User Guide</i> </p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
 
         Raises:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10854,10 +10854,10 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_already_exists_exception.ResourceAlreadyExistsException: <p>The resource already exists.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10920,7 +10920,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -10959,20 +10959,20 @@ class AsyncIoTSiteWiseClient:
         *,
         config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
     ) -> "capo_iotsitewise.types.update_gateway_capability_configuration_response.UpdateGatewayCapabilityConfigurationResponse":
-        r"""<p>Updates a gateway capability configuration or defines a new capability configuration. Each gateway capability defines data sources for a gateway.</p> <p>Important workflow notes:</p> <p>Each gateway capability defines data sources for a gateway. This is the namespace of the gateway capability.</p> <p>. The namespace follows the format <code>service:capability:version</code>, where:</p> <ul> <li> <p> <code>service</code> - The service providing the capability, or <code>iotsitewise</code>.</p> </li> <li> <p> <code>capability</code> - The specific capability type. Options include: <code>opcuacollector</code> for the OPC UA data source collector, or <code>publisher</code> for data publisher capability.</p> </li> <li> <p> <code>version</code> - The version number of the capability. Option include <code>2</code> for Classic streams, V2 gateways, and <code>3</code> for MQTT-enabled, V3 gateways.</p> </li> </ul> <p>After updating a capability configuration, the sync status becomes <code>OUT_OF_SYNC</code> until the gateway processes the configuration.Use <code>DescribeGatewayCapabilityConfiguration</code> to check the sync status and verify the configuration was applied.</p> <p>A gateway can have multiple capability configurations with different namespaces.</p>
+        """<p>Updates a gateway capability configuration or defines a new capability configuration. Each gateway capability defines data sources for a gateway.</p> <p>Important workflow notes:</p> <p>Each gateway capability defines data sources for a gateway. This is the namespace of the gateway capability.</p> <p>. The namespace follows the format <code>service:capability:version</code>, where:</p> <ul> <li> <p> <code>service</code> - The service providing the capability, or <code>iotsitewise</code>.</p> </li> <li> <p> <code>capability</code> - The specific capability type. Options include: <code>opcuacollector</code> for the OPC UA data source collector, or <code>publisher</code> for data publisher capability.</p> </li> <li> <p> <code>version</code> - The version number of the capability. Option include <code>2</code> for Classic streams, V2 gateways, and <code>3</code> for MQTT-enabled, V3 gateways.</p> </li> </ul> <p>After updating a capability configuration, the sync status becomes <code>OUT_OF_SYNC</code> until the gateway processes the configuration.Use <code>DescribeGatewayCapabilityConfiguration</code> to check the sync status and verify the configuration was applied.</p> <p>A gateway can have multiple capability configurations with different namespaces.</p>
 
         Args:
             gateway_id: <p>The ID of the gateway to be updated.</p>
             capability_namespace: <p>The namespace of the gateway capability configuration to be updated. For example, if you configure OPC UA sources for an MQTT-enabled gateway, your OPC-UA capability configuration has the namespace <code>iotsitewise:opcuacollector:3</code>.</p>
-            capability_configuration: <p>The JSON document that defines the configuration for the gateway capability. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/configure-sources.html#configure-source-cli\">Configuring data sources (CLI)</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capability_configuration: <p>The JSON document that defines the configuration for the gateway capability. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/configure-sources.html#configure-source-cli">Configuring data sources (CLI)</a> in the <i>IoT SiteWise User Guide</i>.</p>
 
         Raises:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -11034,9 +11034,9 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException: <p>Your request has conflicting operations. This can occur if you're trying to perform more than one operation on the same resource at the same time.</p>
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
-            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException: <p>You've reached the quota for a resource. For example, this can occur if you're trying to associate more than the allowed number of child assets or attempting to create more than the allowed number of properties for an asset model.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -11099,17 +11099,17 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.portal_type_configuration.PortalTypeConfiguration"
         ] = None,
     ) -> "capo_iotsitewise.types.update_portal_response.UpdatePortalResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Updates an IoT SiteWise Monitor portal.</p>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Updates an IoT SiteWise Monitor portal.</p>
 
         Args:
             portal_id: <p>The ID of the portal to update.</p>
             portal_name: <p>A new friendly name for the portal.</p>
             portal_description: <p>A new description for the portal.</p>
             portal_contact_email: <p>The Amazon Web Services administrator's contact email address.</p>
-            role_arn: <p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of a service role that allows the portal's users to access your IoT SiteWise resources on your behalf. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-service-role.html\">Using service roles for IoT SiteWise Monitor</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            role_arn: <p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of a service role that allows the portal's users to access your IoT SiteWise resources on your behalf. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-service-role.html">Using service roles for IoT SiteWise Monitor</a> in the <i>IoT SiteWise User Guide</i>.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
             notification_sender_email: <p>The email address that sends alarm notifications.</p>
-            alarms: <p>Contains the configuration information of an alarm created in an IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/monitor-alarms.html\">Monitoring with alarms</a> in the <i>IoT SiteWise Application Guide</i>.</p>
+            alarms: <p>Contains the configuration information of an alarm created in an IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/monitor-alarms.html">Monitoring with alarms</a> in the <i>IoT SiteWise Application Guide</i>.</p>
             portal_type: <p>Define the type of portal. The value for IoT SiteWise Monitor (Classic) is <code>SITEWISE_PORTAL_V1</code>. The value for IoT SiteWise Monitor (AI-aware) is <code>SITEWISE_PORTAL_V2</code>.</p>
             portal_type_configuration: <p>The configuration entry associated with the specific portal type. The value for IoT SiteWise Monitor (Classic) is <code>SITEWISE_PORTAL_V1</code>. The value for IoT SiteWise Monitor (AI-aware) is <code>SITEWISE_PORTAL_V2</code>.</p>
 
@@ -11118,7 +11118,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -11181,7 +11181,7 @@ class AsyncIoTSiteWiseClient:
             "capo_iotsitewise.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_iotsitewise.types.update_project_response.UpdateProjectResponse":
-        r"""<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html\">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Updates an IoT SiteWise Monitor project.</p>
+        """<important> <p>The IoT SiteWise Monitor feature will no longer be open to new customers starting November 7, 2025. If you would like to use the IoT SiteWise Monitor feature, sign up prior to that date. Existing customers can continue to use the service as normal. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/appguide/iotsitewise-monitor-availability-change.html">IoT SiteWise Monitor availability change</a>.</p> </important> <p>Updates an IoT SiteWise Monitor project.</p>
 
         Args:
             project_id: <p>The ID of the project to update.</p>
@@ -11193,7 +11193,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -11256,7 +11256,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -11322,7 +11322,7 @@ class AsyncIoTSiteWiseClient:
             capo_iotsitewise.errors.internal_failure_exception.InternalFailureException: <p>IoT SiteWise can't process your request right now. Try again later.</p>
             capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters. Check your request and try again.</p>
             capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
-            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
+            capo_iotsitewise.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a rate limit. For example, you might have exceeded the number of IoT SiteWise assets that can be created per second, the allowed number of messages per second, and so on.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>
             capo_iotsitewise.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

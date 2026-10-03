@@ -36,7 +36,7 @@ class RdsConfiguration(TypedDict, closed=True):
     deployment_option: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>Describes the deployment option for the recommended Amazon RDS DB instance. The deployment options include Multi-AZ and Single-AZ deployments. Valid values include <code>\"MULTI_AZ\"</code> and <code>\"SINGLE_AZ\"</code>.</p>"""
+    """<p>Describes the deployment option for the recommended Amazon RDS DB instance. The deployment options include Multi-AZ and Single-AZ deployments. Valid values include <code>"MULTI_AZ"</code> and <code>"SINGLE_AZ"</code>.</p>"""
     engine_version: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>Describes the recommended target Amazon RDS engine version.</p>"""
 

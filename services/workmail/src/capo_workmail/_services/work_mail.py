@@ -1037,7 +1037,7 @@ class WorkMailClient:
         kms_key_arn: Optional["capo_workmail.types.kms_key_arn.KmsKeyArn"] = None,
         enable_interoperability: Optional["capo_workmail.types.boolean.Boolean"] = None,
     ) -> "capo_workmail.types.create_organization_response.CreateOrganizationResponse":
-        r"""<p>Creates a new WorkMail organization. Optionally, you can choose to associate an existing AWS Directory Service directory with your organization. If an AWS Directory Service directory ID is specified, the organization alias must match the directory alias. If you choose not to associate an existing directory with your organization, then we create a new WorkMail directory for you. For more information, see <a href=\"https://docs.aws.amazon.com/workmail/latest/adminguide/add_new_organization.html\">Adding an organization</a> in the <i>WorkMail Administrator Guide</i>.</p> <p>You can associate multiple email domains with an organization, then choose your default email domain from the WorkMail console. You can also associate a domain that is managed in an Amazon Route 53 public hosted zone. For more information, see <a href=\"https://docs.aws.amazon.com/workmail/latest/adminguide/add_domain.html\">Adding a domain</a> and <a href=\"https://docs.aws.amazon.com/workmail/latest/adminguide/default_domain.html\">Choosing the default domain</a> in the <i>WorkMail Administrator Guide</i>.</p> <p>Optionally, you can use a customer managed key from AWS Key Management Service (AWS KMS) to encrypt email for your organization. If you don't associate an AWS KMS key, WorkMail creates a default, AWS managed key for you.</p>
+        """<p>Creates a new WorkMail organization. Optionally, you can choose to associate an existing AWS Directory Service directory with your organization. If an AWS Directory Service directory ID is specified, the organization alias must match the directory alias. If you choose not to associate an existing directory with your organization, then we create a new WorkMail directory for you. For more information, see <a href="https://docs.aws.amazon.com/workmail/latest/adminguide/add_new_organization.html">Adding an organization</a> in the <i>WorkMail Administrator Guide</i>.</p> <p>You can associate multiple email domains with an organization, then choose your default email domain from the WorkMail console. You can also associate a domain that is managed in an Amazon Route 53 public hosted zone. For more information, see <a href="https://docs.aws.amazon.com/workmail/latest/adminguide/add_domain.html">Adding a domain</a> and <a href="https://docs.aws.amazon.com/workmail/latest/adminguide/default_domain.html">Choosing the default domain</a> in the <i>WorkMail Administrator Guide</i>.</p> <p>Optionally, you can use a customer managed key from AWS Key Management Service (AWS KMS) to encrypt email for your organization. If you don't associate an AWS KMS key, WorkMail creates a default, AWS managed key for you.</p>
 
         Args:
             directory_id: <p>The AWS Directory Service directory ID.</p>
@@ -1795,7 +1795,7 @@ class WorkMailClient:
             "capo_workmail.types.boolean.Boolean"
         ] = None,
     ) -> "capo_workmail.types.delete_organization_response.DeleteOrganizationResponse":
-        r"""<p>Deletes an WorkMail organization and all underlying AWS resources managed by WorkMail as part of the organization. You can choose whether to delete the associated directory. For more information, see <a href=\"https://docs.aws.amazon.com/workmail/latest/adminguide/remove_organization.html\">Removing an organization</a> in the <i>WorkMail Administrator Guide</i>.</p>
+        """<p>Deletes an WorkMail organization and all underlying AWS resources managed by WorkMail as part of the organization. You can choose whether to delete the associated directory. For more information, see <a href="https://docs.aws.amazon.com/workmail/latest/adminguide/remove_organization.html">Removing an organization</a> in the <i>WorkMail Administrator Guide</i>.</p>
 
         Args:
             client_token: <p>The idempotency token associated with the request.</p>
@@ -2110,7 +2110,7 @@ class WorkMailClient:
             domain_name: <p>The domain to deregister in WorkMail and SES.</p>
 
         Raises:
-            capo_workmail.errors.invalid_custom_ses_configuration_exception.InvalidCustomSesConfigurationException: <p>You SES configuration has customizations that WorkMail cannot save. The error message lists the invalid setting. For examples of invalid settings, refer to <a href=\"https://docs.aws.amazon.com/ses/latest/APIReference/API_CreateReceiptRule.html\">CreateReceiptRule</a>.</p>
+            capo_workmail.errors.invalid_custom_ses_configuration_exception.InvalidCustomSesConfigurationException: <p>You SES configuration has customizations that WorkMail cannot save. The error message lists the invalid setting. For examples of invalid settings, refer to <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_CreateReceiptRule.html">CreateReceiptRule</a>.</p>
             capo_workmail.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more of the input parameters don't match the service's restrictions.</p>
             capo_workmail.errors.mail_domain_in_use_exception.MailDomainInUseException: <p>The domain you're trying to change is in use by another user or organization in your account. See the error message for details.</p>
             capo_workmail.errors.organization_not_found_exception.OrganizationNotFoundException: <p>An operation received a valid organization identifier that either doesn't belong or exist in the system.</p>
@@ -5002,7 +5002,7 @@ class WorkMailClient:
     ) -> (
         "capo_workmail.types.register_to_work_mail_response.RegisterToWorkMailResponse"
     ):
-        r"""<p>Registers an existing and disabled user, group, or resource for WorkMail use by associating a mailbox and calendaring capabilities. It performs no change if the user, group, or resource is enabled and fails if the user, group, or resource is deleted. This operation results in the accumulation of costs. For more information, see <a href=\"https://aws.amazon.com/workmail/pricing\">Pricing</a>. The equivalent console functionality for this operation is <i>Enable</i>.</p> <p>Users can either be created by calling the <a>CreateUser</a> API operation or they can be synchronized from your directory. For more information, see <a>DeregisterFromWorkMail</a>.</p>
+        """<p>Registers an existing and disabled user, group, or resource for WorkMail use by associating a mailbox and calendaring capabilities. It performs no change if the user, group, or resource is enabled and fails if the user, group, or resource is deleted. This operation results in the accumulation of costs. For more information, see <a href="https://aws.amazon.com/workmail/pricing">Pricing</a>. The equivalent console functionality for this operation is <i>Enable</i>.</p> <p>Users can either be created by calling the <a>CreateUser</a> API operation or they can be synchronized from your directory. For more information, see <a>DeregisterFromWorkMail</a>.</p>
 
         Args:
             organization_id: <p>The identifier for the organization under which the user, group, or resource exists.</p>
@@ -5124,7 +5124,7 @@ class WorkMailClient:
         config_overrides: Optional[WorkMailClientConfig] = None,
         description: Optional["capo_workmail.types.description.Description"] = None,
     ) -> "capo_workmail.types.start_mailbox_export_job_response.StartMailboxExportJobResponse":
-        r"""<p>Starts a mailbox export job to export MIME-format email messages and calendar items from the specified mailbox to the specified Amazon Simple Storage Service (Amazon S3) bucket. For more information, see <a href=\"https://docs.aws.amazon.com/workmail/latest/adminguide/mail-export.html\">Exporting mailbox content</a> in the <i>WorkMail Administrator Guide</i>.</p>
+        """<p>Starts a mailbox export job to export MIME-format email messages and calendar items from the specified mailbox to the specified Amazon Simple Storage Service (Amazon S3) bucket. For more information, see <a href="https://docs.aws.amazon.com/workmail/latest/adminguide/mail-export.html">Exporting mailbox content</a> in the <i>WorkMail Administrator Guide</i>.</p>
 
         Args:
             client_token: <p>The idempotency token for the client request.</p>

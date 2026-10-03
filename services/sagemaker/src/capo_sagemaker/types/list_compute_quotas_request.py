@@ -17,9 +17,9 @@ if TYPE_CHECKING:
 
 class ListComputeQuotasRequest(TypedDict, closed=True):
     created_after: NotRequired["capo_sagemaker.types.timestamp.Timestamp"]
-    r"""<p>Filter for after this creation time. The input for this parameter is a Unix timestamp. To convert a date and time into a Unix timestamp, see <a href=\"https://www.epochconverter.com/\">EpochConverter</a>.</p>"""
+    """<p>Filter for after this creation time. The input for this parameter is a Unix timestamp. To convert a date and time into a Unix timestamp, see <a href="https://www.epochconverter.com/">EpochConverter</a>.</p>"""
     created_before: NotRequired["capo_sagemaker.types.timestamp.Timestamp"]
-    r"""<p>Filter for before this creation time. The input for this parameter is a Unix timestamp. To convert a date and time into a Unix timestamp, see <a href=\"https://www.epochconverter.com/\">EpochConverter</a>.</p>"""
+    """<p>Filter for before this creation time. The input for this parameter is a Unix timestamp. To convert a date and time into a Unix timestamp, see <a href="https://www.epochconverter.com/">EpochConverter</a>.</p>"""
     name_contains: NotRequired["capo_sagemaker.types.entity_name.EntityName"]
     """<p>Filter for name containing this string.</p>"""
     status: NotRequired[

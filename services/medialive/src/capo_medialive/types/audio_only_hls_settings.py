@@ -15,7 +15,7 @@ class AudioOnlyHlsSettings(TypedDict, closed=True):
     audio_group_id: NotRequired["capo_medialive.types.__string.__string"]
     """Specifies the group to which the audio Rendition belongs."""
     audio_only_image: NotRequired["capo_medialive.types.input_location.InputLocation"]
-    r"""Optional. Specifies the .jpg or .png image to use as the cover art for an audio-only output. We recommend a low bit-size file because the image increases the output audio bandwidth. The image is attached to the audio as an ID3 tag, frame type APIC, picture type 0x10, as per the \"ID3 tag version 2.4.0 - Native Frames\" standard."""
+    """Optional. Specifies the .jpg or .png image to use as the cover art for an audio-only output. We recommend a low bit-size file because the image increases the output audio bandwidth. The image is attached to the audio as an ID3 tag, frame type APIC, picture type 0x10, as per the "ID3 tag version 2.4.0 - Native Frames" standard."""
     audio_track_type: NotRequired[
         "capo_medialive.types.audio_only_hls_track_type.AudioOnlyHlsTrackType"
     ]

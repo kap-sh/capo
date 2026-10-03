@@ -14,11 +14,11 @@ class UpdatePreferencesResponse(TypedDict, closed=True):
     savings_estimation_mode: NotRequired[
         "capo_cost_optimization_hub.types.savings_estimation_mode.SavingsEstimationMode"
     ]
-    r"""<p>Shows the status of the \"savings estimation mode\" preference.</p>"""
+    """<p>Shows the status of the "savings estimation mode" preference.</p>"""
     member_account_discount_visibility: NotRequired[
         "capo_cost_optimization_hub.types.member_account_discount_visibility.MemberAccountDiscountVisibility"
     ]
-    r"""<p>Shows the status of the \"member account discount visibility\" preference.</p>"""
+    """<p>Shows the status of the "member account discount visibility" preference.</p>"""
     preferred_commitment: NotRequired[
         "capo_cost_optimization_hub.types.preferred_commitment.PreferredCommitment"
     ]

@@ -17,7 +17,7 @@ class WorkspaceCreationProperties(TypedDict, closed=True):
     ]
     """<p>Indicates whether internet access is enabled for your WorkSpaces.</p>"""
     default_ou: NotRequired["capo_workspaces.types.default_ou.DefaultOu"]
-    r"""<p>The default organizational unit (OU) for your WorkSpaces directories. This string must be the full Lightweight Directory Access Protocol (LDAP) distinguished name for the target domain and OU. It must be in the form <code>\"OU=<i>value</i>,DC=<i>value</i>,DC=<i>value</i>\"</code>, where <i>value</i> is any string of characters, and the number of domain components (DCs) is two or more. For example, <code>OU=WorkSpaces_machines,DC=machines,DC=example,DC=com</code>. </p> <important> <ul> <li> <p>To avoid errors, certain characters in the distinguished name must be escaped. For more information, see <a href=\"https://docs.microsoft.com/previous-versions/windows/desktop/ldap/distinguished-names\"> Distinguished Names</a> in the Microsoft documentation.</p> </li> <li> <p>The API doesn't validate whether the OU exists.</p> </li> </ul> </important>"""
+    """<p>The default organizational unit (OU) for your WorkSpaces directories. This string must be the full Lightweight Directory Access Protocol (LDAP) distinguished name for the target domain and OU. It must be in the form <code>"OU=<i>value</i>,DC=<i>value</i>,DC=<i>value</i>"</code>, where <i>value</i> is any string of characters, and the number of domain components (DCs) is two or more. For example, <code>OU=WorkSpaces_machines,DC=machines,DC=example,DC=com</code>. </p> <important> <ul> <li> <p>To avoid errors, certain characters in the distinguished name must be escaped. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/distinguished-names"> Distinguished Names</a> in the Microsoft documentation.</p> </li> <li> <p>The API doesn't validate whether the OU exists.</p> </li> </ul> </important>"""
     custom_security_group_id: NotRequired[
         "capo_workspaces.types.security_group_id.SecurityGroupId"
     ]
@@ -29,7 +29,7 @@ class WorkspaceCreationProperties(TypedDict, closed=True):
     enable_maintenance_mode: NotRequired[
         "capo_workspaces.types.boolean_object.BooleanObject"
     ]
-    r"""<p>Indicates whether maintenance mode is enabled for your WorkSpaces. For more information, see <a href=\"https://docs.aws.amazon.com/workspaces/latest/adminguide/workspace-maintenance.html\">WorkSpace Maintenance</a>. </p>"""
+    """<p>Indicates whether maintenance mode is enabled for your WorkSpaces. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/workspace-maintenance.html">WorkSpace Maintenance</a>. </p>"""
     instance_iam_role_arn: NotRequired["capo_workspaces.types.arn.ARN"]
     """<p>Indicates the IAM role ARN of the instance.</p>"""
 

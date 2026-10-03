@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 
 class GroupMembers(TypedDict, closed=True):
     member_groups: NotRequired["capo_qbusiness.types.member_groups.MemberGroups"]
-    r"""<p>A list of sub groups that belong to a group. For example, the sub groups \"Research\", \"Engineering\", and \"Sales and Marketing\" all belong to the group \"Company\".</p>"""
+    """<p>A list of sub groups that belong to a group. For example, the sub groups "Research", "Engineering", and "Sales and Marketing" all belong to the group "Company".</p>"""
     member_users: NotRequired["capo_qbusiness.types.member_users.MemberUsers"]
-    r"""<p>A list of users that belong to a group. For example, a list of interns all belong to the \"Interns\" group.</p>"""
+    """<p>A list of users that belong to a group. For example, a list of interns all belong to the "Interns" group.</p>"""
     s3_path_for_group_members: NotRequired["capo_qbusiness.types.s3.S3"]
 
 

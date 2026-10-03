@@ -32,7 +32,7 @@ class MongoDbDataProviderSettings(TypedDict, closed=True):
     ]
     """<p>The authentication type for the database connection. Valid values are PASSWORD or NO.</p>"""
     auth_source: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p> The MongoDB database name. This setting isn't used when <code>AuthType</code> is set to <code>\"no\"</code>. </p> <p>The default is <code>\"admin\"</code>.</p>"""
+    """<p> The MongoDB database name. This setting isn't used when <code>AuthType</code> is set to <code>"no"</code>. </p> <p>The default is <code>"admin"</code>.</p>"""
     auth_mechanism: NotRequired[
         "capo_database_migration_service.types.auth_mechanism_value.AuthMechanismValue"
     ]

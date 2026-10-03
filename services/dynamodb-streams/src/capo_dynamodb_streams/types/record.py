@@ -25,7 +25,7 @@ class Record(TypedDict, closed=True):
     dynamodb: NotRequired["capo_dynamodb_streams.types.stream_record.StreamRecord"]
     """<p>The main body of the stream record, containing all of the DynamoDB-specific fields.</p>"""
     user_identity: NotRequired["capo_dynamodb_streams.types.identity.Identity"]
-    r"""<p>Items that are deleted by the Time to Live process after expiration have the following fields: </p> <ul> <li> <p>Records[].userIdentity.type</p> <p>\"Service\"</p> </li> <li> <p>Records[].userIdentity.principalId</p> <p>\"dynamodb.amazonaws.com\"</p> </li> </ul>"""
+    """<p>Items that are deleted by the Time to Live process after expiration have the following fields: </p> <ul> <li> <p>Records[].userIdentity.type</p> <p>"Service"</p> </li> <li> <p>Records[].userIdentity.principalId</p> <p>"dynamodb.amazonaws.com"</p> </li> </ul>"""
 
 
 # --- awsJson1_0 ser/de ---

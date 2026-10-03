@@ -12,7 +12,7 @@ class Baseline(TypedDict, closed=True):
     predictor_baseline: NotRequired[
         "capo_forecast.types.predictor_baseline.PredictorBaseline"
     ]
-    r"""<p>The initial <a href=\"https://docs.aws.amazon.com/forecast/latest/dg/metrics.html\">accuracy metrics</a> for the predictor you are monitoring. Use these metrics as a baseline for comparison purposes as you use your predictor and the metrics change.</p>"""
+    """<p>The initial <a href="https://docs.aws.amazon.com/forecast/latest/dg/metrics.html">accuracy metrics</a> for the predictor you are monitoring. Use these metrics as a baseline for comparison purposes as you use your predictor and the metrics change.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

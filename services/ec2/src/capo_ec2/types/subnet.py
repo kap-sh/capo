@@ -54,7 +54,7 @@ class Subnet(TypedDict, closed=True):
     ]
     """<p>The state of VPC Block Public Access (BPA).</p>"""
     type: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>Indicates if this is a subnet used with Amazon Elastic VMware Service (EVS). Possible values are <code>Elastic VMware Service</code> or no value. For more information about Amazon EVS, see <a href=\"https://docs.aws.amazon.com/evs/latest/APIReference/Welcome.html\"> <i>Amazon Elastic VMware Service API Reference</i> </a>.</p>"""
+    """<p>Indicates if this is a subnet used with Amazon Elastic VMware Service (EVS). Possible values are <code>Elastic VMware Service</code> or no value. For more information about Amazon EVS, see <a href="https://docs.aws.amazon.com/evs/latest/APIReference/Welcome.html"> <i>Amazon Elastic VMware Service API Reference</i> </a>.</p>"""
     subnet_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the subnet.</p>"""
     state: NotRequired["capo_ec2.types.subnet_state.SubnetState"]
@@ -70,7 +70,7 @@ class Subnet(TypedDict, closed=True):
     default_for_az: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Indicates whether this is the default subnet for the Availability Zone.</p>"""
     map_public_ip_on_launch: NotRequired["capo_ec2.types.boolean.Boolean"]
-    r"""<p>Indicates whether instances launched in this subnet receive a public IPv4 address.</p> <p>Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the <a href=\"http://aws.amazon.com/vpc/pricing/\">Amazon VPC pricing page</a>.</p>"""
+    """<p>Indicates whether instances launched in this subnet receive a public IPv4 address.</p> <p>Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.</p>"""
 
 
 # --- ec2Query ser/de ---

@@ -77,14 +77,14 @@ class ChannelResource:
         ] = None,
         audiences: Optional["capo_mediatailor.types.audiences.Audiences"] = None,
     ) -> "capo_mediatailor.types.create_channel_response.CreateChannelResponse":
-        r"""<p>Creates a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
             filler_slate: <p>The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels using the <code>LOOP</code> <code>PlaybackMode</code>.</p>
             outputs: <p>The channel's output properties.</p>
             playback_mode: <p>The type of playback mode to use for this channel.</p> <p> <code>LINEAR</code> - The programs in the schedule play once back-to-back in the schedule.</p> <p> <code>LOOP</code> - The programs in the schedule play back-to-back in an endless loop. When the last program in the schedule stops playing, playback loops back to the first program in the schedule.</p>
-            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             tier: <p>The tier of the channel.</p>
             time_shift_configuration: <p> The time-shifted viewing configuration you want to associate to the channel. </p>
             audiences: <p>The list of audiences defined in channel.</p>
@@ -138,7 +138,7 @@ class ChannelResource:
         *,
         config_overrides: Optional[MediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.describe_channel_response.DescribeChannelResponse":
-        r"""<p>Describes a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Describes a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -188,7 +188,7 @@ class ChannelResource:
         ] = None,
         audiences: Optional["capo_mediatailor.types.audiences.Audiences"] = None,
     ) -> "capo_mediatailor.types.update_channel_response.UpdateChannelResponse":
-        r"""<p>Updates a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Updates a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -241,7 +241,7 @@ class ChannelResource:
         *,
         config_overrides: Optional[MediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_channel_response.DeleteChannelResponse":
-        r"""<p>Deletes a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -387,14 +387,14 @@ class ChannelResource:
         ] = None,
         audiences: Optional["capo_mediatailor.types.audiences.Audiences"] = None,
     ) -> "capo_mediatailor.types.create_channel_response.CreateChannelResponse":
-        r"""<p>Creates a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
             filler_slate: <p>The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels using the <code>LOOP</code> <code>PlaybackMode</code>.</p>
             outputs: <p>The channel's output properties.</p>
             playback_mode: <p>The type of playback mode to use for this channel.</p> <p> <code>LINEAR</code> - The programs in the schedule play once back-to-back in the schedule.</p> <p> <code>LOOP</code> - The programs in the schedule play back-to-back in an endless loop. When the last program in the schedule stops playing, playback loops back to the first program in the schedule.</p>
-            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             tier: <p>The tier of the channel.</p>
             time_shift_configuration: <p> The time-shifted viewing configuration you want to associate to the channel. </p>
             audiences: <p>The list of audiences defined in channel.</p>
@@ -506,7 +506,7 @@ class ChannelResource:
         *,
         config_overrides: Optional[MediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.start_channel_response.StartChannelResponse":
-        r"""<p>Starts a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Starts a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -548,7 +548,7 @@ class ChannelResource:
         *,
         config_overrides: Optional[MediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.stop_channel_response.StopChannelResponse":
-        r"""<p>Stops a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Stops a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -608,14 +608,14 @@ class AsyncChannelResource:
         ] = None,
         audiences: Optional["capo_mediatailor.types.audiences.Audiences"] = None,
     ) -> "capo_mediatailor.types.create_channel_response.CreateChannelResponse":
-        r"""<p>Creates a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
             filler_slate: <p>The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels using the <code>LOOP</code> <code>PlaybackMode</code>.</p>
             outputs: <p>The channel's output properties.</p>
             playback_mode: <p>The type of playback mode to use for this channel.</p> <p> <code>LINEAR</code> - The programs in the schedule play once back-to-back in the schedule.</p> <p> <code>LOOP</code> - The programs in the schedule play back-to-back in an endless loop. When the last program in the schedule stops playing, playback loops back to the first program in the schedule.</p>
-            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             tier: <p>The tier of the channel.</p>
             time_shift_configuration: <p> The time-shifted viewing configuration you want to associate to the channel. </p>
             audiences: <p>The list of audiences defined in channel.</p>
@@ -670,7 +670,7 @@ class AsyncChannelResource:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.describe_channel_response.DescribeChannelResponse":
-        r"""<p>Describes a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Describes a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -721,7 +721,7 @@ class AsyncChannelResource:
         ] = None,
         audiences: Optional["capo_mediatailor.types.audiences.Audiences"] = None,
     ) -> "capo_mediatailor.types.update_channel_response.UpdateChannelResponse":
-        r"""<p>Updates a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Updates a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -775,7 +775,7 @@ class AsyncChannelResource:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.delete_channel_response.DeleteChannelResponse":
-        r"""<p>Deletes a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Deletes a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -924,14 +924,14 @@ class AsyncChannelResource:
         ] = None,
         audiences: Optional["capo_mediatailor.types.audiences.Audiences"] = None,
     ) -> "capo_mediatailor.types.create_channel_response.CreateChannelResponse":
-        r"""<p>Creates a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Creates a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
             filler_slate: <p>The slate used to fill gaps between programs in the schedule. You must configure filler slate if your channel uses the <code>LINEAR</code> <code>PlaybackMode</code>. MediaTailor doesn't support filler slate for channels using the <code>LOOP</code> <code>PlaybackMode</code>.</p>
             outputs: <p>The channel's output properties.</p>
             playback_mode: <p>The type of playback mode to use for this channel.</p> <p> <code>LINEAR</code> - The programs in the schedule play once back-to-back in the schedule.</p> <p> <code>LOOP</code> - The programs in the schedule play back-to-back in an endless loop. When the last program in the schedule stops playing, playback loops back to the first program in the schedule.</p>
-            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html\">Tagging AWS Elemental MediaTailor Resources</a>.</p>
+            tags: <p>The tags to assign to the channel. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>
             tier: <p>The tier of the channel.</p>
             time_shift_configuration: <p> The time-shifted viewing configuration you want to associate to the channel. </p>
             audiences: <p>The list of audiences defined in channel.</p>
@@ -1045,7 +1045,7 @@ class AsyncChannelResource:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.start_channel_response.StartChannelResponse":
-        r"""<p>Starts a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Starts a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>
@@ -1088,7 +1088,7 @@ class AsyncChannelResource:
         *,
         config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
     ) -> "capo_mediatailor.types.stop_channel_response.StopChannelResponse":
-        r"""<p>Stops a channel. For information about MediaTailor channels, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html\">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
+        """<p>Stops a channel. For information about MediaTailor channels, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html">Working with channels</a> in the <i>MediaTailor User Guide</i>.</p>
 
         Args:
             channel_name: <p>The name of the channel.</p>

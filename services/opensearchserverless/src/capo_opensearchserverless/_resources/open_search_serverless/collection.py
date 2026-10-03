@@ -75,7 +75,7 @@ class Collection:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_collection_response.CreateCollectionResponse":
-        r"""<p>Creates a new OpenSearch Serverless collection. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Creates a new OpenSearch Serverless collection. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             name: <p>Name of the collection.</p>
@@ -221,10 +221,10 @@ class Collection:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_collection_response.DeleteCollectionResponse":
-        r"""<p>Deletes an OpenSearch Serverless collection. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Deletes an OpenSearch Serverless collection. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
-            id: <p>The unique identifier of the collection. For example, <code>1iu5usc406kd</code>. The ID is part of the collection endpoint. You can also retrieve it using the <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html\">ListCollections</a> API.</p>
+            id: <p>The unique identifier of the collection. For example, <code>1iu5usc406kd</code>. The ID is part of the collection endpoint. You can also retrieve it using the <a href="https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html">ListCollections</a> API.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -275,7 +275,7 @@ class Collection:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_collections_response.ListCollectionsResponse":
-        r"""<p>Lists all OpenSearch Serverless collections. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p> <note> <p>Make sure to include an empty request body {} if you don't include any collection filters in the request.</p> </note>
+        """<p>Lists all OpenSearch Serverless collections. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p> <note> <p>Make sure to include an empty request body {} if you don't include any collection filters in the request.</p> </note>
 
         Args:
             collection_filters: <p> A list of filter names and values that you can use for requests.</p>
@@ -353,7 +353,7 @@ class AsyncCollection:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.create_collection_response.CreateCollectionResponse":
-        r"""<p>Creates a new OpenSearch Serverless collection. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Creates a new OpenSearch Serverless collection. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
             name: <p>Name of the collection.</p>
@@ -501,10 +501,10 @@ class AsyncCollection:
             "capo_opensearchserverless.types.client_token.ClientToken"
         ] = None,
     ) -> "capo_opensearchserverless.types.delete_collection_response.DeleteCollectionResponse":
-        r"""<p>Deletes an OpenSearch Serverless collection. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
+        """<p>Deletes an OpenSearch Serverless collection. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p>
 
         Args:
-            id: <p>The unique identifier of the collection. For example, <code>1iu5usc406kd</code>. The ID is part of the collection endpoint. You can also retrieve it using the <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html\">ListCollections</a> API.</p>
+            id: <p>The unique identifier of the collection. For example, <code>1iu5usc406kd</code>. The ID is part of the collection endpoint. You can also retrieve it using the <a href="https://docs.aws.amazon.com/opensearch-service/latest/ServerlessAPIReference/API_ListCollections.html">ListCollections</a> API.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotency of the request.</p>
 
         Raises:
@@ -556,7 +556,7 @@ class AsyncCollection:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_opensearchserverless.types.list_collections_response.ListCollectionsResponse":
-        r"""<p>Lists all OpenSearch Serverless collections. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html\">Creating and managing Amazon OpenSearch Serverless collections</a>.</p> <note> <p>Make sure to include an empty request body {} if you don't include any collection filters in the request.</p> </note>
+        """<p>Lists all OpenSearch Serverless collections. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html">Creating and managing Amazon OpenSearch Serverless collections</a>.</p> <note> <p>Make sure to include an empty request body {} if you don't include any collection filters in the request.</p> </note>
 
         Args:
             collection_filters: <p> A list of filter names and values that you can use for requests.</p>

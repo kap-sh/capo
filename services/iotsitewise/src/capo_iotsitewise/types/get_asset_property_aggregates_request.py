@@ -24,7 +24,7 @@ class GetAssetPropertyAggregatesRequest(TypedDict, closed=True):
     property_alias: NotRequired[
         "capo_iotsitewise.types.asset_property_alias.AssetPropertyAlias"
     ]
-    r"""<p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     aggregate_types: "capo_iotsitewise.types.aggregate_types.AggregateTypes"
     """<p>The data aggregating function.</p>"""
     resolution: "capo_iotsitewise.types.resolution.Resolution"

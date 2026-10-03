@@ -19,7 +19,7 @@ class AwsApiGatewayV2ApiDetails(TypedDict, closed=True):
     ]
     """<p>An API key selection expression. Supported only for WebSocket APIs. </p>"""
     created_date: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the API was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the API was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     description: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>A description of the API.</p>"""
     version: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

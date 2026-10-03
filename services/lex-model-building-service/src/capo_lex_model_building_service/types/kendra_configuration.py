@@ -20,7 +20,7 @@ class KendraConfiguration(TypedDict, closed=True):
     query_filter_string: NotRequired[
         "capo_lex_model_building_service.types.query_filter_string.QueryFilterString"
     ]
-    r"""<p>A query filter that Amazon Lex sends to Amazon Kendra to filter the response from the query. The filter is in the format defined by Amazon Kendra. For more information, see <a href=\"http://docs.aws.amazon.com/kendra/latest/dg/filtering.html\">Filtering queries</a>.</p> <p>You can override this filter string with a new filter string at runtime.</p>"""
+    """<p>A query filter that Amazon Lex sends to Amazon Kendra to filter the response from the query. The filter is in the format defined by Amazon Kendra. For more information, see <a href="http://docs.aws.amazon.com/kendra/latest/dg/filtering.html">Filtering queries</a>.</p> <p>You can override this filter string with a new filter string at runtime.</p>"""
     role: "capo_lex_model_building_service.types.role_arn.roleArn"
     """<p>The Amazon Resource Name (ARN) of an IAM role that has permission to search the Amazon Kendra index. The role must be in the same account and Region as the Amazon Lex bot. If the role does not exist, you get an exception when you call the <code>PutIntent</code> operation.</p>"""
 

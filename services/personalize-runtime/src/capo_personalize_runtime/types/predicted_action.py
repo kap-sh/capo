@@ -13,7 +13,7 @@ class PredictedAction(TypedDict, closed=True):
     action_id: NotRequired["capo_personalize_runtime.types.action_id.ActionID"]
     """<p>The ID of the recommended action.</p>"""
     score: NotRequired["capo_personalize_runtime.types.score.Score"]
-    r"""<p>The score of the recommended action. For information about action scores, see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/how-action-recommendation-scoring-works.html\">How action recommendation scoring works</a>.</p>"""
+    """<p>The score of the recommended action. For information about action scores, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/how-action-recommendation-scoring-works.html">How action recommendation scoring works</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

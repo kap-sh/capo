@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class AcquireRoleRequest(TypedDict, closed=True):
     template_arn: "capo_iam.types.arn_type.arnType"
-    r"""<p>The Amazon Resource Name (ARN) of the role template to create the role from.</p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the role template to create the role from.</p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     template_minor_version: NotRequired["capo_iam.types.integer_type.integerType"]
     """<p>The minor version of the role template to use. If you do not specify a minor version, the service uses the template's default minor version.</p>"""
     replacement_values: NotRequired[

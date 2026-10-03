@@ -35,7 +35,7 @@ class Mpeg2Settings(TypedDict, closed=True):
     ]
     """Specifies whether to include the color space metadata. The metadata describes the color space that applies to the video (the colorSpace field). We recommend that you insert the metadata."""
     color_space: NotRequired["capo_medialive.types.mpeg2_color_space.Mpeg2ColorSpace"]
-    r"""Choose the type of color space conversion to apply to the output. For detailed information on setting up both the input and the output to obtain the desired color space in the output, see the section on \\"MediaLive Features - Video - color space\\" in the MediaLive User Guide. PASSTHROUGH: Keep the color space of the input content - do not convert it. AUTO:Convert all content that is SD to rec 601, and convert all content that is HD to rec 709."""
+    r"""Choose the type of color space conversion to apply to the output. For detailed information on setting up both the input and the output to obtain the desired color space in the output, see the section on \"MediaLive Features - Video - color space\" in the MediaLive User Guide. PASSTHROUGH: Keep the color space of the input content - do not convert it. AUTO:Convert all content that is SD to rec 601, and convert all content that is HD to rec 709."""
     display_aspect_ratio: NotRequired[
         "capo_medialive.types.mpeg2_display_ratio.Mpeg2DisplayRatio"
     ]
@@ -49,7 +49,7 @@ class Mpeg2Settings(TypedDict, closed=True):
     framerate_denominator: NotRequired[
         "capo_medialive.types.__integer_min1.__integerMin1"
     ]
-    r"""description\": \"The framerate denominator. For example, 1001. The framerate is the numerator divided by the denominator. For example, 24000 / 1001 = 23.976 FPS."""
+    """description": "The framerate denominator. For example, 1001. The framerate is the numerator divided by the denominator. For example, 24000 / 1001 = 23.976 FPS."""
     framerate_numerator: NotRequired[
         "capo_medialive.types.__integer_min1.__integerMin1"
     ]
@@ -75,7 +75,7 @@ class Mpeg2Settings(TypedDict, closed=True):
     timecode_insertion: NotRequired[
         "capo_medialive.types.mpeg2_timecode_insertion_behavior.Mpeg2TimecodeInsertionBehavior"
     ]
-    r"""Determines how MediaLive inserts timecodes in the output video. For detailed information about setting up the input and the output for a timecode, see the section on \\"MediaLive Features - Timecode configuration\\" in the MediaLive User Guide. DISABLED: do not include timecodes. GOP_TIMECODE: Include timecode metadata in the GOP header."""
+    r"""Determines how MediaLive inserts timecodes in the output video. For detailed information about setting up the input and the output for a timecode, see the section on \"MediaLive Features - Timecode configuration\" in the MediaLive User Guide. DISABLED: do not include timecodes. GOP_TIMECODE: Include timecode metadata in the GOP header."""
     timecode_burnin_settings: NotRequired[
         "capo_medialive.types.timecode_burnin_settings.TimecodeBurninSettings"
     ]

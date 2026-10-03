@@ -25,11 +25,11 @@ class DescribeLocationEfsResponse(TypedDict, closed=True):
     access_point_arn: NotRequired[
         "capo_datasync.types.efs_access_point_arn.EfsAccessPointArn"
     ]
-    r"""<p>The ARN of the access point that DataSync uses to access the Amazon EFS file system.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html#create-efs-location-iam\">Accessing restricted file systems</a>.</p>"""
+    """<p>The ARN of the access point that DataSync uses to access the Amazon EFS file system.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html#create-efs-location-iam">Accessing restricted file systems</a>.</p>"""
     file_system_access_role_arn: NotRequired[
         "capo_datasync.types.iam_role_arn.IamRoleArn"
     ]
-    r"""<p>The Identity and Access Management (IAM) role that allows DataSync to access your Amazon EFS file system.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html#create-efs-location-iam-role\">Creating a DataSync IAM role for file system access</a>.</p>"""
+    """<p>The Identity and Access Management (IAM) role that allows DataSync to access your Amazon EFS file system.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html#create-efs-location-iam-role">Creating a DataSync IAM role for file system access</a>.</p>"""
     in_transit_encryption: NotRequired[
         "capo_datasync.types.efs_in_transit_encryption.EfsInTransitEncryption"
     ]

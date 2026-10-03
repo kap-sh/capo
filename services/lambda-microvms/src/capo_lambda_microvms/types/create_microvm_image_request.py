@@ -34,7 +34,7 @@ class CreateMicrovmImageRequest(TypedDict, closed=True):
     code_artifact: "capo_lambda_microvms.types.code_artifact.CodeArtifact"
     """<p>The code artifact containing the application code and metadata for the MicroVM image.</p>"""
     logging: NotRequired["capo_lambda_microvms.types.logging.Logging"]
-    r"""<p>The logging configuration for build-time and runtime logs. Specify {\"cloudWatch\": {\"logGroup\": \"...\"}} to stream logs to a custom CloudWatch log group, or {\"disabled\": {}} to turn off logging.</p>"""
+    """<p>The logging configuration for build-time and runtime logs. Specify {"cloudWatch": {"logGroup": "..."}} to stream logs to a custom CloudWatch log group, or {"disabled": {}} to turn off logging.</p>"""
     egress_network_connectors: NotRequired[
         "capo_lambda_microvms.types.network_connector_list.NetworkConnectorList"
     ]

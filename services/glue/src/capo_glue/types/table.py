@@ -51,7 +51,7 @@ class Table(TypedDict, closed=True):
     ]
     """<p>A storage descriptor containing information about the physical storage of this table.</p>"""
     partition_keys: NotRequired["capo_glue.types.column_list.ColumnList"]
-    r"""<p>A list of columns by which the table is partitioned. Only primitive types are supported as partition keys.</p> <p>When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you must at least set the value of <code>partitionKeys</code> to an empty list. For example:</p> <p> <code>\"PartitionKeys\": []</code> </p>"""
+    """<p>A list of columns by which the table is partitioned. Only primitive types are supported as partition keys.</p> <p>When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you must at least set the value of <code>partitionKeys</code> to an empty list. For example:</p> <p> <code>"PartitionKeys": []</code> </p>"""
     view_original_text: NotRequired["capo_glue.types.view_text_string.ViewTextString"]
     """<p>Included for Apache Hive compatibility. Not used in the normal course of Glue operations. If the table is a <code>VIRTUAL_VIEW</code>, certain Athena configuration encoded in base64.</p>"""
     view_expanded_text: NotRequired["capo_glue.types.view_text_string.ViewTextString"]

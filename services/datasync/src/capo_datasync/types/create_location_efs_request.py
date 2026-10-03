@@ -18,21 +18,21 @@ if TYPE_CHECKING:
 
 class CreateLocationEfsRequest(TypedDict, closed=True):
     subdirectory: NotRequired["capo_datasync.types.efs_subdirectory.EfsSubdirectory"]
-    r"""<p>Specifies a mount path for your Amazon EFS file system. This is where DataSync reads or writes data on your file system (depending on if this is a source or destination location).</p> <p>By default, DataSync uses the root directory (or <a href=\"https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html\">access point</a> if you provide one by using <code>AccessPointArn</code>). You can also include subdirectories using forward slashes (for example, <code>/path/to/folder</code>).</p>"""
+    """<p>Specifies a mount path for your Amazon EFS file system. This is where DataSync reads or writes data on your file system (depending on if this is a source or destination location).</p> <p>By default, DataSync uses the root directory (or <a href="https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html">access point</a> if you provide one by using <code>AccessPointArn</code>). You can also include subdirectories using forward slashes (for example, <code>/path/to/folder</code>).</p>"""
     efs_filesystem_arn: "capo_datasync.types.efs_filesystem_arn.EfsFilesystemArn"
     """<p>Specifies the ARN for your Amazon EFS file system.</p>"""
     ec2_config: "capo_datasync.types.ec2_config.Ec2Config"
-    r"""<p>Specifies the subnet and security groups DataSync uses to connect to one of your Amazon EFS file system's <a href=\"https://docs.aws.amazon.com/efs/latest/ug/accessing-fs.html\">mount targets</a>.</p>"""
+    """<p>Specifies the subnet and security groups DataSync uses to connect to one of your Amazon EFS file system's <a href="https://docs.aws.amazon.com/efs/latest/ug/accessing-fs.html">mount targets</a>.</p>"""
     tags: NotRequired["capo_datasync.types.input_tag_list.InputTagList"]
     """<p>Specifies the key-value pair that represents a tag that you want to add to the resource. The value can be an empty string. This value helps you manage, filter, and search for your resources. We recommend that you create a name tag for your location.</p>"""
     access_point_arn: NotRequired[
         "capo_datasync.types.efs_access_point_arn.EfsAccessPointArn"
     ]
-    r"""<p>Specifies the Amazon Resource Name (ARN) of the access point that DataSync uses to mount your Amazon EFS file system.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html#create-efs-location-iam\">Accessing restricted file systems</a>.</p>"""
+    """<p>Specifies the Amazon Resource Name (ARN) of the access point that DataSync uses to mount your Amazon EFS file system.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html#create-efs-location-iam">Accessing restricted file systems</a>.</p>"""
     file_system_access_role_arn: NotRequired[
         "capo_datasync.types.iam_role_arn.IamRoleArn"
     ]
-    r"""<p>Specifies an Identity and Access Management (IAM) role that allows DataSync to access your Amazon EFS file system.</p> <p>For information on creating this role, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html#create-efs-location-iam-role\">Creating a DataSync IAM role for file system access</a>.</p>"""
+    """<p>Specifies an Identity and Access Management (IAM) role that allows DataSync to access your Amazon EFS file system.</p> <p>For information on creating this role, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html#create-efs-location-iam-role">Creating a DataSync IAM role for file system access</a>.</p>"""
     in_transit_encryption: NotRequired[
         "capo_datasync.types.efs_in_transit_encryption.EfsInTransitEncryption"
     ]

@@ -16,7 +16,7 @@ class AssociateAccessGrantsIdentityCenterRequest(TypedDict, closed=True):
     account_id: "capo_s3_control.types.account_id.AccountId"
     """<p>The Amazon Web Services account ID of the S3 Access Grants instance.</p>"""
     identity_center_arn: "capo_s3_control.types.identity_center_arn.IdentityCenterArn"
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon Web Services IAM Identity Center instance that you are associating with your S3 Access Grants instance. An IAM Identity Center instance is your corporate identity directory that you added to the IAM Identity Center. You can use the <a href=\"https://docs.aws.amazon.com/singlesignon/latest/APIReference/API_ListInstances.html\">ListInstances</a> API operation to retrieve a list of your Identity Center instances and their ARNs.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon Web Services IAM Identity Center instance that you are associating with your S3 Access Grants instance. An IAM Identity Center instance is your corporate identity directory that you added to the IAM Identity Center. You can use the <a href="https://docs.aws.amazon.com/singlesignon/latest/APIReference/API_ListInstances.html">ListInstances</a> API operation to retrieve a list of your Identity Center instances and their ARNs.</p>"""
 
 
 # --- restXml ser/de ---

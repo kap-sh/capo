@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ByoipCidr(TypedDict, closed=True):
     cidr: NotRequired["capo_global_accelerator.types.generic_string.GenericString"]
-    r"""<p>The address range, in CIDR notation.</p> <p> For more information, see <a href=\"https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html\">Bring your own IP addresses (BYOIP)</a> in the Global Accelerator Developer Guide.</p>"""
+    """<p>The address range, in CIDR notation.</p> <p> For more information, see <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html">Bring your own IP addresses (BYOIP)</a> in the Global Accelerator Developer Guide.</p>"""
     state: NotRequired["capo_global_accelerator.types.byoip_cidr_state.ByoipCidrState"]
     """<p>The state of the address pool.</p>"""
     events: NotRequired[

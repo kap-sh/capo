@@ -28,7 +28,7 @@ class ReplicaSettingsDescription(TypedDict, closed=True):
     replica_provisioned_read_capacity_units: NotRequired[
         "capo_dynamodb.types.non_negative_long_object.NonNegativeLongObject"
     ]
-    r"""<p>The maximum number of strongly consistent reads consumed per second before DynamoDB returns a <code>ThrottlingException</code>. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput\">Specifying Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>. </p>"""
+    """<p>The maximum number of strongly consistent reads consumed per second before DynamoDB returns a <code>ThrottlingException</code>. For more information, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>. </p>"""
     replica_provisioned_read_capacity_auto_scaling_settings: NotRequired[
         "capo_dynamodb.types.auto_scaling_settings_description.AutoScalingSettingsDescription"
     ]
@@ -36,7 +36,7 @@ class ReplicaSettingsDescription(TypedDict, closed=True):
     replica_provisioned_write_capacity_units: NotRequired[
         "capo_dynamodb.types.non_negative_long_object.NonNegativeLongObject"
     ]
-    r"""<p>The maximum number of writes consumed per second before DynamoDB returns a <code>ThrottlingException</code>. For more information, see <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput\">Specifying Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>"""
+    """<p>The maximum number of writes consumed per second before DynamoDB returns a <code>ThrottlingException</code>. For more information, see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>"""
     replica_provisioned_write_capacity_auto_scaling_settings: NotRequired[
         "capo_dynamodb.types.auto_scaling_settings_description.AutoScalingSettingsDescription"
     ]

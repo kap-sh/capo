@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ContactFilter(TypedDict, closed=True):
     contact_states: NotRequired["capo_connect.types.contact_states.ContactStates"]
-    r"""<p>A list of up to 9 <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/about-contact-states.html\">contact states</a>.</p>"""
+    """<p>A list of up to 9 <a href="https://docs.aws.amazon.com/connect/latest/adminguide/about-contact-states.html">contact states</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

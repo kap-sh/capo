@@ -24,21 +24,21 @@ class AttributeFilter(TypedDict, closed=True):
     equals_to: NotRequired["capo_kendra.types.document_attribute.DocumentAttribute"]
     """<p>Performs an equals operation on document attributes/fields and their values.</p>"""
     contains_all: NotRequired["capo_kendra.types.document_attribute.DocumentAttribute"]
-    r"""<p>Returns true when a document contains all of the specified document attributes/fields. This filter is only applicable to <a href=\"https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html\">StringListValue</a>.</p>"""
+    """<p>Returns true when a document contains all of the specified document attributes/fields. This filter is only applicable to <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html">StringListValue</a>.</p>"""
     contains_any: NotRequired["capo_kendra.types.document_attribute.DocumentAttribute"]
-    r"""<p>Returns true when a document contains any of the specified document attributes/fields. This filter is only applicable to <a href=\"https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html\">StringListValue</a>.</p>"""
+    """<p>Returns true when a document contains any of the specified document attributes/fields. This filter is only applicable to <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html">StringListValue</a>.</p>"""
     greater_than: NotRequired["capo_kendra.types.document_attribute.DocumentAttribute"]
-    r"""<p>Performs a greater than operation on document attributes/fields and their values. Use with the <a href=\"https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html\">document attribute type</a> <code>Date</code> or <code>Long</code>.</p>"""
+    """<p>Performs a greater than operation on document attributes/fields and their values. Use with the <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html">document attribute type</a> <code>Date</code> or <code>Long</code>.</p>"""
     greater_than_or_equals: NotRequired[
         "capo_kendra.types.document_attribute.DocumentAttribute"
     ]
-    r"""<p>Performs a greater or equals than operation on document attributes/fields and their values. Use with the <a href=\"https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html\">document attribute type</a> <code>Date</code> or <code>Long</code>.</p>"""
+    """<p>Performs a greater or equals than operation on document attributes/fields and their values. Use with the <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html">document attribute type</a> <code>Date</code> or <code>Long</code>.</p>"""
     less_than: NotRequired["capo_kendra.types.document_attribute.DocumentAttribute"]
-    r"""<p>Performs a less than operation on document attributes/fields and their values. Use with the <a href=\"https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html\">document attribute type</a> <code>Date</code> or <code>Long</code>.</p>"""
+    """<p>Performs a less than operation on document attributes/fields and their values. Use with the <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html">document attribute type</a> <code>Date</code> or <code>Long</code>.</p>"""
     less_than_or_equals: NotRequired[
         "capo_kendra.types.document_attribute.DocumentAttribute"
     ]
-    r"""<p>Performs a less than or equals operation on document attributes/fields and their values. Use with the <a href=\"https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html\">document attribute type</a> <code>Date</code> or <code>Long</code>.</p>"""
+    """<p>Performs a less than or equals operation on document attributes/fields and their values. Use with the <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_DocumentAttributeValue.html">document attribute type</a> <code>Date</code> or <code>Long</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

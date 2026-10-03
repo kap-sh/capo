@@ -22,7 +22,7 @@ class TargetedSentimentMention(TypedDict, closed=True):
     type: NotRequired[
         "capo_comprehend.types.targeted_sentiment_entity_type.TargetedSentimentEntityType"
     ]
-    r"""<p>The type of the entity. Amazon Comprehend supports a variety of <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html#how-targeted-sentiment-entities\">entity types</a>.</p>"""
+    """<p>The type of the entity. Amazon Comprehend supports a variety of <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html#how-targeted-sentiment-entities">entity types</a>.</p>"""
     mention_sentiment: NotRequired[
         "capo_comprehend.types.mention_sentiment.MentionSentiment"
     ]

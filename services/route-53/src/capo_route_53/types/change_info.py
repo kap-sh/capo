@@ -16,11 +16,11 @@ if TYPE_CHECKING:
 
 class ChangeInfo(TypedDict, closed=True):
     id: "capo_route_53.types.resource_id.ResourceId"
-    r"""<p>This element contains an ID that you use when performing a <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html\">GetChange</a> action to get detailed information about the change.</p>"""
+    """<p>This element contains an ID that you use when performing a <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get detailed information about the change.</p>"""
     status: "capo_route_53.types.change_status.ChangeStatus"
     """<p>The current state of the request. <code>PENDING</code> indicates that this request has not yet been applied to all Amazon Route 53 DNS servers.</p>"""
     submitted_at: "capo_route_53.types.time_stamp.TimeStamp"
-    r"""<p>The date and time that the change request was submitted in <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 format</a> and Coordinated Universal Time (UTC). For example, the value <code>2017-03-27T17:48:16.751Z</code> represents March 27, 2017 at 17:48:16.751 UTC.</p>"""
+    """<p>The date and time that the change request was submitted in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 format</a> and Coordinated Universal Time (UTC). For example, the value <code>2017-03-27T17:48:16.751Z</code> represents March 27, 2017 at 17:48:16.751 UTC.</p>"""
     comment: NotRequired["capo_route_53.types.resource_description.ResourceDescription"]
     """<p>A comment you can provide.</p>"""
 

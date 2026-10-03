@@ -59,13 +59,13 @@ class MigrationWorkflowTemplate:
         ] = None,
         tags: Optional["capo_migrationhuborchestrator.types.tag_map.TagMap"] = None,
     ) -> "capo_migrationhuborchestrator.types.create_template_response.CreateTemplateResponse":
-        r"""<p>Creates a migration workflow template.</p>
+        """<p>Creates a migration workflow template.</p>
 
         Args:
             template_name: <p>The name of the migration workflow template.</p>
             template_description: <p>A description of the migration workflow template.</p>
             template_source: <p>The source of the migration workflow template.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href=\"https://smithy.io/2.0/spec/behavior-traits.html#idempotencytoken-trait\">Idempotency</a> in the Smithy documentation.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://smithy.io/2.0/spec/behavior-traits.html#idempotencytoken-trait">Idempotency</a> in the Smithy documentation.</p>
             tags: <p>The tags to add to the migration workflow template.</p>
 
         Raises:
@@ -343,13 +343,13 @@ class AsyncMigrationWorkflowTemplate:
         ] = None,
         tags: Optional["capo_migrationhuborchestrator.types.tag_map.TagMap"] = None,
     ) -> "capo_migrationhuborchestrator.types.create_template_response.CreateTemplateResponse":
-        r"""<p>Creates a migration workflow template.</p>
+        """<p>Creates a migration workflow template.</p>
 
         Args:
             template_name: <p>The name of the migration workflow template.</p>
             template_description: <p>A description of the migration workflow template.</p>
             template_source: <p>The source of the migration workflow template.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href=\"https://smithy.io/2.0/spec/behavior-traits.html#idempotencytoken-trait\">Idempotency</a> in the Smithy documentation.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://smithy.io/2.0/spec/behavior-traits.html#idempotencytoken-trait">Idempotency</a> in the Smithy documentation.</p>
             tags: <p>The tags to add to the migration workflow template.</p>
 
         Raises:

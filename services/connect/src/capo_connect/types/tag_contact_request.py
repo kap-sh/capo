@@ -16,9 +16,9 @@ class TagContactRequest(TypedDict, closed=True):
     contact_id: "capo_connect.types.contact_id.ContactId"
     """<p>The identifier of the contact in this instance of Connect Customer. </p>"""
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     tags: "capo_connect.types.contact_tag_map.ContactTagMap"
-    r"""<p>The tags to be assigned to the contact resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p> <note> <p>Authorization is not supported by this tag.</p> </note>"""
+    """<p>The tags to be assigned to the contact resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p> <note> <p>Authorization is not supported by this tag.</p> </note>"""
 
 
 # --- restJson1 ser/de ---

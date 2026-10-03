@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class TagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_glue.types.glue_resource_arn.GlueResourceArn"
-    r"""<p>The ARN of the Glue resource to which to add the tags. For more information about Glue resource ARNs, see the <a href=\"https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id\">Glue ARN string pattern</a>.</p>"""
+    """<p>The ARN of the Glue resource to which to add the tags. For more information about Glue resource ARNs, see the <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id">Glue ARN string pattern</a>.</p>"""
     tags_to_add: "capo_glue.types.tags_map.TagsMap"
     """<p>Tags to add to this resource.</p>"""
 

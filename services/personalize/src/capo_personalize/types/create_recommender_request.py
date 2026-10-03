@@ -19,13 +19,13 @@ class CreateRecommenderRequest(TypedDict, closed=True):
     dataset_group_arn: "capo_personalize.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the destination domain dataset group for the recommender.</p>"""
     recipe_arn: "capo_personalize.types.arn.Arn"
-    r"""<p>The Amazon Resource Name (ARN) of the recipe that the recommender will use. For a recommender, a recipe is a Domain dataset group use case. Only Domain dataset group use cases can be used to create a recommender. For information about use cases see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/domain-use-cases.html\">Choosing recommender use cases</a>. </p>"""
+    """<p>The Amazon Resource Name (ARN) of the recipe that the recommender will use. For a recommender, a recipe is a Domain dataset group use case. Only Domain dataset group use cases can be used to create a recommender. For information about use cases see <a href="https://docs.aws.amazon.com/personalize/latest/dg/domain-use-cases.html">Choosing recommender use cases</a>. </p>"""
     recommender_config: NotRequired[
         "capo_personalize.types.recommender_config.RecommenderConfig"
     ]
     """<p>The configuration details of the recommender.</p>"""
     tags: NotRequired["capo_personalize.types.tags.Tags"]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html\">tags</a> to apply to the recommender.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to the recommender.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

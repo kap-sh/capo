@@ -21,11 +21,11 @@ class InsightRule(TypedDict, closed=True):
     state: NotRequired["capo_cloudwatch.types.insight_rule_state.InsightRuleState"]
     """<p>Indicates whether the rule is enabled or disabled.</p>"""
     schema: NotRequired["capo_cloudwatch.types.insight_rule_schema.InsightRuleSchema"]
-    r"""<p>For rules that you create, this is always <code>{\"Name\": \"CloudWatchLogRule\", \"Version\": 1}</code>. For managed rules, this is <code>{\"Name\": \"ServiceLogRule\", \"Version\": 1}</code> </p>"""
+    """<p>For rules that you create, this is always <code>{"Name": "CloudWatchLogRule", "Version": 1}</code>. For managed rules, this is <code>{"Name": "ServiceLogRule", "Version": 1}</code> </p>"""
     definition: NotRequired[
         "capo_cloudwatch.types.insight_rule_definition.InsightRuleDefinition"
     ]
-    r"""<p>The definition of the rule, as a JSON object. The definition contains the keywords used to define contributors, the value to aggregate on if this rule returns a sum instead of a count, and the filters. For details on the valid syntax, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-RuleSyntax.html\">Contributor Insights Rule Syntax</a>.</p>"""
+    """<p>The definition of the rule, as a JSON object. The definition contains the keywords used to define contributors, the value to aggregate on if this rule returns a sum instead of a count, and the filters. For details on the valid syntax, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-RuleSyntax.html">Contributor Insights Rule Syntax</a>.</p>"""
     managed_rule: NotRequired[
         "capo_cloudwatch.types.insight_rule_is_managed.InsightRuleIsManaged"
     ]
@@ -33,7 +33,7 @@ class InsightRule(TypedDict, closed=True):
     apply_on_transformed_logs: NotRequired[
         "capo_cloudwatch.types.insight_rule_on_transformed_logs.InsightRuleOnTransformedLogs"
     ]
-    r"""<p>Displays whether the rule is evaluated on the transformed versions of logs, for log groups that have <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html\">Log transformation</a> enabled. If this is <code>false</code>, log events are evaluated before they are transformed.</p>"""
+    """<p>Displays whether the rule is evaluated on the transformed versions of logs, for log groups that have <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch-Logs-Transformation.html">Log transformation</a> enabled. If this is <code>false</code>, log events are evaluated before they are transformed.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

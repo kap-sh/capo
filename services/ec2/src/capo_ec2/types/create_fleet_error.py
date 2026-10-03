@@ -20,9 +20,9 @@ class CreateFleetError(TypedDict, closed=True):
     lifecycle: NotRequired["capo_ec2.types.instance_lifecycle.InstanceLifecycle"]
     """<p>Indicates if the instance that could not be launched was a Spot, On-Demand, Capacity Block for ML, or interruptible Capacity Reservation instance. If you are using <code>ReservedCapacityOptions</code> with <code>on-demand-capacity-reservation</code> in the <code>ReservationTypes</code> list, the value can also be <code>on-demand-capacity-reservation</code>.</p>"""
     error_code: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The error code that indicates why the instance could not be launched. For more information about error codes, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html\">Error codes</a>.</p>"""
+    """<p>The error code that indicates why the instance could not be launched. For more information about error codes, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error codes</a>.</p>"""
     error_message: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The error message that describes why the instance could not be launched. For more information about error messages, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html\">Error codes</a>.</p>"""
+    """<p>The error message that describes why the instance could not be launched. For more information about error messages, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error codes</a>.</p>"""
 
 
 # --- ec2Query ser/de ---

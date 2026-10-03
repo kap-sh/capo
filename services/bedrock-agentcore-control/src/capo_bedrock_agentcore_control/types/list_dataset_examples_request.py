@@ -15,7 +15,7 @@ class ListDatasetExamplesRequest(TypedDict, closed=True):
     dataset_version: NotRequired[
         "capo_bedrock_agentcore_control.types.dataset_version.DatasetVersion"
     ]
-    r"""<p> Version to paginate: \"DRAFT\" or a version number. Defaults to DRAFT if absent. Only used on the first request; for subsequent pages, the version is extracted from the pagination token. </p>"""
+    """<p> Version to paginate: "DRAFT" or a version number. Defaults to DRAFT if absent. Only used on the first request; for subsequent pages, the version is extracted from the pagination token. </p>"""
     max_results: NotRequired["int"]
     """<p> Maximum number of examples to return per page. </p>"""
     next_token: NotRequired["str"]

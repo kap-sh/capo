@@ -15,7 +15,7 @@ class RouteMatrixDestination(TypedDict, closed=True):
     options: NotRequired[
         "capo_geo_routes.types.route_matrix_destination_options.RouteMatrixDestinationOptions"
     ]
-    r"""<p> Destination related options. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p>"""
+    """<p> Destination related options. Not supported in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p>"""
     position: "capo_geo_routes.types.position.Position"
     """<p>Position in World Geodetic System (WGS 84) format: [longitude, latitude].</p>"""
 

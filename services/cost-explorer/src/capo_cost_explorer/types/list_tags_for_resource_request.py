@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListTagsForResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_cost_explorer.types.arn.Arn"
-    r"""<p>The Amazon Resource Name (ARN) of the resource. For a list of supported resources, see <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_ResourceTag.html\">ResourceTag</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the resource. For a list of supported resources, see <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_ResourceTag.html">ResourceTag</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

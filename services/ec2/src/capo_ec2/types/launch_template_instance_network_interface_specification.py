@@ -23,9 +23,9 @@ if TYPE_CHECKING:
 
 class LaunchTemplateInstanceNetworkInterfaceSpecification(TypedDict, closed=True):
     associate_carrier_ip_address: NotRequired["capo_ec2.types.boolean.Boolean"]
-    r"""<p>Indicates whether to associate a Carrier IP address with eth0 for a new network interface.</p> <p>Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with the network interface. For more information about Carrier IP addresses, see <a href=\"https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip\">Carrier IP address</a> in the <i>Wavelength Developer Guide</i>.</p>"""
+    """<p>Indicates whether to associate a Carrier IP address with eth0 for a new network interface.</p> <p>Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with the network interface. For more information about Carrier IP addresses, see <a href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip">Carrier IP address</a> in the <i>Wavelength Developer Guide</i>.</p>"""
     associate_public_ip_address: NotRequired["capo_ec2.types.boolean.Boolean"]
-    r"""<p>Indicates whether to associate a public IPv4 address with eth0 for a new network interface.</p> <p>Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the <a href=\"http://aws.amazon.com/vpc/pricing/\">Amazon VPC pricing page</a>.</p>"""
+    """<p>Indicates whether to associate a public IPv4 address with eth0 for a new network interface.</p> <p>Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.</p>"""
     delete_on_termination: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Indicates whether the network interface is deleted when the instance is terminated.</p>"""
     description: NotRequired["capo_ec2.types.string.String"]
@@ -71,7 +71,7 @@ class LaunchTemplateInstanceNetworkInterfaceSpecification(TypedDict, closed=True
     ipv6_prefix_count: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>The number of IPv6 prefixes that Amazon Web Services automatically assigned to the network interface.</p>"""
     primary_ipv6: NotRequired["capo_ec2.types.boolean.Boolean"]
-    r"""<p>The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is detached. For more information about primary IPv6 addresses, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html\">RunInstances</a>.</p>"""
+    """<p>The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is detached. For more information about primary IPv6 addresses, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.</p>"""
     ena_srd_specification: NotRequired[
         "capo_ec2.types.launch_template_ena_srd_specification.LaunchTemplateEnaSrdSpecification"
     ]
@@ -79,7 +79,7 @@ class LaunchTemplateInstanceNetworkInterfaceSpecification(TypedDict, closed=True
     connection_tracking_specification: NotRequired[
         "capo_ec2.types.connection_tracking_specification.ConnectionTrackingSpecification"
     ]
-    r"""<p>A security group connection tracking specification that enables you to set the timeout for connection tracking on an Elastic network interface. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts\">Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>A security group connection tracking specification that enables you to set the timeout for connection tracking on an Elastic network interface. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts">Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     ena_queue_count: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>The number of ENA queues created with the instance.</p>"""
 

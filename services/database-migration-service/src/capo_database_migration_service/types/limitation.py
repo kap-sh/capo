@@ -12,13 +12,13 @@ class Limitation(TypedDict, closed=True):
     database_id: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The identifier of the source database.</p>"""
     engine_name: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>The name of the target engine that Fleet Advisor should use in the target engine recommendation. Valid values include <code>\"rds-aurora-mysql\"</code>, <code>\"rds-aurora-postgresql\"</code>, <code>\"rds-mysql\"</code>, <code>\"rds-oracle\"</code>, <code>\"rds-sql-server\"</code>, and <code>\"rds-postgresql\"</code>.</p>"""
+    """<p>The name of the target engine that Fleet Advisor should use in the target engine recommendation. Valid values include <code>"rds-aurora-mysql"</code>, <code>"rds-aurora-postgresql"</code>, <code>"rds-mysql"</code>, <code>"rds-oracle"</code>, <code>"rds-sql-server"</code>, and <code>"rds-postgresql"</code>.</p>"""
     name: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The name of the limitation. Describes unsupported database features, migration action items, and other limitations.</p>"""
     description: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>A description of the limitation. Provides additional information about the limitation, and includes recommended actions that you can take to address or avoid this limitation.</p>"""
     impact: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>The impact of the limitation. You can use this parameter to prioritize limitations that you want to address. Valid values include <code>\"Blocker\"</code>, <code>\"High\"</code>, <code>\"Medium\"</code>, and <code>\"Low\"</code>.</p>"""
+    """<p>The impact of the limitation. You can use this parameter to prioritize limitations that you want to address. Valid values include <code>"Blocker"</code>, <code>"High"</code>, <code>"Medium"</code>, and <code>"Low"</code>.</p>"""
     type: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The type of the limitation, such as action required, upgrade required, and limited feature.</p>"""
 

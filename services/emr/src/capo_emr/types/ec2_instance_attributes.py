@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Ec2InstanceAttributes(TypedDict, closed=True):
     ec2_key_name: NotRequired["capo_emr.types.string.String"]
-    r"""<p>The name of the Amazon EC2 key pair to use when connecting with SSH into the master node as a user named \"hadoop\".</p>"""
+    """<p>The name of the Amazon EC2 key pair to use when connecting with SSH into the master node as a user named "hadoop".</p>"""
     ec2_subnet_id: NotRequired["capo_emr.types.string.String"]
     """<p>Set this parameter to the identifier of the Amazon VPC subnet where you want the cluster to launch. If you do not specify this value, and your account supports EC2-Classic, the cluster launches in EC2-Classic.</p>"""
     requested_ec2_subnet_ids: NotRequired[

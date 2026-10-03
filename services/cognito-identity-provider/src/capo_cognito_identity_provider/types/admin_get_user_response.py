@@ -23,7 +23,7 @@ class AdminGetUserResponse(TypedDict, closed=True):
     user_attributes: NotRequired[
         "capo_cognito_identity_provider.types.attribute_list_type.AttributeListType"
     ]
-    r"""<p>An array of name-value pairs of user attributes and their values, for example <code>\"email\": \"testuser@example.com\"</code>.</p>"""
+    """<p>An array of name-value pairs of user attributes and their values, for example <code>"email": "testuser@example.com"</code>.</p>"""
     user_create_date: NotRequired[
         "capo_cognito_identity_provider.types.date_type.DateType"
     ]

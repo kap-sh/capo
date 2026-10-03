@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class IdentityVerificationAttributes(TypedDict, closed=True):
     verification_status: "capo_ses.types.verification_status.VerificationStatus"
-    r"""<p>The verification status of the identity: \"Pending\", \"Success\", \"Failed\", or \"TemporaryFailure\".</p>"""
+    """<p>The verification status of the identity: "Pending", "Success", "Failed", or "TemporaryFailure".</p>"""
     verification_token: NotRequired[
         "capo_ses.types.verification_token.VerificationToken"
     ]

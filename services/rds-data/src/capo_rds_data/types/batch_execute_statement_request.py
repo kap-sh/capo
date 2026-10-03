@@ -18,7 +18,7 @@ class BatchExecuteStatementRequest(TypedDict, closed=True):
     resource_arn: "capo_rds_data.types.arn.Arn"
     """<p>The Amazon Resource Name (ARN) of the Aurora Serverless DB cluster.</p>"""
     secret_arn: "capo_rds_data.types.arn.Arn"
-    r"""<p>The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the credentials in the secret.</p> <p>For information about creating the secret, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html\">Create a database secret</a>.</p>"""
+    """<p>The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the credentials in the secret.</p> <p>For information about creating the secret, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a database secret</a>.</p>"""
     sql: "capo_rds_data.types.sql_statement.SqlStatement"
     """<p>The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.</p>"""
     database: NotRequired["capo_rds_data.types.db_name.DbName"]

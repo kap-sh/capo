@@ -30,15 +30,15 @@ class CreatePromptRequest(TypedDict, closed=True):
     default_variant: NotRequired[
         "capo_bedrock_agent.types.prompt_variant_name.PromptVariantName"
     ]
-    r"""<p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html\">PromptVariant</a> object.</p>"""
+    """<p>The name of the default variant for the prompt. This value must match the <code>name</code> field in the relevant <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PromptVariant.html">PromptVariant</a> object.</p>"""
     variants: NotRequired[
         "capo_bedrock_agent.types.prompt_variant_list.PromptVariantList"
     ]
     """<p>A list of objects, each containing details about a variant of the prompt.</p>"""
     client_token: NotRequired["capo_bedrock_agent.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     tags: NotRequired["capo_bedrock_agent.types.tags_map.TagsMap"]
-    r"""<p>Any tags that you want to attach to the prompt. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tagging resources in Amazon Bedrock</a>.</p>"""
+    """<p>Any tags that you want to attach to the prompt. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tagging resources in Amazon Bedrock</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

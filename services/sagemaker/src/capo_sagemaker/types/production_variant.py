@@ -73,7 +73,7 @@ class ProductionVariant(TypedDict, closed=True):
     container_startup_health_check_timeout_in_seconds: NotRequired[
         "capo_sagemaker.types.production_variant_container_startup_health_check_timeout_in_seconds.ProductionVariantContainerStartupHealthCheckTimeoutInSeconds"
     ]
-    r"""<p>The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting. For more information about health check, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests\">How Your Container Should Respond to Health Check (Ping) Requests</a>.</p>"""
+    """<p>The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting. For more information about health check, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests">How Your Container Should Respond to Health Check (Ping) Requests</a>.</p>"""
     enable_ssm_access: NotRequired[
         "capo_sagemaker.types.production_variant_ssm_access.ProductionVariantSSMAccess"
     ]

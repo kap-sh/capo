@@ -14,7 +14,7 @@ class RetainRule(TypedDict, closed=True):
     count: NotRequired[
         "capo_dlm.types.standard_tier_retain_rule_count.StandardTierRetainRuleCount"
     ]
-    r"""<p>The number of snapshots to retain for each volume, up to a maximum of 1000. For example if you want to retain a maximum of three snapshots, specify <code>3</code>. When the fourth snapshot is created, the oldest retained snapshot is deleted, or it is moved to the archive tier if you have specified an <a href=\"https://docs.aws.amazon.com/dlm/latest/APIReference/API_ArchiveRule.html\">ArchiveRule</a>.</p>"""
+    """<p>The number of snapshots to retain for each volume, up to a maximum of 1000. For example if you want to retain a maximum of three snapshots, specify <code>3</code>. When the fourth snapshot is created, the oldest retained snapshot is deleted, or it is moved to the archive tier if you have specified an <a href="https://docs.aws.amazon.com/dlm/latest/APIReference/API_ArchiveRule.html">ArchiveRule</a>.</p>"""
     interval: NotRequired[
         "capo_dlm.types.standard_tier_retain_rule_interval.StandardTierRetainRuleInterval"
     ]
@@ -22,7 +22,7 @@ class RetainRule(TypedDict, closed=True):
     interval_unit: NotRequired[
         "capo_dlm.types.retention_interval_unit_values.RetentionIntervalUnitValues"
     ]
-    r"""<p>The unit of time for time-based retention. For example, to retain snapshots for 3 months, specify <code>Interval=3</code> and <code>IntervalUnit=MONTHS</code>. Once the snapshot has been retained for 3 months, it is deleted, or it is moved to the archive tier if you have specified an <a href=\"https://docs.aws.amazon.com/dlm/latest/APIReference/API_ArchiveRule.html\">ArchiveRule</a>.</p>"""
+    """<p>The unit of time for time-based retention. For example, to retain snapshots for 3 months, specify <code>Interval=3</code> and <code>IntervalUnit=MONTHS</code>. Once the snapshot has been retained for 3 months, it is deleted, or it is moved to the archive tier if you have specified an <a href="https://docs.aws.amazon.com/dlm/latest/APIReference/API_ArchiveRule.html">ArchiveRule</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

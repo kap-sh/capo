@@ -30,7 +30,7 @@ class AddressComponentMatchScores(TypedDict, closed=True):
     sub_block: "capo_geo_places.types.match_score.MatchScore"
     """<p>Name of sub-block. </p> <p>Example: <code>Sunny Mansion 203 sub-block: 4</code> </p>"""
     intersection: NotRequired["capo_geo_places.types.match_score_list.MatchScoreList"]
-    r"""<p>Name of the streets in the intersection. </p> <p>Example: <code>[\"Friedrichstraße\",\"Unter den Linden\"]</code> </p>"""
+    """<p>Name of the streets in the intersection. </p> <p>Example: <code>["Friedrichstraße","Unter den Linden"]</code> </p>"""
     address_number: "capo_geo_places.types.match_score.MatchScore"
     """<p>The house number or address results should have. </p>"""
     building: "capo_geo_places.types.match_score.MatchScore"

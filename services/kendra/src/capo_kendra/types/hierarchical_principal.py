@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class HierarchicalPrincipal(TypedDict, closed=True):
     principal_list: "capo_kendra.types.principal_list.PrincipalList"
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html\">principal</a> lists that define the hierarchy for which documents users should have access to. Each hierarchical list specifies which user or group has allow or deny access for each document.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">principal</a> lists that define the hierarchy for which documents users should have access to. Each hierarchical list specifies which user or group has allow or deny access for each document.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

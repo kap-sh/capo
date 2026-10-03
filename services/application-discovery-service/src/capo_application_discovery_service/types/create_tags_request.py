@@ -15,7 +15,7 @@ class CreateTagsRequest(TypedDict, closed=True):
     configuration_ids: "capo_application_discovery_service.types.configuration_id_list.ConfigurationIdList"
     """<p>A list of configuration items that you want to tag.</p>"""
     tags: "capo_application_discovery_service.types.tag_set.TagSet"
-    r"""<p>Tags that you want to associate with one or more configuration items. Specify the tags that you want to create in a <i>key</i>-<i>value</i> format. For example:</p> <p> <code>{\"key\": \"serverType\", \"value\": \"webServer\"}</code> </p>"""
+    """<p>Tags that you want to associate with one or more configuration items. Specify the tags that you want to create in a <i>key</i>-<i>value</i> format. For example:</p> <p> <code>{"key": "serverType", "value": "webServer"}</code> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

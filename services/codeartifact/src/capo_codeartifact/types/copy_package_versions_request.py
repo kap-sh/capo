@@ -46,7 +46,7 @@ class CopyPackageVersionsRequest(TypedDict, closed=True):
     include_from_upstream: NotRequired[
         "capo_codeartifact.types.boolean_optional.BooleanOptional"
     ]
-    r"""<p> Set to true to copy packages from repositories that are upstream from the source repository to the destination repository. The default setting is false. For more information, see <a href=\"https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html\">Working with upstream repositories</a>. </p>"""
+    """<p> Set to true to copy packages from repositories that are upstream from the source repository to the destination repository. The default setting is false. For more information, see <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html">Working with upstream repositories</a>. </p>"""
 
 
 # --- restJson1 ser/de ---

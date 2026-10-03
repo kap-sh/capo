@@ -34,7 +34,7 @@ class DescribeSecretResponse(TypedDict, closed=True):
     name: NotRequired["capo_secrets_manager.types.secret_name_type.SecretNameType"]
     """<p>The name of the secret.</p>"""
     type: NotRequired["capo_secrets_manager.types.medea_type_type.MedeaTypeType"]
-    r"""<p>The exact string that identifies the partner that holds the external secret. For more information, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/managed-external-secrets.html\">Using Secrets Manager managed external secrets</a>.</p>"""
+    """<p>The exact string that identifies the partner that holds the external secret. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/managed-external-secrets.html">Using Secrets Manager managed external secrets</a>.</p>"""
     description: NotRequired[
         "capo_secrets_manager.types.description_type.DescriptionType"
     ]
@@ -56,11 +56,11 @@ class DescribeSecretResponse(TypedDict, closed=True):
     external_secret_rotation_metadata: NotRequired[
         "capo_secrets_manager.types.external_secret_rotation_metadata_type.ExternalSecretRotationMetadataType"
     ]
-    r"""<p>The metadata needed to successfully rotate a managed external secret. A list of key value pairs in JSON format specified by the partner. For more information about the required information, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/mes-partners.html\">Managed external secrets partners</a>.</p>"""
+    """<p>The metadata needed to successfully rotate a managed external secret. A list of key value pairs in JSON format specified by the partner. For more information about the required information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/mes-partners.html">Managed external secrets partners</a>.</p>"""
     external_secret_rotation_role_arn: NotRequired[
         "capo_secrets_manager.types.role_arn_type.RoleARNType"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of the role that allows Secrets Manager to rotate a secret held by a third-party partner. For more information, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/mes-security.html\">Security and permissions</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the role that allows Secrets Manager to rotate a secret held by a third-party partner. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/mes-security.html">Security and permissions</a>.</p>"""
     last_rotated_date: NotRequired[
         "capo_secrets_manager.types.last_rotated_date_type.LastRotatedDateType"
     ]
@@ -86,11 +86,11 @@ class DescribeSecretResponse(TypedDict, closed=True):
     version_ids_to_stages: NotRequired[
         "capo_secrets_manager.types.secret_versions_to_stages_map_type.SecretVersionsToStagesMapType"
     ]
-    r"""<p>A list of the versions of the secret that have staging labels attached. Versions that don't have staging labels are considered deprecated and Secrets Manager can delete them.</p> <p>Secrets Manager uses staging labels to indicate the status of a secret version during rotation. The three staging labels for rotation are: </p> <ul> <li> <p> <code>AWSCURRENT</code>, which indicates the current version of the secret.</p> </li> <li> <p> <code>AWSPENDING</code>, which indicates the version of the secret that contains new secret information that will become the next current version when rotation finishes.</p> <p>During rotation, Secrets Manager creates an <code>AWSPENDING</code> version ID before creating the new secret version. To check if a secret version exists, call <a>GetSecretValue</a>.</p> </li> <li> <p> <code>AWSPREVIOUS</code>, which indicates the previous current version of the secret. You can use this as the <i>last known good</i> version.</p> </li> </ul> <p>For more information about rotation and staging labels, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_how.html\">How rotation works</a>.</p>"""
+    """<p>A list of the versions of the secret that have staging labels attached. Versions that don't have staging labels are considered deprecated and Secrets Manager can delete them.</p> <p>Secrets Manager uses staging labels to indicate the status of a secret version during rotation. The three staging labels for rotation are: </p> <ul> <li> <p> <code>AWSCURRENT</code>, which indicates the current version of the secret.</p> </li> <li> <p> <code>AWSPENDING</code>, which indicates the version of the secret that contains new secret information that will become the next current version when rotation finishes.</p> <p>During rotation, Secrets Manager creates an <code>AWSPENDING</code> version ID before creating the new secret version. To check if a secret version exists, call <a>GetSecretValue</a>.</p> </li> <li> <p> <code>AWSPREVIOUS</code>, which indicates the previous current version of the secret. You can use this as the <i>last known good</i> version.</p> </li> </ul> <p>For more information about rotation and staging labels, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_how.html">How rotation works</a>.</p>"""
     owning_service: NotRequired[
         "capo_secrets_manager.types.owning_service_type.OwningServiceType"
     ]
-    r"""<p>The ID of the service that created this secret. For more information, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html\">Secrets managed by other Amazon Web Services services</a>.</p>"""
+    """<p>The ID of the service that created this secret. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html">Secrets managed by other Amazon Web Services services</a>.</p>"""
     created_date: NotRequired["capo_secrets_manager.types.timestamp_type.TimestampType"]
     """<p>The date the secret was created.</p>"""
     primary_region: NotRequired["capo_secrets_manager.types.region_type.RegionType"]

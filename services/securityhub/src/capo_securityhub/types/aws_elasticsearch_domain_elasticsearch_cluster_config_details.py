@@ -19,11 +19,11 @@ class AwsElasticsearchDomainElasticsearchClusterConfigDetails(TypedDict, closed=
     dedicated_master_type: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>The hardware configuration of the computer that hosts the dedicated master node. A sample value is <code>m3.medium.elasticsearch</code>. If this attribute is specified, then <code>DedicatedMasterEnabled</code> must be <code>true</code>.</p> <p>For a list of valid values, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html\">Supported instance types in Amazon OpenSearch Service</a> in the <i>Amazon OpenSearch Service Developer Guide</i>.</p>"""
+    """<p>The hardware configuration of the computer that hosts the dedicated master node. A sample value is <code>m3.medium.elasticsearch</code>. If this attribute is specified, then <code>DedicatedMasterEnabled</code> must be <code>true</code>.</p> <p>For a list of valid values, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html">Supported instance types in Amazon OpenSearch Service</a> in the <i>Amazon OpenSearch Service Developer Guide</i>.</p>"""
     instance_count: NotRequired["capo_securityhub.types.integer.Integer"]
     """<p>The number of data nodes to use in the Elasticsearch domain.</p>"""
     instance_type: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>The instance type for your data nodes. For example, <code>m3.medium.elasticsearch</code>.</p> <p>For a list of valid values, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html\">Supported instance types in Amazon OpenSearch Service</a> in the <i>Amazon OpenSearch Service Developer Guide</i>.</p>"""
+    """<p>The instance type for your data nodes. For example, <code>m3.medium.elasticsearch</code>.</p> <p>For a list of valid values, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/supported-instance-types.html">Supported instance types in Amazon OpenSearch Service</a> in the <i>Amazon OpenSearch Service Developer Guide</i>.</p>"""
     zone_awareness_config: NotRequired[
         "capo_securityhub.types.aws_elasticsearch_domain_elasticsearch_cluster_config_zone_awareness_config_details.AwsElasticsearchDomainElasticsearchClusterConfigZoneAwarenessConfigDetails"
     ]

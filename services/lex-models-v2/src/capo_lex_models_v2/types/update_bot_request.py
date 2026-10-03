@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class UpdateBotRequest(TypedDict, closed=True):
     bot_id: "capo_lex_models_v2.types.id.Id"
-    r"""<p>The unique identifier of the bot to update. This identifier is returned by the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateBot.html\">CreateBot</a> operation.</p>"""
+    """<p>The unique identifier of the bot to update. This identifier is returned by the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_CreateBot.html">CreateBot</a> operation.</p>"""
     bot_name: "capo_lex_models_v2.types.name.Name"
     """<p>The new name of the bot. The name must be unique in the account that creates the bot.</p>"""
     description: NotRequired["capo_lex_models_v2.types.description.Description"]

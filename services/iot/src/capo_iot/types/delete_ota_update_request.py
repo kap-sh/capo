@@ -16,7 +16,7 @@ class DeleteOTAUpdateRequest(TypedDict, closed=True):
     delete_stream: "capo_iot.types.delete_stream_.DeleteStream_"
     """<p>When true, the stream created by the OTAUpdate process is deleted when the OTA update is deleted. Ignored if the stream specified in the OTAUpdate is supplied by the user.</p>"""
     force_delete_aws_job: "capo_iot.types.force_delete_aws_job.ForceDeleteAWSJob"
-    r"""<p>When true, deletes the IoT job created by the OTAUpdate process even if it is \"IN_PROGRESS\". Otherwise, if the job is not in a terminal state (\"COMPLETED\" or \"CANCELED\") an exception will occur. The default is false.</p>"""
+    """<p>When true, deletes the IoT job created by the OTAUpdate process even if it is "IN_PROGRESS". Otherwise, if the job is not in a terminal state ("COMPLETED" or "CANCELED") an exception will occur. The default is false.</p>"""
 
 
 # --- restJson1 ser/de ---

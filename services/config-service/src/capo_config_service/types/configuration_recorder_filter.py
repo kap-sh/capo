@@ -17,7 +17,7 @@ class ConfigurationRecorderFilter(TypedDict, closed=True):
     filter_value: NotRequired[
         "capo_config_service.types.configuration_recorder_filter_values.ConfigurationRecorderFilterValues"
     ]
-    r"""<p>The value of the filter. For <code>recordingScope</code>, valid values include: <code>INTERNAL</code> and <code>PAID</code>.</p> <p> <code>INTERNAL</code> indicates that the <a href=\"https://docs.aws.amazon.com/config/latest/APIReference/API_ConfigurationItem.html\">ConfigurationItems</a> in scope for the configuration recorder are recorded for free.</p> <p> <code>PAID</code> indicates that the <a href=\"https://docs.aws.amazon.com/config/latest/APIReference/API_ConfigurationItem.html\">ConfigurationItems</a> in scope for the configuration recorder impact the costs to your bill.</p>"""
+    """<p>The value of the filter. For <code>recordingScope</code>, valid values include: <code>INTERNAL</code> and <code>PAID</code>.</p> <p> <code>INTERNAL</code> indicates that the <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_ConfigurationItem.html">ConfigurationItems</a> in scope for the configuration recorder are recorded for free.</p> <p> <code>PAID</code> indicates that the <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_ConfigurationItem.html">ConfigurationItems</a> in scope for the configuration recorder impact the costs to your bill.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

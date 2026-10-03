@@ -32,7 +32,7 @@ if TYPE_CHECKING:
 
 class Job(TypedDict, closed=True):
     job_arn: NotRequired["capo_iot.types.job_arn.JobArn"]
-    r"""<p>An ARN identifying the job with format \"arn:aws:iot:region:account:job/jobId\".</p>"""
+    """<p>An ARN identifying the job with format "arn:aws:iot:region:account:job/jobId".</p>"""
     job_id: NotRequired["capo_iot.types.job_id.JobId"]
     """<p>The unique identifier you assigned to this job when it was created.</p>"""
     target_selection: NotRequired["capo_iot.types.target_selection.TargetSelection"]
@@ -72,7 +72,7 @@ class Job(TypedDict, closed=True):
     timeout_config: NotRequired["capo_iot.types.timeout_config.TimeoutConfig"]
     """<p>Specifies the amount of time each device has to finish its execution of the job. A timer is started when the job execution status is set to <code>IN_PROGRESS</code>. If the job execution status is not set to another terminal state before the timer expires, it will be automatically set to <code>TIMED_OUT</code>.</p>"""
     namespace_id: NotRequired["capo_iot.types.namespace_id.NamespaceId"]
-    r"""<p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>"""
+    """<p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>"""
     job_template_arn: NotRequired["capo_iot.types.job_template_arn.JobTemplateArn"]
     """<p>The ARN of the job template used to create the job.</p>"""
     job_executions_retry_config: NotRequired[
@@ -94,7 +94,7 @@ class Job(TypedDict, closed=True):
     destination_package_versions: NotRequired[
         "capo_iot.types.destination_package_versions.DestinationPackageVersions"
     ]
-    r"""<p>The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully completes. The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p> <p> <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.</p>"""
+    """<p>The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully completes. The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p> <p> <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -12,7 +12,7 @@ class AdvancedSecurityAdditionalFlowsType(TypedDict, closed=True):
     custom_auth_mode: NotRequired[
         "capo_cognito_identity_provider.types.advanced_security_enabled_mode_type.AdvancedSecurityEnabledModeType"
     ]
-    r"""<p>The operating mode of threat protection in custom authentication with <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html\"> Custom authentication challenge Lambda triggers</a>. </p>"""
+    """<p>The operating mode of threat protection in custom authentication with <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html"> Custom authentication challenge Lambda triggers</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

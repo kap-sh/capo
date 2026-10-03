@@ -25,7 +25,7 @@ class UpdateClusterRequest(TypedDict, closed=True):
     scheduler: NotRequired[
         "capo_pcs.types.update_scheduler_request.UpdateSchedulerRequest"
     ]
-    r"""<p>The scheduler configuration to update for the cluster. Use this to update the scheduler version. For more information, see <a href=\"https://docs.aws.amazon.com/pcs/latest/userguide/working-with_clusters_version_update.html\">Updating the scheduler version on a cluster</a> in the <i>PCS User Guide</i>.</p>"""
+    """<p>The scheduler configuration to update for the cluster. Use this to update the scheduler version. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/working-with_clusters_version_update.html">Updating the scheduler version on a cluster</a> in the <i>PCS User Guide</i>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

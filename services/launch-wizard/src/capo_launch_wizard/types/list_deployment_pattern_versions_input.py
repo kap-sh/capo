@@ -16,11 +16,11 @@ if TYPE_CHECKING:
 
 class ListDeploymentPatternVersionsInput(TypedDict, closed=True):
     workload_name: "capo_launch_wizard.types.workload_name.WorkloadName"
-    r"""<p>The name of the workload. You can use the <a href=\"https://docs.aws.amazon.com/launchwizard/latest/APIReference/API_ListWorkloads.html\"> <code>ListWorkloads</code> </a> operation to discover supported values for this parameter.</p>"""
+    """<p>The name of the workload. You can use the <a href="https://docs.aws.amazon.com/launchwizard/latest/APIReference/API_ListWorkloads.html"> <code>ListWorkloads</code> </a> operation to discover supported values for this parameter.</p>"""
     deployment_pattern_name: (
         "capo_launch_wizard.types.deployment_pattern_name.DeploymentPatternName"
     )
-    r"""<p>The name of the deployment pattern. You can use the <a href=\"https://docs.aws.amazon.com/launchwizard/latest/APIReference/API_ListWorkloadDeploymentPatterns.html\"> <code>ListWorkloadDeploymentPatterns</code> </a> operation to discover supported values for this parameter.</p>"""
+    """<p>The name of the deployment pattern. You can use the <a href="https://docs.aws.amazon.com/launchwizard/latest/APIReference/API_ListWorkloadDeploymentPatterns.html"> <code>ListWorkloadDeploymentPatterns</code> </a> operation to discover supported values for this parameter.</p>"""
     max_results: NotRequired[
         "capo_launch_wizard.types.max_workload_results.MaxWorkloadResults"
     ]

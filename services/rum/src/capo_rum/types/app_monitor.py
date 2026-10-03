@@ -45,7 +45,7 @@ class AppMonitor(TypedDict, closed=True):
     data_storage: NotRequired["capo_rum.types.data_storage.DataStorage"]
     """<p>A structure that contains information about whether this app monitor stores a copy of the telemetry data that RUM collects using CloudWatch Logs.</p>"""
     custom_events: NotRequired["capo_rum.types.custom_events.CustomEvents"]
-    r"""<p>Specifies whether this app monitor allows the web client to define and send custom events.</p> <p>For more information about custom events, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-custom-events.html\">Send custom events</a>.</p>"""
+    """<p>Specifies whether this app monitor allows the web client to define and send custom events.</p> <p>For more information about custom events, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-custom-events.html">Send custom events</a>.</p>"""
     deobfuscation_configuration: NotRequired[
         "capo_rum.types.deobfuscation_configuration.DeobfuscationConfiguration"
     ]

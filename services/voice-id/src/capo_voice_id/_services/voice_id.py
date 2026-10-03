@@ -235,8 +235,8 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas\">Voice ID Service Quotas</a> and try your request again.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas">Voice ID Service Quotas</a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -283,21 +283,21 @@ class VoiceIDClient:
             "capo_voice_id.types.client_token_string.ClientTokenString"
         ] = None,
     ) -> "capo_voice_id.types.create_watchlist_response.CreateWatchlistResponse":
-        r"""<p>Creates a watchlist that fraudsters can be a part of.</p>
+        """<p>Creates a watchlist that fraudsters can be a part of.</p>
 
         Args:
             domain_id: <p>The identifier of the domain that contains the watchlist.</p>
             name: <p>The name of the watchlist.</p>
             description: <p>A brief description of this watchlist.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas\">Voice ID Service Quotas</a> and try your request again.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas">Voice ID Service Quotas</a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -353,7 +353,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -402,7 +402,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -451,7 +451,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -499,7 +499,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -549,7 +549,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -599,7 +599,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -649,7 +649,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -699,7 +699,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -752,7 +752,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -804,7 +804,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -862,7 +862,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -952,7 +952,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1042,7 +1042,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1130,7 +1130,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1206,7 +1206,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1259,7 +1259,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1338,8 +1338,8 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas\">Voice ID Service Quotas</a> and try your request again.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas">Voice ID Service Quotas</a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1388,13 +1388,13 @@ class VoiceIDClient:
             "capo_voice_id.types.registration_config.RegistrationConfig"
         ] = None,
     ) -> "capo_voice_id.types.start_fraudster_registration_job_response.StartFraudsterRegistrationJobResponse":
-        r"""<p>Starts a new batch fraudster registration job using provided details.</p>
+        """<p>Starts a new batch fraudster registration job using provided details.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             job_name: <p>The name of the new fraudster registration job.</p>
             domain_id: <p>The identifier of the domain that contains the fraudster registration job and in which the fraudsters are registered.</p>
-            data_access_role_arn: <p>The IAM role Amazon Resource Name (ARN) that grants Voice ID permissions to access customer's buckets to read the input manifest file and write the Job output file. Refer to the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/voiceid-fraudster-watchlist.html\">Create and edit a fraudster watchlist</a> documentation for the permissions needed in this role.</p>
+            data_access_role_arn: <p>The IAM role Amazon Resource Name (ARN) that grants Voice ID permissions to access customer's buckets to read the input manifest file and write the Job output file. Refer to the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/voiceid-fraudster-watchlist.html">Create and edit a fraudster watchlist</a> documentation for the permissions needed in this role.</p>
             registration_config: <p>The registration config containing details such as the action to take when a duplicate fraudster is detected, and the similarity threshold to use for detecting a duplicate fraudster. </p>
             input_data_config: <p>The input data config containing an S3 URI for the input manifest file that contains the list of fraudster registration requests.</p>
             output_data_config: <p>The output data config containing the S3 location where Voice ID writes the job output file; you must also include a KMS key ID to encrypt the file.</p>
@@ -1404,8 +1404,8 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas\">Voice ID Service Quotas</a> and try your request again.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas">Voice ID Service Quotas</a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1463,13 +1463,13 @@ class VoiceIDClient:
             "capo_voice_id.types.enrollment_config.EnrollmentConfig"
         ] = None,
     ) -> "capo_voice_id.types.start_speaker_enrollment_job_response.StartSpeakerEnrollmentJobResponse":
-        r"""<p>Starts a new batch speaker enrollment job using specified details.</p>
+        """<p>Starts a new batch speaker enrollment job using specified details.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             job_name: <p>A name for your speaker enrollment job.</p>
             domain_id: <p>The identifier of the domain that contains the speaker enrollment job and in which the speakers are enrolled. </p>
-            data_access_role_arn: <p>The IAM role Amazon Resource Name (ARN) that grants Voice ID permissions to access customer's buckets to read the input manifest file and write the job output file. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/voiceid-batch-enrollment.html\">Batch enrollment using audio data from prior calls</a> for the permissions needed in this role.</p>
+            data_access_role_arn: <p>The IAM role Amazon Resource Name (ARN) that grants Voice ID permissions to access customer's buckets to read the input manifest file and write the job output file. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/voiceid-batch-enrollment.html">Batch enrollment using audio data from prior calls</a> for the permissions needed in this role.</p>
             enrollment_config: <p>The enrollment config that contains details such as the action to take when a speaker is already enrolled in Voice ID or when a speaker is identified as a fraudster.</p>
             input_data_config: <p>The input data config containing the S3 location for the input manifest file that contains the list of speaker enrollment requests.</p>
             output_data_config: <p>The output data config containing the S3 location where Voice ID writes the job output file; you must also include a KMS key ID to encrypt the file.</p>
@@ -1479,8 +1479,8 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas\">Voice ID Service Quotas</a> and try your request again.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas">Voice ID Service Quotas</a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1540,7 +1540,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1591,7 +1591,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1648,7 +1648,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1697,13 +1697,13 @@ class VoiceIDClient:
         ] = None,
         tags: Optional["capo_voice_id.types.tag_list.TagList"] = None,
     ) -> "capo_voice_id.types.create_domain_response.CreateDomainResponse":
-        r"""<p>Creates a domain that contains all Amazon Connect Voice ID data, such as speakers, fraudsters, customer audio, and voiceprints. Every domain is created with a default watchlist that fraudsters can be a part of.</p>
+        """<p>Creates a domain that contains all Amazon Connect Voice ID data, such as speakers, fraudsters, customer audio, and voiceprints. Every domain is created with a default watchlist that fraudsters can be a part of.</p>
 
         Args:
             name: <p>The name of the domain.</p>
             description: <p>A brief description of this domain.</p>
-            server_side_encryption_configuration: <p>The configuration, containing the KMS key identifier, to be used by Voice ID for the server-side encryption of your data. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html#encryption-at-rest-voiceid\"> Amazon Connect Voice ID encryption at rest</a> for more details on how the KMS key is used. </p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            server_side_encryption_configuration: <p>The configuration, containing the KMS key identifier, to be used by Voice ID for the server-side encryption of your data. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html#encryption-at-rest-voiceid"> Amazon Connect Voice ID encryption at rest</a> for more details on how the KMS key is used. </p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             tags: <p>A list of tags you want added to the domain.</p>
 
         Raises:
@@ -1711,8 +1711,8 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas\">Voice ID Service Quotas</a> and try your request again.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeded the service quota. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas">Voice ID Service Quotas</a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1767,7 +1767,7 @@ class VoiceIDClient:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1821,7 +1821,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1873,7 +1873,7 @@ class VoiceIDClient:
             capo_voice_id.errors.conflict_exception.ConflictException: <p>The request failed due to a conflict. Check the <code>ConflictType</code> and error message for more details.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
             capo_voice_id.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource cannot be found. Check the <code>ResourceType</code> and error message for more details.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1921,7 +1921,7 @@ class VoiceIDClient:
         Raises:
             capo_voice_id.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action. Check the error message and try again.</p>
             capo_voice_id.errors.internal_server_exception.InternalServerException: <p>The request failed due to an unknown error on the server side.</p>
-            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas\"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
+            capo_voice_id.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. Please slow down your request rate. Refer to <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html##voiceid-api-quotas"> Amazon Connect Voice ID Service API throttling quotas </a> and try your request again.</p>
             capo_voice_id.errors.validation_exception.ValidationException: <p>The request failed one or more validations; check the error message for more details.</p>
             capo_voice_id.errors.UnknownServiceError: The service returned an error code this client does not model.
         """

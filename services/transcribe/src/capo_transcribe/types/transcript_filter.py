@@ -19,7 +19,7 @@ class TranscriptFilter(TypedDict, closed=True):
     transcript_filter_type: (
         "capo_transcribe.types.transcript_filter_type.TranscriptFilterType"
     )
-    r"""<p>Flag the presence or absence of an exact match to the phrases that you specify. For example, if you specify the phrase \"speak to a manager\" as your <code>Targets</code> value, only that exact phrase is flagged.</p> <p>Note that semantic matching is not supported. For example, if your customer says \"speak to <i>the</i> manager\", instead of \"speak to <i>a</i> manager\", your content is not flagged.</p>"""
+    """<p>Flag the presence or absence of an exact match to the phrases that you specify. For example, if you specify the phrase "speak to a manager" as your <code>Targets</code> value, only that exact phrase is flagged.</p> <p>Note that semantic matching is not supported. For example, if your customer says "speak to <i>the</i> manager", instead of "speak to <i>a</i> manager", your content is not flagged.</p>"""
     absolute_time_range: NotRequired[
         "capo_transcribe.types.absolute_time_range.AbsoluteTimeRange"
     ]

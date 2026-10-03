@@ -15,7 +15,7 @@ class TagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_mailmanager.types.taggable_resource_arn.TaggableResourceArn"
     """<p> The Amazon Resource Name (ARN) of the resource that you want to tag. </p>"""
     tags: "capo_mailmanager.types.tag_list.TagList"
-    r"""<p> The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }. </p>"""
+    """<p> The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }. </p>"""
 
 
 # --- awsJson1_0 ser/de ---

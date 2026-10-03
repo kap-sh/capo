@@ -38,7 +38,7 @@ class GetBatchJobExecutionResponse(TypedDict, closed=True):
     status_reason: NotRequired["str"]
     """<p>The reason for the reported status.</p>"""
     return_code: NotRequired["str"]
-    r"""<p>The batch job return code from either the Blu Age or Micro Focus runtime engines. For more information, see <a href=\"https://www.ibm.com/docs/en/was/8.5.5?topic=model-batch-return-codes\">Batch return codes</a> in the <i>IBM WebSphere Application Server</i> documentation.</p>"""
+    """<p>The batch job return code from either the Blu Age or Micro Focus runtime engines. For more information, see <a href="https://www.ibm.com/docs/en/was/8.5.5?topic=model-batch-return-codes">Batch return codes</a> in the <i>IBM WebSphere Application Server</i> documentation.</p>"""
     batch_job_identifier: NotRequired[
         "capo_m2.types.batch_job_identifier.BatchJobIdentifier"
     ]

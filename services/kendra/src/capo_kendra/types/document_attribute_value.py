@@ -15,7 +15,7 @@ class DocumentAttributeValue(TypedDict, closed=True):
     string_value: NotRequired[
         "capo_kendra.types.document_attribute_string_value.DocumentAttributeStringValue"
     ]
-    r"""<p>A string, such as \"department\".</p>"""
+    """<p>A string, such as "department".</p>"""
     string_list_value: NotRequired[
         "capo_kendra.types.document_attribute_string_list_value.DocumentAttributeStringListValue"
     ]

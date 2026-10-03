@@ -16,7 +16,7 @@ class SecurityGroupReference(TypedDict, closed=True):
     referencing_vpc_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the VPC with the referencing security group.</p>"""
     vpc_peering_connection_id: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The ID of the VPC peering connection (if applicable). For more information about security group referencing for peering connections, see <a href=\"https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-security-groups.html\">Update your security groups to reference peer security groups</a> in the <i>VPC Peering Guide</i>.</p>"""
+    """<p>The ID of the VPC peering connection (if applicable). For more information about security group referencing for peering connections, see <a href="https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-security-groups.html">Update your security groups to reference peer security groups</a> in the <i>VPC Peering Guide</i>.</p>"""
     transit_gateway_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the transit gateway (if applicable).</p>"""
 

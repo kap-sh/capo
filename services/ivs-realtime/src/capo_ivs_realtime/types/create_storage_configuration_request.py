@@ -20,7 +20,7 @@ class CreateStorageConfigurationRequest(TypedDict, closed=True):
     s3: "capo_ivs_realtime.types.s3_storage_configuration.S3StorageConfiguration"
     """<p>A complex type that contains a storage configuration for where recorded video will be stored.</p>"""
     tags: NotRequired["capo_ivs_realtime.types.tags.Tags"]
-    r"""<p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS has no constraints on tags beyond what is documented there.</p>"""
+    """<p>Tags attached to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging AWS Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS has no constraints on tags beyond what is documented there.</p>"""
 
 
 # --- restJson1 ser/de ---

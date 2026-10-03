@@ -37,7 +37,7 @@ class Address(TypedDict, closed=True):
     type: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    r"""<p>A string representing the type of address. For example, \"Home.\"</p>"""
+    """<p>A string representing the type of address. For example, "Home."</p>"""
     primary: "capo_identitystore.types.boolean_type.BooleanType"
     """<p>A Boolean value representing whether this is the primary address for the associated resource.</p>"""
 

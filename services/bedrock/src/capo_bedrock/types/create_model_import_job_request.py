@@ -33,7 +33,7 @@ class CreateModelImportJobRequest(TypedDict, closed=True):
     client_request_token: NotRequired[
         "capo_bedrock.types.idempotency_token.IdempotencyToken"
     ]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     vpc_config: NotRequired["capo_bedrock.types.vpc_config.VpcConfig"]
     """<p>VPC configuration parameters for the private Virtual Private Cloud (VPC) that contains the resources you are using for the import job.</p>"""
     imported_model_kms_key_id: NotRequired["capo_bedrock.types.kms_key_id.KmsKeyId"]

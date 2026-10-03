@@ -44,7 +44,7 @@ class DBEngineVersion(TypedDict, closed=True):
     custom_db_engine_version_manifest: NotRequired[
         "capo_rds.types.custom_db_engine_version_manifest.CustomDBEngineVersionManifest"
     ]
-    r"""<p>JSON string that lists the installation files and parameters that RDS Custom uses to create a custom engine version (CEV). RDS Custom applies the patches in the order in which they're listed in the manifest. You can set the Oracle home, Oracle base, and UNIX/Linux user and group using the installation parameters. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-cev.preparing.html#custom-cev.preparing.manifest.fields\">JSON fields in the CEV manifest</a> in the <i>Amazon RDS User Guide</i>. </p>"""
+    """<p>JSON string that lists the installation files and parameters that RDS Custom uses to create a custom engine version (CEV). RDS Custom applies the patches in the order in which they're listed in the manifest. You can set the Oracle home, Oracle base, and UNIX/Linux user and group using the installation parameters. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-cev.preparing.html#custom-cev.preparing.manifest.fields">JSON fields in the CEV manifest</a> in the <i>Amazon RDS User Guide</i>. </p>"""
     db_parameter_group_family: NotRequired["capo_rds.types.string.String"]
     """<p>The name of the DB parameter group family for the database engine.</p>"""
     db_engine_description: NotRequired["capo_rds.types.string.String"]
@@ -117,7 +117,7 @@ class DBEngineVersion(TypedDict, closed=True):
     supported_ca_certificate_identifiers: NotRequired[
         "capo_rds.types.ca_certificate_identifiers_list.CACertificateIdentifiersList"
     ]
-    r"""<p>A list of the supported CA certificate identifiers.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html\">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html\"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
+    """<p>A list of the supported CA certificate identifiers.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
     supports_local_write_forwarding: NotRequired[
         "capo_rds.types.boolean_optional.BooleanOptional"
     ]

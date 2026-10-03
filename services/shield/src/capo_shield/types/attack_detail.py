@@ -34,7 +34,7 @@ class AttackDetail(TypedDict, closed=True):
     attack_properties: NotRequired[
         "capo_shield.types.attack_properties.AttackProperties"
     ]
-    r"""<p>The array of objects that provide details of the Shield event. </p> <p>For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon CloudWatch metrics. For more information, see <a href=\"https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms\">Shield metrics and alarms</a> in the <i>WAF Developer Guide</i>. </p>"""
+    """<p>The array of objects that provide details of the Shield event. </p> <p>For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon CloudWatch metrics. For more information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms">Shield metrics and alarms</a> in the <i>WAF Developer Guide</i>. </p>"""
     mitigations: NotRequired["capo_shield.types.mitigation_list.MitigationList"]
     """<p>List of mitigation actions taken for the attack.</p>"""
 

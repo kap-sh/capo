@@ -15,7 +15,7 @@ class ContinueServiceDeploymentRequest(TypedDict, closed=True):
     service_deployment_arn: "capo_ecs.types.string.String"
     """<p>The ARN of the service deployment to continue or roll back.</p>"""
     hook_id: "capo_ecs.types.string.String"
-    r"""<p>The ID of the paused lifecycle hook to act on. You can find the <code>hookId</code> by calling <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeServiceDeployments.html\">DescribeServiceDeployments</a> and inspecting the <code>lifecycleHookDetails</code> field of the service deployment.</p>"""
+    """<p>The ID of the paused lifecycle hook to act on. You can find the <code>hookId</code> by calling <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeServiceDeployments.html">DescribeServiceDeployments</a> and inspecting the <code>lifecycleHookDetails</code> field of the service deployment.</p>"""
     action: NotRequired[
         "capo_ecs.types.deployment_lifecycle_hook_action.DeploymentLifecycleHookAction"
     ]

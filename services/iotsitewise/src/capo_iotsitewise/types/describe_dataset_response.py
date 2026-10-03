@@ -26,7 +26,7 @@ class DescribeDatasetResponse(TypedDict, closed=True):
     dataset_id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the dataset.</p>"""
     dataset_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">ARN</a> of the dataset. The format is <code>arn:${Partition}:iotsitewise:${Region}:${Account}:dataset/${DatasetId}</code>.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">ARN</a> of the dataset. The format is <code>arn:${Partition}:iotsitewise:${Region}:${Account}:dataset/${DatasetId}</code>.</p>"""
     dataset_name: "capo_iotsitewise.types.restricted_name.RestrictedName"
     """<p>The name of the dataset.</p>"""
     dataset_description: "capo_iotsitewise.types.description.Description"

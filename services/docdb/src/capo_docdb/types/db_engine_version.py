@@ -40,7 +40,7 @@ class DBEngineVersion(TypedDict, closed=True):
     supported_ca_certificate_identifiers: NotRequired[
         "capo_docdb.types.ca_certificate_identifiers_list.CACertificateIdentifiersList"
     ]
-    r"""<p>A list of the supported CA certificate identifiers.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/documentdb/latest/devguide/ca_cert_rotation.html\">Updating Your Amazon DocumentDB TLS Certificates</a> and <a href=\"https://docs.aws.amazon.com/documentdb/latest/devguide/security.encryption.ssl.html\"> Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.</p>"""
+    """<p>A list of the supported CA certificate identifiers.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/documentdb/latest/devguide/ca_cert_rotation.html">Updating Your Amazon DocumentDB TLS Certificates</a> and <a href="https://docs.aws.amazon.com/documentdb/latest/devguide/security.encryption.ssl.html"> Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.</p>"""
     supports_certificate_rotation_without_restart: NotRequired[
         "capo_docdb.types.boolean_optional.BooleanOptional"
     ]

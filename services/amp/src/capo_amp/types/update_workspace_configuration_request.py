@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class UpdateWorkspaceConfigurationRequest(TypedDict, closed=True):
     workspace_id: "capo_amp.types.workspace_id.WorkspaceId"
-    r"""<p>The ID of the workspace that you want to update. To find the IDs of your workspaces, use the <a href=\"https://docs.aws.amazon.com/prometheus/latest/APIReference/API_ListWorkspaces.htm\">ListWorkspaces</a> operation.</p>"""
+    """<p>The ID of the workspace that you want to update. To find the IDs of your workspaces, use the <a href="https://docs.aws.amazon.com/prometheus/latest/APIReference/API_ListWorkspaces.htm">ListWorkspaces</a> operation.</p>"""
     client_token: NotRequired["capo_amp.types.idempotency_token.IdempotencyToken"]
     """<p>You can include a token in your operation to make it an idempotent opeartion. </p>"""
     limits_per_label_set: NotRequired[

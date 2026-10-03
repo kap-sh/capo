@@ -67,7 +67,7 @@ class CopyJob(TypedDict, closed=True):
     is_parent: "capo_backup.types.boolean2.Boolean2"
     """<p>This is a boolean value indicating this is a parent (composite) copy job.</p>"""
     composite_member_identifier: NotRequired["capo_backup.types.string.string"]
-    r"""<p>The identifier of a resource within a composite group, such as nested (child) recovery point belonging to a composite (parent) stack. The ID is transferred from the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax\"> logical ID</a> within a stack.</p>"""
+    """<p>The identifier of a resource within a composite group, such as nested (child) recovery point belonging to a composite (parent) stack. The ID is transferred from the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"> logical ID</a> within a stack.</p>"""
     number_of_child_jobs: NotRequired["capo_backup.types.long.Long"]
     """<p>The number of child (nested) copy jobs.</p>"""
     child_jobs_in_state: NotRequired[
@@ -77,7 +77,7 @@ class CopyJob(TypedDict, closed=True):
     resource_name: NotRequired["capo_backup.types.string.string"]
     """<p>The non-unique name of the resource that belongs to the specified backup.</p>"""
     message_category: NotRequired["capo_backup.types.string.string"]
-    r"""<p>This parameter is the job count for the specified message category.</p> <p>Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and <code>InvalidParameters</code>. See <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html\">Monitoring</a> for a list of MessageCategory strings.</p> <p>The the value ANY returns count of all message categories.</p> <p> <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum</p>"""
+    """<p>This parameter is the job count for the specified message category.</p> <p>Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and <code>InvalidParameters</code>. See <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list of MessageCategory strings.</p> <p>The the value ANY returns count of all message categories.</p> <p> <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum</p>"""
 
 
 # --- restJson1 ser/de ---

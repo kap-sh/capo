@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DeleteVirtualMFADeviceRequest(TypedDict, closed=True):
     serial_number: "capo_iam.types.serial_number_type.serialNumberType"
-    r"""<p>The serial number that uniquely identifies the MFA device. For virtual MFA devices, the serial number is the same as the ARN.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@:/-</p>"""
+    """<p>The serial number that uniquely identifies the MFA device. For virtual MFA devices, the serial number is the same as the ARN.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@:/-</p>"""
 
 
 # --- awsQuery ser/de ---

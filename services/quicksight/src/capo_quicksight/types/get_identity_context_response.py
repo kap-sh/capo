@@ -16,7 +16,7 @@ class GetIdentityContextResponse(TypedDict, closed=True):
     request_id: "str"
     """<p>The Amazon Web Services request ID for this operation.</p>"""
     context: NotRequired["str"]
-    r"""<p>The identity context information for the user. This is an identity token that should be used as the ContextAssertion parameter in the <a href=\"https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html\">STS AssumeRole API</a> call to obtain identity enhanced Amazon Web Services credentials.</p>"""
+    """<p>The identity context information for the user. This is an identity token that should be used as the ContextAssertion parameter in the <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">STS AssumeRole API</a> call to obtain identity enhanced Amazon Web Services credentials.</p>"""
 
 
 # --- restJson1 ser/de ---

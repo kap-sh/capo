@@ -337,7 +337,7 @@ class AsyncManagedBlockchainQueryClient:
     ) -> (
         "capo_managedblockchain_query.types.get_transaction_output.GetTransactionOutput"
     ):
-        r"""<p>Gets the details of a transaction.</p> <note> <p>This action will return transaction details for all transactions that are <i>confirmed</i> on the blockchain, even if they have not reached <a href=\"https://docs.aws.amazon.com/managed-blockchain/latest/ambq-dg/key-concepts.html#finality\">finality</a>. </p> </note>
+        """<p>Gets the details of a transaction.</p> <note> <p>This action will return transaction details for all transactions that are <i>confirmed</i> on the blockchain, even if they have not reached <a href="https://docs.aws.amazon.com/managed-blockchain/latest/ambq-dg/key-concepts.html#finality">finality</a>. </p> </note>
 
         Args:
             transaction_hash: <p>The hash of a transaction. It is generated when a transaction is created.</p>
@@ -707,7 +707,7 @@ class AsyncManagedBlockchainQueryClient:
         ] = None,
         max_results: Optional[int] = None,
     ) -> "capo_managedblockchain_query.types.list_transaction_events_output.ListTransactionEventsOutput":
-        r"""<p>Lists all the transaction events for a transaction </p> <note> <p>This action will return transaction details for all transactions that are <i>confirmed</i> on the blockchain, even if they have not reached <a href=\"https://docs.aws.amazon.com/managed-blockchain/latest/ambq-dg/key-concepts.html#finality\">finality</a>. </p> </note>
+        """<p>Lists all the transaction events for a transaction </p> <note> <p>This action will return transaction details for all transactions that are <i>confirmed</i> on the blockchain, even if they have not reached <a href="https://docs.aws.amazon.com/managed-blockchain/latest/ambq-dg/key-concepts.html#finality">finality</a>. </p> </note>
 
         Args:
             transaction_hash: <p>The hash of a transaction. It is generated when a transaction is created.</p>
@@ -817,7 +817,7 @@ class AsyncManagedBlockchainQueryClient:
             "capo_managedblockchain_query.types.confirmation_status_filter.ConfirmationStatusFilter"
         ] = None,
     ) -> "capo_managedblockchain_query.types.list_transactions_output.ListTransactionsOutput":
-        r"""<p>Lists all the transaction events for a transaction.</p>
+        """<p>Lists all the transaction events for a transaction.</p>
 
         Args:
             address: <p>The address (either a contract or wallet), whose transactions are being requested.</p>
@@ -825,7 +825,7 @@ class AsyncManagedBlockchainQueryClient:
             sort: <p>The order by which the results will be sorted. </p>
             next_token: <p>The pagination token that indicates the next set of results to retrieve.</p>
             max_results: <p>The maximum number of transactions to list.</p> <p>Default: <code>100</code> </p> <note> <p>Even if additional results can be retrieved, the request can return less results than <code>maxResults</code> or an empty array of results.</p> <p>To retrieve the next set of results, make another request with the returned <code>nextToken</code> value. The value of <code>nextToken</code> is <code>null</code> when there are no more results to return</p> </note>
-            confirmation_status_filter: <p>This filter is used to include transactions in the response that haven't reached <a href=\"https://docs.aws.amazon.com/managed-blockchain/latest/ambq-dg/key-concepts.html#finality\"> <i>finality</i> </a>. Transactions that have reached finality are always part of the response.</p>
+            confirmation_status_filter: <p>This filter is used to include transactions in the response that haven't reached <a href="https://docs.aws.amazon.com/managed-blockchain/latest/ambq-dg/key-concepts.html#finality"> <i>finality</i> </a>. Transactions that have reached finality are always part of the response.</p>
 
         Raises:
             capo_managedblockchain_query.errors.access_denied_exception.AccessDeniedException: <p>The Amazon Web Services account doesn’t have access to this resource. </p>

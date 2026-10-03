@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class ResponseInspectionBodyContains(TypedDict, closed=True):
     success_strings: "capo_wafv2.types.response_inspection_body_contains_success_strings.ResponseInspectionBodyContainsSuccessStrings"
-    r"""<p>Strings in the body of the response that indicate a successful login or account creation attempt. To be counted as a success, the string can be anywhere in the body and must be an exact match, including case. Each string must be unique among the success and failure strings. </p> <p>JSON examples: <code>\"SuccessStrings\": [ \"Login successful\" ]</code> and <code>\"SuccessStrings\": [ \"Account creation successful\", \"Welcome to our site!\" ]</code> </p>"""
+    """<p>Strings in the body of the response that indicate a successful login or account creation attempt. To be counted as a success, the string can be anywhere in the body and must be an exact match, including case. Each string must be unique among the success and failure strings. </p> <p>JSON examples: <code>"SuccessStrings": [ "Login successful" ]</code> and <code>"SuccessStrings": [ "Account creation successful", "Welcome to our site!" ]</code> </p>"""
     failure_strings: "capo_wafv2.types.response_inspection_body_contains_failure_strings.ResponseInspectionBodyContainsFailureStrings"
-    r"""<p>Strings in the body of the response that indicate a failed login or account creation attempt. To be counted as a failure, the string can be anywhere in the body and must be an exact match, including case. Each string must be unique among the success and failure strings. </p> <p>JSON example: <code>\"FailureStrings\": [ \"Request failed\" ]</code> </p>"""
+    """<p>Strings in the body of the response that indicate a failed login or account creation attempt. To be counted as a failure, the string can be anywhere in the body and must be an exact match, including case. Each string must be unique among the success and failure strings. </p> <p>JSON example: <code>"FailureStrings": [ "Request failed" ]</code> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -13,7 +13,7 @@ class ListTrainingJobsForHyperParameterTuningJobResponse(TypedDict, closed=True)
     training_job_summaries: NotRequired[
         "capo_sagemaker.types.hyper_parameter_training_job_summaries.HyperParameterTrainingJobSummaries"
     ]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobSummary.html\">TrainingJobSummary</a> objects that describe the training jobs that the <code>ListTrainingJobsForHyperParameterTuningJob</code> request returned.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobSummary.html">TrainingJobSummary</a> objects that describe the training jobs that the <code>ListTrainingJobsForHyperParameterTuningJob</code> request returned.</p>"""
     next_token: NotRequired["capo_sagemaker.types.next_token.NextToken"]
     """<p>If the result of this <code>ListTrainingJobsForHyperParameterTuningJob</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of training jobs, use the token in the next request.</p>"""
 

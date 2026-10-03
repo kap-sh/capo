@@ -13,7 +13,7 @@ class UpdateAccountSettingsRequest(TypedDict, closed=True):
     deletion_protection: NotRequired[
         "capo_appconfig.types.deletion_protection_settings.DeletionProtectionSettings"
     ]
-    r"""<p>A parameter to configure deletion protection. Deletion protection prevents a user from deleting a configuration profile or an environment if AppConfig has called either <a href=\"https://docs.aws.amazon.com/appconfig/2019-10-09/APIReference/API_appconfigdata_GetLatestConfiguration.html\">GetLatestConfiguration</a> or for the configuration profile or from the environment during the specified interval. The default interval for <code>ProtectionPeriodInMinutes</code> is 60.</p>"""
+    """<p>A parameter to configure deletion protection. Deletion protection prevents a user from deleting a configuration profile or an environment if AppConfig has called either <a href="https://docs.aws.amazon.com/appconfig/2019-10-09/APIReference/API_appconfigdata_GetLatestConfiguration.html">GetLatestConfiguration</a> or for the configuration profile or from the environment during the specified interval. The default interval for <code>ProtectionPeriodInMinutes</code> is 60.</p>"""
     vended_metrics: NotRequired[
         "capo_appconfig.types.vended_metrics_settings.VendedMetricsSettings"
     ]

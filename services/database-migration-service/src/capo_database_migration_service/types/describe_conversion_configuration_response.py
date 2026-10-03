@@ -16,7 +16,7 @@ class DescribeConversionConfigurationResponse(TypedDict, closed=True):
     conversion_configuration: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>A JSON string that contains the schema conversion settings for the migration project. For the format and available settings, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/schema-conversion-settings.html\">Specifying schema conversion settings for migration projects</a>.</p>"""
+    """<p>A JSON string that contains the schema conversion settings for the migration project. For the format and available settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/schema-conversion-settings.html">Specifying schema conversion settings for migration projects</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

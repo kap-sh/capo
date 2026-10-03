@@ -25,7 +25,7 @@ class DvbSubDestinationSettings(TypedDict, closed=True):
     alignment: NotRequired[
         "capo_medialive.types.dvb_sub_destination_alignment.DvbSubDestinationAlignment"
     ]
-    r"""If no explicit xPosition or yPosition is provided, setting alignment to centered will place the captions at the bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified (either left or centered) relative to those coordinates. Selecting \"smart\" justification will left-justify live subtitles and center-justify pre-recorded subtitles. This option is not valid for source captions that are STL or 608/embedded. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match."""
+    """If no explicit xPosition or yPosition is provided, setting alignment to centered will place the captions at the bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified (either left or centered) relative to those coordinates. Selecting "smart" justification will left-justify live subtitles and center-justify pre-recorded subtitles. This option is not valid for source captions that are STL or 608/embedded. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match."""
     background_color: NotRequired[
         "capo_medialive.types.dvb_sub_destination_background_color.DvbSubDestinationBackgroundColor"
     ]

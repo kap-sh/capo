@@ -14,7 +14,7 @@ class AuthorizedPrincipal(TypedDict, closed=True):
     principal_type: NotRequired["capo_opensearch.types.principal_type.PrincipalType"]
     """<p>The type of principal.</p>"""
     principal: NotRequired["capo_opensearch.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html\">IAM principal</a> that is allowed access to the domain.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html">IAM principal</a> that is allowed access to the domain.</p>"""
     service_options: NotRequired["capo_opensearch.types.service_options.ServiceOptions"]
     """<p>The options for the service, including the supported Regions for the endpoint access.</p>"""
 

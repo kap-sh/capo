@@ -24,7 +24,7 @@ class DescribeCapacityBlockExtensionHistoryRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_future_capacity_max_results.DescribeFutureCapacityMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     filters: NotRequired["capo_ec2.types.filter_list.FilterList"]
     """<p>One or more filters</p> <ul> <li> <p> <code>availability-zone</code> - The Availability Zone of the extension.</p> </li> <li> <p> <code>availability-zone-id</code> - The Availability Zone ID of the extension.</p> </li> <li> <p> <code>capacity-block-extension-offering-id</code> - The ID of the extension offering.</p> </li> <li> <p> <code>capacity-block-extension-status</code> - The status of the extension (<code>payment-pending</code> | <code>payment-failed</code> | <code>payment-succeeded</code>).</p> </li> <li> <p> <code>capacity-reservation-id</code> - The reservation ID of the extension.</p> </li> <li> <p> <code>instance-type</code> - The instance type of the extension.</p> </li> </ul>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]

@@ -19,7 +19,7 @@ class ModuleInfo(TypedDict, closed=True):
     logical_id_hierarchy: NotRequired[
         "capo_cloudformation.types.logical_id_hierarchy.LogicalIdHierarchy"
     ]
-    r"""<p>A concatenated list of the logical IDs of the module or modules that contains the resource. Modules are listed starting with the inner-most nested module, and separated by <code>/</code>.</p> <p>In the following example, the resource was created from a module, <code>moduleA</code>, that's nested inside a parent module, <code>moduleB</code>.</p> <p> <code>moduleA/moduleB</code> </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/module-ref-resources.html\">Reference module resources in CloudFormation templates</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>A concatenated list of the logical IDs of the module or modules that contains the resource. Modules are listed starting with the inner-most nested module, and separated by <code>/</code>.</p> <p>In the following example, the resource was created from a module, <code>moduleA</code>, that's nested inside a parent module, <code>moduleB</code>.</p> <p> <code>moduleA/moduleB</code> </p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/module-ref-resources.html">Reference module resources in CloudFormation templates</a> in the <i>CloudFormation User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

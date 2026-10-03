@@ -539,7 +539,7 @@ class EntityResolutionClient:
         ] = None,
         tags: Optional["capo_entityresolution.types.tag_map.TagMap"] = None,
     ) -> "capo_entityresolution.types.create_matching_workflow_output.CreateMatchingWorkflowOutput":
-        r"""<p>Creates a matching workflow that defines the configuration for a data processing job. The workflow name must be unique. To modify an existing workflow, use <code>UpdateMatchingWorkflow</code>. </p> <important> <p>For workflows where <code>resolutionType</code> is <code>PROVIDER</code>, incremental processing is not supported. </p> </important>
+        """<p>Creates a matching workflow that defines the configuration for a data processing job. The workflow name must be unique. To modify an existing workflow, use <code>UpdateMatchingWorkflow</code>. </p> <important> <p>For workflows where <code>resolutionType</code> is <code>PROVIDER</code>, incremental processing is not supported. </p> </important>
 
         Args:
             workflow_name: <p>The name of the workflow. There can't be multiple <code>MatchingWorkflows</code> with the same name.</p>
@@ -547,7 +547,7 @@ class EntityResolutionClient:
             input_source_config: <p>A list of <code>InputSource</code> objects, which have the fields <code>InputSourceARN</code> and <code>SchemaName</code>.</p>
             output_source_config: <p>A list of <code>OutputSource</code> objects, each of which contains fields <code>outputS3Path</code>, <code>applyNormalization</code>, <code>KMSArn</code>, and <code>output</code>.</p>
             resolution_techniques: <p>An object which defines the <code>resolutionType</code> and the <code>ruleBasedProperties</code>.</p>
-            incremental_run_config: <p>Optional. An object that defines the incremental run type. This object contains only the <code>incrementalRunType</code> field, which appears as \"Automatic\" in the console. </p> <important> <p>For workflows where <code>resolutionType</code> is <code>PROVIDER</code>, incremental processing is not supported. </p> </important>
+            incremental_run_config: <p>Optional. An object that defines the incremental run type. This object contains only the <code>incrementalRunType</code> field, which appears as "Automatic" in the console. </p> <important> <p>For workflows where <code>resolutionType</code> is <code>PROVIDER</code>, incremental processing is not supported. </p> </important>
             role_arn: <p>The Amazon Resource Name (ARN) of the IAM role. Entity Resolution assumes this role to create resources on your behalf as part of workflow execution.</p>
             tags: <p>The tags used to organize, track, or control access for this resource.</p>
 
@@ -2388,7 +2388,7 @@ class EntityResolutionClient:
             "capo_entityresolution.types.incremental_run_config.IncrementalRunConfig"
         ] = None,
     ) -> "capo_entityresolution.types.update_matching_workflow_output.UpdateMatchingWorkflowOutput":
-        r"""<p>Updates an existing matching workflow. The workflow must already exist for this operation to succeed.</p> <important> <p>For workflows where <code>resolutionType</code> is <code>PROVIDER</code>, incremental processing is not supported. </p> </important>
+        """<p>Updates an existing matching workflow. The workflow must already exist for this operation to succeed.</p> <important> <p>For workflows where <code>resolutionType</code> is <code>PROVIDER</code>, incremental processing is not supported. </p> </important>
 
         Args:
             workflow_name: <p>The name of the workflow to be retrieved.</p>
@@ -2396,7 +2396,7 @@ class EntityResolutionClient:
             input_source_config: <p>A list of <code>InputSource</code> objects, which have the fields <code>InputSourceARN</code> and <code>SchemaName</code>.</p>
             output_source_config: <p>A list of <code>OutputSource</code> objects, each of which contains fields <code>outputS3Path</code>, <code>applyNormalization</code>, <code>KMSArn</code>, and <code>output</code>.</p>
             resolution_techniques: <p>An object which defines the <code>resolutionType</code> and the <code>ruleBasedProperties</code>.</p>
-            incremental_run_config: <p>Optional. An object that defines the incremental run type. This object contains only the <code>incrementalRunType</code> field, which appears as \"Automatic\" in the console. </p> <important> <p>For workflows where <code>resolutionType</code> is <code>PROVIDER</code>, incremental processing is not supported. </p> </important>
+            incremental_run_config: <p>Optional. An object that defines the incremental run type. This object contains only the <code>incrementalRunType</code> field, which appears as "Automatic" in the console. </p> <important> <p>For workflows where <code>resolutionType</code> is <code>PROVIDER</code>, incremental processing is not supported. </p> </important>
             role_arn: <p>The Amazon Resource Name (ARN) of the IAM role. Entity Resolution assumes this role to create resources on your behalf as part of workflow execution.</p>
 
         Raises:

@@ -20,7 +20,7 @@ class AdminCreateUserConfigType(TypedDict, closed=True):
     invite_message_template: NotRequired[
         "capo_cognito_identity_provider.types.message_template_type.MessageTemplateType"
     ]
-    r"""<p>The template for the welcome message to new users. This template must include the <code>{####}</code> temporary password placeholder if you are creating users with passwords. If your users don't have passwords, you can omit the placeholder.</p> <p>See also <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization\">Customizing User Invitation Messages</a>.</p>"""
+    """<p>The template for the welcome message to new users. This template must include the <code>{####}</code> temporary password placeholder if you are creating users with passwords. If your users don't have passwords, you can omit the placeholder.</p> <p>See also <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing User Invitation Messages</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

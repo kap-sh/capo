@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ManagedView(TypedDict, closed=True):
     managed_view_arn: NotRequired["str"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of the managed view.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of the managed view.</p>"""
     managed_view_name: NotRequired["str"]
     """<p>The name of the managed view. </p>"""
     trusted_service: NotRequired["str"]
@@ -23,14 +23,14 @@ class ManagedView(TypedDict, closed=True):
     owner: NotRequired["str"]
     """<p>The Amazon Web Services account that owns this managed view.</p>"""
     scope: NotRequired["str"]
-    r"""<p>An <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of an Amazon Web Services account or organization that specifies whether this managed view includes resources from only the specified Amazon Web Services account or all accounts in the specified organization. </p>"""
+    """<p>An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of an Amazon Web Services account or organization that specifies whether this managed view includes resources from only the specified Amazon Web Services account or all accounts in the specified organization. </p>"""
     included_properties: NotRequired[
         "capo_resource_explorer_2.types.included_property_list.IncludedPropertyList"
     ]
     """<p>A structure that contains additional information about the managed view.</p>"""
     filters: NotRequired["capo_resource_explorer_2.types.search_filter.SearchFilter"]
     resource_policy: NotRequired["str"]
-    r"""<p>The resource policy that defines access to the managed view. To learn more about this policy, review <a href=\"https://docs.aws.amazon.com/resource-explorer/latest/userguide/aws-managed-views.html\">Managed views</a>.</p>"""
+    """<p>The resource policy that defines access to the managed view. To learn more about this policy, review <a href="https://docs.aws.amazon.com/resource-explorer/latest/userguide/aws-managed-views.html">Managed views</a>.</p>"""
     version: NotRequired["str"]
     """<p>The version of the managed view. </p>"""
 

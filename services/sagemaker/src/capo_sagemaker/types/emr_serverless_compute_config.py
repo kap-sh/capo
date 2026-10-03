@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class EmrServerlessComputeConfig(TypedDict, closed=True):
     execution_role_arn: NotRequired["capo_sagemaker.types.role_arn.RoleArn"]
-    r"""<p>The ARN of the IAM role granting the AutoML job V2 the necessary permissions access policies to list, connect to, or manage EMR Serverless jobs. For detailed information about the required permissions of this role, see \"How to configure AutoML to initiate a remote job on EMR Serverless for large datasets\" in <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development-create-experiment.html\">Create a regression or classification job for tabular data using the AutoML API</a> or <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-create-experiment-timeseries-forecasting.html#timeseries-forecasting-api-optional-params\">Create an AutoML job for time-series forecasting using the API</a>.</p>"""
+    """<p>The ARN of the IAM role granting the AutoML job V2 the necessary permissions access policies to list, connect to, or manage EMR Serverless jobs. For detailed information about the required permissions of this role, see "How to configure AutoML to initiate a remote job on EMR Serverless for large datasets" in <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development-create-experiment.html">Create a regression or classification job for tabular data using the AutoML API</a> or <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-create-experiment-timeseries-forecasting.html#timeseries-forecasting-api-optional-params">Create an AutoML job for time-series forecasting using the API</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

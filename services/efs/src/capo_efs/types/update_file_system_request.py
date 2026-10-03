@@ -18,7 +18,7 @@ class UpdateFileSystemRequest(TypedDict, closed=True):
     provisioned_throughput_in_mibps: NotRequired[
         "capo_efs.types.provisioned_throughput_in_mibps.ProvisionedThroughputInMibps"
     ]
-    r"""<p>(Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services Support. For more information, see <a href=\"https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits\">Amazon EFS quotas that you can increase</a> in the <i>Amazon EFS User Guide</i>.</p>"""
+    """<p>(Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services Support. For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can increase</a> in the <i>Amazon EFS User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -30,11 +30,11 @@ class CloudWatchAlarmConfiguration(TypedDict, closed=True):
     metric_name: "capo_route_53.types.metric_name.MetricName"
     """<p>The name of the CloudWatch metric that the alarm is associated with.</p>"""
     namespace: "capo_route_53.types.namespace.Namespace"
-    r"""<p>The namespace of the metric that the alarm is associated with. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html\">Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference</a> in the <i>Amazon CloudWatch User Guide</i>.</p>"""
+    """<p>The namespace of the metric that the alarm is associated with. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html">Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference</a> in the <i>Amazon CloudWatch User Guide</i>.</p>"""
     statistic: "capo_route_53.types.statistic.Statistic"
     """<p>For the metric that the CloudWatch alarm is associated with, the statistic that is applied to the metric.</p>"""
     dimensions: NotRequired["capo_route_53.types.dimension_list.DimensionList"]
-    r"""<p>For the metric that the CloudWatch alarm is associated with, a complex type that contains information about the dimensions for the metric. For information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html\">Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference</a> in the <i>Amazon CloudWatch User Guide</i>.</p>"""
+    """<p>For the metric that the CloudWatch alarm is associated with, a complex type that contains information about the dimensions for the metric. For information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html">Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference</a> in the <i>Amazon CloudWatch User Guide</i>.</p>"""
 
 
 # --- restXml ser/de ---

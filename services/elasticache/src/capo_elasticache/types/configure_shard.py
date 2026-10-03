@@ -17,7 +17,7 @@ class ConfigureShard(TypedDict, closed=True):
     node_group_id: NotRequired[
         "capo_elasticache.types.allowed_node_group_id.AllowedNodeGroupId"
     ]
-    r"""<p>The 4-digit id for the node group you are configuring. For Valkey or Redis OSS (cluster mode disabled) replication groups, the node group id is always 0001. To find a Valkey or Redis OSS (cluster mode enabled)'s node group's (shard's) id, see <a href=\"https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/shard-find-id.html\">Finding a Shard's Id</a>.</p>"""
+    """<p>The 4-digit id for the node group you are configuring. For Valkey or Redis OSS (cluster mode disabled) replication groups, the node group id is always 0001. To find a Valkey or Redis OSS (cluster mode enabled)'s node group's (shard's) id, see <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/shard-find-id.html">Finding a Shard's Id</a>.</p>"""
     new_replica_count: NotRequired["capo_elasticache.types.integer.Integer"]
     """<p>The number of replicas you want in this node group at the end of this operation. The maximum value for <code>NewReplicaCount</code> is 5. The minimum value depends upon the type of Valkey or Redis OSS replication group you are working with.</p> <p>The minimum number of replicas in a shard or replication group is:</p> <ul> <li> <p>Valkey or Redis OSS (cluster mode disabled)</p> <ul> <li> <p>If Multi-AZ: 1</p> </li> <li> <p>If Multi-AZ: 0</p> </li> </ul> </li> <li> <p>Valkey or Redis OSS (cluster mode enabled): 0 (though you will not be able to failover to a replica if your primary node fails)</p> </li> </ul>"""
     preferred_availability_zones: NotRequired[

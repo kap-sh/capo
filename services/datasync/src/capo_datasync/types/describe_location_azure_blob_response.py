@@ -27,9 +27,9 @@ class DescribeLocationAzureBlobResponse(TypedDict, closed=True):
     ]
     """<p>The authentication method DataSync uses to access your Azure Blob Storage. DataSync can access blob storage using a shared access signature (SAS).</p>"""
     blob_type: NotRequired["capo_datasync.types.azure_blob_type.AzureBlobType"]
-    r"""<p>The type of blob that you want your objects or files to be when transferring them into Azure Blob Storage. Currently, DataSync only supports moving data into Azure Blob Storage as block blobs. For more information on blob types, see the <a href=\"https://learn.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs\">Azure Blob Storage documentation</a>.</p>"""
+    """<p>The type of blob that you want your objects or files to be when transferring them into Azure Blob Storage. Currently, DataSync only supports moving data into Azure Blob Storage as block blobs. For more information on blob types, see the <a href="https://learn.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs">Azure Blob Storage documentation</a>.</p>"""
     access_tier: NotRequired["capo_datasync.types.azure_access_tier.AzureAccessTier"]
-    r"""<p>The access tier that you want your objects or files transferred into. This only applies when using the location as a transfer destination. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/creating-azure-blob-location.html#azure-blob-access-tiers\">Access tiers</a>.</p>"""
+    """<p>The access tier that you want your objects or files transferred into. This only applies when using the location as a transfer destination. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/creating-azure-blob-location.html#azure-blob-access-tiers">Access tiers</a>.</p>"""
     agent_arns: NotRequired["capo_datasync.types.agent_arn_list.AgentArnList"]
     """<p>The ARNs of the DataSync agents that can connect with your Azure Blob Storage container.</p>"""
     creation_time: NotRequired["capo_datasync.types.time.Time"]

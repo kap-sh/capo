@@ -19,7 +19,7 @@ class BatchUpdateCustomVocabularyItemRequest(TypedDict, closed=True):
     bot_version: "capo_lex_models_v2.types.bot_version.BotVersion"
     """<p>The identifier of the version of the bot associated with this custom vocabulary.</p>"""
     locale_id: "capo_lex_models_v2.types.locale_id.LocaleId"
-    r"""<p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\"> Supported Languages </a>.</p>"""
+    """<p>The identifier of the language and locale where this custom vocabulary is used. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html"> Supported Languages </a>.</p>"""
     custom_vocabulary_item_list: "capo_lex_models_v2.types.update_custom_vocabulary_items_list.UpdateCustomVocabularyItemsList"
     """<p>A list of custom vocabulary items with updated fields. Each entry must contain a phrase and can optionally contain a displayAs and/or a weight.</p>"""
 

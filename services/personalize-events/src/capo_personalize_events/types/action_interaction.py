@@ -26,7 +26,7 @@ class ActionInteraction(TypedDict, closed=True):
     timestamp: "capo_personalize_events.types.date.Date"
     """<p>The timestamp for when the action interaction event occurred. Timestamps must be in Unix epoch time format, in seconds.</p>"""
     event_type: "capo_personalize_events.types.string_type.StringType"
-    r"""<p>The type of action interaction event. You can specify <code>Viewed</code>, <code>Taken</code>, and <code>Not Taken</code> event types. For more information about action interaction event type data, see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/action-interaction-event-type-data.html\">Event type data</a>. </p>"""
+    """<p>The type of action interaction event. You can specify <code>Viewed</code>, <code>Taken</code>, and <code>Not Taken</code> event types. For more information about action interaction event type data, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/action-interaction-event-type-data.html">Event type data</a>. </p>"""
     event_id: NotRequired["capo_personalize_events.types.string_type.StringType"]
     """<p>An ID associated with the event. If an event ID is not provided, Amazon Personalize generates a unique ID for the event. An event ID is not used as an input to the model. Amazon Personalize uses the event ID to distinguish unique events. Any subsequent events after the first with the same event ID are not used in model training.</p>"""
     recommendation_id: NotRequired[
@@ -36,11 +36,11 @@ class ActionInteraction(TypedDict, closed=True):
     impression: NotRequired[
         "capo_personalize_events.types.action_impression.ActionImpression"
     ]
-    r"""<p>A list of action IDs that represents the sequence of actions you have shown the user. For example, <code>[\"actionId1\", \"actionId2\", \"actionId3\"]</code>. Amazon Personalize doesn't use impressions data from action interaction events. Instead, record multiple events for each action and use the <code>Viewed</code> event type. </p>"""
+    """<p>A list of action IDs that represents the sequence of actions you have shown the user. For example, <code>["actionId1", "actionId2", "actionId3"]</code>. Amazon Personalize doesn't use impressions data from action interaction events. Instead, record multiple events for each action and use the <code>Viewed</code> event type. </p>"""
     properties: NotRequired[
         "capo_personalize_events.types.synthesized_json_action_interaction_properties.SynthesizedJsonActionInteractionProperties"
     ]
-    r"""<p>A string map of event-specific data that you might choose to record. For example, if a user takes an action, other than the action ID, you might also send the number of actions taken by the user.</p> <p>Each item in the map consists of a key-value pair. For example,</p> <p> <code>{\"numberOfActions\": \"12\"}</code> </p> <p>The keys use camel case names that match the fields in the Action interactions schema. In the above example, the <code>numberOfActions</code> would match the 'NUMBER_OF_ACTIONS' field defined in the Action interactions schema.</p> <p> The following can't be included as a keyword for properties (case insensitive). </p> <ul> <li> <p> userId </p> </li> <li> <p> sessionId </p> </li> <li> <p>eventType</p> </li> <li> <p>timestamp</p> </li> <li> <p>recommendationId</p> </li> <li> <p>impression</p> </li> </ul>"""
+    """<p>A string map of event-specific data that you might choose to record. For example, if a user takes an action, other than the action ID, you might also send the number of actions taken by the user.</p> <p>Each item in the map consists of a key-value pair. For example,</p> <p> <code>{"numberOfActions": "12"}</code> </p> <p>The keys use camel case names that match the fields in the Action interactions schema. In the above example, the <code>numberOfActions</code> would match the 'NUMBER_OF_ACTIONS' field defined in the Action interactions schema.</p> <p> The following can't be included as a keyword for properties (case insensitive). </p> <ul> <li> <p> userId </p> </li> <li> <p> sessionId </p> </li> <li> <p>eventType</p> </li> <li> <p>timestamp</p> </li> <li> <p>recommendationId</p> </li> <li> <p>impression</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

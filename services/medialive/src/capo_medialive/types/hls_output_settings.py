@@ -19,7 +19,7 @@ class HlsOutputSettings(TypedDict, closed=True):
     hls_settings: NotRequired["capo_medialive.types.hls_settings.HlsSettings"]
     """Settings regarding the underlying stream. These settings are different for audio-only outputs."""
     name_modifier: NotRequired["capo_medialive.types.__string_min1.__stringMin1"]
-    r"""String concatenated to the end of the destination filename. Accepts \\"Format Identifiers\\":#formatIdentifierParameters."""
+    r"""String concatenated to the end of the destination filename. Accepts \"Format Identifiers\":#formatIdentifierParameters."""
     segment_modifier: NotRequired["capo_medialive.types.__string.__string"]
     """String concatenated to end of segment filenames."""
 

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GetFindingV2Request(TypedDict, closed=True):
     analyzer_arn: "capo_accessanalyzer.types.analyzer_arn.AnalyzerArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources\">ARN of the analyzer</a> that generated the finding.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources">ARN of the analyzer</a> that generated the finding.</p>"""
     id: "capo_accessanalyzer.types.finding_id.FindingId"
     """<p>The ID of the finding to retrieve.</p>"""
     max_results: NotRequired["int"]

@@ -33,7 +33,7 @@ class GetAttachedFileResponse(TypedDict, closed=True):
     file_size_in_bytes: "capo_connect.types.file_size_in_bytes.FileSizeInBytes"
     """<p>The size of the attached file in bytes.</p>"""
     associated_resource_arn: NotRequired["capo_connect.types.arn.ARN"]
-    r"""<p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/cases.html\">Cases</a>, <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html\">Email</a>, and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html\">Task</a>.</p>"""
+    """<p>The resource to which the attached file is (being) uploaded to. The supported resources are <a href="https://docs.aws.amazon.com/connect/latest/adminguide/cases.html">Cases</a>, <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-email-channel.html">Email</a>, and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/concepts-getting-started-tasks.html">Task</a>.</p>"""
     file_use_case_type: NotRequired[
         "capo_connect.types.file_use_case_type.FileUseCaseType"
     ]
@@ -45,7 +45,7 @@ class GetAttachedFileResponse(TypedDict, closed=True):
     ]
     """<p>URL and expiry to be used when downloading the attached file. </p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, <code>{ \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }</code>.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, <code>{ "Tags": {"key1":"value1", "key2":"value2"} }</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -16,18 +16,18 @@ class SourceCodeType(TypedDict, closed=True):
     commit_diff: NotRequired[
         "capo_codeguru_reviewer.types.commit_diff_source_code_type.CommitDiffSourceCodeType"
     ]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_SourceCodeType\">SourceCodeType</a> that specifies a commit diff created by a pull request on an associated repository.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_SourceCodeType">SourceCodeType</a> that specifies a commit diff created by a pull request on an associated repository.</p>"""
     repository_head: NotRequired[
         "capo_codeguru_reviewer.types.repository_head_source_code_type.RepositoryHeadSourceCodeType"
     ]
     branch_diff: NotRequired[
         "capo_codeguru_reviewer.types.branch_diff_source_code_type.BranchDiffSourceCodeType"
     ]
-    r"""<p>A type of <a href=\"https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_SourceCodeType\">SourceCodeType</a> that specifies a source branch name and a destination branch name in an associated repository.</p>"""
+    """<p>A type of <a href="https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_SourceCodeType">SourceCodeType</a> that specifies a source branch name and a destination branch name in an associated repository.</p>"""
     s3_bucket_repository: NotRequired[
         "capo_codeguru_reviewer.types.s3_bucket_repository.S3BucketRepository"
     ]
-    r"""<p>Information about an associated repository in an S3 bucket that includes its name and an <code>S3RepositoryDetails</code> object. The <code>S3RepositoryDetails</code> object includes the name of an S3 bucket, an S3 key for a source code .zip file, and an S3 key for a build artifacts .zip file. <code>S3BucketRepository</code> is required in <a href=\"https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_SourceCodeType\">SourceCodeType</a> for <code>S3BucketRepository</code> based code reviews.</p>"""
+    """<p>Information about an associated repository in an S3 bucket that includes its name and an <code>S3RepositoryDetails</code> object. The <code>S3RepositoryDetails</code> object includes the name of an S3 bucket, an S3 key for a source code .zip file, and an S3 key for a build artifacts .zip file. <code>S3BucketRepository</code> is required in <a href="https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_SourceCodeType">SourceCodeType</a> for <code>S3BucketRepository</code> based code reviews.</p>"""
     request_metadata: NotRequired[
         "capo_codeguru_reviewer.types.request_metadata.RequestMetadata"
     ]

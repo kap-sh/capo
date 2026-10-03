@@ -17,7 +17,7 @@ class ListPolicySummariesResponse(TypedDict, closed=True):
     )
     """<p>An array of policy summary objects that match the specified criteria. Each summary contains resource identifiers, status, and timestamps without customer-encrypted content.</p>"""
     next_token: NotRequired["capo_bedrock_agentcore_control.types.next_token.NextToken"]
-    r"""<p>A pagination token that can be used in subsequent <a href=\"https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_ListPolicySummaries.html\">ListPolicySummaries</a> calls to retrieve additional results. This token is only present when there are more results available.</p>"""
+    """<p>A pagination token that can be used in subsequent <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_ListPolicySummaries.html">ListPolicySummaries</a> calls to retrieve additional results. This token is only present when there are more results available.</p>"""
 
 
 # --- restJson1 ser/de ---

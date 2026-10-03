@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class CancelUpdateStackInput(TypedDict, closed=True):
     stack_name: NotRequired["capo_cloudformation.types.stack_name.StackName"]
-    r"""<note> <p>If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all resources in the account.</p> <p>The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid returning a response when no parameter is sent in the request:</p> <p> <code>{ \"Version\": \"2012-10-17\", \"Statement\": [{ \"Effect\": \"Deny\", \"Action\": \"cloudformation:DescribeStacks\", \"NotResource\": \"arn:aws:cloudformation:*:*:stack/*/*\" }] }</code> </p> </note> <p>The name or the unique stack ID that's associated with the stack.</p>"""
+    """<note> <p>If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all resources in the account.</p> <p>The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid returning a response when no parameter is sent in the request:</p> <p> <code>{ "Version": "2012-10-17", "Statement": [{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*/*" }] }</code> </p> </note> <p>The name or the unique stack ID that's associated with the stack.</p>"""
     client_request_token: NotRequired[
         "capo_cloudformation.types.client_request_token.ClientRequestToken"
     ]

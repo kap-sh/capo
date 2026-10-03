@@ -24,9 +24,9 @@ class DescribeDocumentVersionsRequest(TypedDict, closed=True):
     limit: NotRequired["capo_workdocs.types.limit_type.LimitType"]
     """<p>The maximum number of versions to return with this call.</p>"""
     include: NotRequired["capo_workdocs.types.field_names_type.FieldNamesType"]
-    r"""<p>A comma-separated list of values. Specify \"INITIALIZED\" to include incomplete versions.</p>"""
+    """<p>A comma-separated list of values. Specify "INITIALIZED" to include incomplete versions.</p>"""
     fields: NotRequired["capo_workdocs.types.field_names_type.FieldNamesType"]
-    r"""<p>Specify \"SOURCE\" to include initialized versions and a URL for the source document.</p>"""
+    """<p>Specify "SOURCE" to include initialized versions and a URL for the source document.</p>"""
 
 
 # --- restJson1 ser/de ---

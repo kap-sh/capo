@@ -19,7 +19,7 @@ class UpdateLibraryItemInput(TypedDict, closed=True):
     library_item_id: "capo_qapps.types.uuid.UUID"
     """<p>The unique identifier of the library item to update.</p>"""
     status: NotRequired["capo_qapps.types.library_item_status.LibraryItemStatus"]
-    r"""<p>The new status to set for the library item, such as \"Published\" or \"Hidden\".</p>"""
+    """<p>The new status to set for the library item, such as "Published" or "Hidden".</p>"""
     categories: NotRequired["capo_qapps.types.category_id_list.CategoryIdList"]
     """<p>The new categories to associate with the library item.</p>"""
 

@@ -16,7 +16,7 @@ class CreateWorkspaceServiceAccountRequest(TypedDict, closed=True):
     name: "capo_grafana.types.service_account_name.ServiceAccountName"
     """<p>A name for the service account. The name must be unique within the workspace, as it determines the ID associated with the service account.</p>"""
     grafana_role: "capo_grafana.types.role.Role"
-    r"""<p>The permission level to use for this service account.</p> <note> <p>For more information about the roles and the permissions each has, see <a href=\"https://docs.aws.amazon.com/grafana/latest/userguide/Grafana-user-roles.html\">User roles</a> in the <i>Amazon Managed Grafana User Guide</i>.</p> </note>"""
+    """<p>The permission level to use for this service account.</p> <note> <p>For more information about the roles and the permissions each has, see <a href="https://docs.aws.amazon.com/grafana/latest/userguide/Grafana-user-roles.html">User roles</a> in the <i>Amazon Managed Grafana User Guide</i>.</p> </note>"""
     workspace_id: "capo_grafana.types.workspace_id.WorkspaceId"
     """<p>The ID of the workspace within which to create the service account.</p>"""
 

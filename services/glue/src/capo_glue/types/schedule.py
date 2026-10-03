@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class Schedule(TypedDict, closed=True):
     schedule_expression: NotRequired["capo_glue.types.cron_expression.CronExpression"]
-    r"""<p>A <code>cron</code> expression used to specify the schedule (see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html\">Time-Based Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>"""
+    """<p>A <code>cron</code> expression used to specify the schedule (see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>"""
     state: NotRequired["capo_glue.types.schedule_state.ScheduleState"]
     """<p>The state of the schedule.</p>"""
 

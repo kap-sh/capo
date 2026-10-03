@@ -19,7 +19,7 @@ class HyperParameterTuningJobConfig(TypedDict, closed=True):
     strategy: NotRequired[
         "capo_sagemaker.types.hyper_parameter_tuning_job_strategy_type.HyperParameterTuningJobStrategyType"
     ]
-    r"""<p>Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the training job it launches. For information about search strategies, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html\">How Hyperparameter Tuning Works</a>.</p>"""
+    """<p>Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the training job it launches. For information about search strategies, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How Hyperparameter Tuning Works</a>.</p>"""
     strategy_config: NotRequired[
         "capo_sagemaker.types.hyper_parameter_tuning_job_strategy_config.HyperParameterTuningJobStrategyConfig"
     ]
@@ -27,17 +27,17 @@ class HyperParameterTuningJobConfig(TypedDict, closed=True):
     hyper_parameter_tuning_job_objective: NotRequired[
         "capo_sagemaker.types.hyper_parameter_tuning_job_objective.HyperParameterTuningJobObjective"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html\">HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of training jobs launched by this tuning job.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html">HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of training jobs launched by this tuning job.</p>"""
     resource_limits: NotRequired["capo_sagemaker.types.resource_limits.ResourceLimits"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html\">ResourceLimits</a> object that specifies the maximum number of training and parallel training jobs that can be used for this hyperparameter tuning job.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a> object that specifies the maximum number of training and parallel training jobs that can be used for this hyperparameter tuning job.</p>"""
     parameter_ranges: NotRequired[
         "capo_sagemaker.types.parameter_ranges.ParameterRanges"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html\">ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job searches over to find the optimal configuration for the highest model performance against your chosen objective metric. </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html">ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job searches over to find the optimal configuration for the highest model performance against your chosen objective metric. </p>"""
     training_job_early_stopping_type: NotRequired[
         "capo_sagemaker.types.training_job_early_stopping_type.TrainingJobEarlyStoppingType"
     ]
-    r"""<p>Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. Because the <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism, <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This parameter can take on one of the following values (the default value is <code>OFF</code>):</p> <dl> <dt>OFF</dt> <dd> <p>Training jobs launched by the hyperparameter tuning job do not use early stopping.</p> </dd> <dt>AUTO</dt> <dd> <p>SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform better than previously completed training jobs. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html\">Stop Training Jobs Early</a>.</p> </dd> </dl>"""
+    """<p>Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. Because the <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism, <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This parameter can take on one of the following values (the default value is <code>OFF</code>):</p> <dl> <dt>OFF</dt> <dd> <p>Training jobs launched by the hyperparameter tuning job do not use early stopping.</p> </dd> <dt>AUTO</dt> <dd> <p>SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform better than previously completed training jobs. For more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training Jobs Early</a>.</p> </dd> </dl>"""
     tuning_job_completion_criteria: NotRequired[
         "capo_sagemaker.types.tuning_job_completion_criteria.TuningJobCompletionCriteria"
     ]

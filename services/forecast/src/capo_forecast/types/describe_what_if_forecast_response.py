@@ -43,7 +43,7 @@ class DescribeWhatIfForecastResponse(TypedDict, closed=True):
     ]
     """<p>An array of <code>S3Config</code>, <code>Schema</code>, and <code>Format</code> elements that describe the replacement time series.</p>"""
     forecast_types: NotRequired["capo_forecast.types.forecast_types.ForecastTypes"]
-    r"""<p>The quantiles at which probabilistic forecasts are generated. You can specify up to five quantiles per what-if forecast in the <a>CreateWhatIfForecast</a> operation. If you didn't specify quantiles, the default values are <code>[\"0.1\", \"0.5\", \"0.9\"]</code>. </p>"""
+    """<p>The quantiles at which probabilistic forecasts are generated. You can specify up to five quantiles per what-if forecast in the <a>CreateWhatIfForecast</a> operation. If you didn't specify quantiles, the default values are <code>["0.1", "0.5", "0.9"]</code>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

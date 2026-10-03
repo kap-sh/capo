@@ -18,7 +18,7 @@ class PutRawEventsRequestEntry(TypedDict, closed=True):
     metadata: NotRequired[
         "capo_eventbridgev2.types.event_metadata_map.EventMetadataMap"
     ]
-    r"""Metadata key-value pairs you define. Keys must be 1-128 characters and must not contain \"/\"."""
+    """Metadata key-value pairs you define. Keys must be 1-128 characters and must not contain "/"."""
     system_metadata: "capo_eventbridgev2.types.put_raw_events_system_metadata.PutRawEventsSystemMetadata"
     """Structured system metadata with defined properties."""
 

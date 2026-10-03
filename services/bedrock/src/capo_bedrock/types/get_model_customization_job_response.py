@@ -64,7 +64,7 @@ class GetModelCustomizationJobResponse(TypedDict, closed=True):
     hyper_parameters: NotRequired[
         "capo_bedrock.types.model_customization_hyper_parameters.ModelCustomizationHyperParameters"
     ]
-    r"""<p>The hyperparameter values for the job. For details on the format for different models, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models-hp.html\">Custom model hyperparameters</a>.</p>"""
+    """<p>The hyperparameter values for the job. For details on the format for different models, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models-hp.html">Custom model hyperparameters</a>.</p>"""
     training_data_config: "capo_bedrock.types.training_data_config.TrainingDataConfig"
     """<p>Contains information about the training dataset.</p>"""
     validation_data_config: (

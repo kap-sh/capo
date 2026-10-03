@@ -415,12 +415,12 @@ class AsyncLicenseManagerClient:
             "capo_license_manager.types.metadata_list.MetadataList"
         ] = None,
     ) -> "capo_license_manager.types.checkout_borrow_license_response.CheckoutBorrowLicenseResponse":
-        r"""<p>Checks out the specified license for offline use.</p>
+        """<p>Checks out the specified license for offline use.</p>
 
         Args:
             license_arn: <p>Amazon Resource Name (ARN) of the license. The license must use the borrow consumption configuration.</p>
             entitlements: <p>License entitlements. Partial checkouts are not supported.</p>
-            digital_signature_method: <p>Digital signature method. The possible value is JSON Web Signature (JWS) algorithm PS384. For more information, see <a href=\"https://tools.ietf.org/html/rfc7518#section-3.5\">RFC 7518 Digital Signature with RSASSA-PSS</a>.</p>
+            digital_signature_method: <p>Digital signature method. The possible value is JSON Web Signature (JWS) algorithm PS384. For more information, see <a href="https://tools.ietf.org/html/rfc7518#section-3.5">RFC 7518 Digital Signature with RSASSA-PSS</a>.</p>
             node_id: <p>Node ID.</p>
             checkout_metadata: <p>Information about constraints.</p>
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
@@ -560,7 +560,7 @@ class AsyncLicenseManagerClient:
         config_overrides: Optional[AsyncLicenseManagerClientConfig] = None,
         tags: Optional["capo_license_manager.types.tag_list.TagList"] = None,
     ) -> "capo_license_manager.types.create_grant_response.CreateGrantResponse":
-        r"""<p>Creates a grant for the specified license. A grant shares the use of license entitlements with a specific Amazon Web Services account, an organization, or an organizational unit (OU). For more information, see <a href=\"https://docs.aws.amazon.com/license-manager/latest/userguide/granted-licenses.html\">Granted licenses in License Manager</a> in the <i>License Manager User Guide</i>.</p>
+        """<p>Creates a grant for the specified license. A grant shares the use of license entitlements with a specific Amazon Web Services account, an organization, or an organizational unit (OU). For more information, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/granted-licenses.html">Granted licenses in License Manager</a> in the <i>License Manager User Guide</i>.</p>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
@@ -569,7 +569,7 @@ class AsyncLicenseManagerClient:
             principals: <p>The grant principals. You can specify one of the following as an Amazon Resource Name (ARN):</p> <ul> <li> <p>An Amazon Web Services account, which includes only the account specified.</p> </li> </ul> <ul> <li> <p>An organizational unit (OU), which includes all accounts in the OU.</p> </li> </ul> <ul> <li> <p>An organization, which will include all accounts across your organization.</p> </li> </ul>
             home_region: <p>Home Region of the grant.</p>
             allowed_operations: <p>Allowed operations for the grant.</p>
-            tags: <p>Tags to add to the grant. For more information about tagging support in License Manager, see the <a href=\"https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html\">TagResource</a> operation.</p>
+            tags: <p>Tags to add to the grant. For more information about tagging support in License Manager, see the <a href="https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html">TagResource</a> operation.</p>
 
         Raises:
             capo_license_manager.errors.access_denied_exception.AccessDeniedException: <p>Access to resource denied.</p>
@@ -634,7 +634,7 @@ class AsyncLicenseManagerClient:
         source_version: Optional["capo_license_manager.types.string.String"] = None,
         options: Optional["capo_license_manager.types.options.Options"] = None,
     ) -> "capo_license_manager.types.create_grant_version_response.CreateGrantVersionResponse":
-        r"""<p>Creates a new version of the specified grant. For more information, see <a href=\"https://docs.aws.amazon.com/license-manager/latest/userguide/granted-licenses.html\">Granted licenses in License Manager</a> in the <i>License Manager User Guide</i>.</p>
+        """<p>Creates a new version of the specified grant. For more information, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/granted-licenses.html">Granted licenses in License Manager</a> in the <i>License Manager User Guide</i>.</p>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
@@ -717,7 +717,7 @@ class AsyncLicenseManagerClient:
         ] = None,
         tags: Optional["capo_license_manager.types.tag_list.TagList"] = None,
     ) -> "capo_license_manager.types.create_license_response.CreateLicenseResponse":
-        r"""<p>Creates a license.</p>
+        """<p>Creates a license.</p>
 
         Args:
             license_name: <p>License name.</p>
@@ -731,7 +731,7 @@ class AsyncLicenseManagerClient:
             consumption_configuration: <p>Configuration for consumption of the license. Choose a provisional configuration for workloads running with continuous connectivity. Choose a borrow configuration for workloads with offline usage.</p>
             license_metadata: <p>Information about the license.</p>
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
-            tags: <p>Tags to add to the license. For more information about tagging support in License Manager, see the <a href=\"https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html\">TagResource</a> operation.</p>
+            tags: <p>Tags to add to the license. For more information about tagging support in License Manager, see the <a href="https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html">TagResource</a> operation.</p>
 
         Raises:
             capo_license_manager.errors.access_denied_exception.AccessDeniedException: <p>Access to resource denied.</p>
@@ -1024,12 +1024,12 @@ class AsyncLicenseManagerClient:
         *,
         config_overrides: Optional[AsyncLicenseManagerClientConfig] = None,
     ) -> "capo_license_manager.types.create_license_conversion_task_for_resource_response.CreateLicenseConversionTaskForResourceResponse":
-        r"""<p>Creates a new license conversion task.</p>
+        """<p>Creates a new license conversion task.</p>
 
         Args:
             resource_arn: <p>Amazon Resource Name (ARN) of the resource you are converting the license type for.</p>
-            source_license_context: <p>Information that identifies the license type you are converting from. For the structure of the source license, see <a href=\"https://docs.aws.amazon.com/license-manager/latest/userguide/conversion-procedures.html#conversion-cli\">Convert a license type using the CLI </a> in the <i>License Manager User Guide</i>.</p>
-            destination_license_context: <p>Information that identifies the license type you are converting to. For the structure of the destination license, see <a href=\"https://docs.aws.amazon.com/license-manager/latest/userguide/conversion-procedures.html#conversion-cli\">Convert a license type using the CLI </a> in the <i>License Manager User Guide</i>.</p>
+            source_license_context: <p>Information that identifies the license type you are converting from. For the structure of the source license, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/conversion-procedures.html#conversion-cli">Convert a license type using the CLI </a> in the <i>License Manager User Guide</i>.</p>
+            destination_license_context: <p>Information that identifies the license type you are converting to. For the structure of the destination license, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/conversion-procedures.html#conversion-cli">Convert a license type using the CLI </a> in the <i>License Manager User Guide</i>.</p>
 
         Raises:
             capo_license_manager.errors.access_denied_exception.AccessDeniedException: <p>Access to resource denied.</p>
@@ -3331,7 +3331,7 @@ class AsyncLicenseManagerClient:
         *,
         config_overrides: Optional[AsyncLicenseManagerClientConfig] = None,
     ) -> "capo_license_manager.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>Lists the tags for the specified resource. For more information about tagging support in License Manager, see the <a href=\"https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html\">TagResource</a> operation.</p>
+        """<p>Lists the tags for the specified resource. For more information about tagging support in License Manager, see the <a href="https://docs.aws.amazon.com/license-manager/latest/APIReference/API_TagResource.html">TagResource</a> operation.</p>
 
         Args:
             resource_arn: <p>Amazon Resource Name (ARN) of the resource.</p>

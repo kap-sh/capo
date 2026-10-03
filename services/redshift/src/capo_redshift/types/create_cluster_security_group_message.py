@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class CreateClusterSecurityGroupMessage(TypedDict, closed=True):
     cluster_security_group_name: NotRequired["capo_redshift.types.string.String"]
-    r"""<p>The name for the security group. Amazon Redshift stores the value as a lowercase string.</p> <p>Constraints:</p> <ul> <li> <p>Must contain no more than 255 alphanumeric characters or hyphens.</p> </li> <li> <p>Must not be \"Default\".</p> </li> <li> <p>Must be unique for all security groups that are created by your Amazon Web Services account.</p> </li> </ul> <p>Example: <code>examplesecuritygroup</code> </p>"""
+    """<p>The name for the security group. Amazon Redshift stores the value as a lowercase string.</p> <p>Constraints:</p> <ul> <li> <p>Must contain no more than 255 alphanumeric characters or hyphens.</p> </li> <li> <p>Must not be "Default".</p> </li> <li> <p>Must be unique for all security groups that are created by your Amazon Web Services account.</p> </li> </ul> <p>Example: <code>examplesecuritygroup</code> </p>"""
     description: NotRequired["capo_redshift.types.string.String"]
     """<p>A description for the security group.</p>"""
     tags: NotRequired["capo_redshift.types.tag_list.TagList"]

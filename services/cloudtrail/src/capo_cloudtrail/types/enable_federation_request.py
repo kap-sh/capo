@@ -15,7 +15,7 @@ class EnableFederationRequest(TypedDict, closed=True):
     event_data_store: "capo_cloudtrail.types.event_data_store_arn.EventDataStoreArn"
     """<p>The ARN (or ID suffix of the ARN) of the event data store for which you want to enable Lake query federation.</p>"""
     federation_role_arn: "capo_cloudtrail.types.federation_role_arn.FederationRoleArn"
-    r"""<p> The ARN of the federation role to use for the event data store. Amazon Web Services services like Lake Formation use this federation role to access data for the federated event data store. The federation role must exist in your account and provide the <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/query-federation.html#query-federation-permissions-role\">required minimum permissions</a>. </p>"""
+    """<p> The ARN of the federation role to use for the event data store. Amazon Web Services services like Lake Formation use this federation role to access data for the federated event data store. The federation role must exist in your account and provide the <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/query-federation.html#query-federation-permissions-role">required minimum permissions</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

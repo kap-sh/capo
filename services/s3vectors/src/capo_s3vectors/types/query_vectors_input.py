@@ -29,7 +29,7 @@ class QueryVectorsInput(TypedDict, closed=True):
     query_vector: "capo_s3vectors.types.vector_data.VectorData"
     """<p>The query vector. Ensure that the query vector has the same dimension as the dimension of the vector index that's being queried. For example, if your vector index contains vectors with 384 dimensions, your query vector must also have 384 dimensions. </p>"""
     filter: NotRequired["object"]
-    r"""<p>Metadata filter to apply during the query. For more information about metadata keys, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-metadata-filtering.html\">Metadata filtering</a> in the <i>Amazon S3 User Guide</i>. </p>"""
+    """<p>Metadata filter to apply during the query. For more information about metadata keys, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-metadata-filtering.html">Metadata filtering</a> in the <i>Amazon S3 User Guide</i>. </p>"""
     return_metadata: "bool"
     """<p>Indicates whether to include metadata in the response. The default value is <code>false</code>.</p>"""
     return_distance: "bool"

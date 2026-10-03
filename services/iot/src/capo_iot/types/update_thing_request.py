@@ -18,7 +18,7 @@ class UpdateThingRequest(TypedDict, closed=True):
     thing_type_name: NotRequired["capo_iot.types.thing_type_name.ThingTypeName"]
     """<p>The name of the thing type.</p>"""
     attribute_payload: NotRequired["capo_iot.types.attribute_payload.AttributePayload"]
-    r"""<p>A list of thing attributes, a JSON string containing name-value pairs. For example:</p> <p> <code>{\\"attributes\\":{\\"name1\\":\\"value2\\"}}</code> </p> <p>This data is used to add new attributes or update existing attributes.</p>"""
+    r"""<p>A list of thing attributes, a JSON string containing name-value pairs. For example:</p> <p> <code>{\"attributes\":{\"name1\":\"value2\"}}</code> </p> <p>This data is used to add new attributes or update existing attributes.</p>"""
     expected_version: NotRequired["capo_iot.types.optional_version.OptionalVersion"]
     """<p>The expected version of the thing record in the registry. If the version of the record in the registry does not match the expected version specified in the request, the <code>UpdateThing</code> request is rejected with a <code>VersionConflictException</code>.</p>"""
     remove_thing_type: "capo_iot.types.remove_thing_type.RemoveThingType"

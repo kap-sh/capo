@@ -17,11 +17,11 @@ class ListFoundationModelsRequest(TypedDict, closed=True):
     by_customization_type: NotRequired[
         "capo_bedrock.types.model_customization.ModelCustomization"
     ]
-    r"""<p>Return models that support the customization type that you specify. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models.html\">Custom models</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>"""
+    """<p>Return models that support the customization type that you specify. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models.html">Custom models</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>"""
     by_output_modality: NotRequired["capo_bedrock.types.model_modality.ModelModality"]
     """<p>Return models that support the output modality that you specify.</p>"""
     by_inference_type: NotRequired["capo_bedrock.types.inference_type.InferenceType"]
-    r"""<p>Return models that support the inference type that you specify. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html\">Provisioned Throughput</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>"""
+    """<p>Return models that support the inference type that you specify. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html">Provisioned Throughput</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

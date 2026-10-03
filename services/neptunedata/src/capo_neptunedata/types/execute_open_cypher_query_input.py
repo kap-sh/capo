@@ -9,7 +9,7 @@ class ExecuteOpenCypherQueryInput(TypedDict, closed=True):
     open_cypher_query: "str"
     """<p>The openCypher query string to be executed.</p>"""
     parameters: NotRequired["str"]
-    r"""<p>The openCypher query parameters for query execution. See <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/opencypher-parameterized-queries.html\">Examples of openCypher parameterized queries</a> for more information.</p>"""
+    """<p>The openCypher query parameters for query execution. See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/opencypher-parameterized-queries.html">Examples of openCypher parameterized queries</a> for more information.</p>"""
 
 
 # --- restJson1 ser/de ---

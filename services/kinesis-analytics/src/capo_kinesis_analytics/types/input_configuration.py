@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class InputConfiguration(TypedDict, closed=True):
     id: "capo_kinesis_analytics.types.id.Id"
-    r"""<p>Input source ID. You can get this ID by calling the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html\">DescribeApplication</a> operation.</p>"""
+    """<p>Input source ID. You can get this ID by calling the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a> operation.</p>"""
     input_starting_position_configuration: "capo_kinesis_analytics.types.input_starting_position_configuration.InputStartingPositionConfiguration"
     """<p>Point at which you want the application to start processing records from the streaming source.</p>"""
 

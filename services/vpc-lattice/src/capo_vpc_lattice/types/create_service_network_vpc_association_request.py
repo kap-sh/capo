@@ -28,7 +28,7 @@ class CreateServiceNetworkVpcAssociationRequest(TypedDict, closed=True):
     security_group_ids: NotRequired[
         "capo_vpc_lattice.types.security_group_list.SecurityGroupList"
     ]
-    r"""<p>The IDs of the security groups. Security groups aren't added by default. You can add a security group to apply network level controls to control which resources in a VPC are allowed to access the service network and its services. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html\">Control traffic to resources using security groups</a> in the <i>Amazon VPC User Guide</i>.</p>"""
+    """<p>The IDs of the security groups. Security groups aren't added by default. You can add a security group to apply network level controls to control which resources in a VPC are allowed to access the service network and its services. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html">Control traffic to resources using security groups</a> in the <i>Amazon VPC User Guide</i>.</p>"""
     tags: NotRequired["capo_vpc_lattice.types.tag_map.TagMap"]
     """<p>The tags for the association.</p>"""
     dns_options: NotRequired["capo_vpc_lattice.types.dns_options.DnsOptions"]

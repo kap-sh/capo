@@ -77,7 +77,7 @@ class GetJobResponse(TypedDict, closed=True):
     queue_info: NotRequired[
         "capo_braket.types.hybrid_job_queue_info.HybridJobQueueInfo"
     ]
-    r"""<p>Queue information for the requested hybrid job. Only returned if <code>QueueInfo</code> is specified in the <code>additionalAttributeNames\"</code> field in the <code>GetJob</code> API request.</p>"""
+    """<p>Queue information for the requested hybrid job. Only returned if <code>QueueInfo</code> is specified in the <code>additionalAttributeNames"</code> field in the <code>GetJob</code> API request.</p>"""
     associations: NotRequired["capo_braket.types.associations.Associations"]
     """<p>The list of Amazon Braket resources associated with the hybrid job.</p>"""
 

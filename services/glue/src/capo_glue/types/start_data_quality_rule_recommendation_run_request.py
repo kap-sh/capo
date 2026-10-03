@@ -21,7 +21,7 @@ class StartDataQualityRuleRecommendationRunRequest(TypedDict, closed=True):
     data_source: "capo_glue.types.data_source.DataSource"
     """<p>The data source (Glue table) associated with this run.</p>"""
     role: "capo_glue.types.role_string.RoleString"
-    r"""<p>The IAM role that Glue assumes to access resources for the run.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/data-quality-authorization.html\">Configure IAM permissions for Glue Data Quality</a>.</p>"""
+    """<p>The IAM role that Glue assumes to access resources for the run.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/data-quality-authorization.html">Configure IAM permissions for Glue Data Quality</a>.</p>"""
     number_of_workers: NotRequired["capo_glue.types.nullable_integer.NullableInteger"]
     """<p>The number of <code>G.1X</code> workers to be used in the run. The default is 5.</p>"""
     timeout: NotRequired["capo_glue.types.timeout.Timeout"]

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ListAccessPreviewsRequest(TypedDict, closed=True):
     analyzer_arn: "capo_accessanalyzer.types.analyzer_arn.AnalyzerArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources\">ARN of the analyzer</a> used to generate the access preview.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources">ARN of the analyzer</a> used to generate the access preview.</p>"""
     next_token: NotRequired["capo_accessanalyzer.types.token.Token"]
     """<p>A token used for pagination of results returned.</p>"""
     max_results: NotRequired["int"]

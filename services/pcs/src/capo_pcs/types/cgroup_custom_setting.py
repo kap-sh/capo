@@ -7,7 +7,7 @@ from capo_pcs.errors import DeserializationError
 
 class CgroupCustomSetting(TypedDict, closed=True):
     parameter_name: "str"
-    r"""<p>PCS supports custom Cgroup settings for clusters. For more information, see <a href=\"https://docs.aws.amazon.com/pcs/latest/userguide/cgroup-custom-settings.html\">Configuring custom Cgroup settings in PCS</a> in the <i>PCS User Guide</i>.</p>"""
+    """<p>PCS supports custom Cgroup settings for clusters. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/cgroup-custom-settings.html">Configuring custom Cgroup settings in PCS</a> in the <i>PCS User Guide</i>.</p>"""
     parameter_value: "str"
     """<p>The values for the configured Cgroup settings.</p>"""
 

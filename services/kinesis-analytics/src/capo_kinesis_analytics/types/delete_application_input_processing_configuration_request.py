@@ -20,7 +20,7 @@ class DeleteApplicationInputProcessingConfigurationRequest(TypedDict, closed=Tru
     )
     """<p>The version ID of the Kinesis Analytics application.</p>"""
     input_id: "capo_kinesis_analytics.types.id.Id"
-    r"""<p>The ID of the input configuration from which to delete the input processing configuration. You can get a list of the input IDs for an application by using the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html\">DescribeApplication</a> operation.</p>"""
+    """<p>The ID of the input configuration from which to delete the input processing configuration. You can get a list of the input IDs for an application by using the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a> operation.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

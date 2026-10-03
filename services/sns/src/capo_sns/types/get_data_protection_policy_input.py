@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class GetDataProtectionPolicyInput(TypedDict, closed=True):
     resource_arn: "capo_sns.types.topic_arn.topicARN"
-    r"""<p>The ARN of the topic whose <code>DataProtectionPolicy</code> you want to get.</p> <p>For more information about ARNs, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the Amazon Web Services General Reference.</p>"""
+    """<p>The ARN of the topic whose <code>DataProtectionPolicy</code> you want to get.</p> <p>For more information about ARNs, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the Amazon Web Services General Reference.</p>"""
 
 
 # --- awsQuery ser/de ---

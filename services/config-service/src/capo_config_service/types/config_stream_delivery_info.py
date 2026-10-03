@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ConfigStreamDeliveryInfo(TypedDict, closed=True):
     last_status: NotRequired["capo_config_service.types.delivery_status.DeliveryStatus"]
-    r"""<p>Status of the last attempted delivery.</p> <p> <b>Note</b> Providing an SNS topic on a <a href=\"https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html\">DeliveryChannel</a> for Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.</p>"""
+    """<p>Status of the last attempted delivery.</p> <p> <b>Note</b> Providing an SNS topic on a <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a> for Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.</p>"""
     last_error_code: NotRequired["capo_config_service.types.string.String"]
     """<p>The error code from the last attempted delivery.</p>"""
     last_error_message: NotRequired["capo_config_service.types.string.String"]

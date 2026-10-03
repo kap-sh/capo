@@ -21,7 +21,7 @@ class ServiceResourceCost(TypedDict, closed=True):
     count: "capo_devops_guru.types.cost_estimation_service_resource_count.CostEstimationServiceResourceCount"
     """<p>The number of active resources analyzed for this service to create a monthly cost estimate.</p>"""
     unit_cost: "capo_devops_guru.types.cost.Cost"
-    r"""<p>The price per hour to analyze the resources in the service. For more information, see <a href=\"https://docs.aws.amazon.com/devops-guru/latest/userguide/cost-estimate.html\">Estimate your Amazon DevOps Guru costs</a> and <a href=\"http://aws.amazon.com/devops-guru/pricing/\">Amazon DevOps Guru pricing</a>.</p>"""
+    """<p>The price per hour to analyze the resources in the service. For more information, see <a href="https://docs.aws.amazon.com/devops-guru/latest/userguide/cost-estimate.html">Estimate your Amazon DevOps Guru costs</a> and <a href="http://aws.amazon.com/devops-guru/pricing/">Amazon DevOps Guru pricing</a>.</p>"""
     cost: "capo_devops_guru.types.cost.Cost"
     """<p>The total estimated monthly cost to analyze the active resources for this resource.</p>"""
 

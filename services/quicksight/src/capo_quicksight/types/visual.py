@@ -34,41 +34,41 @@ if TYPE_CHECKING:
 
 class Visual(TypedDict, closed=True):
     table_visual: NotRequired["capo_quicksight.types.table_visual.TableVisual"]
-    r"""<p>A table visual.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/tabular.html\">Using tables as visuals</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A table visual.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/tabular.html">Using tables as visuals</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     pivot_table_visual: NotRequired[
         "capo_quicksight.types.pivot_table_visual.PivotTableVisual"
     ]
-    r"""<p>A pivot table.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/pivot-table.html\">Using pivot tables</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A pivot table.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/pivot-table.html">Using pivot tables</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     bar_chart_visual: NotRequired[
         "capo_quicksight.types.bar_chart_visual.BarChartVisual"
     ]
-    r"""<p>A bar chart.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/bar-charts.html\">Using bar charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A bar chart.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/bar-charts.html">Using bar charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     kpi_visual: NotRequired["capo_quicksight.types.kpi_visual.KPIVisual"]
-    r"""<p>A key performance indicator (KPI).</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/kpi.html\">Using KPIs</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A key performance indicator (KPI).</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/kpi.html">Using KPIs</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     pie_chart_visual: NotRequired[
         "capo_quicksight.types.pie_chart_visual.PieChartVisual"
     ]
-    r"""<p>A pie or donut chart.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/pie-chart.html\">Using pie charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A pie or donut chart.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/pie-chart.html">Using pie charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     gauge_chart_visual: NotRequired[
         "capo_quicksight.types.gauge_chart_visual.GaugeChartVisual"
     ]
-    r"""<p>A gauge chart.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/gauge-chart.html\">Using gauge charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A gauge chart.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/gauge-chart.html">Using gauge charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     line_chart_visual: NotRequired[
         "capo_quicksight.types.line_chart_visual.LineChartVisual"
     ]
-    r"""<p>A line chart.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/line-charts.html\">Using line charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A line chart.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/line-charts.html">Using line charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     heat_map_visual: NotRequired["capo_quicksight.types.heat_map_visual.HeatMapVisual"]
-    r"""<p>A heat map.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/heat-map.html\">Using heat maps</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A heat map.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/heat-map.html">Using heat maps</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     tree_map_visual: NotRequired["capo_quicksight.types.tree_map_visual.TreeMapVisual"]
-    r"""<p>A tree map.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/tree-map.html\">Using tree maps</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A tree map.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/tree-map.html">Using tree maps</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     geospatial_map_visual: NotRequired[
         "capo_quicksight.types.geospatial_map_visual.GeospatialMapVisual"
     ]
-    r"""<p>A geospatial map or a points on map visual.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/point-maps.html\">Creating point maps</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A geospatial map or a points on map visual.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/point-maps.html">Creating point maps</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     filled_map_visual: NotRequired[
         "capo_quicksight.types.filled_map_visual.FilledMapVisual"
     ]
-    r"""<p>A filled map.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/filled-maps.html\">Creating filled maps</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A filled map.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/filled-maps.html">Creating filled maps</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     layer_map_visual: NotRequired[
         "capo_quicksight.types.layer_map_visual.LayerMapVisual"
     ]
@@ -76,45 +76,45 @@ class Visual(TypedDict, closed=True):
     funnel_chart_visual: NotRequired[
         "capo_quicksight.types.funnel_chart_visual.FunnelChartVisual"
     ]
-    r"""<p>A funnel chart.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/funnel-visual-content.html\">Using funnel charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A funnel chart.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/funnel-visual-content.html">Using funnel charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     scatter_plot_visual: NotRequired[
         "capo_quicksight.types.scatter_plot_visual.ScatterPlotVisual"
     ]
-    r"""<p>A scatter plot.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/scatter-plot.html\">Using scatter plots</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A scatter plot.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/scatter-plot.html">Using scatter plots</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     combo_chart_visual: NotRequired[
         "capo_quicksight.types.combo_chart_visual.ComboChartVisual"
     ]
-    r"""<p>A combo chart.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/combo-charts.html\">Using combo charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A combo chart.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/combo-charts.html">Using combo charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     box_plot_visual: NotRequired["capo_quicksight.types.box_plot_visual.BoxPlotVisual"]
-    r"""<p>A box plot.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/box-plots.html\">Using box plots</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A box plot.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/box-plots.html">Using box plots</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     waterfall_visual: NotRequired[
         "capo_quicksight.types.waterfall_visual.WaterfallVisual"
     ]
-    r"""<p>A waterfall chart.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/waterfall-chart.html\">Using waterfall charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A waterfall chart.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/waterfall-chart.html">Using waterfall charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     histogram_visual: NotRequired[
         "capo_quicksight.types.histogram_visual.HistogramVisual"
     ]
-    r"""<p>A histogram.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/histogram-charts.html\">Using histograms</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A histogram.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/histogram-charts.html">Using histograms</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     word_cloud_visual: NotRequired[
         "capo_quicksight.types.word_cloud_visual.WordCloudVisual"
     ]
-    r"""<p>A word cloud.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/word-cloud.html\">Using word clouds</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A word cloud.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/word-cloud.html">Using word clouds</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     insight_visual: NotRequired["capo_quicksight.types.insight_visual.InsightVisual"]
-    r"""<p>An insight visual.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/computational-insights.html\">Working with insights</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>An insight visual.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/computational-insights.html">Working with insights</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     sankey_diagram_visual: NotRequired[
         "capo_quicksight.types.sankey_diagram_visual.SankeyDiagramVisual"
     ]
-    r"""<p>A sankey diagram.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/sankey-diagram.html\">Using Sankey diagrams</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A sankey diagram.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/sankey-diagram.html">Using Sankey diagrams</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     custom_content_visual: NotRequired[
         "capo_quicksight.types.custom_content_visual.CustomContentVisual"
     ]
-    r"""<p>A visual that contains custom content.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/custom-visual-content.html\">Using custom visual content</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A visual that contains custom content.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/custom-visual-content.html">Using custom visual content</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     empty_visual: NotRequired["capo_quicksight.types.empty_visual.EmptyVisual"]
     """<p>An empty visual.</p>"""
     radar_chart_visual: NotRequired[
         "capo_quicksight.types.radar_chart_visual.RadarChartVisual"
     ]
-    r"""<p>A radar chart visual.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/radar-chart.html\">Using radar charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>A radar chart visual.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/radar-chart.html">Using radar charts</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     plugin_visual: NotRequired["capo_quicksight.types.plugin_visual.PluginVisual"]
     """<p>The custom plugin visual type.</p>"""
 

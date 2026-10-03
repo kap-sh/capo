@@ -35,7 +35,7 @@ class CreateJobQueueRequest(TypedDict, closed=True):
     job_queue_type: NotRequired["capo_batch.types.job_queue_type.JobQueueType"]
     """<p>The type of job queue. For service jobs that run on SageMaker Training, this value is <code>SAGEMAKER_TRAINING</code>. For regular container jobs, this value is <code>EKS</code>, <code>ECS</code>, or <code>ECS_FARGATE</code> depending on the compute environment.</p>"""
     tags: NotRequired["capo_batch.types.tagris_tags_map.TagrisTagsMap"]
-    r"""<p>The tags that you apply to the job queue to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html\">Tagging your Batch resources</a> in <i>Batch User Guide</i>.</p>"""
+    """<p>The tags that you apply to the job queue to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a> in <i>Batch User Guide</i>.</p>"""
     job_state_time_limit_actions: NotRequired[
         "capo_batch.types.job_state_time_limit_actions.JobStateTimeLimitActions"
     ]

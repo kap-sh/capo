@@ -25,7 +25,7 @@ class AnalyticsConfigurationType(TypedDict, closed=True):
     external_id: NotRequired[
         "capo_cognito_identity_provider.types.string_type.StringType"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html\">external ID</a> of the role that Amazon Cognito assumes to send analytics data to Amazon Pinpoint.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html">external ID</a> of the role that Amazon Cognito assumes to send analytics data to Amazon Pinpoint.</p>"""
     user_data_shared: "capo_cognito_identity_provider.types.boolean_type.BooleanType"
     """<p>If <code>UserDataShared</code> is <code>true</code>, Amazon Cognito includes user data in the events that it publishes to Amazon Pinpoint analytics.</p>"""
 

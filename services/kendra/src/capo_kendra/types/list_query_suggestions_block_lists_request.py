@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ListQuerySuggestionsBlockListsRequest(TypedDict, closed=True):
     index_id: "capo_kendra.types.index_id.IndexId"
-    r"""<p>The identifier of the index for a list of all block lists that exist for that index.</p> <p>For information on the current quota limits for block lists, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/quotas.html\">Quotas for Amazon Kendra</a>.</p>"""
+    """<p>The identifier of the index for a list of all block lists that exist for that index.</p> <p>For information on the current quota limits for block lists, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/quotas.html">Quotas for Amazon Kendra</a>.</p>"""
     next_token: NotRequired["capo_kendra.types.next_token.NextToken"]
     """<p>If the previous response was incomplete (because there is more data to retrieve), Amazon Kendra returns a pagination token in the response. You can use this pagination token to retrieve the next set of block lists (<code>BlockListSummaryItems</code>).</p>"""
     max_results: NotRequired[

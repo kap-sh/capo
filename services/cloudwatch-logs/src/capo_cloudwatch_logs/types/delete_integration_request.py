@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DeleteIntegrationRequest(TypedDict, closed=True):
     integration_name: "capo_cloudwatch_logs.types.integration_name.IntegrationName"
-    r"""<p>The name of the integration to delete. To find the name of your integration, use <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListIntegrations.html\">ListIntegrations</a>.</p>"""
+    """<p>The name of the integration to delete. To find the name of your integration, use <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListIntegrations.html">ListIntegrations</a>.</p>"""
     force: "capo_cloudwatch_logs.types.force.Force"
     """<p>Specify <code>true</code> to force the deletion of the integration even if vended logs dashboards currently exist.</p> <p>The default is <code>false</code>.</p>"""
 

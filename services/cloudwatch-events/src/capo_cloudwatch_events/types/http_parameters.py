@@ -14,7 +14,7 @@ class HttpParameters(TypedDict, closed=True):
     path_parameter_values: NotRequired[
         "capo_cloudwatch_events.types.path_parameter_list.PathParameterList"
     ]
-    r"""<p>The path parameter values to be used to populate API Gateway REST API or EventBridge ApiDestination path wildcards (\"*\").</p>"""
+    """<p>The path parameter values to be used to populate API Gateway REST API or EventBridge ApiDestination path wildcards ("*").</p>"""
     header_parameters: NotRequired[
         "capo_cloudwatch_events.types.header_parameters_map.HeaderParametersMap"
     ]

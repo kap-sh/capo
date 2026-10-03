@@ -18,7 +18,7 @@ class UpdateContactFlowContentRequest(TypedDict, closed=True):
     contact_flow_id: "capo_connect.types.contact_flow_id.ContactFlowId"
     """<p>The identifier of the flow.</p>"""
     content: "capo_connect.types.contact_flow_content.ContactFlowContent"
-    r"""<p>The JSON string that represents the content of the flow. For an example, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html\">Example flow in Connect Customer Flow language</a>. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 256000.</p>"""
+    """<p>The JSON string that represents the content of the flow. For an example, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-example.html">Example flow in Connect Customer Flow language</a>. </p> <p>Length Constraints: Minimum length of 1. Maximum length of 256000.</p>"""
 
 
 # --- restJson1 ser/de ---

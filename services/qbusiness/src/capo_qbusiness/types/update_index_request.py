@@ -29,7 +29,7 @@ class UpdateIndexRequest(TypedDict, closed=True):
     document_attribute_configurations: NotRequired[
         "capo_qbusiness.types.document_attribute_configurations.DocumentAttributeConfigurations"
     ]
-    r"""<p>Configuration information for document metadata or fields. Document metadata are fields or attributes associated with your documents. For example, the company department name associated with each document. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/business-use-dg/doc-attributes-types.html#doc-attributes\">Understanding document attributes</a>.</p>"""
+    """<p>Configuration information for document metadata or fields. Document metadata are fields or attributes associated with your documents. For example, the company department name associated with each document. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/business-use-dg/doc-attributes-types.html#doc-attributes">Understanding document attributes</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

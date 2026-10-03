@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class InputProcessingConfigurationUpdate(TypedDict, closed=True):
     input_lambda_processor_update: "capo_kinesis_analytics.types.input_lambda_processor_update.InputLambdaProcessorUpdate"
-    r"""<p>Provides update information for an <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html\">InputLambdaProcessor</a>.</p>"""
+    """<p>Provides update information for an <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html">InputLambdaProcessor</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

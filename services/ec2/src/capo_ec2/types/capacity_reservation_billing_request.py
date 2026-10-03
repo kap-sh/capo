@@ -30,7 +30,7 @@ class CapacityReservationBillingRequest(TypedDict, closed=True):
     status: NotRequired[
         "capo_ec2.types.capacity_reservation_billing_request_status.CapacityReservationBillingRequestStatus"
     ]
-    r"""<p>The status of the request. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-billing-transfers.html\"> View billing assignment requests for a shared Amazon EC2 Capacity Reservation</a>.</p>"""
+    """<p>The status of the request. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-billing-transfers.html"> View billing assignment requests for a shared Amazon EC2 Capacity Reservation</a>.</p>"""
     status_message: NotRequired["capo_ec2.types.string.String"]
     """<p>Information about the status.</p>"""
     capacity_reservation_info: NotRequired[

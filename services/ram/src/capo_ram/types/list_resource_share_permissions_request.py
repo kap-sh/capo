@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ListResourceSharePermissionsRequest(TypedDict, closed=True):
     resource_share_arn: "capo_ram.types.string.String"
-    r"""<p>Specifies the <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the resource share for which you want to retrieve the associated permissions.</p>"""
+    """<p>Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the resource share for which you want to retrieve the associated permissions.</p>"""
     next_token: NotRequired["capo_ram.types.string.String"]
     """<p>Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code> response in the previous request. If you did, it indicates that more output is available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response to request the next page of results.</p>"""
     max_results: NotRequired["capo_ram.types.max_results.MaxResults"]

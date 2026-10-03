@@ -22,13 +22,13 @@ class CreateQuerySuggestionsBlockListRequest(TypedDict, closed=True):
     name: "capo_kendra.types.query_suggestions_block_list_name.QuerySuggestionsBlockListName"
     """<p>A name for the block list.</p> <p>For example, the name 'offensive-words', which includes all offensive words that could appear in user queries and need to be blocked from suggestions.</p>"""
     description: NotRequired["capo_kendra.types.description.Description"]
-    r"""<p>A description for the block list.</p> <p>For example, the description \"List of all offensive words that can appear in user queries and need to be blocked from suggestions.\"</p>"""
+    """<p>A description for the block list.</p> <p>For example, the description "List of all offensive words that can appear in user queries and need to be blocked from suggestions."</p>"""
     source_s3_path: "capo_kendra.types.s3_path.S3Path"
-    r"""<p>The S3 path to your block list text file in your S3 bucket.</p> <p>Each block word or phrase should be on a separate line in a text file.</p> <p>For information on the current quota limits for block lists, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/quotas.html\">Quotas for Amazon Kendra</a>.</p>"""
+    """<p>The S3 path to your block list text file in your S3 bucket.</p> <p>Each block word or phrase should be on a separate line in a text file.</p> <p>For information on the current quota limits for block lists, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/quotas.html">Quotas for Amazon Kendra</a>.</p>"""
     client_token: NotRequired["capo_kendra.types.client_token_name.ClientTokenName"]
     """<p>A token that you provide to identify the request to create a query suggestions block list.</p>"""
     role_arn: "capo_kendra.types.role_arn.RoleArn"
-    r"""<p>The Amazon Resource Name (ARN) of an IAM role with permission to access your S3 bucket that contains the block list text file. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html\">IAM access roles for Amazon Kendra</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an IAM role with permission to access your S3 bucket that contains the block list text file. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html">IAM access roles for Amazon Kendra</a>.</p>"""
     tags: NotRequired["capo_kendra.types.tag_list.TagList"]
     """<p>A list of key-value pairs that identify or categorize the block list. Tag keys and values can consist of Unicode letters, digits, white space, and any of the following symbols: _ . : / = + - @.</p>"""
 

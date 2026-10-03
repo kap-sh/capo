@@ -16,7 +16,7 @@ class CreateModelResponse(TypedDict, closed=True):
     content_type: NotRequired[
         "capo_apigatewayv2.types.string_with_length_between1_and256.StringWithLengthBetween1And256"
     ]
-    r"""<p>The content-type for the model, for example, \"application/json\".</p>"""
+    """<p>The content-type for the model, for example, "application/json".</p>"""
     description: NotRequired[
         "capo_apigatewayv2.types.string_with_length_between0_and1024.StringWithLengthBetween0And1024"
     ]

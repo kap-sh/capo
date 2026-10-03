@@ -34,7 +34,7 @@ class TimeSeriesSummary(TypedDict, closed=True):
     time_series_last_update_date: "capo_iotsitewise.types.timestamp.Timestamp"
     """<p>The date that the time series was last updated, in Unix epoch time.</p>"""
     time_series_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the time series, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:time-series/${TimeSeriesId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the time series, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:time-series/${TimeSeriesId}</code> </p>"""
 
 
 # --- restJson1 ser/de ---

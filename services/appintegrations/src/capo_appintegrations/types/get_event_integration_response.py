@@ -27,7 +27,7 @@ class GetEventIntegrationResponse(TypedDict, closed=True):
     event_filter: NotRequired["capo_appintegrations.types.event_filter.EventFilter"]
     """<p>The event filter.</p>"""
     tags: NotRequired["capo_appintegrations.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ExecuteGremlinExplainQueryOutput(TypedDict, closed=True):
     output: NotRequired["capo_neptunedata.types.report_as_text.ReportAsText"]
-    r"""<p>A text blob containing the Gremlin explain result, as described in <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/gremlin-traversal-tuning.html\">Tuning Gremlin queries</a>.</p>"""
+    """<p>A text blob containing the Gremlin explain result, as described in <a href="https://docs.aws.amazon.com/neptune/latest/userguide/gremlin-traversal-tuning.html">Tuning Gremlin queries</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

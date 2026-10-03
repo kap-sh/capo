@@ -13,7 +13,7 @@ class WorkflowDetails(TypedDict, closed=True):
     on_upload: NotRequired[
         "capo_transfer.types.on_upload_workflow_details.OnUploadWorkflowDetails"
     ]
-    r"""<p>A trigger that starts a workflow: the workflow begins to execute after a file is uploaded.</p> <p>To remove an associated workflow from a server, you can provide an empty <code>OnUpload</code> object, as in the following example.</p> <p> <code>aws transfer update-server --server-id s-01234567890abcdef --workflow-details '{\"OnUpload\":[]}'</code> </p> <note> <p> <code>OnUpload</code> can contain a maximum of one <code>WorkflowDetail</code> object.</p> </note>"""
+    """<p>A trigger that starts a workflow: the workflow begins to execute after a file is uploaded.</p> <p>To remove an associated workflow from a server, you can provide an empty <code>OnUpload</code> object, as in the following example.</p> <p> <code>aws transfer update-server --server-id s-01234567890abcdef --workflow-details '{"OnUpload":[]}'</code> </p> <note> <p> <code>OnUpload</code> can contain a maximum of one <code>WorkflowDetail</code> object.</p> </note>"""
     on_partial_upload: NotRequired[
         "capo_transfer.types.on_partial_upload_workflow_details.OnPartialUploadWorkflowDetails"
     ]

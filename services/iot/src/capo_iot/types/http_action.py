@@ -26,7 +26,7 @@ class HttpAction(TypedDict, closed=True):
     enable_batching: NotRequired["capo_iot.types.enable_batching.EnableBatching"]
     """<p>Whether to process the HTTP action messages into a single request. Value can be true or false.</p>"""
     batch_config: NotRequired["capo_iot.types.batch_config.BatchConfig"]
-    r"""<p>The configuration settings for batching. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/http_batching.html\"> Batching HTTP action messages</a>.</p>"""
+    """<p>The configuration settings for batching. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/http_batching.html"> Batching HTTP action messages</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

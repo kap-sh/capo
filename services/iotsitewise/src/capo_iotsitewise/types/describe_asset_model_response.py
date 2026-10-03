@@ -32,7 +32,7 @@ class DescribeAssetModelResponse(TypedDict, closed=True):
     ]
     """<p>The external ID of the asset model, if any.</p>"""
     asset_model_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the asset model, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:asset-model/${AssetModelId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the asset model, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:asset-model/${AssetModelId}</code> </p>"""
     asset_model_name: "capo_iotsitewise.types.name.Name"
     """<p>The name of the asset model.</p>"""
     asset_model_type: NotRequired[
@@ -64,13 +64,13 @@ class DescribeAssetModelResponse(TypedDict, closed=True):
     asset_model_status: "capo_iotsitewise.types.asset_model_status.AssetModelStatus"
     """<p>The current status of the asset model, which contains a state and any error message.</p>"""
     asset_model_version: NotRequired["capo_iotsitewise.types.version.Version"]
-    r"""<p>The version of the asset model. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html\"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The version of the asset model. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/model-active-version.html"> Asset model versions</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     interface_details: NotRequired[
         "capo_iotsitewise.types.interface_details.InterfaceDetails"
     ]
     """<p>A list of interface details that describe the interfaces implemented by this asset model, including interface asset model IDs and property mappings.</p>"""
     e_tag: NotRequired["capo_iotsitewise.types.e_tag.ETag"]
-    r"""<p>The entity tag (ETag) is a hash of the retrieved version of the asset model. It's used to make concurrent updates safely to the resource. See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html\">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>. </p> <p>See <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html\"> Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The entity tag (ETag) is a hash of the retrieved version of the asset model. It's used to make concurrent updates safely to the resource. See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html">Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>. </p> <p>See <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/opt-locking-for-model.html"> Optimistic locking for asset model writes</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

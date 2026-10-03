@@ -29,7 +29,7 @@ class UpdateProjectRequest(TypedDict, closed=True):
     environment_variables: NotRequired[
         "capo_device_farm.types.environment_variables.EnvironmentVariables"
     ]
-    r"""<p> A set of environment variables which are used by default for all runs in the project. These environment variables are applied to the test run during the execution of a test spec file. </p> <p> For more information about using test spec files, please see <a href=\"https://docs.aws.amazon.com/devicefarm/latest/developerguide/custom-test-environments.html\">Custom test environments </a> in <i>AWS Device Farm.</i> </p>"""
+    """<p> A set of environment variables which are used by default for all runs in the project. These environment variables are applied to the test run during the execution of a test spec file. </p> <p> For more information about using test spec files, please see <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/custom-test-environments.html">Custom test environments </a> in <i>AWS Device Farm.</i> </p>"""
     execution_role_arn: NotRequired[
         "capo_device_farm.types.amazon_role_resource_name.AmazonRoleResourceName"
     ]

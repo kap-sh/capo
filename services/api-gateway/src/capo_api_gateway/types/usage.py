@@ -17,7 +17,7 @@ class Usage(TypedDict, closed=True):
     end_date: NotRequired["capo_api_gateway.types.string.String"]
     """<p>The ending date of the usage data.</p>"""
     items: NotRequired["capo_api_gateway.types.map_of_key_usages.MapOfKeyUsages"]
-    r"""<p>The usage data, as daily logs of used and remaining quotas, over the specified time interval indexed over the API keys in a usage plan. For example, <code>{..., \"values\" : { \"{api_key}\" : [ [0, 100], [10, 90], [100, 10]]}</code>, where <code>{api_key}</code> stands for an API key value and the daily log entry is of the format <code>[used quota, remaining quota]</code>.</p>"""
+    """<p>The usage data, as daily logs of used and remaining quotas, over the specified time interval indexed over the API keys in a usage plan. For example, <code>{..., "values" : { "{api_key}" : [ [0, 100], [10, 90], [100, 10]]}</code>, where <code>{api_key}</code> stands for an API key value and the daily log entry is of the format <code>[used quota, remaining quota]</code>.</p>"""
     position: NotRequired["capo_api_gateway.types.string.String"]
     """<p>The current pagination position in the paged result set.</p>"""
 

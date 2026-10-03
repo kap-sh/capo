@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class PendingLogDeliveryConfiguration(TypedDict, closed=True):
     log_type: NotRequired["capo_elasticache.types.log_type.LogType"]
-    r"""<p>Refers to <a href=\"https://redis.io/commands/slowlog\">slow-log</a> or engine-log..</p>"""
+    """<p>Refers to <a href="https://redis.io/commands/slowlog">slow-log</a> or engine-log..</p>"""
     destination_type: NotRequired[
         "capo_elasticache.types.destination_type.DestinationType"
     ]

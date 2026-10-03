@@ -13,7 +13,7 @@ class InputLambdaProcessorUpdate(TypedDict, closed=True):
     resource_arn_update: NotRequired[
         "capo_kinesis_analytics.types.resource_arn.ResourceARN"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of the new <a href=\"https://docs.aws.amazon.com/lambda/\">AWS Lambda</a> function that is used to preprocess the records in the stream.</p> <note> <p>To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the Lambda function ARN. For more information about Lambda ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda\">Example ARNs: AWS Lambda</a> </p> </note>"""
+    """<p>The Amazon Resource Name (ARN) of the new <a href="https://docs.aws.amazon.com/lambda/">AWS Lambda</a> function that is used to preprocess the records in the stream.</p> <note> <p>To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the Lambda function ARN. For more information about Lambda ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a> </p> </note>"""
     role_arn_update: NotRequired["capo_kinesis_analytics.types.role_arn.RoleARN"]
     """<p>The ARN of the new IAM role that is used to access the AWS Lambda function.</p>"""
 

@@ -79,13 +79,13 @@ class GatewayTargetResource:
             "capo_bedrock_agentcore_control.types.private_endpoint.PrivateEndpoint"
         ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_gateway_target_response.CreateGatewayTargetResponse":
-        r"""<p>Creates a target for a gateway. A target defines an endpoint that the gateway can connect to.</p>
+        """<p>Creates a target for a gateway. A target defines an endpoint that the gateway can connect to.</p>
 
         Args:
             gateway_identifier: <p>The identifier of the gateway to create a target for.</p>
             name: <p>The name of the gateway target. The name must be unique within the gateway.</p>
             description: <p>The description of the gateway target.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             target_configuration: <p>The configuration settings for the target, including endpoint information and schema definitions.</p>
             credential_provider_configurations: <p>The credential provider configurations for the target. These configurations specify how the gateway authenticates with the target endpoint.</p>
             metadata_configuration: <p>Optional configuration for HTTP header and query parameter propagation to and from the gateway target.</p>
@@ -473,13 +473,13 @@ class AsyncGatewayTargetResource:
             "capo_bedrock_agentcore_control.types.private_endpoint.PrivateEndpoint"
         ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_gateway_target_response.CreateGatewayTargetResponse":
-        r"""<p>Creates a target for a gateway. A target defines an endpoint that the gateway can connect to.</p>
+        """<p>Creates a target for a gateway. A target defines an endpoint that the gateway can connect to.</p>
 
         Args:
             gateway_identifier: <p>The identifier of the gateway to create a target for.</p>
             name: <p>The name of the gateway target. The name must be unique within the gateway.</p>
             description: <p>The description of the gateway target.</p>
-            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             target_configuration: <p>The configuration settings for the target, including endpoint information and schema definitions.</p>
             credential_provider_configurations: <p>The credential provider configurations for the target. These configurations specify how the gateway authenticates with the target endpoint.</p>
             metadata_configuration: <p>Optional configuration for HTTP header and query parameter propagation to and from the gateway target.</p>

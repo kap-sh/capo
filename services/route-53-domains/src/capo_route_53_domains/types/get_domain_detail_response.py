@@ -44,11 +44,11 @@ class GetDomainDetailResponse(TypedDict, closed=True):
     ]
     """<p>Provides details about the domain technical contact.</p>"""
     admin_privacy: NotRequired["capo_route_53_domains.types.boolean.Boolean"]
-    r"""<p>Specifies whether contact information is concealed from WHOIS queries. If the value is <code>true</code>, WHOIS (\"who is\") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If the value is <code>false</code>, WHOIS queries return the information that you entered for the admin contact.</p>"""
+    """<p>Specifies whether contact information is concealed from WHOIS queries. If the value is <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If the value is <code>false</code>, WHOIS queries return the information that you entered for the admin contact.</p>"""
     registrant_privacy: NotRequired["capo_route_53_domains.types.boolean.Boolean"]
-    r"""<p>Specifies whether contact information is concealed from WHOIS queries. If the value is <code>true</code>, WHOIS (\"who is\") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If the value is <code>false</code>, WHOIS queries return the information that you entered for the registrant contact (domain owner).</p>"""
+    """<p>Specifies whether contact information is concealed from WHOIS queries. If the value is <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If the value is <code>false</code>, WHOIS queries return the information that you entered for the registrant contact (domain owner).</p>"""
     tech_privacy: NotRequired["capo_route_53_domains.types.boolean.Boolean"]
-    r"""<p>Specifies whether contact information is concealed from WHOIS queries. If the value is <code>true</code>, WHOIS (\"who is\") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If the value is <code>false</code>, WHOIS queries return the information that you entered for the technical contact.</p>"""
+    """<p>Specifies whether contact information is concealed from WHOIS queries. If the value is <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If the value is <code>false</code>, WHOIS queries return the information that you entered for the technical contact.</p>"""
     registrar_name: NotRequired[
         "capo_route_53_domains.types.registrar_name.RegistrarName"
     ]
@@ -82,7 +82,7 @@ class GetDomainDetailResponse(TypedDict, closed=True):
     status_list: NotRequired[
         "capo_route_53_domains.types.domain_status_list.DomainStatusList"
     ]
-    r"""<p>An array of domain name status codes, also known as Extensible Provisioning Protocol (EPP) status codes.</p> <p>ICANN, the organization that maintains a central database of domain names, has developed a set of domain name status codes that tell you the status of a variety of operations on a domain name, for example, registering a domain name, transferring a domain name to another registrar, renewing the registration for a domain name, and so on. All registrars use this same set of status codes.</p> <p>For a current list of domain name status codes and an explanation of what each code means, go to the <a href=\"https://www.icann.org/\">ICANN website</a> and search for <code>epp status codes</code>. (Search on the ICANN website; web searches sometimes return an old version of the document.)</p>"""
+    """<p>An array of domain name status codes, also known as Extensible Provisioning Protocol (EPP) status codes.</p> <p>ICANN, the organization that maintains a central database of domain names, has developed a set of domain name status codes that tell you the status of a variety of operations on a domain name, for example, registering a domain name, transferring a domain name to another registrar, renewing the registration for a domain name, and so on. All registrars use this same set of status codes.</p> <p>For a current list of domain name status codes and an explanation of what each code means, go to the <a href="https://www.icann.org/">ICANN website</a> and search for <code>epp status codes</code>. (Search on the ICANN website; web searches sometimes return an old version of the document.)</p>"""
     dnssec_keys: NotRequired[
         "capo_route_53_domains.types.dnssec_key_list.DnssecKeyList"
     ]
@@ -92,7 +92,7 @@ class GetDomainDetailResponse(TypedDict, closed=True):
     ]
     """<p>Provides details about the domain billing contact.</p>"""
     billing_privacy: NotRequired["capo_route_53_domains.types.boolean.Boolean"]
-    r"""<p>Specifies whether contact information is concealed from WHOIS queries. If the value is <code>true</code>, WHOIS (\"who is\") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If the value is <code>false</code>, WHOIS queries return the information that you entered for the billing contact.</p>"""
+    """<p>Specifies whether contact information is concealed from WHOIS queries. If the value is <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If the value is <code>false</code>, WHOIS queries return the information that you entered for the billing contact.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

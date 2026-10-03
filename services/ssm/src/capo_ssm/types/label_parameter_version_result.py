@@ -13,7 +13,7 @@ class LabelParameterVersionResult(TypedDict, closed=True):
     invalid_labels: NotRequired[
         "capo_ssm.types.parameter_label_list.ParameterLabelList"
     ]
-    r"""<p>The label doesn't meet the requirements. For information about parameter label requirements, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html\">Working with parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>The label doesn't meet the requirements. For information about parameter label requirements, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working with parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
     parameter_version: "capo_ssm.types.ps_parameter_version.PSParameterVersion"
     """<p>The version of the parameter that has been labeled.</p>"""
 

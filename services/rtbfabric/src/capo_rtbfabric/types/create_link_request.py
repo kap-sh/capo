@@ -26,7 +26,7 @@ class CreateLinkRequest(TypedDict, closed=True):
     tags: NotRequired["capo_rtbfabric.types.tags_map.TagsMap"]
     """<p>A map of the key-value pairs of the tag or tags to assign to the resource.</p>"""
     log_settings: "capo_rtbfabric.types.link_log_settings.LinkLogSettings"
-    r"""<p>Application log settings for the link. This value is required. Under <code>applicationLogs.sampling</code>, the <code>errorLog</code> and <code>filterLog</code> fields set the percentage of eligible events to log. Valid values range from <code>0</code> through <code>100</code>. To turn off application logs, set both fields to <code>0</code>, as in <code>{\"applicationLogs\":{\"sampling\":{\"errorLog\":0,\"filterLog\":0}}}</code>.</p>"""
+    """<p>Application log settings for the link. This value is required. Under <code>applicationLogs.sampling</code>, the <code>errorLog</code> and <code>filterLog</code> fields set the percentage of eligible events to log. Valid values range from <code>0</code> through <code>100</code>. To turn off application logs, set both fields to <code>0</code>, as in <code>{"applicationLogs":{"sampling":{"errorLog":0,"filterLog":0}}}</code>.</p>"""
     timeout_in_millis: NotRequired[
         "capo_rtbfabric.types.link_timeout_in_millis.LinkTimeoutInMillis"
     ]

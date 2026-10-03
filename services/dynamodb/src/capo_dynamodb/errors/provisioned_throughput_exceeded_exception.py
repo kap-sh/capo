@@ -17,7 +17,7 @@ class ProvisionedThroughputExceededException_(TypedDict, closed=True):
     throttling_reasons: NotRequired[
         "capo_dynamodb.types.throttling_reason_list.ThrottlingReasonList"
     ]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ThrottlingReason.html\">ThrottlingReason</a> that provide detailed diagnostic information about why the request was throttled. </p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ThrottlingReason.html">ThrottlingReason</a> that provide detailed diagnostic information about why the request was throttled. </p>"""
 
 
 # --- awsJson1_0 ser/de ---

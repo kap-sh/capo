@@ -31,7 +31,7 @@ class StartExportTaskRequest(TypedDict, closed=True):
     preferences: NotRequired[
         "capo_application_discovery_service.types.export_preferences.ExportPreferences"
     ]
-    r"""<p> Indicates the type of data that needs to be exported. Only one <a href=\"https://docs.aws.amazon.com/application-discovery/latest/APIReference/API_ExportPreferences.html\">ExportPreferences</a> can be enabled at any time. </p>"""
+    """<p> Indicates the type of data that needs to be exported. Only one <a href="https://docs.aws.amazon.com/application-discovery/latest/APIReference/API_ExportPreferences.html">ExportPreferences</a> can be enabled at any time. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

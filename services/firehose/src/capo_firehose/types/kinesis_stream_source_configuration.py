@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class KinesisStreamSourceConfiguration(TypedDict, closed=True):
     kinesis_stream_arn: "capo_firehose.types.kinesis_stream_arn.KinesisStreamARN"
-    r"""<p>The ARN of the source Kinesis data stream. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams\">Amazon Kinesis Data Streams ARN Format</a>.</p>"""
+    """<p>The ARN of the source Kinesis data stream. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">Amazon Kinesis Data Streams ARN Format</a>.</p>"""
     role_arn: "capo_firehose.types.role_arn.RoleARN"
-    r"""<p>The ARN of the role that provides access to the source Kinesis data stream. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam\">Amazon Web Services Identity and Access Management (IAM) ARN Format</a>.</p>"""
+    """<p>The ARN of the role that provides access to the source Kinesis data stream. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">Amazon Web Services Identity and Access Management (IAM) ARN Format</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

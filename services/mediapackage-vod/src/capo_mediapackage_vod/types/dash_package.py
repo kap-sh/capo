@@ -32,7 +32,7 @@ class DashPackage(TypedDict, closed=True):
     period_triggers: NotRequired[
         "capo_mediapackage_vod.types.__list_of__period_triggers_element.__listOf__PeriodTriggersElement"
     ]
-    r"""A list of triggers that controls when the outgoing Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD) will be partitioned into multiple periods. If empty, the content will not be partitioned into more than one period. If the list contains \"ADS\", new periods will be created where the Asset contains SCTE-35 ad markers."""
+    """A list of triggers that controls when the outgoing Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD) will be partitioned into multiple periods. If empty, the content will not be partitioned into more than one period. If the list contains "ADS", new periods will be created where the Asset contains SCTE-35 ad markers."""
     segment_duration_seconds: NotRequired[
         "capo_mediapackage_vod.types.__integer.__integer"
     ]

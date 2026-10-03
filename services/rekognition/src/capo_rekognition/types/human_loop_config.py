@@ -16,7 +16,7 @@ class HumanLoopConfig(TypedDict, closed=True):
     human_loop_name: "capo_rekognition.types.human_loop_name.HumanLoopName"
     """<p>The name of the human review used for this image. This should be kept unique within a region.</p>"""
     flow_definition_arn: "capo_rekognition.types.flow_definition_arn.FlowDefinitionArn"
-    r"""<p>The Amazon Resource Name (ARN) of the flow definition. You can create a flow definition by using the Amazon Sagemaker <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateFlowDefinition.html\">CreateFlowDefinition</a> Operation. </p>"""
+    """<p>The Amazon Resource Name (ARN) of the flow definition. You can create a flow definition by using the Amazon Sagemaker <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateFlowDefinition.html">CreateFlowDefinition</a> Operation. </p>"""
     data_attributes: NotRequired[
         "capo_rekognition.types.human_loop_data_attributes.HumanLoopDataAttributes"
     ]

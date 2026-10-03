@@ -67,7 +67,7 @@ class RestoreDBClusterFromSnapshotMessage(TypedDict, closed=True):
     serverless_v2_scaling_configuration: NotRequired[
         "capo_neptune.types.serverless_v2_scaling_configuration.ServerlessV2ScalingConfiguration"
     ]
-    r"""<p>Contains the scaling configuration of a Neptune Serverless DB cluster.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html\">Using Amazon Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.</p>"""
+    """<p>Contains the scaling configuration of a Neptune Serverless DB cluster.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.</p>"""
     storage_type: NotRequired["capo_neptune.types.string.String"]
     """<p>Specifies the storage type to be associated with the DB cluster.</p> <p>Valid values: <code>standard</code>, <code>iopt1</code> </p> <p>Default: <code>standard</code> </p>"""
     network_type: NotRequired["capo_neptune.types.string.String"]

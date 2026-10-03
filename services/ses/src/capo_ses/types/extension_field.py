@@ -16,7 +16,7 @@ class ExtensionField(TypedDict, closed=True):
     name: "capo_ses.types.extension_field_name.ExtensionFieldName"
     """<p>The name of the header to add. Must be between 1 and 50 characters, inclusive, and consist of alphanumeric (a-z, A-Z, 0-9) characters and dashes only.</p>"""
     value: "capo_ses.types.extension_field_value.ExtensionFieldValue"
-    r"""<p>The value of the header to add. Must contain 2048 characters or fewer, and must not contain newline characters (\"\r\" or \"\n\").</p>"""
+    r"""<p>The value of the header to add. Must contain 2048 characters or fewer, and must not contain newline characters ("\r" or "\n").</p>"""
 
 
 # --- awsQuery ser/de ---

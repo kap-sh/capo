@@ -34,7 +34,7 @@ class CreateMeetingWithAttendeesRequest(TypedDict, closed=True):
     external_meeting_id: (
         "capo_chime_sdk_meetings.types.external_meeting_id.ExternalMeetingId"
     )
-    r"""<p>The external meeting ID.</p> <p>Pattern: <code>[-_&@+=,(){}\[\]\/«».:|'\"#a-zA-Z0-9À-ÿ\s]*</code> </p> <p>Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix. Case insensitive.</p>"""
+    r"""<p>The external meeting ID.</p> <p>Pattern: <code>[-_&@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code> </p> <p>Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix. Case insensitive.</p>"""
     meeting_features: NotRequired[
         "capo_chime_sdk_meetings.types.meeting_features_configuration.MeetingFeaturesConfiguration"
     ]

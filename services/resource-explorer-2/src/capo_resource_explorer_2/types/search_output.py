@@ -15,7 +15,7 @@ class SearchOutput(TypedDict, closed=True):
     next_token: NotRequired["str"]
     """<p>If present, indicates that more output is available than is included in the current response. Use this value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>. The pagination tokens expire after 24 hours.</p>"""
     view_arn: NotRequired["str"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of the view that this operation used to perform the search.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of the view that this operation used to perform the search.</p>"""
     count: NotRequired["capo_resource_explorer_2.types.resource_count.ResourceCount"]
     """<p>The number of resources that match the query.</p>"""
 

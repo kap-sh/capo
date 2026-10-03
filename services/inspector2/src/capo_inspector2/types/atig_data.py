@@ -19,7 +19,7 @@ class AtigData(TypedDict, closed=True):
     targets: NotRequired["capo_inspector2.types.targets.Targets"]
     """<p>The commercial sectors this vulnerability targets.</p>"""
     ttps: NotRequired["capo_inspector2.types.ttps.Ttps"]
-    r"""<p>The <a href=\"https://attack.mitre.org/\">MITRE ATT&amp;CK</a> tactics, techniques, and procedures (TTPs) associated with vulnerability.</p>"""
+    """<p>The <a href="https://attack.mitre.org/">MITRE ATT&amp;CK</a> tactics, techniques, and procedures (TTPs) associated with vulnerability.</p>"""
 
 
 # --- restJson1 ser/de ---

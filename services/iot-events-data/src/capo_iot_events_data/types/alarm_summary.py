@@ -22,7 +22,7 @@ class AlarmSummary(TypedDict, closed=True):
     ]
     """<p>The version of the alarm model.</p>"""
     key_value: NotRequired["capo_iot_events_data.types.key_value.KeyValue"]
-    r"""<p>The value of the key used as a filter to select only the alarms associated with the <a href=\"https://docs.aws.amazon.com/iotevents/latest/apireference/API_CreateAlarmModel.html#iotevents-CreateAlarmModel-request-key\">key</a>.</p>"""
+    """<p>The value of the key used as a filter to select only the alarms associated with the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_CreateAlarmModel.html#iotevents-CreateAlarmModel-request-key">key</a>.</p>"""
     state_name: NotRequired[
         "capo_iot_events_data.types.alarm_state_name.AlarmStateName"
     ]

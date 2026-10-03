@@ -25,19 +25,19 @@ class S3ParquetSource(TypedDict, closed=True):
     compression_type: NotRequired[
         "capo_glue.types.parquet_compression_type.ParquetCompressionType"
     ]
-    r"""<p>Specifies how the data is compressed. This is generally not necessary if the data has a standard file extension. Possible values are <code>\"gzip\"</code> and <code>\"bzip\"</code>).</p>"""
+    """<p>Specifies how the data is compressed. This is generally not necessary if the data has a standard file extension. Possible values are <code>"gzip"</code> and <code>"bzip"</code>).</p>"""
     exclusions: NotRequired[
         "capo_glue.types.enclosed_in_string_properties.EnclosedInStringProperties"
     ]
-    r"""<p>A string containing a JSON list of Unix-style glob patterns to exclude. For example, \"[\\"**.pdf\\"]\" excludes all PDF files. </p>"""
+    r"""<p>A string containing a JSON list of Unix-style glob patterns to exclude. For example, "[\"**.pdf\"]" excludes all PDF files. </p>"""
     group_size: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>The target group size in bytes. The default is computed based on the input data size and the size of your cluster. When there are fewer than 50,000 input files, <code>\"groupFiles\"</code> must be set to <code>\"inPartition\"</code> for this to take effect.</p>"""
+    """<p>The target group size in bytes. The default is computed based on the input data size and the size of your cluster. When there are fewer than 50,000 input files, <code>"groupFiles"</code> must be set to <code>"inPartition"</code> for this to take effect.</p>"""
     group_files: NotRequired[
         "capo_glue.types.enclosed_in_string_property.EnclosedInStringProperty"
     ]
-    r"""<p>Grouping files is turned on by default when the input contains more than 50,000 files. To turn on grouping with fewer than 50,000 files, set this parameter to \"inPartition\". To disable grouping when there are more than 50,000 files, set this parameter to <code>\"none\"</code>.</p>"""
+    """<p>Grouping files is turned on by default when the input contains more than 50,000 files. To turn on grouping with fewer than 50,000 files, set this parameter to "inPartition". To disable grouping when there are more than 50,000 files, set this parameter to <code>"none"</code>.</p>"""
     recurse: NotRequired["capo_glue.types.boxed_boolean.BoxedBoolean"]
     """<p>If set to true, recursively reads files in all subdirectories under the specified paths.</p>"""
     max_band: NotRequired["capo_glue.types.boxed_non_negative_int.BoxedNonNegativeInt"]

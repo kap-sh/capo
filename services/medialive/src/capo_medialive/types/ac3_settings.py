@@ -35,7 +35,7 @@ class Ac3Settings(TypedDict, closed=True):
     metadata_control: NotRequired[
         "capo_medialive.types.ac3_metadata_control.Ac3MetadataControl"
     ]
-    r"""When set to \"followInput\", encoder metadata will be sourced from the DD, DD+, or DolbyE decoder that supplied this audio data. If audio was not supplied from one of these streams, then the static metadata settings will be used."""
+    """When set to "followInput", encoder metadata will be sourced from the DD, DD+, or DolbyE decoder that supplied this audio data. If audio was not supplied from one of these streams, then the static metadata settings will be used."""
     attenuation_control: NotRequired[
         "capo_medialive.types.ac3_attenuation_control.Ac3AttenuationControl"
     ]

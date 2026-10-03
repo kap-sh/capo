@@ -22,7 +22,7 @@ class GetVehicleResponse(TypedDict, closed=True):
     decoder_manifest_arn: NotRequired["capo_iotfleetwise.types.arn.arn"]
     """<p> The ARN of a decoder manifest associated with the vehicle. </p>"""
     attributes: NotRequired["capo_iotfleetwise.types.attributes_map.attributesMap"]
-    r"""<p>Static information about a vehicle in a key-value pair. For example:</p> <p> <code>\"engineType\"</code> : <code>\"1.3 L R2\"</code> </p>"""
+    """<p>Static information about a vehicle in a key-value pair. For example:</p> <p> <code>"engineType"</code> : <code>"1.3 L R2"</code> </p>"""
     state_templates: NotRequired[
         "capo_iotfleetwise.types.state_template_associations.StateTemplateAssociations"
     ]

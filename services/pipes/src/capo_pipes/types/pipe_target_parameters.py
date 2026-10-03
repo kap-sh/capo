@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 class PipeTargetParameters(TypedDict, closed=True):
     input_template: NotRequired["capo_pipes.types.input_template.InputTemplate"]
-    r"""<p>Valid JSON text passed to the target. In this case, nothing from the event itself is passed to the target. For more information, see <a href=\"http://www.rfc-editor.org/rfc/rfc7159.txt\">The JavaScript Object Notation (JSON) Data Interchange Format</a>.</p> <p>To remove an input template, specify an empty string.</p>"""
+    """<p>Valid JSON text passed to the target. In this case, nothing from the event itself is passed to the target. For more information, see <a href="http://www.rfc-editor.org/rfc/rfc7159.txt">The JavaScript Object Notation (JSON) Data Interchange Format</a>.</p> <p>To remove an input template, specify an empty string.</p>"""
     lambda_function_parameters: NotRequired[
         "capo_pipes.types.pipe_target_lambda_function_parameters.PipeTargetLambdaFunctionParameters"
     ]

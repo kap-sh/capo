@@ -19,9 +19,9 @@ class VerifyDevicePositionResponse(TypedDict, closed=True):
     device_id: "capo_location.types.id.Id"
     """<p>The device identifier.</p>"""
     sample_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp at which the device's position was determined. Uses <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601 </a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp at which the device's position was determined. Uses <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601 </a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
     received_time: "capo_location.types.timestamp.Timestamp"
-    r"""<p>The timestamp for when the tracker resource received the device position in <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\"> ISO 8601 </a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
+    """<p>The timestamp for when the tracker resource received the device position in <a href="https://www.iso.org/iso-8601-date-and-time-format.html"> ISO 8601 </a> format: <code>YYYY-MM-DDThh:mm:ss.sssZ</code>. </p>"""
     distance_unit: "capo_location.types.distance_unit.DistanceUnit"
     """<p>The distance unit for the verification response.</p>"""
 

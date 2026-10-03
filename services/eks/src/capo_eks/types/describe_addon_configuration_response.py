@@ -13,7 +13,7 @@ class DescribeAddonConfigurationResponse(TypedDict, closed=True):
     addon_name: NotRequired["capo_eks.types.string.String"]
     """<p>The name of the add-on.</p>"""
     addon_version: NotRequired["capo_eks.types.string.String"]
-    r"""<p>The version of the add-on. The version must match one of the versions returned by <a href=\"https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html\"> <code>DescribeAddonVersions</code> </a>.</p>"""
+    """<p>The version of the add-on. The version must match one of the versions returned by <a href="https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html"> <code>DescribeAddonVersions</code> </a>.</p>"""
     configuration_schema: NotRequired["capo_eks.types.string.String"]
     """<p>A JSON schema that's used to validate the configuration values you provide when an add-on is created or updated.</p>"""
     pod_identity_configuration: NotRequired[

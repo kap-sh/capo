@@ -29,7 +29,7 @@ class SnowflakeDestinationDescription(TypedDict, closed=True):
     account_url: NotRequired[
         "capo_firehose.types.snowflake_account_url.SnowflakeAccountUrl"
     ]
-    r"""<p>URL for accessing your Snowflake account. This URL must include your <a href=\"https://docs.snowflake.com/en/user-guide/admin-account-identifier\">account identifier</a>. Note that the protocol (https://) and port number are optional.</p>"""
+    """<p>URL for accessing your Snowflake account. This URL must include your <a href="https://docs.snowflake.com/en/user-guide/admin-account-identifier">account identifier</a>. Note that the protocol (https://) and port number are optional.</p>"""
     user: NotRequired["capo_firehose.types.snowflake_user.SnowflakeUser"]
     """<p>User login name for the Snowflake account.</p>"""
     database: NotRequired["capo_firehose.types.snowflake_database.SnowflakeDatabase"]
@@ -57,7 +57,7 @@ class SnowflakeDestinationDescription(TypedDict, closed=True):
     snowflake_vpc_configuration: NotRequired[
         "capo_firehose.types.snowflake_vpc_configuration.SnowflakeVpcConfiguration"
     ]
-    r"""<p>The VPCE ID for Firehose to privately connect with Snowflake. The ID format is com.amazonaws.vpce.[region].vpce-svc-<[id]>. For more information, see <a href=\"https://docs.snowflake.com/en/user-guide/admin-security-privatelink\">Amazon PrivateLink & Snowflake</a> </p>"""
+    """<p>The VPCE ID for Firehose to privately connect with Snowflake. The ID format is com.amazonaws.vpce.[region].vpce-svc-<[id]>. For more information, see <a href="https://docs.snowflake.com/en/user-guide/admin-security-privatelink">Amazon PrivateLink & Snowflake</a> </p>"""
     cloud_watch_logging_options: NotRequired[
         "capo_firehose.types.cloud_watch_logging_options.CloudWatchLoggingOptions"
     ]

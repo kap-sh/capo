@@ -31,9 +31,9 @@ class ScheduledUpdateGroupAction(TypedDict, closed=True):
     time: NotRequired["capo_auto_scaling.types.timestamp_type.TimestampType"]
     """<p>This property is no longer used.</p>"""
     start_time: NotRequired["capo_auto_scaling.types.timestamp_type.TimestampType"]
-    r"""<p>The date and time in UTC for this action to start. For example, <code>\"2019-06-01T00:00:00Z\"</code>. </p>"""
+    """<p>The date and time in UTC for this action to start. For example, <code>"2019-06-01T00:00:00Z"</code>. </p>"""
     end_time: NotRequired["capo_auto_scaling.types.timestamp_type.TimestampType"]
-    r"""<p>The date and time in UTC for the recurring schedule to end. For example, <code>\"2019-06-01T00:00:00Z\"</code>. </p>"""
+    """<p>The date and time in UTC for the recurring schedule to end. For example, <code>"2019-06-01T00:00:00Z"</code>. </p>"""
     recurrence: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len255.XmlStringMaxLen255"
     ]

@@ -26,7 +26,7 @@ class CreateReplicationInstanceMessage(TypedDict, closed=True):
     ]
     """<p>The amount of storage (in gigabytes) to be initially allocated for the replication instance.</p>"""
     replication_instance_class: "capo_database_migration_service.types.replication_instance_class.ReplicationInstanceClass"
-    r"""<p>The compute and memory capacity of the replication instance as defined for the specified replication instance class. For example to specify the instance class dms.c4.large, set this parameter to <code>\"dms.c4.large\"</code>.</p> <p>For more information on the settings and capacities for the available replication instance classes, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.Types.html \"> Choosing the right DMS replication instance</a>; and, <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/CHAP_BestPractices.SizingReplicationInstance.html\">Selecting the best size for a replication instance</a>. </p>"""
+    """<p>The compute and memory capacity of the replication instance as defined for the specified replication instance class. For example to specify the instance class dms.c4.large, set this parameter to <code>"dms.c4.large"</code>.</p> <p>For more information on the settings and capacities for the available replication instance classes, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.Types.html "> Choosing the right DMS replication instance</a>; and, <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_BestPractices.SizingReplicationInstance.html">Selecting the best size for a replication instance</a>. </p>"""
     vpc_security_group_ids: NotRequired[
         "capo_database_migration_service.types.vpc_security_group_id_list.VpcSecurityGroupIdList"
     ]
@@ -62,7 +62,7 @@ class CreateReplicationInstanceMessage(TypedDict, closed=True):
     ]
     """<p> Specifies the accessibility options for the replication instance. A value of <code>true</code> represents an instance with a public IP address. A value of <code>false</code> represents an instance with a private IP address. The default value is <code>true</code>. </p>"""
     dns_name_servers: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>A list of custom DNS name servers supported for the replication instance to access your on-premise source or target database. This list overrides the default name servers supported by the replication instance. You can specify a comma-separated list of internet addresses for up to four on-premise DNS name servers. For example: <code>\"1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4\"</code> </p>"""
+    """<p>A list of custom DNS name servers supported for the replication instance to access your on-premise source or target database. This list overrides the default name servers supported by the replication instance. You can specify a comma-separated list of internet addresses for up to four on-premise DNS name servers. For example: <code>"1.1.1.1,2.2.2.2,3.3.3.3,4.4.4.4"</code> </p>"""
     resource_identifier: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]

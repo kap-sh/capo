@@ -39,7 +39,7 @@ class KeyMetadata(TypedDict, closed=True):
     key_id: "capo_kms.types.key_id_type.KeyIdType"
     """<p>The globally unique identifier for the KMS key.</p>"""
     arn: NotRequired["capo_kms.types.arn_type.ArnType"]
-    r"""<p>The Amazon Resource Name (ARN) of the KMS key. For examples, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms\">Key Management Service (KMS)</a> in the Example ARNs section of the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the KMS key. For examples, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Key Management Service (KMS)</a> in the Example ARNs section of the <i>Amazon Web Services General Reference</i>.</p>"""
     creation_date: NotRequired["capo_kms.types.date_type.DateType"]
     """<p>The date and time when the KMS key was created.</p>"""
     enabled: "capo_kms.types.boolean_type.BooleanType"
@@ -47,9 +47,9 @@ class KeyMetadata(TypedDict, closed=True):
     description: NotRequired["capo_kms.types.description_type.DescriptionType"]
     """<p>The description of the KMS key.</p>"""
     key_usage: NotRequired["capo_kms.types.key_usage_type.KeyUsageType"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/kms-cryptography.html#cryptographic-operations\">cryptographic operations</a> for which you can use the KMS key.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/kms/latest/developerguide/kms-cryptography.html#cryptographic-operations">cryptographic operations</a> for which you can use the KMS key.</p>"""
     key_state: NotRequired["capo_kms.types.key_state.KeyState"]
-    r"""<p>The current status of the KMS key.</p> <p>For more information about how key state affects the use of a KMS key, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html\">Key states of KMS keys</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>The current status of the KMS key.</p> <p>For more information about how key state affects the use of a KMS key, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">Key states of KMS keys</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
     deletion_date: NotRequired["capo_kms.types.date_type.DateType"]
     """<p>The date and time after which KMS deletes this KMS key. This value is present only when the KMS key is scheduled for deletion, that is, when its <code>KeyState</code> is <code>PendingDeletion</code>.</p> <p>When the primary key in a multi-Region key is scheduled for deletion but still has replica keys, its key state is <code>PendingReplicaDeletion</code> and the length of its waiting period is displayed in the <code>PendingDeletionWindowInDays</code> field.</p>"""
     valid_to: NotRequired["capo_kms.types.date_type.DateType"]
@@ -59,17 +59,17 @@ class KeyMetadata(TypedDict, closed=True):
     custom_key_store_id: NotRequired[
         "capo_kms.types.custom_key_store_id_type.CustomKeyStoreIdType"
     ]
-    r"""<p>A unique identifier for the <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html\">custom key store</a> that contains the KMS key. This field is present only when the KMS key is created in a custom key store.</p>"""
+    """<p>A unique identifier for the <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html">custom key store</a> that contains the KMS key. This field is present only when the KMS key is created in a custom key store.</p>"""
     cloud_hsm_cluster_id: NotRequired[
         "capo_kms.types.cloud_hsm_cluster_id_type.CloudHsmClusterIdType"
     ]
-    r"""<p>The cluster ID of the CloudHSM cluster that contains the key material for the KMS key. When you create a KMS key in an CloudHSM <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html\">custom key store</a>, KMS creates the key material for the KMS key in the associated CloudHSM cluster. This field is present only when the KMS key is created in an CloudHSM key store.</p>"""
+    """<p>The cluster ID of the CloudHSM cluster that contains the key material for the KMS key. When you create a KMS key in an CloudHSM <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html">custom key store</a>, KMS creates the key material for the KMS key in the associated CloudHSM cluster. This field is present only when the KMS key is created in an CloudHSM key store.</p>"""
     expiration_model: NotRequired[
         "capo_kms.types.expiration_model_type.ExpirationModelType"
     ]
     """<p>Specifies whether the KMS key's key material expires. This value is present only when <code>Origin</code> is <code>EXTERNAL</code>, otherwise this value is omitted.</p>"""
     key_manager: NotRequired["capo_kms.types.key_manager_type.KeyManagerType"]
-    r"""<p>The manager of the KMS key. KMS keys in your Amazon Web Services account are either customer managed or Amazon Web Services managed. For more information about the difference, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms_keys\">KMS keys</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>The manager of the KMS key. KMS keys in your Amazon Web Services account are either customer managed or Amazon Web Services managed. For more information about the difference, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms_keys">KMS keys</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
     customer_master_key_spec: NotRequired[
         "capo_kms.types.customer_master_key_spec.CustomerMasterKeySpec"
     ]
@@ -91,7 +91,7 @@ class KeyMetadata(TypedDict, closed=True):
     multi_region: NotRequired[
         "capo_kms.types.nullable_boolean_type.NullableBooleanType"
     ]
-    r"""<p>Indicates whether the KMS key is a multi-Region (<code>True</code>) or regional (<code>False</code>) key. This value is <code>True</code> for multi-Region primary and replica keys and <code>False</code> for regional KMS keys.</p> <p>For more information about multi-Region keys, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html\">Multi-Region keys in KMS</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>Indicates whether the KMS key is a multi-Region (<code>True</code>) or regional (<code>False</code>) key. This value is <code>True</code> for multi-Region primary and replica keys and <code>False</code> for regional KMS keys.</p> <p>For more information about multi-Region keys, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html">Multi-Region keys in KMS</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
     multi_region_configuration: NotRequired[
         "capo_kms.types.multi_region_configuration.MultiRegionConfiguration"
     ]
@@ -107,7 +107,7 @@ class KeyMetadata(TypedDict, closed=True):
     xks_key_configuration: NotRequired[
         "capo_kms.types.xks_key_configuration_type.XksKeyConfigurationType"
     ]
-    r"""<p>Information about the external key that is associated with a KMS key in an external key store.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key\">External key</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>Information about the external key that is associated with a KMS key in an external key store.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html#concept-external-key">External key</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
     current_key_material_id: NotRequired[
         "capo_kms.types.backing_key_id_type.BackingKeyIdType"
     ]

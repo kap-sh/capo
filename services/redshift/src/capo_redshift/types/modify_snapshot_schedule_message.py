@@ -17,7 +17,7 @@ class ModifySnapshotScheduleMessage(TypedDict, closed=True):
     schedule_definitions: NotRequired[
         "capo_redshift.types.schedule_definition_list.ScheduleDefinitionList"
     ]
-    r"""<p>An updated list of schedule definitions. A schedule definition is made up of schedule expressions, for example, \"cron(30 12 *)\" or \"rate(12 hours)\".</p>"""
+    """<p>An updated list of schedule definitions. A schedule definition is made up of schedule expressions, for example, "cron(30 12 *)" or "rate(12 hours)".</p>"""
 
 
 # --- awsQuery ser/de ---

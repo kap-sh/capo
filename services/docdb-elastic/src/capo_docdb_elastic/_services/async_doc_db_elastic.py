@@ -327,13 +327,13 @@ class AsyncDocDBElasticClient:
         preferred_backup_window: Optional[str] = None,
         shard_instance_count: Optional[int] = None,
     ) -> "capo_docdb_elastic.types.create_cluster_output.CreateClusterOutput":
-        r"""<p>Creates a new Amazon DocumentDB elastic cluster and returns its cluster structure.</p>
+        """<p>Creates a new Amazon DocumentDB elastic cluster and returns its cluster structure.</p>
 
         Args:
             cluster_name: <p>The name of the new elastic cluster. This parameter is stored as a lowercase string.</p> <p> <i>Constraints</i>:</p> <ul> <li> <p>Must contain from 1 to 63 letters, numbers, or hyphens.</p> </li> <li> <p>The first character must be a letter.</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive hyphens.</p> </li> </ul> <p> <i>Example</i>: <code>my-cluster</code> </p>
             auth_type: <p>The authentication type used to determine where to fetch the password used for accessing the elastic cluster. Valid types are <code>PLAIN_TEXT</code> or <code>SECRET_ARN</code>.</p>
             admin_user_name: <p>The name of the Amazon DocumentDB elastic clusters administrator.</p> <p> <i>Constraints</i>:</p> <ul> <li> <p>Must be from 1 to 63 letters or numbers.</p> </li> <li> <p>The first character must be a letter.</p> </li> <li> <p>Cannot be a reserved word.</p> </li> </ul>
-            admin_user_password: <p>The password for the Amazon DocumentDB elastic clusters administrator. The password can contain any printable ASCII characters.</p> <p> <i>Constraints</i>:</p> <ul> <li> <p>Must contain from 8 to 100 characters.</p> </li> <li> <p>Cannot contain a forward slash (/), double quote (\"), or the \"at\" symbol (@).</p> </li> </ul>
+            admin_user_password: <p>The password for the Amazon DocumentDB elastic clusters administrator. The password can contain any printable ASCII characters.</p> <p> <i>Constraints</i>:</p> <ul> <li> <p>Must contain from 8 to 100 characters.</p> </li> <li> <p>Cannot contain a forward slash (/), double quote ("), or the "at" symbol (@).</p> </li> </ul>
             shard_capacity: <p>The number of vCPUs assigned to each elastic cluster shard. Maximum is 64. Allowed values are 2, 4, 8, 16, 32, 64.</p>
             shard_count: <p>The number of shards assigned to the elastic cluster. Maximum is 32.</p>
             vpc_security_group_ids: <p>A list of EC2 VPC security groups to associate with the new elastic cluster.</p>
@@ -1305,7 +1305,7 @@ class AsyncDocDBElasticClient:
         preferred_backup_window: Optional[str] = None,
         shard_instance_count: Optional[int] = None,
     ) -> "capo_docdb_elastic.types.update_cluster_output.UpdateClusterOutput":
-        r"""<p>Modifies an elastic cluster. This includes updating admin-username/password, upgrading the API version, and setting up a backup window and maintenance window</p>
+        """<p>Modifies an elastic cluster. This includes updating admin-username/password, upgrading the API version, and setting up a backup window and maintenance window</p>
 
         Args:
             cluster_arn: <p>The ARN identifier of the elastic cluster.</p>
@@ -1314,7 +1314,7 @@ class AsyncDocDBElasticClient:
             shard_count: <p>The number of shards assigned to the elastic cluster. Maximum is 32.</p>
             vpc_security_group_ids: <p>A list of EC2 VPC security groups to associate with the elastic cluster.</p>
             subnet_ids: <p>The Amazon EC2 subnet IDs for the elastic cluster.</p>
-            admin_user_password: <p>The password associated with the elastic cluster administrator. This password can contain any printable ASCII character except forward slash (/), double quote (\"), or the \"at\" symbol (@).</p> <p> <i>Constraints</i>: Must contain from 8 to 100 characters.</p>
+            admin_user_password: <p>The password associated with the elastic cluster administrator. This password can contain any printable ASCII character except forward slash (/), double quote ("), or the "at" symbol (@).</p> <p> <i>Constraints</i>: Must contain from 8 to 100 characters.</p>
             client_token: <p>The client token for the elastic cluster.</p>
             preferred_maintenance_window: <p>The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</p> <p> <i>Format</i>: <code>ddd:hh24:mi-ddd:hh24:mi</code> </p> <p> <i>Default</i>: a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services Region, occurring on a random day of the week.</p> <p> <i>Valid days</i>: Mon, Tue, Wed, Thu, Fri, Sat, Sun</p> <p> <i>Constraints</i>: Minimum 30-minute window.</p>
             backup_retention_period: <p>The number of days for which automatic snapshots are retained.</p>

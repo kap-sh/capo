@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class AcceptDomainTransferFromAnotherAwsAccountRequest(TypedDict, closed=True):
     domain_name: "capo_route_53_domains.types.domain_name.DomainName"
-    r"""<p>The name of the domain that was specified when another Amazon Web Services account submitted a <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html\">TransferDomainToAnotherAwsAccount</a> request. </p>"""
+    """<p>The name of the domain that was specified when another Amazon Web Services account submitted a <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html">TransferDomainToAnotherAwsAccount</a> request. </p>"""
     password: "capo_route_53_domains.types.password.Password"
-    r"""<p>The password that was returned by the <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html\">TransferDomainToAnotherAwsAccount</a> request. </p>"""
+    """<p>The password that was returned by the <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html">TransferDomainToAnotherAwsAccount</a> request. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -16,7 +16,7 @@ class UpdatePolicyStoreOutput(TypedDict, closed=True):
     policy_store_id: "capo_verifiedpermissions.types.policy_store_id.PolicyStoreId"
     """<p>The ID of the updated policy store.</p>"""
     arn: "capo_verifiedpermissions.types.resource_arn.ResourceArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the updated policy store.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the updated policy store.</p>"""
     created_date: "capo_verifiedpermissions.types.timestamp_format.TimestampFormat"
     """<p>The date and time that the policy store was originally created.</p>"""
     last_updated_date: "capo_verifiedpermissions.types.timestamp_format.TimestampFormat"

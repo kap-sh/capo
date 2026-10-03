@@ -46,7 +46,7 @@ class ParameterHistory(TypedDict, closed=True):
     tier: NotRequired["capo_ssm.types.parameter_tier.ParameterTier"]
     """<p>The parameter tier.</p>"""
     policies: NotRequired["capo_ssm.types.parameter_policy_list.ParameterPolicyList"]
-    r"""<p>Information about the policies assigned to a parameter.</p> <p> <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html\">Assigning parameter policies</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>Information about the policies assigned to a parameter.</p> <p> <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html">Assigning parameter policies</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
     data_type: NotRequired["capo_ssm.types.parameter_data_type.ParameterDataType"]
     """<p>The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is <code>text</code>.</p>"""
 

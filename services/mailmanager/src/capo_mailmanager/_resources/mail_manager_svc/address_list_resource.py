@@ -54,12 +54,12 @@ class AddressListResource:
     ) -> (
         "capo_mailmanager.types.create_address_list_response.CreateAddressListResponse"
     ):
-        r"""<p>Creates a new address list.</p>
+        """<p>Creates a new address list.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             address_list_name: <p>A user-friendly name for the address list.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.access_denied_exception.AccessDeniedException: <p>Occurs when a user is denied access to a specific resource or action.</p>
@@ -264,12 +264,12 @@ class AsyncAddressListResource:
     ) -> (
         "capo_mailmanager.types.create_address_list_response.CreateAddressListResponse"
     ):
-        r"""<p>Creates a new address list.</p>
+        """<p>Creates a new address list.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             address_list_name: <p>A user-friendly name for the address list.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.access_denied_exception.AccessDeniedException: <p>Occurs when a user is denied access to a specific resource or action.</p>

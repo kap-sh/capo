@@ -596,7 +596,7 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.nullable_boolean.NullableBoolean"
         ] = None,
     ) -> "capo_api_gateway.types.deployment.Deployment":
-        r"""<p>Creates a Deployment resource, which makes a specified RestApi callable over the internet.</p>
+        """<p>Creates a Deployment resource, which makes a specified RestApi callable over the internet.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
@@ -604,7 +604,7 @@ class AsyncAPIGatewayClient:
             stage_description: <p>The description of the Stage resource for the Deployment resource to create.</p>
             description: <p>The description for the Deployment resource to create.</p>
             cache_cluster_enabled: <p>Enables a cache cluster for the Stage resource specified in the input.</p>
-            cache_cluster_size: <p>The stage's cache capacity in GB. For more information about choosing a cache size, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html\">Enabling API caching to enhance responsiveness</a>.</p>
+            cache_cluster_size: <p>The stage's cache capacity in GB. For more information about choosing a cache size, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API caching to enhance responsiveness</a>.</p>
             variables: <p>A map that defines the stage variables for the Stage resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match <code>[A-Za-z0-9-._~:/?#&=,]+</code>.</p>
             canary_settings: <p>The input configuration for the canary deployment when the deployment is a canary release deployment. </p>
             tracing_enabled: <p>Specifies whether active tracing with X-ray is enabled for the Stage.</p>
@@ -1279,7 +1279,7 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.map_of_string_to_string.MapOfStringToString"
         ] = None,
     ) -> "capo_api_gateway.types.stage.Stage":
-        r"""<p>Creates a new Stage resource that references a pre-existing Deployment for the API. </p>
+        """<p>Creates a new Stage resource that references a pre-existing Deployment for the API. </p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
@@ -1287,7 +1287,7 @@ class AsyncAPIGatewayClient:
             deployment_id: <p>The identifier of the Deployment resource for the Stage resource.</p>
             description: <p>The description of the Stage resource.</p>
             cache_cluster_enabled: <p>Whether cache clustering is enabled for the stage.</p>
-            cache_cluster_size: <p>The stage's cache capacity in GB. For more information about choosing a cache size, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html\">Enabling API caching to enhance responsiveness</a>.</p>
+            cache_cluster_size: <p>The stage's cache capacity in GB. For more information about choosing a cache size, see <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API caching to enhance responsiveness</a>.</p>
             variables: <p>A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match <code>[A-Za-z0-9-._~:/?#&=,]+</code>.</p>
             documentation_version: <p>The version of the associated API documentation.</p>
             canary_settings: <p>The canary deployment settings of this stage.</p>
@@ -3333,12 +3333,12 @@ class AsyncAPIGatewayClient:
         config_overrides: Optional[AsyncAPIGatewayClientConfig] = None,
         embed: Optional["capo_api_gateway.types.list_of_string.ListOfString"] = None,
     ) -> "capo_api_gateway.types.deployment.Deployment":
-        r"""<p>Gets information about a Deployment resource.</p>
+        """<p>Gets information about a Deployment resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             deployment_id: <p>The identifier of the Deployment resource to get information about.</p>
-            embed: <p>A query parameter to retrieve the specified embedded resources of the returned Deployment resource in the response. In a REST API call, this <code>embed</code> parameter value is a list of comma-separated strings, as in <code>GET /restapis/{restapi_id}/deployments/{deployment_id}?embed=var1,var2</code>. The SDK and other platform-dependent libraries might use a different format for the list. Currently, this request supports only retrieval of the embedded API summary this way. Hence, the parameter value must be a single-valued list containing only the <code>\"apisummary\"</code> string. For example, <code>GET /restapis/{restapi_id}/deployments/{deployment_id}?embed=apisummary</code>.</p>
+            embed: <p>A query parameter to retrieve the specified embedded resources of the returned Deployment resource in the response. In a REST API call, this <code>embed</code> parameter value is a list of comma-separated strings, as in <code>GET /restapis/{restapi_id}/deployments/{deployment_id}?embed=var1,var2</code>. The SDK and other platform-dependent libraries might use a different format for the list. Currently, this request supports only retrieval of the embedded API summary this way. Hence, the parameter value must be a single-valued list containing only the <code>"apisummary"</code> string. For example, <code>GET /restapis/{restapi_id}/deployments/{deployment_id}?embed=apisummary</code>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -4563,12 +4563,12 @@ class AsyncAPIGatewayClient:
         config_overrides: Optional[AsyncAPIGatewayClientConfig] = None,
         embed: Optional["capo_api_gateway.types.list_of_string.ListOfString"] = None,
     ) -> "capo_api_gateway.types.resource.Resource":
-        r"""<p>Lists information about a resource.</p>
+        """<p>Lists information about a resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             resource_id: <p>The identifier for the Resource resource.</p>
-            embed: <p>A query parameter to retrieve the specified resources embedded in the returned Resource representation in the response. This <code>embed</code> parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the <code>\"methods\"</code> string. For example, <code>GET /restapis/{restapi_id}/resources/{resource_id}?embed=methods</code>.</p>
+            embed: <p>A query parameter to retrieve the specified resources embedded in the returned Resource representation in the response. This <code>embed</code> parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the <code>"methods"</code> string. For example, <code>GET /restapis/{restapi_id}/resources/{resource_id}?embed=methods</code>.</p>
 
         Raises:
             capo_api_gateway.errors.not_found_exception.NotFoundException: <p>The requested resource is not found. Make sure that the request URI is correct.</p>
@@ -4617,13 +4617,13 @@ class AsyncAPIGatewayClient:
         ] = None,
         embed: Optional["capo_api_gateway.types.list_of_string.ListOfString"] = None,
     ) -> "capo_api_gateway.types.resources.Resources":
-        r"""<p>Lists information about a collection of Resource resources.</p>
+        """<p>Lists information about a collection of Resource resources.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             position: <p>The current pagination position in the paged result set.</p>
             limit: <p>The maximum number of returned results per page. The default value is 25 and the maximum value is 500.</p>
-            embed: <p>A query parameter used to retrieve the specified resources embedded in the returned Resources resource in the response. This <code>embed</code> parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the <code>\"methods\"</code> string. For example, <code>GET /restapis/{restapi_id}/resources?embed=methods</code>.</p>
+            embed: <p>A query parameter used to retrieve the specified resources embedded in the returned Resources resource in the response. This <code>embed</code> parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the <code>"methods"</code> string. For example, <code>GET /restapis/{restapi_id}/resources?embed=methods</code>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6222,11 +6222,11 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.map_of_string_to_string.MapOfStringToString"
         ] = None,
     ) -> "capo_api_gateway.types.rest_api.RestApi":
-        r"""<p>A feature of the API Gateway control service for updating an existing API with an input of external API definitions. The update can take the form of merging the supplied definition into the existing API or overwriting the existing API.</p>
+        """<p>A feature of the API Gateway control service for updating an existing API with an input of external API definitions. The update can take the form of merging the supplied definition into the existing API or overwriting the existing API.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
-            mode: <p>The <code>mode</code> query parameter to specify the update mode. Valid values are \"merge\" and \"overwrite\". By default, the update mode is \"merge\".</p>
+            mode: <p>The <code>mode</code> query parameter to specify the update mode. Valid values are "merge" and "overwrite". By default, the update mode is "merge".</p>
             fail_on_warnings: <p>A query parameter to indicate whether to rollback the API update (<code>true</code>) or not (<code>false</code>) when a warning is encountered. The default value is <code>false</code>.</p>
             parameters: <p>Custom header parameters as part of the request. For example, to exclude DocumentationParts from an imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS CLI command of <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>.</p>
             body: <p>The PUT request body containing external API definitions. Currently, only OpenAPI definition JSON/YAML files are supported. The maximum size of the API definition file is 6MB.</p>
@@ -6596,10 +6596,10 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.account.Account":
-        r"""<p>Changes information about the current Account resource.</p>
+        """<p>Changes information about the current Account resource.</p>
 
         Args:
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6646,11 +6646,11 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.api_key.ApiKey":
-        r"""<p>Changes information about an ApiKey resource.</p>
+        """<p>Changes information about an ApiKey resource.</p>
 
         Args:
             api_key: <p>The identifier of the ApiKey resource to be updated.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6700,12 +6700,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.authorizer.Authorizer":
-        r"""<p>Updates an existing Authorizer resource.</p>
+        """<p>Updates an existing Authorizer resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             authorizer_id: <p>The identifier of the Authorizer resource.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6757,13 +6757,13 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.base_path_mapping.BasePathMapping":
-        r"""<p>Changes information about the BasePathMapping resource.</p>
+        """<p>Changes information about the BasePathMapping resource.</p>
 
         Args:
             domain_name: <p>The domain name of the BasePathMapping resource to change.</p>
             domain_name_id: <p> The identifier for the domain name resource. Supported only for private custom domain names. </p>
             base_path: <p>The base path of the BasePathMapping resource to change.</p> <p>To specify an empty base path, set this parameter to <code>'(none)'</code>.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6817,11 +6817,11 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.client_certificate.ClientCertificate":
-        r"""<p>Changes information about an ClientCertificate resource.</p>
+        """<p>Changes information about an ClientCertificate resource.</p>
 
         Args:
             client_certificate_id: <p>The identifier of the ClientCertificate resource to be updated.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6873,12 +6873,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.deployment.Deployment":
-        r"""<p>Changes information about a Deployment resource.</p>
+        """<p>Changes information about a Deployment resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             deployment_id: <p>The replacement identifier for the Deployment resource to change information about.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6930,12 +6930,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.documentation_part.DocumentationPart":
-        r"""<p>Updates a documentation part.</p>
+        """<p>Updates a documentation part.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             documentation_part_id: <p>The identifier of the to-be-updated documentation part.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6988,12 +6988,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.documentation_version.DocumentationVersion":
-        r"""<p>Updates a documentation version.</p>
+        """<p>Updates a documentation version.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             documentation_version: <p>The version identifier of the to-be-updated documentation version.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7046,12 +7046,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.domain_name.DomainName":
-        r"""<p>Changes information about the DomainName resource.</p>
+        """<p>Changes information about the DomainName resource.</p>
 
         Args:
             domain_name: <p>The name of the DomainName resource to be changed.</p>
             domain_name_id: <p> The identifier for the domain name resource. Supported only for private custom domain names. </p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7103,12 +7103,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.gateway_response.GatewayResponse":
-        r"""<p>Updates a GatewayResponse of a specified response type on the given RestApi.</p>
+        """<p>Updates a GatewayResponse of a specified response type on the given RestApi.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             response_type: <p>The response type of the associated GatewayResponse.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7162,13 +7162,13 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.integration.Integration":
-        r"""<p>Represents an update integration.</p>
+        """<p>Represents an update integration.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             resource_id: <p>Represents an update integration request's resource identifier.</p>
             http_method: <p>Represents an update integration request's HTTP method.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7222,14 +7222,14 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.integration_response.IntegrationResponse":
-        r"""<p>Represents an update integration response.</p>
+        """<p>Represents an update integration response.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             resource_id: <p>Specifies an update integration response request's resource identifier.</p>
             http_method: <p>Specifies an update integration response request's HTTP method.</p>
             status_code: <p>Specifies an update integration response request's status code.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7285,13 +7285,13 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.method.Method":
-        r"""<p>Updates an existing Method resource.</p>
+        """<p>Updates an existing Method resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             resource_id: <p>The Resource identifier for the Method resource.</p>
             http_method: <p>The HTTP verb of the Method resource.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7344,14 +7344,14 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.method_response.MethodResponse":
-        r"""<p>Updates an existing MethodResponse resource.</p>
+        """<p>Updates an existing MethodResponse resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             resource_id: <p>The Resource identifier for the MethodResponse resource.</p>
             http_method: <p>The HTTP verb of the Method resource.</p>
             status_code: <p>The status code for the MethodResponse resource.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7406,12 +7406,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.model.Model":
-        r"""<p>Changes information about a model. The maximum size of the model is 400 KB.</p>
+        """<p>Changes information about a model. The maximum size of the model is 400 KB.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             model_name: <p>The name of the model to update.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7462,12 +7462,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.request_validator.RequestValidator":
-        r"""<p>Updates a RequestValidator of a given RestApi.</p>
+        """<p>Updates a RequestValidator of a given RestApi.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             request_validator_id: <p>The identifier of RequestValidator to be updated.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7520,12 +7520,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.resource.Resource":
-        r"""<p>Changes information about a Resource resource.</p>
+        """<p>Changes information about a Resource resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             resource_id: <p>The identifier of the Resource resource.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7574,11 +7574,11 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.rest_api.RestApi":
-        r"""<p>Changes information about the specified API.</p>
+        """<p>Changes information about the specified API.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7628,12 +7628,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.stage.Stage":
-        r"""<p>Changes information about a Stage resource.</p>
+        """<p>Changes information about a Stage resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             stage_name: <p>The name of the Stage resource to change information about.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7684,12 +7684,12 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.usage.Usage":
-        r"""<p>Grants a temporary extension to the remaining quota of a usage plan associated with a specified API key.</p>
+        """<p>Grants a temporary extension to the remaining quota of a usage plan associated with a specified API key.</p>
 
         Args:
             usage_plan_id: <p>The Id of the usage plan associated with the usage data.</p>
             key_id: <p>The identifier of the API key associated with the usage plan in which a temporary extension is granted to the remaining quota.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7739,11 +7739,11 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.usage_plan.UsagePlan":
-        r"""<p>Updates a usage plan of a given plan Id.</p>
+        """<p>Updates a usage plan of a given plan Id.</p>
 
         Args:
             usage_plan_id: <p>The Id of the to-be-updated usage plan.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -7792,11 +7792,11 @@ class AsyncAPIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.vpc_link.VpcLink":
-        r"""<p>Updates an existing VpcLink of a specified identifier.</p>
+        """<p>Updates an existing VpcLink of a specified identifier.</p>
 
         Args:
             vpc_link_id: <p>The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.</p>
-            patch_operations: <p>For more information about supported patch operations, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html\">Patch Operations</a>.</p>
+            patch_operations: <p>For more information about supported patch operations, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>

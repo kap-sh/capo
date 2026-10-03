@@ -13,7 +13,7 @@ class CreateSecurityConfigurationInput(TypedDict, closed=True):
     name: NotRequired["capo_emr.types.xml_string.XmlString"]
     """<p>The name of the security configuration.</p>"""
     security_configuration: NotRequired["capo_emr.types.string.String"]
-    r"""<p>The security configuration details in JSON format. For JSON parameters and examples, see <a href=\"https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-security-configurations.html\">Use Security Configurations to Set Up Cluster Security</a> in the <i>Amazon EMR Management Guide</i>.</p>"""
+    """<p>The security configuration details in JSON format. For JSON parameters and examples, see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-security-configurations.html">Use Security Configurations to Set Up Cluster Security</a> in the <i>Amazon EMR Management Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

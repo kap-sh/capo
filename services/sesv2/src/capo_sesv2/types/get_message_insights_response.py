@@ -22,7 +22,7 @@ class GetMessageInsightsResponse(TypedDict, closed=True):
     subject: NotRequired["capo_sesv2.types.email_subject.EmailSubject"]
     """<p>The subject line of the message.</p>"""
     email_tags: NotRequired["capo_sesv2.types.message_tag_list.MessageTagList"]
-    r"""<p> A list of tags, in the form of name/value pairs, that were applied to the email you sent, along with Amazon SES <a href=\"https://docs.aws.amazon.com/ses/latest/dg/monitor-using-event-publishing.html\">Auto-Tags</a>. </p>"""
+    """<p> A list of tags, in the form of name/value pairs, that were applied to the email you sent, along with Amazon SES <a href="https://docs.aws.amazon.com/ses/latest/dg/monitor-using-event-publishing.html">Auto-Tags</a>. </p>"""
     insights: NotRequired["capo_sesv2.types.email_insights_list.EmailInsightsList"]
     """<p>A set of insights associated with the message.</p>"""
 

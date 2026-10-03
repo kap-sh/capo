@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 
 class CreateMultipartUploadOutput(TypedDict, closed=True):
     abort_date: NotRequired["capo_s3.types.abort_date.AbortDate"]
-    r"""<p>If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, the response includes this header. The header indicates when the initiated multipart upload becomes eligible for an abort operation. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config\"> Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration</a> in the <i>Amazon S3 User Guide</i>.</p> <p>The response also includes the <code>x-amz-abort-rule-id</code> header that provides the ID of the lifecycle configuration rule that defines the abort action.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
+    """<p>If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, the response includes this header. The header indicates when the initiated multipart upload becomes eligible for an abort operation. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config"> Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration</a> in the <i>Amazon S3 User Guide</i>.</p> <p>The response also includes the <code>x-amz-abort-rule-id</code> header that provides the ID of the lifecycle configuration rule that defines the abort action.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
     abort_rule_id: NotRequired["capo_s3.types.abort_rule_id.AbortRuleId"]
     """<p>This header is returned along with the <code>x-amz-abort-date</code> header. It identifies the applicable lifecycle configuration rule that defines the action to abort incomplete multipart uploads.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
     bucket: NotRequired["capo_s3.types.bucket_name.BucketName"]
@@ -60,7 +60,7 @@ class CreateMultipartUploadOutput(TypedDict, closed=True):
     ]
     """<p>The algorithm that was used to create a checksum of the object.</p>"""
     checksum_type: NotRequired["capo_s3.types.checksum_type.ChecksumType"]
-    r"""<p> Indicates the checksum type that you want Amazon S3 to use to calculate the object’s checksum value. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity in the Amazon S3 User Guide</a>.</p>"""
+    """<p> Indicates the checksum type that you want Amazon S3 to use to calculate the object’s checksum value. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html">Checking object integrity in the Amazon S3 User Guide</a>.</p>"""
 
 
 # --- restXml ser/de ---

@@ -24,7 +24,7 @@ class SearchQuickResponsesRequest(TypedDict, closed=True):
     max_results: NotRequired["capo_qconnect.types.max_results.MaxResults"]
     """<p>The maximum number of results to return per page.</p>"""
     attributes: NotRequired["capo_qconnect.types.contact_attributes.ContactAttributes"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-attrib-list.html#user-defined-attributes\">user-defined Connect Customer contact attributes</a> to be resolved when search results are returned.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-attrib-list.html#user-defined-attributes">user-defined Connect Customer contact attributes</a> to be resolved when search results are returned.</p>"""
 
 
 # --- restJson1 ser/de ---

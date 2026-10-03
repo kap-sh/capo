@@ -13,7 +13,7 @@ class HyperParameterTuningJobWarmStartConfig(TypedDict, closed=True):
     parent_hyper_parameter_tuning_jobs: NotRequired[
         "capo_sagemaker.types.parent_hyper_parameter_tuning_jobs.ParentHyperParameterTuningJobs"
     ]
-    r"""<p>An array of hyperparameter tuning jobs that are used as the starting point for the new hyperparameter tuning job. For more information about warm starting a hyperparameter tuning job, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-warm-start.html\">Using a Previous Hyperparameter Tuning Job as a Starting Point</a>.</p> <p>Hyperparameter tuning jobs created before October 1, 2018 cannot be used as parent jobs for warm start tuning jobs.</p>"""
+    """<p>An array of hyperparameter tuning jobs that are used as the starting point for the new hyperparameter tuning job. For more information about warm starting a hyperparameter tuning job, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-warm-start.html">Using a Previous Hyperparameter Tuning Job as a Starting Point</a>.</p> <p>Hyperparameter tuning jobs created before October 1, 2018 cannot be used as parent jobs for warm start tuning jobs.</p>"""
     warm_start_type: NotRequired[
         "capo_sagemaker.types.hyper_parameter_tuning_job_warm_start_type.HyperParameterTuningJobWarmStartType"
     ]

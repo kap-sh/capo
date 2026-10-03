@@ -25,7 +25,7 @@ class CreateInstanceRequest(TypedDict, closed=True):
     web_app_dns_domain: NotRequired[
         "capo_supplychain.types.instance_web_app_dns_domain.InstanceWebAppDnsDomain"
     ]
-    r"""<p>The DNS subdomain of the web app. This would be \"example\" in the URL \"example.scn.global.on.aws\". You can set this to a custom value, as long as the domain isn't already being used by someone else. The name may only include alphanumeric characters and hyphens.</p>"""
+    """<p>The DNS subdomain of the web app. This would be "example" in the URL "example.scn.global.on.aws". You can set this to a custom value, as long as the domain isn't already being used by someone else. The name may only include alphanumeric characters and hyphens.</p>"""
     tags: NotRequired["capo_supplychain.types.tag_map.TagMap"]
     """<p>The Amazon Web Services tags of an instance to be created.</p>"""
     client_token: NotRequired["capo_supplychain.types.client_token.ClientToken"]

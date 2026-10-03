@@ -18,7 +18,7 @@ class EngagementContextDetails(TypedDict, closed=True):
     ]
     """<p>The unique identifier of the engagement context. This ID is used to reference and manage the specific context within the engagement.</p>"""
     type: "capo_partnercentral_selling.types.engagement_context_type.EngagementContextType"
-    r"""<p>Specifies the type of Engagement context. Valid values are \"CustomerProject\" or \"Document\", indicating whether the context relates to a customer project or a document respectively. </p>"""
+    """<p>Specifies the type of Engagement context. Valid values are "CustomerProject" or "Document", indicating whether the context relates to a customer project or a document respectively. </p>"""
     payload: NotRequired[
         "capo_partnercentral_selling.types.engagement_context_payload.EngagementContextPayload"
     ]

@@ -26,7 +26,7 @@ class CreateFlowRequest(TypedDict, closed=True):
     execution_role_arn: (
         "capo_bedrock_agent.types.flow_execution_role_arn.FlowExecutionRoleArn"
     )
-    r"""<p>The Amazon Resource Name (ARN) of the service role with permissions to create and manage a flow. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/flows-permissions.html\">Create a service role for flows in Amazon Bedrock</a> in the Amazon Bedrock User Guide.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the service role with permissions to create and manage a flow. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/flows-permissions.html">Create a service role for flows in Amazon Bedrock</a> in the Amazon Bedrock User Guide.</p>"""
     customer_encryption_key_arn: NotRequired[
         "capo_bedrock_agent.types.kms_key_arn.KmsKeyArn"
     ]
@@ -34,9 +34,9 @@ class CreateFlowRequest(TypedDict, closed=True):
     definition: NotRequired["capo_bedrock_agent.types.flow_definition.FlowDefinition"]
     """<p>A definition of the nodes and connections between nodes in the flow.</p>"""
     client_token: NotRequired["capo_bedrock_agent.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     tags: NotRequired["capo_bedrock_agent.types.tags_map.TagsMap"]
-    r"""<p>Any tags that you want to attach to the flow. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html\">Tagging resources in Amazon Bedrock</a>.</p>"""
+    """<p>Any tags that you want to attach to the flow. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/tagging.html">Tagging resources in Amazon Bedrock</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

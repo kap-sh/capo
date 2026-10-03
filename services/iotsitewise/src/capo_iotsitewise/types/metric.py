@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class Metric(TypedDict, closed=True):
     expression: "capo_iotsitewise.types.expression.Expression"
-    r"""<p>The mathematical expression that defines the metric aggregation function. You can specify up to 10 variables per expression. You can specify up to 10 functions per expression. </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html\">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The mathematical expression that defines the metric aggregation function. You can specify up to 10 variables per expression. You can specify up to 10 functions per expression. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html">Quotas</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     variables: "capo_iotsitewise.types.expression_variables.ExpressionVariables"
     """<p>The list of variables used in the expression.</p>"""
     window: "capo_iotsitewise.types.metric_window.MetricWindow"

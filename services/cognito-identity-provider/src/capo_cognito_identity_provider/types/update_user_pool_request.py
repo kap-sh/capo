@@ -39,7 +39,7 @@ class UpdateUserPoolRequest(TypedDict, closed=True):
     policies: NotRequired[
         "capo_cognito_identity_provider.types.user_pool_policy_type.UserPoolPolicyType"
     ]
-    r"""<p>The password policy and sign-in policy in the user pool. The password policy sets options like password complexity requirements and password history. The sign-in policy sets the options available to applications in <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-selection-sdk.html#authentication-flows-selection-choice\">choice-based authentication</a>.</p>"""
+    """<p>The password policy and sign-in policy in the user pool. The password policy sets options like password complexity requirements and password history. The sign-in policy sets the options available to applications in <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-selection-sdk.html#authentication-flows-selection-choice">choice-based authentication</a>.</p>"""
     deletion_protection: NotRequired[
         "capo_cognito_identity_provider.types.deletion_protection_type.DeletionProtectionType"
     ]
@@ -51,7 +51,7 @@ class UpdateUserPoolRequest(TypedDict, closed=True):
     auto_verified_attributes: NotRequired[
         "capo_cognito_identity_provider.types.verified_attributes_list_type.VerifiedAttributesListType"
     ]
-    r"""<p>The attributes that you want your user pool to automatically verify. Possible values: <b>email</b>, <b>phone_number</b>. For more information see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#allowing-users-to-sign-up-and-confirm-themselves\">Verifying contact information at sign-up</a>.</p>"""
+    """<p>The attributes that you want your user pool to automatically verify. Possible values: <b>email</b>, <b>phone_number</b>. For more information see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#allowing-users-to-sign-up-and-confirm-themselves">Verifying contact information at sign-up</a>.</p>"""
     sms_verification_message: NotRequired[
         "capo_cognito_identity_provider.types.sms_verification_message_type.SmsVerificationMessageType"
     ]
@@ -75,7 +75,7 @@ class UpdateUserPoolRequest(TypedDict, closed=True):
     user_attribute_update_settings: NotRequired[
         "capo_cognito_identity_provider.types.user_attribute_update_settings_type.UserAttributeUpdateSettingsType"
     ]
-    r"""<p>The settings for updates to user attributes. These settings include the property <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to handle changes to the value of your users' email address and phone number attributes. For more information, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates\"> Verifying updates to email addresses and phone numbers</a>.</p>"""
+    """<p>The settings for updates to user attributes. These settings include the property <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to handle changes to the value of your users' email address and phone number attributes. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"> Verifying updates to email addresses and phone numbers</a>.</p>"""
     mfa_configuration: NotRequired[
         "capo_cognito_identity_provider.types.user_pool_mfa_type.UserPoolMfaType"
     ]
@@ -83,7 +83,7 @@ class UpdateUserPoolRequest(TypedDict, closed=True):
     device_configuration: NotRequired[
         "capo_cognito_identity_provider.types.device_configuration_type.DeviceConfigurationType"
     ]
-    r"""<p>The device-remembering configuration for a user pool. Device remembering or device tracking is a \"Remember me on this device\" option for user pools that perform authentication with the device key of a trusted device in the back end, instead of a user-provided MFA code. For more information about device authentication, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html\">Working with user devices in your user pool</a>. A null value indicates that you have deactivated device remembering in your user pool.</p> <note> <p>When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito device-remembering feature. For more information, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html\">Working with devices</a>.</p> </note>"""
+    """<p>The device-remembering configuration for a user pool. Device remembering or device tracking is a "Remember me on this device" option for user pools that perform authentication with the device key of a trusted device in the back end, instead of a user-provided MFA code. For more information about device authentication, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html">Working with user devices in your user pool</a>. A null value indicates that you have deactivated device remembering in your user pool.</p> <note> <p>When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito device-remembering feature. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html">Working with devices</a>.</p> </note>"""
     email_configuration: NotRequired[
         "capo_cognito_identity_provider.types.email_configuration_type.EmailConfigurationType"
     ]
@@ -91,7 +91,7 @@ class UpdateUserPoolRequest(TypedDict, closed=True):
     sms_configuration: NotRequired[
         "capo_cognito_identity_provider.types.sms_configuration_type.SmsConfigurationType"
     ]
-    r"""<p>The SMS configuration with the settings for your Amazon Cognito user pool to send SMS message with Amazon Simple Notification Service. To send SMS messages with Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access Management (IAM) role in your Amazon Web Services account. For more information see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html\">SMS message settings</a>.</p>"""
+    """<p>The SMS configuration with the settings for your Amazon Cognito user pool to send SMS message with Amazon Simple Notification Service. To send SMS messages with Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access Management (IAM) role in your Amazon Web Services account. For more information see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html">SMS message settings</a>.</p>"""
     user_pool_tags: NotRequired[
         "capo_cognito_identity_provider.types.user_pool_tags_type.UserPoolTagsType"
     ]
@@ -103,7 +103,7 @@ class UpdateUserPoolRequest(TypedDict, closed=True):
     user_pool_add_ons: NotRequired[
         "capo_cognito_identity_provider.types.user_pool_add_ons_type.UserPoolAddOnsType"
     ]
-    r"""<p>Contains settings for activation of threat protection, including the operating mode and additional authentication types. To log user security information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to potentially unwanted traffic to your user pool, set to <code>ENFORCED</code>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html\">Adding advanced security to a user pool</a>. To activate this setting, your user pool must be on the <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html\"> Plus tier</a>.</p>"""
+    """<p>Contains settings for activation of threat protection, including the operating mode and additional authentication types. To log user security information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to potentially unwanted traffic to your user pool, set to <code>ENFORCED</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html">Adding advanced security to a user pool</a>. To activate this setting, your user pool must be on the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html"> Plus tier</a>.</p>"""
     account_recovery_setting: NotRequired[
         "capo_cognito_identity_provider.types.account_recovery_setting_type.AccountRecoverySettingType"
     ]
@@ -115,7 +115,7 @@ class UpdateUserPoolRequest(TypedDict, closed=True):
     user_pool_tier: NotRequired[
         "capo_cognito_identity_provider.types.user_pool_tier_type.UserPoolTierType"
     ]
-    r"""<p>The user pool <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-sign-in-feature-plans.html\">feature plan</a>, or tier. This parameter determines the eligibility of the user pool for features like managed login, access-token customization, and threat protection. Defaults to <code>ESSENTIALS</code>.</p>"""
+    """<p>The user pool <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-sign-in-feature-plans.html">feature plan</a>, or tier. This parameter determines the eligibility of the user pool for features like managed login, access-token customization, and threat protection. Defaults to <code>ESSENTIALS</code>.</p>"""
     key_configuration: NotRequired[
         "capo_cognito_identity_provider.types.key_configuration_type.KeyConfigurationType"
     ]

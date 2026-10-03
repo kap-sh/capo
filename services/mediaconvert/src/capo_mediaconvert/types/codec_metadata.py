@@ -21,7 +21,7 @@ class CodecMetadata(TypedDict, closed=True):
     bit_depth: NotRequired["capo_mediaconvert.types.__integer.__integer"]
     """The number of bits used per color component in the video essence such as 8, 10, or 12 bits. Standard range (SDR) video typically uses 8-bit, while 10-bit is common for high dynamic range (HDR)."""
     chroma_subsampling: NotRequired["capo_mediaconvert.types.__string.__string"]
-    r"""The chroma subsampling format used in the video encoding, such as \"4:2:0\" or \"4:4:4\". This describes how color information is sampled relative to brightness information. Different subsampling ratios affect video quality and file size, with \"4:4:4\" providing the highest color fidelity and \"4:2:0\" being most common for standard video."""
+    """The chroma subsampling format used in the video encoding, such as "4:2:0" or "4:4:4". This describes how color information is sampled relative to brightness information. Different subsampling ratios affect video quality and file size, with "4:4:4" providing the highest color fidelity and "4:2:0" being most common for standard video."""
     coded_frame_rate: NotRequired["capo_mediaconvert.types.frame_rate.FrameRate"]
     """The frame rate of the video or audio track, expressed as a fraction with numerator and denominator values."""
     color_primaries: NotRequired[
@@ -41,7 +41,7 @@ class CodecMetadata(TypedDict, closed=True):
     ]
     """Dolby Vision characteristics of the video track: the profile and level, and whether the RPU (dynamic metadata), base layer, and enhancement layer are present. Use this to distinguish Dolby Vision content from standard HEVC and to choose your encoding or passthrough settings. Omitted when the content is not Dolby Vision."""
     field_order: NotRequired["capo_mediaconvert.types.__string.__string"]
-    r"""The field order of interlaced video, which indicates whether the top or bottom field is displayed first. Use this to select the correct deinterlacing behavior. One of \"TopFieldFirst\" or \"BottomFieldFirst\". This field is present only for interlaced video; it is omitted for progressive video and when the field order is not indicated by the source."""
+    """The field order of interlaced video, which indicates whether the top or bottom field is displayed first. Use this to select the correct deinterlacing behavior. One of "TopFieldFirst" or "BottomFieldFirst". This field is present only for interlaced video; it is omitted for progressive video and when the field order is not indicated by the source."""
     hdr10_plus_presence: NotRequired[
         "capo_mediaconvert.types.hdr10_plus_presence.Hdr10PlusPresence"
     ]

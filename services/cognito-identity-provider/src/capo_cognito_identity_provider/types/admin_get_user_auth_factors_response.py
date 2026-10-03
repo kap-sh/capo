@@ -27,7 +27,7 @@ class AdminGetUserAuthFactorsResponse(TypedDict, closed=True):
     configured_user_auth_factors: NotRequired[
         "capo_cognito_identity_provider.types.configured_user_auth_factors_list_type.ConfiguredUserAuthFactorsListType"
     ]
-    r"""<p>The authentication types that are available to the user with <code>USER_AUTH</code> sign-in, for example <code>[\"PASSWORD\", \"WEB_AUTHN\"]</code>.</p> <p> <code>PASSWORD</code> can only be used as a first authentication factor. <code>SOFTWARE_TOKEN</code> can only be used as an MFA factor. <code>EMAIL_OTP</code>, <code>SMS_OTP</code>, and <code>WEB_AUTHN</code> can be used as either a first authentication factor or an MFA factor. <code>WEB_AUTHN</code> is available as an MFA factor only when passkey MFA is enabled at the user pool level.</p>"""
+    """<p>The authentication types that are available to the user with <code>USER_AUTH</code> sign-in, for example <code>["PASSWORD", "WEB_AUTHN"]</code>.</p> <p> <code>PASSWORD</code> can only be used as a first authentication factor. <code>SOFTWARE_TOKEN</code> can only be used as an MFA factor. <code>EMAIL_OTP</code>, <code>SMS_OTP</code>, and <code>WEB_AUTHN</code> can be used as either a first authentication factor or an MFA factor. <code>WEB_AUTHN</code> is available as an MFA factor only when passkey MFA is enabled at the user pool level.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

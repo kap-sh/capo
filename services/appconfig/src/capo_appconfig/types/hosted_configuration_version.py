@@ -28,7 +28,7 @@ class HostedConfigurationVersion(TypedDict, closed=True):
     content_type: NotRequired[
         "capo_appconfig.types.string_with_length_between1_and255.StringWithLengthBetween1And255"
     ]
-    r"""<p>A standard MIME type describing the format of the configuration content. For more information, see <a href=\"https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17\">Content-Type</a>.</p>"""
+    """<p>A standard MIME type describing the format of the configuration content. For more information, see <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a>.</p>"""
     version_label: NotRequired["capo_appconfig.types.version_label.VersionLabel"]
     """<p>A user-defined label for an AppConfig hosted configuration version.</p>"""
     kms_key_arn: NotRequired["capo_appconfig.types.arn.Arn"]

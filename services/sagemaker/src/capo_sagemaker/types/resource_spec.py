@@ -33,7 +33,7 @@ class ResourceSpec(TypedDict, closed=True):
     training_plan_arn: NotRequired[
         "capo_sagemaker.types.studio_resource_spec_training_plan_arn.StudioResourceSpecTrainingPlanArn"
     ]
-    r"""<p>The ARN of the SageMaker AI Training Plan to use for this app. When you specify a training plan, the app launches on reserved GPU capacity. This field is supported for JupyterLab and CodeEditor app types.</p> <p>For more information about how to reserve GPU capacity with SageMaker AI Training Plans, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/training-plan-utilization-for-studio-apps.html\">Using training plans in Studio applications</a>.</p>"""
+    """<p>The ARN of the SageMaker AI Training Plan to use for this app. When you specify a training plan, the app launches on reserved GPU capacity. This field is supported for JupyterLab and CodeEditor app types.</p> <p>For more information about how to reserve GPU capacity with SageMaker AI Training Plans, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/training-plan-utilization-for-studio-apps.html">Using training plans in Studio applications</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

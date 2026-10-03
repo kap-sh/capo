@@ -43,7 +43,7 @@ class DeleteRegistrationResult(TypedDict, closed=True):
     ]
     """<p>Metadata about a given registration which is specific to that registration type.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the registration was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the registration was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

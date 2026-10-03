@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GenerateOrganizationsAccessReportResponse(TypedDict, closed=True):
     job_id: NotRequired["capo_iam.types.job_id_type.jobIDType"]
-    r"""<p>The job identifier that you can use in the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetOrganizationsAccessReport.html\">GetOrganizationsAccessReport</a> operation.</p>"""
+    """<p>The job identifier that you can use in the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetOrganizationsAccessReport.html">GetOrganizationsAccessReport</a> operation.</p>"""
 
 
 # --- awsQuery ser/de ---

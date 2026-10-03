@@ -62,7 +62,7 @@ class ModifyReplicationGroupMessage(TypedDict, closed=True):
     engine: NotRequired["capo_elasticache.types.string.String"]
     """<p>Modifies the engine listed in a replication group message. The options are valkey, memcached or redis.</p>"""
     engine_version: NotRequired["capo_elasticache.types.string.String"]
-    r"""<p>The upgraded version of the cache engine to be run on the clusters in the replication group.</p> <p> <b>Important:</b> You can upgrade to a newer engine version (see <a href=\"https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/SelectEngine.html#VersionManagement\">Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to use an earlier engine version, you must delete the existing replication group and create it anew with the earlier engine version. </p>"""
+    """<p>The upgraded version of the cache engine to be run on the clusters in the replication group.</p> <p> <b>Important:</b> You can upgrade to a newer engine version (see <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/SelectEngine.html#VersionManagement">Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to use an earlier engine version, you must delete the existing replication group and create it anew with the earlier engine version. </p>"""
     auto_minor_version_upgrade: NotRequired[
         "capo_elasticache.types.boolean_optional.BooleanOptional"
     ]
@@ -76,11 +76,11 @@ class ModifyReplicationGroupMessage(TypedDict, closed=True):
     cache_node_type: NotRequired["capo_elasticache.types.string.String"]
     """<p>A valid cache node type that you want to scale this replication group to.</p>"""
     auth_token: NotRequired["capo_elasticache.types.string.String"]
-    r"""<p>Reserved parameter. The password used to access a password protected server. This parameter must be specified with the <code>auth-token-update-strategy </code> parameter. Password constraints:</p> <ul> <li> <p>Must be only printable ASCII characters</p> </li> <li> <p>Must be at least 16 characters and no more than 128 characters in length</p> </li> <li> <p>Cannot contain any of the following characters: '/', '\"', or '@', '%'</p> </li> </ul> <p> For more information, see AUTH password at <a href=\"http://redis.io/commands/AUTH\">AUTH</a>.</p>"""
+    """<p>Reserved parameter. The password used to access a password protected server. This parameter must be specified with the <code>auth-token-update-strategy </code> parameter. Password constraints:</p> <ul> <li> <p>Must be only printable ASCII characters</p> </li> <li> <p>Must be at least 16 characters and no more than 128 characters in length</p> </li> <li> <p>Cannot contain any of the following characters: '/', '"', or '@', '%'</p> </li> </ul> <p> For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.</p>"""
     auth_token_update_strategy: NotRequired[
         "capo_elasticache.types.auth_token_update_strategy_type.AuthTokenUpdateStrategyType"
     ]
-    r"""<p>Specifies the strategy to use to update the AUTH token. This parameter must be specified with the <code>auth-token</code> parameter. Possible values:</p> <ul> <li> <p>ROTATE - default, if no update strategy is provided</p> </li> <li> <p>SET - allowed only after ROTATE</p> </li> <li> <p>DELETE - allowed only when transitioning to RBAC</p> </li> </ul> <p> For more information, see <a href=\"http://docs.aws.amazon.com/AmazonElastiCache/latest/dg/auth.html\">Authenticating Users with AUTH</a> </p>"""
+    """<p>Specifies the strategy to use to update the AUTH token. This parameter must be specified with the <code>auth-token</code> parameter. Possible values:</p> <ul> <li> <p>ROTATE - default, if no update strategy is provided</p> </li> <li> <p>SET - allowed only after ROTATE</p> </li> <li> <p>DELETE - allowed only when transitioning to RBAC</p> </li> </ul> <p> For more information, see <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/dg/auth.html">Authenticating Users with AUTH</a> </p>"""
     user_group_ids_to_add: NotRequired[
         "capo_elasticache.types.user_group_id_list.UserGroupIdList"
     ]
@@ -98,7 +98,7 @@ class ModifyReplicationGroupMessage(TypedDict, closed=True):
     ]
     """<p>Specifies the destination, format and type of the logs.</p>"""
     ip_discovery: NotRequired["capo_elasticache.types.ip_discovery.IpDiscovery"]
-    r"""<p>The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS engine version 6.2 to 7.1 and Memcached engine version 1.6.6 and above on all instances built on the <a href=\"http://aws.amazon.com/ec2/nitro/\">Nitro system</a>.</p>"""
+    """<p>The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is supported for workloads using Valkey 7.2 and above, Redis OSS engine version 6.2 to 7.1 and Memcached engine version 1.6.6 and above on all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.</p>"""
     transit_encryption_enabled: NotRequired[
         "capo_elasticache.types.boolean_optional.BooleanOptional"
     ]
@@ -110,7 +110,7 @@ class ModifyReplicationGroupMessage(TypedDict, closed=True):
     cluster_mode: NotRequired["capo_elasticache.types.cluster_mode.ClusterMode"]
     """<p>Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to Compatible. Compatible mode allows your Valkey or Redis OSS clients to connect using both cluster mode enabled and cluster mode disabled. After you migrate all Valkey or Redis OSS clients to use cluster mode enabled, you can then complete cluster mode configuration and set the cluster mode to Enabled.</p>"""
     durability: NotRequired["capo_elasticache.types.durability.Durability"]
-    r"""<p>Specifies the durability setting for the replication group. Use this parameter to change the durability mode of an existing replication group, for example from <code>sync</code> to <code>async</code> or vice versa. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/durability.html\">Durability</a>.</p>"""
+    """<p>Specifies the durability setting for the replication group. Use this parameter to change the durability mode of an existing replication group, for example from <code>sync</code> to <code>async</code> or vice versa. For more information, see <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/durability.html">Durability</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

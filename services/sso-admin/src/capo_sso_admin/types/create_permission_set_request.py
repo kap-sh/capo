@@ -23,7 +23,7 @@ class CreatePermissionSetRequest(TypedDict, closed=True):
     ]
     """<p>The description of the <a>PermissionSet</a>.</p>"""
     instance_arn: "capo_sso_admin.types.instance_arn.InstanceArn"
-    r"""<p>The ARN of the IAM Identity Center instance under which the operation will be executed. For more information about ARNs, see <a href=\"/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>The ARN of the IAM Identity Center instance under which the operation will be executed. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
     session_duration: NotRequired["capo_sso_admin.types.duration.Duration"]
     """<p>The length of time that the application user sessions are valid in the ISO-8601 standard.</p>"""
     relay_state: NotRequired["capo_sso_admin.types.relay_state.RelayState"]

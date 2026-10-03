@@ -16,7 +16,7 @@ class DescribeBotRecommendationRequest(TypedDict, closed=True):
     bot_version: "capo_lex_models_v2.types.draft_bot_version.DraftBotVersion"
     """<p>The version of the bot associated with the bot recommendation.</p>"""
     locale_id: "capo_lex_models_v2.types.locale_id.LocaleId"
-    r"""<p>The identifier of the language and locale of the bot recommendation to describe. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>"""
+    """<p>The identifier of the language and locale of the bot recommendation to describe. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>"""
     bot_recommendation_id: "capo_lex_models_v2.types.id.Id"
     """<p>The identifier of the bot recommendation to describe.</p>"""
 

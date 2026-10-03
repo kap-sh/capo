@@ -16,7 +16,7 @@ class SseAwsKeyManagementParams(TypedDict, closed=True):
     aws_kms_encryption_context: NotRequired[
         "capo_chime_sdk_media_pipelines.types.string.String"
     ]
-    r"""<p>Base64-encoded string of a UTF-8 encoded JSON, which contains the encryption context as non-secret key-value pair known as encryption context pairs, that provides an added layer of security for your data. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html\">KMS encryption context</a> and <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html\">Asymmetric keys in KMS</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>Base64-encoded string of a UTF-8 encoded JSON, which contains the encryption context as non-secret key-value pair known as encryption context pairs, that provides an added layer of security for your data. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html">KMS encryption context</a> and <a href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Asymmetric keys in KMS</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

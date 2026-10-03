@@ -14,7 +14,7 @@ class CreateServiceSpecificCredentialResponse(TypedDict, closed=True):
     service_specific_credential: NotRequired[
         "capo_iam.types.service_specific_credential.ServiceSpecificCredential"
     ]
-    r"""<p>A structure that contains information about the newly created service-specific credential.</p> <important> <p>This is the only time that the password for this credential set is available. It cannot be recovered later. Instead, you must reset the password with <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_ResetServiceSpecificCredential.html\">ResetServiceSpecificCredential</a>.</p> </important>"""
+    """<p>A structure that contains information about the newly created service-specific credential.</p> <important> <p>This is the only time that the password for this credential set is available. It cannot be recovered later. Instead, you must reset the password with <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ResetServiceSpecificCredential.html">ResetServiceSpecificCredential</a>.</p> </important>"""
 
 
 # --- awsQuery ser/de ---

@@ -22,7 +22,7 @@ class GetIntentsRequest(TypedDict, closed=True):
     name_contains: NotRequired[
         "capo_lex_model_building_service.types.intent_name.IntentName"
     ]
-    r"""<p>Substring to match in intent names. An intent will be returned if any part of its name matches the substring. For example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"</p>"""
+    """<p>Substring to match in intent names. An intent will be returned if any part of its name matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -17,7 +17,7 @@ class EmbeddedDestinationSettings(TypedDict, closed=True):
     style_control: NotRequired[
         "capo_medialive.types.embedded_destination_style_control.EmbeddedDestinationStyleControl"
     ]
-    r"""Controls the source of position and style information for the output captions. - \"passthrough\": Carry the caption position and style from the source captions. When the source captions are embedded, SCTE-20, or ancillary, the position and style are preserved exactly. When the source captions are another format, the position and any supported style are carried over. - \"manual\": Applies the specified styling and positioning. All other styling and positioning is given default values."""
+    """Controls the source of position and style information for the output captions. - "passthrough": Carry the caption position and style from the source captions. When the source captions are embedded, SCTE-20, or ancillary, the position and style are preserved exactly. When the source captions are another format, the position and any supported style are carried over. - "manual": Applies the specified styling and positioning. All other styling and positioning is given default values."""
 
 
 # --- restJson1 ser/de ---

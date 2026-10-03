@@ -52,7 +52,7 @@ class FileCacheCreating(TypedDict, closed=True):
     dns_name: NotRequired["capo_fsx.types.dns_name.DNSName"]
     """<p>The Domain Name System (DNS) name for the cache.</p>"""
     kms_key_id: NotRequired["capo_fsx.types.kms_key_id.KmsKeyId"]
-    r"""<p>Specifies the ID of the Key Management Service (KMS) key to use for encrypting data on an Amazon File Cache. If a <code>KmsKeyId</code> isn't specified, the Amazon FSx-managed KMS key for your account is used. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html\">Encrypt</a> in the <i>Key Management Service API Reference</i>.</p>"""
+    """<p>Specifies the ID of the Key Management Service (KMS) key to use for encrypting data on an Amazon File Cache. If a <code>KmsKeyId</code> isn't specified, the Amazon FSx-managed KMS key for your account is used. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html">Encrypt</a> in the <i>Key Management Service API Reference</i>.</p>"""
     resource_arn: NotRequired["capo_fsx.types.resource_arn.ResourceARN"]
     tags: NotRequired["capo_fsx.types.tags.Tags"]
     copy_tags_to_data_repository_associations: NotRequired[

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class HandshakeParty(TypedDict, closed=True):
     id: "capo_organizations.types.handshake_party_id.HandshakePartyId"
-    r"""<p>ID for the participant: Acccount ID, organization ID, or email address.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> for handshake ID string requires \"h-\" followed by from 8 to 32 lowercase letters or digits.</p>"""
+    """<p>ID for the participant: Acccount ID, organization ID, or email address.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>"""
     type: "capo_organizations.types.handshake_party_type.HandshakePartyType"
     """<p>The type of ID for the participant.</p> <note> <p>ORGANIZATION is valid only in the response context (identifying the inviting organization). Valid input values for the Target parameter are ACCOUNT and EMAIL only.</p> </note>"""
 

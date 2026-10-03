@@ -74,7 +74,7 @@ class ModelImportResource:
             "capo_bedrock.types.kms_key_id.KmsKeyId"
         ] = None,
     ) -> "capo_bedrock.types.create_model_import_job_response.CreateModelImportJobResponse":
-        r"""<p>Creates a model import job to import model that you have customized in other environments, such as Amazon SageMaker. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> </p>
+        """<p>Creates a model import job to import model that you have customized in other environments, such as Amazon SageMaker. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> </p>
 
         Args:
             job_name: <p>The name of the import job.</p>
@@ -83,7 +83,7 @@ class ModelImportResource:
             model_data_source: <p>The data source for the imported model.</p>
             job_tags: <p>Tags to attach to this import job. </p>
             imported_model_tags: <p>Tags to attach to the imported model.</p>
-            client_request_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_request_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             vpc_config: <p>VPC configuration parameters for the private Virtual Private Cloud (VPC) that contains the resources you are using for the import job.</p>
             imported_model_kms_key_id: <p>The imported model is encrypted at rest using this key.</p>
 
@@ -147,7 +147,7 @@ class ModelImportResource:
     ) -> (
         "capo_bedrock.types.delete_imported_model_response.DeleteImportedModelResponse"
     ):
-        r"""<p>Deletes a custom model that you imported earlier. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>. </p>
+        """<p>Deletes a custom model that you imported earlier. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>. </p>
 
         Args:
             model_identifier: <p>Name of the imported model to delete.</p>
@@ -242,7 +242,7 @@ class ModelImportResource:
         *,
         config_overrides: Optional[BedrockClientConfig] = None,
     ) -> "capo_bedrock.types.get_model_import_job_response.GetModelImportJobResponse":
-        r"""<p>Retrieves the properties associated with import model job, including the status of the job. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Retrieves the properties associated with import model job, including the status of the job. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             job_identifier: <p>The identifier of the import job.</p>
@@ -299,7 +299,7 @@ class ModelImportResource:
         sort_by: Optional["capo_bedrock.types.sort_models_by.SortModelsBy"] = None,
         sort_order: Optional["capo_bedrock.types.sort_order.SortOrder"] = None,
     ) -> "capo_bedrock.types.list_imported_models_response.ListImportedModelsResponse":
-        r"""<p>Returns a list of models you've imported. You can filter the results to return based on one or more criteria. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Returns a list of models you've imported. You can filter the results to return based on one or more criteria. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             creation_time_before: <p>Return imported models that created before the specified time.</p>
@@ -376,7 +376,7 @@ class ModelImportResource:
     ) -> (
         "capo_bedrock.types.list_model_import_jobs_response.ListModelImportJobsResponse"
     ):
-        r"""<p>Returns a list of import jobs you've submitted. You can filter the results to return based on one or more criteria. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Returns a list of import jobs you've submitted. You can filter the results to return based on one or more criteria. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             creation_time_after: <p>Return import jobs that were created after the specified time.</p>
@@ -460,7 +460,7 @@ class AsyncModelImportResource:
             "capo_bedrock.types.kms_key_id.KmsKeyId"
         ] = None,
     ) -> "capo_bedrock.types.create_model_import_job_response.CreateModelImportJobResponse":
-        r"""<p>Creates a model import job to import model that you have customized in other environments, such as Amazon SageMaker. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> </p>
+        """<p>Creates a model import job to import model that you have customized in other environments, such as Amazon SageMaker. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> </p>
 
         Args:
             job_name: <p>The name of the import job.</p>
@@ -469,7 +469,7 @@ class AsyncModelImportResource:
             model_data_source: <p>The data source for the imported model.</p>
             job_tags: <p>Tags to attach to this import job. </p>
             imported_model_tags: <p>Tags to attach to the imported model.</p>
-            client_request_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>
+            client_request_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
             vpc_config: <p>VPC configuration parameters for the private Virtual Private Cloud (VPC) that contains the resources you are using for the import job.</p>
             imported_model_kms_key_id: <p>The imported model is encrypted at rest using this key.</p>
 
@@ -534,7 +534,7 @@ class AsyncModelImportResource:
     ) -> (
         "capo_bedrock.types.delete_imported_model_response.DeleteImportedModelResponse"
     ):
-        r"""<p>Deletes a custom model that you imported earlier. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>. </p>
+        """<p>Deletes a custom model that you imported earlier. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>. </p>
 
         Args:
             model_identifier: <p>Name of the imported model to delete.</p>
@@ -631,7 +631,7 @@ class AsyncModelImportResource:
         *,
         config_overrides: Optional[AsyncBedrockClientConfig] = None,
     ) -> "capo_bedrock.types.get_model_import_job_response.GetModelImportJobResponse":
-        r"""<p>Retrieves the properties associated with import model job, including the status of the job. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Retrieves the properties associated with import model job, including the status of the job. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             job_identifier: <p>The identifier of the import job.</p>
@@ -689,7 +689,7 @@ class AsyncModelImportResource:
         sort_by: Optional["capo_bedrock.types.sort_models_by.SortModelsBy"] = None,
         sort_order: Optional["capo_bedrock.types.sort_order.SortOrder"] = None,
     ) -> "capo_bedrock.types.list_imported_models_response.ListImportedModelsResponse":
-        r"""<p>Returns a list of models you've imported. You can filter the results to return based on one or more criteria. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Returns a list of models you've imported. You can filter the results to return based on one or more criteria. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             creation_time_before: <p>Return imported models that created before the specified time.</p>
@@ -767,7 +767,7 @@ class AsyncModelImportResource:
     ) -> (
         "capo_bedrock.types.list_model_import_jobs_response.ListModelImportJobsResponse"
     ):
-        r"""<p>Returns a list of import jobs you've submitted. You can filter the results to return based on one or more criteria. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html\">Import a customized model</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Returns a list of import jobs you've submitted. You can filter the results to return based on one or more criteria. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html">Import a customized model</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             creation_time_after: <p>Return import jobs that were created after the specified time.</p>

@@ -36,7 +36,7 @@ class JobExecution(TypedDict, closed=True):
     last_updated_at: NotRequired["capo_iot.types.date_type.DateType"]
     """<p>The time, in seconds since the epoch, when the job execution was last updated.</p>"""
     execution_number: NotRequired["capo_iot.types.execution_number.ExecutionNumber"]
-    r"""<p>A string (consisting of the digits \"0\" through \"9\") which identifies this particular job execution on this particular device. It can be used in commands which return or update job execution information. </p>"""
+    """<p>A string (consisting of the digits "0" through "9") which identifies this particular job execution on this particular device. It can be used in commands which return or update job execution information. </p>"""
     version_number: "capo_iot.types.version_number.VersionNumber"
     """<p>The version of the job execution. Job execution versions are incremented each time they are updated by a device.</p>"""
     approximate_seconds_before_timed_out: NotRequired[

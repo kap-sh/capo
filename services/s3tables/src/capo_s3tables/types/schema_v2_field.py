@@ -11,7 +11,7 @@ class SchemaV2Field(TypedDict, closed=True):
     name: "str"
     """<p>The name of the field.</p>"""
     type: "object"
-    r"""<p>The data type of the field. This can be a primitive type string such as <code>boolean</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>string</code>, <code>binary</code>, <code>date</code>, <code>timestamp</code>, or <code>timestamptz</code>, or a complex type represented as a JSON object for nested types such as <code>struct</code>, <code>list</code>, or <code>map</code>. For more information, see the <a href=\"https://iceberg.apache.org/spec/#schemas-and-data-types\">Apache Iceberg schemas and data types documentation</a>.</p>"""
+    """<p>The data type of the field. This can be a primitive type string such as <code>boolean</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>string</code>, <code>binary</code>, <code>date</code>, <code>timestamp</code>, or <code>timestamptz</code>, or a complex type represented as a JSON object for nested types such as <code>struct</code>, <code>list</code>, or <code>map</code>. For more information, see the <a href="https://iceberg.apache.org/spec/#schemas-and-data-types">Apache Iceberg schemas and data types documentation</a>.</p>"""
     required: "bool"
     """<p>A Boolean value that specifies whether values are required for each row in this field. If this is <code>true</code>, the field does not allow null values.</p>"""
     doc: NotRequired["str"]

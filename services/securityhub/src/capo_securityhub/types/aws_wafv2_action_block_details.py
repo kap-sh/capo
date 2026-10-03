@@ -12,7 +12,7 @@ class AwsWafv2ActionBlockDetails(TypedDict, closed=True):
     custom_response: NotRequired[
         "capo_securityhub.types.aws_wafv2_custom_response_details.AwsWafv2CustomResponseDetails"
     ]
-    r"""<p> Defines a custom response for the web request. For information, see <a href=\"https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html\">Customizing web requests and responses in WAF</a> in the <i>WAF Developer Guide.</i>. </p>"""
+    """<p> Defines a custom response for the web request. For information, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-custom-request-response.html">Customizing web requests and responses in WAF</a> in the <i>WAF Developer Guide.</i>. </p>"""
 
 
 # --- restJson1 ser/de ---

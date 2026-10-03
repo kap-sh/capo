@@ -15,7 +15,7 @@ class GetCalendarStateRequest(TypedDict, closed=True):
     calendar_names: "capo_ssm.types.calendar_name_or_arn_list.CalendarNameOrARNList"
     """<p>The names of Amazon Resource Names (ARNs) of the Systems Manager documents (SSM documents) that represent the calendar entries for which you want to get the state.</p>"""
     at_time: NotRequired["capo_ssm.types.iso8601_string.ISO8601String"]
-    r"""<p>(Optional) The specific time for which you want to get calendar state information, in <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601</a> format. If you don't specify a value or <code>AtTime</code>, the current time is used.</p>"""
+    """<p>(Optional) The specific time for which you want to get calendar state information, in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. If you don't specify a value or <code>AtTime</code>, the current time is used.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

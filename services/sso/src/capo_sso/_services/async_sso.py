@@ -146,12 +146,12 @@ class AsyncSSOClient:
         *,
         config_overrides: Optional[AsyncSSOClientConfig] = None,
     ) -> "capo_sso.types.get_role_credentials_response.GetRoleCredentialsResponse":
-        r"""<p>Returns the STS short-term credentials for a given role name that is assigned to the user.</p>
+        """<p>Returns the STS short-term credentials for a given role name that is assigned to the user.</p>
 
         Args:
             role_name: <p>The friendly name of the role that is assigned to the user.</p>
             account_id: <p>The identifier for the AWS account that is assigned to the user.</p>
-            access_token: <p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html\">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>
+            access_token: <p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>
 
         Raises:
             capo_sso.errors.invalid_request_exception.InvalidRequestException: <p>Indicates that a problem occurred with the input to the request. For example, a required parameter might be missing or out of range.</p>
@@ -200,12 +200,12 @@ class AsyncSSOClient:
         next_token: Optional["capo_sso.types.next_token_type.NextTokenType"] = None,
         max_results: Optional["capo_sso.types.max_result_type.MaxResultType"] = None,
     ) -> "capo_sso.types.list_account_roles_response.ListAccountRolesResponse":
-        r"""<p>Lists all roles that are assigned to the user for a given AWS account.</p>
+        """<p>Lists all roles that are assigned to the user for a given AWS account.</p>
 
         Args:
             next_token: <p>The page token from the previous response output when you request subsequent pages.</p>
             max_results: <p>The number of items that clients can request per page.</p>
-            access_token: <p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html\">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>
+            access_token: <p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>
             account_id: <p>The identifier for the AWS account that is assigned to the user.</p>
 
         Raises:
@@ -282,12 +282,12 @@ class AsyncSSOClient:
         next_token: Optional["capo_sso.types.next_token_type.NextTokenType"] = None,
         max_results: Optional["capo_sso.types.max_result_type.MaxResultType"] = None,
     ) -> "capo_sso.types.list_accounts_response.ListAccountsResponse":
-        r"""<p>Lists all AWS accounts assigned to the user. These AWS accounts are assigned by the administrator of the account. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/useraccess.html#assignusers\">Assign User Access</a> in the <i>IAM Identity Center User Guide</i>. This operation returns a paginated response.</p>
+        """<p>Lists all AWS accounts assigned to the user. These AWS accounts are assigned by the administrator of the account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/useraccess.html#assignusers">Assign User Access</a> in the <i>IAM Identity Center User Guide</i>. This operation returns a paginated response.</p>
 
         Args:
             next_token: <p>(Optional) When requesting subsequent pages, this is the page token from the previous response output.</p>
             max_results: <p>This is the number of items clients can request per page.</p>
-            access_token: <p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html\">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>
+            access_token: <p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>
 
         Raises:
             capo_sso.errors.invalid_request_exception.InvalidRequestException: <p>Indicates that a problem occurred with the input to the request. For example, a required parameter might be missing or out of range.</p>
@@ -358,10 +358,10 @@ class AsyncSSOClient:
         *,
         config_overrides: Optional[AsyncSSOClientConfig] = None,
     ) -> None:
-        r"""<p>Removes the locally stored SSO tokens from the client-side cache and sends an API call to the IAM Identity Center service to invalidate the corresponding server-side IAM Identity Center sign in session.</p> <note> <p>If a user uses IAM Identity Center to access the AWS CLI, the user’s IAM Identity Center sign in session is used to obtain an IAM session, as specified in the corresponding IAM Identity Center permission set. More specifically, IAM Identity Center assumes an IAM role in the target account on behalf of the user, and the corresponding temporary AWS credentials are returned to the client.</p> <p>After user logout, any existing IAM role sessions that were created by using IAM Identity Center permission sets continue based on the duration configured in the permission set. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/userguide/authconcept.html\">User authentications</a> in the <i>IAM Identity Center User Guide</i>.</p> </note>
+        """<p>Removes the locally stored SSO tokens from the client-side cache and sends an API call to the IAM Identity Center service to invalidate the corresponding server-side IAM Identity Center sign in session.</p> <note> <p>If a user uses IAM Identity Center to access the AWS CLI, the user’s IAM Identity Center sign in session is used to obtain an IAM session, as specified in the corresponding IAM Identity Center permission set. More specifically, IAM Identity Center assumes an IAM role in the target account on behalf of the user, and the corresponding temporary AWS credentials are returned to the client.</p> <p>After user logout, any existing IAM role sessions that were created by using IAM Identity Center permission sets continue based on the duration configured in the permission set. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/authconcept.html">User authentications</a> in the <i>IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
-            access_token: <p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html\">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>
+            access_token: <p>The token issued by the <code>CreateToken</code> API call. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html">CreateToken</a> in the <i>IAM Identity Center OIDC API Reference Guide</i>.</p>
 
         Raises:
             capo_sso.errors.invalid_request_exception.InvalidRequestException: <p>Indicates that a problem occurred with the input to the request. For example, a required parameter might be missing or out of range.</p>

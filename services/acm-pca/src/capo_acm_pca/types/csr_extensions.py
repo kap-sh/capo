@@ -15,7 +15,7 @@ class CsrExtensions(TypedDict, closed=True):
     subject_information_access: NotRequired[
         "capo_acm_pca.types.access_description_list.AccessDescriptionList"
     ]
-    r"""<p>For CA certificates, provides a path to additional information pertaining to the CA, such as revocation and policy. For more information, see <a href=\"https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.2\">Subject Information Access</a> in RFC 5280.</p>"""
+    """<p>For CA certificates, provides a path to additional information pertaining to the CA, such as revocation and policy. For more information, see <a href="https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.2">Subject Information Access</a> in RFC 5280.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

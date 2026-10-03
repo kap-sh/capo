@@ -17,7 +17,7 @@ class ListStackSetAutoDeploymentTargetsOutput(TypedDict, closed=True):
     ]
     """<p>An array of summaries of the deployment targets for the StackSet.</p>"""
     next_token: NotRequired["capo_cloudformation.types.next_token.NextToken"]
-    r"""<p>If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To retrieve the next set of results, call <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ListStackSetAutoDeploymentTargets.html\">ListStackSetAutoDeploymentTargets</a> again and use that value for the <code>NextToken</code> parameter. If the request returns all results, <code>NextToken</code> is set to an empty string.</p>"""
+    """<p>If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To retrieve the next set of results, call <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ListStackSetAutoDeploymentTargets.html">ListStackSetAutoDeploymentTargets</a> again and use that value for the <code>NextToken</code> parameter. If the request returns all results, <code>NextToken</code> is set to an empty string.</p>"""
 
 
 # --- awsQuery ser/de ---

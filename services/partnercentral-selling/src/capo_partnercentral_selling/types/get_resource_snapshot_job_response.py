@@ -37,7 +37,7 @@ class GetResourceSnapshotJobResponse(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_partnercentral_selling.types.resource_type.ResourceType"
     ]
-    r"""<p>The type of resource being snapshotted. This would have \"Opportunity\" as a value as it is dependent on the supported resource type.</p>"""
+    """<p>The type of resource being snapshotted. This would have "Opportunity" as a value as it is dependent on the supported resource type.</p>"""
     resource_id: NotRequired[
         "capo_partnercentral_selling.types.resource_identifier.ResourceIdentifier"
     ]
@@ -51,7 +51,7 @@ class GetResourceSnapshotJobResponse(TypedDict, closed=True):
     ]
     """<p>The name of the template used for creating the snapshot. This is the same as the template name. It defines the structure and content of the snapshot.</p>"""
     created_at: NotRequired["capo_partnercentral_selling.types.date_time.DateTime"]
-    r"""<p>The date and time when the snapshot job was created in ISO 8601 format (UTC). Example: \"2023-05-01T20:37:46Z\" </p>"""
+    """<p>The date and time when the snapshot job was created in ISO 8601 format (UTC). Example: "2023-05-01T20:37:46Z" </p>"""
     status: NotRequired[
         "capo_partnercentral_selling.types.resource_snapshot_job_status.ResourceSnapshotJobStatus"
     ]
@@ -59,7 +59,7 @@ class GetResourceSnapshotJobResponse(TypedDict, closed=True):
     last_successful_execution_date: NotRequired[
         "capo_partnercentral_selling.types.date_time.DateTime"
     ]
-    r"""<p>The date and time of the last successful execution of the job, in ISO 8601 format (UTC). Example: \"2023-05-01T20:37:46Z\" </p>"""
+    """<p>The date and time of the last successful execution of the job, in ISO 8601 format (UTC). Example: "2023-05-01T20:37:46Z" </p>"""
     last_failure: NotRequired["str"]
     """<p>If the job has encountered any failures, this field contains the error message from the most recent failure. This can be useful for troubleshooting issues with the job. </p>"""
 

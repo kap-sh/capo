@@ -17,7 +17,7 @@ class RelatedEntityIdentifiers(TypedDict, closed=True):
     aws_marketplace_offers: NotRequired[
         "capo_partnercentral_selling.types.aws_marketplace_offer_identifiers.AwsMarketplaceOfferIdentifiers"
     ]
-    r"""<p>Takes one value per opportunity. Each value is an Amazon Resource Name (ARN), in this format: <code>\"offers\": [\"arn:aws:aws-marketplace:us-east-1:999999999999:AWSMarketplace/Offer/offer-sampleOffer32\"]</code>.</p> <p>Use the <a href=\"https://docs.aws.amazon.com/marketplace-catalog/latest/api-reference/API_ListEntities.html\">ListEntities</a> action in the Marketplace Catalog APIs for a list of offers in the associated Marketplace seller account.</p>"""
+    """<p>Takes one value per opportunity. Each value is an Amazon Resource Name (ARN), in this format: <code>"offers": ["arn:aws:aws-marketplace:us-east-1:999999999999:AWSMarketplace/Offer/offer-sampleOffer32"]</code>.</p> <p>Use the <a href="https://docs.aws.amazon.com/marketplace-catalog/latest/api-reference/API_ListEntities.html">ListEntities</a> action in the Marketplace Catalog APIs for a list of offers in the associated Marketplace seller account.</p>"""
     aws_marketplace_offer_sets: NotRequired[
         "capo_partnercentral_selling.types.aws_marketplace_offer_set_identifiers.AwsMarketplaceOfferSetIdentifiers"
     ]
@@ -29,7 +29,7 @@ class RelatedEntityIdentifiers(TypedDict, closed=True):
     aws_products: NotRequired[
         "capo_partnercentral_selling.types.aws_product_identifiers.AwsProductIdentifiers"
     ]
-    r"""<p>Enables the association of specific Amazon Web Services products with the <code>Opportunity</code>. Partners can indicate the relevant Amazon Web Services products for the <code>Opportunity</code>'s solution and align with the customer's needs. Returns multiple values separated by commas. For example, <code>\"AWSProducts\" : [\"AmazonRedshift\", \"AWSAppFabric\", \"AWSCleanRooms\"]</code>.</p> <p>Use the file with the list of Amazon Web Services products hosted on GitHub: <a href=\"https://github.com/aws-samples/partner-crm-integration-samples/blob/main/resources/aws_products.json\"> Amazon Web Services products</a>.</p>"""
+    """<p>Enables the association of specific Amazon Web Services products with the <code>Opportunity</code>. Partners can indicate the relevant Amazon Web Services products for the <code>Opportunity</code>'s solution and align with the customer's needs. Returns multiple values separated by commas. For example, <code>"AWSProducts" : ["AmazonRedshift", "AWSAppFabric", "AWSCleanRooms"]</code>.</p> <p>Use the file with the list of Amazon Web Services products hosted on GitHub: <a href="https://github.com/aws-samples/partner-crm-integration-samples/blob/main/resources/aws_products.json"> Amazon Web Services products</a>.</p>"""
     aws_marketplace_solutions: NotRequired[
         "capo_partnercentral_selling.types.aws_marketplace_solution_identifiers.AwsMarketplaceSolutionIdentifiers"
     ]

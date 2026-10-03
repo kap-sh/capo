@@ -19,9 +19,9 @@ class AssetPropertySummary(TypedDict, closed=True):
     id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the property.</p>"""
     external_id: NotRequired["capo_iotsitewise.types.external_id.ExternalId"]
-    r"""<p>The external ID of the property. For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids\">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The external ID of the property. For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-ids">Using external IDs</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     alias: NotRequired["capo_iotsitewise.types.property_alias.PropertyAlias"]
-    r"""<p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     unit: NotRequired["capo_iotsitewise.types.property_unit.PropertyUnit"]
     """<p> The unit of measure (such as Newtons or RPM) of the asset property. </p>"""
     notification: NotRequired[

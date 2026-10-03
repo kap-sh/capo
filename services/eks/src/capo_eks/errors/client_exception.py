@@ -20,7 +20,7 @@ class ClientException_(TypedDict, closed=True):
     subscription_id: NotRequired["capo_eks.types.string.String"]
     """<p>The Amazon EKS subscription ID with the exception.</p>"""
     message: NotRequired["capo_eks.types.string.String"]
-    r"""<p>These errors are usually caused by a client action. Actions can include using an action or resource on behalf of an <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html\">IAM principal</a> that doesn't have permissions to use the action or resource or specifying an identifier that is not valid.</p>"""
+    """<p>These errors are usually caused by a client action. Actions can include using an action or resource on behalf of an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html">IAM principal</a> that doesn't have permissions to use the action or resource or specifying an identifier that is not valid.</p>"""
 
 
 # --- restJson1 ser/de ---

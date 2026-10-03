@@ -24,9 +24,9 @@ class ScheduledAuditMetadata(TypedDict, closed=True):
     frequency: NotRequired["capo_iot.types.audit_frequency.AuditFrequency"]
     """<p>How often the scheduled audit occurs.</p>"""
     day_of_month: NotRequired["capo_iot.types.day_of_month.DayOfMonth"]
-    r"""<p>The day of the month on which the scheduled audit is run (if the <code>frequency</code> is \"MONTHLY\"). If days 29-31 are specified, and the month does not have that many days, the audit takes place on the \"LAST\" day of the month.</p>"""
+    """<p>The day of the month on which the scheduled audit is run (if the <code>frequency</code> is "MONTHLY"). If days 29-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month.</p>"""
     day_of_week: NotRequired["capo_iot.types.day_of_week.DayOfWeek"]
-    r"""<p>The day of the week on which the scheduled audit is run (if the <code>frequency</code> is \"WEEKLY\" or \"BIWEEKLY\").</p>"""
+    """<p>The day of the week on which the scheduled audit is run (if the <code>frequency</code> is "WEEKLY" or "BIWEEKLY").</p>"""
 
 
 # --- restJson1 ser/de ---

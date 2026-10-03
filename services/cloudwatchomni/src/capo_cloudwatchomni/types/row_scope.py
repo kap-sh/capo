@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class RowScope(TypedDict, closed=True):
     field: "str"
-    r"""The field (column) the allowlist applies to (e.g., \"serviceName\", \"accountId\")."""
+    """The field (column) the allowlist applies to (e.g., "serviceName", "accountId")."""
     operator: "capo_cloudwatchomni.types.row_scope_operator.RowScopeOperator"
     """Match operator applied to this filter's values."""
     values: "capo_cloudwatchomni.types.row_scope_value_list.RowScopeValueList"

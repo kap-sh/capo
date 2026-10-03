@@ -17,7 +17,7 @@ class Player(TypedDict, closed=True):
     player_attributes: NotRequired[
         "capo_gamelift.types.player_attribute_map.PlayerAttributeMap"
     ]
-    r"""<p>A collection of key:value pairs containing player information for use in matchmaking. Player attribute keys must match the <i>playerAttributes</i> used in a matchmaking rule set. Example: <code>\"PlayerAttributes\": {\"skill\": {\"N\": \"23\"}, \"gameMode\": {\"S\": \"deathmatch\"}}</code>.</p> <p>You can provide up to 10 <code>PlayerAttributes</code>.</p>"""
+    """<p>A collection of key:value pairs containing player information for use in matchmaking. Player attribute keys must match the <i>playerAttributes</i> used in a matchmaking rule set. Example: <code>"PlayerAttributes": {"skill": {"N": "23"}, "gameMode": {"S": "deathmatch"}}</code>.</p> <p>You can provide up to 10 <code>PlayerAttributes</code>.</p>"""
     team: NotRequired["capo_gamelift.types.non_zero_and_max_string.NonZeroAndMaxString"]
     """<p>Name of the team that the player is assigned to in a match. Team names are defined in a matchmaking rule set.</p>"""
     latency_in_ms: NotRequired["capo_gamelift.types.latency_map.LatencyMap"]

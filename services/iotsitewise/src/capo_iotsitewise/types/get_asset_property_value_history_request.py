@@ -22,7 +22,7 @@ class GetAssetPropertyValueHistoryRequest(TypedDict, closed=True):
     property_alias: NotRequired[
         "capo_iotsitewise.types.asset_property_alias.AssetPropertyAlias"
     ]
-    r"""<p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html\">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
+    """<p>The alias that identifies the property, such as an OPC-UA server data stream path (for example, <code>/company/windfarm/3/turbine/7/temperature</code>). For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html">Mapping industrial data streams to asset properties</a> in the <i>IoT SiteWise User Guide</i>.</p>"""
     start_date: NotRequired["capo_iotsitewise.types.timestamp.Timestamp"]
     """<p>The exclusive start of the range from which to query historical data, expressed in seconds in Unix epoch time.</p>"""
     end_date: NotRequired["capo_iotsitewise.types.timestamp.Timestamp"]

@@ -15,7 +15,7 @@ class UpdateManagedInstanceRoleRequest(TypedDict, closed=True):
     instance_id: "capo_ssm.types.managed_instance_id.ManagedInstanceId"
     """<p>The ID of the managed node where you want to update the role.</p>"""
     iam_role: "capo_ssm.types.iam_role.IamRole"
-    r"""<p>The name of the Identity and Access Management (IAM) role that you want to assign to the managed node. This IAM role must provide AssumeRole permissions for the Amazon Web Services Systems Manager service principal <code>ssm.amazonaws.com</code>. For more information, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/hybrid-multicloud-service-role.html\">Create the IAM service role required for Systems Manager in hybrid and multicloud environments</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> <note> <p>You can't specify an IAM service-linked role for this parameter. You must create a unique role.</p> </note>"""
+    """<p>The name of the Identity and Access Management (IAM) role that you want to assign to the managed node. This IAM role must provide AssumeRole permissions for the Amazon Web Services Systems Manager service principal <code>ssm.amazonaws.com</code>. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/hybrid-multicloud-service-role.html">Create the IAM service role required for Systems Manager in hybrid and multicloud environments</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p> <note> <p>You can't specify an IAM service-linked role for this parameter. You must create a unique role.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -18,7 +18,7 @@ class GetCredentialReportResponse(TypedDict, closed=True):
     report_format: NotRequired["capo_iam.types.report_format_type.ReportFormatType"]
     """<p>The format (MIME type) of the credential report.</p>"""
     generated_time: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p> The date and time when the credential report was created, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>.</p>"""
+    """<p> The date and time when the credential report was created, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

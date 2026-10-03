@@ -27,7 +27,7 @@ class ListResourceRecordSetsResponse(TypedDict, closed=True):
     next_record_identifier: NotRequired[
         "capo_route_53.types.resource_record_set_identifier.ResourceRecordSetIdentifier"
     ]
-    r"""<p> <i>Resource record sets that have a routing policy other than simple:</i> If results were truncated for a given DNS name and type, the value of <code>SetIdentifier</code> for the next resource record set that has the current DNS name and type.</p> <p>For information about routing policies, see <a href=\"https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html\">Choosing a Routing Policy</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>"""
+    """<p> <i>Resource record sets that have a routing policy other than simple:</i> If results were truncated for a given DNS name and type, the value of <code>SetIdentifier</code> for the next resource record set that has the current DNS name and type.</p> <p>For information about routing policies, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html">Choosing a Routing Policy</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>"""
     max_items: "int"
     """<p>The maximum number of records you requested.</p>"""
 

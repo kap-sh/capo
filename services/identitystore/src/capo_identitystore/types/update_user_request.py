@@ -18,7 +18,7 @@ class UpdateUserRequest(TypedDict, closed=True):
     user_id: "capo_identitystore.types.resource_id.ResourceId"
     """<p>The identifier for a user in the identity store.</p>"""
     operations: "capo_identitystore.types.attribute_operations.AttributeOperations"
-    r"""<p>A list of <code>AttributeOperation</code> objects to apply to the requested user. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href=\"https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html\">User</a>.</p>"""
+    """<p>A list of <code>AttributeOperation</code> objects to apply to the requested user. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href="https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html">User</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

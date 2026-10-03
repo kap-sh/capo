@@ -15,7 +15,7 @@ class CreateAndAttachS3AccessPointS3Configuration(TypedDict, closed=True):
     ]
     """<p>If included, Amazon S3 restricts access to this S3 access point to requests made from the specified virtual private cloud (VPC).</p>"""
     policy: NotRequired["capo_fsx.types.access_point_policy.AccessPointPolicy"]
-    r"""<p>Specifies an access policy to associate with the S3 access point configuration. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-policies.html\">Configuring IAM policies for using access points</a> in the Amazon Simple Storage Service User Guide.</p>"""
+    """<p>Specifies an access policy to associate with the S3 access point configuration. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-policies.html">Configuring IAM policies for using access points</a> in the Amazon Simple Storage Service User Guide.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

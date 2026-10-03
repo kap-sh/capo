@@ -13,7 +13,7 @@ class Scte35InputScheduleActionSettings(TypedDict, closed=True):
     input_attachment_name_reference: NotRequired[
         "capo_medialive.types.__string.__string"
     ]
-    r"""In fixed mode, enter the name of the input attachment that you want to use as a SCTE-35 input. (Don't enter the ID of the input.)\""""
+    """In fixed mode, enter the name of the input attachment that you want to use as a SCTE-35 input. (Don't enter the ID of the input.)\""""
     mode: NotRequired["capo_medialive.types.scte35_input_mode.Scte35InputMode"]
     """Whether the SCTE-35 input should be the active input or a fixed input."""
 

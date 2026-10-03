@@ -25,7 +25,7 @@ class RetrieveRequest(TypedDict, closed=True):
     retrieval_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.knowledge_base_retrieval_configuration.KnowledgeBaseRetrievalConfiguration"
     ]
-    r"""<p>Contains configurations for the knowledge base query and retrieval process. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html\">Query configurations</a>.</p>"""
+    """<p>Contains configurations for the knowledge base query and retrieval process. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html">Query configurations</a>.</p>"""
     guardrail_configuration: NotRequired[
         "capo_bedrock_agent_runtime.types.guardrail_configuration.GuardrailConfiguration"
     ]

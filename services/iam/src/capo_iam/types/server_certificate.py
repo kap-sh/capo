@@ -26,7 +26,7 @@ class ServerCertificate(TypedDict, closed=True):
     ]
     """<p>The contents of the public key certificate chain.</p>"""
     tags: NotRequired["capo_iam.types.tag_list_type.tagListType"]
-    r"""<p>A list of tags that are attached to the server certificate. For more information about tagging, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html\">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>A list of tags that are attached to the server certificate. For more information about tagging, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

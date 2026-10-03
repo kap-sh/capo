@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class FeaturedDocumentWithMetadata(TypedDict, closed=True):
     id: NotRequired["capo_kendra.types.document_id.DocumentId"]
-    r"""<p>The identifier of the featured document with its metadata. You can use the <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html\">Query</a> API to search for specific documents with their document IDs included in the result items, or you can use the console.</p>"""
+    """<p>The identifier of the featured document with its metadata. You can use the <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a> API to search for specific documents with their document IDs included in the result items, or you can use the console.</p>"""
     title: NotRequired["capo_kendra.types.string.String"]
     """<p>The main title of the featured document.</p>"""
     uri: NotRequired["capo_kendra.types.url.Url"]

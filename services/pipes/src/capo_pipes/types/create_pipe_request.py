@@ -48,7 +48,7 @@ class CreatePipeRequest(TypedDict, closed=True):
     target_parameters: NotRequired[
         "capo_pipes.types.pipe_target_parameters.PipeTargetParameters"
     ]
-    r"""<p>The parameters required to set up a target for your pipe.</p> <p>For more information about pipe target parameters, including how to use dynamic path parameters, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes-event-target.html\">Target parameters</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>The parameters required to set up a target for your pipe.</p> <p>For more information about pipe target parameters, including how to use dynamic path parameters, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes-event-target.html">Target parameters</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
     role_arn: "capo_pipes.types.role_arn.RoleArn"
     """<p>The ARN of the role that allows the pipe to send data to the target.</p>"""
     tags: NotRequired["capo_pipes.types.tag_map.TagMap"]
@@ -60,7 +60,7 @@ class CreatePipeRequest(TypedDict, closed=True):
     kms_key_identifier: NotRequired[
         "capo_pipes.types.kms_key_identifier.KmsKeyIdentifier"
     ]
-    r"""<p>The identifier of the KMS customer managed key for EventBridge to use, if you choose to use a customer managed key to encrypt pipe data. The identifier can be the key Amazon Resource Name (ARN), KeyId, key alias, or key alias ARN.</p> <p>If you do not specify a customer managed key identifier, EventBridge uses an Amazon Web Services owned key to encrypt pipe data.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/getting-started.html\">Managing keys</a> in the <i>Key Management Service Developer Guide</i>. </p>"""
+    """<p>The identifier of the KMS customer managed key for EventBridge to use, if you choose to use a customer managed key to encrypt pipe data. The identifier can be the key Amazon Resource Name (ARN), KeyId, key alias, or key alias ARN.</p> <p>If you do not specify a customer managed key identifier, EventBridge uses an Amazon Web Services owned key to encrypt pipe data.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/getting-started.html">Managing keys</a> in the <i>Key Management Service Developer Guide</i>. </p>"""
 
 
 # --- restJson1 ser/de ---

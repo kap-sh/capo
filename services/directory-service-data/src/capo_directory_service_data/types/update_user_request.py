@@ -33,7 +33,7 @@ class UpdateUserRequest(TypedDict, closed=True):
     other_attributes: NotRequired[
         "capo_directory_service_data.types.attributes.Attributes"
     ]
-    r"""<p> An expression that defines one or more attribute names with the data type and value of each attribute. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p> <note> <p> Attribute names are case insensitive. </p> </note>"""
+    """<p> An expression that defines one or more attribute names with the data type and value of each attribute. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p> <note> <p> Attribute names are case insensitive. </p> </note>"""
     update_type: NotRequired["capo_directory_service_data.types.update_type.UpdateType"]
     """<p> The type of update to be performed. If no value exists for the attribute, use <code>ADD</code>. Otherwise, use <code>REPLACE</code> to change an attribute value or <code>REMOVE</code> to clear the attribute value. </p>"""
     client_token: NotRequired[

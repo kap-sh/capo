@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class ModelCardSecurityConfig(TypedDict, closed=True):
     kms_key_id: NotRequired["capo_sagemaker.types.kms_key_id.KmsKeyId"]
-    r"""<p>A Key Management Service <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-id\">key ID</a> to use for encrypting a model card.</p>"""
+    """<p>A Key Management Service <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-id">key ID</a> to use for encrypting a model card.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

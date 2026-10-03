@@ -17,7 +17,7 @@ class CreateTrafficPolicyVersionRequest(TypedDict, closed=True):
     id: "capo_route_53.types.traffic_policy_id.TrafficPolicyId"
     """<p>The ID of the traffic policy for which you want to create a new version.</p>"""
     document: "capo_route_53.types.traffic_policy_document.TrafficPolicyDocument"
-    r"""<p>The definition of this version of the traffic policy, in JSON format. You specified the JSON in the <code>CreateTrafficPolicyVersion</code> request. For more information about the JSON format, see <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateTrafficPolicy.html\">CreateTrafficPolicy</a>.</p>"""
+    """<p>The definition of this version of the traffic policy, in JSON format. You specified the JSON in the <code>CreateTrafficPolicyVersion</code> request. For more information about the JSON format, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateTrafficPolicy.html">CreateTrafficPolicy</a>.</p>"""
     comment: NotRequired[
         "capo_route_53.types.traffic_policy_comment.TrafficPolicyComment"
     ]

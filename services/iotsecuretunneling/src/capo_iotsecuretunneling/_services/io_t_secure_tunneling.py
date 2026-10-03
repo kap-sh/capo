@@ -159,7 +159,7 @@ class IoTSecureTunnelingClient:
         config_overrides: Optional[IoTSecureTunnelingClientConfig] = None,
         delete: Optional["capo_iotsecuretunneling.types.delete_flag.DeleteFlag"] = None,
     ) -> "capo_iotsecuretunneling.types.close_tunnel_response.CloseTunnelResponse":
-        r"""<p>Closes a tunnel identified by the unique tunnel id. When a <code>CloseTunnel</code> request is received, we close the WebSocket connections between the client and proxy server so no data can be transmitted.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CloseTunnel</a> action.</p>
+        """<p>Closes a tunnel identified by the unique tunnel id. When a <code>CloseTunnel</code> request is received, we close the WebSocket connections between the client and proxy server so no data can be transmitted.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CloseTunnel</a> action.</p>
 
         Args:
             tunnel_id: <p>The ID of the tunnel to close.</p>
@@ -207,7 +207,7 @@ class IoTSecureTunnelingClient:
     ) -> (
         "capo_iotsecuretunneling.types.describe_tunnel_response.DescribeTunnelResponse"
     ):
-        r"""<p>Gets information about a tunnel identified by the unique tunnel id.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeTunnel</a> action.</p>
+        """<p>Gets information about a tunnel identified by the unique tunnel id.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeTunnel</a> action.</p>
 
         Args:
             tunnel_id: <p>The tunnel to describe.</p>
@@ -301,7 +301,7 @@ class IoTSecureTunnelingClient:
             "capo_iotsecuretunneling.types.next_token.NextToken"
         ] = None,
     ) -> "capo_iotsecuretunneling.types.list_tunnels_response.ListTunnelsResponse":
-        r"""<p>List all tunnels for an Amazon Web Services account. Tunnels are listed by creation time in descending order, newer tunnels will be listed before older tunnels.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListTunnels</a> action.</p>
+        """<p>List all tunnels for an Amazon Web Services account. Tunnels are listed by creation time in descending order, newer tunnels will be listed before older tunnels.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListTunnels</a> action.</p>
 
         Args:
             thing_name: <p>The name of the IoT thing associated with the destination device.</p>
@@ -385,7 +385,7 @@ class IoTSecureTunnelingClient:
             "capo_iotsecuretunneling.types.timeout_config.TimeoutConfig"
         ] = None,
     ) -> "capo_iotsecuretunneling.types.open_tunnel_response.OpenTunnelResponse":
-        r"""<p>Creates a new tunnel, and returns two client access tokens for clients to use to connect to the IoT Secure Tunneling proxy server.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">OpenTunnel</a> action.</p>
+        """<p>Creates a new tunnel, and returns two client access tokens for clients to use to connect to the IoT Secure Tunneling proxy server.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">OpenTunnel</a> action.</p>
 
         Args:
             description: <p>A short text description of the tunnel. </p>
@@ -441,7 +441,7 @@ class IoTSecureTunnelingClient:
             "capo_iotsecuretunneling.types.destination_config.DestinationConfig"
         ] = None,
     ) -> "capo_iotsecuretunneling.types.rotate_tunnel_access_token_response.RotateTunnelAccessTokenResponse":
-        r"""<p>Revokes the current client access token (CAT) and returns new CAT for clients to use when reconnecting to secure tunneling to access the same tunnel.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">RotateTunnelAccessToken</a> action.</p> <note> <p>Rotating the CAT doesn't extend the tunnel duration. For example, say the tunnel duration is 12 hours and the tunnel has already been open for 4 hours. When you rotate the access tokens, the new tokens that are generated can only be used for the remaining 8 hours.</p> </note>
+        """<p>Revokes the current client access token (CAT) and returns new CAT for clients to use when reconnecting to secure tunneling to access the same tunnel.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">RotateTunnelAccessToken</a> action.</p> <note> <p>Rotating the CAT doesn't extend the tunnel duration. For example, say the tunnel duration is 12 hours and the tunnel has already been open for 4 hours. When you rotate the access tokens, the new tokens that are generated can only be used for the remaining 8 hours.</p> </note>
 
         Args:
             tunnel_id: <p>The tunnel for which you want to rotate the access tokens.</p>

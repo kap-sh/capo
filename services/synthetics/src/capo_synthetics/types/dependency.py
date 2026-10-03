@@ -15,7 +15,7 @@ class Dependency(TypedDict, closed=True):
     type: NotRequired["capo_synthetics.types.dependency_type.DependencyType"]
     """<p>The type of dependency. Valid value is <code>LambdaLayer</code>.</p>"""
     reference: "capo_synthetics.types.string.String"
-    r"""<p>The dependency reference. For Lambda layers, this is the ARN of the Lambda layer. For more information about Lambda ARN format, see <a href=\"https://docs.aws.amazon.com/lambda/latest/api/API_Layer.html\">Lambda</a>.</p>"""
+    """<p>The dependency reference. For Lambda layers, this is the ARN of the Lambda layer. For more information about Lambda ARN format, see <a href="https://docs.aws.amazon.com/lambda/latest/api/API_Layer.html">Lambda</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

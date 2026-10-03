@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class GetPriceListFileUrlRequest(TypedDict, closed=True):
     price_list_arn: "capo_pricing.types.price_list_arn.PriceListArn"
-    r"""<p>The unique identifier that maps to where your Price List files are located. <code>PriceListArn</code> can be obtained from the <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_ListPriceLists.html\">ListPriceLists</a> response. </p>"""
+    """<p>The unique identifier that maps to where your Price List files are located. <code>PriceListArn</code> can be obtained from the <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_ListPriceLists.html">ListPriceLists</a> response. </p>"""
     file_format: "capo_pricing.types.file_format.FileFormat"
-    r"""<p>The format that you want to retrieve your Price List files in. The <code>FileFormat</code> can be obtained from the <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_ListPriceLists.html\">ListPriceLists</a> response. </p>"""
+    """<p>The format that you want to retrieve your Price List files in. The <code>FileFormat</code> can be obtained from the <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_ListPriceLists.html">ListPriceLists</a> response. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

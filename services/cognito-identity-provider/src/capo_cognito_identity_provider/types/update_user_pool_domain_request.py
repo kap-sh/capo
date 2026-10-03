@@ -24,7 +24,7 @@ class UpdateUserPoolDomainRequest(TypedDict, closed=True):
     managed_login_version: NotRequired[
         "capo_cognito_identity_provider.types.wrapped_integer_type.WrappedIntegerType"
     ]
-    r"""<p>A version number that indicates the state of managed login for your domain. Version <code>1</code> is hosted UI (classic). Version <code>2</code> is the newer managed login with the branding editor. For more information, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html\">Managed login</a>.</p>"""
+    """<p>A version number that indicates the state of managed login for your domain. Version <code>1</code> is hosted UI (classic). Version <code>2</code> is the newer managed login with the branding editor. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html">Managed login</a>.</p>"""
     custom_domain_config: NotRequired[
         "capo_cognito_identity_provider.types.custom_domain_config_type.CustomDomainConfigType"
     ]

@@ -20,9 +20,9 @@ class SendNotificationActionDefinition(TypedDict, closed=True):
     )
     """<p>Notification delivery method.</p>"""
     subject: NotRequired["capo_connect.types.subject.Subject"]
-    r"""<p>The subject of the email if the delivery method is <code>EMAIL</code>. Supports variable injection. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html\">JSONPath reference</a> in the <i>Connect Customer Administrators Guide</i>.</p>"""
+    """<p>The subject of the email if the delivery method is <code>EMAIL</code>. Supports variable injection. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html">JSONPath reference</a> in the <i>Connect Customer Administrators Guide</i>.</p>"""
     content: "capo_connect.types.content.Content"
-    r"""<p>Notification content. Supports variable injection. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html\">JSONPath reference</a> in the <i>Connect Customer Administrators Guide</i>.</p>"""
+    """<p>Notification content. Supports variable injection. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html">JSONPath reference</a> in the <i>Connect Customer Administrators Guide</i>.</p>"""
     content_type: "capo_connect.types.notification_content_type.NotificationContentType"
     """<p>Content type format.</p>"""
     recipient: (

@@ -18,7 +18,7 @@ class CreateParticipantConnectionRequest(TypedDict, closed=True):
     participant_token: (
         "capo_connectparticipant.types.participant_token.ParticipantToken"
     )
-    r"""<p>This is a header parameter.</p> <p>The ParticipantToken as obtained from <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_StartChatContact.html\">StartChatContact</a> API response.</p>"""
+    """<p>This is a header parameter.</p> <p>The ParticipantToken as obtained from <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_StartChatContact.html">StartChatContact</a> API response.</p>"""
     connect_participant: NotRequired["capo_connectparticipant.types.bool.Bool"]
     """<p>Amazon Connect Participant is used to mark the participant as connected for customer participant in message streaming, as well as for agent or manager participant in non-streaming chats.</p>"""
 

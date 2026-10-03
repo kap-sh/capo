@@ -18,7 +18,7 @@ class CreateOAuth2TokenResponseBody(TypedDict, closed=True):
     access_token: "capo_signin.types.access_token.AccessToken"
     """Scoped-down AWS credentials (15 minute duration) Present for both authorization code redemption and token refresh"""
     token_type: "capo_signin.types.token_type.TokenType"
-    r"""Token type indicating this is AWS SigV4 credentials Value is \"aws_sigv4\" for both flows"""
+    """Token type indicating this is AWS SigV4 credentials Value is "aws_sigv4" for both flows"""
     expires_in: "capo_signin.types.expires_in.ExpiresIn"
     """Time to expiry in seconds (maximum 900) Present for both authorization code redemption and token refresh"""
     refresh_token: "capo_signin.types.refresh_token.RefreshToken"

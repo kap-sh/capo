@@ -15,7 +15,7 @@ class ACL(TypedDict, closed=True):
     name: NotRequired["capo_memorydb.types.string.String"]
     """<p>The name of the Access Control List</p>"""
     status: NotRequired["capo_memorydb.types.string.String"]
-    r"""<p>Indicates ACL status. Can be \"creating\", \"active\", \"modifying\", \"deleting\".</p>"""
+    """<p>Indicates ACL status. Can be "creating", "active", "modifying", "deleting".</p>"""
     user_names: NotRequired["capo_memorydb.types.user_name_list.UserNameList"]
     """<p>The list of user names that belong to the ACL.</p>"""
     minimum_engine_version: NotRequired["capo_memorydb.types.string.String"]

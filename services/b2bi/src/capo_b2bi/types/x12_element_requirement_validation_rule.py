@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class X12ElementRequirementValidationRule(TypedDict, closed=True):
     element_position: "capo_b2bi.types.element_position.ElementPosition"
-    r"""<p>Specifies the position of the element within an X12 segment for which the requirement status will be modified. The format follows the pattern of segment identifier followed by element position (e.g., \"ST-01\" for the first element of the ST segment).</p>"""
+    """<p>Specifies the position of the element within an X12 segment for which the requirement status will be modified. The format follows the pattern of segment identifier followed by element position (e.g., "ST-01" for the first element of the ST segment).</p>"""
     requirement: "capo_b2bi.types.element_requirement.ElementRequirement"
     """<p>Specifies the requirement status for the element at the specified position. Valid values are OPTIONAL (the element may be omitted) or MANDATORY (the element must be present).</p>"""
 

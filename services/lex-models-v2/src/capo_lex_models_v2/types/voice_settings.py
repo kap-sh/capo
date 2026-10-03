@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class VoiceSettings(TypedDict, closed=True):
     engine: NotRequired["capo_lex_models_v2.types.voice_engine.VoiceEngine"]
-    r"""<p>Indicates the type of Amazon Polly voice that Amazon Lex should use for voice interaction with the user. For more information, see the <a href=\"https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html#polly-SynthesizeSpeech-request-Engine\"> <code>engine</code> parameter of the <code>SynthesizeSpeech</code> operation</a> in the <i>Amazon Polly developer guide</i>.</p> <p>If you do not specify a value, the default is <code>standard</code>.</p>"""
+    """<p>Indicates the type of Amazon Polly voice that Amazon Lex should use for voice interaction with the user. For more information, see the <a href="https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html#polly-SynthesizeSpeech-request-Engine"> <code>engine</code> parameter of the <code>SynthesizeSpeech</code> operation</a> in the <i>Amazon Polly developer guide</i>.</p> <p>If you do not specify a value, the default is <code>standard</code>.</p>"""
     voice_id: "capo_lex_models_v2.types.voice_id.VoiceId"
     """<p>The identifier of the Amazon Polly voice to use.</p>"""
 

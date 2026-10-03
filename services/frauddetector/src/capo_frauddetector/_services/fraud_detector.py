@@ -537,14 +537,14 @@ class FraudDetectorClient:
         config_overrides: Optional[FraudDetectorClientConfig] = None,
         tags: Optional["capo_frauddetector.types.tag_list.tagList"] = None,
     ) -> "capo_frauddetector.types.create_batch_import_job_result.CreateBatchImportJobResult":
-        r"""<p>Creates a batch import job. </p>
+        """<p>Creates a batch import job. </p>
 
         Args:
             job_id: <p>The ID of the batch import job. The ID cannot be of a past job, unless the job exists in <code>CREATE_FAILED</code> state.</p>
             input_path: <p>The URI that points to the Amazon S3 location of your data file.</p>
             output_path: <p>The URI that points to the Amazon S3 location for storing your results. </p>
             event_type_name: <p>The name of the event type.</p>
-            iam_role_arn: <p>The ARN of the IAM role created for Amazon S3 bucket that holds your data file.</p> <p>The IAM role must have read permissions to your input S3 bucket and write permissions to your output S3 bucket. For more information about bucket permissions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html\">User policy examples</a> in the <i>Amazon S3 User Guide</i>.</p>
+            iam_role_arn: <p>The ARN of the IAM role created for Amazon S3 bucket that holds your data file.</p> <p>The IAM role must have read permissions to your input S3 bucket and write permissions to your output S3 bucket. For more information about bucket permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html">User policy examples</a> in the <i>Amazon S3 User Guide</i>.</p>
             tags: <p>A collection of key-value pairs associated with this request. </p>
 
         Raises:
@@ -604,7 +604,7 @@ class FraudDetectorClient:
         ] = None,
         tags: Optional["capo_frauddetector.types.tag_list.tagList"] = None,
     ) -> "capo_frauddetector.types.create_batch_prediction_job_result.CreateBatchPredictionJobResult":
-        r"""<p>Creates a batch prediction job.</p>
+        """<p>Creates a batch prediction job.</p>
 
         Args:
             job_id: <p>The ID of the batch prediction job.</p>
@@ -613,7 +613,7 @@ class FraudDetectorClient:
             event_type_name: <p>The name of the event type.</p>
             detector_name: <p>The name of the detector.</p>
             detector_version: <p>The detector version.</p>
-            iam_role_arn: <p>The ARN of the IAM role to use for this job request.</p> <p>The IAM Role must have read permissions to your input S3 bucket and write permissions to your output S3 bucket. For more information about bucket permissions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html\">User policy examples</a> in the <i>Amazon S3 User Guide</i>.</p>
+            iam_role_arn: <p>The ARN of the IAM role to use for this job request.</p> <p>The IAM Role must have read permissions to your input S3 bucket and write permissions to your output S3 bucket. For more information about bucket permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html">User policy examples</a> in the <i>Amazon S3 User Guide</i>.</p>
             tags: <p>A collection of key and value pairs.</p>
 
         Raises:
@@ -755,12 +755,12 @@ class FraudDetectorClient:
         ] = None,
         tags: Optional["capo_frauddetector.types.tag_list.tagList"] = None,
     ) -> "capo_frauddetector.types.create_list_result.CreateListResult":
-        r"""<p> Creates a list. </p> <p>List is a set of input data for a variable in your event dataset. You use the input data in a rule that's associated with your detector. For more information, see <a href=\"https://docs.aws.amazon.com/frauddetector/latest/ug/lists.html\">Lists</a>.</p>
+        """<p> Creates a list. </p> <p>List is a set of input data for a variable in your event dataset. You use the input data in a rule that's associated with your detector. For more information, see <a href="https://docs.aws.amazon.com/frauddetector/latest/ug/lists.html">Lists</a>.</p>
 
         Args:
             name: <p> The name of the list. </p>
-            elements: <p> The names of the elements, if providing. You can also create an empty list and add elements later using the <a href=\"https://docs.aws.amazon.com/frauddetector/latest/api/API_Updatelist.html\">UpdateList</a> API. </p>
-            variable_type: <p> The variable type of the list. You can only assign the variable type with String data type. For more information, see <a href=\"https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types\">Variable types</a>. </p>
+            elements: <p> The names of the elements, if providing. You can also create an empty list and add elements later using the <a href="https://docs.aws.amazon.com/frauddetector/latest/api/API_Updatelist.html">UpdateList</a> API. </p>
+            variable_type: <p> The variable type of the list. You can only assign the variable type with String data type. For more information, see <a href="https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types">Variable types</a>. </p>
             description: <p> The description of the list. </p>
             tags: <p> A collection of the key and value pairs. </p>
 
@@ -1023,7 +1023,7 @@ class FraudDetectorClient:
         variable_type: Optional["capo_frauddetector.types.string.string"] = None,
         tags: Optional["capo_frauddetector.types.tag_list.tagList"] = None,
     ) -> "capo_frauddetector.types.create_variable_result.CreateVariableResult":
-        r"""<p>Creates a variable.</p>
+        """<p>Creates a variable.</p>
 
         Args:
             name: <p>The name of the variable.</p>
@@ -1031,7 +1031,7 @@ class FraudDetectorClient:
             data_source: <p>The source of the data.</p>
             default_value: <p>The default value for the variable when no value is received.</p>
             description: <p>The description.</p>
-            variable_type: <p>The variable type. For more information see <a href=\"https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types\">Variable types</a>. </p> <p>Valid Values: <code>AUTH_CODE | AVS | BILLING_ADDRESS_L1 | BILLING_ADDRESS_L2 | BILLING_CITY | BILLING_COUNTRY | BILLING_NAME | BILLING_PHONE | BILLING_STATE | BILLING_ZIP | CARD_BIN | CATEGORICAL | CURRENCY_CODE | EMAIL_ADDRESS | FINGERPRINT | FRAUD_LABEL | FREE_FORM_TEXT | IP_ADDRESS | NUMERIC | ORDER_ID | PAYMENT_TYPE | PHONE_NUMBER | PRICE | PRODUCT_CATEGORY | SHIPPING_ADDRESS_L1 | SHIPPING_ADDRESS_L2 | SHIPPING_CITY | SHIPPING_COUNTRY | SHIPPING_NAME | SHIPPING_PHONE | SHIPPING_STATE | SHIPPING_ZIP | USERAGENT</code> </p>
+            variable_type: <p>The variable type. For more information see <a href="https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types">Variable types</a>. </p> <p>Valid Values: <code>AUTH_CODE | AVS | BILLING_ADDRESS_L1 | BILLING_ADDRESS_L2 | BILLING_CITY | BILLING_COUNTRY | BILLING_NAME | BILLING_PHONE | BILLING_STATE | BILLING_ZIP | CARD_BIN | CATEGORICAL | CURRENCY_CODE | EMAIL_ADDRESS | FINGERPRINT | FRAUD_LABEL | FREE_FORM_TEXT | IP_ADDRESS | NUMERIC | ORDER_ID | PAYMENT_TYPE | PHONE_NUMBER | PRICE | PRODUCT_CATEGORY | SHIPPING_ADDRESS_L1 | SHIPPING_ADDRESS_L2 | SHIPPING_CITY | SHIPPING_COUNTRY | SHIPPING_NAME | SHIPPING_PHONE | SHIPPING_STATE | SHIPPING_ZIP | USERAGENT</code> </p>
             tags: <p>A collection of key and value pairs.</p>
 
         Raises:
@@ -2499,14 +2499,14 @@ class FraudDetectorClient:
     ) -> (
         "capo_frauddetector.types.get_event_prediction_result.GetEventPredictionResult"
     ):
-        r"""<p>Evaluates an event against a detector version. If a version ID is not provided, the detector’s (<code>ACTIVE</code>) version is used.</p>
+        """<p>Evaluates an event against a detector version. If a version ID is not provided, the detector’s (<code>ACTIVE</code>) version is used.</p>
 
         Args:
             detector_id: <p>The detector ID.</p>
             detector_version_id: <p>The detector version ID.</p>
             event_id: <p>The unique ID used to identify the event.</p>
             event_type_name: <p>The event type associated with the detector specified for the prediction.</p>
-            entities: <p>The entity type (associated with the detector's event type) and specific entity ID representing who performed the event. If an entity id is not available, use \"UNKNOWN.\"</p>
+            entities: <p>The entity type (associated with the detector's event type) and specific entity ID representing who performed the event. If an entity id is not available, use "UNKNOWN."</p>
             event_timestamp: <p>Timestamp that defines when the event under evaluation occurred. The timestamp must be specified using ISO 8601 standard in UTC.</p>
             event_variables: <p>Names of the event type's variables you defined in Amazon Fraud Detector to represent data elements and their corresponding values for the event you are sending for evaluation.</p> <important> <p>You must provide at least one eventVariable</p> </important> <p>To ensure most accurate fraud prediction and to simplify your data preparation, Amazon Fraud Detector will replace all missing variables or values as follows:</p> <p> <b>For Amazon Fraud Detector trained models:</b> </p> <p>If a null value is provided explicitly for a variable or if a variable is missing, model will replace the null value or the missing variable (no variable name in the eventVariables map) with calculated default mean/medians for numeric variables and with special values for categorical variables.</p> <p> <b>For imported SageMaker models:</b> </p> <p>If a null value is provided explicitly for a variable, the model and rules will use “null” as the value. If a variable is not provided (no variable name in the eventVariables map), model and rules will use the default value that is provided for the variable. </p>
             external_model_endpoint_data_blobs: <p>The Amazon SageMaker model endpoint input data blobs.</p>
@@ -2570,14 +2570,14 @@ class FraudDetectorClient:
         *,
         config_overrides: Optional[FraudDetectorClientConfig] = None,
     ) -> "capo_frauddetector.types.get_event_prediction_metadata_result.GetEventPredictionMetadataResult":
-        r"""<p> Gets details of the past fraud predictions for the specified event ID, event type, detector ID, and detector version ID that was generated in the specified time period. </p>
+        """<p> Gets details of the past fraud predictions for the specified event ID, event type, detector ID, and detector version ID that was generated in the specified time period. </p>
 
         Args:
             event_id: <p> The event ID. </p>
             event_type_name: <p> The event type associated with the detector specified for the prediction. </p>
             detector_id: <p> The detector ID. </p>
             detector_version_id: <p> The detector version ID. </p>
-            prediction_timestamp: <p> The timestamp that defines when the prediction was generated. The timestamp must be specified using ISO 8601 standard in UTC.</p> <p>We recommend calling <a href=\"https://docs.aws.amazon.com/frauddetector/latest/api/API_ListEventPredictions.html\">ListEventPredictions</a> first, and using the <code>predictionTimestamp</code> value in the response to provide an accurate prediction timestamp value.</p>
+            prediction_timestamp: <p> The timestamp that defines when the prediction was generated. The timestamp must be specified using ISO 8601 standard in UTC.</p> <p>We recommend calling <a href="https://docs.aws.amazon.com/frauddetector/latest/api/API_ListEventPredictions.html">ListEventPredictions</a> first, and using the <code>predictionTimestamp</code> value in the response to provide an accurate prediction timestamp value.</p>
 
         Raises:
             capo_frauddetector.errors.access_denied_exception.AccessDeniedException: <p>An exception indicating Amazon Fraud Detector does not have the needed permissions. This can occur if you submit a request, such as <code>PutExternalModel</code>, that specifies a role that is not in your account.</p>
@@ -3489,7 +3489,7 @@ class FraudDetectorClient:
             "capo_frauddetector.types.event_predictions_max_results.EventPredictionsMaxResults"
         ] = None,
     ) -> "capo_frauddetector.types.list_event_predictions_result.ListEventPredictionsResult":
-        r"""<p>Gets a list of past predictions. The list can be filtered by detector ID, detector version ID, event ID, event type, or by specifying a time period. If filter is not specified, the most recent prediction is returned.</p> <p>For example, the following filter lists all past predictions for <code>xyz</code> event type - <code>{ \"eventType\":{ \"value\": \"xyz\" }” } </code> </p> <p>This is a paginated API. If you provide a null <code>maxResults</code>, this action will retrieve a maximum of 10 records per page. If you provide a <code>maxResults</code>, the value must be between 50 and 100. To get the next page results, provide the <code>nextToken</code> from the response as part of your request. A null <code>nextToken</code> fetches the records from the beginning. </p>
+        """<p>Gets a list of past predictions. The list can be filtered by detector ID, detector version ID, event ID, event type, or by specifying a time period. If filter is not specified, the most recent prediction is returned.</p> <p>For example, the following filter lists all past predictions for <code>xyz</code> event type - <code>{ "eventType":{ "value": "xyz" }” } </code> </p> <p>This is a paginated API. If you provide a null <code>maxResults</code>, this action will retrieve a maximum of 10 records per page. If you provide a <code>maxResults</code>, the value must be between 50 and 100. To get the next page results, provide the <code>nextToken</code> from the response as part of your request. A null <code>nextToken</code> fetches the records from the beginning. </p>
 
         Args:
             event_id: <p> The event ID. </p>
@@ -4889,13 +4889,13 @@ class FraudDetectorClient:
         description: Optional["capo_frauddetector.types.string.string"] = None,
         variable_type: Optional["capo_frauddetector.types.string.string"] = None,
     ) -> "capo_frauddetector.types.update_variable_result.UpdateVariableResult":
-        r"""<p>Updates a variable.</p>
+        """<p>Updates a variable.</p>
 
         Args:
             name: <p>The name of the variable.</p>
             default_value: <p>The new default value of the variable.</p>
             description: <p>The new description.</p>
-            variable_type: <p>The variable type. For more information see <a href=\"https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types\">Variable types</a>.</p>
+            variable_type: <p>The variable type. For more information see <a href="https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types">Variable types</a>.</p>
 
         Raises:
             capo_frauddetector.errors.access_denied_exception.AccessDeniedException: <p>An exception indicating Amazon Fraud Detector does not have the needed permissions. This can occur if you submit a request, such as <code>PutExternalModel</code>, that specifies a role that is not in your account.</p>

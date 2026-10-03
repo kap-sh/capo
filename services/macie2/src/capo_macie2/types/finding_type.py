@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""<p>The type of finding. For details about each type, see <a href=\"https://docs.aws.amazon.com/macie/latest/user/findings-types.html\">Types of findings</a> in the <i>Amazon Macie User Guide</i>. Possible values are:</p>"""
+"""<p>The type of finding. For details about each type, see <a href="https://docs.aws.amazon.com/macie/latest/user/findings-types.html">Types of findings</a> in the <i>Amazon Macie User Guide</i>. Possible values are:</p>"""
 FindingType: TypeAlias = Literal[
     "SensitiveData:S3Object/Multiple",
     "SensitiveData:S3Object/Financial",

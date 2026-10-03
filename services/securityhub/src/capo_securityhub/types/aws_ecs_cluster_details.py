@@ -17,7 +17,7 @@ class AwsEcsClusterDetails(TypedDict, closed=True):
     cluster_arn: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The Amazon Resource Name (ARN) that identifies the cluster. </p>"""
     active_services_count: NotRequired["capo_securityhub.types.integer.Integer"]
-    r"""<p>The number of services that are running on the cluster in an <code>ACTIVE</code> state. You can view these services with the Amazon ECS <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ListServices.html\"> <code>ListServices</code> </a> API operation. </p>"""
+    """<p>The number of services that are running on the cluster in an <code>ACTIVE</code> state. You can view these services with the Amazon ECS <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ListServices.html"> <code>ListServices</code> </a> API operation. </p>"""
     capacity_providers: NotRequired[
         "capo_securityhub.types.non_empty_string_list.NonEmptyStringList"
     ]

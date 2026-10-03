@@ -12,7 +12,7 @@ class Regex(TypedDict, closed=True):
     regex_string: NotRequired[
         "capo_wafv2.types.regex_pattern_string.RegexPatternString"
     ]
-    r"""<p>The string representing the regular expression. WAF enforces a quota on the maximum number of characters in a regex pattern. For the current limit, see <a href=\"https://docs.aws.amazon.com/waf/latest/developerguide/limits.html\">WAF quotas</a> in the <i>WAF Developer Guide</i>.</p>"""
+    """<p>The string representing the regular expression. WAF enforces a quota on the maximum number of characters in a regex pattern. For the current limit, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/limits.html">WAF quotas</a> in the <i>WAF Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

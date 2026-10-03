@@ -36,15 +36,15 @@ class AwsSecurityFindingFilters(TypedDict, closed=True):
     first_observed_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p>A timestamp that indicates when the security findings provider first observed the potential security issue that a finding captured.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that indicates when the security findings provider first observed the potential security issue that a finding captured.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     last_observed_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p>A timestamp that indicates when the security findings provider most recently observed a change in the resource that is involved in the finding.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that indicates when the security findings provider most recently observed a change in the resource that is involved in the finding.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     created_at: NotRequired["capo_securityhub.types.date_filter_list.DateFilterList"]
-    r"""<p>A timestamp that indicates when the security findings provider created the potential security issue that a finding reflects.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that indicates when the security findings provider created the potential security issue that a finding reflects.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     updated_at: NotRequired["capo_securityhub.types.date_filter_list.DateFilterList"]
-    r"""<p>A timestamp that indicates when the security findings provider last updated the finding record.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that indicates when the security findings provider last updated the finding record.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     severity_product: NotRequired[
         "capo_securityhub.types.number_filter_list.NumberFilterList"
     ]
@@ -172,11 +172,11 @@ class AwsSecurityFindingFilters(TypedDict, closed=True):
     process_launched_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p>A timestamp that identifies when the process was launched.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that identifies when the process was launched.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     process_terminated_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p>A timestamp that identifies when the process was terminated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that identifies when the process was terminated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     threat_intel_indicator_type: NotRequired[
         "capo_securityhub.types.string_filter_list.StringFilterList"
     ]
@@ -192,7 +192,7 @@ class AwsSecurityFindingFilters(TypedDict, closed=True):
     threat_intel_indicator_last_observed_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p>A timestamp that identifies the last observation of a threat intelligence indicator.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that identifies the last observation of a threat intelligence indicator.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     threat_intel_indicator_source: NotRequired[
         "capo_securityhub.types.string_filter_list.StringFilterList"
     ]
@@ -298,7 +298,7 @@ class AwsSecurityFindingFilters(TypedDict, closed=True):
     resource_container_launched_at: NotRequired[
         "capo_securityhub.types.date_filter_list.DateFilterList"
     ]
-    r"""<p>A timestamp that identifies when the container was started.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>A timestamp that identifies when the container was started.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     resource_details_other: NotRequired[
         "capo_securityhub.types.map_filter_list.MapFilterList"
     ]
@@ -380,7 +380,7 @@ class AwsSecurityFindingFilters(TypedDict, closed=True):
     compliance_associated_standards_id: NotRequired[
         "capo_securityhub.types.string_filter_list.StringFilterList"
     ]
-    r"""<p> The unique identifier of a standard in which a control is enabled. This field consists of the resource portion of the Amazon Resource Name (ARN) returned for a standard in the <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_DescribeStandards.html\">DescribeStandards</a> API response. </p>"""
+    """<p> The unique identifier of a standard in which a control is enabled. This field consists of the resource portion of the Amazon Resource Name (ARN) returned for a standard in the <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_DescribeStandards.html">DescribeStandards</a> API response. </p>"""
     vulnerabilities_exploit_available: NotRequired[
         "capo_securityhub.types.string_filter_list.StringFilterList"
     ]

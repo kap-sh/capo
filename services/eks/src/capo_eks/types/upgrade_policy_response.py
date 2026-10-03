@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class UpgradePolicyResponse(TypedDict, closed=True):
     support_type: NotRequired["capo_eks.types.support_type.SupportType"]
-    r"""<p>If the cluster is set to <code>EXTENDED</code>, it will enter extended support at the end of standard support. If the cluster is set to <code>STANDARD</code>, it will be automatically upgraded at the end of standard support.</p> <p> <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html\">Learn more about EKS Extended Support in the <i>Amazon EKS User Guide</i>.</a> </p>"""
+    """<p>If the cluster is set to <code>EXTENDED</code>, it will enter extended support at the end of standard support. If the cluster is set to <code>STANDARD</code>, it will be automatically upgraded at the end of standard support.</p> <p> <a href="https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html">Learn more about EKS Extended Support in the <i>Amazon EKS User Guide</i>.</a> </p>"""
 
 
 # --- restJson1 ser/de ---

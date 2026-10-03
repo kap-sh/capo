@@ -41,7 +41,7 @@ class OptimizePromptResource:
         *,
         config_overrides: Optional[BedrockAgentRuntimeClientConfig] = None,
     ) -> "Generator[capo_bedrock_agent_runtime.types.optimize_prompt_response.OptimizePromptResponse]":
-        r"""<p>Optimizes a prompt for the task that you specify. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-optimize.html\">Optimize a prompt</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Optimizes a prompt for the task that you specify. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-optimize.html">Optimize a prompt</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             input: <p>Contains the prompt to optimize.</p>
@@ -100,7 +100,7 @@ class AsyncOptimizePromptResource:
         *,
         config_overrides: Optional[AsyncBedrockAgentRuntimeClientConfig] = None,
     ) -> "AsyncGenerator[capo_bedrock_agent_runtime.types.optimize_prompt_response.OptimizePromptResponse]":
-        r"""<p>Optimizes a prompt for the task that you specify. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-optimize.html\">Optimize a prompt</a> in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Amazon Bedrock User Guide</a>.</p>
+        """<p>Optimizes a prompt for the task that you specify. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management-optimize.html">Optimize a prompt</a> in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Amazon Bedrock User Guide</a>.</p>
 
         Args:
             input: <p>Contains the prompt to optimize.</p>

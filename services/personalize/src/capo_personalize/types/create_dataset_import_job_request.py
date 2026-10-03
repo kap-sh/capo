@@ -26,7 +26,7 @@ class CreateDatasetImportJobRequest(TypedDict, closed=True):
     role_arn: NotRequired["capo_personalize.types.role_arn.RoleArn"]
     """<p>The ARN of the IAM role that has permissions to read from the Amazon S3 data source.</p>"""
     tags: NotRequired["capo_personalize.types.tags.Tags"]
-    r"""<p>A list of <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html\">tags</a> to apply to the dataset import job.</p>"""
+    """<p>A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to the dataset import job.</p>"""
     import_mode: NotRequired["capo_personalize.types.import_mode.ImportMode"]
     """<p>Specify how to add the new records to an existing dataset. The default import mode is <code>FULL</code>. If you haven't imported bulk records into the dataset previously, you can only specify <code>FULL</code>.</p> <ul> <li> <p>Specify <code>FULL</code> to overwrite all existing bulk data in your dataset. Data you imported individually is not replaced.</p> </li> <li> <p>Specify <code>INCREMENTAL</code> to append the new records to the existing data in your dataset. Amazon Personalize replaces any record with the same ID with the new one.</p> </li> </ul>"""
     publish_attribution_metrics_to_s3: NotRequired[

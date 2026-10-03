@@ -20,7 +20,7 @@ class ManualEvidence(TypedDict, closed=True):
     evidence_file_name: NotRequired[
         "capo_auditmanager.types.manual_evidence_local_file_name.ManualEvidenceLocalFileName"
     ]
-    r"""<p>The name of the file that's uploaded as manual evidence. This name is populated using the <code>evidenceFileName</code> value from the <a href=\"https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_GetEvidenceFileUploadUrl.html\"> <code>GetEvidenceFileUploadUrl</code> </a> API response.</p>"""
+    """<p>The name of the file that's uploaded as manual evidence. This name is populated using the <code>evidenceFileName</code> value from the <a href="https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_GetEvidenceFileUploadUrl.html"> <code>GetEvidenceFileUploadUrl</code> </a> API response.</p>"""
 
 
 # --- restJson1 ser/de ---

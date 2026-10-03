@@ -32,7 +32,7 @@ class AwsEc2InstanceDetails(TypedDict, closed=True):
     subnet_id: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The identifier of the subnet that the instance was launched in.</p>"""
     launched_at: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the instance was launched.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the instance was launched.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     network_interfaces: NotRequired[
         "capo_securityhub.types.aws_ec2_instance_network_interfaces_list.AwsEc2InstanceNetworkInterfacesList"
     ]

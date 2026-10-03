@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ResourceDescription(TypedDict, closed=True):
     identifier: NotRequired["capo_cloudcontrol.types.identifier.Identifier"]
-    r"""<p>The primary identifier for the resource.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-identifier.html\">Identifying resources</a> in the <i>Amazon Web Services Cloud Control API User Guide</i>.</p>"""
+    """<p>The primary identifier for the resource.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-identifier.html">Identifying resources</a> in the <i>Amazon Web Services Cloud Control API User Guide</i>.</p>"""
     properties: NotRequired["capo_cloudcontrol.types.properties.Properties"]
     """<p>A list of the resource properties and their current values.</p>"""
 

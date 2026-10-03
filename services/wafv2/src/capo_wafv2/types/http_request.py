@@ -17,7 +17,7 @@ class HTTPRequest(TypedDict, closed=True):
     client_ip: NotRequired["capo_wafv2.types.ip_string.IPString"]
     """<p>The IP address that the request originated from. If the web ACL is associated with a CloudFront distribution, this is the value of one of the following fields in CloudFront access logs:</p> <ul> <li> <p> <code>c-ip</code>, if the viewer did not use an HTTP proxy or a load balancer to send the request</p> </li> <li> <p> <code>x-forwarded-for</code>, if the viewer did use an HTTP proxy or a load balancer to send the request</p> </li> </ul>"""
     country: NotRequired["capo_wafv2.types.country.Country"]
-    r"""<p>The two-letter country code for the country that the request originated from. For a current list of country codes, see the Wikipedia entry <a href=\"https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\">ISO 3166-1 alpha-2</a>.</p>"""
+    """<p>The two-letter country code for the country that the request originated from. For a current list of country codes, see the Wikipedia entry <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>.</p>"""
     uri: NotRequired["capo_wafv2.types.uri_string.URIString"]
     """<p>The URI path of the request, which identifies the resource, for example, <code>/images/daily-ad.jpg</code>.</p>"""
     method: NotRequired["capo_wafv2.types.http_method.HTTPMethod"]

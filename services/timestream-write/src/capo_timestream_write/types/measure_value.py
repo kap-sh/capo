@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 
 class MeasureValue(TypedDict, closed=True):
     name: "capo_timestream_write.types.schema_name.SchemaName"
-    r"""<p> The name of the MeasureValue. </p> <p> For constraints on MeasureValue names, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming\"> Naming Constraints</a> in the Amazon Timestream Developer Guide.</p>"""
+    """<p> The name of the MeasureValue. </p> <p> For constraints on MeasureValue names, see <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.naming"> Naming Constraints</a> in the Amazon Timestream Developer Guide.</p>"""
     value: "capo_timestream_write.types.string_value2048.StringValue2048"
-    r"""<p> The value for the MeasureValue. For information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types\">Data types</a>.</p>"""
+    """<p> The value for the MeasureValue. For information, see <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/writes.html#writes.data-types">Data types</a>.</p>"""
     type: "capo_timestream_write.types.measure_value_type.MeasureValueType"
     """<p>Contains the data type of the MeasureValue for the time-series data point.</p>"""
 

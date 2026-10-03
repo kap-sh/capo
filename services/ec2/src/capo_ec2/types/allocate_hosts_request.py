@@ -27,11 +27,11 @@ class AllocateHostsRequest(TypedDict, closed=True):
     ]
     """<p>The tags to apply to the Dedicated Host during creation.</p>"""
     host_recovery: NotRequired["capo_ec2.types.host_recovery.HostRecovery"]
-    r"""<p>Indicates whether to enable or disable host recovery for the Dedicated Host. Host recovery is disabled by default. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html\"> Host recovery</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>Default: <code>off</code> </p>"""
+    """<p>Indicates whether to enable or disable host recovery for the Dedicated Host. Host recovery is disabled by default. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host recovery</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>Default: <code>off</code> </p>"""
     outpost_arn: NotRequired["capo_ec2.types.string.String"]
     """<p>The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which to allocate the Dedicated Host. If you specify <b>OutpostArn</b>, you can optionally specify <b>AssetIds</b>.</p> <p>If you are allocating the Dedicated Host in a Region, omit this parameter.</p>"""
     host_maintenance: NotRequired["capo_ec2.types.host_maintenance.HostMaintenance"]
-    r"""<p>Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html\">Host maintenance</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host maintenance</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     asset_ids: NotRequired["capo_ec2.types.asset_id_list.AssetIdList"]
     """<p>The IDs of the Outpost hardware assets on which to allocate the Dedicated Hosts. Targeting specific hardware assets on an Outpost can help to minimize latency between your workloads. This parameter is supported only if you specify <b>OutpostArn</b>. If you are allocating the Dedicated Hosts in a Region, omit this parameter.</p> <ul> <li> <p>If you specify this parameter, you can omit <b>Quantity</b>. In this case, Amazon EC2 allocates a Dedicated Host on each specified hardware asset.</p> </li> <li> <p>If you specify both <b>AssetIds</b> and <b>Quantity</b>, then the value for <b>Quantity</b> must be equal to the number of asset IDs specified.</p> </li> </ul>"""
     availability_zone_id: NotRequired[
@@ -43,9 +43,9 @@ class AllocateHostsRequest(TypedDict, closed=True):
     ]
     """<p>The CPU configuration options to apply to the Dedicated Host.</p>"""
     auto_placement: NotRequired["capo_ec2.types.auto_placement.AutoPlacement"]
-    r"""<p>Indicates whether the host accepts any untargeted instance launches that match its instance type configuration, or if it only accepts Host tenancy instance launches that specify its unique host ID. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-understanding\"> Understanding auto-placement and affinity</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>Default: <code>off</code> </p>"""
+    """<p>Indicates whether the host accepts any untargeted instance launches that match its instance type configuration, or if it only accepts Host tenancy instance launches that specify its unique host ID. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-understanding"> Understanding auto-placement and affinity</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>Default: <code>off</code> </p>"""
     client_token: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring Idempotency</a>.</p>"""
+    """<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring Idempotency</a>.</p>"""
     instance_type: NotRequired["capo_ec2.types.string.String"]
     """<p>Specifies the instance type to be supported by the Dedicated Hosts. If you specify an instance type, the Dedicated Hosts support instances of the specified instance type only.</p> <p>If you want the Dedicated Hosts to support multiple instance types in a specific instance family, omit this parameter and specify <b>InstanceFamily</b> instead. You cannot specify <b>InstanceType</b> and <b>InstanceFamily</b> in the same request.</p>"""
     quantity: NotRequired["capo_ec2.types.integer.Integer"]

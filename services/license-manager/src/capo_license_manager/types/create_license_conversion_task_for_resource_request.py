@@ -17,11 +17,11 @@ class CreateLicenseConversionTaskForResourceRequest(TypedDict, closed=True):
     source_license_context: (
         "capo_license_manager.types.license_conversion_context.LicenseConversionContext"
     )
-    r"""<p>Information that identifies the license type you are converting from. For the structure of the source license, see <a href=\"https://docs.aws.amazon.com/license-manager/latest/userguide/conversion-procedures.html#conversion-cli\">Convert a license type using the CLI </a> in the <i>License Manager User Guide</i>.</p>"""
+    """<p>Information that identifies the license type you are converting from. For the structure of the source license, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/conversion-procedures.html#conversion-cli">Convert a license type using the CLI </a> in the <i>License Manager User Guide</i>.</p>"""
     destination_license_context: (
         "capo_license_manager.types.license_conversion_context.LicenseConversionContext"
     )
-    r"""<p>Information that identifies the license type you are converting to. For the structure of the destination license, see <a href=\"https://docs.aws.amazon.com/license-manager/latest/userguide/conversion-procedures.html#conversion-cli\">Convert a license type using the CLI </a> in the <i>License Manager User Guide</i>.</p>"""
+    """<p>Information that identifies the license type you are converting to. For the structure of the destination license, see <a href="https://docs.aws.amazon.com/license-manager/latest/userguide/conversion-procedures.html#conversion-cli">Convert a license type using the CLI </a> in the <i>License Manager User Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

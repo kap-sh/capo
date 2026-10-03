@@ -21,7 +21,7 @@ class HttpsNotificationConfiguration(TypedDict, closed=True):
     http_method: NotRequired["capo_securitylake.types.http_method.HttpMethod"]
     """<p>The HTTPS method used for the notification subscription.</p>"""
     target_role_arn: "capo_securitylake.types.role_arn.RoleArn"
-    r"""<p>The Amazon Resource Name (ARN) of the EventBridge API destinations IAM role that you created. For more information about ARNs and how to use them in policies, see <a href=\"https://docs.aws.amazon.com//security-lake/latest/userguide/subscriber-data-access.html\">Managing data access</a> and <a href=\"https://docs.aws.amazon.com/security-lake/latest/userguide/security-iam-awsmanpol.html\">Amazon Web Services Managed Policies</a> in the <i>Amazon Security Lake User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the EventBridge API destinations IAM role that you created. For more information about ARNs and how to use them in policies, see <a href="https://docs.aws.amazon.com//security-lake/latest/userguide/subscriber-data-access.html">Managing data access</a> and <a href="https://docs.aws.amazon.com/security-lake/latest/userguide/security-iam-awsmanpol.html">Amazon Web Services Managed Policies</a> in the <i>Amazon Security Lake User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

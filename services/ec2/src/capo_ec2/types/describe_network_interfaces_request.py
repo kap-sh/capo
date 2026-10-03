@@ -20,7 +20,7 @@ class DescribeNetworkInterfacesRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_ec2.types.describe_network_interfaces_max_results.DescribeNetworkInterfacesMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. You cannot specify this parameter and the network interface IDs parameter in the same request. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. You cannot specify this parameter and the network interface IDs parameter in the same request. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     include_managed_resources: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Indicates whether to include managed resources in the output. If this parameter is set to <code>true</code>, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.</p>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]

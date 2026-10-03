@@ -22,7 +22,7 @@ class AwsElbv2LoadBalancerDetails(TypedDict, closed=True):
     ]
     """<p>The ID of the Amazon Route 53 hosted zone associated with the load balancer.</p>"""
     created_time: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the load balancer was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the load balancer was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     dns_name: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The public DNS name of the load balancer.</p>"""
     ip_address_type: NotRequired[

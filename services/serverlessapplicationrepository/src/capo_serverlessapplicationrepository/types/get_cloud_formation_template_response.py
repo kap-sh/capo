@@ -25,7 +25,7 @@ class GetCloudFormationTemplateResponse(TypedDict, closed=True):
     semantic_version: NotRequired[
         "capo_serverlessapplicationrepository.types.__string.__string"
     ]
-    r"""<p>The semantic version of the application:</p><p> <a href=\"https://semver.org/\">https://semver.org/</a> </p>"""
+    """<p>The semantic version of the application:</p><p> <a href="https://semver.org/">https://semver.org/</a> </p>"""
     status: NotRequired["capo_serverlessapplicationrepository.types.status.Status"]
     """<p>Status of the template creation workflow.</p><p>Possible values: PREPARING | ACTIVE | EXPIRED </p>"""
     template_id: NotRequired[

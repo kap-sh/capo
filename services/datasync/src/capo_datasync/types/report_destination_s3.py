@@ -18,7 +18,7 @@ class ReportDestinationS3(TypedDict, closed=True):
     s3_bucket_arn: "capo_datasync.types.s3_bucket_arn.S3BucketArn"
     """<p>Specifies the ARN of the S3 bucket where DataSync uploads your report.</p>"""
     bucket_access_role_arn: "capo_datasync.types.iam_role_arn.IamRoleArn"
-    r"""<p>Specifies the Amazon Resource Name (ARN) of the IAM policy that allows DataSync to upload a task report to your S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html\">Allowing DataSync to upload a task report to an Amazon S3 bucket</a>.</p>"""
+    """<p>Specifies the Amazon Resource Name (ARN) of the IAM policy that allows DataSync to upload a task report to your S3 bucket. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Allowing DataSync to upload a task report to an Amazon S3 bucket</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

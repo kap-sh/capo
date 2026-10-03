@@ -27,7 +27,7 @@ class CreateAccessControlConfigurationRequest(TypedDict, closed=True):
     hierarchical_access_control_list: NotRequired[
         "capo_kendra.types.hierarchical_principal_list.HierarchicalPrincipalList"
     ]
-    r"""<p>The list of <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html\">principal</a> lists that define the hierarchy for which documents users should have access to.</p>"""
+    """<p>The list of <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">principal</a> lists that define the hierarchy for which documents users should have access to.</p>"""
     client_token: NotRequired["capo_kendra.types.client_token_name.ClientTokenName"]
     """<p>A token that you provide to identify the request to create an access control configuration. Multiple calls to the <code>CreateAccessControlConfiguration</code> API with the same client token will create only one access control configuration.</p>"""
 

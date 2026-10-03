@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class CustomPolicyDetails(TypedDict, closed=True):
     policy_runtime: "capo_config_service.types.policy_runtime.PolicyRuntime"
-    r"""<p>The runtime system for your Config Custom Policy rule. Guard is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. For more information about Guard, see the <a href=\"https://github.com/aws-cloudformation/cloudformation-guard\">Guard GitHub Repository</a>.</p>"""
+    """<p>The runtime system for your Config Custom Policy rule. Guard is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. For more information about Guard, see the <a href="https://github.com/aws-cloudformation/cloudformation-guard">Guard GitHub Repository</a>.</p>"""
     policy_text: "capo_config_service.types.policy_text.PolicyText"
     """<p>The policy definition containing the logic for your Config Custom Policy rule.</p>"""
     enable_debug_log_delivery: "capo_config_service.types.boolean.Boolean"

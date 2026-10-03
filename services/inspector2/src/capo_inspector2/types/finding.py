@@ -33,7 +33,7 @@ class Finding(TypedDict, closed=True):
     aws_account_id: "capo_inspector2.types.account_id.AccountId"
     """<p>The Amazon Web Services account ID associated with the finding.</p>"""
     type: "capo_inspector2.types.finding_type.FindingType"
-    r"""<p>The type of the finding. The <code>type</code> value determines the valid values for <code>resource</code> in your request. For more information, see <a href=\"https://docs.aws.amazon.com/inspector/latest/user/findings-types.html\">Finding types</a> in the Amazon Inspector user guide.</p>"""
+    """<p>The type of the finding. The <code>type</code> value determines the valid values for <code>resource</code> in your request. For more information, see <a href="https://docs.aws.amazon.com/inspector/latest/user/findings-types.html">Finding types</a> in the Amazon Inspector user guide.</p>"""
     description: "capo_inspector2.types.finding_description.FindingDescription"
     """<p>The description of the finding.</p>"""
     title: NotRequired["capo_inspector2.types.finding_title.FindingTitle"]
@@ -41,7 +41,7 @@ class Finding(TypedDict, closed=True):
     remediation: "capo_inspector2.types.remediation.Remediation"
     """<p>An object that contains the details about how to remediate a finding.</p>"""
     severity: "capo_inspector2.types.severity.Severity"
-    r"""<p>The severity of the finding. <code>UNTRIAGED</code> applies to <code>PACKAGE_VULNERABILITY</code> type findings that the vendor has not assigned a severity yet. For more information, see <a href=\"https://docs.aws.amazon.com/inspector/latest/user/findings-understanding-severity.html\">Severity levels for findings</a> in the Amazon Inspector user guide.</p>"""
+    """<p>The severity of the finding. <code>UNTRIAGED</code> applies to <code>PACKAGE_VULNERABILITY</code> type findings that the vendor has not assigned a severity yet. For more information, see <a href="https://docs.aws.amazon.com/inspector/latest/user/findings-understanding-severity.html">Severity levels for findings</a> in the Amazon Inspector user guide.</p>"""
     first_observed_at: "capo_inspector2.types.date_time_timestamp.DateTimeTimestamp"
     """<p>The date and time that the finding was first observed.</p>"""
     last_observed_at: "capo_inspector2.types.date_time_timestamp.DateTimeTimestamp"
@@ -53,7 +53,7 @@ class Finding(TypedDict, closed=True):
     status: "capo_inspector2.types.finding_status.FindingStatus"
     """<p>The status of the finding.</p>"""
     resources: "capo_inspector2.types.resource_list.ResourceList"
-    r"""<p>Contains information on the resources involved in a finding. The <code>resource</code> value determines the valid values for <code>type</code> in your request. For more information, see <a href=\"https://docs.aws.amazon.com/inspector/latest/user/findings-types.html\">Finding types</a> in the Amazon Inspector user guide.</p>"""
+    """<p>Contains information on the resources involved in a finding. The <code>resource</code> value determines the valid values for <code>type</code> in your request. For more information, see <a href="https://docs.aws.amazon.com/inspector/latest/user/findings-types.html">Finding types</a> in the Amazon Inspector user guide.</p>"""
     inspector_score: NotRequired["float"]
     """<p>The Amazon Inspector score given to the finding.</p>"""
     inspector_score_details: NotRequired[

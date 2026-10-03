@@ -15,7 +15,7 @@ class DescribeInstanceResponse(TypedDict, closed=True):
     replication_configuration: NotRequired[
         "capo_connect.types.replication_configuration.ReplicationConfiguration"
     ]
-    r"""<p>Status information about the replication process. This field is included only when you are using the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_ReplicateInstance.html\">ReplicateInstance</a> API to replicate an Connect Customer instance across Amazon Web Services Regions. For information about replicating Connect Customer instances, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html\">Create a replica of your existing Connect Customer instance</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>Status information about the replication process. This field is included only when you are using the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_ReplicateInstance.html">ReplicateInstance</a> API to replicate an Connect Customer instance across Amazon Web Services Regions. For information about replicating Connect Customer instances, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html">Create a replica of your existing Connect Customer instance</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

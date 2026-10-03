@@ -17,7 +17,7 @@ class ListParticipantReplicasRequest(TypedDict, closed=True):
     source_stage_arn: "capo_ivs_realtime.types.stage_arn.StageArn"
     """<p>ARN of the stage where the participant is publishing.</p>"""
     participant_id: "capo_ivs_realtime.types.participant_id.ParticipantId"
-    r"""<p>Participant ID of the publisher that has been replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href=\"https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed\">create a self signed token</a>.</p>"""
+    """<p>Participant ID of the publisher that has been replicated. This is assigned by IVS and returned by <a>CreateParticipantToken</a> or the <code>jti</code> (JWT ID) used to <a href="https://docs.aws.amazon.com/ivs/latest/RealTimeUserGuide/getting-started-distribute-tokens.html#getting-started-distribute-tokens-self-signed">create a self signed token</a>.</p>"""
     next_token: NotRequired["capo_ivs_realtime.types.pagination_token.PaginationToken"]
     """<p>The first participant to retrieve. This is used for pagination; see the <code>nextToken</code> response field.</p>"""
     max_results: NotRequired[

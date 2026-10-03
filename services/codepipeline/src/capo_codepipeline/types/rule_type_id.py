@@ -19,7 +19,7 @@ class RuleTypeId(TypedDict, closed=True):
     owner: NotRequired["capo_codepipeline.types.rule_owner.RuleOwner"]
     """<p>The creator of the rule being called. The valid value for the <code>Owner</code> field in the rule category is <code>AWS</code>. </p>"""
     provider: "capo_codepipeline.types.rule_provider.RuleProvider"
-    r"""<p>The rule provider, such as the <code>DeploymentWindow</code> rule. For a list of rule provider names, see the rules listed in the <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/rule-reference.html\">CodePipeline rule reference</a>.</p>"""
+    """<p>The rule provider, such as the <code>DeploymentWindow</code> rule. For a list of rule provider names, see the rules listed in the <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/rule-reference.html">CodePipeline rule reference</a>.</p>"""
     version: NotRequired["capo_codepipeline.types.version.Version"]
     """<p>A string that describes the rule version.</p>"""
 

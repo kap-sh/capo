@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class CreateUseCaseRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     integration_association_id: (
         "capo_connect.types.integration_association_id.IntegrationAssociationId"
     )
@@ -23,7 +23,7 @@ class CreateUseCaseRequest(TypedDict, closed=True):
     use_case_type: "capo_connect.types.use_case_type.UseCaseType"
     """<p>The type of use case to associate to the integration association. Each integration association can have only one of each use case type.</p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"Tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
 
 
 # --- restJson1 ser/de ---

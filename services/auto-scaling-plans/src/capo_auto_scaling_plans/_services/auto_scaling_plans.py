@@ -155,12 +155,12 @@ class AutoScalingPlansClient:
         *,
         config_overrides: Optional[AutoScalingPlansClientConfig] = None,
     ) -> "capo_auto_scaling_plans.types.create_scaling_plan_response.CreateScalingPlanResponse":
-        r"""<p>Creates a scaling plan. </p>
+        """<p>Creates a scaling plan. </p>
 
         Args:
             scaling_plan_name: <p>The name of the scaling plan. Names cannot contain vertical bars, colons, or forward slashes.</p>
-            application_source: <p>A CloudFormation stack or set of tags. You can create one scaling plan per application source.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html\">ApplicationSource</a> in the <i>AWS Auto Scaling API Reference</i>.</p>
-            scaling_instructions: <p>The scaling instructions.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html\">ScalingInstruction</a> in the <i>AWS Auto Scaling API Reference</i>.</p>
+            application_source: <p>A CloudFormation stack or set of tags. You can create one scaling plan per application source.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html">ApplicationSource</a> in the <i>AWS Auto Scaling API Reference</i>.</p>
+            scaling_instructions: <p>The scaling instructions.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html">ScalingInstruction</a> in the <i>AWS Auto Scaling API Reference</i>.</p>
 
         Raises:
             capo_auto_scaling_plans.errors.concurrent_update_exception.ConcurrentUpdateException: <p>Concurrent updates caused an exception, for example, if you request an update to a scaling plan that already has a pending update.</p>
@@ -459,13 +459,13 @@ class AutoScalingPlansClient:
             "capo_auto_scaling_plans.types.scaling_instructions.ScalingInstructions"
         ] = None,
     ) -> "capo_auto_scaling_plans.types.update_scaling_plan_response.UpdateScalingPlanResponse":
-        r"""<p>Updates the specified scaling plan.</p> <p>You cannot update a scaling plan if it is in the process of being created, updated, or deleted.</p>
+        """<p>Updates the specified scaling plan.</p> <p>You cannot update a scaling plan if it is in the process of being created, updated, or deleted.</p>
 
         Args:
             scaling_plan_name: <p>The name of the scaling plan.</p>
             scaling_plan_version: <p>The version number of the scaling plan. The only valid value is <code>1</code>. Currently, you cannot have multiple scaling plan versions.</p>
-            application_source: <p>A CloudFormation stack or set of tags.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html\">ApplicationSource</a> in the <i>AWS Auto Scaling API Reference</i>.</p>
-            scaling_instructions: <p>The scaling instructions.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html\">ScalingInstruction</a> in the <i>AWS Auto Scaling API Reference</i>.</p>
+            application_source: <p>A CloudFormation stack or set of tags.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html">ApplicationSource</a> in the <i>AWS Auto Scaling API Reference</i>.</p>
+            scaling_instructions: <p>The scaling instructions.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html">ScalingInstruction</a> in the <i>AWS Auto Scaling API Reference</i>.</p>
 
         Raises:
             capo_auto_scaling_plans.errors.concurrent_update_exception.ConcurrentUpdateException: <p>Concurrent updates caused an exception, for example, if you request an update to a scaling plan that already has a pending update.</p>

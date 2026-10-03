@@ -37,7 +37,7 @@ class OutputUpdate(TypedDict, closed=True):
     destination_schema_update: NotRequired[
         "capo_kinesis_analytics.types.destination_schema.DestinationSchema"
     ]
-    r"""<p>Describes the data format when records are written to the destination. For more information, see <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html\">Configuring Application Output</a>.</p>"""
+    """<p>Describes the data format when records are written to the destination. For more information, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring Application Output</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

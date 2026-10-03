@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class DBInstanceStatusInfo(TypedDict, closed=True):
     status_type: NotRequired["capo_rds.types.string.String"]
-    r"""<p>This value is currently \"read replication.\"</p>"""
+    """<p>This value is currently "read replication."</p>"""
     normal: NotRequired["capo_rds.types.boolean.Boolean"]
     """<p>Indicates whether the instance is operating normally (TRUE) or is in an error state (FALSE).</p>"""
     status: NotRequired["capo_rds.types.string.String"]

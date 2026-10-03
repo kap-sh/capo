@@ -28,7 +28,7 @@ class DescribeTaskResponse(TypedDict, closed=True):
     task_arn: NotRequired["capo_datasync.types.task_arn.TaskArn"]
     """<p>The ARN of your task.</p>"""
     status: NotRequired["capo_datasync.types.task_status.TaskStatus"]
-    r"""<p>The status of your task. For information about what each status means, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html#understand-task-creation-statuses\">Task statuses</a>.</p>"""
+    """<p>The status of your task. For information about what each status means, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html#understand-task-creation-statuses">Task statuses</a>.</p>"""
     name: NotRequired["capo_datasync.types.tag_value.TagValue"]
     """<p>The name of your task.</p>"""
     current_task_execution_arn: NotRequired[
@@ -44,41 +44,41 @@ class DescribeTaskResponse(TypedDict, closed=True):
     cloud_watch_log_group_arn: NotRequired[
         "capo_datasync.types.log_group_arn.LogGroupArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/configure-logging.html\">Monitoring data transfers with CloudWatch Logs</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/configure-logging.html">Monitoring data transfers with CloudWatch Logs</a>.</p>"""
     source_network_interface_arns: NotRequired[
         "capo_datasync.types.source_network_interface_arns.SourceNetworkInterfaceArns"
     ]
-    r"""<p>The ARNs of the <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/datasync-network.html#required-network-interfaces\">network interfaces</a> that DataSync created for your source location.</p>"""
+    """<p>The ARNs of the <a href="https://docs.aws.amazon.com/datasync/latest/userguide/datasync-network.html#required-network-interfaces">network interfaces</a> that DataSync created for your source location.</p>"""
     destination_network_interface_arns: NotRequired[
         "capo_datasync.types.destination_network_interface_arns.DestinationNetworkInterfaceArns"
     ]
-    r"""<p>The ARNs of the <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/datasync-network.html#required-network-interfaces\">network interfaces</a> that DataSync created for your destination location.</p>"""
+    """<p>The ARNs of the <a href="https://docs.aws.amazon.com/datasync/latest/userguide/datasync-network.html#required-network-interfaces">network interfaces</a> that DataSync created for your destination location.</p>"""
     options: NotRequired["capo_datasync.types.options.Options"]
     """<p>The task's settings. For example, what file metadata gets preserved, how data integrity gets verified at the end of your transfer, bandwidth limits, among other options.</p>"""
     excludes: NotRequired["capo_datasync.types.filter_list.FilterList"]
-    r"""<p>The exclude filters that define the files, objects, and folders in your source location that you don't want DataSync to transfer. For more information and examples, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html\">Specifying what DataSync transfers by using filters</a>.</p>"""
+    """<p>The exclude filters that define the files, objects, and folders in your source location that you don't want DataSync to transfer. For more information and examples, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by using filters</a>.</p>"""
     schedule: NotRequired["capo_datasync.types.task_schedule.TaskSchedule"]
-    r"""<p>The schedule for when you want your task to run. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html\">Scheduling your task</a>.</p>"""
+    """<p>The schedule for when you want your task to run. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">Scheduling your task</a>.</p>"""
     error_code: NotRequired["capo_datasync.types.string.string"]
-    r"""<p>If there's an issue with your task, you can use the error code to help you troubleshoot the problem. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/troubleshooting-datasync-locations-tasks.html\">Troubleshooting issues with DataSync transfers</a>.</p>"""
+    """<p>If there's an issue with your task, you can use the error code to help you troubleshoot the problem. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/troubleshooting-datasync-locations-tasks.html">Troubleshooting issues with DataSync transfers</a>.</p>"""
     error_detail: NotRequired["capo_datasync.types.string.string"]
-    r"""<p>If there's an issue with your task, you can use the error details to help you troubleshoot the problem. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/troubleshooting-datasync-locations-tasks.html\">Troubleshooting issues with DataSync transfers</a>.</p>"""
+    """<p>If there's an issue with your task, you can use the error details to help you troubleshoot the problem. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/troubleshooting-datasync-locations-tasks.html">Troubleshooting issues with DataSync transfers</a>.</p>"""
     creation_time: NotRequired["capo_datasync.types.time.Time"]
     """<p>The time that the task was created.</p>"""
     includes: NotRequired["capo_datasync.types.filter_list.FilterList"]
-    r"""<p>The include filters that define the files, objects, and folders in your source location that you want DataSync to transfer. For more information and examples, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html\">Specifying what DataSync transfers by using filters</a>.</p>"""
+    """<p>The include filters that define the files, objects, and folders in your source location that you want DataSync to transfer. For more information and examples, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by using filters</a>.</p>"""
     manifest_config: NotRequired["capo_datasync.types.manifest_config.ManifestConfig"]
-    r"""<p>The configuration of the manifest that lists the files or objects that you want DataSync to transfer. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html\">Specifying what DataSync transfers by using a manifest</a>.</p>"""
+    """<p>The configuration of the manifest that lists the files or objects that you want DataSync to transfer. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying what DataSync transfers by using a manifest</a>.</p>"""
     task_report_config: NotRequired[
         "capo_datasync.types.task_report_config.TaskReportConfig"
     ]
-    r"""<p>The configuration of your task report, which provides detailed information about your DataSync transfer. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html\">Monitoring your DataSync transfers with task reports</a>.</p>"""
+    """<p>The configuration of your task report, which provides detailed information about your DataSync transfer. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync transfers with task reports</a>.</p>"""
     schedule_details: NotRequired[
         "capo_datasync.types.task_schedule_details.TaskScheduleDetails"
     ]
-    r"""<p>The details about your <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html\">task schedule</a>.</p>"""
+    """<p>The details about your <a href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">task schedule</a>.</p>"""
     task_mode: NotRequired["capo_datasync.types.task_mode.TaskMode"]
-    r"""<p>The task mode that you're using. For more information, see <a href=\"https://docs.aws.amazon.com/datasync/latest/userguide/choosing-task-mode.html\">Choosing a task mode for your data transfer</a>.</p>"""
+    """<p>The task mode that you're using. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/choosing-task-mode.html">Choosing a task mode for your data transfer</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

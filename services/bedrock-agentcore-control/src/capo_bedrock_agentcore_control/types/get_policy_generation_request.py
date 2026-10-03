@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class GetPolicyGenerationRequest(TypedDict, closed=True):
     policy_generation_id: "capo_bedrock_agentcore_control.types.resource_id.ResourceId"
-    r"""<p>The unique identifier of the policy generation request to be retrieved. This must be a valid generation ID from a previous <a href=\"https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_StartPolicyGeneration.html\">StartPolicyGeneration</a> call.</p>"""
+    """<p>The unique identifier of the policy generation request to be retrieved. This must be a valid generation ID from a previous <a href="https://docs.aws.amazon.com/bedrock-agentcore-control/latest/APIReference/API_StartPolicyGeneration.html">StartPolicyGeneration</a> call.</p>"""
     policy_engine_id: "capo_bedrock_agentcore_control.types.resource_id.ResourceId"
     """<p>The identifier of the policy engine associated with the policy generation request. This provides the context for the generation operation and schema validation.</p>"""
 

@@ -17,7 +17,7 @@ class CreateReservationRequest(TypedDict, closed=True):
     offering_id: "capo_redshift_serverless.types.offering_id.OfferingId"
     """<p>The ID of the offering associated with the reservation. The offering determines the payment schedule for the reservation.</p>"""
     client_token: NotRequired["str"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. This token must be a valid UUIDv4 value. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\"> Making retries safe with idempotent APIs </a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. This token must be a valid UUIDv4 value. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/"> Making retries safe with idempotent APIs </a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

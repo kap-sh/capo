@@ -14,9 +14,9 @@ class AuditTaskMetadata(TypedDict, closed=True):
     task_id: NotRequired["capo_iot.types.audit_task_id.AuditTaskId"]
     """<p>The ID of this audit.</p>"""
     task_status: NotRequired["capo_iot.types.audit_task_status.AuditTaskStatus"]
-    r"""<p>The status of this audit. One of \"IN_PROGRESS\", \"COMPLETED\", \"FAILED\", or \"CANCELED\".</p>"""
+    """<p>The status of this audit. One of "IN_PROGRESS", "COMPLETED", "FAILED", or "CANCELED".</p>"""
     task_type: NotRequired["capo_iot.types.audit_task_type.AuditTaskType"]
-    r"""<p>The type of this audit. One of \"ON_DEMAND_AUDIT_TASK\" or \"SCHEDULED_AUDIT_TASK\".</p>"""
+    """<p>The type of this audit. One of "ON_DEMAND_AUDIT_TASK" or "SCHEDULED_AUDIT_TASK".</p>"""
 
 
 # --- restJson1 ser/de ---

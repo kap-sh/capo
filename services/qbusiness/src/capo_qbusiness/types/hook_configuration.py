@@ -17,9 +17,9 @@ class HookConfiguration(TypedDict, closed=True):
     ]
     """<p>The condition used for when a Lambda function should be invoked.</p> <p>For example, you can specify a condition that if there are empty date-time values, then Amazon Q Business should invoke a function that inserts the current date-time.</p>"""
     lambda_arn: NotRequired["capo_qbusiness.types.lambda_arn.LambdaArn"]
-    r"""<p>The Amazon Resource Name (ARN) of the Lambda function during ingestion. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/cde-lambda-operations.html\">Using Lambda functions for Amazon Q Business document enrichment</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Lambda function during ingestion. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/cde-lambda-operations.html">Using Lambda functions for Amazon Q Business document enrichment</a>.</p>"""
     s3_bucket_name: NotRequired["capo_qbusiness.types.s3_bucket_name.S3BucketName"]
-    r"""<p>Stores the original, raw documents or the structured, parsed documents before and after altering them. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/business-use-dg/cde-lambda-operations.html#cde-lambda-operations-data-contracts\">Data contracts for Lambda functions</a>.</p>"""
+    """<p>Stores the original, raw documents or the structured, parsed documents before and after altering them. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/business-use-dg/cde-lambda-operations.html#cde-lambda-operations-data-contracts">Data contracts for Lambda functions</a>.</p>"""
     role_arn: NotRequired["capo_qbusiness.types.role_arn.RoleArn"]
     """<p>The Amazon Resource Name (ARN) of a role with permission to run <code>PreExtractionHookConfiguration</code> and <code>PostExtractionHookConfiguration</code> for altering document metadata and content during the document ingestion process.</p>"""
 

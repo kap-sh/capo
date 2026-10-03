@@ -30,11 +30,11 @@ class RequestBasedServiceLevelIndicatorMetricConfig(TypedDict, closed=True):
     total_request_count_metric: NotRequired[
         "capo_application_signals.types.metric_data_queries.MetricDataQueries"
     ]
-    r"""<p>Use this structure to define the metric that you want to use as the \"total requests\" number for a request-based SLO. This result will be divided by the \"good request\" or \"bad request\" value defined in <code>MonitoredRequestCountMetric</code>.</p>"""
+    """<p>Use this structure to define the metric that you want to use as the "total requests" number for a request-based SLO. This result will be divided by the "good request" or "bad request" value defined in <code>MonitoredRequestCountMetric</code>.</p>"""
     monitored_request_count_metric: NotRequired[
         "capo_application_signals.types.monitored_request_count_metric_data_queries.MonitoredRequestCountMetricDataQueries"
     ]
-    r"""<p>Use this structure to define the metric that you want to use as the \"good request\" or \"bad request\" value for a request-based SLO. This value observed for the metric defined in <code>TotalRequestCountMetric</code> will be divided by the number found for <code>MonitoredRequestCountMetric</code> to determine the percentage of successful requests that this SLO tracks.</p>"""
+    """<p>Use this structure to define the metric that you want to use as the "good request" or "bad request" value for a request-based SLO. This value observed for the metric defined in <code>TotalRequestCountMetric</code> will be divided by the number found for <code>MonitoredRequestCountMetric</code> to determine the percentage of successful requests that this SLO tracks.</p>"""
     dependency_config: NotRequired[
         "capo_application_signals.types.dependency_config.DependencyConfig"
     ]

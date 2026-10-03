@@ -16,7 +16,7 @@ class CreateSourceRepositoryRequest(TypedDict, closed=True):
     project_name: "capo_codecatalyst.types.name_string.NameString"
     """<p>The name of the project in the space.</p>"""
     name: "capo_codecatalyst.types.source_repository_name_string.SourceRepositoryNameString"
-    r"""<p>The name of the source repository. For more information about name requirements, see <a href=\"https://docs.aws.amazon.com/codecatalyst/latest/userguide/source-quotas.html\">Quotas for source repositories</a>.</p>"""
+    """<p>The name of the source repository. For more information about name requirements, see <a href="https://docs.aws.amazon.com/codecatalyst/latest/userguide/source-quotas.html">Quotas for source repositories</a>.</p>"""
     description: NotRequired[
         "capo_codecatalyst.types.source_repository_description_string.SourceRepositoryDescriptionString"
     ]

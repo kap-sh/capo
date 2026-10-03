@@ -14,7 +14,7 @@ class CreateCloudFormationTemplateRequest(TypedDict, closed=True):
     semantic_version: NotRequired[
         "capo_serverlessapplicationrepository.types.__string.__string"
     ]
-    r"""<p>The semantic version of the application:</p><p> <a href=\"https://semver.org/\">https://semver.org/</a> </p>"""
+    """<p>The semantic version of the application:</p><p> <a href="https://semver.org/">https://semver.org/</a> </p>"""
 
 
 # --- restJson1 ser/de ---

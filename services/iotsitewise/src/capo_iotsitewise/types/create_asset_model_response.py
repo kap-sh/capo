@@ -16,7 +16,7 @@ class CreateAssetModelResponse(TypedDict, closed=True):
     asset_model_id: "capo_iotsitewise.types.id.ID"
     """<p>The ID of the asset model, in UUID format. You can use this ID when you call other IoT SiteWise API operations.</p>"""
     asset_model_arn: "capo_iotsitewise.types.arn.ARN"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">ARN</a> of the asset model, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:asset-model/${AssetModelId}</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> of the asset model, which has the following format.</p> <p> <code>arn:${Partition}:iotsitewise:${Region}:${Account}:asset-model/${AssetModelId}</code> </p>"""
     asset_model_status: "capo_iotsitewise.types.asset_model_status.AssetModelStatus"
     """<p>The status of the asset model, which contains a state (<code>CREATING</code> after successfully calling this operation) and any error message.</p>"""
 

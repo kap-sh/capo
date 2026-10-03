@@ -20,7 +20,7 @@ class Communication(TypedDict, closed=True):
     ]
     """<p>The text of the communication between the customer and Amazon Web Services Support.</p>"""
     submitted_by: NotRequired["capo_support.types.submitted_by.SubmittedBy"]
-    r"""<p>The identity of the account that submitted, or responded to, the support case. Customer entries include the IAM role as well as the email address (for example, \"AdminRole (Role) <janedoe@example.com>). Entries from the Amazon Web Services Support team display \"Amazon Web Services,\" and don't show an email address. </p>"""
+    """<p>The identity of the account that submitted, or responded to, the support case. Customer entries include the IAM role as well as the email address (for example, "AdminRole (Role) <janedoe@example.com>). Entries from the Amazon Web Services Support team display "Amazon Web Services," and don't show an email address. </p>"""
     time_created: NotRequired["capo_support.types.time_created.TimeCreated"]
     """<p>The time the communication was created.</p>"""
     attachments: NotRequired["capo_support.types.attachment_set.AttachmentSet"]

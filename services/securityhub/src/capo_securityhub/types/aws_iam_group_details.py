@@ -16,7 +16,7 @@ class AwsIamGroupDetails(TypedDict, closed=True):
     ]
     """<p>A list of the managed policies that are attached to the IAM group.</p>"""
     create_date: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>Indicates when the IAM group was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the IAM group was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     group_id: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The identifier of the IAM group.</p>"""
     group_name: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

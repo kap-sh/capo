@@ -15,7 +15,7 @@ class CreateAlarmModelResponse(TypedDict, closed=True):
     creation_time: NotRequired["capo_iot_events.types.timestamp.Timestamp"]
     """<p>The time the alarm model was created, in the Unix epoch format.</p>"""
     alarm_model_arn: NotRequired["capo_iot_events.types.alarm_model_arn.AlarmModelArn"]
-    r"""<p>The ARN of the alarm model. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
+    """<p>The ARN of the alarm model. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>"""
     alarm_model_version: NotRequired[
         "capo_iot_events.types.alarm_model_version.AlarmModelVersion"
     ]

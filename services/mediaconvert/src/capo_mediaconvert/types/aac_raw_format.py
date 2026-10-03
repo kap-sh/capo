@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""Enables LATM/LOAS AAC output. Note that if you use LATM/LOAS AAC in an output, you must choose \"No container\" for the output container."""
+"""Enables LATM/LOAS AAC output. Note that if you use LATM/LOAS AAC in an output, you must choose "No container" for the output container."""
 AacRawFormat: TypeAlias = Literal[
     "LATM_LOAS",
     "NONE",

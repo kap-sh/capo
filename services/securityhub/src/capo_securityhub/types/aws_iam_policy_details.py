@@ -15,7 +15,7 @@ class AwsIamPolicyDetails(TypedDict, closed=True):
     attachment_count: NotRequired["capo_securityhub.types.integer.Integer"]
     """<p>The number of users, groups, and roles that the policy is attached to.</p>"""
     create_date: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>When the policy was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>When the policy was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     default_version_id: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
@@ -39,7 +39,7 @@ class AwsIamPolicyDetails(TypedDict, closed=True):
     ]
     """<p>List of versions of the policy.</p>"""
     update_date: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    r"""<p>When the policy was most recently updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>When the policy was most recently updated.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

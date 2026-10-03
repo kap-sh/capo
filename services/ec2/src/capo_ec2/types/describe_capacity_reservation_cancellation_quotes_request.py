@@ -22,7 +22,7 @@ class DescribeCapacityReservationCancellationQuotesRequest(TypedDict, closed=Tru
     max_results: NotRequired[
         "capo_ec2.types.describe_capacity_reservation_cancellation_quotes_request_max_results.DescribeCapacityReservationCancellationQuotesRequestMaxResults"
     ]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     next_token: NotRequired["capo_ec2.types.string.String"]
     """<p>The token to use to retrieve the next page of results.</p>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]

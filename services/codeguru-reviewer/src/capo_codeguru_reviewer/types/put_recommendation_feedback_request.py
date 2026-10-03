@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class PutRecommendationFeedbackRequest(TypedDict, closed=True):
     code_review_arn: "capo_codeguru_reviewer.types.arn.Arn"
-    r"""<p>The Amazon Resource Name (ARN) of the <a href=\"https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html\">CodeReview</a> object. </p>"""
+    """<p>The Amazon Resource Name (ARN) of the <a href="https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html">CodeReview</a> object. </p>"""
     recommendation_id: "capo_codeguru_reviewer.types.recommendation_id.RecommendationId"
     """<p>The recommendation ID that can be used to track the provided recommendations and then to collect the feedback.</p>"""
     reactions: "capo_codeguru_reviewer.types.reactions.Reactions"

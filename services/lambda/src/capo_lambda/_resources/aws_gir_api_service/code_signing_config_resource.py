@@ -55,7 +55,7 @@ class CodeSigningConfigResource:
         ] = None,
         tags: Optional["capo_lambda.types.tags.Tags"] = None,
     ) -> "capo_lambda.types.create_code_signing_config_response.CreateCodeSigningConfigResponse":
-        r"""<p>Creates a code signing configuration. A <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/configuration-codesigning.html\">code signing configuration</a> defines a list of allowed signing profiles and defines the code-signing validation policy (action to be taken if deployment validation checks fail). </p>
+        """<p>Creates a code signing configuration. A <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-codesigning.html">code signing configuration</a> defines a list of allowed signing profiles and defines the code-signing validation policy (action to be taken if deployment validation checks fail). </p>
 
         Args:
             description: <p>Descriptive name for this code signing configuration.</p>
@@ -109,7 +109,7 @@ class CodeSigningConfigResource:
         marker: Optional["capo_lambda.types.string.String"] = None,
         max_items: Optional["capo_lambda.types.max_list_items.MaxListItems"] = None,
     ) -> "capo_lambda.types.list_code_signing_configs_response.ListCodeSigningConfigsResponse":
-        r"""<p>Returns a list of <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/configuring-codesigning.html\">code signing configurations</a>. A request returns up to 10,000 configurations per call. You can use the <code>MaxItems</code> parameter to return fewer configurations per call. </p>
+        """<p>Returns a list of <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuring-codesigning.html">code signing configurations</a>. A request returns up to 10,000 configurations per call. You can use the <code>MaxItems</code> parameter to return fewer configurations per call. </p>
 
         Args:
             marker: <p>Specify the pagination token that's returned by a previous request to retrieve the next page of results.</p>
@@ -371,7 +371,7 @@ class AsyncCodeSigningConfigResource:
         ] = None,
         tags: Optional["capo_lambda.types.tags.Tags"] = None,
     ) -> "capo_lambda.types.create_code_signing_config_response.CreateCodeSigningConfigResponse":
-        r"""<p>Creates a code signing configuration. A <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/configuration-codesigning.html\">code signing configuration</a> defines a list of allowed signing profiles and defines the code-signing validation policy (action to be taken if deployment validation checks fail). </p>
+        """<p>Creates a code signing configuration. A <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-codesigning.html">code signing configuration</a> defines a list of allowed signing profiles and defines the code-signing validation policy (action to be taken if deployment validation checks fail). </p>
 
         Args:
             description: <p>Descriptive name for this code signing configuration.</p>
@@ -426,7 +426,7 @@ class AsyncCodeSigningConfigResource:
         marker: Optional["capo_lambda.types.string.String"] = None,
         max_items: Optional["capo_lambda.types.max_list_items.MaxListItems"] = None,
     ) -> "capo_lambda.types.list_code_signing_configs_response.ListCodeSigningConfigsResponse":
-        r"""<p>Returns a list of <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/configuring-codesigning.html\">code signing configurations</a>. A request returns up to 10,000 configurations per call. You can use the <code>MaxItems</code> parameter to return fewer configurations per call. </p>
+        """<p>Returns a list of <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuring-codesigning.html">code signing configurations</a>. A request returns up to 10,000 configurations per call. You can use the <code>MaxItems</code> parameter to return fewer configurations per call. </p>
 
         Args:
             marker: <p>Specify the pagination token that's returned by a previous request to retrieve the next page of results.</p>

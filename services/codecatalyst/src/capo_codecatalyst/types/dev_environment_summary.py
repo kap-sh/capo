@@ -27,7 +27,7 @@ class DevEnvironmentSummary(TypedDict, closed=True):
     id: "capo_codecatalyst.types.uuid.Uuid"
     """<p>The system-generated unique ID for the Dev Environment. </p>"""
     last_updated_time: "capo_codecatalyst.types.timestamp.Timestamp"
-    r"""<p>The time when the Dev Environment was last updated, in coordinated universal time (UTC) timestamp format as specified in <a href=\"https://www.rfc-editor.org/rfc/rfc3339#section-5.6\">RFC 3339</a>.</p>"""
+    """<p>The time when the Dev Environment was last updated, in coordinated universal time (UTC) timestamp format as specified in <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a>.</p>"""
     creator_id: "str"
     """<p>The system-generated unique ID of the user who created the Dev Environment. </p>"""
     status: "capo_codecatalyst.types.dev_environment_status.DevEnvironmentStatus"

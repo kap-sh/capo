@@ -13,7 +13,7 @@ class S3LogDestination(TypedDict, closed=True):
     bucket_name: NotRequired["capo_pipes.types.string.String"]
     """<p>The name of the Amazon S3 bucket to which EventBridge delivers the log records for the pipe.</p>"""
     prefix: NotRequired["capo_pipes.types.string.String"]
-    r"""<p>The prefix text with which to begin Amazon S3 log object names.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-prefixes.html\">Organizing objects using prefixes</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>"""
+    """<p>The prefix text with which to begin Amazon S3 log object names.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-prefixes.html">Organizing objects using prefixes</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>"""
     bucket_owner: NotRequired["capo_pipes.types.string.String"]
     """<p>The Amazon Web Services account that owns the Amazon S3 bucket to which EventBridge delivers the log records for the pipe.</p>"""
     output_format: NotRequired["capo_pipes.types.s3_output_format.S3OutputFormat"]

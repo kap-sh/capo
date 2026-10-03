@@ -35,7 +35,7 @@ class ListSessionMetricsRequest(TypedDict, closed=True):
     group_by: NotRequired[
         "capo_lex_models_v2.types.analytics_session_group_by_list.AnalyticsSessionGroupByList"
     ]
-    r"""<p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>ConversationEndState</code> – The final state of the conversation. The possible end states are detailed in <a href=\"https://docs.aws.amazon.com/analytics-key-definitions-conversations\">Key definitions</a> in the user guide.</p> </li> <li> <p> <code>LocaleId</code> – The unique identifier of the bot locale.</p> </li> </ul>"""
+    """<p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>ConversationEndState</code> – The final state of the conversation. The possible end states are detailed in <a href="https://docs.aws.amazon.com/analytics-key-definitions-conversations">Key definitions</a> in the user guide.</p> </li> <li> <p> <code>LocaleId</code> – The unique identifier of the bot locale.</p> </li> </ul>"""
     filters: NotRequired[
         "capo_lex_models_v2.types.analytics_session_filters.AnalyticsSessionFilters"
     ]

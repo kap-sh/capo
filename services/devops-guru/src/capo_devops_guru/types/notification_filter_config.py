@@ -13,7 +13,7 @@ class NotificationFilterConfig(TypedDict, closed=True):
     severities: NotRequired[
         "capo_devops_guru.types.insight_severities.InsightSeverities"
     ]
-    r"""<p> The severity levels that you want to receive notifications for. For example, you can choose to receive notifications only for insights with <code>HIGH</code> and <code>MEDIUM</code> severity levels. For more information, see <a href=\"https://docs.aws.amazon.com/devops-guru/latest/userguide/working-with-insights.html#understanding-insights-severities\">Understanding insight severities</a>. </p>"""
+    """<p> The severity levels that you want to receive notifications for. For example, you can choose to receive notifications only for insights with <code>HIGH</code> and <code>MEDIUM</code> severity levels. For more information, see <a href="https://docs.aws.amazon.com/devops-guru/latest/userguide/working-with-insights.html#understanding-insights-severities">Understanding insight severities</a>. </p>"""
     message_types: NotRequired[
         "capo_devops_guru.types.notification_message_types.NotificationMessageTypes"
     ]

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class SecurityGroupRuleRequest(TypedDict, closed=True):
     ip_protocol: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The IP protocol name (<code>tcp</code>, <code>udp</code>, <code>icmp</code>, <code>icmpv6</code>) or number (see <a href=\"http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml\">Protocol Numbers</a>). </p> <p>Use <code>-1</code> to specify all protocols.</p>"""
+    """<p>The IP protocol name (<code>tcp</code>, <code>udp</code>, <code>icmp</code>, <code>icmpv6</code>) or number (see <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol Numbers</a>). </p> <p>Use <code>-1</code> to specify all protocols.</p>"""
     from_port: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6, this is the ICMP type or -1 (all ICMP types).</p>"""
     to_port: NotRequired["capo_ec2.types.integer.Integer"]

@@ -67,7 +67,7 @@ class ReferenceStoreResource:
     ) -> (
         "capo_omics.types.create_reference_store_response.CreateReferenceStoreResponse"
     ):
-        r"""<p>Creates a reference store and returns metadata in JSON format. Reference stores are used to store reference genomes in FASTA format. A reference store is created when the first reference genome is imported. To import additional reference genomes from an Amazon S3 bucket, use the <code>StartReferenceImportJob</code> API operation. </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/create-reference-store.html\">Creating a HealthOmics reference store</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Creates a reference store and returns metadata in JSON format. Reference stores are used to store reference genomes in FASTA format. A reference store is created when the first reference genome is imported. To import additional reference genomes from an Amazon S3 bucket, use the <code>StartReferenceImportJob</code> API operation. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/create-reference-store.html">Creating a HealthOmics reference store</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             name: <p>A name for the store.</p>
@@ -177,7 +177,7 @@ class ReferenceStoreResource:
     ) -> (
         "capo_omics.types.delete_reference_store_response.DeleteReferenceStoreResponse"
     ):
-        r"""<p>Deletes a reference store and returns a response with no body if the operation is successful. You can only delete a reference store when it does not contain any reference genomes. To empty a reference store, use <code>DeleteReference</code>.</p> <p>For more information about your workflow status, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/deleting-reference-and-sequence-stores.html\">Deleting HealthOmics reference and sequence stores</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Deletes a reference store and returns a response with no body if the operation is successful. You can only delete a reference store when it does not contain any reference genomes. To empty a reference store, use <code>DeleteReference</code>.</p> <p>For more information about your workflow status, see <a href="https://docs.aws.amazon.com/omics/latest/dev/deleting-reference-and-sequence-stores.html">Deleting HealthOmics reference and sequence stores</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             id: <p>The store's ID.</p>
@@ -230,7 +230,7 @@ class ReferenceStoreResource:
             "capo_omics.types.reference_store_filter.ReferenceStoreFilter"
         ] = None,
     ) -> "capo_omics.types.list_reference_stores_response.ListReferenceStoresResponse":
-        r"""<p>Retrieves a list of reference stores linked to your account and returns their metadata in JSON format.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/create-reference-store.html\">Creating a reference store</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Retrieves a list of reference stores linked to your account and returns their metadata in JSON format.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/create-reference-store.html">Creating a reference store</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             max_results: <p>The maximum number of stores to return in one page of results.</p>
@@ -468,7 +468,7 @@ class AsyncReferenceStoreResource:
     ) -> (
         "capo_omics.types.create_reference_store_response.CreateReferenceStoreResponse"
     ):
-        r"""<p>Creates a reference store and returns metadata in JSON format. Reference stores are used to store reference genomes in FASTA format. A reference store is created when the first reference genome is imported. To import additional reference genomes from an Amazon S3 bucket, use the <code>StartReferenceImportJob</code> API operation. </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/create-reference-store.html\">Creating a HealthOmics reference store</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Creates a reference store and returns metadata in JSON format. Reference stores are used to store reference genomes in FASTA format. A reference store is created when the first reference genome is imported. To import additional reference genomes from an Amazon S3 bucket, use the <code>StartReferenceImportJob</code> API operation. </p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/create-reference-store.html">Creating a HealthOmics reference store</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             name: <p>A name for the store.</p>
@@ -580,7 +580,7 @@ class AsyncReferenceStoreResource:
     ) -> (
         "capo_omics.types.delete_reference_store_response.DeleteReferenceStoreResponse"
     ):
-        r"""<p>Deletes a reference store and returns a response with no body if the operation is successful. You can only delete a reference store when it does not contain any reference genomes. To empty a reference store, use <code>DeleteReference</code>.</p> <p>For more information about your workflow status, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/deleting-reference-and-sequence-stores.html\">Deleting HealthOmics reference and sequence stores</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Deletes a reference store and returns a response with no body if the operation is successful. You can only delete a reference store when it does not contain any reference genomes. To empty a reference store, use <code>DeleteReference</code>.</p> <p>For more information about your workflow status, see <a href="https://docs.aws.amazon.com/omics/latest/dev/deleting-reference-and-sequence-stores.html">Deleting HealthOmics reference and sequence stores</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             id: <p>The store's ID.</p>
@@ -634,7 +634,7 @@ class AsyncReferenceStoreResource:
             "capo_omics.types.reference_store_filter.ReferenceStoreFilter"
         ] = None,
     ) -> "capo_omics.types.list_reference_stores_response.ListReferenceStoresResponse":
-        r"""<p>Retrieves a list of reference stores linked to your account and returns their metadata in JSON format.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/create-reference-store.html\">Creating a reference store</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
+        """<p>Retrieves a list of reference stores linked to your account and returns their metadata in JSON format.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/create-reference-store.html">Creating a reference store</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>
 
         Args:
             max_results: <p>The maximum number of stores to return in one page of results.</p>

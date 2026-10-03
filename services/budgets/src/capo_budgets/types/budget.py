@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 class Budget(TypedDict, closed=True):
     budget_name: "capo_budgets.types.budget_name.BudgetName"
-    r"""<p>The name of a budget. The name must be unique within an account. The <code>:</code> and <code>\</code> characters, and the \"/action/\" substring, aren't allowed in <code>BudgetName</code>.</p> <p>Budget names are validated for content. Names that contain phone numbers, URLs, or email addresses combined with certain terms may be rejected.</p>"""
+    r"""<p>The name of a budget. The name must be unique within an account. The <code>:</code> and <code>\</code> characters, and the "/action/" substring, aren't allowed in <code>BudgetName</code>.</p> <p>Budget names are validated for content. Names that contain phone numbers, URLs, or email addresses combined with certain terms may be rejected.</p>"""
     budget_limit: NotRequired["capo_budgets.types.spend.Spend"]
     """<p>The total amount of cost, usage, RI utilization, RI coverage, Savings Plans utilization, or Savings Plans coverage that you want to track with your budget.</p> <p> <code>BudgetLimit</code> is required for cost or usage budgets, but optional for RI or Savings Plans utilization or coverage budgets. RI and Savings Plans utilization or coverage budgets default to <code>100</code>. This is the only valid value for RI or Savings Plans utilization or coverage budgets. You can't use <code>BudgetLimit</code> with <code>PlannedBudgetLimits</code> for <code>CreateBudget</code> and <code>UpdateBudget</code> actions. </p>"""
     planned_budget_limits: NotRequired[

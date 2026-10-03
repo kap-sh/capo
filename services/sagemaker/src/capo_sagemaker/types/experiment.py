@@ -38,7 +38,7 @@ class Experiment(TypedDict, closed=True):
     """<p>When the experiment was last modified.</p>"""
     last_modified_by: NotRequired["capo_sagemaker.types.user_context.UserContext"]
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>The list of tags that are associated with the experiment. You can use <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html\">Search</a> API to search on the tags.</p>"""
+    """<p>The list of tags that are associated with the experiment. You can use <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html">Search</a> API to search on the tags.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

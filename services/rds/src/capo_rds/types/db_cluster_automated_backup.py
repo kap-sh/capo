@@ -65,7 +65,7 @@ class DBClusterAutomatedBackup(TypedDict, closed=True):
     availability_zones: NotRequired[
         "capo_rds.types.availability_zones.AvailabilityZones"
     ]
-    r"""<p>The Availability Zones where instances in the DB cluster can be created. For information on Amazon Web Services Regions and Availability Zones, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html\">Regions and Availability Zones</a>.</p>"""
+    """<p>The Availability Zones where instances in the DB cluster can be created. For information on Amazon Web Services Regions and Availability Zones, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions and Availability Zones</a>.</p>"""
     port: NotRequired["capo_rds.types.integer.Integer"]
     """<p>The port number that the automated backup used for connections.</p> <p>Default: Inherits from the source DB cluster</p> <p>Valid Values: <code>1150-65535</code> </p>"""
     kms_key_id: NotRequired["capo_rds.types.string.String"]

@@ -25,11 +25,11 @@ class User(TypedDict, closed=True):
     distinguished_name: NotRequired[
         "capo_directory_service_data.types.distinguished_name.DistinguishedName"
     ]
-    r"""<p> The <a href=\"https://learn.microsoft.com/en-us/windows/win32/ad/object-names-and-identities#distinguished-name\">distinguished name</a> of the object. </p>"""
+    """<p> The <a href="https://learn.microsoft.com/en-us/windows/win32/ad/object-names-and-identities#distinguished-name">distinguished name</a> of the object. </p>"""
     user_principal_name: NotRequired[
         "capo_directory_service_data.types.user_principal_name.UserPrincipalName"
     ]
-    r"""<p> The UPN that is an internet-style login name for a user and based on the internet standard <a href=\"https://datatracker.ietf.org/doc/html/rfc822\">RFC 822</a>. The UPN is shorter than the distinguished name and easier to remember. </p>"""
+    """<p> The UPN that is an internet-style login name for a user and based on the internet standard <a href="https://datatracker.ietf.org/doc/html/rfc822">RFC 822</a>. The UPN is shorter than the distinguished name and easier to remember. </p>"""
     email_address: NotRequired[
         "capo_directory_service_data.types.email_address.EmailAddress"
     ]

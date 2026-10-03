@@ -15,7 +15,7 @@ class TextTransformation(TypedDict, closed=True):
     priority: "capo_wafv2.types.text_transformation_priority.TextTransformationPriority"
     """<p>Sets the relative processing order for multiple transformations. WAF processes all transformations, from lowest priority to highest, before inspecting the transformed content. The priorities don't need to be consecutive, but they must all be different. </p>"""
     type: "capo_wafv2.types.text_transformation_type.TextTransformationType"
-    r"""<p>For detailed descriptions of each of the transformation types, see <a href=\"https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-transformation.html\">Text transformations</a> in the <i>WAF Developer Guide</i>.</p>"""
+    """<p>For detailed descriptions of each of the transformation types, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-transformation.html">Text transformations</a> in the <i>WAF Developer Guide</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -24,7 +24,7 @@ class DeliveryStreamDescription(TypedDict, closed=True):
     delivery_stream_name: "capo_firehose.types.delivery_stream_name.DeliveryStreamName"
     """<p>The name of the Firehose stream.</p>"""
     delivery_stream_arn: "capo_firehose.types.delivery_stream_arn.DeliveryStreamARN"
-    r"""<p>The Amazon Resource Name (ARN) of the Firehose stream. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Firehose stream. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>"""
     delivery_stream_status: (
         "capo_firehose.types.delivery_stream_status.DeliveryStreamStatus"
     )

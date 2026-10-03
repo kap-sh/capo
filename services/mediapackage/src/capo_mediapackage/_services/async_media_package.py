@@ -392,13 +392,13 @@ class AsyncMediaPackageClient:
             "capo_mediapackage.types.__list_of__string.__listOf__string"
         ] = None,
     ) -> "capo_mediapackage.types.create_origin_endpoint_response.CreateOriginEndpointResponse":
-        r"""Creates a new OriginEndpoint record.
+        """Creates a new OriginEndpoint record.
 
         Args:
             channel_id: The ID of the Channel that the OriginEndpoint will be associated with. This cannot be changed after the OriginEndpoint is created.
             description: A short text description of the OriginEndpoint.
             id: The ID of the OriginEndpoint. The ID must be unique within the region and it cannot be changed after the OriginEndpoint is created.
-            manifest_name: A short string that will be used as the filename of the OriginEndpoint URL (defaults to \"index\").
+            manifest_name: A short string that will be used as the filename of the OriginEndpoint URL (defaults to "index").
             origination: Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
             startover_window_seconds: Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
             time_delay_seconds: Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.

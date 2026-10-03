@@ -71,7 +71,7 @@ class BackupJob(TypedDict, closed=True):
     bytes_transferred: NotRequired["capo_backup.types.long.Long"]
     """<p>The size in bytes transferred to a backup vault at the time that the job status was queried.</p>"""
     backup_options: NotRequired["capo_backup.types.backup_options.BackupOptions"]
-    r"""<p>Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy Service (VSS) backup jobs.</p> <p>Valid values: Set to <code>\"WindowsVSS\":\"enabled\"</code> to enable the <code>WindowsVSS</code> backup option and create a Windows VSS backup. Set to <code>\"WindowsVSS\":\"disabled\"</code> to create a regular backup. If you specify an invalid option, you get an <code>InvalidParameterValueException</code> exception.</p>"""
+    """<p>Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy Service (VSS) backup jobs.</p> <p>Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and create a Windows VSS backup. Set to <code>"WindowsVSS":"disabled"</code> to create a regular backup. If you specify an invalid option, you get an <code>InvalidParameterValueException</code> exception.</p>"""
     backup_type: NotRequired["capo_backup.types.string.string"]
     """<p>Represents the type of backup for a backup job.</p>"""
     parent_job_id: NotRequired["capo_backup.types.string.string"]
@@ -83,7 +83,7 @@ class BackupJob(TypedDict, closed=True):
     initiation_date: NotRequired["capo_backup.types.timestamp.timestamp"]
     """<p>The date on which the backup job was initiated.</p>"""
     message_category: NotRequired["capo_backup.types.string.string"]
-    r"""<p>This parameter is the job count for the specified message category.</p> <p>Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and <code>INVALIDPARAMETERS</code>. See <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html\">Monitoring</a> for a list of MessageCategory strings.</p> <p>The the value ANY returns count of all message categories.</p> <p> <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.</p>"""
+    """<p>This parameter is the job count for the specified message category.</p> <p>Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and <code>INVALIDPARAMETERS</code>. See <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list of MessageCategory strings.</p> <p>The the value ANY returns count of all message categories.</p> <p> <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.</p>"""
 
 
 # --- restJson1 ser/de ---

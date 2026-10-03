@@ -26,7 +26,7 @@ class IpamPoolCidr(TypedDict, closed=True):
     ipam_pool_cidr_id: NotRequired["capo_ec2.types.ipam_pool_cidr_id.IpamPoolCidrId"]
     """<p>The IPAM pool CIDR ID.</p>"""
     netmask_length: NotRequired["capo_ec2.types.integer.Integer"]
-    r"""<p>The netmask length of the CIDR you'd like to provision to a pool. Can be used for provisioning Amazon-provided IPv6 CIDRs to top-level pools and for provisioning CIDRs to pools with source pools. Cannot be used to provision BYOIP CIDRs to top-level pools. \"NetmaskLength\" or \"Cidr\" is required.</p>"""
+    """<p>The netmask length of the CIDR you'd like to provision to a pool. Can be used for provisioning Amazon-provided IPv6 CIDRs to top-level pools and for provisioning CIDRs to pools with source pools. Cannot be used to provision BYOIP CIDRs to top-level pools. "NetmaskLength" or "Cidr" is required.</p>"""
 
 
 # --- ec2Query ser/de ---

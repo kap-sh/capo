@@ -17,7 +17,7 @@ class SystemStatus(TypedDict, closed=True):
     ]
     """<p>CPU utilization metrics for the instance.</p>"""
     load_average: NotRequired["capo_elastic_beanstalk.types.load_average.LoadAverage"]
-    r"""<p>Load average in the last 1-minute, 5-minute, and 15-minute periods. For more information, see <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os\">Operating System Metrics</a>.</p>"""
+    """<p>Load average in the last 1-minute, 5-minute, and 15-minute periods. For more information, see <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os">Operating System Metrics</a>.</p>"""
 
 
 # --- awsQuery ser/de ---

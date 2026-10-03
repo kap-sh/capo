@@ -27,7 +27,7 @@ class GetEventPredictionRequest(TypedDict, closed=True):
     event_type_name: "capo_frauddetector.types.string.string"
     """<p>The event type associated with the detector specified for the prediction.</p>"""
     entities: "capo_frauddetector.types.list_of_entities.listOfEntities"
-    r"""<p>The entity type (associated with the detector's event type) and specific entity ID representing who performed the event. If an entity id is not available, use \"UNKNOWN.\"</p>"""
+    """<p>The entity type (associated with the detector's event type) and specific entity ID representing who performed the event. If an entity id is not available, use "UNKNOWN."</p>"""
     event_timestamp: (
         "capo_frauddetector.types.utc_timestamp_iso8601.utcTimestampISO8601"
     )

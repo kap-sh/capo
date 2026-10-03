@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class StartAttachmentUploadRequest(TypedDict, closed=True):
     content_type: "capo_connectparticipant.types.content_type.ContentType"
-    r"""<p>Describes the MIME file type of the attachment. For a list of supported file types, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/feature-limits.html\">Feature specifications</a> in the <i>Amazon Connect Administrator Guide</i>.</p>"""
+    """<p>Describes the MIME file type of the attachment. For a list of supported file types, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/feature-limits.html">Feature specifications</a> in the <i>Amazon Connect Administrator Guide</i>.</p>"""
     attachment_size_in_bytes: (
         "capo_connectparticipant.types.attachment_size_in_bytes.AttachmentSizeInBytes"
     )
@@ -26,7 +26,7 @@ class StartAttachmentUploadRequest(TypedDict, closed=True):
     client_token: (
         "capo_connectparticipant.types.non_empty_client_token.NonEmptyClientToken"
     )
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>"""
     connection_token: "capo_connectparticipant.types.participant_token.ParticipantToken"
     """<p>The authentication token associated with the participant's connection.</p>"""
 

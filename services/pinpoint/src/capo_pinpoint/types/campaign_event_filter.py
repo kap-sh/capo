@@ -13,7 +13,7 @@ class CampaignEventFilter(TypedDict, closed=True):
     dimensions: NotRequired["capo_pinpoint.types.event_dimensions.EventDimensions"]
     """<p>The dimension settings of the event filter for the campaign.</p>"""
     filter_type: NotRequired["capo_pinpoint.types.filter_type.FilterType"]
-    r"""<p>The type of event that causes the campaign to be sent. Valid values are: SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT, sends the campaign when an endpoint event (<link linkend=\"apps-application-id-events\">Events</link> resource) occurs.</p>"""
+    """<p>The type of event that causes the campaign to be sent. Valid values are: SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT, sends the campaign when an endpoint event (<link linkend="apps-application-id-events">Events</link> resource) occurs.</p>"""
 
 
 # --- restJson1 ser/de ---

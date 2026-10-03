@@ -12,7 +12,7 @@ class UpdateAccountSettingsInput(TypedDict, closed=True):
     group_lifecycle_events_desired_status: NotRequired[
         "capo_resource_groups.types.group_lifecycle_events_desired_status.GroupLifecycleEventsDesiredStatus"
     ]
-    r"""<p>Specifies whether you want to turn <a href=\"https://docs.aws.amazon.com/ARG/latest/userguide/monitor-groups.html\">group lifecycle events</a> on or off.</p> <p>You can't turn on group lifecycle events if your resource groups quota is greater than 2,000. </p>"""
+    """<p>Specifies whether you want to turn <a href="https://docs.aws.amazon.com/ARG/latest/userguide/monitor-groups.html">group lifecycle events</a> on or off.</p> <p>You can't turn on group lifecycle events if your resource groups quota is greater than 2,000. </p>"""
 
 
 # --- restJson1 ser/de ---

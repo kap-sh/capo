@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 
 class GroupConfigurationParameter(TypedDict, closed=True):
     name: "capo_resource_groups.types.group_configuration_parameter_name.GroupConfigurationParameterName"
-    r"""<p>The name of the group configuration parameter. For the list of parameters that you can use with each configuration item type, see <a href=\"https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types\">Supported resource types and parameters</a>.</p>"""
+    """<p>The name of the group configuration parameter. For the list of parameters that you can use with each configuration item type, see <a href="https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types">Supported resource types and parameters</a>.</p>"""
     values: NotRequired[
         "capo_resource_groups.types.group_configuration_parameter_value_list.GroupConfigurationParameterValueList"
     ]
-    r"""<p>The value or values to be used for the specified parameter. For the list of values you can use with each parameter, see <a href=\"https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types\">Supported resource types and parameters</a>.</p>"""
+    """<p>The value or values to be used for the specified parameter. For the list of values you can use with each parameter, see <a href="https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types">Supported resource types and parameters</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

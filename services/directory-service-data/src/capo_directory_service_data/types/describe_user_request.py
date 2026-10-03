@@ -21,7 +21,7 @@ class DescribeUserRequest(TypedDict, closed=True):
     other_attributes: NotRequired[
         "capo_directory_service_data.types.ldap_display_name_list.LdapDisplayNameList"
     ]
-    r"""<p> One or more attribute names to be returned for the user. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href=\"https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html\">Directory Service Data Attributes</a>. </p>"""
+    """<p> One or more attribute names to be returned for the user. A key is an attribute name, and the value is a list of maps. For a list of supported attributes, see <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_data_attributes.html">Directory Service Data Attributes</a>. </p>"""
     realm: NotRequired["capo_directory_service_data.types.realm.Realm"]
     """<p> The domain name that's associated with the user. </p> <note> <p> This parameter is optional, so you can return users outside your Managed Microsoft AD domain. When no value is defined, only your Managed Microsoft AD users are returned. </p> <p> This value is case insensitive. </p> </note>"""
 

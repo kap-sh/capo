@@ -31,7 +31,7 @@ class AgentAlias(TypedDict, closed=True):
     agent_alias_arn: "capo_bedrock_agent.types.agent_alias_arn.AgentAliasArn"
     """<p>The Amazon Resource Name (ARN) of the alias of the agent.</p>"""
     client_token: NotRequired["capo_bedrock_agent.types.client_token.ClientToken"]
-    r"""<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, Amazon Bedrock ignores the request, but does not return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>"""
     description: NotRequired["capo_bedrock_agent.types.description.Description"]
     """<p>The description of the alias of the agent.</p>"""
     routing_configuration: "capo_bedrock_agent.types.agent_alias_routing_configuration.AgentAliasRoutingConfiguration"

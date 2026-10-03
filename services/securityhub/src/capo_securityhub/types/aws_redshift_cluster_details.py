@@ -43,7 +43,7 @@ class AwsRedshiftClusterDetails(TypedDict, closed=True):
     cluster_create_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the cluster was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the cluster was created.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     cluster_identifier: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
@@ -109,7 +109,7 @@ class AwsRedshiftClusterDetails(TypedDict, closed=True):
     expected_next_snapshot_schedule_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates when the next snapshot is expected to be taken. The cluster must have a valid snapshot schedule and have backups enabled.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates when the next snapshot is expected to be taken. The cluster must have a valid snapshot schedule and have backups enabled.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     expected_next_snapshot_schedule_time_status: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
@@ -139,7 +139,7 @@ class AwsRedshiftClusterDetails(TypedDict, closed=True):
     next_maintenance_window_start_time: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>Indicates the start of the next maintenance window.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps\">Timestamps</a>.</p>"""
+    """<p>Indicates the start of the next maintenance window.</p> <p>For more information about the validation and formatting of timestamp fields in Security Hub CSPM, see <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/Welcome.html#timestamps">Timestamps</a>.</p>"""
     node_type: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>The node type for the nodes in the cluster.</p>"""
     number_of_nodes: NotRequired["capo_securityhub.types.integer.Integer"]

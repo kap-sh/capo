@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ApplyPendingMaintenanceActionMessage(TypedDict, closed=True):
     resource_identifier: NotRequired["capo_neptune.types.string.String"]
-    r"""<p>The Amazon Resource Name (ARN) of the resource that the pending maintenance action applies to. For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing\"> Constructing an Amazon Resource Name (ARN)</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the resource that the pending maintenance action applies to. For information about creating an ARN, see <a href="https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing"> Constructing an Amazon Resource Name (ARN)</a>.</p>"""
     apply_action: NotRequired["capo_neptune.types.string.String"]
     """<p>The pending maintenance action to apply to this resource.</p> <p>Valid values: <code>system-update</code>, <code>db-upgrade</code> </p>"""
     opt_in_type: NotRequired["capo_neptune.types.string.String"]

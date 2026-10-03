@@ -16,7 +16,7 @@ class BatchGetAssetPropertyAggregatesSkippedEntry(TypedDict, closed=True):
     entry_id: "capo_iotsitewise.types.entry_id.EntryId"
     """<p>The ID of the entry.</p>"""
     completion_status: "capo_iotsitewise.types.batch_entry_completion_status.BatchEntryCompletionStatus"
-    r"""<p>The completion status of each entry that is associated with the <a href=\"https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_BatchGetAssetPropertyAggregates.html\">BatchGetAssetPropertyAggregates</a> API.</p>"""
+    """<p>The completion status of each entry that is associated with the <a href="https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_BatchGetAssetPropertyAggregates.html">BatchGetAssetPropertyAggregates</a> API.</p>"""
     error_info: NotRequired[
         "capo_iotsitewise.types.batch_get_asset_property_aggregates_error_info.BatchGetAssetPropertyAggregatesErrorInfo"
     ]

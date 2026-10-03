@@ -18,7 +18,7 @@ class GetResourcesRequest(TypedDict, closed=True):
     limit: NotRequired["capo_api_gateway.types.nullable_integer.NullableInteger"]
     """<p>The maximum number of returned results per page. The default value is 25 and the maximum value is 500.</p>"""
     embed: NotRequired["capo_api_gateway.types.list_of_string.ListOfString"]
-    r"""<p>A query parameter used to retrieve the specified resources embedded in the returned Resources resource in the response. This <code>embed</code> parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the <code>\"methods\"</code> string. For example, <code>GET /restapis/{restapi_id}/resources?embed=methods</code>.</p>"""
+    """<p>A query parameter used to retrieve the specified resources embedded in the returned Resources resource in the response. This <code>embed</code> parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the <code>"methods"</code> string. For example, <code>GET /restapis/{restapi_id}/resources?embed=methods</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

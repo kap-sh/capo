@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class OrganizationEventDetailsErrorItem(TypedDict, closed=True):
     aws_account_id: NotRequired["capo_health.types.account_id.accountId"]
-    r"""<p>Error information returned when a <a href=\"https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventDetailsForOrganization.html\">DescribeEventDetailsForOrganization</a> operation can't find a specified event.</p>"""
+    """<p>Error information returned when a <a href="https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventDetailsForOrganization.html">DescribeEventDetailsForOrganization</a> operation can't find a specified event.</p>"""
     event_arn: NotRequired["capo_health.types.event_arn.eventArn"]
     """<p>The unique identifier for the event. The event ARN has the <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code> format.</p> <p>For example, an event ARN might look like the following:</p> <p> <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code> </p>"""
     error_name: NotRequired["capo_health.types.string.string"]

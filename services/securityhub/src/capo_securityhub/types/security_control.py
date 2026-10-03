@@ -34,7 +34,7 @@ class SecurityControl(TypedDict, closed=True):
     severity_rating: NotRequired[
         "capo_securityhub.types.severity_rating.SeverityRating"
     ]
-    r"""<p> The severity of a security control. For more information about how Security Hub CSPM determines control severity, see <a href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/controls-findings-create-update.html#control-findings-severity\">Assigning severity to control findings</a> in the <i>Security Hub CSPM User Guide</i>. </p>"""
+    """<p> The severity of a security control. For more information about how Security Hub CSPM determines control severity, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/controls-findings-create-update.html#control-findings-severity">Assigning severity to control findings</a> in the <i>Security Hub CSPM User Guide</i>. </p>"""
     security_control_status: NotRequired[
         "capo_securityhub.types.control_status.ControlStatus"
     ]
@@ -46,7 +46,7 @@ class SecurityControl(TypedDict, closed=True):
     last_update_reason: NotRequired[
         "capo_securityhub.types.alpha_numeric_non_empty_string.AlphaNumericNonEmptyString"
     ]
-    r"""<p> The most recent reason for updating the customizable properties of a security control. This differs from the <code>UpdateReason</code> field of the <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateStandardsControlAssociations.html\"> <code>BatchUpdateStandardsControlAssociations</code> </a> API, which tracks the reason for updating the enablement status of a control. This field accepts alphanumeric characters in addition to white spaces, dashes, and underscores. </p>"""
+    """<p> The most recent reason for updating the customizable properties of a security control. This differs from the <code>UpdateReason</code> field of the <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateStandardsControlAssociations.html"> <code>BatchUpdateStandardsControlAssociations</code> </a> API, which tracks the reason for updating the enablement status of a control. This field accepts alphanumeric characters in addition to white spaces, dashes, and underscores. </p>"""
     provider: NotRequired[
         "capo_securityhub.types.security_controls_provider.SecurityControlsProvider"
     ]

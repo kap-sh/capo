@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 
 class CognitoUserPoolConfiguration(TypedDict, closed=True):
     user_pool_arn: "capo_verifiedpermissions.types.user_pool_arn.UserPoolArn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Name (ARN)</a> of the Amazon Cognito user pool that contains the identities to be authorized.</p> <p>Example: <code>\"UserPoolArn\": \"arn:aws:cognito-idp:us-east-1:123456789012:userpool/us-east-1_1a2b3c4d5\"</code> </p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of the Amazon Cognito user pool that contains the identities to be authorized.</p> <p>Example: <code>"UserPoolArn": "arn:aws:cognito-idp:us-east-1:123456789012:userpool/us-east-1_1a2b3c4d5"</code> </p>"""
     client_ids: NotRequired["capo_verifiedpermissions.types.client_ids.ClientIds"]
-    r"""<p>The unique application client IDs that are associated with the specified Amazon Cognito user pool.</p> <p>Example: <code>\"ClientIds\": [\"&amp;ExampleCogClientId;\"]</code> </p>"""
+    """<p>The unique application client IDs that are associated with the specified Amazon Cognito user pool.</p> <p>Example: <code>"ClientIds": ["&amp;ExampleCogClientId;"]</code> </p>"""
     group_configuration: NotRequired[
         "capo_verifiedpermissions.types.cognito_group_configuration.CognitoGroupConfiguration"
     ]

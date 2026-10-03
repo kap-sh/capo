@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class GetIntegrationRequest(TypedDict, closed=True):
     integration_name: "capo_cloudwatch_logs.types.integration_name.IntegrationName"
-    r"""<p>The name of the integration that you want to find information about. To find the name of your integration, use <a href=\"https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListIntegrations.html\">ListIntegrations</a> </p>"""
+    """<p>The name of the integration that you want to find information about. To find the name of your integration, use <a href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_ListIntegrations.html">ListIntegrations</a> </p>"""
 
 
 # --- awsJson1_1 ser/de ---

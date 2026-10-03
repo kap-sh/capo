@@ -28,7 +28,7 @@ class ReplicationTaskStats(TypedDict, closed=True):
     ]
     """<p>The date the replication task was started either with a fresh start or a target reload.</p>"""
     start_date: NotRequired["capo_database_migration_service.types.t_stamp.TStamp"]
-    r"""<p>The date the replication task was started either with a fresh start or a resume. For more information, see <a href=\"https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html#DMS-StartReplicationTask-request-StartReplicationTaskType\">StartReplicationTaskType</a>.</p>"""
+    """<p>The date the replication task was started either with a fresh start or a resume. For more information, see <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html#DMS-StartReplicationTask-request-StartReplicationTaskType">StartReplicationTaskType</a>.</p>"""
     stop_date: NotRequired["capo_database_migration_service.types.t_stamp.TStamp"]
     """<p>The date the replication task was stopped.</p>"""
     full_load_start_date: NotRequired[

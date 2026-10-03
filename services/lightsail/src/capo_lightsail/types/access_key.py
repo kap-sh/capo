@@ -26,7 +26,7 @@ class AccessKey(TypedDict, closed=True):
     last_used: NotRequired[
         "capo_lightsail.types.access_key_last_used.AccessKeyLastUsed"
     ]
-    r"""<p>An object that describes the last time the access key was used.</p> <note> <p>This object does not include data in the response of a <a href=\"https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_CreateBucketAccessKey.html\">CreateBucketAccessKey</a> action. If the access key has not been used, the <code>region</code> and <code>serviceName</code> values are <code>N/A</code>, and the <code>lastUsedDate</code> value is null.</p> </note>"""
+    """<p>An object that describes the last time the access key was used.</p> <note> <p>This object does not include data in the response of a <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_CreateBucketAccessKey.html">CreateBucketAccessKey</a> action. If the access key has not been used, the <code>region</code> and <code>serviceName</code> values are <code>N/A</code>, and the <code>lastUsedDate</code> value is null.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---

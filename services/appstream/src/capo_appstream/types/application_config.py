@@ -17,13 +17,13 @@ class ApplicationConfig(TypedDict, closed=True):
     display_name: NotRequired["capo_appstream.types.app_display_name.AppDisplayName"]
     """<p>The display name shown to users for this application. This field is optional and can be 0-100 characters, matching the pattern ^[a-zA-Z0-9][a-zA-Z0-9_. -]{0,99}$.</p>"""
     absolute_app_path: NotRequired["capo_appstream.types.file_path.FilePath"]
-    r"""<p>The absolute path to the executable file that launches the application. This is a required field that can be 1-32767 characters to support Windows extended file paths. Use escaped file path strings like \"C:\\\\Windows\\\\System32\\\\notepad.exe\".</p>"""
+    r"""<p>The absolute path to the executable file that launches the application. This is a required field that can be 1-32767 characters to support Windows extended file paths. Use escaped file path strings like "C:\\\\Windows\\\\System32\\\\notepad.exe".</p>"""
     absolute_icon_path: NotRequired["capo_appstream.types.file_path.FilePath"]
     """<p>The absolute path to the icon file for the application. This field is optional and can be 1-32767 characters. If not provided, the icon is derived from the executable. Use PNG images with proper transparency for the best user experience.</p>"""
     absolute_manifest_path: NotRequired["capo_appstream.types.file_path.FilePath"]
     """<p>The absolute path to the prewarm manifest file for this application. This field is optional and only applicable when using application-specific manifests. The path can be 1-32767 characters and should point to a text file containing file paths to prewarm.</p>"""
     working_directory: NotRequired["capo_appstream.types.file_path.FilePath"]
-    r"""<p>The working directory to use when launching the application. This field is optional and can be 0-32767 characters. Use escaped file path strings like \"C:\\\\Path\\\\To\\\\Working\\\\Directory\".</p>"""
+    r"""<p>The working directory to use when launching the application. This field is optional and can be 0-32767 characters. Use escaped file path strings like "C:\\\\Path\\\\To\\\\Working\\\\Directory".</p>"""
     launch_parameters: NotRequired[
         "capo_appstream.types.launch_parameters.LaunchParameters"
     ]

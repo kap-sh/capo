@@ -43,13 +43,13 @@ class HyperParameterTuningJobSummary(TypedDict, closed=True):
     training_job_status_counters: NotRequired[
         "capo_sagemaker.types.training_job_status_counters.TrainingJobStatusCounters"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobStatusCounters.html\">TrainingJobStatusCounters</a> object that specifies the numbers of training jobs, categorized by status, that this tuning job launched.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobStatusCounters.html">TrainingJobStatusCounters</a> object that specifies the numbers of training jobs, categorized by status, that this tuning job launched.</p>"""
     objective_status_counters: NotRequired[
         "capo_sagemaker.types.objective_status_counters.ObjectiveStatusCounters"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ObjectiveStatusCounters.html\">ObjectiveStatusCounters</a> object that specifies the numbers of training jobs, categorized by objective metric status, that this tuning job launched.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ObjectiveStatusCounters.html">ObjectiveStatusCounters</a> object that specifies the numbers of training jobs, categorized by objective metric status, that this tuning job launched.</p>"""
     resource_limits: NotRequired["capo_sagemaker.types.resource_limits.ResourceLimits"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html\">ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training jobs allowed for this tuning job.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training jobs allowed for this tuning job.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

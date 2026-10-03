@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Identity(TypedDict, closed=True):
     oidc: NotRequired["capo_eks.types.oidc.OIDC"]
-    r"""<p>An object representing the <a href=\"https://openid.net/connect/\">OpenID Connect</a> identity provider information.</p>"""
+    """<p>An object representing the <a href="https://openid.net/connect/">OpenID Connect</a> identity provider information.</p>"""
 
 
 # --- restJson1 ser/de ---

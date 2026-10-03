@@ -20,7 +20,7 @@ class DescribeAddonVersionsRequest(TypedDict, closed=True):
     next_token: NotRequired["capo_eks.types.string.String"]
     """<p>The <code>nextToken</code> value returned from a previous paginated request, where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the <code>nextToken</code> value. This value is null when there are no more results to return.</p> <note> <p>This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.</p> </note>"""
     addon_name: NotRequired["capo_eks.types.string.String"]
-    r"""<p>The name of the add-on. The name must match one of the names returned by <a href=\"https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html\"> <code>ListAddons</code> </a>.</p>"""
+    """<p>The name of the add-on. The name must match one of the names returned by <a href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code> </a>.</p>"""
     types: NotRequired["capo_eks.types.string_list.StringList"]
     """<p>The type of the add-on. For valid <code>types</code>, don't specify a value for this property.</p>"""
     publishers: NotRequired["capo_eks.types.string_list.StringList"]

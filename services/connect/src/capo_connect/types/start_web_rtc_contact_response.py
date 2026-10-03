@@ -21,7 +21,7 @@ class StartWebRTCContactResponse(TypedDict, closed=True):
     participant_token: NotRequired[
         "capo_connect.types.participant_token.ParticipantToken"
     ]
-    r"""<p>The token used by the contact participant to call the <a href=\"https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html\">CreateParticipantConnection</a> API. The participant token is valid for the lifetime of a contact participant.</p>"""
+    """<p>The token used by the contact participant to call the <a href="https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html">CreateParticipantConnection</a> API. The participant token is valid for the lifetime of a contact participant.</p>"""
 
 
 # --- restJson1 ser/de ---

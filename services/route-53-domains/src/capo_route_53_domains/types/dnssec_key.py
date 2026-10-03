@@ -14,7 +14,7 @@ class DnssecKey(TypedDict, closed=True):
     algorithm: NotRequired[
         "capo_route_53_domains.types.nullable_integer.NullableInteger"
     ]
-    r"""<p>The number of the public key’s cryptographic algorithm according to an <a href=\"https://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xml\">IANA</a> assignment. </p> <p>If Route 53 is your DNS service, set this to 13.</p> <p>For more information about enabling DNSSEC signing, see <a href=\"https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring-dnssec-enable-signing.html\">Enabling DNSSEC signing and establishing a chain of trust</a>.</p>"""
+    """<p>The number of the public key’s cryptographic algorithm according to an <a href="https://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xml">IANA</a> assignment. </p> <p>If Route 53 is your DNS service, set this to 13.</p> <p>For more information about enabling DNSSEC signing, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring-dnssec-enable-signing.html">Enabling DNSSEC signing and establishing a chain of trust</a>.</p>"""
     flags: NotRequired["capo_route_53_domains.types.nullable_integer.NullableInteger"]
     """<p>Defines the type of key. It can be either a KSK (key-signing-key, value 257) or ZSK (zone-signing-key, value 256). Using KSK is always encouraged. Only use ZSK if your DNS provider isn't Route 53 and you don’t have KSK available.</p> <p>If you have KSK and ZSK keys, always use KSK to create a delegations signer (DS) record. If you have ZSK keys only – use ZSK to create a DS record.</p>"""
     public_key: NotRequired[
@@ -24,13 +24,13 @@ class DnssecKey(TypedDict, closed=True):
     digest_type: NotRequired[
         "capo_route_53_domains.types.nullable_integer.NullableInteger"
     ]
-    r"""<p> The number of the DS digest algorithm according to an IANA assignment.</p> <p>For more information, see <a href=\"https://www.iana.org/assignments/ds-rr-types/ds-rr-types.xhtml\">IANA</a> for DNSSEC Delegation Signer (DS) Resource Record (RR) Type Digest Algorithms. </p>"""
+    """<p> The number of the DS digest algorithm according to an IANA assignment.</p> <p>For more information, see <a href="https://www.iana.org/assignments/ds-rr-types/ds-rr-types.xhtml">IANA</a> for DNSSEC Delegation Signer (DS) Resource Record (RR) Type Digest Algorithms. </p>"""
     digest: NotRequired["capo_route_53_domains.types.string.String"]
     """<p> The delegation signer digest.</p> <p>Digest is calculated from the public key provided using specified digest algorithm and this digest is the actual value returned from the registry nameservers as the value of DS records. </p>"""
     key_tag: NotRequired["capo_route_53_domains.types.nullable_integer.NullableInteger"]
     """<p> A numeric identification of the DNSKEY record referred to by this DS record. </p>"""
     id: NotRequired["capo_route_53_domains.types.string.String"]
-    r"""<p> An ID assigned to each DS record created by <a href=\"https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_AssociateDelegationSignerToDomain.html\">AssociateDelegationSignerToDomain</a>. </p>"""
+    """<p> An ID assigned to each DS record created by <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_AssociateDelegationSignerToDomain.html">AssociateDelegationSignerToDomain</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

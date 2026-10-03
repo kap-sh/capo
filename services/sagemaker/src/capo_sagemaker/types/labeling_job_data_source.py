@@ -17,7 +17,7 @@ class LabelingJobDataSource(TypedDict, closed=True):
     sns_data_source: NotRequired[
         "capo_sagemaker.types.labeling_job_sns_data_source.LabelingJobSnsDataSource"
     ]
-    r"""<p>An Amazon SNS data source used for streaming labeling jobs. To learn more, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/sms-streaming-labeling-job.html#sms-streaming-how-it-works-send-data\">Send Data to a Streaming Labeling Job</a>. </p>"""
+    """<p>An Amazon SNS data source used for streaming labeling jobs. To learn more, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/sms-streaming-labeling-job.html#sms-streaming-how-it-works-send-data">Send Data to a Streaming Labeling Job</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

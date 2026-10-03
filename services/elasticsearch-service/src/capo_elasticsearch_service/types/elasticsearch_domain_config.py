@@ -51,11 +51,11 @@ class ElasticsearchDomainConfig(TypedDict, closed=True):
     vpc_options: NotRequired[
         "capo_elasticsearch_service.types.vpc_derived_info_status.VPCDerivedInfoStatus"
     ]
-    r"""<p>The <code>VPCOptions</code> for the specified domain. For more information, see <a href=\"http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html\" target=\"_blank\">VPC Endpoints for Amazon Elasticsearch Service Domains</a>.</p>"""
+    """<p>The <code>VPCOptions</code> for the specified domain. For more information, see <a href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html" target="_blank">VPC Endpoints for Amazon Elasticsearch Service Domains</a>.</p>"""
     cognito_options: NotRequired[
         "capo_elasticsearch_service.types.cognito_options_status.CognitoOptionsStatus"
     ]
-    r"""<p>The <code>CognitoOptions</code> for the specified domain. For more information, see <a href=\"http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html\" target=\"_blank\">Amazon Cognito Authentication for Kibana</a>.</p>"""
+    """<p>The <code>CognitoOptions</code> for the specified domain. For more information, see <a href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html" target="_blank">Amazon Cognito Authentication for Kibana</a>.</p>"""
     encryption_at_rest_options: NotRequired[
         "capo_elasticsearch_service.types.encryption_at_rest_options_status.EncryptionAtRestOptionsStatus"
     ]
@@ -67,7 +67,7 @@ class ElasticsearchDomainConfig(TypedDict, closed=True):
     advanced_options: NotRequired[
         "capo_elasticsearch_service.types.advanced_options_status.AdvancedOptionsStatus"
     ]
-    r"""<p>Specifies the <code>AdvancedOptions</code> for the domain. See <a href=\"http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options\" target=\"_blank\">Configuring Advanced Options</a> for more information.</p>"""
+    """<p>Specifies the <code>AdvancedOptions</code> for the domain. See <a href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options" target="_blank">Configuring Advanced Options</a> for more information.</p>"""
     log_publishing_options: NotRequired[
         "capo_elasticsearch_service.types.log_publishing_options_status.LogPublishingOptionsStatus"
     ]

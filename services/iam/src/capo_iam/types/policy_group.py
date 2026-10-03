@@ -15,7 +15,7 @@ class PolicyGroup(TypedDict, closed=True):
     group_name: NotRequired["capo_iam.types.group_name_type.groupNameType"]
     """<p>The name (friendly name, not ARN) identifying the group.</p>"""
     group_id: NotRequired["capo_iam.types.id_type.idType"]
-    r"""<p>The stable and unique string identifying the group. For more information about IDs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The stable and unique string identifying the group. For more information about IDs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

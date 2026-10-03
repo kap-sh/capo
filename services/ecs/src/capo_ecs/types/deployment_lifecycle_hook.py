@@ -21,7 +21,7 @@ class DeploymentLifecycleHook(TypedDict, closed=True):
     hook_target_arn: NotRequired["capo_ecs.types.string.String"]
     """<p>The Amazon Resource Name (ARN) of the hook target. For <code>AWS_LAMBDA</code> hooks, this is the Lambda function ARN. This field is not applicable for <code>PAUSE</code> hooks.</p> <p>You must provide this parameter when configuring an <code>AWS_LAMBDA</code> lifecycle hook.</p>"""
     role_arn: NotRequired["capo_ecs.types.iam_role_arn.IAMRoleArn"]
-    r"""<p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon ECS permission to call Lambda functions on your behalf.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/blue-green-permissions.html\">Permissions required for Lambda functions in Amazon ECS blue/green deployments</a> in the <i> Amazon Elastic Container Service Developer Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon ECS permission to call Lambda functions on your behalf.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/blue-green-permissions.html">Permissions required for Lambda functions in Amazon ECS blue/green deployments</a> in the <i> Amazon Elastic Container Service Developer Guide</i>.</p>"""
     lifecycle_stages: NotRequired[
         "capo_ecs.types.deployment_lifecycle_hook_stage_list.DeploymentLifecycleHookStageList"
     ]

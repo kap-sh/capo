@@ -26,7 +26,7 @@ class CreateServiceEnvironmentRequest(TypedDict, closed=True):
     capacity_limits: NotRequired["capo_batch.types.capacity_limits.CapacityLimits"]
     """<p>The capacity limits for the service environment. The number of instances a job consumes is the total number of instances requested in the submit training job request resource configuration.</p>"""
     tags: NotRequired["capo_batch.types.tagris_tags_map.TagrisTagsMap"]
-    r"""<p>The tags that you apply to the service environment to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html\">Tagging your Batch resources</a>.</p>"""
+    """<p>The tags that you apply to the service environment to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

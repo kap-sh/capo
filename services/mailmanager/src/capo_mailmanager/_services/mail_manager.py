@@ -1532,11 +1532,11 @@ class MailManagerClient:
         *,
         config_overrides: Optional[MailManagerClientConfig] = None,
     ) -> "capo_mailmanager.types.tag_resource_response.TagResourceResponse":
-        r"""<p> Adds one or more tags (keys and values) to a specified resource. </p>
+        """<p> Adds one or more tags (keys and values) to a specified resource. </p>
 
         Args:
             resource_arn: <p> The Amazon Resource Name (ARN) of the resource that you want to tag. </p>
-            tags: <p> The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }. </p>
+            tags: <p> The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }. </p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -1632,12 +1632,12 @@ class MailManagerClient:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_addon_instance_response.CreateAddonInstanceResponse":
-        r"""<p>Creates an Add On instance for the subscription indicated in the request. The resulting Amazon Resource Name (ARN) can be used in a conditional statement for a rule set or traffic policy. </p>
+        """<p>Creates an Add On instance for the subscription indicated in the request. The resulting Amazon Resource Name (ARN) can be used in a conditional statement for a rule set or traffic policy. </p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             addon_subscription_id: <p>The unique ID of a previously created subscription that an Add On instance is created for. You can only have one instance per subscription.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -1849,12 +1849,12 @@ class MailManagerClient:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_addon_subscription_response.CreateAddonSubscriptionResponse":
-        r"""<p>Creates a subscription for an Add On representing the acceptance of its terms of use and additional pricing. The subscription can then be used to create an instance for use in rule sets or traffic policies.</p>
+        """<p>Creates a subscription for an Add On representing the acceptance of its terms of use and additional pricing. The subscription can then be used to create an instance for use in rule sets or traffic policies.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             addon_name: <p>The name of the Add On to subscribe to. You can only have one subscription for each Add On name.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -2068,12 +2068,12 @@ class MailManagerClient:
     ) -> (
         "capo_mailmanager.types.create_address_list_response.CreateAddressListResponse"
     ):
-        r"""<p>Creates a new address list.</p>
+        """<p>Creates a new address list.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             address_list_name: <p>A user-friendly name for the address list.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.access_denied_exception.AccessDeniedException: <p>Occurs when a user is denied access to a specific resource or action.</p>
@@ -2298,14 +2298,14 @@ class MailManagerClient:
         kms_key_arn: Optional["capo_mailmanager.types.kms_key_arn.KmsKeyArn"] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_archive_response.CreateArchiveResponse":
-        r"""<p>Creates a new email archive resource for storing and retaining emails.</p>
+        """<p>Creates a new email archive resource for storing and retaining emails.</p>
 
         Args:
             client_token: <p>A unique token Amazon SES uses to recognize retries of this request.</p>
             archive_name: <p>A unique name for the new archive.</p>
             retention: <p>The period for retaining emails in the archive before automatic deletion.</p>
             kms_key_arn: <p>The Amazon Resource Name (ARN) of the KMS key for encrypting emails in the archive.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.access_denied_exception.AccessDeniedException: <p>Occurs when a user is denied access to a specific resource or action.</p>
@@ -2598,7 +2598,7 @@ class MailManagerClient:
         tls_policy: Optional["capo_mailmanager.types.tls_policy.TlsPolicy"] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_ingress_point_response.CreateIngressPointResponse":
-        r"""<p>Provision a new ingress endpoint resource.</p>
+        """<p>Provision a new ingress endpoint resource.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -2609,7 +2609,7 @@ class MailManagerClient:
             ingress_point_configuration: <p>If you choose an Authenticated ingress endpoint, you must configure either an SMTP password or a secret ARN.</p>
             network_configuration: <p>Specifies the network configuration for the ingress point. This allows you to create an IPv4-only, Dual-Stack, or PrivateLink type of ingress point. If not specified, the default network type is IPv4-only. </p>
             tls_policy: <p>The Transport Layer Security (TLS) policy for the ingress point. The FIPS value is only valid in US and Canada regions.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -2967,7 +2967,7 @@ class MailManagerClient:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_relay_response.CreateRelayResponse":
-        r"""<p>Creates a relay resource which can be used in rules to relay incoming emails to defined relay destinations. </p>
+        """<p>Creates a relay resource which can be used in rules to relay incoming emails to defined relay destinations. </p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -2975,7 +2975,7 @@ class MailManagerClient:
             server_name: <p>The destination relay server address.</p>
             server_port: <p>The destination relay server port.</p>
             authentication: <p>Authentication for the relay destination server—specify the secretARN where the SMTP credentials are stored.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -3258,13 +3258,13 @@ class MailManagerClient:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_rule_set_response.CreateRuleSetResponse":
-        r"""<p>Provision a new rule set.</p>
+        """<p>Provision a new rule set.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
             rule_set_name: <p>A user-friendly name for the rule set.</p>
             rules: <p>Conditional rules that are evaluated for determining actions on email.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>
@@ -3536,7 +3536,7 @@ class MailManagerClient:
         ] = None,
         tags: Optional["capo_mailmanager.types.tag_list.TagList"] = None,
     ) -> "capo_mailmanager.types.create_traffic_policy_response.CreateTrafficPolicyResponse":
-        r"""<p>Provision a new traffic policy resource.</p>
+        """<p>Provision a new traffic policy resource.</p>
 
         Args:
             client_token: <p>A unique token that Amazon SES uses to recognize subsequent retries of the same request.</p>
@@ -3544,7 +3544,7 @@ class MailManagerClient:
             policy_statements: <p>Conditional statements for filtering email traffic.</p>
             default_action: <p>Default action instructs the traﬃc policy to either Allow or Deny (block) messages that fall outside of (or not addressed by) the conditions of your policy statements</p>
             max_message_size_bytes: <p>The maximum message size in bytes of email which is allowed in by this traffic policy—anything larger will be blocked.</p>
-            tags: <p>The tags used to organize, track, or control access for the resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for the resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_mailmanager.errors.conflict_exception.ConflictException: <p>The request configuration has conflicts. For details, see the accompanying error message.</p>

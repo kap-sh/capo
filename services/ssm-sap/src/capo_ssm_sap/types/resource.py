@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 class Resource(TypedDict, closed=True):
     resource_arn: NotRequired["capo_ssm_sap.types.arn.Arn"]
-    r"""<p>The Amazon Resource Name (ARN) of the source resource.</p> <p>Example of <code>ResourceArn</code>: \"<code>arn:aws:ec2:us-east-1:111111111111:instance/i-abcdefgh987654321</code>\"</p>"""
+    """<p>The Amazon Resource Name (ARN) of the source resource.</p> <p>Example of <code>ResourceArn</code>: "<code>arn:aws:ec2:us-east-1:111111111111:instance/i-abcdefgh987654321</code>"</p>"""
     resource_type: NotRequired[
         "capo_ssm_sap.types.operation_event_resource_type.OperationEventResourceType"
     ]
-    r"""<p>The resource type.</p> <p>Example of <code>ResourceType</code>: \"<code>AWS::SystemsManagerSAP::Component</code>\" or \"<code>AWS::EC2::Instance</code>\".</p>"""
+    """<p>The resource type.</p> <p>Example of <code>ResourceType</code>: "<code>AWS::SystemsManagerSAP::Component</code>" or "<code>AWS::EC2::Instance</code>".</p>"""
 
 
 # --- restJson1 ser/de ---

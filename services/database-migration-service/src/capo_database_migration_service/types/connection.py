@@ -16,7 +16,7 @@ class Connection(TypedDict, closed=True):
     endpoint_arn: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The ARN string that uniquely identifies the endpoint.</p>"""
     status: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>The connection status. This parameter can return one of the following values:</p> <ul> <li> <p> <code>\"successful\"</code> </p> </li> <li> <p> <code>\"testing\"</code> </p> </li> <li> <p> <code>\"failed\"</code> </p> </li> <li> <p> <code>\"deleting\"</code> </p> </li> </ul>"""
+    """<p>The connection status. This parameter can return one of the following values:</p> <ul> <li> <p> <code>"successful"</code> </p> </li> <li> <p> <code>"testing"</code> </p> </li> <li> <p> <code>"failed"</code> </p> </li> <li> <p> <code>"deleting"</code> </p> </li> </ul>"""
     last_failure_message: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]

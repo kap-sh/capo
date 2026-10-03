@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class FlowConditionalConnectionConfiguration(TypedDict, closed=True):
     condition: "capo_bedrock_agent.types.flow_condition_name.FlowConditionName"
-    r"""<p>The condition that triggers this connection. For more information about how to write conditions, see the <b>Condition</b> node type in the <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/node-types.html\">Node types</a> topic in the Amazon Bedrock User Guide.</p>"""
+    """<p>The condition that triggers this connection. For more information about how to write conditions, see the <b>Condition</b> node type in the <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/node-types.html">Node types</a> topic in the Amazon Bedrock User Guide.</p>"""
 
 
 # --- restJson1 ser/de ---

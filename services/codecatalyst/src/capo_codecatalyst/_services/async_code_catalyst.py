@@ -323,11 +323,11 @@ class AsyncCodeCatalystClient:
     ) -> (
         "capo_codecatalyst.types.create_access_token_response.CreateAccessTokenResponse"
     ):
-        r"""<p>Creates a personal access token (PAT) for the current user. A personal access token (PAT) is similar to a password. It is associated with your user identity for use across all spaces and projects in Amazon CodeCatalyst. You use PATs to access CodeCatalyst from resources that include integrated development environments (IDEs) and Git-based source repositories. PATs represent you in Amazon CodeCatalyst and you can manage them in your user settings.For more information, see <a href=\"https://docs.aws.amazon.com/codecatalyst/latest/userguide/ipa-tokens-keys.html\">Managing personal access tokens in Amazon CodeCatalyst</a>.</p>
+        """<p>Creates a personal access token (PAT) for the current user. A personal access token (PAT) is similar to a password. It is associated with your user identity for use across all spaces and projects in Amazon CodeCatalyst. You use PATs to access CodeCatalyst from resources that include integrated development environments (IDEs) and Git-based source repositories. PATs represent you in Amazon CodeCatalyst and you can manage them in your user settings.For more information, see <a href="https://docs.aws.amazon.com/codecatalyst/latest/userguide/ipa-tokens-keys.html">Managing personal access tokens in Amazon CodeCatalyst</a>.</p>
 
         Args:
             name: <p>The friendly name of the personal access token.</p>
-            expires_time: <p>The date and time the personal access token expires, in coordinated universal time (UTC) timestamp format as specified in <a href=\"https://www.rfc-editor.org/rfc/rfc3339#section-5.6\">RFC 3339</a>.</p>
+            expires_time: <p>The date and time the personal access token expires, in coordinated universal time (UTC) timestamp format as specified in <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a>.</p>
 
         Raises:
             capo_codecatalyst.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because you don't have sufficient access to perform this action. Verify that you are a member of a role that allows this action.</p>
@@ -820,12 +820,12 @@ class AsyncCodeCatalystClient:
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_codecatalyst.types.list_event_logs_response.ListEventLogsResponse":
-        r"""<p>Retrieves a list of events that occurred during a specific time in a space. You can use these events to audit user and system activity in a space. For more information, see <a href=\"https://docs.aws.amazon.com/codecatalyst/latest/userguide/ipa-monitoring.html\">Monitoring</a> in the <i>Amazon CodeCatalyst User Guide</i>.</p> <note> <p>ListEventLogs guarantees events for the last 30 days in a given space. You can also view and retrieve a list of management events over the last 90 days for Amazon CodeCatalyst in the CloudTrail console by viewing Event history, or by creating a trail to create and maintain a record of events that extends past 90 days. For more information, see <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html\">Working with CloudTrail Event History</a> and <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-getting-started.html\">Working with CloudTrail trails</a>.</p> </note>
+        """<p>Retrieves a list of events that occurred during a specific time in a space. You can use these events to audit user and system activity in a space. For more information, see <a href="https://docs.aws.amazon.com/codecatalyst/latest/userguide/ipa-monitoring.html">Monitoring</a> in the <i>Amazon CodeCatalyst User Guide</i>.</p> <note> <p>ListEventLogs guarantees events for the last 30 days in a given space. You can also view and retrieve a list of management events over the last 90 days for Amazon CodeCatalyst in the CloudTrail console by viewing Event history, or by creating a trail to create and maintain a record of events that extends past 90 days. For more information, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html">Working with CloudTrail Event History</a> and <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-getting-started.html">Working with CloudTrail trails</a>.</p> </note>
 
         Args:
             space_name: <p>The name of the space.</p>
-            start_time: <p>The date and time when you want to start retrieving events, in coordinated universal time (UTC) timestamp format as specified in <a href=\"https://www.rfc-editor.org/rfc/rfc3339#section-5.6\">RFC 3339</a>.</p>
-            end_time: <p>The time after which you do not want any events retrieved, in coordinated universal time (UTC) timestamp format as specified in <a href=\"https://www.rfc-editor.org/rfc/rfc3339#section-5.6\">RFC 3339</a>.</p>
+            start_time: <p>The date and time when you want to start retrieving events, in coordinated universal time (UTC) timestamp format as specified in <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a>.</p>
+            end_time: <p>The time after which you do not want any events retrieved, in coordinated universal time (UTC) timestamp format as specified in <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a>.</p>
             event_name: <p>The name of the event.</p>
             next_token: <p>A token returned from a call to this API to indicate the next batch of results to return, if any.</p>
             max_results: <p>The maximum number of results to show in a single call to this API. If the number of results is larger than the number you specified, the response will include a <code>NextToken</code> element, which you can use to obtain additional results.</p>
@@ -1846,12 +1846,12 @@ class AsyncCodeCatalystClient:
             "capo_codecatalyst.types.source_repository_description_string.SourceRepositoryDescriptionString"
         ] = None,
     ) -> "capo_codecatalyst.types.create_source_repository_response.CreateSourceRepositoryResponse":
-        r"""<p>Creates an empty Git-based source repository in a specified project. The repository is created with an initial empty commit with a default branch named <code>main</code>.</p>
+        """<p>Creates an empty Git-based source repository in a specified project. The repository is created with an initial empty commit with a default branch named <code>main</code>.</p>
 
         Args:
             space_name: <p>The name of the space.</p>
             project_name: <p>The name of the project in the space.</p>
-            name: <p>The name of the source repository. For more information about name requirements, see <a href=\"https://docs.aws.amazon.com/codecatalyst/latest/userguide/source-quotas.html\">Quotas for source repositories</a>.</p>
+            name: <p>The name of the source repository. For more information about name requirements, see <a href="https://docs.aws.amazon.com/codecatalyst/latest/userguide/source-quotas.html">Quotas for source repositories</a>.</p>
             description: <p>The description of the source repository.</p>
 
         Raises:

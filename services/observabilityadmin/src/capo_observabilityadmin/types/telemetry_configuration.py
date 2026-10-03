@@ -33,7 +33,7 @@ class TelemetryConfiguration(TypedDict, closed=True):
     resource_tags: NotRequired[
         "capo_observabilityadmin.types.tag_map_output.TagMapOutput"
     ]
-    r"""<p> Tags associated with the resource, for example <code>{ Name: \"ExampleInstance\", Environment: \"Development\" }</code>. </p>"""
+    """<p> Tags associated with the resource, for example <code>{ Name: "ExampleInstance", Environment: "Development" }</code>. </p>"""
     last_update_time_stamp: NotRequired["int"]
     """<p> The timestamp of the last change to the telemetry configuration for the resource. For example, <code>1728679196318</code>. </p>"""
     telemetry_source_type: NotRequired[

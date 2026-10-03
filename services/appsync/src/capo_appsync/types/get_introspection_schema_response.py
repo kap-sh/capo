@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class GetIntrospectionSchemaResponse(TypedDict, closed=True):
     schema: NotRequired["capo_appsync.types.blob.Blob"]
-    r"""<p>The schema, in GraphQL Schema Definition Language (SDL) format.</p> <p>For more information, see the <a href=\"http://graphql.org/learn/schema/\">GraphQL SDL documentation</a>.</p>"""
+    """<p>The schema, in GraphQL Schema Definition Language (SDL) format.</p> <p>For more information, see the <a href="http://graphql.org/learn/schema/">GraphQL SDL documentation</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

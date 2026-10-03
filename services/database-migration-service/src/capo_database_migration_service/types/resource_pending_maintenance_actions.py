@@ -13,7 +13,7 @@ class ResourcePendingMaintenanceActions(TypedDict, closed=True):
     resource_identifier: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to. For information about creating an ARN, see <a href=\"https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html\"> Constructing an Amazon Resource Name (ARN) for DMS</a> in the DMS documentation.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to. For information about creating an ARN, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html"> Constructing an Amazon Resource Name (ARN) for DMS</a> in the DMS documentation.</p>"""
     pending_maintenance_action_details: NotRequired[
         "capo_database_migration_service.types.pending_maintenance_action_details.PendingMaintenanceActionDetails"
     ]

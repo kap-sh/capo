@@ -32,7 +32,7 @@ class AdvancedSecurityOptionsInput(TypedDict, closed=True):
     ]
     """<p>Input configuration for IAM identity federation within advanced security options.</p>"""
     anonymous_auth_enabled: NotRequired["capo_opensearch.types.boolean.Boolean"]
-    r"""<p>True to enable a 30-day migration period during which administrators can create role mappings. Only necessary when <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html#fgac-enabling-existing\">enabling fine-grained access control on an existing domain</a>.</p>"""
+    """<p>True to enable a 30-day migration period during which administrators can create role mappings. Only necessary when <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html#fgac-enabling-existing">enabling fine-grained access control on an existing domain</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

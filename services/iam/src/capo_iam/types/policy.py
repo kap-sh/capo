@@ -23,10 +23,10 @@ class Policy(TypedDict, closed=True):
     policy_name: NotRequired["capo_iam.types.policy_name_type.policyNameType"]
     """<p>The friendly name (not ARN) identifying the policy.</p>"""
     policy_id: NotRequired["capo_iam.types.id_type.idType"]
-    r"""<p>The stable and unique string identifying the policy.</p> <p>For more information about IDs, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The stable and unique string identifying the policy.</p> <p>For more information about IDs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
     arn: NotRequired["capo_iam.types.arn_type.arnType"]
     path: NotRequired["capo_iam.types.policy_path_type.policyPathType"]
-    r"""<p>The path to the policy.</p> <p>For more information about paths, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html\">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The path to the policy.</p> <p>For more information about paths, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM User Guide</i>.</p>"""
     default_version_id: NotRequired[
         "capo_iam.types.policy_version_id_type.policyVersionIdType"
     ]
@@ -38,19 +38,19 @@ class Policy(TypedDict, closed=True):
     permissions_boundary_usage_count: NotRequired[
         "capo_iam.types.attachment_count_type.attachmentCountType"
     ]
-    r"""<p>The number of entities (users and roles) for which the policy is used to set the permissions boundary. </p> <p>For more information about permissions boundaries, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html\">Permissions boundaries for IAM identities </a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>The number of entities (users and roles) for which the policy is used to set the permissions boundary. </p> <p>For more information about permissions boundaries, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions boundaries for IAM identities </a> in the <i>IAM User Guide</i>.</p>"""
     is_attachable: "capo_iam.types.boolean_type.booleanType"
     """<p>Specifies whether the policy can be attached to an IAM user, group, or role.</p>"""
     description: NotRequired[
         "capo_iam.types.policy_description_type.policyDescriptionType"
     ]
-    r"""<p>A friendly description of the policy.</p> <p>This element is included in the response to the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetPolicy.html\">GetPolicy</a> operation. It is not included in the response to the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListPolicies.html\">ListPolicies</a> operation. </p>"""
+    """<p>A friendly description of the policy.</p> <p>This element is included in the response to the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetPolicy.html">GetPolicy</a> operation. It is not included in the response to the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListPolicies.html">ListPolicies</a> operation. </p>"""
     create_date: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the policy was created.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the policy was created.</p>"""
     update_date: NotRequired["capo_iam.types.date_type.dateType"]
-    r"""<p>The date and time, in <a href=\"http://www.iso.org/iso/iso8601\">ISO 8601 date-time format</a>, when the policy was last updated.</p> <p>When a policy has only one version, this field contains the date and time when the policy was created. When a policy has more than one version, this field contains the date and time when the most recent policy version was created.</p>"""
+    """<p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the policy was last updated.</p> <p>When a policy has only one version, this field contains the date and time when the policy was created. When a policy has more than one version, this field contains the date and time when the most recent policy version was created.</p>"""
     tags: NotRequired["capo_iam.types.tag_list_type.tagListType"]
-    r"""<p>A list of tags that are attached to the instance profile. For more information about tagging, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html\">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
+    """<p>A list of tags that are attached to the instance profile. For more information about tagging, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p>"""
 
 
 # --- awsQuery ser/de ---

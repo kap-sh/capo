@@ -16,7 +16,7 @@ class SetIdentityPoolRolesInput(TypedDict, closed=True):
     identity_pool_id: "capo_cognito_identity.types.identity_pool_id.IdentityPoolId"
     """<p>An identity pool ID in the format REGION:GUID.</p>"""
     roles: "capo_cognito_identity.types.roles_map.RolesMap"
-    r"""<p>The map of roles associated with this pool. For a given role, the key will be either \"authenticated\" or \"unauthenticated\" and the value will be the Role ARN.</p>"""
+    """<p>The map of roles associated with this pool. For a given role, the key will be either "authenticated" or "unauthenticated" and the value will be the Role ARN.</p>"""
     role_mappings: NotRequired[
         "capo_cognito_identity.types.role_mapping_map.RoleMappingMap"
     ]

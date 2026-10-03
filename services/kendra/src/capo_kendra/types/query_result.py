@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class QueryResult(TypedDict, closed=True):
     query_id: NotRequired["capo_kendra.types.query_id.QueryId"]
-    r"""<p>The identifier for the search. You also use <code>QueryId</code> to identify the search when using the <a href=\"https://docs.aws.amazon.com/kendra/latest/APIReference/API_SubmitFeedback.html\">SubmitFeedback</a> API.</p>"""
+    """<p>The identifier for the search. You also use <code>QueryId</code> to identify the search when using the <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_SubmitFeedback.html">SubmitFeedback</a> API.</p>"""
     result_items: NotRequired[
         "capo_kendra.types.query_result_item_list.QueryResultItemList"
     ]
@@ -26,7 +26,7 @@ class QueryResult(TypedDict, closed=True):
     total_number_of_results: NotRequired["capo_kendra.types.integer.Integer"]
     """<p>The total number of items found by the search. However, you can only retrieve up to 100 items. For example, if the search found 192 items, you can only retrieve the first 100 of the items.</p>"""
     warnings: NotRequired["capo_kendra.types.warning_list.WarningList"]
-    r"""<p>A list of warning codes and their messages on problems with your query.</p> <p>Amazon Kendra currently only supports one type of warning, which is a warning on invalid syntax used in the query. For examples of invalid query syntax, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/searching-example.html#searching-index-query-syntax\">Searching with advanced query syntax</a>.</p>"""
+    """<p>A list of warning codes and their messages on problems with your query.</p> <p>Amazon Kendra currently only supports one type of warning, which is a warning on invalid syntax used in the query. For examples of invalid query syntax, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/searching-example.html#searching-index-query-syntax">Searching with advanced query syntax</a>.</p>"""
     spell_corrected_queries: NotRequired[
         "capo_kendra.types.spell_corrected_query_list.SpellCorrectedQueryList"
     ]

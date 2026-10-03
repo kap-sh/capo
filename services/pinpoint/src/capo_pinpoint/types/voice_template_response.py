@@ -20,7 +20,7 @@ class VoiceTemplateResponse(TypedDict, closed=True):
     default_substitutions: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The JSON object that specifies the default values that are used for message variables in the message template. This object is a set of key-value pairs. Each key defines a message variable in the template. The corresponding value defines the default value for that variable.</p>"""
     language_code: NotRequired["capo_pinpoint.types.__string.__string"]
-    r"""<p>The code for the language that's used when synthesizing the text of the script in messages that are based on the message template. For a list of supported languages and the code for each one, see the <a href=\"https://docs.aws.amazon.com/polly/latest/dg/what-is.html\">Amazon Polly Developer Guide</a>.</p>"""
+    """<p>The code for the language that's used when synthesizing the text of the script in messages that are based on the message template. For a list of supported languages and the code for each one, see the <a href="https://docs.aws.amazon.com/polly/latest/dg/what-is.html">Amazon Polly Developer Guide</a>.</p>"""
     last_modified_date: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The date, in ISO 8601 format, when the message template was last modified.</p>"""
     tags: NotRequired["capo_pinpoint.types.map_of__string.MapOf__string"]
@@ -34,7 +34,7 @@ class VoiceTemplateResponse(TypedDict, closed=True):
     version: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The unique identifier, as an integer, for the active version of the message template, or the version of the template that you specified by using the version parameter in your request.</p>"""
     voice_id: NotRequired["capo_pinpoint.types.__string.__string"]
-    r"""<p>The name of the voice that's used when delivering messages that are based on the message template. For a list of supported voices, see the <a href=\"https://docs.aws.amazon.com/polly/latest/dg/what-is.html\">Amazon Polly Developer Guide</a>.</p>"""
+    """<p>The name of the voice that's used when delivering messages that are based on the message template. For a list of supported voices, see the <a href="https://docs.aws.amazon.com/polly/latest/dg/what-is.html">Amazon Polly Developer Guide</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -77,7 +77,7 @@ class NotebookRun:
         parameters: Optional["capo_datazone.types.parameters.Parameters"] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.start_notebook_run_output.StartNotebookRunOutput":
-        r"""<p>Starts a notebook run in Amazon SageMaker Unified Studio. A notebook run represents the execution of an <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">Amazon SageMaker notebook</a> within a project. You can configure compute, network, timeout, and environment settings for the run.</p>
+        """<p>Starts a notebook run in Amazon SageMaker Unified Studio. A notebook run represents the execution of an <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">Amazon SageMaker notebook</a> within a project. You can configure compute, network, timeout, and environment settings for the run.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook run is started.</p>
@@ -157,7 +157,7 @@ class NotebookRun:
         *,
         config_overrides: Optional[DataZoneClientConfig] = None,
     ) -> "capo_datazone.types.get_notebook_run_output.GetNotebookRunOutput":
-        r"""<p>Gets the details of a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook run</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Gets the details of a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook run</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook run exists.</p>
@@ -222,7 +222,7 @@ class NotebookRun:
             "capo_datazone.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_datazone.types.list_notebook_runs_output.ListNotebookRunsOutput":
-        r"""<p>Lists <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook runs</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Lists <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook runs</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which to list notebook runs.</p>
@@ -291,7 +291,7 @@ class NotebookRun:
         config_overrides: Optional[DataZoneClientConfig] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.stop_notebook_run_output.StopNotebookRunOutput":
-        r"""<p>Stops a running <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook run</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Stops a running <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook run</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook run is stopped.</p>
@@ -371,7 +371,7 @@ class AsyncNotebookRun:
         parameters: Optional["capo_datazone.types.parameters.Parameters"] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.start_notebook_run_output.StartNotebookRunOutput":
-        r"""<p>Starts a notebook run in Amazon SageMaker Unified Studio. A notebook run represents the execution of an <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">Amazon SageMaker notebook</a> within a project. You can configure compute, network, timeout, and environment settings for the run.</p>
+        """<p>Starts a notebook run in Amazon SageMaker Unified Studio. A notebook run represents the execution of an <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">Amazon SageMaker notebook</a> within a project. You can configure compute, network, timeout, and environment settings for the run.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook run is started.</p>
@@ -452,7 +452,7 @@ class AsyncNotebookRun:
         *,
         config_overrides: Optional[AsyncDataZoneClientConfig] = None,
     ) -> "capo_datazone.types.get_notebook_run_output.GetNotebookRunOutput":
-        r"""<p>Gets the details of a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook run</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Gets the details of a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook run</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook run exists.</p>
@@ -518,7 +518,7 @@ class AsyncNotebookRun:
             "capo_datazone.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_datazone.types.list_notebook_runs_output.ListNotebookRunsOutput":
-        r"""<p>Lists <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook runs</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Lists <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook runs</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which to list notebook runs.</p>
@@ -588,7 +588,7 @@ class AsyncNotebookRun:
         config_overrides: Optional[AsyncDataZoneClientConfig] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.stop_notebook_run_output.StopNotebookRunOutput":
-        r"""<p>Stops a running <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook run</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Stops a running <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook run</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook run is stopped.</p>

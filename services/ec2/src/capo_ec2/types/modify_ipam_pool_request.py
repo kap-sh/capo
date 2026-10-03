@@ -42,7 +42,7 @@ class ModifyIpamPoolRequest(TypedDict, closed=True):
     add_allocation_resource_tags: NotRequired[
         "capo_ec2.types.request_ipam_resource_tag_list.RequestIpamResourceTagList"
     ]
-    r"""<p>Add tag allocation rules to a pool. For more information about allocation rules, see <a href=\"https://docs.aws.amazon.com/vpc/latest/ipam/create-top-ipam.html\">Create a top-level pool</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
+    """<p>Add tag allocation rules to a pool. For more information about allocation rules, see <a href="https://docs.aws.amazon.com/vpc/latest/ipam/create-top-ipam.html">Create a top-level pool</a> in the <i>Amazon VPC IPAM User Guide</i>.</p>"""
     remove_allocation_resource_tags: NotRequired[
         "capo_ec2.types.request_ipam_resource_tag_list.RequestIpamResourceTagList"
     ]

@@ -16,7 +16,7 @@ class CanaryCodeInput(TypedDict, closed=True):
     s3_bucket: NotRequired["capo_synthetics.types.string.String"]
     """<p>If your canary script is located in Amazon S3, specify the bucket name here. Do not include <code>s3://</code> as the start of the bucket name.</p>"""
     s3_key: NotRequired["capo_synthetics.types.string.String"]
-    r"""<p>The Amazon S3 key of your script. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingObjects.html\">Working with Amazon S3 Objects</a>.</p>"""
+    """<p>The Amazon S3 key of your script. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingObjects.html">Working with Amazon S3 Objects</a>.</p>"""
     s3_version: NotRequired["capo_synthetics.types.string.String"]
     """<p>The Amazon S3 version ID of your script.</p>"""
     zip_file: NotRequired["capo_synthetics.types.blob.Blob"]

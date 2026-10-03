@@ -28,7 +28,7 @@ class UpdateRecordRequest(TypedDict, closed=True):
     ttl_duration: NotRequired[
         "capo_sagemaker_featurestore_runtime.types.ttl_duration.TtlDuration"
     ]
-    r"""<p>The time-to-live (TTL) duration for the record. Amazon SageMaker Feature Store deletes the record when <code>EventTime</code> + <code>TtlDuration</code> elapses. If you omit this parameter, the record's existing TTL setting remains unchanged. For information about <code>HardDelete</code>, see the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_feature_store_DeleteRecord.html\">DeleteRecord</a> operation in the Amazon SageMaker API Reference.</p>"""
+    """<p>The time-to-live (TTL) duration for the record. Amazon SageMaker Feature Store deletes the record when <code>EventTime</code> + <code>TtlDuration</code> elapses. If you omit this parameter, the record's existing TTL setting remains unchanged. For information about <code>HardDelete</code>, see the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_feature_store_DeleteRecord.html">DeleteRecord</a> operation in the Amazon SageMaker API Reference.</p>"""
 
 
 # --- restJson1 ser/de ---

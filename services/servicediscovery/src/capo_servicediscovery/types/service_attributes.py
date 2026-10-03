@@ -16,7 +16,7 @@ class ServiceAttributes(TypedDict, closed=True):
     resource_owner: NotRequired[
         "capo_servicediscovery.types.aws_account_id.AWSAccountId"
     ]
-    r"""<p>The ID of the Amazon Web Services account that created the namespace with which the service is associated. If this isn't your account ID, it is the ID of the account that shared the namespace with your account. For more information about shared namespaces, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html\">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
+    """<p>The ID of the Amazon Web Services account that created the namespace with which the service is associated. If this isn't your account ID, it is the ID of the account that shared the namespace with your account. For more information about shared namespaces, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
     attributes: NotRequired[
         "capo_servicediscovery.types.service_attributes_map.ServiceAttributesMap"
     ]

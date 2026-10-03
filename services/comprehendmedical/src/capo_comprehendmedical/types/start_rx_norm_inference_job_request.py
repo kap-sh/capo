@@ -24,7 +24,7 @@ class StartRxNormInferenceJobRequest(TypedDict, closed=True):
     )
     """<p>Specifies where to send the output files.</p>"""
     data_access_role_arn: "capo_comprehendmedical.types.iam_role_arn.IamRoleArn"
-    r"""<p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med\"> Role-Based Permissions Required for Asynchronous Operations</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend Medical read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med"> Role-Based Permissions Required for Asynchronous Operations</a>.</p>"""
     job_name: NotRequired["capo_comprehendmedical.types.job_name.JobName"]
     """<p>The identifier of the job.</p>"""
     client_request_token: NotRequired[

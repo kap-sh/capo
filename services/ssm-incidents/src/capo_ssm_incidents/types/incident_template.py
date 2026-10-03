@@ -19,7 +19,7 @@ class IncidentTemplate(TypedDict, closed=True):
     title: "capo_ssm_incidents.types.incident_title.IncidentTitle"
     """<p>The title of the incident. </p>"""
     impact: "capo_ssm_incidents.types.impact.Impact"
-    r"""<p>The impact of the incident on your customers and applications.</p> <p class=\"title\"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>"""
+    """<p>The impact of the incident on your customers and applications.</p> <p class="title"> <b>Supported impact codes</b> </p> <ul> <li> <p> <code>1</code> - Critical</p> </li> <li> <p> <code>2</code> - High</p> </li> <li> <p> <code>3</code> - Medium</p> </li> <li> <p> <code>4</code> - Low</p> </li> <li> <p> <code>5</code> - No Impact</p> </li> </ul>"""
     summary: NotRequired["capo_ssm_incidents.types.incident_summary.IncidentSummary"]
     """<p>The summary of the incident. The summary is a brief synopsis of what occurred, what's currently happening, and context.</p>"""
     dedupe_string: NotRequired["capo_ssm_incidents.types.dedupe_string.DedupeString"]

@@ -32,7 +32,7 @@ class Resource(TypedDict, closed=True):
     resource_role: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>Identifies the role of the resource in the finding. A resource is either the actor or target of the finding activity,</p>"""
     tags: NotRequired["capo_securityhub.types.field_map.FieldMap"]
-    r"""<p>A list of Amazon Web Services tags associated with a resource at the time the finding was processed. Tags must follow <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html#tag-conventions\">Amazon Web Services tag naming limits and requirements</a>.</p>"""
+    """<p>A list of Amazon Web Services tags associated with a resource at the time the finding was processed. Tags must follow <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html#tag-conventions">Amazon Web Services tag naming limits and requirements</a>.</p>"""
     data_classification: NotRequired[
         "capo_securityhub.types.data_classification_details.DataClassificationDetails"
     ]

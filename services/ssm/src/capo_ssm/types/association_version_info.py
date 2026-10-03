@@ -74,7 +74,7 @@ class AssociationVersionInfo(TypedDict, closed=True):
     calendar_names: NotRequired[
         "capo_ssm.types.calendar_name_or_arn_list.CalendarNameOrARNList"
     ]
-    r"""<p>The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are gated under. The associations for this version only run when that Change Calendar is open. For more information, see <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar\">Amazon Web Services Systems Manager Change Calendar</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
+    """<p>The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are gated under. The associations for this version only run when that Change Calendar is open. For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web Services Systems Manager Change Calendar</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
     target_locations: NotRequired["capo_ssm.types.target_locations.TargetLocations"]
     """<p>The combination of Amazon Web Services Regions and Amazon Web Services accounts where you wanted to run the association when this association version was created.</p>"""
     schedule_offset: NotRequired["capo_ssm.types.schedule_offset.ScheduleOffset"]
@@ -86,7 +86,7 @@ class AssociationVersionInfo(TypedDict, closed=True):
     association_dispatch_assume_role: NotRequired[
         "capo_ssm.types.association_dispatch_assume_role_arn.AssociationDispatchAssumeRoleArn"
     ]
-    r"""<p>A role used by association to take actions on your behalf. State Manager will assume this role and call required APIs when dispatching configurations to nodes. If not specified, <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/using-service-linked-roles.html\"> service-linked role for Systems Manager</a> will be used by default. </p>"""
+    """<p>A role used by association to take actions on your behalf. State Manager will assume this role and call required APIs when dispatching configurations to nodes. If not specified, <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/using-service-linked-roles.html"> service-linked role for Systems Manager</a> will be used by default. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

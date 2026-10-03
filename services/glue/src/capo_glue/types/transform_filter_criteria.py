@@ -19,9 +19,9 @@ class TransformFilterCriteria(TypedDict, closed=True):
     transform_type: NotRequired["capo_glue.types.transform_type.TransformType"]
     """<p>The type of machine learning transform that is used to filter the machine learning transforms.</p>"""
     status: NotRequired["capo_glue.types.transform_status_type.TransformStatusType"]
-    r"""<p>Filters the list of machine learning transforms by the last known status of the transforms (to indicate whether a transform can be used or not). One of \"NOT_READY\", \"READY\", or \"DELETING\".</p>"""
+    """<p>Filters the list of machine learning transforms by the last known status of the transforms (to indicate whether a transform can be used or not). One of "NOT_READY", "READY", or "DELETING".</p>"""
     glue_version: NotRequired["capo_glue.types.glue_version_string.GlueVersionString"]
-    r"""<p>This value determines which version of Glue this machine learning transform is compatible with. Glue 1.0 is recommended for most customers. If the value is not set, the Glue compatibility defaults to Glue 0.9. For more information, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions\">Glue Versions</a> in the developer guide.</p>"""
+    """<p>This value determines which version of Glue this machine learning transform is compatible with. Glue 1.0 is recommended for most customers. If the value is not set, the Glue compatibility defaults to Glue 0.9. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions">Glue Versions</a> in the developer guide.</p>"""
     created_before: NotRequired["capo_glue.types.timestamp.Timestamp"]
     """<p>The time and date before which the transforms were created.</p>"""
     created_after: NotRequired["capo_glue.types.timestamp.Timestamp"]

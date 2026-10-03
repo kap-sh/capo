@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ResourceToImport(TypedDict, closed=True):
     resource_type: NotRequired["capo_cloudformation.types.resource_type.ResourceType"]
-    r"""<p>The type of resource to import into your stack, such as <code>AWS::S3::Bucket</code>. For a list of supported resource types, see <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html\">Resource type support for imports and drift detection</a> in the <i>CloudFormation User Guide</i>.</p>"""
+    """<p>The type of resource to import into your stack, such as <code>AWS::S3::Bucket</code>. For a list of supported resource types, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html">Resource type support for imports and drift detection</a> in the <i>CloudFormation User Guide</i>.</p>"""
     logical_resource_id: NotRequired[
         "capo_cloudformation.types.logical_resource_id.LogicalResourceId"
     ]

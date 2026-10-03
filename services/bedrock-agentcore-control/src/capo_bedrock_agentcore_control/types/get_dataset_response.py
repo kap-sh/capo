@@ -29,7 +29,7 @@ class GetDatasetResponse(TypedDict, closed=True):
     dataset_version: (
         "capo_bedrock_agentcore_control.types.dataset_version.DatasetVersion"
     )
-    r"""<p> The resolved version: \"DRAFT\" (default) or the requested version number. </p>"""
+    """<p> The resolved version: "DRAFT" (default) or the requested version number. </p>"""
     dataset_name: "capo_bedrock_agentcore_control.types.dataset_name.DatasetName"
     """<p> The name of the dataset. </p>"""
     description: NotRequired["str"]

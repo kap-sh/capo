@@ -19,7 +19,7 @@ class DescribeConnectionResourceParameters(TypedDict, closed=True):
     resource_association_arn: (
         "capo_eventbridge.types.resource_association_arn.ResourceAssociationArn"
     )
-    r"""<p>For connections to private APIs, the Amazon Resource Name (ARN) of the resource association EventBridge created between the connection and the private API's resource configuration.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/connection-private.html#connection-private-snra\"> Managing service network resource associations for connections</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.</p>"""
+    """<p>For connections to private APIs, the Amazon Resource Name (ARN) of the resource association EventBridge created between the connection and the private API's resource configuration.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/connection-private.html#connection-private-snra"> Managing service network resource associations for connections</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -15,7 +15,7 @@ class Amount(TypedDict, closed=True):
     currency_code: "capo_billing.types.currency_code.CurrencyCode"
     """<p>The ISO 4217 currency code for the amount (for example, <code>USD</code>).</p>"""
     currency_amount: "capo_billing.types.currency_amount.CurrencyAmount"
-    r"""<p>The amount as a decimal string (for example, <code>\"743.21\"</code>). Negative values represent credits that reduce a bill.</p>"""
+    """<p>The amount as a decimal string (for example, <code>"743.21"</code>). Negative values represent credits that reduce a bill.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

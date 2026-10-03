@@ -33,7 +33,7 @@ class S3DeltaDirectTarget(TypedDict, closed=True):
     compression: (
         "capo_glue.types.delta_target_compression_type.DeltaTargetCompressionType"
     )
-    r"""<p>Specifies how the data is compressed. This is generally not necessary if the data has a standard file extension. Possible values are <code>\"gzip\"</code> and <code>\"bzip\"</code>).</p>"""
+    """<p>Specifies how the data is compressed. This is generally not necessary if the data has a standard file extension. Possible values are <code>"gzip"</code> and <code>"bzip"</code>).</p>"""
     number_target_partitions: NotRequired[
         "capo_glue.types.number_target_partitions_string.NumberTargetPartitionsString"
     ]

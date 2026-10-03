@@ -26,7 +26,7 @@ class EntityRecognizerProperties(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) that identifies the entity recognizer.</p>"""
     language_code: NotRequired["capo_comprehend.types.language_code.LanguageCode"]
-    r"""<p> The language of the input documents. All documents must be in the same language. Only English (\"en\") is currently supported.</p>"""
+    """<p> The language of the input documents. All documents must be in the same language. Only English ("en") is currently supported.</p>"""
     status: NotRequired["capo_comprehend.types.model_status.ModelStatus"]
     """<p>Provides the status of the entity recognizer.</p>"""
     message: NotRequired["capo_comprehend.types.any_length_string.AnyLengthString"]
@@ -50,11 +50,11 @@ class EntityRecognizerProperties(TypedDict, closed=True):
     data_access_role_arn: NotRequired["capo_comprehend.types.iam_role_arn.IamRoleArn"]
     """<p> The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.</p>"""
     volume_kms_key_id: NotRequired["capo_comprehend.types.kms_key_id.KmsKeyId"]
-    r"""<p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>"""
+    """<p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>"""
     vpc_config: NotRequired["capo_comprehend.types.vpc_config.VpcConfig"]
-    r"""<p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your custom entity recognizer. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>"""
+    """<p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your custom entity recognizer. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>"""
     model_kms_key_id: NotRequired["capo_comprehend.types.kms_key_id.KmsKeyId"]
-    r"""<p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>"""
+    """<p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>"""
     version_name: NotRequired["capo_comprehend.types.version_name.VersionName"]
     """<p>The version name you assigned to the entity recognizer.</p>"""
     source_model_arn: NotRequired[

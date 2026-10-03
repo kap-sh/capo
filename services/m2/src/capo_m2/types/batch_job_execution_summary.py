@@ -33,7 +33,7 @@ class BatchJobExecutionSummary(TypedDict, closed=True):
     end_time: NotRequired["capo_m2.types.timestamp.Timestamp"]
     """<p>The timestamp when this batch job execution ended.</p>"""
     return_code: NotRequired["str"]
-    r"""<p>The batch job return code from either the Blu Age or Micro Focus runtime engines. For more information, see <a href=\"https://www.ibm.com/docs/en/was/8.5.5?topic=model-batch-return-codes\">Batch return codes</a> in the <i>IBM WebSphere Application Server</i> documentation.</p>"""
+    """<p>The batch job return code from either the Blu Age or Micro Focus runtime engines. For more information, see <a href="https://www.ibm.com/docs/en/was/8.5.5?topic=model-batch-return-codes">Batch return codes</a> in the <i>IBM WebSphere Application Server</i> documentation.</p>"""
     batch_job_identifier: NotRequired[
         "capo_m2.types.batch_job_identifier.BatchJobIdentifier"
     ]

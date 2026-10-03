@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class UpdateResourceOutput(TypedDict, closed=True):
     progress_event: NotRequired["capo_cloudcontrol.types.progress_event.ProgressEvent"]
-    r"""<p>Represents the current status of the resource update request.</p> <p>Use the <code>RequestToken</code> of the <code>ProgressEvent</code> with <a href=\"https://docs.aws.amazon.com/cloudcontrolapi/latest/APIReference/API_GetResourceRequestStatus.html\">GetResourceRequestStatus</a> to return the current status of a resource operation request.</p>"""
+    """<p>Represents the current status of the resource update request.</p> <p>Use the <code>RequestToken</code> of the <code>ProgressEvent</code> with <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/APIReference/API_GetResourceRequestStatus.html">GetResourceRequestStatus</a> to return the current status of a resource operation request.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

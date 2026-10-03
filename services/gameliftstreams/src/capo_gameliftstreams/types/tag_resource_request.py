@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class TagResourceRequest(TypedDict, closed=True):
     resource_arn: "capo_gameliftstreams.types.arn.Arn"
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html\">Amazon Resource Name (ARN)</a> of the Amazon GameLift Streams resource that you want to apply tags to.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html">Amazon Resource Name (ARN)</a> of the Amazon GameLift Streams resource that you want to apply tags to.</p>"""
     tags: "capo_gameliftstreams.types.tags.Tags"
     """<p>A list of tags, in the form of key-value pairs, to assign to the specified Amazon GameLift Streams resource.</p>"""
 

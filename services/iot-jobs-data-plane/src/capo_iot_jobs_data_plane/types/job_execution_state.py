@@ -14,7 +14,7 @@ class JobExecutionState(TypedDict, closed=True):
     status: NotRequired[
         "capo_iot_jobs_data_plane.types.job_execution_status.JobExecutionStatus"
     ]
-    r"""<p>The status of the job execution. Can be one of: \"QUEUED\", \"IN_PROGRESS\", \"FAILED\", \"SUCCESS\", \"CANCELED\", \"TIMED_OUT\", \"REJECTED\", or \"REMOVED\".</p>"""
+    """<p>The status of the job execution. Can be one of: "QUEUED", "IN_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "TIMED_OUT", "REJECTED", or "REMOVED".</p>"""
     status_details: NotRequired["capo_iot_jobs_data_plane.types.details_map.DetailsMap"]
     """<p>A collection of name/value pairs that describe the status of the job execution.</p> <p>The maximum length of the value in the name/value pair is 1,024 characters.</p>"""
     version_number: "capo_iot_jobs_data_plane.types.version_number.VersionNumber"

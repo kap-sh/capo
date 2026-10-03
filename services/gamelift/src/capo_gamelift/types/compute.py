@@ -37,17 +37,17 @@ class Compute(TypedDict, closed=True):
     dns_name: NotRequired["capo_gamelift.types.dns_name.DnsName"]
     """<p>The DNS name of a compute resource. Amazon GameLift Servers requires a DNS name or IP address for a compute.</p>"""
     compute_status: NotRequired["capo_gamelift.types.compute_status.ComputeStatus"]
-    r"""<p>Current status of the compute. A compute must have an <code>ACTIVE</code> status to host game sessions. Valid values include <code>PENDING</code>, <code>ACTIVE</code>, <code>TERMINATING</code>, and <code>IMPAIRED</code>.</p> <note> <p>While the ComputeStatus enum type is valid for Container based servers, the result may also include other non-enumerated string values such as \"Active\" for fleets which are not Container-based.</p> </note>"""
+    """<p>Current status of the compute. A compute must have an <code>ACTIVE</code> status to host game sessions. Valid values include <code>PENDING</code>, <code>ACTIVE</code>, <code>TERMINATING</code>, and <code>IMPAIRED</code>.</p> <note> <p>While the ComputeStatus enum type is valid for Container based servers, the result may also include other non-enumerated string values such as "Active" for fleets which are not Container-based.</p> </note>"""
     location: NotRequired[
         "capo_gamelift.types.location_string_model.LocationStringModel"
     ]
     """<p>The name of the custom location you added to the fleet that this compute resource resides in.</p>"""
     creation_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>).</p>"""
+    """<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).</p>"""
     operating_system: NotRequired[
         "capo_gamelift.types.operating_system.OperatingSystem"
     ]
-    r"""<p>The type of operating system on the compute resource.</p> <note> <p>Amazon Linux 2 (AL2) will reach end of support on 6/30/2026. See more details in the <a href=\"http://aws.amazon.com/aws.amazon.com/amazon-linux-2/faqs/\">Amazon Linux 2 FAQs</a>. For game servers that are hosted on AL2 and use server SDK version 4.x for Amazon GameLift Servers, first update the game server build to server SDK 5.x, and then deploy to AL2023 instances. See <a href=\"https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-serversdk5-migration.html\"> Migrate to server SDK version 5.</a> </p> </note>"""
+    """<p>The type of operating system on the compute resource.</p> <note> <p>Amazon Linux 2 (AL2) will reach end of support on 6/30/2026. See more details in the <a href="http://aws.amazon.com/aws.amazon.com/amazon-linux-2/faqs/">Amazon Linux 2 FAQs</a>. For game servers that are hosted on AL2 and use server SDK version 4.x for Amazon GameLift Servers, first update the game server build to server SDK 5.x, and then deploy to AL2023 instances. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-serversdk5-migration.html"> Migrate to server SDK version 5.</a> </p> </note>"""
     type: NotRequired["capo_gamelift.types.ec2_instance_type.EC2InstanceType"]
     """<p>The Amazon EC2 instance type that the fleet uses. For registered computes in an Amazon GameLift Servers Anywhere fleet, this property is empty. </p>"""
     game_lift_service_sdk_endpoint: NotRequired[

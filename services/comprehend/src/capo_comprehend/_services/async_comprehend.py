@@ -369,7 +369,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.batch_detect_dominant_language_response.BatchDetectDominantLanguageResponse":
-        r"""<p>Determines the dominant language of the input text for a batch of documents. For a list of languages that Amazon Comprehend can detect, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html\">Amazon Comprehend Supported Languages</a>. </p>
+        """<p>Determines the dominant language of the input text for a batch of documents. For a list of languages that Amazon Comprehend can detect, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html">Amazon Comprehend Supported Languages</a>. </p>
 
         Args:
             text_list: <p>A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents. Each document should contain at least 20 characters. The maximum size of each document is 5 KB.</p>
@@ -417,7 +417,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.batch_detect_entities_response.BatchDetectEntitiesResponse":
-        r"""<p>Inspects the text of a batch of documents for named entities and returns information about them. For more information about named entities, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html\">Entities</a> in the Comprehend Developer Guide. </p>
+        """<p>Inspects the text of a batch of documents for named entities and returns information about them. For more information about named entities, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html">Entities</a> in the Comprehend Developer Guide. </p>
 
         Args:
             text_list: <p>A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents. The maximum size of each document is 5 KB.</p>
@@ -428,7 +428,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -479,7 +479,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -530,7 +530,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -570,18 +570,18 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.batch_detect_syntax_response.BatchDetectSyntaxResponse":
-        r"""<p>Inspects the text of a batch of documents for the syntax and part of speech of the words in the document and returns information about them. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html\">Syntax</a> in the Comprehend Developer Guide. </p>
+        """<p>Inspects the text of a batch of documents for the syntax and part of speech of the words in the document and returns information about them. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html">Syntax</a> in the Comprehend Developer Guide. </p>
 
         Args:
             text_list: <p>A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents. The maximum size for each document is 5 KB.</p>
-            language_code: <p>The language of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German (\"de\"), English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"), or Portuguese (\"pt\"). All documents must be in the same language.</p>
+            language_code: <p>The language of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
 
         Raises:
             capo_comprehend.errors.batch_size_limit_exceeded_exception.BatchSizeLimitExceededException: <p>The number of documents in the request exceeds the limit of 25. Try your request again with fewer documents.</p>
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -621,7 +621,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.batch_detect_targeted_sentiment_response.BatchDetectTargetedSentimentResponse":
-        r"""<p>Inspects a batch of documents and returns a sentiment analysis for each entity identified in the documents.</p> <p>For more information about targeted sentiment, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html\">Targeted sentiment</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Inspects a batch of documents and returns a sentiment analysis for each entity identified in the documents.</p> <p>For more information about targeted sentiment, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html">Targeted sentiment</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             text_list: <p>A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents. The maximum size of each document is 5 KB.</p>
@@ -632,7 +632,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -680,12 +680,12 @@ class AsyncComprehendClient:
             "capo_comprehend.types.document_reader_config.DocumentReaderConfig"
         ] = None,
     ) -> "capo_comprehend.types.classify_document_response.ClassifyDocumentResponse":
-        r"""<p>Creates a classification request to analyze a single document in real-time. <code>ClassifyDocument</code> supports the following model types:</p> <ul> <li> <p>Custom classifier - a custom model that you have created and trained. For input, you can provide plain text, a single-page document (PDF, Word, or image), or Amazon Textract API output. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-document-classification.html\">Custom classification</a> in the <i>Amazon Comprehend Developer Guide</i>.</p> </li> <li> <p>Prompt safety classifier - Amazon Comprehend provides a pre-trained model for classifying input prompts for generative AI applications. For input, you provide English plain text input. For prompt safety classification, the response includes only the <code>Classes</code> field. For more information about prompt safety classifiers, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/trust-safety.html#prompt-classification\">Prompt safety classification</a> in the <i>Amazon Comprehend Developer Guide</i>.</p> </li> </ul> <p>If the system detects errors while processing a page in the input document, the API response includes an <code>Errors</code> field that describes the errors.</p> <p>If the system detects a document-level error in your input document, the API returns an <code>InvalidRequestException</code> error response. For details about this exception, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync-err.html\"> Errors in semi-structured documents</a> in the Comprehend Developer Guide. </p>
+        """<p>Creates a classification request to analyze a single document in real-time. <code>ClassifyDocument</code> supports the following model types:</p> <ul> <li> <p>Custom classifier - a custom model that you have created and trained. For input, you can provide plain text, a single-page document (PDF, Word, or image), or Amazon Textract API output. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-document-classification.html">Custom classification</a> in the <i>Amazon Comprehend Developer Guide</i>.</p> </li> <li> <p>Prompt safety classifier - Amazon Comprehend provides a pre-trained model for classifying input prompts for generative AI applications. For input, you provide English plain text input. For prompt safety classification, the response includes only the <code>Classes</code> field. For more information about prompt safety classifiers, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/trust-safety.html#prompt-classification">Prompt safety classification</a> in the <i>Amazon Comprehend Developer Guide</i>.</p> </li> </ul> <p>If the system detects errors while processing a page in the input document, the API response includes an <code>Errors</code> field that describes the errors.</p> <p>If the system detects a document-level error in your input document, the API returns an <code>InvalidRequestException</code> error response. For details about this exception, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync-err.html"> Errors in semi-structured documents</a> in the Comprehend Developer Guide. </p>
 
         Args:
             text: <p>The document text to be analyzed. If you enter text using this parameter, do not use the <code>Bytes</code> parameter.</p>
-            endpoint_arn: <p>The Amazon Resource Number (ARN) of the endpoint. </p> <p>For prompt safety classification, Amazon Comprehend provides the endpoint ARN. For more information about prompt safety classifiers, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/trust-safety.html#prompt-classification\">Prompt safety classification</a> in the <i>Amazon Comprehend Developer Guide</i> </p> <p>For custom classification, you create an endpoint for your custom model. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/using-endpoints.html\">Using Amazon Comprehend endpoints</a>.</p>
-            bytes: <p>Use the <code>Bytes</code> parameter to input a text, PDF, Word or image file.</p> <p>When you classify a document using a custom model, you can also use the <code>Bytes</code> parameter to input an Amazon Textract <code>DetectDocumentText</code> or <code>AnalyzeDocument</code> output file.</p> <p>To classify a document using the prompt safety classifier, use the <code>Text</code> parameter for input.</p> <p>Provide the input document as a sequence of base64-encoded bytes. If your code uses an Amazon Web Services SDK to classify documents, the SDK may encode the document file bytes for you. </p> <p>The maximum length of this field depends on the input document type. For details, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync.html\"> Inputs for real-time custom analysis</a> in the Comprehend Developer Guide. </p> <p>If you use the <code>Bytes</code> parameter, do not use the <code>Text</code> parameter.</p>
+            endpoint_arn: <p>The Amazon Resource Number (ARN) of the endpoint. </p> <p>For prompt safety classification, Amazon Comprehend provides the endpoint ARN. For more information about prompt safety classifiers, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/trust-safety.html#prompt-classification">Prompt safety classification</a> in the <i>Amazon Comprehend Developer Guide</i> </p> <p>For custom classification, you create an endpoint for your custom model. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/using-endpoints.html">Using Amazon Comprehend endpoints</a>.</p>
+            bytes: <p>Use the <code>Bytes</code> parameter to input a text, PDF, Word or image file.</p> <p>When you classify a document using a custom model, you can also use the <code>Bytes</code> parameter to input an Amazon Textract <code>DetectDocumentText</code> or <code>AnalyzeDocument</code> output file.</p> <p>To classify a document using the prompt safety classifier, use the <code>Text</code> parameter for input.</p> <p>Provide the input document as a sequence of base64-encoded bytes. If your code uses an Amazon Web Services SDK to classify documents, the SDK may encode the document file bytes for you. </p> <p>The maximum length of this field depends on the input document type. For details, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync.html"> Inputs for real-time custom analysis</a> in the Comprehend Developer Guide. </p> <p>If you use the <code>Bytes</code> parameter, do not use the <code>Text</code> parameter.</p>
             document_reader_config: <p>Provides configuration parameters to override the default actions for extracting text from PDF documents and image files.</p>
 
         Raises:
@@ -747,7 +747,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -794,7 +794,7 @@ class AsyncComprehendClient:
         ] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.create_dataset_response.CreateDatasetResponse":
-        r"""<p>Creates a dataset to upload training or test data for a model associated with a flywheel. For more information about datasets, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Creates a dataset to upload training or test data for a model associated with a flywheel. For more information about datasets, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             flywheel_arn: <p>The Amazon Resource Number (ARN) of the flywheel of the flywheel to receive the data.</p>
@@ -879,22 +879,22 @@ class AsyncComprehendClient:
         model_kms_key_id: Optional["capo_comprehend.types.kms_key_id.KmsKeyId"] = None,
         model_policy: Optional["capo_comprehend.types.policy.Policy"] = None,
     ) -> "capo_comprehend.types.create_document_classifier_response.CreateDocumentClassifierResponse":
-        r"""<p>Creates a new document classifier that you can use to categorize documents. To create a classifier, you provide a set of training documents that are labeled with the categories that you want to use. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/training-classifier-model.html\">Training classifier models</a> in the Comprehend Developer Guide. </p>
+        r"""<p>Creates a new document classifier that you can use to categorize documents. To create a classifier, you provide a set of training documents that are labeled with the categories that you want to use. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/training-classifier-model.html">Training classifier models</a> in the Comprehend Developer Guide. </p>
 
         Args:
             document_classifier_name: <p>The name of the document classifier.</p>
             version_name: <p>The version name given to the newly created classifier. Version names can have a maximum of 256 characters. Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique among all models with the same classifier name in the Amazon Web Services account/Amazon Web Services Region.</p>
             data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.</p>
-            tags: <p>Tags to associate with the document classifier. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department. </p>
+            tags: <p>Tags to associate with the document classifier. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department. </p>
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies the location for the output files from a custom classifier job. This parameter is required for a request that creates a native document model.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.</p>
             language_code: <p>The language of the input documents. You can specify any of the languages supported by Amazon Comprehend. All documents must be in the same language.</p>
-            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your custom classifier. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>
+            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your custom classifier. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
             mode: <p>Indicates the mode in which the classifier will be trained. The classifier can be trained in multi-class (single-label) mode or multi-label mode. Multi-class mode identifies a single class label for each document and multi-label mode identifies one or more class labels for each document. Multiple labels for an individual document are separated by a delimiter. The default delimiter between labels is a pipe (|).</p>
-            model_kms_key_id: <p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            model_policy: <p>The resource-based policy to attach to your custom document classifier model. You can use this policy to allow another Amazon Web Services account to import your custom model.</p> <p>Provide your policy as a JSON body that you enter as a UTF-8 encoded string without line breaks. To provide valid JSON, enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you must escape the double quotes that are inside the policy:</p> <p> <code>\"{\\"attribute\\": \\"value\\", \\"attribute\\": [\\"value\\"]}\"</code> </p> <p>To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON names and values:</p> <p> <code>'{\"attribute\": \"value\", \"attribute\": [\"value\"]}'</code> </p>
+            model_kms_key_id: <p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            model_policy: <p>The resource-based policy to attach to your custom document classifier model. You can use this policy to allow another Amazon Web Services account to import your custom model.</p> <p>Provide your policy as a JSON body that you enter as a UTF-8 encoded string without line breaks. To provide valid JSON, enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you must escape the double quotes that are inside the policy:</p> <p> <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code> </p> <p>To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON names and values:</p> <p> <code>'{"attribute": "value", "attribute": ["value"]}'</code> </p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -904,7 +904,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.resource_limit_exceeded_exception.ResourceLimitExceededException: <p>The maximum number of resources per account has been exceeded. Review the resources, and then try your request again.</p>
             capo_comprehend.errors.too_many_requests_exception.TooManyRequestsException: <p>The number of requests exceeds the limit. Resubmit your request later.</p>
             capo_comprehend.errors.too_many_tags_exception.TooManyTagsException: <p>The request contains more tags than can be associated with a resource (50 tags per resource). The maximum number of tags includes both existing tags and those included in your current request. </p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -978,14 +978,14 @@ class AsyncComprehendClient:
             "capo_comprehend.types.comprehend_flywheel_arn.ComprehendFlywheelArn"
         ] = None,
     ) -> "capo_comprehend.types.create_endpoint_response.CreateEndpointResponse":
-        r"""<p>Creates a model-specific endpoint for synchronous inference for a previously trained custom model For information about endpoints, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html\">Managing endpoints</a>.</p>
+        """<p>Creates a model-specific endpoint for synchronous inference for a previously trained custom model For information about endpoints, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.</p>
 
         Args:
             endpoint_name: <p>This is the descriptive suffix that becomes part of the <code>EndpointArn</code> used for all subsequent requests to this resource. </p>
             model_arn: <p>The Amazon Resource Number (ARN) of the model to which the endpoint will be attached.</p>
             desired_inference_units: <p> The desired number of inference units to be used by the model using this endpoint. Each inference unit represents of a throughput of 100 characters per second.</p>
             client_request_token: <p>An idempotency token provided by the customer. If this token matches a previous endpoint creation request, Amazon Comprehend will not return a <code>ResourceInUseException</code>. </p>
-            tags: <p>Tags to associate with the endpoint. A tag is a key-value pair that adds metadata to the endpoint. For example, a tag with \"Sales\" as the key might be added to an endpoint to indicate its use by the sales department. </p>
+            tags: <p>Tags to associate with the endpoint. A tag is a key-value pair that adds metadata to the endpoint. For example, a tag with "Sales" as the key might be added to an endpoint to indicate its use by the sales department. </p>
             data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to trained custom models encrypted with a customer managed key (ModelKmsKeyId).</p>
             flywheel_arn: <p>The Amazon Resource Number (ARN) of the flywheel to which the endpoint will be attached.</p>
 
@@ -1065,14 +1065,14 @@ class AsyncComprehendClient:
             recognizer_name: <p>The name given to the newly created recognizer. Recognizer names can be a maximum of 256 characters. Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/Region.</p>
             version_name: <p>The version name given to the newly created recognizer. Version names can be a maximum of 256 characters. Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique among all models with the same recognizer name in the account/Region.</p>
             data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.</p>
-            tags: <p>Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department. </p>
+            tags: <p>Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department. </p>
             input_data_config: <p>Specifies the format and location of the input data. The S3 bucket containing the input data must be located in the same Region as the entity recognizer being created. </p>
             client_request_token: <p> A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.</p>
-            language_code: <p> You can specify any of the following languages: English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"), German (\"de\"), or Portuguese (\"pt\"). If you plan to use this entity recognizer with PDF, Word, or image input files, you must specify English as the language. All training documents must be in the same language.</p>
-            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your custom entity recognizer. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>
-            model_kms_key_id: <p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            model_policy: <p>The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy to allow another Amazon Web Services account to import your custom model.</p> <p>Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you must escape the double quotes that are inside the policy:</p> <p> <code>\"{\\"attribute\\": \\"value\\", \\"attribute\\": [\\"value\\"]}\"</code> </p> <p>To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON names and values:</p> <p> <code>'{\"attribute\": \"value\", \"attribute\": [\"value\"]}'</code> </p>
+            language_code: <p> You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or image input files, you must specify English as the language. All training documents must be in the same language.</p>
+            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your custom entity recognizer. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+            model_kms_key_id: <p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            model_policy: <p>The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy to allow another Amazon Web Services account to import your custom model.</p> <p>Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you must escape the double quotes that are inside the policy:</p> <p> <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code> </p> <p>To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON names and values:</p> <p> <code>'{"attribute": "value", "attribute": ["value"]}'</code> </p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -1082,7 +1082,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.resource_limit_exceeded_exception.ResourceLimitExceededException: <p>The maximum number of resources per account has been exceeded. Review the resources, and then try your request again.</p>
             capo_comprehend.errors.too_many_requests_exception.TooManyRequestsException: <p>The number of requests exceeds the limit. Resubmit your request later.</p>
             capo_comprehend.errors.too_many_tags_exception.TooManyTagsException: <p>The request contains more tags than can be associated with a resource (50 tags per resource). The maximum number of tags includes both existing tags and those included in your current request. </p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1152,7 +1152,7 @@ class AsyncComprehendClient:
         ] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.create_flywheel_response.CreateFlywheelResponse":
-        r"""<p>A flywheel is an Amazon Web Services resource that orchestrates the ongoing training of a model for custom classification or custom entity recognition. You can create a flywheel to start with an existing trained model, or Comprehend can create and train a new model.</p> <p>When you create the flywheel, Comprehend creates a data lake in your account. The data lake holds the training data and test data for all versions of the model.</p> <p>To use a flywheel with an existing trained model, you specify the active model version. Comprehend copies the model's training data and test data into the flywheel's data lake.</p> <p>To use the flywheel with a new model, you need to provide a dataset for training data (and optional test data) when you create the flywheel.</p> <p>For more information about flywheels, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>A flywheel is an Amazon Web Services resource that orchestrates the ongoing training of a model for custom classification or custom entity recognition. You can create a flywheel to start with an existing trained model, or Comprehend can create and train a new model.</p> <p>When you create the flywheel, Comprehend creates a data lake in your account. The data lake holds the training data and test data for all versions of the model.</p> <p>To use a flywheel with an existing trained model, you specify the active model version. Comprehend copies the model's training data and test data into the flywheel's data lake.</p> <p>To use the flywheel with a new model, you need to provide a dataset for training data (and optional test data) when you create the flywheel.</p> <p>For more information about flywheels, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             flywheel_name: <p>Name for the flywheel.</p>
@@ -1175,7 +1175,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.resource_unavailable_exception.ResourceUnavailableException: <p>The specified resource is not available. Check the resource and try your request again.</p>
             capo_comprehend.errors.too_many_requests_exception.TooManyRequestsException: <p>The number of requests exceeds the limit. Resubmit your request later.</p>
             capo_comprehend.errors.too_many_tags_exception.TooManyTagsException: <p>The request contains more tags than can be associated with a resource (50 tags per resource). The maximum number of tags includes both existing tags and those included in your current request. </p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1277,7 +1277,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.delete_endpoint_response.DeleteEndpointResponse":
-        r"""<p>Deletes a model-specific endpoint for a previously-trained custom model. All endpoints must be deleted in order for the model to be deleted. For information about endpoints, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html\">Managing endpoints</a>.</p>
+        """<p>Deletes a model-specific endpoint for a previously-trained custom model. All endpoints must be deleted in order for the model to be deleted. For information about endpoints, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.</p>
 
         Args:
             endpoint_arn: <p>The Amazon Resource Number (ARN) of the endpoint being deleted.</p>
@@ -1374,7 +1374,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.delete_flywheel_response.DeleteFlywheelResponse":
-        r"""<p>Deletes a flywheel. When you delete the flywheel, Amazon Comprehend does not delete the data lake or the model associated with the flywheel.</p> <p>For more information about flywheels, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Deletes a flywheel. When you delete the flywheel, Amazon Comprehend does not delete the data lake or the model associated with the flywheel.</p> <p>For more information about flywheels, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             flywheel_arn: <p>The Amazon Resource Number (ARN) of the flywheel to delete.</p>
@@ -1475,7 +1475,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.describe_dataset_response.DescribeDatasetResponse":
-        r"""<p>Returns information about the dataset that you specify. For more information about datasets, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Returns information about the dataset that you specify. For more information about datasets, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             dataset_arn: <p>The ARN of the dataset.</p>
@@ -1663,7 +1663,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.describe_endpoint_response.DescribeEndpointResponse":
-        r"""<p>Gets the properties associated with a specific endpoint. Use this operation to get the status of an endpoint. For information about endpoints, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html\">Managing endpoints</a>.</p>
+        """<p>Gets the properties associated with a specific endpoint. Use this operation to get the status of an endpoint. For information about endpoints, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.</p>
 
         Args:
             endpoint_arn: <p>The Amazon Resource Number (ARN) of the endpoint being described.</p>
@@ -1851,7 +1851,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.describe_flywheel_response.DescribeFlywheelResponse":
-        r"""<p>Provides configuration information about the flywheel. For more information about flywheels, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Provides configuration information about the flywheel. For more information about flywheels, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             flywheel_arn: <p>The Amazon Resource Number (ARN) of the flywheel.</p>
@@ -1899,7 +1899,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.describe_flywheel_iteration_response.DescribeFlywheelIterationResponse":
-        r"""<p>Retrieve the configuration properties of a flywheel iteration. For more information about flywheels, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Retrieve the configuration properties of a flywheel iteration. For more information about flywheels, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             flywheel_arn: <p></p>
@@ -2229,7 +2229,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.detect_dominant_language_response.DetectDominantLanguageResponse":
-        r"""<p>Determines the dominant language of the input text. For a list of languages that Amazon Comprehend can detect, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html\">Amazon Comprehend Supported Languages</a>. </p>
+        """<p>Determines the dominant language of the input text. For a list of languages that Amazon Comprehend can detect, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html">Amazon Comprehend Supported Languages</a>. </p>
 
         Args:
             text: <p>A UTF-8 text string. The string must contain at least 20 characters. The maximum string size is 100 KB.</p>
@@ -2289,13 +2289,13 @@ class AsyncComprehendClient:
             "capo_comprehend.types.document_reader_config.DocumentReaderConfig"
         ] = None,
     ) -> "capo_comprehend.types.detect_entities_response.DetectEntitiesResponse":
-        r"""<p>Detects named entities in input text when you use the pre-trained model. Detects custom entities if you have a custom entity recognition model. </p> <p> When detecting named entities using the pre-trained model, use plain text as the input. For more information about named entities, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html\">Entities</a> in the Comprehend Developer Guide.</p> <p>When you use a custom entity recognition model, you can input plain text or you can upload a single-page input document (text, PDF, Word, or image). </p> <p>If the system detects errors while processing a page in the input document, the API response includes an entry in <code>Errors</code> for each error. </p> <p>If the system detects a document-level error in your input document, the API returns an <code>InvalidRequestException</code> error response. For details about this exception, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync-err.html\"> Errors in semi-structured documents</a> in the Comprehend Developer Guide. </p>
+        """<p>Detects named entities in input text when you use the pre-trained model. Detects custom entities if you have a custom entity recognition model. </p> <p> When detecting named entities using the pre-trained model, use plain text as the input. For more information about named entities, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html">Entities</a> in the Comprehend Developer Guide.</p> <p>When you use a custom entity recognition model, you can input plain text or you can upload a single-page input document (text, PDF, Word, or image). </p> <p>If the system detects errors while processing a page in the input document, the API response includes an entry in <code>Errors</code> for each error. </p> <p>If the system detects a document-level error in your input document, the API returns an <code>InvalidRequestException</code> error response. For details about this exception, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync-err.html"> Errors in semi-structured documents</a> in the Comprehend Developer Guide. </p>
 
         Args:
             text: <p>A UTF-8 text string. The maximum string size is 100 KB. If you enter text using this parameter, do not use the <code>Bytes</code> parameter.</p>
             language_code: <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. If your request includes the endpoint for a custom entity recognition model, Amazon Comprehend uses the language of your custom model, and it ignores any language code that you specify here.</p> <p>All input documents must be in the same language.</p>
-            endpoint_arn: <p>The Amazon Resource Name of an endpoint that is associated with a custom entity recognition model. Provide an endpoint if you want to detect entities by using your own custom model instead of the default model that is used by Amazon Comprehend.</p> <p>If you specify an endpoint, Amazon Comprehend uses the language of your custom model, and it ignores any language code that you provide in your request.</p> <p>For information about endpoints, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html\">Managing endpoints</a>.</p>
-            bytes: <p>This field applies only when you use a custom entity recognition model that was trained with PDF annotations. For other cases, enter your text input in the <code>Text</code> field.</p> <p> Use the <code>Bytes</code> parameter to input a text, PDF, Word or image file. Using a plain-text file in the <code>Bytes</code> parameter is equivelent to using the <code>Text</code> parameter (the <code>Entities</code> field in the response is identical).</p> <p>You can also use the <code>Bytes</code> parameter to input an Amazon Textract <code>DetectDocumentText</code> or <code>AnalyzeDocument</code> output file.</p> <p>Provide the input document as a sequence of base64-encoded bytes. If your code uses an Amazon Web Services SDK to detect entities, the SDK may encode the document file bytes for you. </p> <p>The maximum length of this field depends on the input document type. For details, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync.html\"> Inputs for real-time custom analysis</a> in the Comprehend Developer Guide. </p> <p>If you use the <code>Bytes</code> parameter, do not use the <code>Text</code> parameter.</p>
+            endpoint_arn: <p>The Amazon Resource Name of an endpoint that is associated with a custom entity recognition model. Provide an endpoint if you want to detect entities by using your own custom model instead of the default model that is used by Amazon Comprehend.</p> <p>If you specify an endpoint, Amazon Comprehend uses the language of your custom model, and it ignores any language code that you provide in your request.</p> <p>For information about endpoints, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.</p>
+            bytes: <p>This field applies only when you use a custom entity recognition model that was trained with PDF annotations. For other cases, enter your text input in the <code>Text</code> field.</p> <p> Use the <code>Bytes</code> parameter to input a text, PDF, Word or image file. Using a plain-text file in the <code>Bytes</code> parameter is equivelent to using the <code>Text</code> parameter (the <code>Entities</code> field in the response is identical).</p> <p>You can also use the <code>Bytes</code> parameter to input an Amazon Textract <code>DetectDocumentText</code> or <code>AnalyzeDocument</code> output file.</p> <p>Provide the input document as a sequence of base64-encoded bytes. If your code uses an Amazon Web Services SDK to detect entities, the SDK may encode the document file bytes for you. </p> <p>The maximum length of this field depends on the input document type. For details, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync.html"> Inputs for real-time custom analysis</a> in the Comprehend Developer Guide. </p> <p>If you use the <code>Bytes</code> parameter, do not use the <code>Text</code> parameter.</p>
             document_reader_config: <p>Provides configuration parameters to override the default actions for extracting text from PDF documents and image files.</p>
 
         Raises:
@@ -2303,7 +2303,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.resource_unavailable_exception.ResourceUnavailableException: <p>The specified resource is not available. Check the resource and try your request again.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2360,7 +2360,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2410,7 +2410,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2460,7 +2460,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2500,17 +2500,17 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.detect_syntax_response.DetectSyntaxResponse":
-        r"""<p>Inspects text for syntax and the part of speech of words in the document. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html\">Syntax</a> in the Comprehend Developer Guide. </p>
+        """<p>Inspects text for syntax and the part of speech of words in the document. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html">Syntax</a> in the Comprehend Developer Guide. </p>
 
         Args:
             text: <p>A UTF-8 string. The maximum string size is 5 KB.</p>
-            language_code: <p>The language code of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German (\"de\"), English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"), or Portuguese (\"pt\").</p>
+            language_code: <p>The language code of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2550,7 +2550,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.detect_targeted_sentiment_response.DetectTargetedSentimentResponse":
-        r"""<p>Inspects the input text and returns a sentiment analysis for each entity identified in the text.</p> <p>For more information about targeted sentiment, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html\">Targeted sentiment</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Inspects the input text and returns a sentiment analysis for each entity identified in the text.</p> <p>For more information about targeted sentiment, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html">Targeted sentiment</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             text: <p>A UTF-8 text string. The maximum string length is 5 KB.</p>
@@ -2560,7 +2560,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2602,7 +2602,7 @@ class AsyncComprehendClient:
     ) -> (
         "capo_comprehend.types.detect_toxic_content_response.DetectToxicContentResponse"
     ):
-        r"""<p>Performs toxicity analysis on the list of text strings that you provide as input. The API response contains a results list that matches the size of the input list. For more information about toxicity detection, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/toxicity-detection.html\">Toxicity detection</a> in the <i>Amazon Comprehend Developer Guide</i>. </p>
+        """<p>Performs toxicity analysis on the list of text strings that you provide as input. The API response contains a results list that matches the size of the input list. For more information about toxicity detection, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/toxicity-detection.html">Toxicity detection</a> in the <i>Amazon Comprehend Developer Guide</i>. </p>
 
         Args:
             text_segments: <p>A list of up to 10 text strings. Each string has a maximum size of 1 KB, and the maximum size of the list is 10 KB.</p>
@@ -2612,7 +2612,7 @@ class AsyncComprehendClient:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
             capo_comprehend.errors.invalid_request_exception.InvalidRequestException: <p>The request is invalid.</p>
             capo_comprehend.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException: <p>The size of the input text exceeds the limit. Use a smaller document.</p>
-            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html\">Supported languages</a> in the Comprehend Developer Guide. </p>
+            capo_comprehend.errors.unsupported_language_exception.UnsupportedLanguageException: <p>Amazon Comprehend can't process the language of the input text. For a list of supported languages, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html">Supported languages</a> in the Comprehend Developer Guide. </p>
             capo_comprehend.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2660,15 +2660,15 @@ class AsyncComprehendClient:
         ] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.import_model_response.ImportModelResponse":
-        r"""<p>Creates a new custom model that replicates a source custom model that you import. The source model can be in your Amazon Web Services account or another one.</p> <p>If the source model is in another Amazon Web Services account, then it must have a resource-based policy that authorizes you to import it.</p> <p>The source model must be in the same Amazon Web Services Region that you're using when you import. You can't import a model that's in a different Region.</p>
+        """<p>Creates a new custom model that replicates a source custom model that you import. The source model can be in your Amazon Web Services account or another one.</p> <p>If the source model is in another Amazon Web Services account, then it must have a resource-based policy that authorizes you to import it.</p> <p>The source model must be in the same Amazon Web Services Region that you're using when you import. You can't import a model that's in a different Region.</p>
 
         Args:
             source_model_arn: <p>The Amazon Resource Name (ARN) of the custom model to import.</p>
             model_name: <p>The name to assign to the custom model that is created in Amazon Comprehend by this import.</p>
             version_name: <p>The version name given to the custom model that is created by this import. Version names can have a maximum of 256 characters. Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique among all models with the same classifier name in the account/Region.</p>
-            model_kms_key_id: <p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
+            model_kms_key_id: <p>ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
             data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend permission to use Amazon Key Management Service (KMS) to encrypt or decrypt the custom model.</p>
-            tags: <p>Tags to associate with the custom model that is created by this import. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            tags: <p>Tags to associate with the custom model that is created by this import. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -2734,7 +2734,7 @@ class AsyncComprehendClient:
             "capo_comprehend.types.max_results_integer.MaxResultsInteger"
         ] = None,
     ) -> "capo_comprehend.types.list_datasets_response.ListDatasetsResponse":
-        r"""<p>List the datasets that you have configured in this Region. For more information about datasets, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>List the datasets that you have configured in this Region. For more information about datasets, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             flywheel_arn: <p>The Amazon Resource Number (ARN) of the flywheel.</p>
@@ -3147,7 +3147,7 @@ class AsyncComprehendClient:
             "capo_comprehend.types.max_results_integer.MaxResultsInteger"
         ] = None,
     ) -> "capo_comprehend.types.list_endpoints_response.ListEndpointsResponse":
-        r"""<p>Gets a list of all existing endpoints that you've created. For information about endpoints, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html\">Managing endpoints</a>.</p>
+        """<p>Gets a list of all existing endpoints that you've created. For information about endpoints, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.</p>
 
         Args:
             filter: <p>Filters the endpoints that are returned. You can filter endpoints on their name, model, status, or the date and time that they were created. You can only set one filter at a time. </p>
@@ -3556,7 +3556,7 @@ class AsyncComprehendClient:
             "capo_comprehend.types.max_results_integer.MaxResultsInteger"
         ] = None,
     ) -> "capo_comprehend.types.list_flywheel_iteration_history_response.ListFlywheelIterationHistoryResponse":
-        r"""<p>Information about the history of a flywheel iteration. For more information about flywheels, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Information about the history of a flywheel iteration. For more information about flywheels, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             flywheel_arn: <p>The ARN of the flywheel.</p>
@@ -4198,7 +4198,7 @@ class AsyncComprehendClient:
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the custom model to attach the policy to.</p>
-            resource_policy: <p>The JSON resource-based policy to attach to your custom model. Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you must escape the double quotes that are inside the policy:</p> <p> <code>\"{\\"attribute\\": \\"value\\", \\"attribute\\": [\\"value\\"]}\"</code> </p> <p>To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON names and values:</p> <p> <code>'{\"attribute\": \"value\", \"attribute\": [\"value\"]}'</code> </p>
+            resource_policy: <p>The JSON resource-based policy to attach to your custom model. Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you must escape the double quotes that are inside the policy:</p> <p> <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code> </p> <p>To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON names and values:</p> <p> <code>'{"attribute": "value", "attribute": ["value"]}'</code> </p>
             policy_revision_id: <p>The revision ID that Amazon Comprehend assigned to the policy that you are updating. If you are creating a new policy that has no prior version, don't use this parameter. Amazon Comprehend creates the revision ID for you.</p>
 
         Raises:
@@ -4260,7 +4260,7 @@ class AsyncComprehendClient:
             "capo_comprehend.types.comprehend_flywheel_arn.ComprehendFlywheelArn"
         ] = None,
     ) -> "capo_comprehend.types.start_document_classification_job_response.StartDocumentClassificationJobResponse":
-        r"""<p>Starts an asynchronous document classification job using a custom classification model. Use the <code>DescribeDocumentClassificationJob</code> operation to track the progress of the job.</p>
+        """<p>Starts an asynchronous document classification job using a custom classification model. Use the <code>DescribeDocumentClassificationJob</code> operation to track the progress of the job.</p>
 
         Args:
             job_name: <p>The identifier of the job.</p>
@@ -4269,9 +4269,9 @@ class AsyncComprehendClient:
             output_data_config: <p>Specifies where to send the output files.</p>
             data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.</p>
             client_request_token: <p>A unique identifier for the request. If you do not set the client request token, Amazon Comprehend generates one.</p>
-            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your document classification job. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>
-            tags: <p>Tags to associate with the document classification job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your document classification job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+            tags: <p>Tags to associate with the document classification job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
             flywheel_arn: <p>The Amazon Resource Number (ARN) of the flywheel associated with the model to use.</p>
 
         Raises:
@@ -4346,17 +4346,17 @@ class AsyncComprehendClient:
         vpc_config: Optional["capo_comprehend.types.vpc_config.VpcConfig"] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.start_dominant_language_detection_job_response.StartDominantLanguageDetectionJobResponse":
-        r"""<p>Starts an asynchronous dominant language detection job for a collection of documents. Use the operation to track the status of a job.</p>
+        """<p>Starts an asynchronous dominant language detection job for a collection of documents. Use the operation to track the status of a job.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies where to send the output files.</p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions\">Role-based permissions</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions">Role-based permissions</a>.</p>
             job_name: <p>An identifier for the job.</p>
             client_request_token: <p>A unique identifier for the request. If you do not set the client request token, Amazon Comprehend generates one.</p>
-            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your dominant language detection job. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>
-            tags: <p>Tags to associate with the dominant language detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your dominant language detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+            tags: <p>Tags to associate with the dominant language detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -4431,19 +4431,19 @@ class AsyncComprehendClient:
             "capo_comprehend.types.comprehend_flywheel_arn.ComprehendFlywheelArn"
         ] = None,
     ) -> "capo_comprehend.types.start_entities_detection_job_response.StartEntitiesDetectionJobResponse":
-        r"""<p>Starts an asynchronous entity detection job for a collection of documents. Use the operation to track the status of a job.</p> <p>This API can be used for either standard entity detection or custom entity recognition. In order to be used for custom entity recognition, the optional <code>EntityRecognizerArn</code> must be used in order to provide access to the recognizer being used to detect the custom entity.</p>
+        """<p>Starts an asynchronous entity detection job for a collection of documents. Use the operation to track the status of a job.</p> <p>This API can be used for either standard entity detection or custom entity recognition. In order to be used for custom entity recognition, the optional <code>EntityRecognizerArn</code> must be used in order to provide access to the recognizer being used to detect the custom entity.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies where to send the output files.</p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions\">Role-based permissions</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions">Role-based permissions</a>.</p>
             job_name: <p>The identifier of the job.</p>
             entity_recognizer_arn: <p>The Amazon Resource Name (ARN) that identifies the specific entity recognizer to be used by the <code>StartEntitiesDetectionJob</code>. This ARN is optional and is only used for a custom entity recognition job.</p>
             language_code: <p>The language of the input documents. All documents must be in the same language. You can specify any of the languages supported by Amazon Comprehend. If custom entities recognition is used, this parameter is ignored and the language used for training the model is used instead.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.</p>
-            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your entity detection job. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>
-            tags: <p>Tags to associate with the entities detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your entity detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+            tags: <p>Tags to associate with the entities detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
             flywheel_arn: <p>The Amazon Resource Number (ARN) of the flywheel associated with the model to use.</p>
 
         Raises:
@@ -4519,7 +4519,7 @@ class AsyncComprehendClient:
         ] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.start_events_detection_job_response.StartEventsDetectionJobResponse":
-        r"""<p>Starts an asynchronous event detection job for a collection of documents.</p>
+        """<p>Starts an asynchronous event detection job for a collection of documents.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
@@ -4529,7 +4529,7 @@ class AsyncComprehendClient:
             language_code: <p>The language code of the input documents.</p>
             client_request_token: <p>An unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.</p>
             target_event_types: <p>The types of events to detect in the input documents.</p>
-            tags: <p>Tags to associate with the events detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            tags: <p>Tags to associate with the events detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -4589,7 +4589,7 @@ class AsyncComprehendClient:
             "capo_comprehend.types.client_request_token_string.ClientRequestTokenString"
         ] = None,
     ) -> "capo_comprehend.types.start_flywheel_iteration_response.StartFlywheelIterationResponse":
-        r"""<p>Start the flywheel iteration.This operation uses any new datasets to train a new model version. For more information about flywheels, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html\"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
+        """<p>Start the flywheel iteration.This operation uses any new datasets to train a new model version. For more information about flywheels, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.</p>
 
         Args:
             flywheel_arn: <p>The ARN of the flywheel.</p>
@@ -4650,18 +4650,18 @@ class AsyncComprehendClient:
         vpc_config: Optional["capo_comprehend.types.vpc_config.VpcConfig"] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.start_key_phrases_detection_job_response.StartKeyPhrasesDetectionJobResponse":
-        r"""<p>Starts an asynchronous key phrase detection job for a collection of documents. Use the operation to track the status of a job.</p>
+        """<p>Starts an asynchronous key phrase detection job for a collection of documents. Use the operation to track the status of a job.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies where to send the output files.</p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions\">Role-based permissions</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions">Role-based permissions</a>.</p>
             job_name: <p>The identifier of the job.</p>
             language_code: <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.</p>
-            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            vpc_config: <p> Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your key phrases detection job. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>
-            tags: <p>Tags to associate with the key phrases detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            vpc_config: <p> Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your key phrases detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+            tags: <p>Tags to associate with the key phrases detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -4733,7 +4733,7 @@ class AsyncComprehendClient:
         ] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.start_pii_entities_detection_job_response.StartPiiEntitiesDetectionJobResponse":
-        r"""<p>Starts an asynchronous PII entity detection job for a collection of documents.</p>
+        """<p>Starts an asynchronous PII entity detection job for a collection of documents.</p>
 
         Args:
             input_data_config: <p>The input properties for a PII entities detection job.</p>
@@ -4744,7 +4744,7 @@ class AsyncComprehendClient:
             job_name: <p>The identifier of the job.</p>
             language_code: <p>The language of the input documents. Enter the language code for English (en) or Spanish (es).</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.</p>
-            tags: <p>Tags to associate with the PII entities detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            tags: <p>Tags to associate with the PII entities detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -4813,18 +4813,18 @@ class AsyncComprehendClient:
         vpc_config: Optional["capo_comprehend.types.vpc_config.VpcConfig"] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.start_sentiment_detection_job_response.StartSentimentDetectionJobResponse":
-        r"""<p>Starts an asynchronous sentiment detection job for a collection of documents. Use the operation to track the status of a job.</p>
+        """<p>Starts an asynchronous sentiment detection job for a collection of documents. Use the operation to track the status of a job.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies where to send the output files. </p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions\">Role-based permissions</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions">Role-based permissions</a>.</p>
             job_name: <p>The identifier of the job.</p>
             language_code: <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.</p>
-            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your sentiment detection job. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>
-            tags: <p>Tags to associate with the sentiment detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your sentiment detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+            tags: <p>Tags to associate with the sentiment detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -4894,16 +4894,16 @@ class AsyncComprehendClient:
         vpc_config: Optional["capo_comprehend.types.vpc_config.VpcConfig"] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.start_targeted_sentiment_detection_job_response.StartTargetedSentimentDetectionJobResponse":
-        r"""<p>Starts an asynchronous targeted sentiment detection job for a collection of documents. Use the <code>DescribeTargetedSentimentDetectionJob</code> operation to track the status of a job.</p>
+        """<p>Starts an asynchronous targeted sentiment detection job for a collection of documents. Use the <code>DescribeTargetedSentimentDetectionJob</code> operation to track the status of a job.</p>
 
         Args:
             output_data_config: <p>Specifies where to send the output files. </p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions\">Role-based permissions</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions">Role-based permissions</a>.</p>
             job_name: <p>The identifier of the job.</p>
             language_code: <p>The language of the input documents. Currently, English is the only supported language.</p>
             client_request_token: <p>A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.</p>
-            volume_kms_key_id: <p>ID for the KMS key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            tags: <p>Tags to associate with the targeted sentiment detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            volume_kms_key_id: <p>ID for the KMS key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            tags: <p>Tags to associate with the targeted sentiment detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -4975,18 +4975,18 @@ class AsyncComprehendClient:
         vpc_config: Optional["capo_comprehend.types.vpc_config.VpcConfig"] = None,
         tags: Optional["capo_comprehend.types.tag_list.TagList"] = None,
     ) -> "capo_comprehend.types.start_topics_detection_job_response.StartTopicsDetectionJobResponse":
-        r"""<p>Starts an asynchronous topic detection job. Use the <code>DescribeTopicDetectionJob</code> operation to track the status of a job.</p>
+        """<p>Starts an asynchronous topic detection job. Use the <code>DescribeTopicDetectionJob</code> operation to track the status of a job.</p>
 
         Args:
             input_data_config: <p>Specifies the format and location of the input data for the job.</p>
             output_data_config: <p>Specifies where to send the output files. The output is a compressed archive with two files, <code>topic-terms.csv</code> that lists the terms associated with each topic, and <code>doc-topics.csv</code> that lists the documents associated with each topic</p>
-            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions\">Role-based permissions</a>.</p>
+            data_access_role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For more information, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions">Role-based permissions</a>.</p>
             job_name: <p>The identifier of the job.</p>
             number_of_topics: <p>The number of topics to detect.</p>
             client_request_token: <p>A unique identifier for the request. If you do not set the client request token, Amazon Comprehend generates one.</p>
-            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>
-            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your topic detection job. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html\">Amazon VPC</a>. </p>
-            tags: <p>Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department.</p>
+            volume_kms_key_id: <p>ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p> <ul> <li> <p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> <li> <p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code> </p> </li> </ul>
+            vpc_config: <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your topic detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+            tags: <p>Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.</p>
 
         Raises:
             capo_comprehend.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Retry your request.</p>
@@ -5464,7 +5464,7 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Associates a specific tag with an Amazon Comprehend resource. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department. </p>
+        """<p>Associates a specific tag with an Amazon Comprehend resource. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department. </p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the given Amazon Comprehend resource to which you want to associate the tags. </p>
@@ -5515,11 +5515,11 @@ class AsyncComprehendClient:
         *,
         config_overrides: Optional[AsyncComprehendClientConfig] = None,
     ) -> "capo_comprehend.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Removes a specific tag associated with an Amazon Comprehend resource. </p>
+        """<p>Removes a specific tag associated with an Amazon Comprehend resource. </p>
 
         Args:
             resource_arn: <p> The Amazon Resource Name (ARN) of the given Amazon Comprehend resource from which you want to remove the tags. </p>
-            tag_keys: <p>The initial part of a key-value pair that forms a tag being removed from a given resource. For example, a tag with \"Sales\" as the key might be added to a resource to indicate its use by the sales department. Keys must be unique and cannot be duplicated for a particular resource. </p>
+            tag_keys: <p>The initial part of a key-value pair that forms a tag being removed from a given resource. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department. Keys must be unique and cannot be duplicated for a particular resource. </p>
 
         Raises:
             capo_comprehend.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Concurrent modification of the tags associated with an Amazon Comprehend resource is not supported. </p>
@@ -5577,7 +5577,7 @@ class AsyncComprehendClient:
             "capo_comprehend.types.comprehend_flywheel_arn.ComprehendFlywheelArn"
         ] = None,
     ) -> "capo_comprehend.types.update_endpoint_response.UpdateEndpointResponse":
-        r"""<p>Updates information about the specified endpoint. For information about endpoints, see <a href=\"https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html\">Managing endpoints</a>.</p>
+        """<p>Updates information about the specified endpoint. For information about endpoints, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.</p>
 
         Args:
             endpoint_arn: <p>The Amazon Resource Number (ARN) of the endpoint being updated.</p>

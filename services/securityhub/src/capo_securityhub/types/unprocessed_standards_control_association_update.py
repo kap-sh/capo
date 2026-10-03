@@ -14,7 +14,7 @@ class UnprocessedStandardsControlAssociationUpdate(TypedDict, closed=True):
     standards_control_association_update: NotRequired[
         "capo_securityhub.types.standards_control_association_update.StandardsControlAssociationUpdate"
     ]
-    r"""<p>An array of control and standard associations for which an update failed when calling <a href=\"https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateStandardsControlAssociations.html\">BatchUpdateStandardsControlAssociations</a>. </p>"""
+    """<p>An array of control and standard associations for which an update failed when calling <a href="https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_BatchUpdateStandardsControlAssociations.html">BatchUpdateStandardsControlAssociations</a>. </p>"""
     error_code: NotRequired[
         "capo_securityhub.types.unprocessed_error_code.UnprocessedErrorCode"
     ]

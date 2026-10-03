@@ -41,7 +41,7 @@ class Recommender(TypedDict, closed=True):
     ]
     """<p>Provides a summary of the latest updates to the recommender. </p>"""
     model_metrics: NotRequired["capo_personalize.types.metrics.Metrics"]
-    r"""<p>Provides evaluation metrics that help you determine the performance of a recommender. For more information, see <a href=\"https://docs.aws.amazon.com/personalize/latest/dg/evaluating-recommenders.html\"> Evaluating a recommender</a>.</p>"""
+    """<p>Provides evaluation metrics that help you determine the performance of a recommender. For more information, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/evaluating-recommenders.html"> Evaluating a recommender</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

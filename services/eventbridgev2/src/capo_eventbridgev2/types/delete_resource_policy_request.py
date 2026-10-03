@@ -15,11 +15,11 @@ if TYPE_CHECKING:
 class DeleteResourcePolicyRequest(TypedDict, closed=True):
     resource_arn: "capo_eventbridgev2.types.event_bus_arn.EventBusArn"
     policy_name: NotRequired["capo_eventbridgev2.types.policy_name.PolicyName"]
-    r"""Which named policy to delete. Defaults to \"default\" when omitted (a delete AWS Resource Access Manager makes on the owner's behalf resolves to \"AWS_RAM\" instead). The two writers are exclusive in both directions — only Resource Access Manager can delete \"AWS_RAM\", and only the bus owner can delete \"default\" — so naming the other party's policy fails with AccessDeniedException. A well-formed name that is neither of the two fails with InvalidInputException."""
+    """Which named policy to delete. Defaults to "default" when omitted (a delete AWS Resource Access Manager makes on the owner's behalf resolves to "AWS_RAM" instead). The two writers are exclusive in both directions — only Resource Access Manager can delete "AWS_RAM", and only the bus owner can delete "default" — so naming the other party's policy fails with AccessDeniedException. A well-formed name that is neither of the two fails with InvalidInputException."""
     expected_revision_id: NotRequired[
         "capo_eventbridgev2.types.policy_revision_id.PolicyRevisionId"
     ]
-    r"""The delete succeeds only if the named policy's current revision ID matches this value; if it differs or the policy does not exist, the operation fails with ConflictException. The \"NO_POLICY\" sentinel is not valid here. When omitted, deleting an absent policy is an idempotent success. Supplying this value makes the delete non-idempotent: once it succeeds the expected revision no longer exists, so retrying an unanswered request fails with ConflictException even though the policy was deleted. To establish the outcome, read the policy back: ResourceNotFoundException means the delete took effect."""
+    """The delete succeeds only if the named policy's current revision ID matches this value; if it differs or the policy does not exist, the operation fails with ConflictException. The "NO_POLICY" sentinel is not valid here. When omitted, deleting an absent policy is an idempotent success. Supplying this value makes the delete non-idempotent: once it succeeds the expected revision no longer exists, so retrying an unanswered request fails with ConflictException even though the policy was deleted. To establish the outcome, read the policy back: ResourceNotFoundException means the delete took effect."""
 
 
 # --- rpcv2Cbor ser/de ---

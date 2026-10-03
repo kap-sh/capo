@@ -26,7 +26,7 @@ class CreatePipeResponse(TypedDict, closed=True):
     creation_time: NotRequired["capo_pipes.types.timestamp.Timestamp"]
     """<p>The time the pipe was created.</p>"""
     last_modified_time: NotRequired["capo_pipes.types.timestamp.Timestamp"]
-    r"""<p>When the pipe was last updated, in <a href=\"https://www.w3.org/TR/NOTE-datetime\">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
+    """<p>When the pipe was last updated, in <a href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -19,7 +19,7 @@ class LambdaFunctionConfiguration(TypedDict, closed=True):
     lambda_function_arn: "capo_s3.types.lambda_function_arn.LambdaFunctionArn"
     """<p>The Amazon Resource Name (ARN) of the Lambda function that Amazon S3 invokes when the specified event type occurs.</p>"""
     events: "capo_s3.types.event_list.EventList"
-    r"""<p>The Amazon S3 bucket event for which to invoke the Lambda function. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html\">Supported Event Types</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The Amazon S3 bucket event for which to invoke the Lambda function. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Supported Event Types</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     filter: NotRequired[
         "capo_s3.types.notification_configuration_filter.NotificationConfigurationFilter"
     ]

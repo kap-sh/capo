@@ -14,7 +14,7 @@ class ServerProcess(TypedDict, closed=True):
     launch_path: NotRequired[
         "capo_gamelift.types.launch_path_string_model.LaunchPathStringModel"
     ]
-    r"""<p>The location of a game build executable or Realtime script. Game builds and Realtime scripts are installed on instances at the root: </p> <ul> <li> <p>Windows (custom game builds only): <code>C:\game</code>. Example: \"<code>C:\game\MyGame\server.exe</code>\" </p> </li> <li> <p>Linux: <code>/local/game</code>. Examples: \"<code>/local/game/MyGame/server.exe</code>\" or \"<code>/local/game/MyRealtimeScript.js</code>\"</p> </li> </ul> <note> <p>Amazon GameLift Servers doesn't support the use of setup scripts that launch the game executable. For custom game builds, this parameter must indicate the executable that calls the server SDK operations <code>initSDK()</code> and <code>ProcessReady()</code>. </p> </note>"""
+    r"""<p>The location of a game build executable or Realtime script. Game builds and Realtime scripts are installed on instances at the root: </p> <ul> <li> <p>Windows (custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>" </p> </li> <li> <p>Linux: <code>/local/game</code>. Examples: "<code>/local/game/MyGame/server.exe</code>" or "<code>/local/game/MyRealtimeScript.js</code>"</p> </li> </ul> <note> <p>Amazon GameLift Servers doesn't support the use of setup scripts that launch the game executable. For custom game builds, this parameter must indicate the executable that calls the server SDK operations <code>initSDK()</code> and <code>ProcessReady()</code>. </p> </note>"""
     parameters: NotRequired[
         "capo_gamelift.types.launch_parameters_string_model.LaunchParametersStringModel"
     ]

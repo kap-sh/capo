@@ -24,13 +24,13 @@ class RestoreRequest(TypedDict, closed=True):
     ]
     """<p>S3 Glacier related parameters pertaining to this job. Do not use with restores that specify <code>OutputLocation</code>.</p>"""
     type: NotRequired["capo_s3.types.restore_request_type.RestoreRequestType"]
-    r"""<important> <p>Amazon S3 Select is no longer available to new customers. Existing customers of Amazon S3 Select can continue to use the feature as usual. <a href=\"http://aws.amazon.com/blogs/storage/how-to-optimize-querying-your-data-in-amazon-s3/\">Learn more</a> </p> </important> <p>Type of restore request.</p>"""
+    """<important> <p>Amazon S3 Select is no longer available to new customers. Existing customers of Amazon S3 Select can continue to use the feature as usual. <a href="http://aws.amazon.com/blogs/storage/how-to-optimize-querying-your-data-in-amazon-s3/">Learn more</a> </p> </important> <p>Type of restore request.</p>"""
     tier: NotRequired["capo_s3.types.tier.Tier"]
     """<p>Retrieval tier at which the restore will be processed.</p>"""
     description: NotRequired["capo_s3.types.description.Description"]
     """<p>The optional description for the job.</p>"""
     select_parameters: NotRequired["capo_s3.types.select_parameters.SelectParameters"]
-    r"""<important> <p>Amazon S3 Select is no longer available to new customers. Existing customers of Amazon S3 Select can continue to use the feature as usual. <a href=\"http://aws.amazon.com/blogs/storage/how-to-optimize-querying-your-data-in-amazon-s3/\">Learn more</a> </p> </important> <p>Describes the parameters for Select job types.</p>"""
+    """<important> <p>Amazon S3 Select is no longer available to new customers. Existing customers of Amazon S3 Select can continue to use the feature as usual. <a href="http://aws.amazon.com/blogs/storage/how-to-optimize-querying-your-data-in-amazon-s3/">Learn more</a> </p> </important> <p>Describes the parameters for Select job types.</p>"""
     output_location: NotRequired["capo_s3.types.output_location.OutputLocation"]
     """<p>Describes the location where the restore job's output is stored.</p>"""
 

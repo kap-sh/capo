@@ -21,7 +21,7 @@ class CreateMLModelInput(TypedDict, closed=True):
     ml_model_name: NotRequired["capo_machine_learning.types.entity_name.EntityName"]
     """<p>A user-supplied name or description of the <code>MLModel</code>.</p>"""
     ml_model_type: "capo_machine_learning.types.ml_model_type.MLModelType"
-    r"""<p>The category of supervised learning that this <code>MLModel</code> will address. Choose from the following types:</p> <ul> <li> <p>Choose <code>REGRESSION</code> if the <code>MLModel</code> will be used to predict a numeric value.</p> </li> <li> <p>Choose <code>BINARY</code> if the <code>MLModel</code> result has two possible values.</p> </li> <li> <p>Choose <code>MULTICLASS</code> if the <code>MLModel</code> result has a limited number of values.</p> </li> </ul> <p> For more information, see the <a href=\"https://docs.aws.amazon.com/machine-learning/latest/dg\">Amazon Machine Learning Developer Guide</a>.</p>"""
+    """<p>The category of supervised learning that this <code>MLModel</code> will address. Choose from the following types:</p> <ul> <li> <p>Choose <code>REGRESSION</code> if the <code>MLModel</code> will be used to predict a numeric value.</p> </li> <li> <p>Choose <code>BINARY</code> if the <code>MLModel</code> result has two possible values.</p> </li> <li> <p>Choose <code>MULTICLASS</code> if the <code>MLModel</code> result has a limited number of values.</p> </li> </ul> <p> For more information, see the <a href="https://docs.aws.amazon.com/machine-learning/latest/dg">Amazon Machine Learning Developer Guide</a>.</p>"""
     parameters: NotRequired[
         "capo_machine_learning.types.training_parameters.TrainingParameters"
     ]

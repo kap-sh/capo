@@ -30,7 +30,7 @@ class CreateVerifiedDestinationNumberResult(TypedDict, closed=True):
     tags: NotRequired["capo_pinpoint_sms_voice_v2.types.tag_list.TagList"]
     """<p>An array of tags (key and value pairs) to associate with the destination number.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the verified phone number was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the verified phone number was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

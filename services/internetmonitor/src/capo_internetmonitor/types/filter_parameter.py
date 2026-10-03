@@ -15,7 +15,7 @@ class FilterParameter(TypedDict, closed=True):
     operator: NotRequired["capo_internetmonitor.types.operator.Operator"]
     """<p>The operator to use with the filter field and a value, such as <code>not_equals</code>.</p>"""
     values: NotRequired["capo_internetmonitor.types.filter_list.FilterList"]
-    r"""<p>One or more values to be used, together with the specified operator, to filter data for a query. For example, you could specify an array of values such as <code>[\"Seattle\", \"Redmond\"]</code>. Values in the array are separated by commas.</p>"""
+    """<p>One or more values to be used, together with the specified operator, to filter data for a query. For example, you could specify an array of values such as <code>["Seattle", "Redmond"]</code>. Values in the array are separated by commas.</p>"""
 
 
 # --- restJson1 ser/de ---

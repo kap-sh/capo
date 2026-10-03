@@ -20,7 +20,7 @@ class TimecodeBurnin(TypedDict, closed=True):
     ]
     """Use Position under Timecode burn-in to specify the location the burned-in timecode on output video."""
     prefix: NotRequired["capo_mediaconvert.types.__string_pattern.__stringPattern"]
-    r"""Use Prefix to place ASCII characters before any burned-in timecode. For example, a prefix of \"EZ-\" will result in the timecode \"EZ-00:00:00:00\". Provide either the characters themselves or the ASCII code equivalents. The supported range of characters is 0x20 through 0x7e. This includes letters, numbers, and all special characters represented on a standard English keyboard."""
+    """Use Prefix to place ASCII characters before any burned-in timecode. For example, a prefix of "EZ-" will result in the timecode "EZ-00:00:00:00". Provide either the characters themselves or the ASCII code equivalents. The supported range of characters is 0x20 through 0x7e. This includes letters, numbers, and all special characters represented on a standard English keyboard."""
 
 
 # --- restJson1 ser/de ---

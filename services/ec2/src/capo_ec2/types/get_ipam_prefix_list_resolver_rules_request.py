@@ -24,7 +24,7 @@ class GetIpamPrefixListResolverRulesRequest(TypedDict, closed=True):
     filters: NotRequired["capo_ec2.types.filter_list.FilterList"]
     """<p>One or more filters to limit the results.</p>"""
     max_results: NotRequired["capo_ec2.types.ipam_max_results.IpamMaxResults"]
-    r"""<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination\">Pagination</a>.</p>"""
+    """<p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>"""
     next_token: NotRequired["capo_ec2.types.next_token.NextToken"]
     """<p>The token for the next page of results.</p>"""
 

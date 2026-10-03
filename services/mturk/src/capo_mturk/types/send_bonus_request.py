@@ -18,7 +18,7 @@ class SendBonusRequest(TypedDict, closed=True):
     worker_id: "capo_mturk.types.customer_id.CustomerId"
     """<p>The ID of the Worker being paid the bonus.</p>"""
     bonus_amount: "capo_mturk.types.currency_amount.CurrencyAmount"
-    r"""<p> The Bonus amount is a US Dollar amount specified using a string (for example, \"5\" represents $5.00 USD and \"101.42\" represents $101.42 USD). Do not include currency symbols or currency codes. </p>"""
+    """<p> The Bonus amount is a US Dollar amount specified using a string (for example, "5" represents $5.00 USD and "101.42" represents $101.42 USD). Do not include currency symbols or currency codes. </p>"""
     assignment_id: "capo_mturk.types.entity_id.EntityId"
     """<p>The ID of the assignment for which this bonus is paid.</p>"""
     reason: "capo_mturk.types.string.String"

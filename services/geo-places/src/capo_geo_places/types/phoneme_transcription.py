@@ -14,7 +14,7 @@ class PhonemeTranscription(TypedDict, closed=True):
     value: NotRequired["capo_geo_places.types.sensitive_string.SensitiveString"]
     """<p>Value which indicates how to pronounce the value.</p>"""
     language: NotRequired["capo_geo_places.types.language_tag.LanguageTag"]
-    r"""<p>A list of <a href=\"https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\">BCP 47</a> compliant language codes for the results to be rendered in. If there is no data for the result in the requested language, data will be returned in the default language for the entry.</p>"""
+    """<p>A list of <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">BCP 47</a> compliant language codes for the results to be rendered in. If there is no data for the result in the requested language, data will be returned in the default language for the entry.</p>"""
     preferred: NotRequired["capo_geo_places.types.sensitive_boolean.SensitiveBoolean"]
     """<p>Boolean which indicates if it the preferred pronunciation.</p>"""
 

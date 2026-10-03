@@ -979,7 +979,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         set_as_active: Optional["capo_iot.types.set_as_active.SetAsActive"] = None,
     ) -> None:
-        r"""<p>Accepts a pending certificate transfer. The default state of the certificate is INACTIVE.</p> <p>To check for pending certificate transfers, call <a>ListCertificates</a> to enumerate your certificates.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AcceptCertificateTransfer</a> action.</p>
+        """<p>Accepts a pending certificate transfer. The default state of the certificate is INACTIVE.</p> <p>To check for pending certificate transfers, call <a>ListCertificates</a> to enumerate your certificates.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AcceptCertificateTransfer</a> action.</p>
 
         Args:
             certificate_id: <p>The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)</p>
@@ -1037,7 +1037,7 @@ class AsyncIoTClient:
         thing_name: Optional["capo_iot.types.thing_name.ThingName"] = None,
         thing_arn: Optional["capo_iot.types.thing_arn.ThingArn"] = None,
     ) -> "capo_iot.types.add_thing_to_billing_group_response.AddThingToBillingGroupResponse":
-        r"""<p>Adds a thing to a billing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AddThingToBillingGroup</a> action.</p>
+        """<p>Adds a thing to a billing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AddThingToBillingGroup</a> action.</p>
 
         Args:
             billing_group_name: <p>The name of the billing group.</p> <note> <p>This call is asynchronous. It might take several seconds for the detachment to propagate.</p> </note>
@@ -1105,7 +1105,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.add_thing_to_thing_group_response.AddThingToThingGroupResponse"
     ):
-        r"""<p>Adds a thing to a thing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AddThingToThingGroup</a> action.</p>
+        """<p>Adds a thing to a thing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AddThingToThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The name of the group to which you are adding a thing.</p>
@@ -1167,7 +1167,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
     ) -> "capo_iot.types.associate_sbom_with_package_version_response.AssociateSbomWithPackageVersionResponse":
-        r"""<p>Associates the selected software bill of materials (SBOM) with a specific software package version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AssociateSbomWithPackageVersion</a> action.</p>
+        """<p>Associates the selected software bill of materials (SBOM) with a specific software package version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AssociateSbomWithPackageVersion</a> action.</p>
 
         Args:
             package_name: <p>The name of the new software package.</p>
@@ -1226,13 +1226,13 @@ class AsyncIoTClient:
         comment: Optional["capo_iot.types.comment.Comment"] = None,
         namespace_id: Optional["capo_iot.types.namespace_id.NamespaceId"] = None,
     ) -> "capo_iot.types.associate_targets_with_job_response.AssociateTargetsWithJobResponse":
-        r"""<p>Associates a group with a continuous job. The following criteria must be met: </p> <ul> <li> <p>The job must have been created with the <code>targetSelection</code> field set to \"CONTINUOUS\".</p> </li> <li> <p>The job status must currently be \"IN_PROGRESS\".</p> </li> <li> <p>The total number of targets associated with a job must not exceed 100.</p> </li> </ul> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AssociateTargetsWithJob</a> action.</p>
+        """<p>Associates a group with a continuous job. The following criteria must be met: </p> <ul> <li> <p>The job must have been created with the <code>targetSelection</code> field set to "CONTINUOUS".</p> </li> <li> <p>The job status must currently be "IN_PROGRESS".</p> </li> <li> <p>The total number of targets associated with a job must not exceed 100.</p> </li> </ul> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AssociateTargetsWithJob</a> action.</p>
 
         Args:
             targets: <p>A list of thing group ARNs that define the targets of the job.</p>
             job_id: <p>The unique identifier you assigned to this job when it was created.</p>
             comment: <p>An optional comment string describing why the job was associated with the targets.</p>
-            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>
+            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>
 
         Raises:
             capo_iot.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
@@ -1283,11 +1283,11 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Attaches the specified policy to the specified principal (certificate or other credential).</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AttachPolicy</a> action.</p>
+        """<p>Attaches the specified policy to the specified principal (certificate or other credential).</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AttachPolicy</a> action.</p>
 
         Args:
             policy_name: <p>The name of the policy to attach.</p>
-            target: <p>The <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html\">identity</a> to which the policy is attached. For example, a thing group or a certificate.</p>
+            target: <p>The <a href="https://docs.aws.amazon.com/iot/latest/developerguide/security-iam.html">identity</a> to which the policy is attached. For example, a thing group or a certificate.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -1334,7 +1334,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Attaches the specified policy to the specified principal (certificate or other credential).</p> <p> <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add enhancements. Use <a>AttachPolicy</a> instead.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AttachPrincipalPolicy</a> action.</p>
+        """<p>Attaches the specified policy to the specified principal (certificate or other credential).</p> <p> <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add enhancements. Use <a>AttachPolicy</a> instead.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AttachPrincipalPolicy</a> action.</p>
 
         Args:
             policy_name: <p>The policy name.</p>
@@ -1387,7 +1387,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.attach_security_profile_response.AttachSecurityProfileResponse"
     ):
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Associates a Device Defender security profile with a thing group or this account. Each thing group or account can have up to five security profiles associated with it.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AttachSecurityProfile</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Associates a Device Defender security profile with a thing group or this account. Each thing group or account can have up to five security profiles associated with it.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AttachSecurityProfile</a> action.</p>
 
         Args:
             security_profile_name: <p>The security profile that is attached.</p>
@@ -1442,7 +1442,7 @@ class AsyncIoTClient:
             "capo_iot.types.thing_principal_type.ThingPrincipalType"
         ] = None,
     ) -> "capo_iot.types.attach_thing_principal_response.AttachThingPrincipalResponse":
-        r"""<p>Attaches the specified principal to the specified thing. A principal can be X.509 certificates, Amazon Cognito identities or federated identities.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">AttachThingPrincipal</a> action.</p>
+        """<p>Attaches the specified principal to the specified thing. A principal can be X.509 certificates, Amazon Cognito identities or federated identities.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">AttachThingPrincipal</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing.</p>
@@ -1496,7 +1496,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.cancel_audit_mitigation_actions_task_response.CancelAuditMitigationActionsTaskResponse":
-        r"""<p>Cancels a mitigation action task that is in progress. If the task is not in progress, an InvalidRequestException occurs.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CancelAuditMitigationActionsTask</a> action.</p>
+        """<p>Cancels a mitigation action task that is in progress. If the task is not in progress, an InvalidRequestException occurs.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CancelAuditMitigationActionsTask</a> action.</p>
 
         Args:
             task_id: <p>The unique identifier for the task that you want to cancel. </p>
@@ -1543,10 +1543,10 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.cancel_audit_task_response.CancelAuditTaskResponse":
-        r"""<p>Cancels an audit that is in progress. The audit can be either scheduled or on demand. If the audit isn't in progress, an \"InvalidRequestException\" occurs.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CancelAuditTask</a> action.</p>
+        """<p>Cancels an audit that is in progress. The audit can be either scheduled or on demand. If the audit isn't in progress, an "InvalidRequestException" occurs.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CancelAuditTask</a> action.</p>
 
         Args:
-            task_id: <p>The ID of the audit you want to cancel. You can only cancel an audit that is \"IN_PROGRESS\".</p>
+            task_id: <p>The ID of the audit you want to cancel. You can only cancel an audit that is "IN_PROGRESS".</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -1590,7 +1590,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Cancels a pending transfer for the specified certificate.</p> <p> <b>Note</b> Only the transfer source account can use this operation to cancel a transfer. (Transfer destinations can use <a>RejectCertificateTransfer</a> instead.) After transfer, IoT returns the certificate to the source account in the INACTIVE state. After the destination account has accepted the transfer, the transfer cannot be cancelled.</p> <p>After a certificate transfer is cancelled, the status of the certificate changes from PENDING_TRANSFER to INACTIVE.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CancelCertificateTransfer</a> action.</p>
+        """<p>Cancels a pending transfer for the specified certificate.</p> <p> <b>Note</b> Only the transfer source account can use this operation to cancel a transfer. (Transfer destinations can use <a>RejectCertificateTransfer</a> instead.) After transfer, IoT returns the certificate to the source account in the INACTIVE state. After the destination account has accepted the transfer, the transfer cannot be cancelled.</p> <p>After a certificate transfer is cancelled, the status of the certificate changes from PENDING_TRANSFER to INACTIVE.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CancelCertificateTransfer</a> action.</p>
 
         Args:
             certificate_id: <p>The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)</p>
@@ -1638,7 +1638,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.cancel_detect_mitigation_actions_task_response.CancelDetectMitigationActionsTaskResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Cancels a Device Defender ML Detect mitigation action. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CancelDetectMitigationActionsTask</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Cancels a Device Defender ML Detect mitigation action. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CancelDetectMitigationActionsTask</a> action.</p>
 
         Args:
             task_id: <p> The unique identifier of the task. </p>
@@ -1688,13 +1688,13 @@ class AsyncIoTClient:
         comment: Optional["capo_iot.types.comment.Comment"] = None,
         force: Optional["capo_iot.types.force_flag.ForceFlag"] = None,
     ) -> "capo_iot.types.cancel_job_response.CancelJobResponse":
-        r"""<p>Cancels a job.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CancelJob</a> action.</p>
+        """<p>Cancels a job.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CancelJob</a> action.</p>
 
         Args:
             job_id: <p>The unique identifier you assigned to this job when it was created.</p>
             reason_code: <p>(Optional)A reason code string that explains why the job was canceled.</p>
             comment: <p>An optional comment string describing why the job was canceled.</p>
-            force: <p>(Optional) If <code>true</code> job executions with status \"IN_PROGRESS\" and \"QUEUED\" are canceled, otherwise only job executions with status \"QUEUED\" are canceled. The default is <code>false</code>.</p> <p>Canceling a job which is \"IN_PROGRESS\", will cause a device which is executing the job to be unable to update the job execution status. Use caution and ensure that each device executing a job which is canceled is able to recover to a valid state.</p>
+            force: <p>(Optional) If <code>true</code> job executions with status "IN_PROGRESS" and "QUEUED" are canceled, otherwise only job executions with status "QUEUED" are canceled. The default is <code>false</code>.</p> <p>Canceling a job which is "IN_PROGRESS", will cause a device which is executing the job to be unable to update the job execution status. Use caution and ensure that each device executing a job which is canceled is able to recover to a valid state.</p>
 
         Raises:
             capo_iot.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
@@ -1749,18 +1749,18 @@ class AsyncIoTClient:
         ] = None,
         status_details: Optional["capo_iot.types.details_map.DetailsMap"] = None,
     ) -> None:
-        r"""<p>Cancels the execution of a job for a given thing.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CancelJobExecution</a> action.</p>
+        """<p>Cancels the execution of a job for a given thing.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CancelJobExecution</a> action.</p>
 
         Args:
             job_id: <p>The ID of the job to be canceled.</p>
             thing_name: <p>The name of the thing whose execution of the job will be canceled.</p>
-            force: <p>(Optional) If <code>true</code> the job execution will be canceled if it has status IN_PROGRESS or QUEUED, otherwise the job execution will be canceled only if it has status QUEUED. If you attempt to cancel a job execution that is IN_PROGRESS, and you do not set <code>force</code> to <code>true</code>, then an <code>InvalidStateTransitionException</code> will be thrown. The default is <code>false</code>.</p> <p>Canceling a job execution which is \"IN_PROGRESS\", will cause the device to be unable to update the job execution status. Use caution and ensure that the device is able to recover to a valid state.</p>
+            force: <p>(Optional) If <code>true</code> the job execution will be canceled if it has status IN_PROGRESS or QUEUED, otherwise the job execution will be canceled only if it has status QUEUED. If you attempt to cancel a job execution that is IN_PROGRESS, and you do not set <code>force</code> to <code>true</code>, then an <code>InvalidStateTransitionException</code> will be thrown. The default is <code>false</code>.</p> <p>Canceling a job execution which is "IN_PROGRESS", will cause the device to be unable to update the job execution status. Use caution and ensure that the device is able to recover to a valid state.</p>
             expected_version: <p>(Optional) The expected current version of the job execution. Each time you update the job execution, its version is incremented. If the version of the job execution stored in Jobs does not match, the update is rejected with a VersionMismatch error, and an ErrorResponse that contains the current job execution status data is returned. (This makes it unnecessary to perform a separate DescribeJobExecution request in order to obtain the job execution status data.)</p>
             status_details: <p>A collection of name/value pairs that describe the status of the job execution. If not specified, the statusDetails are unchanged. You can specify at most 10 name/value pairs.</p>
 
         Raises:
             capo_iot.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
-            capo_iot.errors.invalid_state_transition_exception.InvalidStateTransitionException: <p>An attempt was made to change to an invalid state, for example by deleting a job or a job execution which is \"IN_PROGRESS\" without setting the <code>force</code> parameter.</p>
+            capo_iot.errors.invalid_state_transition_exception.InvalidStateTransitionException: <p>An attempt was made to change to an invalid state, for example by deleting a job or a job execution which is "IN_PROGRESS" without setting the <code>force</code> parameter.</p>
             capo_iot.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
             capo_iot.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is temporarily unavailable.</p>
             capo_iot.errors.throttling_exception.ThrottlingException: <p>The rate exceeds the limit.</p>
@@ -1804,7 +1804,7 @@ class AsyncIoTClient:
     async def clear_default_authorizer(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.clear_default_authorizer_response.ClearDefaultAuthorizerResponse":
-        r"""<p>Clears the default authorizer.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ClearDefaultAuthorizer</a> action.</p>
+        """<p>Clears the default authorizer.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ClearDefaultAuthorizer</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -1848,7 +1848,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.confirm_topic_rule_destination_response.ConfirmTopicRuleDestinationResponse":
-        r"""<p>Confirms a topic rule destination. When you create a rule requiring a destination, IoT sends a confirmation message to the endpoint or base address you specify. The message includes a token which you pass back when calling <code>ConfirmTopicRuleDestination</code> to confirm that you own or have access to the endpoint.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ConfirmTopicRuleDestination</a> action.</p>
+        """<p>Confirms a topic rule destination. When you create a rule requiring a destination, IoT sends a confirmation message to the endpoint or base address you specify. The message includes a token which you pass back when calling <code>ConfirmTopicRuleDestination</code> to confirm that you own or have access to the endpoint.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ConfirmTopicRuleDestination</a> action.</p>
 
         Args:
             confirmation_token: <p>The token used to confirm ownership or access to the topic rule confirmation URL.</p>
@@ -1905,7 +1905,7 @@ class AsyncIoTClient:
             "capo_iot.types.audit_description.AuditDescription"
         ] = None,
     ) -> "capo_iot.types.create_audit_suppression_response.CreateAuditSuppressionResponse":
-        r"""<p> Creates a Device Defender audit suppression. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateAuditSuppression</a> action.</p>
+        """<p> Creates a Device Defender audit suppression. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateAuditSuppression</a> action.</p>
 
         Args:
             expiration_date: <p> The epoch timestamp in seconds at which this suppression expires. </p>
@@ -1975,7 +1975,7 @@ class AsyncIoTClient:
             "capo_iot.types.enable_caching_for_http.EnableCachingForHttp"
         ] = None,
     ) -> "capo_iot.types.create_authorizer_response.CreateAuthorizerResponse":
-        r"""<p>Creates an authorizer.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateAuthorizer</a> action.</p>
+        """<p>Creates an authorizer.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateAuthorizer</a> action.</p>
 
         Args:
             authorizer_name: <p>The authorizer name.</p>
@@ -1983,7 +1983,7 @@ class AsyncIoTClient:
             token_key_name: <p>The name of the token key used to extract the token from the HTTP headers.</p>
             token_signing_public_keys: <p>The public keys used to verify the digital signature returned by your custom authentication service.</p>
             status: <p>The status of the create authorizer request.</p>
-            tags: <p>Metadata which can be used to manage the custom authorizer.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags \"key1=value1&key2=value2...\"</p> <p>For the cli-input-json file use format: \"tags\": \"key1=value1&key2=value2...\"</p> </note>
+            tags: <p>Metadata which can be used to manage the custom authorizer.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags "key1=value1&key2=value2..."</p> <p>For the cli-input-json file use format: "tags": "key1=value1&key2=value2..."</p> </note>
             signing_disabled: <p>Specifies whether IoT validates the token signature in an authorization request.</p>
             enable_caching_for_http: <p>When <code>true</code>, the result from the authorizer’s Lambda function is cached for clients that use persistent HTTP connections. The results are cached for the time specified by the Lambda function in <code>refreshAfterInSeconds</code>. This value does not affect authorization of clients that use MQTT connections.</p> <p>The default value is <code>false</code>.</p>
 
@@ -2049,7 +2049,7 @@ class AsyncIoTClient:
         ] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_billing_group_response.CreateBillingGroupResponse":
-        r"""<p>Creates a billing group. If this call is made multiple times using the same billing group name and configuration, the call will succeed. If this call is made with the same billing group name but different configuration a <code>ResourceAlreadyExistsException</code> is thrown.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateBillingGroup</a> action.</p>
+        """<p>Creates a billing group. If this call is made multiple times using the same billing group name and configuration, the call will succeed. If this call is made with the same billing group name but different configuration a <code>ResourceAlreadyExistsException</code> is thrown.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateBillingGroup</a> action.</p>
 
         Args:
             billing_group_name: <p>The name you wish to give to the billing group.</p>
@@ -2103,7 +2103,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         set_as_active: Optional["capo_iot.types.set_as_active.SetAsActive"] = None,
     ) -> "capo_iot.types.create_certificate_from_csr_response.CreateCertificateFromCsrResponse":
-        r"""<p>Creates an X.509 certificate using the specified certificate signing request. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateCertificateFromCsr</a> action. </p> <note> <p>The CSR must include a public key that is either an RSA key with a length of at least 2048 bits or an ECC key from NIST P-256, NIST P-384, or NIST P-521 curves. For supported certificates, consult <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html#x509-cert-algorithms\"> Certificate signing algorithms supported by IoT</a>. </p> </note> <note> <p>Reusing the same certificate signing request (CSR) results in a distinct certificate.</p> </note> <p>You can create multiple certificates in a batch by creating a directory, copying multiple <code>.csr</code> files into that directory, and then specifying that directory on the command line. The following commands show how to create a batch of certificates given a batch of CSRs. In the following commands, we assume that a set of CSRs are located inside of the directory my-csr-directory:</p> <p>On Linux and OS X, the command is: </p> <p> <code>$ ls my-csr-directory/ | xargs -I {} aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/{}</code> </p> <p>This command lists all of the CSRs in my-csr-directory and pipes each CSR file name to the <code>aws iot create-certificate-from-csr</code> Amazon Web Services CLI command to create a certificate for the corresponding CSR. </p> <p>You can also run the <code>aws iot create-certificate-from-csr</code> part of the command in parallel to speed up the certificate creation process:</p> <p> <code>$ ls my-csr-directory/ | xargs -P 10 -I {} aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/{} </code> </p> <p>On Windows PowerShell, the command to create certificates for all CSRs in my-csr-directory is:</p> <p> <code>> ls -Name my-csr-directory | %{aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/$_} </code> </p> <p>On a Windows command prompt, the command to create certificates for all CSRs in my-csr-directory is:</p> <p> <code>> forfiles /p my-csr-directory /c \"cmd /c aws iot create-certificate-from-csr --certificate-signing-request file://@path\" </code> </p>
+        """<p>Creates an X.509 certificate using the specified certificate signing request. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateCertificateFromCsr</a> action. </p> <note> <p>The CSR must include a public key that is either an RSA key with a length of at least 2048 bits or an ECC key from NIST P-256, NIST P-384, or NIST P-521 curves. For supported certificates, consult <a href="https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html#x509-cert-algorithms"> Certificate signing algorithms supported by IoT</a>. </p> </note> <note> <p>Reusing the same certificate signing request (CSR) results in a distinct certificate.</p> </note> <p>You can create multiple certificates in a batch by creating a directory, copying multiple <code>.csr</code> files into that directory, and then specifying that directory on the command line. The following commands show how to create a batch of certificates given a batch of CSRs. In the following commands, we assume that a set of CSRs are located inside of the directory my-csr-directory:</p> <p>On Linux and OS X, the command is: </p> <p> <code>$ ls my-csr-directory/ | xargs -I {} aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/{}</code> </p> <p>This command lists all of the CSRs in my-csr-directory and pipes each CSR file name to the <code>aws iot create-certificate-from-csr</code> Amazon Web Services CLI command to create a certificate for the corresponding CSR. </p> <p>You can also run the <code>aws iot create-certificate-from-csr</code> part of the command in parallel to speed up the certificate creation process:</p> <p> <code>$ ls my-csr-directory/ | xargs -P 10 -I {} aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/{} </code> </p> <p>On Windows PowerShell, the command to create certificates for all CSRs in my-csr-directory is:</p> <p> <code>> ls -Name my-csr-directory | %{aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/$_} </code> </p> <p>On a Windows command prompt, the command to create certificates for all CSRs in my-csr-directory is:</p> <p> <code>> forfiles /p my-csr-directory /c "cmd /c aws iot create-certificate-from-csr --certificate-signing-request file://@path" </code> </p>
 
         Args:
             certificate_signing_request: <p>The certificate signing request (CSR).</p>
@@ -2158,7 +2158,7 @@ class AsyncIoTClient:
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_certificate_provider_response.CreateCertificateProviderResponse":
-        r"""<p>Creates an Amazon Web Services IoT Core certificate provider. You can use Amazon Web Services IoT Core certificate provider to customize how to sign a certificate signing request (CSR) in IoT fleet provisioning. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/provisioning-cert-provider.html\">Customizing certificate signing using Amazon Web Services IoT Core certificate provider</a> from <i>Amazon Web Services IoT Core Developer Guide</i>.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateCertificateProvider</a> action.</p> <important> <p>After you create a certificate provider, the behavior of <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/fleet-provision-api.html#create-cert-csr\"> <code>CreateCertificateFromCsr</code> API for fleet provisioning</a> will change and all API calls to <code>CreateCertificateFromCsr</code> will invoke the certificate provider to create the certificates. It can take up to a few minutes for this behavior to change after a certificate provider is created.</p> </important>
+        """<p>Creates an Amazon Web Services IoT Core certificate provider. You can use Amazon Web Services IoT Core certificate provider to customize how to sign a certificate signing request (CSR) in IoT fleet provisioning. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/provisioning-cert-provider.html">Customizing certificate signing using Amazon Web Services IoT Core certificate provider</a> from <i>Amazon Web Services IoT Core Developer Guide</i>.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateCertificateProvider</a> action.</p> <important> <p>After you create a certificate provider, the behavior of <a href="https://docs.aws.amazon.com/iot/latest/developerguide/fleet-provision-api.html#create-cert-csr"> <code>CreateCertificateFromCsr</code> API for fleet provisioning</a> will change and all API calls to <code>CreateCertificateFromCsr</code> will invoke the certificate provider to create the certificates. It can take up to a few minutes for this behavior to change after a certificate provider is created.</p> </important>
 
         Args:
             certificate_provider_name: <p>The name of the certificate provider.</p>
@@ -2317,7 +2317,7 @@ class AsyncIoTClient:
         ] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_custom_metric_response.CreateCustomMetricResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Use this API to define a Custom Metric published by your devices to Device Defender. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateCustomMetric</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Use this API to define a Custom Metric published by your devices to Device Defender. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateCustomMetric</a> action.</p>
 
         Args:
             metric_name: <p> The name of the custom metric. This will be used in the metric report submitted from the device/thing. The name can't begin with <code>aws:</code>. You can't change the name after you define it.</p>
@@ -2379,12 +2379,12 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_dimension_response.CreateDimensionResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Create a dimension that you can use to limit the scope of a metric used in a security profile for IoT Device Defender. For example, using a <code>TOPIC_FILTER</code> dimension, you can narrow down the scope of the metric only to MQTT topics whose name match the pattern specified in the dimension.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateDimension</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Create a dimension that you can use to limit the scope of a metric used in a security profile for IoT Device Defender. For example, using a <code>TOPIC_FILTER</code> dimension, you can narrow down the scope of the metric only to MQTT topics whose name match the pattern specified in the dimension.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateDimension</a> action.</p>
 
         Args:
             name: <p>A unique identifier for the dimension. Choose something that describes the type and value to make it easy to remember what it does.</p>
             type: <p>Specifies the type of dimension. Supported types: <code>TOPIC_FILTER.</code> </p>
-            string_values: <p>Specifies the value or list of values for the dimension. For <code>TOPIC_FILTER</code> dimensions, this is a pattern used to match the MQTT topic (for example, \"admin/#\").</p>
+            string_values: <p>Specifies the value or list of values for the dimension. For <code>TOPIC_FILTER</code> dimensions, this is a pattern used to match the MQTT topic (for example, "admin/#").</p>
             tags: <p>Metadata that can be used to manage the dimension.</p>
             client_request_token: <p>Each dimension must have a unique client request token. If you try to create a new dimension with the same token as a dimension that already exists, an exception occurs. If you omit this value, Amazon Web Services SDKs will automatically generate a unique client request.</p>
 
@@ -2461,7 +2461,7 @@ class AsyncIoTClient:
             "capo_iot.types.client_certificate_config.ClientCertificateConfig"
         ] = None,
     ) -> "capo_iot.types.create_domain_configuration_response.CreateDomainConfigurationResponse":
-        r"""<p>Creates a domain configuration.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateDomainConfiguration</a> action.</p>
+        """<p>Creates a domain configuration.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateDomainConfiguration</a> action.</p>
 
         Args:
             domain_configuration_name: <p>The name of the domain configuration. This value must be unique to a region.</p>
@@ -2470,11 +2470,11 @@ class AsyncIoTClient:
             validation_certificate_arn: <p>The certificate used to validate the server certificate and prove domain name ownership. This certificate must be signed by a public certificate authority. This value is not required for Amazon Web Services-managed domains.</p>
             authorizer_config: <p>An object that specifies the authorization service for a domain.</p>
             service_type: <p>The type of service delivered by the endpoint.</p> <note> <p>Amazon Web Services IoT Core currently supports only the <code>DATA</code> service type.</p> </note>
-            tags: <p>Metadata which can be used to manage the domain configuration.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags \"key1=value1&key2=value2...\"</p> <p>For the cli-input-json file use format: \"tags\": \"key1=value1&key2=value2...\"</p> </note>
+            tags: <p>Metadata which can be used to manage the domain configuration.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags "key1=value1&key2=value2..."</p> <p>For the cli-input-json file use format: "tags": "key1=value1&key2=value2..."</p> </note>
             tls_config: <p>An object that specifies the TLS configuration for a domain.</p>
             server_certificate_config: <p>The server certificate configuration.</p>
-            authentication_type: <p>An enumerated string that speciﬁes the authentication type.</p> <ul> <li> <p> <code>CUSTOM_AUTH_X509</code> - Use custom authentication and authorization with additional details from the X.509 client certificate.</p> </li> </ul> <ul> <li> <p> <code>CUSTOM_AUTH</code> - Use custom authentication and authorization. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/custom-authentication.html\">Custom authentication and authorization</a>.</p> </li> </ul> <ul> <li> <p> <code>AWS_X509</code> - Use X.509 client certificates without custom authentication and authorization. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html\">X.509 client certificates</a>.</p> </li> </ul> <ul> <li> <p> <code>AWS_SIGV4</code> - Use Amazon Web Services Signature Version 4. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/custom-authentication.html\">IAM users, groups, and roles</a>.</p> </li> </ul> <ul> <li> <p> <code>DEFAULT</code> - Use a combination of port and Application Layer Protocol Negotiation (ALPN) to specify authentication type. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html\">Device communication protocols</a>.</p> </li> </ul>
-            application_protocol: <p>An enumerated string that speciﬁes the application-layer protocol.</p> <ul> <li> <p> <code>SECURE_MQTT</code> - MQTT over TLS.</p> </li> </ul> <ul> <li> <p> <code>MQTT_WSS</code> - MQTT over WebSocket.</p> </li> </ul> <ul> <li> <p> <code>HTTPS</code> - HTTP over TLS.</p> </li> </ul> <ul> <li> <p> <code>DEFAULT</code> - Use a combination of port and Application Layer Protocol Negotiation (ALPN) to specify application_layer protocol. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html\">Device communication protocols</a>.</p> </li> </ul>
+            authentication_type: <p>An enumerated string that speciﬁes the authentication type.</p> <ul> <li> <p> <code>CUSTOM_AUTH_X509</code> - Use custom authentication and authorization with additional details from the X.509 client certificate.</p> </li> </ul> <ul> <li> <p> <code>CUSTOM_AUTH</code> - Use custom authentication and authorization. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/custom-authentication.html">Custom authentication and authorization</a>.</p> </li> </ul> <ul> <li> <p> <code>AWS_X509</code> - Use X.509 client certificates without custom authentication and authorization. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html">X.509 client certificates</a>.</p> </li> </ul> <ul> <li> <p> <code>AWS_SIGV4</code> - Use Amazon Web Services Signature Version 4. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/custom-authentication.html">IAM users, groups, and roles</a>.</p> </li> </ul> <ul> <li> <p> <code>DEFAULT</code> - Use a combination of port and Application Layer Protocol Negotiation (ALPN) to specify authentication type. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html">Device communication protocols</a>.</p> </li> </ul>
+            application_protocol: <p>An enumerated string that speciﬁes the application-layer protocol.</p> <ul> <li> <p> <code>SECURE_MQTT</code> - MQTT over TLS.</p> </li> </ul> <ul> <li> <p> <code>MQTT_WSS</code> - MQTT over WebSocket.</p> </li> </ul> <ul> <li> <p> <code>HTTPS</code> - HTTP over TLS.</p> </li> </ul> <ul> <li> <p> <code>DEFAULT</code> - Use a combination of port and Application Layer Protocol Negotiation (ALPN) to specify application_layer protocol. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html">Device communication protocols</a>.</p> </li> </ul>
             client_certificate_config: <p>An object that speciﬁes the client certificate conﬁguration for a domain.</p>
 
         Raises:
@@ -2552,14 +2552,14 @@ class AsyncIoTClient:
         query_version: Optional["capo_iot.types.query_version.QueryVersion"] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_dynamic_thing_group_response.CreateDynamicThingGroupResponse":
-        r"""<p>Creates a dynamic thing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateDynamicThingGroup</a> action.</p>
+        """<p>Creates a dynamic thing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateDynamicThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The dynamic thing group name to create.</p>
             thing_group_properties: <p>The dynamic thing group properties.</p>
             index_name: <p>The dynamic thing group index name.</p> <note> <p>Currently one index is supported: <code>AWS_Things</code>.</p> </note>
-            query_string: <p>The dynamic thing group search query string.</p> <p>See <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html\">Query Syntax</a> for information about query string syntax.</p>
-            query_version: <p>The dynamic thing group query version.</p> <note> <p>Currently one query version is supported: \"2017-09-30\". If not specified, the query version defaults to this value.</p> </note>
+            query_string: <p>The dynamic thing group search query string.</p> <p>See <a href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query Syntax</a> for information about query string syntax.</p>
+            query_version: <p>The dynamic thing group query version.</p> <note> <p>Currently one query version is supported: "2017-09-30". If not specified, the query version defaults to this value.</p> </note>
             tags: <p>Metadata which can be used to manage the dynamic thing group.</p>
 
         Raises:
@@ -2627,7 +2627,7 @@ class AsyncIoTClient:
         unit: Optional["capo_iot.types.fleet_metric_unit.FleetMetricUnit"] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_fleet_metric_response.CreateFleetMetricResponse":
-        r"""<p>Creates a fleet metric.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateFleetMetric</a> action.</p>
+        """<p>Creates a fleet metric.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateFleetMetric</a> action.</p>
 
         Args:
             metric_name: <p>The name of the fleet metric to create.</p>
@@ -2638,7 +2638,7 @@ class AsyncIoTClient:
             description: <p>The fleet metric description.</p>
             query_version: <p>The query version.</p>
             index_name: <p>The name of the index to search.</p>
-            unit: <p>Used to support unit transformation such as milliseconds to seconds. The unit must be supported by <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html\">CW metric</a>. Default to null.</p>
+            unit: <p>Used to support unit transformation such as milliseconds to seconds. The unit must be supported by <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html">CW metric</a>. Default to null.</p>
             tags: <p>Metadata, which can be used to manage the fleet metric.</p>
 
         Raises:
@@ -2738,12 +2738,12 @@ class AsyncIoTClient:
             "capo_iot.types.destination_package_versions.DestinationPackageVersions"
         ] = None,
     ) -> "capo_iot.types.create_job_response.CreateJobResponse":
-        r"""<p>Creates a job.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateJob</a> action.</p>
+        """<p>Creates a job.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateJob</a> action.</p>
 
         Args:
-            job_id: <p>A job identifier which must be unique for your account. We recommend using a UUID. Alpha-numeric characters, \"-\" and \"_\" are valid for use here.</p>
+            job_id: <p>A job identifier which must be unique for your account. We recommend using a UUID. Alpha-numeric characters, "-" and "_" are valid for use here.</p>
             targets: <p>A list of things and thing groups to which the job should be sent.</p>
-            document_source: <p>An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you don't specify a value for <code>document</code>.</p> <p>For example, <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code> </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html\">Methods for accessing a bucket</a>.</p>
+            document_source: <p>An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you don't specify a value for <code>document</code>.</p> <p>For example, <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code> </p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for accessing a bucket</a>.</p>
             document: <p>The job document. Required if you don't specify a value for <code>documentSource</code>.</p>
             description: <p>A short text description of the job.</p>
             presigned_url_config: <p>Configuration information for pre-signed S3 URLs.</p>
@@ -2752,12 +2752,12 @@ class AsyncIoTClient:
             abort_config: <p>Allows you to create the criteria to abort a job.</p>
             timeout_config: <p>Specifies the amount of time each device has to finish its execution of the job. The timer is started when the job execution status is set to <code>IN_PROGRESS</code>. If the job execution status is not set to another terminal state before the time expires, it will be automatically set to <code>TIMED_OUT</code>.</p>
             tags: <p>Metadata which can be used to manage the job.</p>
-            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>
+            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>
             job_template_arn: <p>The ARN of the job template used to create the job.</p>
             job_executions_retry_config: <p>Allows you to create the criteria to retry a job.</p>
             document_parameters: <p>Parameters of an Amazon Web Services managed template that you can specify to create the job document.</p> <note> <p> <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates. This parameter can't be used with custom job templates or to create jobs from them.</p> </note>
             scheduling_config: <p>The configuration that allows you to schedule a job for a future date and time in addition to specifying the end behavior for each job execution.</p>
-            destination_package_versions: <p>The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully completes. The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>. </p> <p> <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.</p>
+            destination_package_versions: <p>The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully completes. The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>. </p> <p> <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.</p>
 
         Raises:
             capo_iot.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
@@ -2858,18 +2858,18 @@ class AsyncIoTClient:
             "capo_iot.types.destination_package_versions.DestinationPackageVersions"
         ] = None,
     ) -> "capo_iot.types.create_job_template_response.CreateJobTemplateResponse":
-        r"""<p>Creates a job template.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateJobTemplate</a> action.</p>
+        """<p>Creates a job template.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateJobTemplate</a> action.</p>
 
         Args:
-            job_template_id: <p>A unique identifier for the job template. We recommend using a UUID. Alpha-numeric characters, \"-\", and \"_\" are valid for use here.</p>
+            job_template_id: <p>A unique identifier for the job template. We recommend using a UUID. Alpha-numeric characters, "-", and "_" are valid for use here.</p>
             job_arn: <p>The ARN of the job to use as the basis for the job template.</p>
-            document_source: <p>An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you don't specify a value for <code>document</code>.</p> <p>For example, <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code> </p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html\">Methods for accessing a bucket</a>.</p>
+            document_source: <p>An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you don't specify a value for <code>document</code>.</p> <p>For example, <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code> </p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for accessing a bucket</a>.</p>
             document: <p>The job document. Required if you don't specify a value for <code>documentSource</code>.</p>
             description: <p>A description of the job document.</p>
             tags: <p>Metadata that can be used to manage the job template.</p>
             job_executions_retry_config: <p>Allows you to create the criteria to retry a job.</p>
             maintenance_windows: <p>Allows you to configure an optional maintenance window for the rollout of a job document to all devices in the target group for a job.</p>
-            destination_package_versions: <p>The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully completes. The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p> <p> <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.</p>
+            destination_package_versions: <p>The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully completes. The package version must be in either the Published or Deprecated state when the job deploys. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p> <p> <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.</p>
 
         Raises:
             capo_iot.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource.</p>
@@ -2938,7 +2938,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         set_as_active: Optional["capo_iot.types.set_as_active.SetAsActive"] = None,
     ) -> "capo_iot.types.create_keys_and_certificate_response.CreateKeysAndCertificateResponse":
-        r"""<p>Creates a 2048-bit RSA key pair and issues an X.509 certificate using the issued public key. You can also call <code>CreateKeysAndCertificate</code> over MQTT from a device, for more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html#provision-mqtt-api\">Provisioning MQTT API</a>.</p> <p> <b>Note</b> This is the only time IoT issues the private key for this certificate, so it is important to keep it in a secure location.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateKeysAndCertificate</a> action.</p>
+        """<p>Creates a 2048-bit RSA key pair and issues an X.509 certificate using the issued public key. You can also call <code>CreateKeysAndCertificate</code> over MQTT from a device, for more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html#provision-mqtt-api">Provisioning MQTT API</a>.</p> <p> <b>Note</b> This is the only time IoT issues the private key for this certificate, so it is important to keep it in a secure location.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateKeysAndCertificate</a> action.</p>
 
         Args:
             set_as_active: <p>Specifies whether the certificate is active.</p>
@@ -2989,7 +2989,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_mitigation_action_response.CreateMitigationActionResponse":
-        r"""<p>Defines an action that can be applied to audit findings by using StartAuditMitigationActionsTask. Only certain types of mitigation actions can be applied to specific check names. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-mitigation-actions.html\">Mitigation actions</a>. Each mitigation action can apply only one type of change.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateMitigationAction</a> action.</p>
+        """<p>Defines an action that can be applied to audit findings by using StartAuditMitigationActionsTask. Only certain types of mitigation actions can be applied to specific check names. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-mitigation-actions.html">Mitigation actions</a>. Each mitigation action can apply only one type of change.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateMitigationAction</a> action.</p>
 
         Args:
             action_name: <p>A friendly name for the action. Choose a friendly name that accurately describes the action (for example, <code>EnableLoggingAction</code>).</p>
@@ -3070,7 +3070,7 @@ class AsyncIoTClient:
         ] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_ota_update_response.CreateOTAUpdateResponse":
-        r"""<p>Creates an IoT OTA update on a target group of things or groups.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateOTAUpdate</a> action.</p>
+        """<p>Creates an IoT OTA update on a target group of things or groups.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateOTAUpdate</a> action.</p>
 
         Args:
             ota_update_id: <p>The ID of the OTA update to be created.</p>
@@ -3161,7 +3161,7 @@ class AsyncIoTClient:
         tags: Optional["capo_iot.types.tag_map.TagMap"] = None,
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
     ) -> "capo_iot.types.create_package_response.CreatePackageResponse":
-        r"""<p>Creates an IoT software package that can be deployed to your fleet.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreatePackage</a> and <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetIndexingConfiguration</a> actions.</p>
+        """<p>Creates an IoT software package that can be deployed to your fleet.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreatePackage</a> and <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetIndexingConfiguration</a> actions.</p>
 
         Args:
             package_name: <p>The name of the new software package.</p>
@@ -3234,7 +3234,7 @@ class AsyncIoTClient:
         tags: Optional["capo_iot.types.tag_map.TagMap"] = None,
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
     ) -> "capo_iot.types.create_package_version_response.CreatePackageVersionResponse":
-        r"""<p>Creates a new version for an existing IoT software package.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreatePackageVersion</a> and <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetIndexingConfiguration</a> actions.</p>
+        """<p>Creates a new version for an existing IoT software package.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreatePackageVersion</a> and <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetIndexingConfiguration</a> actions.</p>
 
         Args:
             package_name: <p>The name of the associated software package.</p>
@@ -3305,12 +3305,12 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_policy_response.CreatePolicyResponse":
-        r"""<p>Creates an IoT policy.</p> <p>The created policy is the default version for the policy. This operation creates a policy version with a version identifier of <b>1</b> and sets <b>1</b> as the policy's default version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreatePolicy</a> action.</p>
+        """<p>Creates an IoT policy.</p> <p>The created policy is the default version for the policy. This operation creates a policy version with a version identifier of <b>1</b> and sets <b>1</b> as the policy's default version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreatePolicy</a> action.</p>
 
         Args:
             policy_name: <p>The policy name.</p>
             policy_document: <p>The JSON document that describes the policy. <b>policyDocument</b> must have a minimum length of 1, with a maximum length of 2048, excluding whitespace.</p>
-            tags: <p>Metadata which can be used to manage the policy.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags \"key1=value1&key2=value2...\"</p> <p>For the cli-input-json file use format: \"tags\": \"key1=value1&key2=value2...\"</p> </note>
+            tags: <p>Metadata which can be used to manage the policy.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags "key1=value1&key2=value2..."</p> <p>For the cli-input-json file use format: "tags": "key1=value1&key2=value2..."</p> </note>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -3362,7 +3362,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         set_as_default: Optional["capo_iot.types.set_as_default.SetAsDefault"] = None,
     ) -> "capo_iot.types.create_policy_version_response.CreatePolicyVersionResponse":
-        r"""<p>Creates a new version of the specified IoT policy. To update a policy, create a new policy version. A managed policy can have up to five versions. If the policy has five versions, you must use <a>DeletePolicyVersion</a> to delete an existing version before you create a new one.</p> <p>Optionally, you can set the new version as the policy's default version. The default version is the operative version (that is, the version that is in effect for the certificates to which the policy is attached).</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreatePolicyVersion</a> action.</p>
+        """<p>Creates a new version of the specified IoT policy. To update a policy, create a new policy version. A managed policy can have up to five versions. If the policy has five versions, you must use <a>DeletePolicyVersion</a> to delete an existing version before you create a new one.</p> <p>Optionally, you can set the new version as the policy's default version. The default version is the operative version (that is, the version that is in effect for the certificates to which the policy is attached).</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreatePolicyVersion</a> action.</p>
 
         Args:
             policy_name: <p>The policy name.</p>
@@ -3418,7 +3418,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.create_provisioning_claim_response.CreateProvisioningClaimResponse":
-        r"""<p>Creates a provisioning claim.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateProvisioningClaim</a> action.</p>
+        """<p>Creates a provisioning claim.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateProvisioningClaim</a> action.</p>
 
         Args:
             template_name: <p>The name of the provisioning template to use.</p>
@@ -3478,7 +3478,7 @@ class AsyncIoTClient:
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
         type: Optional["capo_iot.types.template_type.TemplateType"] = None,
     ) -> "capo_iot.types.create_provisioning_template_response.CreateProvisioningTemplateResponse":
-        r"""<p>Creates a provisioning template.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateProvisioningTemplate</a> action.</p>
+        """<p>Creates a provisioning template.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateProvisioningTemplate</a> action.</p>
 
         Args:
             template_name: <p>The name of the provisioning template.</p>
@@ -3486,9 +3486,9 @@ class AsyncIoTClient:
             template_body: <p>The JSON formatted contents of the provisioning template.</p>
             enabled: <p>True to enable the provisioning template, otherwise false.</p>
             provisioning_role_arn: <p>The role ARN for the role associated with the provisioning template. This IoT role grants permission to provision a device.</p>
-            pre_provisioning_hook: <p>Creates a pre-provisioning hook template. Only supports template of type <code>FLEET_PROVISIONING</code>. For more information about provisioning template types, see <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html#iot-CreateProvisioningTemplate-request-type\">type</a>.</p>
-            tags: <p>Metadata which can be used to manage the provisioning template.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags \"key1=value1&key2=value2...\"</p> <p>For the cli-input-json file use format: \"tags\": \"key1=value1&key2=value2...\"</p> </note>
-            type: <p>The type you define in a provisioning template. You can create a template with only one type. You can't change the template type after its creation. The default value is <code>FLEET_PROVISIONING</code>. For more information about provisioning template, see: <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html\">Provisioning template</a>. </p>
+            pre_provisioning_hook: <p>Creates a pre-provisioning hook template. Only supports template of type <code>FLEET_PROVISIONING</code>. For more information about provisioning template types, see <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html#iot-CreateProvisioningTemplate-request-type">type</a>.</p>
+            tags: <p>Metadata which can be used to manage the provisioning template.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags "key1=value1&key2=value2..."</p> <p>For the cli-input-json file use format: "tags": "key1=value1&key2=value2..."</p> </note>
+            type: <p>The type you define in a provisioning template. You can create a template with only one type. You can't change the template type after its creation. The default value is <code>FLEET_PROVISIONING</code>. For more information about provisioning template, see: <a href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html">Provisioning template</a>. </p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -3548,7 +3548,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         set_as_default: Optional["capo_iot.types.set_as_default.SetAsDefault"] = None,
     ) -> "capo_iot.types.create_provisioning_template_version_response.CreateProvisioningTemplateVersionResponse":
-        r"""<p>Creates a new version of a provisioning template.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateProvisioningTemplateVersion</a> action.</p>
+        """<p>Creates a new version of a provisioning template.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateProvisioningTemplateVersion</a> action.</p>
 
         Args:
             template_name: <p>The name of the provisioning template.</p>
@@ -3608,13 +3608,13 @@ class AsyncIoTClient:
         ] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_role_alias_response.CreateRoleAliasResponse":
-        r"""<p>Creates a role alias.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateRoleAlias</a> action.</p> <important> <p>The value of <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_CreateRoleAlias.html#iot-CreateRoleAlias-request-credentialDurationSeconds\"> <code>credentialDurationSeconds</code> </a> must be less than or equal to the maximum session duration of the IAM role that the role alias references. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing-api.html#roles-modify_max-session-duration-api\"> Modifying a role maximum session duration (Amazon Web Services API)</a> from the Amazon Web Services Identity and Access Management User Guide.</p> </important>
+        """<p>Creates a role alias.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateRoleAlias</a> action.</p> <important> <p>The value of <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateRoleAlias.html#iot-CreateRoleAlias-request-credentialDurationSeconds"> <code>credentialDurationSeconds</code> </a> must be less than or equal to the maximum session duration of the IAM role that the role alias references. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing-api.html#roles-modify_max-session-duration-api"> Modifying a role maximum session duration (Amazon Web Services API)</a> from the Amazon Web Services Identity and Access Management User Guide.</p> </important>
 
         Args:
             role_alias: <p>The role alias that points to a role ARN. This allows you to change the role without having to update the device.</p>
             role_arn: <p>The role ARN.</p>
             credential_duration_seconds: <p>How long (in seconds) the credentials will be valid. The default value is 3,600 seconds.</p> <p>This value must be less than or equal to the maximum session duration of the IAM role that the role alias references.</p>
-            tags: <p>Metadata which can be used to manage the role alias.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags \"key1=value1&key2=value2...\"</p> <p>For the cli-input-json file use format: \"tags\": \"key1=value1&key2=value2...\"</p> </note>
+            tags: <p>Metadata which can be used to manage the role alias.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags "key1=value1&key2=value2..."</p> <p>For the cli-input-json file use format: "tags": "key1=value1&key2=value2..."</p> </note>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -3671,11 +3671,11 @@ class AsyncIoTClient:
         day_of_week: Optional["capo_iot.types.day_of_week.DayOfWeek"] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_scheduled_audit_response.CreateScheduledAuditResponse":
-        r"""<p>Creates a scheduled audit that is run at a specified time interval.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateScheduledAudit</a> action.</p>
+        """<p>Creates a scheduled audit that is run at a specified time interval.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateScheduledAudit</a> action.</p>
 
         Args:
             frequency: <p>How often the scheduled audit takes place, either <code>DAILY</code>, <code>WEEKLY</code>, <code>BIWEEKLY</code> or <code>MONTHLY</code>. The start time of each audit is determined by the system.</p>
-            day_of_month: <p>The day of the month on which the scheduled audit takes place. This can be \"1\" through \"31\" or \"LAST\". This field is required if the \"frequency\" parameter is set to <code>MONTHLY</code>. If days 29 to 31 are specified, and the month doesn't have that many days, the audit takes place on the <code>LAST</code> day of the month.</p>
+            day_of_month: <p>The day of the month on which the scheduled audit takes place. This can be "1" through "31" or "LAST". This field is required if the "frequency" parameter is set to <code>MONTHLY</code>. If days 29 to 31 are specified, and the month doesn't have that many days, the audit takes place on the <code>LAST</code> day of the month.</p>
             day_of_week: <p>The day of the week on which the scheduled audit takes place, either <code>SUN</code>, <code>MON</code>, <code>TUE</code>, <code>WED</code>, <code>THU</code>, <code>FRI</code>, or <code>SAT</code>. This field is required if the <code>frequency</code> parameter is set to <code>WEEKLY</code> or <code>BIWEEKLY</code>.</p>
             target_check_names: <p>Which checks are performed during the scheduled audit. Checks must be enabled for your account. (Use <code>DescribeAccountAuditConfiguration</code> to see the list of all checks, including those that are enabled or use <code>UpdateAccountAuditConfiguration</code> to select which checks are enabled.)</p>
             scheduled_audit_name: <p>The name you want to give to the scheduled audit. (Max. 128 chars)</p>
@@ -3749,7 +3749,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.create_security_profile_response.CreateSecurityProfileResponse"
     ):
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Creates a Device Defender security profile.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateSecurityProfile</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Creates a Device Defender security profile.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateSecurityProfile</a> action.</p>
 
         Args:
             security_profile_name: <p>The name you are giving to the security profile.</p>
@@ -3823,7 +3823,7 @@ class AsyncIoTClient:
         ] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_stream_response.CreateStreamResponse":
-        r"""<p>Creates a stream for delivering one or more large files in chunks over MQTT. A stream transports data bytes in chunks or blocks packaged as MQTT messages from a source like S3. You can have one or more files associated with a stream.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateStream</a> action.</p>
+        """<p>Creates a stream for delivering one or more large files in chunks over MQTT. A stream transports data bytes in chunks or blocks packaged as MQTT messages from a source like S3. You can have one or more files associated with a stream.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateStream</a> action.</p>
 
         Args:
             stream_id: <p>The stream ID.</p>
@@ -3893,12 +3893,12 @@ class AsyncIoTClient:
             "capo_iot.types.billing_group_name.BillingGroupName"
         ] = None,
     ) -> "capo_iot.types.create_thing_response.CreateThingResponse":
-        r"""<p>Creates a thing record in the registry. If this call is made multiple times using the same thing name and configuration, the call will succeed. If this call is made with the same thing name but different configuration a <code>ResourceAlreadyExistsException</code> is thrown.</p> <note> <p>This is a control plane operation. See <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html\">Authorization</a> for information about authorizing control plane actions.</p> </note> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateThing</a> action.</p>
+        r"""<p>Creates a thing record in the registry. If this call is made multiple times using the same thing name and configuration, the call will succeed. If this call is made with the same thing name but different configuration a <code>ResourceAlreadyExistsException</code> is thrown.</p> <note> <p>This is a control plane operation. See <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html">Authorization</a> for information about authorizing control plane actions.</p> </note> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateThing</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing to create.</p> <p>You can't change a thing's name after you create it. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing.</p>
             thing_type_name: <p>The name of the thing type associated with the new thing.</p>
-            attribute_payload: <p>The attribute payload, which consists of up to three name/value pairs in a JSON document. For example:</p> <p> <code>{\\"attributes\\":{\\"string1\\":\\"string2\\"}}</code> </p>
+            attribute_payload: <p>The attribute payload, which consists of up to three name/value pairs in a JSON document. For example:</p> <p> <code>{\"attributes\":{\"string1\":\"string2\"}}</code> </p>
             billing_group_name: <p>The name of the billing group the thing will be added to.</p>
 
         Raises:
@@ -3959,7 +3959,7 @@ class AsyncIoTClient:
         ] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_thing_group_response.CreateThingGroupResponse":
-        r"""<p>Create a thing group.</p> <note> <p>This is a control plane operation. See <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html\">Authorization</a> for information about authorizing control plane actions.</p> <p>If the <code>ThingGroup</code> that you create has the exact same attributes as an existing <code>ThingGroup</code>, you will get a 200 success response. </p> </note> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateThingGroup</a> action.</p>
+        """<p>Create a thing group.</p> <note> <p>This is a control plane operation. See <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html">Authorization</a> for information about authorizing control plane actions.</p> <p>If the <code>ThingGroup</code> that you create has the exact same attributes as an existing <code>ThingGroup</code>, you will get a 200 success response. </p> </note> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The thing group name to create.</p>
@@ -4019,7 +4019,7 @@ class AsyncIoTClient:
         ] = None,
         tags: Optional["capo_iot.types.tag_list.TagList"] = None,
     ) -> "capo_iot.types.create_thing_type_response.CreateThingTypeResponse":
-        r"""<p>Creates a new thing type. If this call is made multiple times using the same thing type name and configuration, the call will succeed. If this call is made with the same thing type name but different configuration a <code>ResourceAlreadyExistsException</code> is thrown. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateThingType</a> action.</p>
+        """<p>Creates a new thing type. If this call is made multiple times using the same thing type name and configuration, the call will succeed. If this call is made with the same thing type name but different configuration a <code>ResourceAlreadyExistsException</code> is thrown. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateThingType</a> action.</p>
 
         Args:
             thing_type_name: <p>The name of the thing type.</p>
@@ -4076,12 +4076,12 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         tags: Optional["capo_iot.types.string.String"] = None,
     ) -> None:
-        r"""<p>Creates a rule. Creating rules is an administrator-level action. Any user who has permission to create rules will be able to access data processed by the rule.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateTopicRule</a> action.</p>
+        """<p>Creates a rule. Creating rules is an administrator-level action. Any user who has permission to create rules will be able to access data processed by the rule.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateTopicRule</a> action.</p>
 
         Args:
             rule_name: <p>The name of the rule.</p>
             topic_rule_payload: <p>The rule payload.</p>
-            tags: <p>Metadata which can be used to manage the topic rule.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: --tags \"key1=value1&key2=value2...\"</p> <p>For the cli-input-json file use format: \"tags\": \"key1=value1&key2=value2...\"</p> </note>
+            tags: <p>Metadata which can be used to manage the topic rule.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: --tags "key1=value1&key2=value2..."</p> <p>For the cli-input-json file use format: "tags": "key1=value1&key2=value2..."</p> </note>
 
         Raises:
             capo_iot.errors.conflicting_resource_update_exception.ConflictingResourceUpdateException: <p>A conflicting resource update exception. This exception is thrown when two pending updates cause a conflict.</p>
@@ -4129,7 +4129,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.create_topic_rule_destination_response.CreateTopicRuleDestinationResponse":
-        r"""<p>Creates a topic rule destination. The destination must be confirmed prior to use.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">CreateTopicRuleDestination</a> action.</p>
+        """<p>Creates a topic rule destination. The destination must be confirmed prior to use.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">CreateTopicRuleDestination</a> action.</p>
 
         Args:
             destination_configuration: <p>The topic rule destination configuration.</p>
@@ -4180,7 +4180,7 @@ class AsyncIoTClient:
             "capo_iot.types.delete_scheduled_audits.DeleteScheduledAudits"
         ] = None,
     ) -> "capo_iot.types.delete_account_audit_configuration_response.DeleteAccountAuditConfigurationResponse":
-        r"""<p>Restores the default settings for Device Defender audits for this account. Any configuration data you entered is deleted and all audit checks are reset to disabled. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteAccountAuditConfiguration</a> action.</p>
+        """<p>Restores the default settings for Device Defender audits for this account. Any configuration data you entered is deleted and all audit checks are reset to disabled. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteAccountAuditConfiguration</a> action.</p>
 
         Args:
             delete_scheduled_audits: <p>If true, all scheduled audits are deleted.</p>
@@ -4228,7 +4228,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_audit_suppression_response.DeleteAuditSuppressionResponse":
-        r"""<p> Deletes a Device Defender audit suppression. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteAuditSuppression</a> action.</p>
+        """<p> Deletes a Device Defender audit suppression. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteAuditSuppression</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -4272,7 +4272,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_authorizer_response.DeleteAuthorizerResponse":
-        r"""<p>Deletes an authorizer.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteAuthorizer</a> action.</p>
+        """<p>Deletes an authorizer.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteAuthorizer</a> action.</p>
 
         Args:
             authorizer_name: <p>The name of the authorizer to delete.</p>
@@ -4325,7 +4325,7 @@ class AsyncIoTClient:
             "capo_iot.types.optional_version.OptionalVersion"
         ] = None,
     ) -> "capo_iot.types.delete_billing_group_response.DeleteBillingGroupResponse":
-        r"""<p>Deletes the billing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteBillingGroup</a> action.</p>
+        """<p>Deletes the billing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteBillingGroup</a> action.</p>
 
         Args:
             billing_group_name: <p>The name of the billing group.</p>
@@ -4375,7 +4375,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_ca_certificate_response.DeleteCACertificateResponse":
-        r"""<p>Deletes a registered CA certificate.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteCACertificate</a> action.</p>
+        """<p>Deletes a registered CA certificate.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteCACertificate</a> action.</p>
 
         Args:
             certificate_id: <p>The ID of the certificate to delete. (The last part of the certificate ARN contains the certificate ID.)</p>
@@ -4426,7 +4426,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         force_delete: Optional["capo_iot.types.force_delete.ForceDelete"] = None,
     ) -> None:
-        r"""<p>Deletes the specified certificate.</p> <p>A certificate cannot be deleted if it has a policy or IoT thing attached to it or if its status is set to ACTIVE. To delete a certificate, first use the <a>DetachPolicy</a> action to detach all policies. Next, use the <a>UpdateCertificate</a> action to set the certificate to the INACTIVE status.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteCertificate</a> action.</p>
+        """<p>Deletes the specified certificate.</p> <p>A certificate cannot be deleted if it has a policy or IoT thing attached to it or if its status is set to ACTIVE. To delete a certificate, first use the <a>DetachPolicy</a> action to detach all policies. Next, use the <a>UpdateCertificate</a> action to set the certificate to the INACTIVE status.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteCertificate</a> action.</p>
 
         Args:
             certificate_id: <p>The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)</p>
@@ -4478,7 +4478,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_certificate_provider_response.DeleteCertificateProviderResponse":
-        r"""<p>Deletes a certificate provider.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteCertificateProvider</a> action. </p> <p>If you delete the certificate provider resource, the behavior of <code>CreateCertificateFromCsr</code> will resume, and IoT will create certificates signed by IoT from a certificate signing request (CSR).</p>
+        """<p>Deletes a certificate provider.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteCertificateProvider</a> action. </p> <p>If you delete the certificate provider resource, the behavior of <code>CreateCertificateFromCsr</code> will resume, and IoT will create certificates signed by IoT from a certificate signing request (CSR).</p>
 
         Args:
             certificate_provider_name: <p>The name of the certificate provider.</p>
@@ -4625,7 +4625,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_custom_metric_response.DeleteCustomMetricResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Deletes a Device Defender detect custom metric. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteCustomMetric</a> action.</p> <note> <p>Before you can delete a custom metric, you must first remove the custom metric from all security profiles it's a part of. The security profile associated with the custom metric can be found using the <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html\">ListSecurityProfiles</a> API with <code>metricName</code> set to your custom metric name.</p> </note>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Deletes a Device Defender detect custom metric. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteCustomMetric</a> action.</p> <note> <p>Before you can delete a custom metric, you must first remove the custom metric from all security profiles it's a part of. The security profile associated with the custom metric can be found using the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html">ListSecurityProfiles</a> API with <code>metricName</code> set to your custom metric name.</p> </note>
 
         Args:
             metric_name: <p> The name of the custom metric. </p>
@@ -4671,7 +4671,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_dimension_response.DeleteDimensionResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Removes the specified dimension from your Amazon Web Services accounts.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteDimension</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Removes the specified dimension from your Amazon Web Services accounts.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteDimension</a> action.</p>
 
         Args:
             name: <p>The unique identifier for the dimension that you want to delete.</p>
@@ -4717,7 +4717,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_domain_configuration_response.DeleteDomainConfigurationResponse":
-        r"""<p>Deletes the specified domain configuration.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteDomainConfiguration</a> action.</p>
+        """<p>Deletes the specified domain configuration.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteDomainConfiguration</a> action.</p>
 
         Args:
             domain_configuration_name: <p>The name of the domain configuration to be deleted.</p>
@@ -4769,7 +4769,7 @@ class AsyncIoTClient:
             "capo_iot.types.optional_version.OptionalVersion"
         ] = None,
     ) -> "capo_iot.types.delete_dynamic_thing_group_response.DeleteDynamicThingGroupResponse":
-        r"""<p>Deletes a dynamic thing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteDynamicThingGroup</a> action.</p>
+        """<p>Deletes a dynamic thing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteDynamicThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The name of the dynamic thing group to delete.</p>
@@ -4822,7 +4822,7 @@ class AsyncIoTClient:
             "capo_iot.types.optional_version.OptionalVersion"
         ] = None,
     ) -> None:
-        r"""<p>Deletes the specified fleet metric. Returns successfully with no error if the deletion is successful or you specify a fleet metric that doesn't exist.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteFleetMetric</a> action.</p>
+        """<p>Deletes the specified fleet metric. Returns successfully with no error if the deletion is successful or you specify a fleet metric that doesn't exist.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteFleetMetric</a> action.</p>
 
         Args:
             metric_name: <p>The name of the fleet metric to delete.</p>
@@ -4874,16 +4874,16 @@ class AsyncIoTClient:
         force: Optional["capo_iot.types.force_flag.ForceFlag"] = None,
         namespace_id: Optional["capo_iot.types.namespace_id.NamespaceId"] = None,
     ) -> None:
-        r"""<p>Deletes a job and its related job executions.</p> <p>Deleting a job may take time, depending on the number of job executions created for the job and various other factors. While the job is being deleted, the status of the job will be shown as \"DELETION_IN_PROGRESS\". Attempting to delete or cancel a job whose status is already \"DELETION_IN_PROGRESS\" will result in an error.</p> <p>Only 10 jobs may have status \"DELETION_IN_PROGRESS\" at the same time, or a LimitExceededException will occur.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteJob</a> action.</p>
+        """<p>Deletes a job and its related job executions.</p> <p>Deleting a job may take time, depending on the number of job executions created for the job and various other factors. While the job is being deleted, the status of the job will be shown as "DELETION_IN_PROGRESS". Attempting to delete or cancel a job whose status is already "DELETION_IN_PROGRESS" will result in an error.</p> <p>Only 10 jobs may have status "DELETION_IN_PROGRESS" at the same time, or a LimitExceededException will occur.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteJob</a> action.</p>
 
         Args:
             job_id: <p>The ID of the job to be deleted.</p> <p>After a job deletion is completed, you may reuse this jobId when you create a new job. However, this is not recommended, and you must ensure that your devices are not using the jobId to refer to the deleted job.</p>
-            force: <p>(Optional) When true, you can delete a job which is \"IN_PROGRESS\". Otherwise, you can only delete a job which is in a terminal state (\"COMPLETED\" or \"CANCELED\") or an exception will occur. The default is false.</p> <note> <p>Deleting a job which is \"IN_PROGRESS\", will cause a device which is executing the job to be unable to access job information or update the job execution status. Use caution and ensure that each device executing a job which is deleted is able to recover to a valid state.</p> </note>
-            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>
+            force: <p>(Optional) When true, you can delete a job which is "IN_PROGRESS". Otherwise, you can only delete a job which is in a terminal state ("COMPLETED" or "CANCELED") or an exception will occur. The default is false.</p> <note> <p>Deleting a job which is "IN_PROGRESS", will cause a device which is executing the job to be unable to access job information or update the job execution status. Use caution and ensure that each device executing a job which is deleted is able to recover to a valid state.</p> </note>
+            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>
 
         Raises:
             capo_iot.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
-            capo_iot.errors.invalid_state_transition_exception.InvalidStateTransitionException: <p>An attempt was made to change to an invalid state, for example by deleting a job or a job execution which is \"IN_PROGRESS\" without setting the <code>force</code> parameter.</p>
+            capo_iot.errors.invalid_state_transition_exception.InvalidStateTransitionException: <p>An attempt was made to change to an invalid state, for example by deleting a job or a job execution which is "IN_PROGRESS" without setting the <code>force</code> parameter.</p>
             capo_iot.errors.limit_exceeded_exception.LimitExceededException: <p>A limit has been exceeded.</p>
             capo_iot.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
             capo_iot.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is temporarily unavailable.</p>
@@ -4929,18 +4929,18 @@ class AsyncIoTClient:
         force: Optional["capo_iot.types.force_flag.ForceFlag"] = None,
         namespace_id: Optional["capo_iot.types.namespace_id.NamespaceId"] = None,
     ) -> None:
-        r"""<p>Deletes a job execution.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteJobExecution</a> action.</p>
+        """<p>Deletes a job execution.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteJobExecution</a> action.</p>
 
         Args:
             job_id: <p>The ID of the job whose execution on a particular device will be deleted.</p>
             thing_name: <p>The name of the thing whose job execution will be deleted.</p>
             execution_number: <p>The ID of the job execution to be deleted. The <code>executionNumber</code> refers to the execution of a particular job on a particular device.</p> <p>Note that once a job execution is deleted, the <code>executionNumber</code> may be reused by IoT, so be sure you get and use the correct value here.</p>
-            force: <p>(Optional) When true, you can delete a job execution which is \"IN_PROGRESS\". Otherwise, you can only delete a job execution which is in a terminal state (\"SUCCEEDED\", \"FAILED\", \"REJECTED\", \"REMOVED\" or \"CANCELED\") or an exception will occur. The default is false.</p> <note> <p>Deleting a job execution which is \"IN_PROGRESS\", will cause the device to be unable to access job information or update the job execution status. Use caution and ensure that the device is able to recover to a valid state.</p> </note>
-            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>
+            force: <p>(Optional) When true, you can delete a job execution which is "IN_PROGRESS". Otherwise, you can only delete a job execution which is in a terminal state ("SUCCEEDED", "FAILED", "REJECTED", "REMOVED" or "CANCELED") or an exception will occur. The default is false.</p> <note> <p>Deleting a job execution which is "IN_PROGRESS", will cause the device to be unable to access job information or update the job execution status. Use caution and ensure that the device is able to recover to a valid state.</p> </note>
+            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>
 
         Raises:
             capo_iot.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
-            capo_iot.errors.invalid_state_transition_exception.InvalidStateTransitionException: <p>An attempt was made to change to an invalid state, for example by deleting a job or a job execution which is \"IN_PROGRESS\" without setting the <code>force</code> parameter.</p>
+            capo_iot.errors.invalid_state_transition_exception.InvalidStateTransitionException: <p>An attempt was made to change to an invalid state, for example by deleting a job or a job execution which is "IN_PROGRESS" without setting the <code>force</code> parameter.</p>
             capo_iot.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist.</p>
             capo_iot.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is temporarily unavailable.</p>
             capo_iot.errors.throttling_exception.ThrottlingException: <p>The rate exceeds the limit.</p>
@@ -5030,7 +5030,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_mitigation_action_response.DeleteMitigationActionResponse":
-        r"""<p>Deletes a defined mitigation action from your Amazon Web Services accounts.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteMitigationAction</a> action.</p>
+        """<p>Deletes a defined mitigation action from your Amazon Web Services accounts.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteMitigationAction</a> action.</p>
 
         Args:
             action_name: <p>The name of the mitigation action that you want to delete.</p>
@@ -5080,12 +5080,12 @@ class AsyncIoTClient:
             "capo_iot.types.force_delete_aws_job.ForceDeleteAWSJob"
         ] = None,
     ) -> "capo_iot.types.delete_ota_update_response.DeleteOTAUpdateResponse":
-        r"""<p>Delete an OTA update.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteOTAUpdate</a> action.</p>
+        """<p>Delete an OTA update.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteOTAUpdate</a> action.</p>
 
         Args:
             ota_update_id: <p>The ID of the OTA update to delete.</p>
             delete_stream: <p>When true, the stream created by the OTAUpdate process is deleted when the OTA update is deleted. Ignored if the stream specified in the OTAUpdate is supplied by the user.</p>
-            force_delete_aws_job: <p>When true, deletes the IoT job created by the OTAUpdate process even if it is \"IN_PROGRESS\". Otherwise, if the job is not in a terminal state (\"COMPLETED\" or \"CANCELED\") an exception will occur. The default is false.</p>
+            force_delete_aws_job: <p>When true, deletes the IoT job created by the OTAUpdate process even if it is "IN_PROGRESS". Otherwise, if the job is not in a terminal state ("COMPLETED" or "CANCELED") an exception will occur. The default is false.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -5137,7 +5137,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
     ) -> "capo_iot.types.delete_package_response.DeletePackageResponse":
-        r"""<p>Deletes a specific version from a software package.</p> <p> <b>Note:</b> All package versions must be deleted before deleting the software package.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeletePackageVersion</a> action.</p>
+        """<p>Deletes a specific version from a software package.</p> <p> <b>Note:</b> All package versions must be deleted before deleting the software package.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeletePackageVersion</a> action.</p>
 
         Args:
             package_name: <p>The name of the target software package.</p>
@@ -5241,7 +5241,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes the specified policy.</p> <p>A policy cannot be deleted if it has non-default versions or it is attached to any certificate.</p> <p>To delete a policy, use the <a>DeletePolicyVersion</a> action to delete all non-default versions of the policy; use the <a>DetachPolicy</a> action to detach the policy from any certificate; and then use the DeletePolicy action to delete the policy.</p> <p>When a policy is deleted using DeletePolicy, its default version is deleted with it.</p> <note> <p>Because of the distributed nature of Amazon Web Services, it can take up to five minutes after a policy is detached before it's ready to be deleted.</p> </note> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeletePolicy</a> action.</p>
+        """<p>Deletes the specified policy.</p> <p>A policy cannot be deleted if it has non-default versions or it is attached to any certificate.</p> <p>To delete a policy, use the <a>DeletePolicyVersion</a> action to delete all non-default versions of the policy; use the <a>DetachPolicy</a> action to detach the policy from any certificate; and then use the DeletePolicy action to delete the policy.</p> <p>When a policy is deleted using DeletePolicy, its default version is deleted with it.</p> <note> <p>Because of the distributed nature of Amazon Web Services, it can take up to five minutes after a policy is detached before it's ready to be deleted.</p> </note> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeletePolicy</a> action.</p>
 
         Args:
             policy_name: <p>The name of the policy to delete.</p>
@@ -5290,7 +5290,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes the specified version of the specified policy. You cannot delete the default version of a policy using this action. To delete the default version of a policy, use <a>DeletePolicy</a>. To find out which version of a policy is marked as the default version, use ListPolicyVersions.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeletePolicyVersion</a> action.</p>
+        """<p>Deletes the specified version of the specified policy. You cannot delete the default version of a policy using this action. To delete the default version of a policy, use <a>DeletePolicy</a>. To find out which version of a policy is marked as the default version, use ListPolicyVersions.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeletePolicyVersion</a> action.</p>
 
         Args:
             policy_name: <p>The name of the policy.</p>
@@ -5340,7 +5340,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_provisioning_template_response.DeleteProvisioningTemplateResponse":
-        r"""<p>Deletes a provisioning template.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteProvisioningTemplate</a> action.</p>
+        """<p>Deletes a provisioning template.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteProvisioningTemplate</a> action.</p>
 
         Args:
             template_name: <p>The name of the fleet provision template to delete.</p>
@@ -5391,7 +5391,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_provisioning_template_version_response.DeleteProvisioningTemplateVersionResponse":
-        r"""<p>Deletes a provisioning template version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteProvisioningTemplateVersion</a> action.</p>
+        """<p>Deletes a provisioning template version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteProvisioningTemplateVersion</a> action.</p>
 
         Args:
             template_name: <p>The name of the provisioning template version to delete.</p>
@@ -5440,7 +5440,7 @@ class AsyncIoTClient:
     async def delete_registration_code(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.delete_registration_code_response.DeleteRegistrationCodeResponse":
-        r"""<p>Deletes a CA certificate registration code.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteRegistrationCode</a> action.</p>
+        """<p>Deletes a CA certificate registration code.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteRegistrationCode</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -5483,7 +5483,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_role_alias_response.DeleteRoleAliasResponse":
-        r"""<p>Deletes a role alias</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteRoleAlias</a> action.</p>
+        """<p>Deletes a role alias</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteRoleAlias</a> action.</p>
 
         Args:
             role_alias: <p>The role alias to delete.</p>
@@ -5533,7 +5533,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_scheduled_audit_response.DeleteScheduledAuditResponse":
-        r"""<p>Deletes a scheduled audit.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteScheduledAudit</a> action.</p>
+        """<p>Deletes a scheduled audit.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteScheduledAudit</a> action.</p>
 
         Args:
             scheduled_audit_name: <p>The name of the scheduled audit you want to delete.</p>
@@ -5585,7 +5585,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.delete_security_profile_response.DeleteSecurityProfileResponse"
     ):
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Deletes a Device Defender security profile.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteSecurityProfile</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Deletes a Device Defender security profile.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteSecurityProfile</a> action.</p>
 
         Args:
             security_profile_name: <p>The name of the security profile to be deleted.</p>
@@ -5635,7 +5635,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_stream_response.DeleteStreamResponse":
-        r"""<p>Deletes a stream.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteStream</a> action.</p>
+        """<p>Deletes a stream.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteStream</a> action.</p>
 
         Args:
             stream_id: <p>The stream ID.</p>
@@ -5688,7 +5688,7 @@ class AsyncIoTClient:
             "capo_iot.types.optional_version.OptionalVersion"
         ] = None,
     ) -> "capo_iot.types.delete_thing_response.DeleteThingResponse":
-        r"""<p>Deletes the specified thing. Returns successfully with no error if the deletion is successful or you specify a thing that doesn't exist.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteThing</a> action.</p>
+        """<p>Deletes the specified thing. Returns successfully with no error if the deletion is successful or you specify a thing that doesn't exist.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteThing</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing to delete.</p>
@@ -5744,7 +5744,7 @@ class AsyncIoTClient:
             "capo_iot.types.optional_version.OptionalVersion"
         ] = None,
     ) -> "capo_iot.types.delete_thing_group_response.DeleteThingGroupResponse":
-        r"""<p>Deletes a thing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteThingGroup</a> action.</p>
+        """<p>Deletes a thing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The name of the thing group to delete.</p>
@@ -5794,7 +5794,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_thing_type_response.DeleteThingTypeResponse":
-        r"""<p>Deletes the specified thing type. You cannot delete a thing type if it has things associated with it. To delete a thing type, first mark it as deprecated by calling <a>DeprecateThingType</a>, then remove any associated things by calling <a>UpdateThing</a> to change the thing type on any associated thing, and finally use <a>DeleteThingType</a> to delete the thing type.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteThingType</a> action.</p>
+        """<p>Deletes the specified thing type. You cannot delete a thing type if it has things associated with it. To delete a thing type, first mark it as deprecated by calling <a>DeprecateThingType</a>, then remove any associated things by calling <a>UpdateThing</a> to change the thing type on any associated thing, and finally use <a>DeleteThingType</a> to delete the thing type.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteThingType</a> action.</p>
 
         Args:
             thing_type_name: <p>The name of the thing type.</p>
@@ -5843,7 +5843,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes the rule.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteTopicRule</a> action.</p>
+        """<p>Deletes the rule.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteTopicRule</a> action.</p>
 
         Args:
             rule_name: <p>The name of the rule.</p>
@@ -5889,7 +5889,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.delete_topic_rule_destination_response.DeleteTopicRuleDestinationResponse":
-        r"""<p>Deletes a topic rule destination.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteTopicRuleDestination</a> action.</p>
+        """<p>Deletes a topic rule destination.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteTopicRuleDestination</a> action.</p>
 
         Args:
             arn: <p>The ARN of the topic rule destination to delete.</p>
@@ -5938,7 +5938,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a logging level.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeleteV2LoggingLevel</a> action.</p>
+        """<p>Deletes a logging level.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeleteV2LoggingLevel</a> action.</p>
 
         Args:
             target_type: <p>The type of resource for which you are configuring logging. Must be <code>DEFAULT</code>, <code>THING_GROUP</code>, <code>CLIENT_ID</code>, <code>SOURCE_IP</code>, or <code>PRINCIPAL_ID</code>.</p>
@@ -5985,7 +5985,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         undo_deprecate: Optional["capo_iot.types.undo_deprecate.UndoDeprecate"] = None,
     ) -> "capo_iot.types.deprecate_thing_type_response.DeprecateThingTypeResponse":
-        r"""<p>Deprecates a thing type. You can not associate new things with deprecated thing type.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DeprecateThingType</a> action.</p>
+        """<p>Deprecates a thing type. You can not associate new things with deprecated thing type.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DeprecateThingType</a> action.</p>
 
         Args:
             thing_type_name: <p>The name of the thing type to deprecate.</p>
@@ -6034,7 +6034,7 @@ class AsyncIoTClient:
     async def describe_account_audit_configuration(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.describe_account_audit_configuration_response.DescribeAccountAuditConfigurationResponse":
-        r"""<p>Gets information about the Device Defender audit settings for this account. Settings include how audit notifications are sent and which audit checks are enabled or disabled.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeAccountAuditConfiguration</a> action.</p>
+        """<p>Gets information about the Device Defender audit settings for this account. Settings include how audit notifications are sent and which audit checks are enabled or disabled.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeAccountAuditConfiguration</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -6074,7 +6074,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_audit_finding_response.DescribeAuditFindingResponse":
-        r"""<p>Gets information about a single audit finding. Properties include the reason for noncompliance, the severity of the issue, and the start time when the audit that returned the finding.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeAuditFinding</a> action.</p>
+        """<p>Gets information about a single audit finding. Properties include the reason for noncompliance, the severity of the issue, and the start time when the audit that returned the finding.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeAuditFinding</a> action.</p>
 
         Args:
             finding_id: <p>A unique identifier for a single audit finding. You can use this identifier to apply mitigation actions to the finding.</p>
@@ -6214,7 +6214,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_audit_task_response.DescribeAuditTaskResponse":
-        r"""<p>Gets information about a Device Defender audit.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeAuditTask</a> action.</p>
+        """<p>Gets information about a Device Defender audit.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeAuditTask</a> action.</p>
 
         Args:
             task_id: <p>The ID of the audit whose information you want to get.</p>
@@ -6261,7 +6261,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_authorizer_response.DescribeAuthorizerResponse":
-        r"""<p>Describes an authorizer.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeAuthorizer</a> action.</p>
+        """<p>Describes an authorizer.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeAuthorizer</a> action.</p>
 
         Args:
             authorizer_name: <p>The name of the authorizer to describe.</p>
@@ -6310,7 +6310,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_billing_group_response.DescribeBillingGroupResponse":
-        r"""<p>Returns information about a billing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeBillingGroup</a> action.</p>
+        """<p>Returns information about a billing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeBillingGroup</a> action.</p>
 
         Args:
             billing_group_name: <p>The name of the billing group.</p>
@@ -6359,7 +6359,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.describe_ca_certificate_response.DescribeCACertificateResponse"
     ):
-        r"""<p>Describes a registered CA certificate.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeCACertificate</a> action.</p>
+        """<p>Describes a registered CA certificate.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeCACertificate</a> action.</p>
 
         Args:
             certificate_id: <p>The CA certificate identifier.</p>
@@ -6408,7 +6408,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_certificate_response.DescribeCertificateResponse":
-        r"""<p>Gets information about the specified certificate.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeCertificate</a> action.</p>
+        """<p>Gets information about the specified certificate.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeCertificate</a> action.</p>
 
         Args:
             certificate_id: <p>The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)</p>
@@ -6457,7 +6457,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_certificate_provider_response.DescribeCertificateProviderResponse":
-        r"""<p>Describes a certificate provider.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeCertificateProvider</a> action. </p>
+        """<p>Describes a certificate provider.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeCertificateProvider</a> action. </p>
 
         Args:
             certificate_provider_name: <p>The name of the certificate provider.</p>
@@ -6506,7 +6506,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_custom_metric_response.DescribeCustomMetricResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Gets information about a Device Defender detect custom metric. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeCustomMetric</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Gets information about a Device Defender detect custom metric. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeCustomMetric</a> action.</p>
 
         Args:
             metric_name: <p> The name of the custom metric. </p>
@@ -6550,7 +6550,7 @@ class AsyncIoTClient:
     async def describe_default_authorizer(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.describe_default_authorizer_response.DescribeDefaultAuthorizerResponse":
-        r"""<p>Describes the default authorizer.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeDefaultAuthorizer</a> action.</p>
+        """<p>Describes the default authorizer.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeDefaultAuthorizer</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -6594,7 +6594,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_detect_mitigation_actions_task_response.DescribeDetectMitigationActionsTaskResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Gets information about a Device Defender ML Detect mitigation action. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeDetectMitigationActionsTask</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Gets information about a Device Defender ML Detect mitigation action. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeDetectMitigationActionsTask</a> action.</p>
 
         Args:
             task_id: <p> The unique identifier of the task. </p>
@@ -6641,7 +6641,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_dimension_response.DescribeDimensionResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Provides details about a dimension that is defined in your Amazon Web Services accounts.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeDimension</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Provides details about a dimension that is defined in your Amazon Web Services accounts.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeDimension</a> action.</p>
 
         Args:
             name: <p>The unique identifier for the dimension.</p>
@@ -6688,7 +6688,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_domain_configuration_response.DescribeDomainConfigurationResponse":
-        r"""<p>Gets summary information about a domain configuration.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeDomainConfiguration</a> action.</p>
+        """<p>Gets summary information about a domain configuration.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeDomainConfiguration</a> action.</p>
 
         Args:
             domain_configuration_name: <p>The name of the domain configuration.</p>
@@ -6734,7 +6734,7 @@ class AsyncIoTClient:
     async def describe_encryption_configuration(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.describe_encryption_configuration_response.DescribeEncryptionConfigurationResponse":
-        r"""<p>Retrieves the encryption configuration for resources and data of your Amazon Web Services account in Amazon Web Services IoT Core. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/encryption-at-rest.html\">Data encryption at rest</a> in the <i>Amazon Web Services IoT Core Developer Guide</i>.</p>
+        """<p>Retrieves the encryption configuration for resources and data of your Amazon Web Services account in Amazon Web Services IoT Core. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/encryption-at-rest.html">Data encryption at rest</a> in the <i>Amazon Web Services IoT Core Developer Guide</i>.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -6777,7 +6777,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         endpoint_type: Optional["capo_iot.types.endpoint_type.EndpointType"] = None,
     ) -> "capo_iot.types.describe_endpoint_response.DescribeEndpointResponse":
-        r"""<p>Returns or creates a unique endpoint specific to the Amazon Web Services account making the call.</p> <note> <p>The first time <code>DescribeEndpoint</code> is called, an endpoint is created. All subsequent calls to <code>DescribeEndpoint</code> return the same endpoint.</p> </note> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeEndpoint</a> action.</p>
+        """<p>Returns or creates a unique endpoint specific to the Amazon Web Services account making the call.</p> <note> <p>The first time <code>DescribeEndpoint</code> is called, an endpoint is created. All subsequent calls to <code>DescribeEndpoint</code> return the same endpoint.</p> </note> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeEndpoint</a> action.</p>
 
         Args:
             endpoint_type: <p>The endpoint type. Valid endpoint types include:</p> <ul> <li> <p> <code>iot:Data</code> - Returns a VeriSign signed data endpoint.</p> </li> </ul> <ul> <li> <p> <code>iot:Data-ATS</code> - Returns an ATS signed data endpoint.</p> </li> </ul> <ul> <li> <p> <code>iot:CredentialProvider</code> - Returns an IoT credentials provider API endpoint.</p> </li> </ul> <ul> <li> <p> <code>iot:Jobs</code> - Returns an IoT device management Jobs API endpoint.</p> </li> </ul> <p>We strongly recommend that customers use the newer <code>iot:Data-ATS</code> endpoint type to avoid issues related to the widespread distrust of Symantec certificate authorities. ATS Signed Certificates are more secure and are trusted by most popular browsers.</p>
@@ -6821,7 +6821,7 @@ class AsyncIoTClient:
     async def describe_event_configurations(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.describe_event_configurations_response.DescribeEventConfigurationsResponse":
-        r"""<p>Describes event configurations.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeEventConfigurations</a> action.</p>
+        """<p>Describes event configurations.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeEventConfigurations</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -6861,7 +6861,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_fleet_metric_response.DescribeFleetMetricResponse":
-        r"""<p>Gets information about the specified fleet metric.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeFleetMetric</a> action.</p>
+        """<p>Gets information about the specified fleet metric.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeFleetMetric</a> action.</p>
 
         Args:
             metric_name: <p>The name of the fleet metric to describe.</p>
@@ -6910,7 +6910,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_index_response.DescribeIndexResponse":
-        r"""<p>Describes a search index.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeIndex</a> action.</p>
+        """<p>Describes a search index.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeIndex</a> action.</p>
 
         Args:
             index_name: <p>The index name.</p>
@@ -6962,7 +6962,7 @@ class AsyncIoTClient:
             "capo_iot.types.before_substitution_flag.BeforeSubstitutionFlag"
         ] = None,
     ) -> "capo_iot.types.describe_job_response.DescribeJobResponse":
-        r"""<p>Describes a job.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeJob</a> action.</p>
+        """<p>Describes a job.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeJob</a> action.</p>
 
         Args:
             job_id: <p>The unique identifier you assigned to this job when it was created.</p>
@@ -7016,12 +7016,12 @@ class AsyncIoTClient:
             "capo_iot.types.execution_number.ExecutionNumber"
         ] = None,
     ) -> "capo_iot.types.describe_job_execution_response.DescribeJobExecutionResponse":
-        r"""<p>Describes a job execution.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeJobExecution</a> action.</p>
+        """<p>Describes a job execution.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeJobExecution</a> action.</p>
 
         Args:
             job_id: <p>The unique identifier you assigned to this job when it was created.</p>
             thing_name: <p>The name of the thing on which the job execution is running.</p>
-            execution_number: <p>A string (consisting of the digits \"0\" through \"9\" which is used to specify a particular job execution on a particular device.</p>
+            execution_number: <p>A string (consisting of the digits "0" through "9" which is used to specify a particular job execution on a particular device.</p>
 
         Raises:
             capo_iot.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
@@ -7168,7 +7168,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_mitigation_action_response.DescribeMitigationActionResponse":
-        r"""<p>Gets information about a mitigation action.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeMitigationAction</a> action.</p>
+        """<p>Gets information about a mitigation action.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeMitigationAction</a> action.</p>
 
         Args:
             action_name: <p>The friendly name that uniquely identifies the mitigation action.</p>
@@ -7215,7 +7215,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_provisioning_template_response.DescribeProvisioningTemplateResponse":
-        r"""<p>Returns information about a provisioning template.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeProvisioningTemplate</a> action.</p>
+        """<p>Returns information about a provisioning template.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeProvisioningTemplate</a> action.</p>
 
         Args:
             template_name: <p>The name of the provisioning template.</p>
@@ -7264,7 +7264,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_provisioning_template_version_response.DescribeProvisioningTemplateVersionResponse":
-        r"""<p>Returns information about a provisioning template version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeProvisioningTemplateVersion</a> action.</p>
+        """<p>Returns information about a provisioning template version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeProvisioningTemplateVersion</a> action.</p>
 
         Args:
             template_name: <p>The template name.</p>
@@ -7314,7 +7314,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_role_alias_response.DescribeRoleAliasResponse":
-        r"""<p>Describes a role alias.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeRoleAlias</a> action.</p>
+        """<p>Describes a role alias.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeRoleAlias</a> action.</p>
 
         Args:
             role_alias: <p>The role alias to describe.</p>
@@ -7363,7 +7363,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_scheduled_audit_response.DescribeScheduledAuditResponse":
-        r"""<p>Gets information about a scheduled audit.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeScheduledAudit</a> action.</p>
+        """<p>Gets information about a scheduled audit.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeScheduledAudit</a> action.</p>
 
         Args:
             scheduled_audit_name: <p>The name of the scheduled audit whose information you want to get.</p>
@@ -7410,7 +7410,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_security_profile_response.DescribeSecurityProfileResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Gets information about a Device Defender security profile.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeSecurityProfile</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Gets information about a Device Defender security profile.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeSecurityProfile</a> action.</p>
 
         Args:
             security_profile_name: <p>The name of the security profile whose information you want to get.</p>
@@ -7457,7 +7457,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_stream_response.DescribeStreamResponse":
-        r"""<p>Gets information about a stream.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeStream</a> action.</p>
+        """<p>Gets information about a stream.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeStream</a> action.</p>
 
         Args:
             stream_id: <p>The stream ID.</p>
@@ -7506,7 +7506,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_thing_response.DescribeThingResponse":
-        r"""<p>Gets information about the specified thing.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeThing</a> action.</p>
+        """<p>Gets information about the specified thing.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeThing</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing.</p>
@@ -7555,7 +7555,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_thing_group_response.DescribeThingGroupResponse":
-        r"""<p>Describe a thing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeThingGroup</a> action.</p>
+        """<p>Describe a thing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The name of the thing group.</p>
@@ -7602,7 +7602,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_thing_registration_task_response.DescribeThingRegistrationTaskResponse":
-        r"""<p>Describes a bulk thing provisioning task.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeThingRegistrationTask</a> action.</p>
+        """<p>Describes a bulk thing provisioning task.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeThingRegistrationTask</a> action.</p>
 
         Args:
             task_id: <p>The task ID.</p>
@@ -7650,7 +7650,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.describe_thing_type_response.DescribeThingTypeResponse":
-        r"""<p>Gets information about the specified thing type.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DescribeThingType</a> action.</p>
+        """<p>Gets information about the specified thing type.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DescribeThingType</a> action.</p>
 
         Args:
             thing_type_name: <p>The name of the thing type.</p>
@@ -7700,7 +7700,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Detaches a policy from the specified target.</p> <note> <p>Because of the distributed nature of Amazon Web Services, it can take up to five minutes after a policy is detached before it's ready to be deleted.</p> </note> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DetachPolicy</a> action.</p>
+        """<p>Detaches a policy from the specified target.</p> <note> <p>Because of the distributed nature of Amazon Web Services, it can take up to five minutes after a policy is detached before it's ready to be deleted.</p> </note> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DetachPolicy</a> action.</p>
 
         Args:
             policy_name: <p>The policy to detach.</p>
@@ -7750,7 +7750,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Removes the specified policy from the specified certificate.</p> <p> <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add enhancements. Use <a>DetachPolicy</a> instead.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DetachPrincipalPolicy</a> action.</p>
+        """<p>Removes the specified policy from the specified certificate.</p> <p> <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add enhancements. Use <a>DetachPolicy</a> instead.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DetachPrincipalPolicy</a> action.</p>
 
         Args:
             policy_name: <p>The name of the policy to detach.</p>
@@ -7802,7 +7802,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.detach_security_profile_response.DetachSecurityProfileResponse"
     ):
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Disassociates a Device Defender security profile from a thing group or from this account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DetachSecurityProfile</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Disassociates a Device Defender security profile from a thing group or from this account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DetachSecurityProfile</a> action.</p>
 
         Args:
             security_profile_name: <p>The security profile that is detached.</p>
@@ -7852,7 +7852,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.detach_thing_principal_response.DetachThingPrincipalResponse":
-        r"""<p>Detaches the specified principal from the specified thing. A principal can be X.509 certificates, IAM users, groups, and roles, Amazon Cognito identities or federated identities.</p> <note> <p>This call is asynchronous. It might take several seconds for the detachment to propagate.</p> </note> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DetachThingPrincipal</a> action.</p>
+        """<p>Detaches the specified principal from the specified thing. A principal can be X.509 certificates, IAM users, groups, and roles, Amazon Cognito identities or federated identities.</p> <note> <p>This call is asynchronous. It might take several seconds for the detachment to propagate.</p> </note> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DetachThingPrincipal</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing.</p>
@@ -7903,7 +7903,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Disables the rule.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DisableTopicRule</a> action.</p>
+        """<p>Disables the rule.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DisableTopicRule</a> action.</p>
 
         Args:
             rule_name: <p>The name of the rule to disable.</p>
@@ -7951,7 +7951,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
     ) -> "capo_iot.types.disassociate_sbom_from_package_version_response.DisassociateSbomFromPackageVersionResponse":
-        r"""<p>Disassociates the selected software bill of materials (SBOM) from a specific software package version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">DisassociateSbomWithPackageVersion</a> action.</p>
+        """<p>Disassociates the selected software bill of materials (SBOM) from a specific software package version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">DisassociateSbomWithPackageVersion</a> action.</p>
 
         Args:
             package_name: <p>The name of the new software package.</p>
@@ -8005,7 +8005,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Enables the rule.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">EnableTopicRule</a> action.</p>
+        """<p>Enables the rule.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">EnableTopicRule</a> action.</p>
 
         Args:
             rule_name: <p>The name of the topic rule to enable.</p>
@@ -8055,7 +8055,7 @@ class AsyncIoTClient:
         max_results: Optional["capo_iot.types.tiny_max_results.TinyMaxResults"] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.get_behavior_model_training_summaries_response.GetBehaviorModelTrainingSummariesResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Returns a Device Defender's ML Detect Security Profile training model's status. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetBehaviorModelTrainingSummaries</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Returns a Device Defender's ML Detect Security Profile training model's status. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetBehaviorModelTrainingSummaries</a> action.</p>
 
         Args:
             security_profile_name: <p> The name of the security profile. </p>
@@ -8139,7 +8139,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.get_buckets_aggregation_response.GetBucketsAggregationResponse"
     ):
-        r"""<p>Aggregates on indexed data with search queries pertaining to particular fields. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetBucketsAggregation</a> action.</p>
+        """<p>Aggregates on indexed data with search queries pertaining to particular fields. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetBucketsAggregation</a> action.</p>
 
         Args:
             index_name: <p>The name of the index to search.</p>
@@ -8206,7 +8206,7 @@ class AsyncIoTClient:
         ] = None,
         query_version: Optional["capo_iot.types.query_version.QueryVersion"] = None,
     ) -> "capo_iot.types.get_cardinality_response.GetCardinalityResponse":
-        r"""<p>Returns the approximate count of unique values that match the query.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetCardinality</a> action.</p>
+        """<p>Returns the approximate count of unique values that match the query.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetCardinality</a> action.</p>
 
         Args:
             index_name: <p>The name of the index to search.</p>
@@ -8374,7 +8374,7 @@ class AsyncIoTClient:
         ] = None,
         thing_name: Optional["capo_iot.types.thing_name.ThingName"] = None,
     ) -> "capo_iot.types.get_effective_policies_response.GetEffectivePoliciesResponse":
-        r"""<p>Gets a list of the policies that have an effect on the authorization behavior of the specified device when it connects to the IoT device gateway.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetEffectivePolicies</a> action.</p>
+        """<p>Gets a list of the policies that have an effect on the authorization behavior of the specified device when it connects to the IoT device gateway.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetEffectivePolicies</a> action.</p>
 
         Args:
             principal: <p>The principal. Valid principals are CertificateArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:cert/<i>certificateId</i>), thingGroupArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:thinggroup/<i>groupName</i>) and CognitoId (<i>region</i>:<i>id</i>).</p>
@@ -8427,7 +8427,7 @@ class AsyncIoTClient:
     async def get_indexing_configuration(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.get_indexing_configuration_response.GetIndexingConfigurationResponse":
-        r"""<p>Gets the indexing configuration.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetIndexingConfiguration</a> action.</p>
+        """<p>Gets the indexing configuration.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetIndexingConfiguration</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -8473,7 +8473,7 @@ class AsyncIoTClient:
             "capo_iot.types.before_substitution_flag.BeforeSubstitutionFlag"
         ] = None,
     ) -> "capo_iot.types.get_job_document_response.GetJobDocumentResponse":
-        r"""<p>Gets a job document.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetJobDocument</a> action.</p>
+        """<p>Gets a job document.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetJobDocument</a> action.</p>
 
         Args:
             job_id: <p>The unique identifier you assigned to this job when it was created.</p>
@@ -8520,7 +8520,7 @@ class AsyncIoTClient:
     async def get_logging_options(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.get_logging_options_response.GetLoggingOptionsResponse":
-        r"""<p>Gets the logging options.</p> <p>NOTE: use of this command is not recommended. Use <code>GetV2LoggingOptions</code> instead.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetLoggingOptions</a> action.</p>
+        """<p>Gets the logging options.</p> <p>NOTE: use of this command is not recommended. Use <code>GetV2LoggingOptions</code> instead.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetLoggingOptions</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_exception.InternalException: <p>An unexpected error has occurred.</p>
@@ -8561,7 +8561,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.get_ota_update_response.GetOTAUpdateResponse":
-        r"""<p>Gets an OTA update.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetOTAUpdate</a> action.</p>
+        """<p>Gets an OTA update.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetOTAUpdate</a> action.</p>
 
         Args:
             ota_update_id: <p>The OTA update ID.</p>
@@ -8610,7 +8610,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.get_package_response.GetPackageResponse":
-        r"""<p>Gets information about the specified software package.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetPackage</a> action.</p>
+        """<p>Gets information about the specified software package.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetPackage</a> action.</p>
 
         Args:
             package_name: <p>The name of the target software package.</p>
@@ -8654,7 +8654,7 @@ class AsyncIoTClient:
     async def get_package_configuration(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.get_package_configuration_response.GetPackageConfigurationResponse":
-        r"""<p>Gets information about the specified software package's configuration.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetPackageConfiguration</a> action.</p>
+        """<p>Gets information about the specified software package's configuration.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetPackageConfiguration</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_server_exception.InternalServerException: <p>Internal error from the service that indicates an unexpected error or that the service is unavailable.</p>
@@ -8695,7 +8695,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.get_package_version_response.GetPackageVersionResponse":
-        r"""<p>Gets information about the specified package version. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetPackageVersion</a> action.</p>
+        """<p>Gets information about the specified package version. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetPackageVersion</a> action.</p>
 
         Args:
             package_name: <p>The name of the associated package.</p>
@@ -8750,7 +8750,7 @@ class AsyncIoTClient:
         query_version: Optional["capo_iot.types.query_version.QueryVersion"] = None,
         percents: Optional["capo_iot.types.percent_list.PercentList"] = None,
     ) -> "capo_iot.types.get_percentiles_response.GetPercentilesResponse":
-        r"""<p>Groups the aggregated values that match the query into percentile groupings. The default percentile groupings are: 1,5,25,50,75,95,99, although you can specify your own when you call <code>GetPercentiles</code>. This function returns a value for each percentile group specified (or the default percentile groupings). The percentile group \"1\" contains the aggregated field value that occurs in approximately one percent of the values that match the query. The percentile group \"5\" contains the aggregated field value that occurs in approximately five percent of the values that match the query, and so on. The result is an approximation, the more values that match the query, the more accurate the percentile values.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetPercentiles</a> action.</p>
+        """<p>Groups the aggregated values that match the query into percentile groupings. The default percentile groupings are: 1,5,25,50,75,95,99, although you can specify your own when you call <code>GetPercentiles</code>. This function returns a value for each percentile group specified (or the default percentile groupings). The percentile group "1" contains the aggregated field value that occurs in approximately one percent of the values that match the query. The percentile group "5" contains the aggregated field value that occurs in approximately five percent of the values that match the query, and so on. The result is an approximation, the more values that match the query, the more accurate the percentile values.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetPercentiles</a> action.</p>
 
         Args:
             index_name: <p>The name of the index to search.</p>
@@ -8814,7 +8814,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.get_policy_response.GetPolicyResponse":
-        r"""<p>Gets information about the specified policy with the policy document of the default version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetPolicy</a> action.</p>
+        """<p>Gets information about the specified policy with the policy document of the default version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetPolicy</a> action.</p>
 
         Args:
             policy_name: <p>The name of the policy.</p>
@@ -8864,7 +8864,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.get_policy_version_response.GetPolicyVersionResponse":
-        r"""<p>Gets information about the specified policy version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetPolicyVersion</a> action.</p>
+        """<p>Gets information about the specified policy version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetPolicyVersion</a> action.</p>
 
         Args:
             policy_name: <p>The name of the policy.</p>
@@ -8912,7 +8912,7 @@ class AsyncIoTClient:
     async def get_registration_code(
         self, *, config_overrides: Optional[AsyncIoTClientConfig] = None
     ) -> "capo_iot.types.get_registration_code_response.GetRegistrationCodeResponse":
-        r"""<p>Gets a registration code used to register a CA certificate with IoT.</p> <p>IoT will create a registration code as part of this API call if the registration code doesn't exist or has been deleted. If you already have a registration code, this API call will return the same registration code.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetRegistrationCode</a> action.</p>
+        """<p>Gets a registration code used to register a CA certificate with IoT.</p> <p>IoT will create a registration code as part of this API call if the registration code doesn't exist or has been deleted. If you already have a registration code, this API call will return the same registration code.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetRegistrationCode</a> action.</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -8960,11 +8960,11 @@ class AsyncIoTClient:
         ] = None,
         query_version: Optional["capo_iot.types.query_version.QueryVersion"] = None,
     ) -> "capo_iot.types.get_statistics_response.GetStatisticsResponse":
-        r"""<p>Returns the count, average, sum, minimum, maximum, sum of squares, variance, and standard deviation for the specified aggregated field. If the aggregation field is of type <code>String</code>, only the count statistic is returned.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetStatistics</a> action.</p>
+        """<p>Returns the count, average, sum, minimum, maximum, sum of squares, variance, and standard deviation for the specified aggregated field. If the aggregation field is of type <code>String</code>, only the count statistic is returned.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetStatistics</a> action.</p>
 
         Args:
             index_name: <p>The name of the index to search. The default value is <code>AWS_Things</code>.</p>
-            query_string: <p>The query used to search. You can specify \"*\" for the query string to get the count of all indexed things in your Amazon Web Services account.</p>
+            query_string: <p>The query used to search. You can specify "*" for the query string to get the count of all indexed things in your Amazon Web Services account.</p>
             aggregation_field: <p>The aggregation field name.</p>
             query_version: <p>The version of the query used to search.</p>
 
@@ -9075,7 +9075,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.get_topic_rule_response.GetTopicRuleResponse":
-        r"""<p>Gets information about the rule.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetTopicRule</a> action.</p>
+        """<p>Gets information about the rule.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetTopicRule</a> action.</p>
 
         Args:
             rule_name: <p>The name of the rule.</p>
@@ -9122,7 +9122,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.get_topic_rule_destination_response.GetTopicRuleDestinationResponse":
-        r"""<p>Gets information about a topic rule destination.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetTopicRuleDestination</a> action.</p>
+        """<p>Gets information about a topic rule destination.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetTopicRuleDestination</a> action.</p>
 
         Args:
             arn: <p>The ARN of the topic rule destination.</p>
@@ -9169,7 +9169,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         verbose: Optional["capo_iot.types.verbose_flag.VerboseFlag"] = None,
     ) -> "capo_iot.types.get_v2_logging_options_response.GetV2LoggingOptionsResponse":
-        r"""<p>Gets the fine grained logging options.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetV2LoggingOptions</a> action.</p>
+        """<p>Gets the fine grained logging options.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetV2LoggingOptions</a> action.</p>
 
         Args:
             verbose: <p> The flag is used to get all the event types and their respective configuration that event-based logging supports. </p>
@@ -9231,7 +9231,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_active_violations_response.ListActiveViolationsResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the active violations for a given Device Defender security profile.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListActiveViolations</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the active violations for a given Device Defender security profile.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListActiveViolations</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing whose active violations are listed.</p>
@@ -9340,7 +9340,7 @@ class AsyncIoTClient:
         marker: Optional["capo_iot.types.marker.Marker"] = None,
         page_size: Optional["capo_iot.types.page_size.PageSize"] = None,
     ) -> "capo_iot.types.list_attached_policies_response.ListAttachedPoliciesResponse":
-        r"""<p>Lists the policies attached to the specified thing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListAttachedPolicies</a> action.</p>
+        """<p>Lists the policies attached to the specified thing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListAttachedPolicies</a> action.</p>
 
         Args:
             target: <p>The group or principal for which the policies will be listed. Valid principals are CertificateArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:cert/<i>certificateId</i>), thingGroupArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:thinggroup/<i>groupName</i>) and CognitoId (<i>region</i>:<i>id</i>).</p>
@@ -9435,7 +9435,7 @@ class AsyncIoTClient:
             "capo_iot.types.list_suppressed_findings.ListSuppressedFindings"
         ] = None,
     ) -> "capo_iot.types.list_audit_findings_response.ListAuditFindingsResponse":
-        r"""<p>Lists the findings (results) of a Device Defender audit or of the audits performed during a specified time period. (Findings are retained for 90 days.)</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListAuditFindings</a> action.</p>
+        """<p>Lists the findings (results) of a Device Defender audit or of the audits performed during a specified time period. (Findings are retained for 90 days.)</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListAuditFindings</a> action.</p>
 
         Args:
             task_id: <p>A filter to limit results to the audit with the specified ID. You must specify either the taskId or the startTime and endTime, but not both.</p>
@@ -9545,7 +9545,7 @@ class AsyncIoTClient:
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_audit_mitigation_actions_executions_response.ListAuditMitigationActionsExecutionsResponse":
-        r"""<p>Gets the status of audit mitigation action tasks that were executed.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListAuditMitigationActionsExecutions</a> action.</p>
+        """<p>Gets the status of audit mitigation action tasks that were executed.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListAuditMitigationActionsExecutions</a> action.</p>
 
         Args:
             task_id: <p>Specify this filter to limit results to actions for a specific audit mitigation actions task.</p>
@@ -9639,7 +9639,7 @@ class AsyncIoTClient:
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_audit_mitigation_actions_tasks_response.ListAuditMitigationActionsTasksResponse":
-        r"""<p>Gets a list of audit mitigation action tasks that match the specified filters.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListAuditMitigationActionsTasks</a> action.</p>
+        """<p>Gets a list of audit mitigation action tasks that match the specified filters.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListAuditMitigationActionsTasks</a> action.</p>
 
         Args:
             audit_task_id: <p>Specify this filter to limit results to tasks that were applied to results for a specific audit.</p>
@@ -9745,7 +9745,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.list_audit_suppressions_response.ListAuditSuppressionsResponse"
     ):
-        r"""<p> Lists your Device Defender audit listings. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListAuditSuppressions</a> action.</p>
+        """<p> Lists your Device Defender audit listings. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListAuditSuppressions</a> action.</p>
 
         Args:
             ascending_order: <p> Determines whether suppressions are listed in ascending order by expiration date or not. If parameter isn't provided, <code>ascendingOrder=true</code>. </p>
@@ -9839,13 +9839,13 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_audit_tasks_response.ListAuditTasksResponse":
-        r"""<p>Lists the Device Defender audits that have been performed during a given time period.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListAuditTasks</a> action.</p>
+        """<p>Lists the Device Defender audits that have been performed during a given time period.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListAuditTasks</a> action.</p>
 
         Args:
-            start_time: <p>The beginning of the time period. Audit information is retained for a limited time (90 days). Requesting a start time prior to what is retained results in an \"InvalidRequestException\".</p>
+            start_time: <p>The beginning of the time period. Audit information is retained for a limited time (90 days). Requesting a start time prior to what is retained results in an "InvalidRequestException".</p>
             end_time: <p>The end of the time period.</p>
-            task_type: <p>A filter to limit the output to the specified type of audit: can be one of \"ON_DEMAND_AUDIT_TASK\" or \"SCHEDULED__AUDIT_TASK\".</p>
-            task_status: <p>A filter to limit the output to audits with the specified completion status: can be one of \"IN_PROGRESS\", \"COMPLETED\", \"FAILED\", or \"CANCELED\".</p>
+            task_type: <p>A filter to limit the output to the specified type of audit: can be one of "ON_DEMAND_AUDIT_TASK" or "SCHEDULED__AUDIT_TASK".</p>
+            task_status: <p>A filter to limit the output to audits with the specified completion status: can be one of "IN_PROGRESS", "COMPLETED", "FAILED", or "CANCELED".</p>
             next_token: <p>The token for the next set of results.</p>
             max_results: <p>The maximum number of results to return at one time. The default is 25.</p>
 
@@ -9935,7 +9935,7 @@ class AsyncIoTClient:
         ] = None,
         status: Optional["capo_iot.types.authorizer_status.AuthorizerStatus"] = None,
     ) -> "capo_iot.types.list_authorizers_response.ListAuthorizersResponse":
-        r"""<p>Lists the authorizers registered in your account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListAuthorizers</a> action.</p>
+        """<p>Lists the authorizers registered in your account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListAuthorizers</a> action.</p>
 
         Args:
             page_size: <p>The maximum number of results to return at one time.</p>
@@ -10025,7 +10025,7 @@ class AsyncIoTClient:
             "capo_iot.types.billing_group_name.BillingGroupName"
         ] = None,
     ) -> "capo_iot.types.list_billing_groups_response.ListBillingGroupsResponse":
-        r"""<p>Lists the billing groups you have created.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListBillingGroups</a> action.</p>
+        """<p>Lists the billing groups you have created.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListBillingGroups</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -10110,7 +10110,7 @@ class AsyncIoTClient:
         ] = None,
         template_name: Optional["capo_iot.types.template_name.TemplateName"] = None,
     ) -> "capo_iot.types.list_ca_certificates_response.ListCACertificatesResponse":
-        r"""<p>Lists the CA certificates registered for your Amazon Web Services account.</p> <p>The results are paginated with a default page size of 25. You can use the returned marker to retrieve additional results.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListCACertificates</a> action.</p>
+        """<p>Lists the CA certificates registered for your Amazon Web Services account.</p> <p>The results are paginated with a default page size of 25. You can use the returned marker to retrieve additional results.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListCACertificates</a> action.</p>
 
         Args:
             page_size: <p>The result page size.</p>
@@ -10197,7 +10197,7 @@ class AsyncIoTClient:
             "capo_iot.types.ascending_order.AscendingOrder"
         ] = None,
     ) -> "capo_iot.types.list_certificate_providers_response.ListCertificateProvidersResponse":
-        r"""<p>Lists all your certificate providers in your Amazon Web Services account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListCertificateProviders</a> action. </p>
+        """<p>Lists all your certificate providers in your Amazon Web Services account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListCertificateProviders</a> action. </p>
 
         Args:
             next_token: <p>The token for the next set of results, or <code>null</code> if there are no more results.</p>
@@ -10252,7 +10252,7 @@ class AsyncIoTClient:
             "capo_iot.types.ascending_order.AscendingOrder"
         ] = None,
     ) -> "capo_iot.types.list_certificates_response.ListCertificatesResponse":
-        r"""<p>Lists the certificates registered in your Amazon Web Services account.</p> <p>The results are paginated with a default page size of 25. You can use the returned marker to retrieve additional results.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListCertificates</a> action.</p>
+        """<p>Lists the certificates registered in your Amazon Web Services account.</p> <p>The results are paginated with a default page size of 25. You can use the returned marker to retrieve additional results.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListCertificates</a> action.</p>
 
         Args:
             page_size: <p>The result page size.</p>
@@ -10336,7 +10336,7 @@ class AsyncIoTClient:
             "capo_iot.types.ascending_order.AscendingOrder"
         ] = None,
     ) -> "capo_iot.types.list_certificates_by_ca_response.ListCertificatesByCAResponse":
-        r"""<p>List the device certificates signed by the specified CA certificate.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListCertificatesByCA</a> action.</p>
+        """<p>List the device certificates signed by the specified CA certificate.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListCertificatesByCA</a> action.</p>
 
         Args:
             ca_certificate_id: <p>The ID of the CA certificate. This operation will list all registered device certificate that were signed by this CA certificate.</p>
@@ -10434,7 +10434,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.list_command_executions_response.ListCommandExecutionsResponse"
     ):
-        r"""<p>List all command executions.</p> <important> <ul> <li> <p>You must provide only the <code>startedTimeFilter</code> or the <code>completedTimeFilter</code> information. If you provide both time filters, the API will generate an error. You can use this information to retrieve a list of command executions within a specific timeframe.</p> </li> <li> <p>You must provide only the <code>commandArn</code> or the <code>thingArn</code> information depending on whether you want to list executions for a specific command or an IoT thing. If you provide both fields, the API will generate an error.</p> </li> </ul> <p>For more information about considerations for using this API, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/iot-remote-command-execution-start-monitor.html#iot-remote-command-execution-list-cli\">List command executions in your account (CLI)</a>.</p> </important>
+        """<p>List all command executions.</p> <important> <ul> <li> <p>You must provide only the <code>startedTimeFilter</code> or the <code>completedTimeFilter</code> information. If you provide both time filters, the API will generate an error. You can use this information to retrieve a list of command executions within a specific timeframe.</p> </li> <li> <p>You must provide only the <code>commandArn</code> or the <code>thingArn</code> information depending on whether you want to list executions for a specific command or an IoT thing. If you provide both fields, the API will generate an error.</p> </li> </ul> <p>For more information about considerations for using this API, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-remote-command-execution-start-monitor.html#iot-remote-command-execution-list-cli">List command executions in your account (CLI)</a>.</p> </important>
 
         Args:
             max_results: <p>The maximum number of results to return in this operation.</p>
@@ -10642,7 +10642,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_custom_metrics_response.ListCustomMetricsResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Lists your Device Defender detect custom metrics. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListCustomMetrics</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Lists your Device Defender detect custom metrics. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListCustomMetrics</a> action.</p>
 
         Args:
             next_token: <p> The token for the next set of results. </p>
@@ -10722,7 +10722,7 @@ class AsyncIoTClient:
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_detect_mitigation_actions_executions_response.ListDetectMitigationActionsExecutionsResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Lists mitigation actions executions for a Device Defender ML Detect Security Profile. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListDetectMitigationActionsExecutions</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Lists mitigation actions executions for a Device Defender ML Detect Security Profile. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListDetectMitigationActionsExecutions</a> action.</p>
 
         Args:
             task_id: <p> The unique identifier of the task. </p>
@@ -10824,7 +10824,7 @@ class AsyncIoTClient:
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_detect_mitigation_actions_tasks_response.ListDetectMitigationActionsTasksResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> List of Device Defender ML Detect mitigation actions tasks. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListDetectMitigationActionsTasks</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> List of Device Defender ML Detect mitigation actions tasks. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListDetectMitigationActionsTasks</a> action.</p>
 
         Args:
             max_results: <p>The maximum number of results to return at one time. The default is 25.</p>
@@ -10904,7 +10904,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_dimensions_response.ListDimensionsResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>List the set of dimensions that are defined for your Amazon Web Services accounts.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListDimensions</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>List the set of dimensions that are defined for your Amazon Web Services accounts.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListDimensions</a> action.</p>
 
         Args:
             next_token: <p>The token for the next set of results.</p>
@@ -10976,7 +10976,7 @@ class AsyncIoTClient:
         page_size: Optional["capo_iot.types.page_size.PageSize"] = None,
         service_type: Optional["capo_iot.types.service_type.ServiceType"] = None,
     ) -> "capo_iot.types.list_domain_configurations_response.ListDomainConfigurationsResponse":
-        r"""<p>Gets a list of domain configurations for the user. This list is sorted alphabetically by domain configuration name.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListDomainConfigurations</a> action.</p>
+        """<p>Gets a list of domain configurations for the user. This list is sorted alphabetically by domain configuration name.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListDomainConfigurations</a> action.</p>
 
         Args:
             marker: <p>The marker for the next set of results.</p>
@@ -11054,7 +11054,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_fleet_metrics_response.ListFleetMetricsResponse":
-        r"""<p>Lists all your fleet metrics. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListFleetMetrics</a> action.</p>
+        """<p>Lists all your fleet metrics. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListFleetMetrics</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <code>null</code> to receive the first set of results.</p>
@@ -11131,7 +11131,7 @@ class AsyncIoTClient:
             "capo_iot.types.query_max_results.QueryMaxResults"
         ] = None,
     ) -> "capo_iot.types.list_indices_response.ListIndicesResponse":
-        r"""<p>Lists the search indices.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListIndices</a> action.</p>
+        """<p>Lists the search indices.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListIndices</a> action.</p>
 
         Args:
             next_token: <p>The token used to get the next set of results, or <code>null</code> if there are no additional results.</p>
@@ -11212,7 +11212,7 @@ class AsyncIoTClient:
         ] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_job_executions_for_job_response.ListJobExecutionsForJobResponse":
-        r"""<p>Lists the job executions for a job.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListJobExecutionsForJob</a> action.</p>
+        """<p>Lists the job executions for a job.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListJobExecutionsForJob</a> action.</p>
 
         Args:
             job_id: <p>The unique identifier you assigned to this job when it was created.</p>
@@ -11306,12 +11306,12 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         job_id: Optional["capo_iot.types.job_id.JobId"] = None,
     ) -> "capo_iot.types.list_job_executions_for_thing_response.ListJobExecutionsForThingResponse":
-        r"""<p>Lists the job executions for the specified thing.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListJobExecutionsForThing</a> action.</p>
+        """<p>Lists the job executions for the specified thing.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListJobExecutionsForThing</a> action.</p>
 
         Args:
             thing_name: <p>The thing name.</p>
             status: <p>An optional filter that lets you search for jobs that have the specified status.</p>
-            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>
+            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>
             max_results: <p>The maximum number of results to be returned per request.</p>
             next_token: <p>The token to retrieve the next set of results.</p>
             job_id: <p>The unique identifier you assigned to this job when it was created.</p>
@@ -11413,7 +11413,7 @@ class AsyncIoTClient:
         thing_group_id: Optional["capo_iot.types.thing_group_id.ThingGroupId"] = None,
         namespace_id: Optional["capo_iot.types.namespace_id.NamespaceId"] = None,
     ) -> "capo_iot.types.list_jobs_response.ListJobsResponse":
-        r"""<p>Lists jobs.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListJobs</a> action.</p>
+        """<p>Lists jobs.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListJobs</a> action.</p>
 
         Args:
             status: <p>An optional filter that lets you search for jobs that have the specified status.</p>
@@ -11422,7 +11422,7 @@ class AsyncIoTClient:
             next_token: <p>The token to retrieve the next set of results.</p>
             thing_group_name: <p>A filter that limits the returned jobs to those for the specified group.</p>
             thing_group_id: <p>A filter that limits the returned jobs to those for the specified group.</p>
-            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>
+            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>
 
         Raises:
             capo_iot.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
@@ -11518,7 +11518,7 @@ class AsyncIoTClient:
         ] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_job_templates_response.ListJobTemplatesResponse":
-        r"""<p>Returns a list of job templates.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListJobTemplates</a> action.</p>
+        """<p>Returns a list of job templates.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListJobTemplates</a> action.</p>
 
         Args:
             max_results: <p>The maximum number of results to return in the list.</p>
@@ -11791,7 +11791,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.list_mitigation_actions_response.ListMitigationActionsResponse"
     ):
-        r"""<p>Gets a list of all mitigation actions that match the specified filter criteria.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListMitigationActions</a> action.</p>
+        """<p>Gets a list of all mitigation actions that match the specified filter criteria.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListMitigationActions</a> action.</p>
 
         Args:
             action_type: <p>Specify a value to limit the result to mitigation actions with a specific action type.</p>
@@ -11872,7 +11872,7 @@ class AsyncIoTClient:
             "capo_iot.types.ota_update_status.OTAUpdateStatus"
         ] = None,
     ) -> "capo_iot.types.list_ota_updates_response.ListOTAUpdatesResponse":
-        r"""<p>Lists OTA updates.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListOTAUpdates</a> action.</p>
+        """<p>Lists OTA updates.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListOTAUpdates</a> action.</p>
 
         Args:
             max_results: <p>The maximum number of results to return at one time.</p>
@@ -11955,7 +11955,7 @@ class AsyncIoTClient:
             "capo_iot.types.ascending_order.AscendingOrder"
         ] = None,
     ) -> "capo_iot.types.list_outgoing_certificates_response.ListOutgoingCertificatesResponse":
-        r"""<p>Lists certificates that are being transferred but not yet accepted.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListOutgoingCertificates</a> action.</p>
+        """<p>Lists certificates that are being transferred but not yet accepted.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListOutgoingCertificates</a> action.</p>
 
         Args:
             page_size: <p>The result page size.</p>
@@ -12037,7 +12037,7 @@ class AsyncIoTClient:
         ] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_packages_response.ListPackagesResponse":
-        r"""<p>Lists the software packages associated to the account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListPackages</a> action.</p>
+        """<p>Lists the software packages associated to the account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListPackages</a> action.</p>
 
         Args:
             max_results: <p>The maximum number of results returned at one time.</p>
@@ -12116,11 +12116,11 @@ class AsyncIoTClient:
         ] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_package_versions_response.ListPackageVersionsResponse":
-        r"""<p>Lists the software package versions associated to the account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListPackageVersions</a> action.</p>
+        """<p>Lists the software package versions associated to the account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListPackageVersions</a> action.</p>
 
         Args:
             package_name: <p>The name of the target software package.</p>
-            status: <p>The status of the package version. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p>
+            status: <p>The status of the package version. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p>
             max_results: <p>The maximum number of results to return at one time.</p>
             next_token: <p>The token for the next set of results.</p>
 
@@ -12204,7 +12204,7 @@ class AsyncIoTClient:
             "capo_iot.types.ascending_order.AscendingOrder"
         ] = None,
     ) -> "capo_iot.types.list_policies_response.ListPoliciesResponse":
-        r"""<p>Lists your policies.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListPolicies</a> action.</p>
+        """<p>Lists your policies.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListPolicies</a> action.</p>
 
         Args:
             marker: <p>The marker for the next set of results.</p>
@@ -12288,7 +12288,7 @@ class AsyncIoTClient:
             "capo_iot.types.ascending_order.AscendingOrder"
         ] = None,
     ) -> "capo_iot.types.list_policy_principals_response.ListPolicyPrincipalsResponse":
-        r"""<p>Lists the principals associated with the specified policy.</p> <p> <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add enhancements. Use <a>ListTargetsForPolicy</a> instead.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListPolicyPrincipals</a> action.</p>
+        """<p>Lists the principals associated with the specified policy.</p> <p> <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add enhancements. Use <a>ListTargetsForPolicy</a> instead.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListPolicyPrincipals</a> action.</p>
 
         Args:
             policy_name: <p>The policy name.</p>
@@ -12373,7 +12373,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.list_policy_versions_response.ListPolicyVersionsResponse":
-        r"""<p>Lists the versions of the specified policy and identifies the default version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListPolicyVersions</a> action.</p>
+        """<p>Lists the versions of the specified policy and identifies the default version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListPolicyVersions</a> action.</p>
 
         Args:
             policy_name: <p>The policy name.</p>
@@ -12429,7 +12429,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.list_principal_policies_response.ListPrincipalPoliciesResponse"
     ):
-        r"""<p>Lists the policies attached to the specified principal. If you use an Cognito identity, the ID must be in <a href=\"https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetCredentialsForIdentity.html#API_GetCredentialsForIdentity_RequestSyntax\">AmazonCognito Identity format</a>.</p> <p> <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add enhancements. Use <a>ListAttachedPolicies</a> instead.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListPrincipalPolicies</a> action.</p>
+        """<p>Lists the policies attached to the specified principal. If you use an Cognito identity, the ID must be in <a href="https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetCredentialsForIdentity.html#API_GetCredentialsForIdentity_RequestSyntax">AmazonCognito Identity format</a>.</p> <p> <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add enhancements. Use <a>ListAttachedPolicies</a> instead.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListPrincipalPolicies</a> action.</p>
 
         Args:
             principal: <p>The principal. Valid principals are CertificateArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:cert/<i>certificateId</i>), thingGroupArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:thinggroup/<i>groupName</i>) and CognitoId (<i>region</i>:<i>id</i>).</p>
@@ -12518,7 +12518,7 @@ class AsyncIoTClient:
             "capo_iot.types.registry_max_results.RegistryMaxResults"
         ] = None,
     ) -> "capo_iot.types.list_principal_things_response.ListPrincipalThingsResponse":
-        r"""<p>Lists the things associated with the specified principal. A principal can be X.509 certificates, IAM users, groups, and roles, Amazon Cognito identities or federated identities. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListPrincipalThings</a> action.</p>
+        """<p>Lists the things associated with the specified principal. A principal can be X.509 certificates, IAM users, groups, and roles, Amazon Cognito identities or federated identities. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListPrincipalThings</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -12607,7 +12607,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.list_principal_things_v2_response.ListPrincipalThingsV2Response"
     ):
-        r"""<p>Lists the things associated with the specified principal. A principal can be an X.509 certificate or an Amazon Cognito ID.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListPrincipalThings</a> action.</p>
+        """<p>Lists the things associated with the specified principal. A principal can be an X.509 certificate or an Amazon Cognito ID.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListPrincipalThings</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -12695,7 +12695,7 @@ class AsyncIoTClient:
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_provisioning_templates_response.ListProvisioningTemplatesResponse":
-        r"""<p>Lists the provisioning templates in your Amazon Web Services account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListProvisioningTemplates</a> action.</p>
+        """<p>Lists the provisioning templates in your Amazon Web Services account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListProvisioningTemplates</a> action.</p>
 
         Args:
             max_results: <p>The maximum number of results to return at one time.</p>
@@ -12768,7 +12768,7 @@ class AsyncIoTClient:
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_provisioning_template_versions_response.ListProvisioningTemplateVersionsResponse":
-        r"""<p>A list of provisioning template versions.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListProvisioningTemplateVersions</a> action.</p>
+        """<p>A list of provisioning template versions.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListProvisioningTemplateVersions</a> action.</p>
 
         Args:
             template_name: <p>The name of the provisioning template.</p>
@@ -12847,7 +12847,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_related_resources_for_audit_finding_response.ListRelatedResourcesForAuditFindingResponse":
-        r"""<p>The related resources of an Audit finding. The following resources can be returned from calling this API:</p> <ul> <li> <p>DEVICE_CERTIFICATE</p> </li> <li> <p>CA_CERTIFICATE</p> </li> <li> <p>IOT_POLICY</p> </li> <li> <p>COGNITO_IDENTITY_POOL</p> </li> <li> <p>CLIENT_ID</p> </li> <li> <p>ACCOUNT_SETTINGS</p> </li> <li> <p>ROLE_ALIAS</p> </li> <li> <p>IAM_ROLE</p> </li> <li> <p>ISSUER_CERTIFICATE</p> </li> </ul> <note> <p>This API is similar to DescribeAuditFinding's <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuditFinding.html\">RelatedResources</a> but provides pagination and is not limited to 10 resources. When calling <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuditFinding.html\">DescribeAuditFinding</a> for the intermediate CA revoked for active device certificates check, RelatedResources will not be populated. You must use this API, ListRelatedResourcesForAuditFinding, to list the certificates.</p> </note>
+        """<p>The related resources of an Audit finding. The following resources can be returned from calling this API:</p> <ul> <li> <p>DEVICE_CERTIFICATE</p> </li> <li> <p>CA_CERTIFICATE</p> </li> <li> <p>IOT_POLICY</p> </li> <li> <p>COGNITO_IDENTITY_POOL</p> </li> <li> <p>CLIENT_ID</p> </li> <li> <p>ACCOUNT_SETTINGS</p> </li> <li> <p>ROLE_ALIAS</p> </li> <li> <p>IAM_ROLE</p> </li> <li> <p>ISSUER_CERTIFICATE</p> </li> </ul> <note> <p>This API is similar to DescribeAuditFinding's <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuditFinding.html">RelatedResources</a> but provides pagination and is not limited to 10 resources. When calling <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuditFinding.html">DescribeAuditFinding</a> for the intermediate CA revoked for active device certificates check, RelatedResources will not be populated. You must use this API, ListRelatedResourcesForAuditFinding, to list the certificates.</p> </note>
 
         Args:
             finding_id: <p>The finding Id.</p>
@@ -12927,7 +12927,7 @@ class AsyncIoTClient:
             "capo_iot.types.ascending_order.AscendingOrder"
         ] = None,
     ) -> "capo_iot.types.list_role_aliases_response.ListRoleAliasesResponse":
-        r"""<p>Lists the role aliases registered in your account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListRoleAliases</a> action.</p>
+        """<p>Lists the role aliases registered in your account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListRoleAliases</a> action.</p>
 
         Args:
             page_size: <p>The maximum number of results to return at one time.</p>
@@ -13014,7 +13014,7 @@ class AsyncIoTClient:
         ] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_sbom_validation_results_response.ListSbomValidationResultsResponse":
-        r"""<p>The validation results for all software bill of materials (SBOM) attached to a specific software package version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListSbomValidationResults</a> action.</p>
+        """<p>The validation results for all software bill of materials (SBOM) attached to a specific software package version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListSbomValidationResults</a> action.</p>
 
         Args:
             package_name: <p>The name of the new software package.</p>
@@ -13104,7 +13104,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_scheduled_audits_response.ListScheduledAuditsResponse":
-        r"""<p>Lists all of your scheduled audits.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListScheduledAudits</a> action.</p>
+        """<p>Lists all of your scheduled audits.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListScheduledAudits</a> action.</p>
 
         Args:
             next_token: <p>The token for the next set of results.</p>
@@ -13179,7 +13179,7 @@ class AsyncIoTClient:
         dimension_name: Optional["capo_iot.types.dimension_name.DimensionName"] = None,
         metric_name: Optional["capo_iot.types.metric_name.MetricName"] = None,
     ) -> "capo_iot.types.list_security_profiles_response.ListSecurityProfilesResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the Device Defender security profiles you've created. You can filter security profiles by dimension or custom metric.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListSecurityProfiles</a> action.</p> <note> <p> <code>dimensionName</code> and <code>metricName</code> cannot be used in the same request.</p> </note>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the Device Defender security profiles you've created. You can filter security profiles by dimension or custom metric.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListSecurityProfiles</a> action.</p> <note> <p> <code>dimensionName</code> and <code>metricName</code> cannot be used in the same request.</p> </note>
 
         Args:
             next_token: <p>The token for the next set of results.</p>
@@ -13263,7 +13263,7 @@ class AsyncIoTClient:
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
         recursive: Optional["capo_iot.types.recursive.Recursive"] = None,
     ) -> "capo_iot.types.list_security_profiles_for_target_response.ListSecurityProfilesForTargetResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the Device Defender security profiles attached to a target (thing group).</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListSecurityProfilesForTarget</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the Device Defender security profiles attached to a target (thing group).</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListSecurityProfilesForTarget</a> action.</p>
 
         Args:
             next_token: <p>The token for the next set of results.</p>
@@ -13348,7 +13348,7 @@ class AsyncIoTClient:
             "capo_iot.types.ascending_order.AscendingOrder"
         ] = None,
     ) -> "capo_iot.types.list_streams_response.ListStreamsResponse":
-        r"""<p>Lists all of the streams in your Amazon Web Services account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListStreams</a> action.</p>
+        """<p>Lists all of the streams in your Amazon Web Services account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListStreams</a> action.</p>
 
         Args:
             max_results: <p>The maximum number of results to return at a time.</p>
@@ -13428,7 +13428,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_tags_for_resource_response.ListTagsForResourceResponse":
-        r"""<p>Lists the tags (metadata) you have assigned to the resource.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListTagsForResource</a> action.</p>
+        """<p>Lists the tags (metadata) you have assigned to the resource.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListTagsForResource</a> action.</p>
 
         Args:
             resource_arn: <p>The ARN of the resource.</p>
@@ -13501,7 +13501,7 @@ class AsyncIoTClient:
         marker: Optional["capo_iot.types.marker.Marker"] = None,
         page_size: Optional["capo_iot.types.page_size.PageSize"] = None,
     ) -> "capo_iot.types.list_targets_for_policy_response.ListTargetsForPolicyResponse":
-        r"""<p>List targets for the specified policy.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListTargetsForPolicy</a> action.</p>
+        """<p>List targets for the specified policy.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListTargetsForPolicy</a> action.</p>
 
         Args:
             policy_name: <p>The policy name.</p>
@@ -13582,7 +13582,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_targets_for_security_profile_response.ListTargetsForSecurityProfileResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the targets (thing groups) associated with a given Device Defender security profile.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListTargetsForSecurityProfile</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the targets (thing groups) associated with a given Device Defender security profile.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListTargetsForSecurityProfile</a> action.</p>
 
         Args:
             security_profile_name: <p>The security profile.</p>
@@ -13668,7 +13668,7 @@ class AsyncIoTClient:
             "capo_iot.types.recursive_without_default.RecursiveWithoutDefault"
         ] = None,
     ) -> "capo_iot.types.list_thing_groups_response.ListThingGroupsResponse":
-        r"""<p>List the thing groups in your account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThingGroups</a> action.</p>
+        """<p>List the thing groups in your account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThingGroups</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -13764,7 +13764,7 @@ class AsyncIoTClient:
             "capo_iot.types.registry_max_results.RegistryMaxResults"
         ] = None,
     ) -> "capo_iot.types.list_thing_groups_for_thing_response.ListThingGroupsForThingResponse":
-        r"""<p>List the thing groups to which the specified thing belongs.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThingGroupsForThing</a> action.</p>
+        """<p>List the thing groups to which the specified thing belongs.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThingGroupsForThing</a> action.</p>
 
         Args:
             thing_name: <p>The thing name.</p>
@@ -13846,7 +13846,7 @@ class AsyncIoTClient:
             "capo_iot.types.registry_max_results.RegistryMaxResults"
         ] = None,
     ) -> "capo_iot.types.list_thing_principals_response.ListThingPrincipalsResponse":
-        r"""<p>Lists the principals associated with the specified thing. A principal can be X.509 certificates, IAM users, groups, and roles, Amazon Cognito identities or federated identities.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThingPrincipals</a> action.</p>
+        """<p>Lists the principals associated with the specified thing. A principal can be X.509 certificates, IAM users, groups, and roles, Amazon Cognito identities or federated identities.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThingPrincipals</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -13935,7 +13935,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.list_thing_principals_v2_response.ListThingPrincipalsV2Response"
     ):
-        r"""<p>Lists the principals associated with the specified thing. A principal can be an X.509 certificate or an Amazon Cognito ID.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThingPrincipals</a> action.</p>
+        """<p>Lists the principals associated with the specified thing. A principal can be an X.509 certificate or an Amazon Cognito ID.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThingPrincipals</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -14113,7 +14113,7 @@ class AsyncIoTClient:
         ] = None,
         status: Optional["capo_iot.types.status.Status"] = None,
     ) -> "capo_iot.types.list_thing_registration_tasks_response.ListThingRegistrationTasksResponse":
-        r"""<p>List bulk thing provisioning tasks.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThingRegistrationTasks</a> action.</p>
+        """<p>List bulk thing provisioning tasks.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThingRegistrationTasks</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -14204,7 +14204,7 @@ class AsyncIoTClient:
             "capo_iot.types.use_prefix_attribute_value.usePrefixAttributeValue"
         ] = None,
     ) -> "capo_iot.types.list_things_response.ListThingsResponse":
-        r"""<p>Lists your things. Use the <b>attributeName</b> and <b>attributeValue</b> parameters to filter your things. For example, calling <code>ListThings</code> with attributeName=Color and attributeValue=Red retrieves all things in the registry that contain an attribute <b>Color</b> with the value <b>Red</b>. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html#list-things\">List Things</a> from the <i>Amazon Web Services IoT Core Developer Guide</i>.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThings</a> action.</p> <note> <p>You will not be charged for calling this API if an <code>Access denied</code> error is returned. You will also not be charged if no attributes or pagination token was provided in request and no pagination token and no results were returned.</p> </note>
+        """<p>Lists your things. Use the <b>attributeName</b> and <b>attributeValue</b> parameters to filter your things. For example, calling <code>ListThings</code> with attributeName=Color and attributeValue=Red retrieves all things in the registry that contain an attribute <b>Color</b> with the value <b>Red</b>. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html#list-things">List Things</a> from the <i>Amazon Web Services IoT Core Developer Guide</i>.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThings</a> action.</p> <note> <p>You will not be charged for calling this API if an <code>Access denied</code> error is returned. You will also not be charged if no attributes or pagination token was provided in request and no pagination token and no results were returned.</p> </note>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -14308,7 +14308,7 @@ class AsyncIoTClient:
             "capo_iot.types.registry_max_results.RegistryMaxResults"
         ] = None,
     ) -> "capo_iot.types.list_things_in_billing_group_response.ListThingsInBillingGroupResponse":
-        r"""<p>Lists the things you have added to the given billing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThingsInBillingGroup</a> action.</p>
+        """<p>Lists the things you have added to the given billing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThingsInBillingGroup</a> action.</p>
 
         Args:
             billing_group_name: <p>The name of the billing group.</p>
@@ -14391,7 +14391,7 @@ class AsyncIoTClient:
             "capo_iot.types.registry_max_results.RegistryMaxResults"
         ] = None,
     ) -> "capo_iot.types.list_things_in_thing_group_response.ListThingsInThingGroupResponse":
-        r"""<p>Lists the things in the specified group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThingsInThingGroup</a> action.</p>
+        """<p>Lists the things in the specified group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThingsInThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The thing group name.</p>
@@ -14480,7 +14480,7 @@ class AsyncIoTClient:
             "capo_iot.types.thing_type_name.ThingTypeName"
         ] = None,
     ) -> "capo_iot.types.list_thing_types_response.ListThingTypesResponse":
-        r"""<p>Lists the existing thing types.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListThingTypes</a> action.</p>
+        """<p>Lists the existing thing types.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListThingTypes</a> action.</p>
 
         Args:
             next_token: <p>To retrieve the next set of results, the <code>nextToken</code> value from a previous response; otherwise <b>null</b> to receive the first set of results.</p>
@@ -14564,7 +14564,7 @@ class AsyncIoTClient:
         ] = None,
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
     ) -> "capo_iot.types.list_topic_rule_destinations_response.ListTopicRuleDestinationsResponse":
-        r"""<p>Lists all the topic rule destinations in your Amazon Web Services account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListTopicRuleDestinations</a> action.</p>
+        """<p>Lists all the topic rule destinations in your Amazon Web Services account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListTopicRuleDestinations</a> action.</p>
 
         Args:
             max_results: <p>The maximum number of results to return at one time.</p>
@@ -14642,7 +14642,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         rule_disabled: Optional["capo_iot.types.is_disabled.IsDisabled"] = None,
     ) -> "capo_iot.types.list_topic_rules_response.ListTopicRulesResponse":
-        r"""<p>Lists the rules for the specific topic.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListTopicRules</a> action.</p>
+        """<p>Lists the rules for the specific topic.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListTopicRules</a> action.</p>
 
         Args:
             topic: <p>The topic.</p>
@@ -14729,7 +14729,7 @@ class AsyncIoTClient:
             "capo_iot.types.skyfall_max_results.SkyfallMaxResults"
         ] = None,
     ) -> "capo_iot.types.list_v2_logging_levels_response.ListV2LoggingLevelsResponse":
-        r"""<p>Lists logging levels.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListV2LoggingLevels</a> action.</p>
+        """<p>Lists logging levels.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListV2LoggingLevels</a> action.</p>
 
         Args:
             target_type: <p>The type of resource for which you are configuring logging. Must be <code>DEFAULT</code>, <code>THING_GROUP</code>, <code>CLIENT_ID</code>, <code>SOURCE_IP</code>, or <code>PRINCIPAL_ID</code>.</p>
@@ -14827,7 +14827,7 @@ class AsyncIoTClient:
         next_token: Optional["capo_iot.types.next_token.NextToken"] = None,
         max_results: Optional["capo_iot.types.max_results.MaxResults"] = None,
     ) -> "capo_iot.types.list_violation_events_response.ListViolationEventsResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the Device Defender security profile violations discovered during the given time period. You can use filters to limit the results to those alerts issued for a particular security profile, behavior, or thing (device).</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ListViolationEvents</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Lists the Device Defender security profile violations discovered during the given time period. You can use filters to limit the results to those alerts issued for a particular security profile, behavior, or thing (device).</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ListViolationEvents</a> action.</p>
 
         Args:
             start_time: <p>The start time for the alerts to be listed.</p>
@@ -15012,7 +15012,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.register_ca_certificate_response.RegisterCACertificateResponse"
     ):
-        r"""<p>Registers a CA certificate with Amazon Web Services IoT Core. There is no limit to the number of CA certificates you can register in your Amazon Web Services account. You can register up to 10 CA certificates with the same <code>CA subject field</code> per Amazon Web Services account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">RegisterCACertificate</a> action.</p>
+        """<p>Registers a CA certificate with Amazon Web Services IoT Core. There is no limit to the number of CA certificates you can register in your Amazon Web Services account. You can register up to 10 CA certificates with the same <code>CA subject field</code> per Amazon Web Services account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">RegisterCACertificate</a> action.</p>
 
         Args:
             ca_certificate: <p>The CA certificate.</p>
@@ -15020,8 +15020,8 @@ class AsyncIoTClient:
             set_as_active: <p>A boolean value that specifies if the CA certificate is set to active.</p> <p>Valid values: <code>ACTIVE | INACTIVE</code> </p>
             allow_auto_registration: <p>Allows this CA certificate to be used for auto registration of device certificates.</p>
             registration_config: <p>Information about the registration configuration.</p>
-            tags: <p>Metadata which can be used to manage the CA certificate.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags \"key1=value1&key2=value2...\"</p> <p>For the cli-input-json file use format: \"tags\": \"key1=value1&key2=value2...\"</p> </note>
-            certificate_mode: <p>Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not provided, it defaults to <code>DEFAULT</code>. All the device certificates that are registered using this CA will be registered in the same certificate mode as the CA. For more information about certificate mode for device certificates, see <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode\"> certificate mode</a>. </p>
+            tags: <p>Metadata which can be used to manage the CA certificate.</p> <note> <p>For URI Request parameters use format: ...key1=value1&key2=value2...</p> <p>For the CLI command-line parameter use format: &&tags "key1=value1&key2=value2..."</p> <p>For the cli-input-json file use format: "tags": "key1=value1&key2=value2..."</p> </note>
+            certificate_mode: <p>Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not provided, it defaults to <code>DEFAULT</code>. All the device certificates that are registered using this CA will be registered in the same certificate mode as the CA. For more information about certificate mode for device certificates, see <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"> certificate mode</a>. </p>
 
         Raises:
             capo_iot.errors.certificate_validation_exception.CertificateValidationException: <p>The certificate is invalid.</p>
@@ -15090,7 +15090,7 @@ class AsyncIoTClient:
         ] = None,
         status: Optional["capo_iot.types.certificate_status.CertificateStatus"] = None,
     ) -> "capo_iot.types.register_certificate_response.RegisterCertificateResponse":
-        r"""<p>Registers a device certificate with IoT in the same <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode\">certificate mode</a> as the signing CA. If you have more than one CA certificate that has the same subject field, you must specify the CA certificate that was used to sign the device certificate being registered.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">RegisterCertificate</a> action.</p>
+        """<p>Registers a device certificate with IoT in the same <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode">certificate mode</a> as the signing CA. If you have more than one CA certificate that has the same subject field, you must specify the CA certificate that was used to sign the device certificate being registered.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">RegisterCertificate</a> action.</p>
 
         Args:
             certificate_pem: <p>The certificate data, in PEM format.</p>
@@ -15152,7 +15152,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         status: Optional["capo_iot.types.certificate_status.CertificateStatus"] = None,
     ) -> "capo_iot.types.register_certificate_without_ca_response.RegisterCertificateWithoutCAResponse":
-        r"""<p>Register a certificate that does not have a certificate authority (CA). For supported certificates, consult <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html#x509-cert-algorithms\"> Certificate signing algorithms supported by IoT</a>. </p>
+        """<p>Register a certificate that does not have a certificate authority (CA). For supported certificates, consult <a href="https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html#x509-cert-algorithms"> Certificate signing algorithms supported by IoT</a>. </p>
 
         Args:
             certificate_pem: <p>The certificate data, in PEM format.</p>
@@ -15207,11 +15207,11 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         parameters: Optional["capo_iot.types.parameters.Parameters"] = None,
     ) -> "capo_iot.types.register_thing_response.RegisterThingResponse":
-        r"""<p>Provisions a thing in the device registry. RegisterThing calls other IoT control plane APIs. These calls might exceed your account level <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot\"> IoT Throttling Limits</a> and cause throttle errors. Please contact <a href=\"https://console.aws.amazon.com/support/home\">Amazon Web Services Customer Support</a> to raise your throttling limits if necessary.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">RegisterThing</a> action.</p>
+        """<p>Provisions a thing in the device registry. RegisterThing calls other IoT control plane APIs. These calls might exceed your account level <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot"> IoT Throttling Limits</a> and cause throttle errors. Please contact <a href="https://console.aws.amazon.com/support/home">Amazon Web Services Customer Support</a> to raise your throttling limits if necessary.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">RegisterThing</a> action.</p>
 
         Args:
-            template_body: <p>The provisioning template. See <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html\">Provisioning Devices That Have Device Certificates</a> for more information.</p>
-            parameters: <p>The parameters for provisioning a thing. See <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html\">Provisioning Templates</a> for more information.</p>
+            template_body: <p>The provisioning template. See <a href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-w-cert.html">Provisioning Devices That Have Device Certificates</a> for more information.</p>
+            parameters: <p>The parameters for provisioning a thing. See <a href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html">Provisioning Templates</a> for more information.</p>
 
         Raises:
             capo_iot.errors.conflicting_resource_update_exception.ConflictingResourceUpdateException: <p>A conflicting resource update exception. This exception is thrown when two pending updates cause a conflict.</p>
@@ -15261,7 +15261,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         reject_reason: Optional["capo_iot.types.message.Message"] = None,
     ) -> None:
-        r"""<p>Rejects a pending certificate transfer. After IoT rejects a certificate transfer, the certificate status changes from <b>PENDING_TRANSFER</b> to <b>INACTIVE</b>.</p> <p>To check for pending certificate transfers, call <a>ListCertificates</a> to enumerate your certificates.</p> <p>This operation can only be called by the transfer destination. After it is called, the certificate will be returned to the source's account in the INACTIVE state.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">RejectCertificateTransfer</a> action.</p>
+        """<p>Rejects a pending certificate transfer. After IoT rejects a certificate transfer, the certificate status changes from <b>PENDING_TRANSFER</b> to <b>INACTIVE</b>.</p> <p>To check for pending certificate transfers, call <a>ListCertificates</a> to enumerate your certificates.</p> <p>This operation can only be called by the transfer destination. After it is called, the certificate will be returned to the source's account in the INACTIVE state.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">RejectCertificateTransfer</a> action.</p>
 
         Args:
             certificate_id: <p>The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)</p>
@@ -15319,7 +15319,7 @@ class AsyncIoTClient:
         thing_name: Optional["capo_iot.types.thing_name.ThingName"] = None,
         thing_arn: Optional["capo_iot.types.thing_arn.ThingArn"] = None,
     ) -> "capo_iot.types.remove_thing_from_billing_group_response.RemoveThingFromBillingGroupResponse":
-        r"""<p>Removes the given thing from the billing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">RemoveThingFromBillingGroup</a> action.</p> <note> <p>This call is asynchronous. It might take several seconds for the detachment to propagate.</p> </note>
+        """<p>Removes the given thing from the billing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">RemoveThingFromBillingGroup</a> action.</p> <note> <p>This call is asynchronous. It might take several seconds for the detachment to propagate.</p> </note>
 
         Args:
             billing_group_name: <p>The name of the billing group.</p>
@@ -15382,7 +15382,7 @@ class AsyncIoTClient:
         thing_name: Optional["capo_iot.types.thing_name.ThingName"] = None,
         thing_arn: Optional["capo_iot.types.thing_arn.ThingArn"] = None,
     ) -> "capo_iot.types.remove_thing_from_thing_group_response.RemoveThingFromThingGroupResponse":
-        r"""<p>Remove the specified thing from the specified group.</p> <p>You must specify either a <code>thingGroupArn</code> or a <code>thingGroupName</code> to identify the thing group and either a <code>thingArn</code> or a <code>thingName</code> to identify the thing to remove from the thing group. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">RemoveThingFromThingGroup</a> action.</p>
+        """<p>Remove the specified thing from the specified group.</p> <p>You must specify either a <code>thingGroupArn</code> or a <code>thingGroupName</code> to identify the thing group and either a <code>thingArn</code> or a <code>thingName</code> to identify the thing to remove from the thing group. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">RemoveThingFromThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The group name.</p>
@@ -15439,7 +15439,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Replaces the rule. You must specify all parameters for the new rule. Creating rules is an administrator-level action. Any user who has permission to create rules will be able to access data processed by the rule.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ReplaceTopicRule</a> action.</p>
+        """<p>Replaces the rule. You must specify all parameters for the new rule. Creating rules is an administrator-level action. Any user who has permission to create rules will be able to access data processed by the rule.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ReplaceTopicRule</a> action.</p>
 
         Args:
             rule_name: <p>The name of the rule.</p>
@@ -15494,13 +15494,13 @@ class AsyncIoTClient:
         ] = None,
         query_version: Optional["capo_iot.types.query_version.QueryVersion"] = None,
     ) -> "capo_iot.types.search_index_response.SearchIndexResponse":
-        r"""<p>Searches the specified index.</p> <p>If a device has never connected to IoT Core or was disconnected for more than 1 hour before fleet indexing's <code>thingConnectivityIndexingMode</code> was enabled, the <code>connectivity</code> object for this device in the response will have the <code>connected</code> field set to <code>false</code> with no additional session details.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">SearchIndex</a> action.</p>
+        """<p>Searches the specified index.</p> <p>If a device has never connected to IoT Core or was disconnected for more than 1 hour before fleet indexing's <code>thingConnectivityIndexingMode</code> was enabled, the <code>connectivity</code> object for this device in the response will have the <code>connected</code> field set to <code>false</code> with no additional session details.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">SearchIndex</a> action.</p>
 
         Args:
             index_name: <p>The search index name.</p>
-            query_string: <p>The search query string. For more information about the search query syntax, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html\">Query syntax</a>.</p>
+            query_string: <p>The search query string. For more information about the search query syntax, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query syntax</a>.</p>
             next_token: <p>The token used to get the next set of results, or <code>null</code> if there are no additional results.</p>
-            max_results: <p>The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The response might contain fewer results but will never contain more. You can use <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken\"> <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns <code>NULL</code>.</p>
+            max_results: <p>The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The response might contain fewer results but will never contain more. You can use <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken"> <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns <code>NULL</code>.</p>
             query_version: <p>The query version.</p>
 
         Raises:
@@ -15557,7 +15557,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.set_default_authorizer_response.SetDefaultAuthorizerResponse":
-        r"""<p>Sets the default authorizer. This will be used if a websocket connection is made without specifying an authorizer.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">SetDefaultAuthorizer</a> action.</p>
+        """<p>Sets the default authorizer. This will be used if a websocket connection is made without specifying an authorizer.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">SetDefaultAuthorizer</a> action.</p>
 
         Args:
             authorizer_name: <p>The authorizer name.</p>
@@ -15608,7 +15608,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Sets the specified version of the specified policy as the policy's default (operative) version. This action affects all certificates to which the policy is attached. To list the principals the policy is attached to, use the <a>ListPrincipalPolicies</a> action.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">SetDefaultPolicyVersion</a> action.</p>
+        """<p>Sets the specified version of the specified policy as the policy's default (operative) version. This action affects all certificates to which the policy is attached. To list the principals the policy is attached to, use the <a>ListPrincipalPolicies</a> action.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">SetDefaultPolicyVersion</a> action.</p>
 
         Args:
             policy_name: <p>The policy name.</p>
@@ -15657,7 +15657,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Sets the logging options.</p> <p>NOTE: use of this command is not recommended. Use <code>SetV2LoggingOptions</code> instead.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">SetLoggingOptions</a> action.</p>
+        """<p>Sets the logging options.</p> <p>NOTE: use of this command is not recommended. Use <code>SetV2LoggingOptions</code> instead.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">SetLoggingOptions</a> action.</p>
 
         Args:
             logging_options_payload: <p>The logging options payload.</p>
@@ -15702,7 +15702,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Sets the logging level.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">SetV2LoggingLevel</a> action.</p>
+        """<p>Sets the logging level.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">SetV2LoggingLevel</a> action.</p>
 
         Args:
             log_target: <p>The log target.</p>
@@ -15757,7 +15757,7 @@ class AsyncIoTClient:
             "capo_iot.types.log_event_configurations.LogEventConfigurations"
         ] = None,
     ) -> None:
-        r"""<p>Sets the logging options for the V2 logging service.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">SetV2LoggingOptions</a> action.</p>
+        """<p>Sets the logging options for the V2 logging service.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">SetV2LoggingOptions</a> action.</p>
 
         Args:
             role_arn: <p>The ARN of the role that allows IoT to write to Cloudwatch logs.</p>
@@ -15813,7 +15813,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.start_audit_mitigation_actions_task_response.StartAuditMitigationActionsTaskResponse":
-        r"""<p>Starts a task that applies a set of mitigation actions to the specified target.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">StartAuditMitigationActionsTask</a> action.</p>
+        """<p>Starts a task that applies a set of mitigation actions to the specified target.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">StartAuditMitigationActionsTask</a> action.</p>
 
         Args:
             task_id: <p>A unique identifier for the task. You can use this identifier to check the status of the task or to cancel it.</p>
@@ -15879,7 +15879,7 @@ class AsyncIoTClient:
             "capo_iot.types.nullable_boolean.NullableBoolean"
         ] = None,
     ) -> "capo_iot.types.start_detect_mitigation_actions_task_response.StartDetectMitigationActionsTaskResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Starts a Device Defender ML Detect mitigation actions task. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">StartDetectMitigationActionsTask</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p> Starts a Device Defender ML Detect mitigation actions task. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">StartDetectMitigationActionsTask</a> action.</p>
 
         Args:
             task_id: <p> The unique identifier of the task. </p>
@@ -15944,7 +15944,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.start_on_demand_audit_task_response.StartOnDemandAuditTaskResponse":
-        r"""<p>Starts an on-demand Device Defender audit.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">StartOnDemandAuditTask</a> action.</p>
+        """<p>Starts an on-demand Device Defender audit.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">StartOnDemandAuditTask</a> action.</p>
 
         Args:
             target_check_names: <p>Which checks are performed during the audit. The checks you specify must be enabled for your account or an exception occurs. Use <code>DescribeAccountAuditConfiguration</code> to see the list of all checks, including those that are enabled or <code>UpdateAccountAuditConfiguration</code> to select which checks are enabled.</p>
@@ -15994,7 +15994,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.start_thing_registration_task_response.StartThingRegistrationTaskResponse":
-        r"""<p>Creates a bulk thing provisioning task.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">StartThingRegistrationTask</a> action.</p>
+        """<p>Creates a bulk thing provisioning task.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">StartThingRegistrationTask</a> action.</p>
 
         Args:
             template_body: <p>The provisioning template.</p>
@@ -16047,7 +16047,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.stop_thing_registration_task_response.StopThingRegistrationTaskResponse":
-        r"""<p>Cancels a bulk thing provisioning task.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">StopThingRegistrationTask</a> action.</p>
+        """<p>Cancels a bulk thing provisioning task.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">StopThingRegistrationTask</a> action.</p>
 
         Args:
             task_id: <p>The bulk thing provisioning task ID.</p>
@@ -16096,7 +16096,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds to or modifies the tags of the given resource. Tags are metadata which can be used to manage a resource.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">TagResource</a> action.</p>
+        """<p>Adds to or modifies the tags of the given resource. Tags are metadata which can be used to manage a resource.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">TagResource</a> action.</p>
 
         Args:
             resource_arn: <p>The ARN of the resource.</p>
@@ -16155,7 +16155,7 @@ class AsyncIoTClient:
             "capo_iot.types.policy_names.PolicyNames"
         ] = None,
     ) -> "capo_iot.types.test_authorization_response.TestAuthorizationResponse":
-        r"""<p>Tests if a specified principal is authorized to perform an IoT action on a specified resource. Use this to test and debug the authorization behavior of devices that connect to the IoT device gateway.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">TestAuthorization</a> action.</p>
+        """<p>Tests if a specified principal is authorized to perform an IoT action on a specified resource. Use this to test and debug the authorization behavior of devices that connect to the IoT device gateway.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">TestAuthorization</a> action.</p>
 
         Args:
             principal: <p>The principal. Valid principals are CertificateArn (arn:aws:iot:<i>region</i>:<i>accountId</i>:cert/<i>certificateId</i>) and CognitoId (<i>region</i>:<i>id</i>).</p>
@@ -16227,7 +16227,7 @@ class AsyncIoTClient:
         mqtt_context: Optional["capo_iot.types.mqtt_context.MqttContext"] = None,
         tls_context: Optional["capo_iot.types.tls_context.TlsContext"] = None,
     ) -> "capo_iot.types.test_invoke_authorizer_response.TestInvokeAuthorizerResponse":
-        r"""<p>Tests a custom authorization behavior by invoking a specified custom authorizer. Use this to test and debug the custom authorization behavior of devices that connect to the IoT device gateway.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">TestInvokeAuthorizer</a> action.</p>
+        """<p>Tests a custom authorization behavior by invoking a specified custom authorizer. Use this to test and debug the custom authorization behavior of devices that connect to the IoT device gateway.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">TestInvokeAuthorizer</a> action.</p>
 
         Args:
             authorizer_name: <p>The custom authorizer name.</p>
@@ -16294,7 +16294,7 @@ class AsyncIoTClient:
         config_overrides: Optional[AsyncIoTClientConfig] = None,
         transfer_message: Optional["capo_iot.types.message.Message"] = None,
     ) -> "capo_iot.types.transfer_certificate_response.TransferCertificateResponse":
-        r"""<p>Transfers the specified certificate to the specified Amazon Web Services account.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">TransferCertificate</a> action.</p> <p>You can cancel the transfer until it is accepted by the recipient.</p> <p>No notification is sent to the transfer destination's account. The caller is responsible for notifying the transfer target.</p> <p>The certificate being transferred must not be in the <code>ACTIVE</code> state. You can use the <a>UpdateCertificate</a> action to deactivate it.</p> <p>The certificate must not have any policies attached to it. You can use the <a>DetachPolicy</a> action to detach them.</p> <p> <b>Customer managed key behavior:</b> When you use a customer managed key to encrypt your data and then transfer the certificate to a customer in a different account using the <code>TransferCertificate</code> operation, the certificates will no longer be encrypted by their customer managed key configuration. During the transfer process, certificates are encrypted using Amazon Web Services IoT Core owned keys.</p> <p>While a certificate is in the <b>PENDING_TRANSFER</b> state, it's always protected by Amazon Web Services IoT Core owned keys, regardless of the customer managed key configuration of either the source or destination account. </p> <p>Once the transfer is completed through <a>AcceptCertificateTransfer</a>, <a>RejectCertificateTransfer</a>, or <a>CancelCertificateTransfer</a>, the certificate will be protected by the customer managed key configuration of the account that owns the certificate after the transfer operation:</p> <ul> <li> <p>If the transfer is accepted: The certificate is encrypted by the target account's customer managed key configuration.</p> </li> <li> <p>If the transfer is rejected or cancelled: The certificate is protected by the source account's customer managed key configuration.</p> </li> </ul>
+        """<p>Transfers the specified certificate to the specified Amazon Web Services account.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">TransferCertificate</a> action.</p> <p>You can cancel the transfer until it is accepted by the recipient.</p> <p>No notification is sent to the transfer destination's account. The caller is responsible for notifying the transfer target.</p> <p>The certificate being transferred must not be in the <code>ACTIVE</code> state. You can use the <a>UpdateCertificate</a> action to deactivate it.</p> <p>The certificate must not have any policies attached to it. You can use the <a>DetachPolicy</a> action to detach them.</p> <p> <b>Customer managed key behavior:</b> When you use a customer managed key to encrypt your data and then transfer the certificate to a customer in a different account using the <code>TransferCertificate</code> operation, the certificates will no longer be encrypted by their customer managed key configuration. During the transfer process, certificates are encrypted using Amazon Web Services IoT Core owned keys.</p> <p>While a certificate is in the <b>PENDING_TRANSFER</b> state, it's always protected by Amazon Web Services IoT Core owned keys, regardless of the customer managed key configuration of either the source or destination account. </p> <p>Once the transfer is completed through <a>AcceptCertificateTransfer</a>, <a>RejectCertificateTransfer</a>, or <a>CancelCertificateTransfer</a>, the certificate will be protected by the customer managed key configuration of the account that owns the certificate after the transfer operation:</p> <ul> <li> <p>If the transfer is accepted: The certificate is encrypted by the target account's customer managed key configuration.</p> </li> <li> <p>If the transfer is rejected or cancelled: The certificate is protected by the source account's customer managed key configuration.</p> </li> </ul>
 
         Args:
             certificate_id: <p>The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)</p>
@@ -16351,7 +16351,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Removes the given tags (metadata) from the resource.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UntagResource</a> action.</p>
+        """<p>Removes the given tags (metadata) from the resource.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UntagResource</a> action.</p>
 
         Args:
             resource_arn: <p>The ARN of the resource.</p>
@@ -16406,7 +16406,7 @@ class AsyncIoTClient:
             "capo_iot.types.audit_check_configurations.AuditCheckConfigurations"
         ] = None,
     ) -> "capo_iot.types.update_account_audit_configuration_response.UpdateAccountAuditConfigurationResponse":
-        r"""<p>Configures or reconfigures the Device Defender audit settings for this account. Settings include how audit notifications are sent and which audit checks are enabled or disabled.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateAccountAuditConfiguration</a> action.</p>
+        """<p>Configures or reconfigures the Device Defender audit settings for this account. Settings include how audit notifications are sent and which audit checks are enabled or disabled.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateAccountAuditConfiguration</a> action.</p>
 
         Args:
             role_arn: <p>The Amazon Resource Name (ARN) of the role that grants permission to IoT to access information about your devices, policies, certificates, and other items as required when performing an audit.</p>
@@ -16535,7 +16535,7 @@ class AsyncIoTClient:
             "capo_iot.types.enable_caching_for_http.EnableCachingForHttp"
         ] = None,
     ) -> "capo_iot.types.update_authorizer_response.UpdateAuthorizerResponse":
-        r"""<p>Updates an authorizer.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateAuthorizer</a> action.</p>
+        """<p>Updates an authorizer.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateAuthorizer</a> action.</p>
 
         Args:
             authorizer_name: <p>The authorizer name.</p>
@@ -16604,7 +16604,7 @@ class AsyncIoTClient:
             "capo_iot.types.optional_version.OptionalVersion"
         ] = None,
     ) -> "capo_iot.types.update_billing_group_response.UpdateBillingGroupResponse":
-        r"""<p>Updates information about the billing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateBillingGroup</a> action.</p>
+        """<p>Updates information about the billing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateBillingGroup</a> action.</p>
 
         Args:
             billing_group_name: <p>The name of the billing group.</p>
@@ -16669,12 +16669,12 @@ class AsyncIoTClient:
             "capo_iot.types.remove_auto_registration.RemoveAutoRegistration"
         ] = None,
     ) -> None:
-        r"""<p>Updates a registered CA certificate.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateCACertificate</a> action.</p>
+        """<p>Updates a registered CA certificate.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateCACertificate</a> action.</p>
 
         Args:
             certificate_id: <p>The CA certificate identifier.</p>
             new_status: <p>The updated status of the CA certificate.</p> <p> <b>Note:</b> The status value REGISTER_INACTIVE is deprecated and should not be used.</p>
-            new_auto_registration_status: <p>The new value for the auto registration status. Valid values are: \"ENABLE\" or \"DISABLE\".</p>
+            new_auto_registration_status: <p>The new value for the auto registration status. Valid values are: "ENABLE" or "DISABLE".</p>
             registration_config: <p>Information about the registration configuration.</p>
             remove_auto_registration: <p>If true, removes auto registration.</p>
 
@@ -16729,7 +16729,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> None:
-        r"""<p>Updates the status of the specified certificate. This operation is idempotent.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateCertificate</a> action.</p> <p>Certificates must be in the ACTIVE state to authenticate devices that use a certificate to connect to IoT.</p> <p>Within a few minutes of updating a certificate from the ACTIVE state to any other state, IoT disconnects all devices that used that certificate to connect. Devices cannot use a certificate that is not in the ACTIVE state to reconnect.</p>
+        """<p>Updates the status of the specified certificate. This operation is idempotent.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateCertificate</a> action.</p> <p>Certificates must be in the ACTIVE state to authenticate devices that use a certificate to connect to IoT.</p> <p>Within a few minutes of updating a certificate from the ACTIVE state to any other state, IoT disconnects all devices that used that certificate to connect. Devices cannot use a certificate that is not in the ACTIVE state to reconnect.</p>
 
         Args:
             certificate_id: <p>The ID of the certificate. (The last part of the certificate ARN contains the certificate ID.)</p>
@@ -16785,7 +16785,7 @@ class AsyncIoTClient:
             "capo_iot.types.certificate_provider_account_default_for_operations.CertificateProviderAccountDefaultForOperations"
         ] = None,
     ) -> "capo_iot.types.update_certificate_provider_response.UpdateCertificateProviderResponse":
-        r"""<p>Updates a certificate provider.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateCertificateProvider</a> action. </p>
+        """<p>Updates a certificate provider.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateCertificateProvider</a> action. </p>
 
         Args:
             certificate_provider_name: <p>The name of the certificate provider.</p>
@@ -16903,7 +16903,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.update_custom_metric_response.UpdateCustomMetricResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Updates a Device Defender detect custom metric. </p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateCustomMetric</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Updates a Device Defender detect custom metric. </p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateCustomMetric</a> action.</p>
 
         Args:
             metric_name: <p> The name of the custom metric. Cannot be updated. </p>
@@ -16953,11 +16953,11 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.update_dimension_response.UpdateDimensionResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Updates the definition for a dimension. You cannot change the type of a dimension after it is created (you can delete it and recreate it).</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateDimension</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Updates the definition for a dimension. You cannot change the type of a dimension after it is created (you can delete it and recreate it).</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateDimension</a> action.</p>
 
         Args:
             name: <p>A unique identifier for the dimension. Choose something that describes the type and value to make it easy to remember what it does.</p>
-            string_values: <p>Specifies the value or list of values for the dimension. For <code>TOPIC_FILTER</code> dimensions, this is a pattern used to match the MQTT topic (for example, \"admin/#\").</p>
+            string_values: <p>Specifies the value or list of values for the dimension. For <code>TOPIC_FILTER</code> dimensions, this is a pattern used to match the MQTT topic (for example, "admin/#").</p>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -17024,7 +17024,7 @@ class AsyncIoTClient:
             "capo_iot.types.client_certificate_config.ClientCertificateConfig"
         ] = None,
     ) -> "capo_iot.types.update_domain_configuration_response.UpdateDomainConfigurationResponse":
-        r"""<p>Updates values stored in the domain configuration. Domain configurations for default endpoints can't be updated.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateDomainConfiguration</a> action.</p>
+        """<p>Updates values stored in the domain configuration. Domain configurations for default endpoints can't be updated.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateDomainConfiguration</a> action.</p>
 
         Args:
             domain_configuration_name: <p>The name of the domain configuration to be updated.</p>
@@ -17033,8 +17033,8 @@ class AsyncIoTClient:
             remove_authorizer_config: <p>Removes the authorization configuration from a domain.</p>
             tls_config: <p>An object that specifies the TLS configuration for a domain.</p>
             server_certificate_config: <p>The server certificate configuration.</p>
-            authentication_type: <p>An enumerated string that speciﬁes the authentication type.</p> <ul> <li> <p> <code>CUSTOM_AUTH_X509</code> - Use custom authentication and authorization with additional details from the X.509 client certificate.</p> </li> </ul> <ul> <li> <p> <code>CUSTOM_AUTH</code> - Use custom authentication and authorization. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/custom-authentication.html\">Custom authentication and authorization</a>.</p> </li> </ul> <ul> <li> <p> <code>AWS_X509</code> - Use X.509 client certificates without custom authentication and authorization. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html\">X.509 client certificates</a>.</p> </li> </ul> <ul> <li> <p> <code>AWS_SIGV4</code> - Use Amazon Web Services Signature Version 4. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/custom-authentication.html\">IAM users, groups, and roles</a>.</p> </li> </ul> <ul> <li> <p> <code>DEFAULT </code> - Use a combination of port and Application Layer Protocol Negotiation (ALPN) to specify authentication type. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html\">Device communication protocols</a>.</p> </li> </ul>
-            application_protocol: <p>An enumerated string that speciﬁes the application-layer protocol.</p> <ul> <li> <p> <code>SECURE_MQTT</code> - MQTT over TLS.</p> </li> </ul> <ul> <li> <p> <code>MQTT_WSS</code> - MQTT over WebSocket.</p> </li> </ul> <ul> <li> <p> <code>HTTPS</code> - HTTP over TLS.</p> </li> </ul> <ul> <li> <p> <code>DEFAULT</code> - Use a combination of port and Application Layer Protocol Negotiation (ALPN) to specify application_layer protocol. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html\">Device communication protocols</a>.</p> </li> </ul>
+            authentication_type: <p>An enumerated string that speciﬁes the authentication type.</p> <ul> <li> <p> <code>CUSTOM_AUTH_X509</code> - Use custom authentication and authorization with additional details from the X.509 client certificate.</p> </li> </ul> <ul> <li> <p> <code>CUSTOM_AUTH</code> - Use custom authentication and authorization. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/custom-authentication.html">Custom authentication and authorization</a>.</p> </li> </ul> <ul> <li> <p> <code>AWS_X509</code> - Use X.509 client certificates without custom authentication and authorization. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html">X.509 client certificates</a>.</p> </li> </ul> <ul> <li> <p> <code>AWS_SIGV4</code> - Use Amazon Web Services Signature Version 4. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/custom-authentication.html">IAM users, groups, and roles</a>.</p> </li> </ul> <ul> <li> <p> <code>DEFAULT </code> - Use a combination of port and Application Layer Protocol Negotiation (ALPN) to specify authentication type. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html">Device communication protocols</a>.</p> </li> </ul>
+            application_protocol: <p>An enumerated string that speciﬁes the application-layer protocol.</p> <ul> <li> <p> <code>SECURE_MQTT</code> - MQTT over TLS.</p> </li> </ul> <ul> <li> <p> <code>MQTT_WSS</code> - MQTT over WebSocket.</p> </li> </ul> <ul> <li> <p> <code>HTTPS</code> - HTTP over TLS.</p> </li> </ul> <ul> <li> <p> <code>DEFAULT</code> - Use a combination of port and Application Layer Protocol Negotiation (ALPN) to specify application_layer protocol. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html">Device communication protocols</a>.</p> </li> </ul>
             client_certificate_config: <p>An object that speciﬁes the client certificate conﬁguration for a domain.</p>
 
         Raises:
@@ -17105,7 +17105,7 @@ class AsyncIoTClient:
         query_string: Optional["capo_iot.types.query_string.QueryString"] = None,
         query_version: Optional["capo_iot.types.query_version.QueryVersion"] = None,
     ) -> "capo_iot.types.update_dynamic_thing_group_response.UpdateDynamicThingGroupResponse":
-        r"""<p>Updates a dynamic thing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateDynamicThingGroup</a> action.</p>
+        """<p>Updates a dynamic thing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateDynamicThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The name of the dynamic thing group to update.</p>
@@ -17113,7 +17113,7 @@ class AsyncIoTClient:
             expected_version: <p>The expected version of the dynamic thing group to update.</p>
             index_name: <p>The dynamic thing group index to update.</p> <note> <p>Currently one index is supported: <code>AWS_Things</code>.</p> </note>
             query_string: <p>The dynamic thing group search query string to update.</p>
-            query_version: <p>The dynamic thing group query version to update.</p> <note> <p>Currently one query version is supported: \"2017-09-30\". If not specified, the query version defaults to this value.</p> </note>
+            query_version: <p>The dynamic thing group query version to update.</p> <note> <p>Currently one query version is supported: "2017-09-30". If not specified, the query version defaults to this value.</p> </note>
 
         Raises:
             capo_iot.errors.internal_failure_exception.InternalFailureException: <p>An unexpected error has occurred.</p>
@@ -17172,7 +17172,7 @@ class AsyncIoTClient:
             "capo_iot.types.kms_access_role_arn.KmsAccessRoleArn"
         ] = None,
     ) -> "capo_iot.types.update_encryption_configuration_response.UpdateEncryptionConfigurationResponse":
-        r"""<p>Updates the encryption configuration. By default, Amazon Web Services IoT Core encrypts your data at rest using Amazon Web Services owned keys. Amazon Web Services IoT Core also supports symmetric customer managed keys from Key Management Service (KMS). With customer managed keys, you create, own, and manage the KMS keys in your Amazon Web Services account. </p> <p>Before using this API, you must set up permissions for Amazon Web Services IoT Core to access KMS. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/encryption-at-rest.html\">Data encryption at rest</a> in the <i>Amazon Web Services IoT Core Developer Guide</i>.</p>
+        """<p>Updates the encryption configuration. By default, Amazon Web Services IoT Core encrypts your data at rest using Amazon Web Services owned keys. Amazon Web Services IoT Core also supports symmetric customer managed keys from Key Management Service (KMS). With customer managed keys, you create, own, and manage the KMS keys in your Amazon Web Services account. </p> <p>Before using this API, you must set up permissions for Amazon Web Services IoT Core to access KMS. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/encryption-at-rest.html">Data encryption at rest</a> in the <i>Amazon Web Services IoT Core Developer Guide</i>.</p>
 
         Args:
             encryption_type: <p>The type of the KMS key.</p>
@@ -17234,7 +17234,7 @@ class AsyncIoTClient:
             "capo_iot.types.event_configurations.EventConfigurations"
         ] = None,
     ) -> "capo_iot.types.update_event_configurations_response.UpdateEventConfigurationsResponse":
-        r"""<p>Updates the event configurations.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateEventConfigurations</a> action.</p>
+        """<p>Updates the event configurations.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateEventConfigurations</a> action.</p>
 
         Args:
             event_configurations: <p>The new event configuration values.</p>
@@ -17297,7 +17297,7 @@ class AsyncIoTClient:
             "capo_iot.types.optional_version.OptionalVersion"
         ] = None,
     ) -> None:
-        r"""<p>Updates the data for a fleet metric.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateFleetMetric</a> action.</p>
+        """<p>Updates the data for a fleet metric.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateFleetMetric</a> action.</p>
 
         Args:
             metric_name: <p>The name of the fleet metric to update.</p>
@@ -17308,7 +17308,7 @@ class AsyncIoTClient:
             description: <p>The description of the fleet metric.</p>
             query_version: <p>The version of the query.</p>
             index_name: <p>The name of the index to search.</p>
-            unit: <p>Used to support unit transformation such as milliseconds to seconds. The unit must be supported by <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html\">CW metric</a>.</p>
+            unit: <p>Used to support unit transformation such as milliseconds to seconds. The unit must be supported by <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html">CW metric</a>.</p>
             expected_version: <p>The expected version of the fleet metric record in the registry.</p>
 
         Raises:
@@ -17379,7 +17379,7 @@ class AsyncIoTClient:
             "capo_iot.types.thing_group_indexing_configuration.ThingGroupIndexingConfiguration"
         ] = None,
     ) -> "capo_iot.types.update_indexing_configuration_response.UpdateIndexingConfigurationResponse":
-        r"""<p>Updates the search configuration.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateIndexingConfiguration</a> action.</p>
+        """<p>Updates the search configuration.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateIndexingConfiguration</a> action.</p>
 
         Args:
             thing_indexing_configuration: <p>Thing indexing configuration.</p>
@@ -17445,7 +17445,7 @@ class AsyncIoTClient:
             "capo_iot.types.job_executions_retry_config.JobExecutionsRetryConfig"
         ] = None,
     ) -> None:
-        r"""<p>Updates supported fields of the specified job.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateJob</a> action.</p>
+        """<p>Updates supported fields of the specified job.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateJob</a> action.</p>
 
         Args:
             job_id: <p>The ID of the job to be updated.</p>
@@ -17454,7 +17454,7 @@ class AsyncIoTClient:
             job_executions_rollout_config: <p>Allows you to create a staged rollout of the job.</p>
             abort_config: <p>Allows you to create criteria to abort a job.</p>
             timeout_config: <p>Specifies the amount of time each device has to finish its execution of the job. The timer is started when the job execution status is set to <code>IN_PROGRESS</code>. If the job execution status is not set to another terminal state before the time expires, it will be automatically set to <code>TIMED_OUT</code>. </p>
-            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href=\"https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html\">Setting up IoT Greengrass core devices.</a> </p> </note>
+            namespace_id: <p>The namespace used to indicate that a job is a customer-managed job.</p> <p>When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics that contain the value in the following format.</p> <p> <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code> </p> <note> <p>The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core devices.</a> </p> </note>
             job_executions_retry_config: <p>Allows you to create the criteria to retry a job.</p>
 
         Raises:
@@ -17513,7 +17513,7 @@ class AsyncIoTClient:
             "capo_iot.types.mitigation_action_params.MitigationActionParams"
         ] = None,
     ) -> "capo_iot.types.update_mitigation_action_response.UpdateMitigationActionResponse":
-        r"""<p>Updates the definition for the specified mitigation action.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateMitigationAction</a> action.</p>
+        """<p>Updates the definition for the specified mitigation action.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateMitigationAction</a> action.</p>
 
         Args:
             action_name: <p>The friendly name for the mitigation action. You cannot change the name by using <code>UpdateMitigationAction</code>. Instead, you must delete and recreate the mitigation action with the new name.</p>
@@ -17576,7 +17576,7 @@ class AsyncIoTClient:
         ] = None,
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
     ) -> "capo_iot.types.update_package_response.UpdatePackageResponse":
-        r"""<p>Updates the supported fields for a specific software package.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdatePackage</a> and <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetIndexingConfiguration</a> actions.</p>
+        """<p>Updates the supported fields for a specific software package.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdatePackage</a> and <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetIndexingConfiguration</a> actions.</p>
 
         Args:
             package_name: <p>The name of the target software package.</p>
@@ -17640,7 +17640,7 @@ class AsyncIoTClient:
         ] = None,
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
     ) -> "capo_iot.types.update_package_configuration_response.UpdatePackageConfigurationResponse":
-        r"""<p>Updates the software package configuration.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdatePackageConfiguration</a> and <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html\">iam:PassRole</a> actions.</p>
+        """<p>Updates the software package configuration.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdatePackageConfiguration</a> and <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html">iam:PassRole</a> actions.</p>
 
         Args:
             version_update_by_jobs_config: <p>Configuration to manage job's package version reporting. This updates the thing's reserved named shadow that the job targets.</p>
@@ -17708,7 +17708,7 @@ class AsyncIoTClient:
         ] = None,
         client_token: Optional["capo_iot.types.client_token.ClientToken"] = None,
     ) -> "capo_iot.types.update_package_version_response.UpdatePackageVersionResponse":
-        r"""<p>Updates the supported fields for a specific package version.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdatePackageVersion</a> and <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">GetIndexingConfiguration</a> actions.</p>
+        """<p>Updates the supported fields for a specific package version.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdatePackageVersion</a> and <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">GetIndexingConfiguration</a> actions.</p>
 
         Args:
             package_name: <p>The name of the associated software package.</p>
@@ -17716,7 +17716,7 @@ class AsyncIoTClient:
             description: <p>The package version description.</p>
             attributes: <p>Metadata that can be used to define a package version’s configuration. For example, the Amazon S3 file location, configuration options that are being sent to the device or fleet. </p> <p> <b>Note:</b> Attributes can be updated only when the package version is in a draft state.</p> <p>The combined size of all the attributes on a package version is limited to 3KB.</p>
             artifact: <p>The various components that make up a software package version.</p>
-            action: <p>The status that the package version should be assigned. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p>
+            action: <p>The status that the package version should be assigned. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p>
             recipe: <p>The inline job document associated with a software package version used for a quick job deployment.</p>
             client_token: <p>A unique case-sensitive identifier that you can provide to ensure the idempotency of the request. Don't reuse this client token if a new idempotent request is required.</p>
 
@@ -17791,7 +17791,7 @@ class AsyncIoTClient:
             "capo_iot.types.remove_hook.RemoveHook"
         ] = None,
     ) -> "capo_iot.types.update_provisioning_template_response.UpdateProvisioningTemplateResponse":
-        r"""<p>Updates a provisioning template.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateProvisioningTemplate</a> action.</p>
+        """<p>Updates a provisioning template.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateProvisioningTemplate</a> action.</p>
 
         Args:
             template_name: <p>The name of the provisioning template.</p>
@@ -17799,7 +17799,7 @@ class AsyncIoTClient:
             enabled: <p>True to enable the provisioning template, otherwise false.</p>
             default_version_id: <p>The ID of the default provisioning template version.</p>
             provisioning_role_arn: <p>The ARN of the role associated with the provisioning template. This IoT role grants permission to provision a device.</p>
-            pre_provisioning_hook: <p>Updates the pre-provisioning hook template. Only supports template of type <code>FLEET_PROVISIONING</code>. For more information about provisioning template types, see <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html#iot-CreateProvisioningTemplate-request-type\">type</a>.</p>
+            pre_provisioning_hook: <p>Updates the pre-provisioning hook template. Only supports template of type <code>FLEET_PROVISIONING</code>. For more information about provisioning template types, see <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html#iot-CreateProvisioningTemplate-request-type">type</a>.</p>
             remove_pre_provisioning_hook: <p>Removes pre-provisioning hook template.</p>
 
         Raises:
@@ -17861,7 +17861,7 @@ class AsyncIoTClient:
             "capo_iot.types.credential_duration_seconds.CredentialDurationSeconds"
         ] = None,
     ) -> "capo_iot.types.update_role_alias_response.UpdateRoleAliasResponse":
-        r"""<p>Updates a role alias.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateRoleAlias</a> action.</p> <important> <p>The value of <a href=\"https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateRoleAlias.html#iot-UpdateRoleAlias-request-credentialDurationSeconds\"> <code>credentialDurationSeconds</code> </a> must be less than or equal to the maximum session duration of the IAM role that the role alias references. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing-api.html#roles-modify_max-session-duration-api\"> Modifying a role maximum session duration (Amazon Web Services API)</a> from the Amazon Web Services Identity and Access Management User Guide.</p> </important>
+        """<p>Updates a role alias.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateRoleAlias</a> action.</p> <important> <p>The value of <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateRoleAlias.html#iot-UpdateRoleAlias-request-credentialDurationSeconds"> <code>credentialDurationSeconds</code> </a> must be less than or equal to the maximum session duration of the IAM role that the role alias references. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing-api.html#roles-modify_max-session-duration-api"> Modifying a role maximum session duration (Amazon Web Services API)</a> from the Amazon Web Services Identity and Access Management User Guide.</p> </important>
 
         Args:
             role_alias: <p>The role alias to update.</p>
@@ -17922,12 +17922,12 @@ class AsyncIoTClient:
             "capo_iot.types.target_audit_check_names.TargetAuditCheckNames"
         ] = None,
     ) -> "capo_iot.types.update_scheduled_audit_response.UpdateScheduledAuditResponse":
-        r"""<p>Updates a scheduled audit, including which checks are performed and how often the audit takes place.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateScheduledAudit</a> action.</p>
+        """<p>Updates a scheduled audit, including which checks are performed and how often the audit takes place.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateScheduledAudit</a> action.</p>
 
         Args:
             frequency: <p>How often the scheduled audit takes place, either <code>DAILY</code>, <code>WEEKLY</code>, <code>BIWEEKLY</code>, or <code>MONTHLY</code>. The start time of each audit is determined by the system.</p>
-            day_of_month: <p>The day of the month on which the scheduled audit takes place. This can be <code>1</code> through <code>31</code> or <code>LAST</code>. This field is required if the <code>frequency</code> parameter is set to <code>MONTHLY</code>. If days 29-31 are specified, and the month does not have that many days, the audit takes place on the \"LAST\" day of the month.</p>
-            day_of_week: <p>The day of the week on which the scheduled audit takes place. This can be one of <code>SUN</code>, <code>MON</code>, <code>TUE</code>, <code>WED</code>, <code>THU</code>, <code>FRI</code>, or <code>SAT</code>. This field is required if the \"frequency\" parameter is set to <code>WEEKLY</code> or <code>BIWEEKLY</code>.</p>
+            day_of_month: <p>The day of the month on which the scheduled audit takes place. This can be <code>1</code> through <code>31</code> or <code>LAST</code>. This field is required if the <code>frequency</code> parameter is set to <code>MONTHLY</code>. If days 29-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month.</p>
+            day_of_week: <p>The day of the week on which the scheduled audit takes place. This can be one of <code>SUN</code>, <code>MON</code>, <code>TUE</code>, <code>WED</code>, <code>THU</code>, <code>FRI</code>, or <code>SAT</code>. This field is required if the "frequency" parameter is set to <code>WEEKLY</code> or <code>BIWEEKLY</code>.</p>
             target_check_names: <p>Which checks are performed during the scheduled audit. Checks must be enabled for your account. (Use <code>DescribeAccountAuditConfiguration</code> to see the list of all checks, including those that are enabled or use <code>UpdateAccountAuditConfiguration</code> to select which checks are enabled.)</p>
             scheduled_audit_name: <p>The name of the scheduled audit. (Max. 128 chars)</p>
 
@@ -18012,7 +18012,7 @@ class AsyncIoTClient:
     ) -> (
         "capo_iot.types.update_security_profile_response.UpdateSecurityProfileResponse"
     ):
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Updates a Device Defender security profile.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateSecurityProfile</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Updates a Device Defender security profile.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateSecurityProfile</a> action.</p>
 
         Args:
             security_profile_name: <p>The name of the security profile you want to update.</p>
@@ -18100,7 +18100,7 @@ class AsyncIoTClient:
         files: Optional["capo_iot.types.stream_files.StreamFiles"] = None,
         role_arn: Optional["capo_iot.types.role_arn.RoleArn"] = None,
     ) -> "capo_iot.types.update_stream_response.UpdateStreamResponse":
-        r"""<p>Updates an existing stream. The stream version will be incremented by one.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateStream</a> action.</p>
+        """<p>Updates an existing stream. The stream version will be incremented by one.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateStream</a> action.</p>
 
         Args:
             stream_id: <p>The stream ID.</p>
@@ -18171,12 +18171,12 @@ class AsyncIoTClient:
             "capo_iot.types.remove_thing_type.RemoveThingType"
         ] = None,
     ) -> "capo_iot.types.update_thing_response.UpdateThingResponse":
-        r"""<p>Updates the data for a thing.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateThing</a> action.</p>
+        r"""<p>Updates the data for a thing.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateThing</a> action.</p>
 
         Args:
             thing_name: <p>The name of the thing to update.</p> <p>You can't change a thing's name. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing.</p>
             thing_type_name: <p>The name of the thing type.</p>
-            attribute_payload: <p>A list of thing attributes, a JSON string containing name-value pairs. For example:</p> <p> <code>{\\"attributes\\":{\\"name1\\":\\"value2\\"}}</code> </p> <p>This data is used to add new attributes or update existing attributes.</p>
+            attribute_payload: <p>A list of thing attributes, a JSON string containing name-value pairs. For example:</p> <p> <code>{\"attributes\":{\"name1\":\"value2\"}}</code> </p> <p>This data is used to add new attributes or update existing attributes.</p>
             expected_version: <p>The expected version of the thing record in the registry. If the version of the record in the registry does not match the expected version specified in the request, the <code>UpdateThing</code> request is rejected with a <code>VersionConflictException</code>.</p>
             remove_thing_type: <p>Remove a thing type association. If <b>true</b>, the association is removed.</p>
 
@@ -18237,7 +18237,7 @@ class AsyncIoTClient:
             "capo_iot.types.optional_version.OptionalVersion"
         ] = None,
     ) -> "capo_iot.types.update_thing_group_response.UpdateThingGroupResponse":
-        r"""<p>Update a thing group.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateThingGroup</a> action.</p>
+        """<p>Update a thing group.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateThingGroup</a> action.</p>
 
         Args:
             thing_group_name: <p>The thing group to update.</p>
@@ -18299,7 +18299,7 @@ class AsyncIoTClient:
             "capo_iot.types.override_dynamic_groups.OverrideDynamicGroups"
         ] = None,
     ) -> "capo_iot.types.update_thing_groups_for_thing_response.UpdateThingGroupsForThingResponse":
-        r"""<p>Updates the groups to which the thing belongs.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateThingGroupsForThing</a> action.</p>
+        """<p>Updates the groups to which the thing belongs.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateThingGroupsForThing</a> action.</p>
 
         Args:
             thing_name: <p>The thing whose group memberships will be updated.</p>
@@ -18410,7 +18410,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.update_topic_rule_destination_response.UpdateTopicRuleDestinationResponse":
-        r"""<p>Updates a topic rule destination. You use this to change the status, endpoint URL, or confirmation URL of the destination.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">UpdateTopicRuleDestination</a> action.</p>
+        """<p>Updates a topic rule destination. You use this to change the status, endpoint URL, or confirmation URL of the destination.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">UpdateTopicRuleDestination</a> action.</p>
 
         Args:
             arn: <p>The ARN of the topic rule destination.</p>
@@ -18460,7 +18460,7 @@ class AsyncIoTClient:
         *,
         config_overrides: Optional[AsyncIoTClientConfig] = None,
     ) -> "capo_iot.types.validate_security_profile_behaviors_response.ValidateSecurityProfileBehaviorsResponse":
-        r"""<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Validates a Device Defender security profile behaviors specification.</p> <p>Requires permission to access the <a href=\"https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions\">ValidateSecurityProfileBehaviors</a> action.</p>
+        """<note> <p>The IoT Device Defender detect feature will no longer be available to new customers starting August 31, 2026. If you would like to use the detect feature, sign up prior to August 31, 2026. To learn about alternatives to IoT Device Defender detect, see IoT Device Defender detect feature availability change in the IoT Device Defender Developer Guide. There is no change to IoT Device Defender audit availability.</p> </note> <p>Validates a Device Defender security profile behaviors specification.</p> <p>Requires permission to access the <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions">ValidateSecurityProfileBehaviors</a> action.</p>
 
         Args:
             behaviors: <p>Specifies the behaviors that, when violated by a device (thing), cause an alert.</p>

@@ -26,7 +26,7 @@ class UpdateRcsAgentResult(TypedDict, closed=True):
     status: "capo_pinpoint_sms_voice_v2.types.rcs_agent_status.RcsAgentStatus"
     """<p>The current status of the RCS agent.</p>"""
     created_timestamp: "datetime.datetime"
-    r"""<p>The time when the RCS agent was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the RCS agent was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
     deletion_protection_enabled: "bool"
     """<p>When set to true deletion protection is enabled. By default this is set to false.</p>"""
     opt_out_list_name: NotRequired[

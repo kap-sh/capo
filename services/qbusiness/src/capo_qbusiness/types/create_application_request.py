@@ -27,7 +27,7 @@ class CreateApplicationRequest(TypedDict, closed=True):
     display_name: "capo_qbusiness.types.application_name.ApplicationName"
     """<p>A name for the Amazon Q Business application. </p>"""
     role_arn: NotRequired["capo_qbusiness.types.role_arn.RoleArn"]
-    r"""<p> The Amazon Resource Name (ARN) of an IAM role with permissions to access your Amazon CloudWatch logs and metrics. If this property is not specified, Amazon Q Business will create a <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/using-service-linked-roles.html#slr-permissions\">service linked role (SLR)</a> and use it as the application's role.</p>"""
+    """<p> The Amazon Resource Name (ARN) of an IAM role with permissions to access your Amazon CloudWatch logs and metrics. If this property is not specified, Amazon Q Business will create a <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/using-service-linked-roles.html#slr-permissions">service linked role (SLR)</a> and use it as the application's role.</p>"""
     identity_type: NotRequired["capo_qbusiness.types.identity_type.IdentityType"]
     """<p>The authentication type being used by a Amazon Q Business application.</p>"""
     iam_identity_provider_arn: NotRequired[
@@ -63,11 +63,11 @@ class CreateApplicationRequest(TypedDict, closed=True):
     personalization_configuration: NotRequired[
         "capo_qbusiness.types.personalization_configuration.PersonalizationConfiguration"
     ]
-    r"""<p>Configuration information about chat response personalization. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/personalizing-chat-responses.html\">Personalizing chat responses</a> </p>"""
+    """<p>Configuration information about chat response personalization. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/personalizing-chat-responses.html">Personalizing chat responses</a> </p>"""
     quick_sight_configuration: NotRequired[
         "capo_qbusiness.types.quick_sight_configuration.QuickSightConfiguration"
     ]
-    r"""<p>The Amazon Quick Suite configuration for an Amazon Q Business application that uses Quick Suite for authentication. This configuration is required if your application uses Quick Suite as the identity provider. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/create-quicksight-integrated-application.html\">Creating an Amazon Quick Suite integrated application</a>.</p>"""
+    """<p>The Amazon Quick Suite configuration for an Amazon Q Business application that uses Quick Suite for authentication. This configuration is required if your application uses Quick Suite as the identity provider. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/create-quicksight-integrated-application.html">Creating an Amazon Quick Suite integrated application</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

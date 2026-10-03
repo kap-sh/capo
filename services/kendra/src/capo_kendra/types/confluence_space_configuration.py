@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ConfluenceSpaceConfiguration(TypedDict, closed=True):
     crawl_personal_spaces: "capo_kendra.types.boolean.Boolean"
-    r"""<p> <code>TRUE</code> to index personal spaces. You can add restrictions to items in personal spaces. If personal spaces are indexed, queries without user context information may return restricted items from a personal space in their results. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html\">Filtering on user context</a>.</p>"""
+    """<p> <code>TRUE</code> to index personal spaces. You can add restrictions to items in personal spaces. If personal spaces are indexed, queries without user context information may return restricted items from a personal space in their results. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html">Filtering on user context</a>.</p>"""
     crawl_archived_spaces: "capo_kendra.types.boolean.Boolean"
     """<p> <code>TRUE</code> to index archived spaces.</p>"""
     include_spaces: NotRequired[
@@ -26,7 +26,7 @@ class ConfluenceSpaceConfiguration(TypedDict, closed=True):
     space_field_mappings: NotRequired[
         "capo_kendra.types.confluence_space_field_mappings_list.ConfluenceSpaceFieldMappingsList"
     ]
-    r"""<p>Maps attributes or field names of Confluence spaces to Amazon Kendra index field names. To create custom fields, use the <code>UpdateIndex</code> API before you map to Confluence fields. For more information, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html\">Mapping data source fields</a>. The Confluence data source field names must exist in your Confluence custom metadata.</p> <p>If you specify the <code>SpaceFieldMappings</code> parameter, you must specify at least one field mapping.</p>"""
+    """<p>Maps attributes or field names of Confluence spaces to Amazon Kendra index field names. To create custom fields, use the <code>UpdateIndex</code> API before you map to Confluence fields. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html">Mapping data source fields</a>. The Confluence data source field names must exist in your Confluence custom metadata.</p> <p>If you specify the <code>SpaceFieldMappings</code> parameter, you must specify at least one field mapping.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

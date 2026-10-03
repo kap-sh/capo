@@ -22,7 +22,7 @@ class ReplicationStatusType(TypedDict, closed=True):
     status_message: NotRequired[
         "capo_secrets_manager.types.status_message_type.StatusMessageType"
     ]
-    r"""<p>Status message such as \"<i>Secret with this name already exists in this region</i>\".</p>"""
+    """<p>Status message such as "<i>Secret with this name already exists in this region</i>".</p>"""
     last_accessed_date: NotRequired[
         "capo_secrets_manager.types.last_accessed_date_type.LastAccessedDateType"
     ]

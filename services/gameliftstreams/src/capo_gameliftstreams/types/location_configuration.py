@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class LocationConfiguration(TypedDict, closed=True):
     location_name: "capo_gameliftstreams.types.location_name.LocationName"
-    r"""<p> A location's name. For example, <code>us-east-1</code>. For a complete list of locations that Amazon GameLift Streams supports, refer to <a href=\"https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/regions-quotas.html\">Regions, quotas, and limitations</a> in the <i>Amazon GameLift Streams Developer Guide</i>. </p>"""
+    """<p> A location's name. For example, <code>us-east-1</code>. For a complete list of locations that Amazon GameLift Streams supports, refer to <a href="https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/regions-quotas.html">Regions, quotas, and limitations</a> in the <i>Amazon GameLift Streams Developer Guide</i>. </p>"""
     always_on_capacity: NotRequired[
         "capo_gameliftstreams.types.always_on_capacity.AlwaysOnCapacity"
     ]
@@ -37,7 +37,7 @@ class LocationConfiguration(TypedDict, closed=True):
     vpc_transit_configuration: NotRequired[
         "capo_gameliftstreams.types.vpc_transit_configuration.VpcTransitConfiguration"
     ]
-    r"""<p>Configuration for connecting the stream group to resources in your Amazon VPC using AWS Transit Gateway. This setting is optional. If specified, Amazon GameLift Streams creates a Transit Gateway to enable private network connectivity between the service VPC and your VPC. The VPC ID cannot be changed after the stream group is created, but you can update the CIDR blocks by calling <a href=\"https://docs.aws.amazon.com/gameliftstreams/latest/apireference/API_UpdateStreamGroup.html\">UpdateStreamGroup</a>.</p>"""
+    """<p>Configuration for connecting the stream group to resources in your Amazon VPC using AWS Transit Gateway. This setting is optional. If specified, Amazon GameLift Streams creates a Transit Gateway to enable private network connectivity between the service VPC and your VPC. The VPC ID cannot be changed after the stream group is created, but you can update the CIDR blocks by calling <a href="https://docs.aws.amazon.com/gameliftstreams/latest/apireference/API_UpdateStreamGroup.html">UpdateStreamGroup</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

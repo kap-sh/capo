@@ -62,7 +62,7 @@ class ApprovalTeam:
         client_token: Optional["capo_mpa.types.token.Token"] = None,
         tags: Optional["capo_mpa.types.tags.Tags"] = None,
     ) -> "capo_mpa.types.create_approval_team_response.CreateApprovalTeamResponse":
-        r"""<p>Creates a new approval team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Approval team</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Creates a new approval team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Approval team</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services populates this field.</p> <note> <p> <b>What is idempotency?</b> </p> <p>When you make a mutating API request, the request typically returns a result before the operation's asynchronous workflows have completed. Operations might also time out or encounter other server issues before they complete, even though the request has already returned a result. This could make it difficult to determine whether the request succeeded or not, and could lead to multiple retries to ensure that the operation completes successfully. However, if the original request and the subsequent retries are successful, the operation is completed multiple times. This means that you might create more resources than you intended.</p> <p> <i>Idempotency</i> ensures that an API request completes no more than one time. With an idempotent request, if the original request completes successfully, any subsequent retries complete successfully without performing any further actions.</p> </note>
@@ -242,7 +242,7 @@ class ApprovalTeam:
         *,
         config_overrides: Optional[MPAClientConfig] = None,
     ) -> "capo_mpa.types.delete_inactive_approval_team_version_response.DeleteInactiveApprovalTeamVersionResponse":
-        r"""<p>Deletes an inactive approval team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html\">Team health</a> in the <i>Multi-party approval User Guide</i>.</p> <p>You can also use this operation to delete a team draft. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/update-team.html#update-team-draft-status\">Interacting with drafts</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Deletes an inactive approval team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html">Team health</a> in the <i>Multi-party approval User Guide</i>.</p> <p>You can also use this operation to delete a team draft. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/update-team.html#update-team-draft-status">Interacting with drafts</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             arn: <p>Amaazon Resource Name (ARN) for the team.</p>
@@ -458,7 +458,7 @@ class AsyncApprovalTeam:
         client_token: Optional["capo_mpa.types.token.Token"] = None,
         tags: Optional["capo_mpa.types.tags.Tags"] = None,
     ) -> "capo_mpa.types.create_approval_team_response.CreateApprovalTeamResponse":
-        r"""<p>Creates a new approval team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html\">Approval team</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Creates a new approval team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-concepts.html">Approval team</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services populates this field.</p> <note> <p> <b>What is idempotency?</b> </p> <p>When you make a mutating API request, the request typically returns a result before the operation's asynchronous workflows have completed. Operations might also time out or encounter other server issues before they complete, even though the request has already returned a result. This could make it difficult to determine whether the request succeeded or not, and could lead to multiple retries to ensure that the operation completes successfully. However, if the original request and the subsequent retries are successful, the operation is completed multiple times. This means that you might create more resources than you intended.</p> <p> <i>Idempotency</i> ensures that an API request completes no more than one time. With an idempotent request, if the original request completes successfully, any subsequent retries complete successfully without performing any further actions.</p> </note>
@@ -641,7 +641,7 @@ class AsyncApprovalTeam:
         *,
         config_overrides: Optional[AsyncMPAClientConfig] = None,
     ) -> "capo_mpa.types.delete_inactive_approval_team_version_response.DeleteInactiveApprovalTeamVersionResponse":
-        r"""<p>Deletes an inactive approval team. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html\">Team health</a> in the <i>Multi-party approval User Guide</i>.</p> <p>You can also use this operation to delete a team draft. For more information, see <a href=\"https://docs.aws.amazon.com/mpa/latest/userguide/update-team.html#update-team-draft-status\">Interacting with drafts</a> in the <i>Multi-party approval User Guide</i>.</p>
+        """<p>Deletes an inactive approval team. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/mpa-health.html">Team health</a> in the <i>Multi-party approval User Guide</i>.</p> <p>You can also use this operation to delete a team draft. For more information, see <a href="https://docs.aws.amazon.com/mpa/latest/userguide/update-team.html#update-team-draft-status">Interacting with drafts</a> in the <i>Multi-party approval User Guide</i>.</p>
 
         Args:
             arn: <p>Amaazon Resource Name (ARN) for the team.</p>

@@ -48,7 +48,7 @@ class Integration(TypedDict, closed=True):
     additional_encryption_context: NotRequired[
         "capo_redshift.types.encryption_context_map.EncryptionContextMap"
     ]
-    r"""<p>The encryption context for the integration. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context\">Encryption context</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>"""
+    """<p>The encryption context for the integration. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption context</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>"""
     tags: NotRequired["capo_redshift.types.tag_list.TagList"]
     """<p>The list of tags associated with the integration.</p>"""
 

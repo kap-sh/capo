@@ -13,7 +13,7 @@ class DeleteImportResponse(TypedDict, closed=True):
     import_id: NotRequired["capo_lex_models_v2.types.id.Id"]
     """<p>The unique identifier of the deleted import.</p>"""
     import_status: NotRequired["capo_lex_models_v2.types.import_status.ImportStatus"]
-    r"""<p>The current status of the deletion. When the deletion is complete, the import will no longer be returned by the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListImports.html\">ListImports</a> operation and calls to the <a href=\"https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DescribeImport.html\">DescribeImport</a> operation with the import identifier will fail.</p>"""
+    """<p>The current status of the deletion. When the deletion is complete, the import will no longer be returned by the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_ListImports.html">ListImports</a> operation and calls to the <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_DescribeImport.html">DescribeImport</a> operation with the import identifier will fail.</p>"""
 
 
 # --- restJson1 ser/de ---

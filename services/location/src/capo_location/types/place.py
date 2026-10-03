@@ -32,7 +32,7 @@ class Place(TypedDict, closed=True):
     region: NotRequired["capo_location.types.sensitive_string.SensitiveString"]
     """<p>A name for an area or geographical division, such as a province or state name. For example, <code>British Columbia</code>.</p>"""
     country: NotRequired["capo_location.types.sensitive_string.SensitiveString"]
-    r"""<p>A country/region specified using <a href=\"https://www.iso.org/iso-3166-country-codes.html\">ISO 3166</a> 3-digit country/region code. For example, <code>CAN</code>.</p>"""
+    """<p>A country/region specified using <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> 3-digit country/region code. For example, <code>CAN</code>.</p>"""
     postal_code: NotRequired["capo_location.types.sensitive_string.SensitiveString"]
     """<p>A group of numbers and letters in a country-specific format, which accompanies the address for the purpose of identifying a location. </p>"""
     interpolated: NotRequired["capo_location.types.sensitive_boolean.SensitiveBoolean"]
@@ -44,7 +44,7 @@ class Place(TypedDict, closed=True):
     unit_number: NotRequired["capo_location.types.sensitive_string.SensitiveString"]
     """<p>For addresses with multiple units, the unit identifier. Can include numbers and letters, for example <code>3B</code> or <code>Unit 123</code>.</p> <note> <p>Returned only for a place index that uses Esri or Grab as a data provider. Is not returned for <code>SearchPlaceIndexForPosition</code>.</p> </note>"""
     categories: NotRequired["capo_location.types.place_category_list.PlaceCategoryList"]
-    r"""<p>The Amazon Location categories that describe this Place.</p> <p>For more information about using categories, including a list of Amazon Location categories, see <a href=\"https://docs.aws.amazon.com/location/previous/developerguide/category-filtering.html\">Categories and filtering</a>, in the <i>Amazon Location Service developer guide</i>.</p>"""
+    """<p>The Amazon Location categories that describe this Place.</p> <p>For more information about using categories, including a list of Amazon Location categories, see <a href="https://docs.aws.amazon.com/location/previous/developerguide/category-filtering.html">Categories and filtering</a>, in the <i>Amazon Location Service developer guide</i>.</p>"""
     supplemental_categories: NotRequired[
         "capo_location.types.place_supplemental_category_list.PlaceSupplementalCategoryList"
     ]

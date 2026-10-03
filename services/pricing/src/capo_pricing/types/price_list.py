@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class PriceList(TypedDict, closed=True):
     price_list_arn: NotRequired["capo_pricing.types.price_list_arn.PriceListArn"]
-    r"""<p>The unique identifier that maps to where your Price List files are located. <code>PriceListArn</code> can be obtained from the <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_ListPriceLists.html\"> <code>ListPriceList</code> </a> response. </p>"""
+    """<p>The unique identifier that maps to where your Price List files are located. <code>PriceListArn</code> can be obtained from the <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_ListPriceLists.html"> <code>ListPriceList</code> </a> response. </p>"""
     region_code: NotRequired["capo_pricing.types.region_code.RegionCode"]
-    r"""<p>This is used to filter the Price List by Amazon Web Services Region. For example, to get the price list only for the <code>US East (N. Virginia)</code> Region, use <code>us-east-1</code>. If nothing is specified, you retrieve price lists for all applicable Regions. The available <code>RegionCode</code> list can be retrieved from <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_GetAttributeValues.html\"> <code>GetAttributeValues</code> </a> API. </p>"""
+    """<p>This is used to filter the Price List by Amazon Web Services Region. For example, to get the price list only for the <code>US East (N. Virginia)</code> Region, use <code>us-east-1</code>. If nothing is specified, you retrieve price lists for all applicable Regions. The available <code>RegionCode</code> list can be retrieved from <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_GetAttributeValues.html"> <code>GetAttributeValues</code> </a> API. </p>"""
     currency_code: NotRequired["capo_pricing.types.currency_code.CurrencyCode"]
     """<p>The three alphabetical character ISO-4217 currency code the Price List files are denominated in. </p>"""
     file_formats: NotRequired["capo_pricing.types.file_formats.FileFormats"]
-    r"""<p>The format you want to retrieve your Price List files. The <code>FileFormat</code> can be obtained from the <a href=\"https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_ListPriceLists.html\"> <code>ListPriceList</code> </a> response. </p>"""
+    """<p>The format you want to retrieve your Price List files. The <code>FileFormat</code> can be obtained from the <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_pricing_ListPriceLists.html"> <code>ListPriceList</code> </a> response. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

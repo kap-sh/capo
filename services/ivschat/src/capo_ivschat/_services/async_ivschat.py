@@ -258,12 +258,12 @@ class AsyncivschatClient:
         ] = None,
         tags: Optional["capo_ivschat.types.tags.Tags"] = None,
     ) -> "capo_ivschat.types.create_logging_configuration_response.CreateLoggingConfigurationResponse":
-        r"""<p>Creates a logging configuration that allows clients to store and record sent messages.</p>
+        """<p>Creates a logging configuration that allows clients to store and record sent messages.</p>
 
         Args:
             name: <p>Logging-configuration name. The value does not need to be unique.</p>
             destination_configuration: <p>A complex type that contains a destination configuration for where chat content will be logged. There can be only one type of destination (<code>cloudWatchLogs</code>, <code>firehose</code>, or <code>s3</code>) in a <code>destinationConfiguration</code>.</p>
-            tags: <p>Tags to attach to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS Chat has no constraints on tags beyond what is documented there.</p>
+            tags: <p>Tags to attach to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS Chat has no constraints on tags beyond what is documented there.</p>
 
         Raises:
             capo_ivschat.errors.access_denied_exception.AccessDeniedException: <p/>
@@ -326,14 +326,14 @@ class AsyncivschatClient:
             "capo_ivschat.types.logging_configuration_identifier_list.LoggingConfigurationIdentifierList"
         ] = None,
     ) -> "capo_ivschat.types.create_room_response.CreateRoomResponse":
-        r"""<p>Creates a room that allows clients to connect and pass messages.</p>
+        """<p>Creates a room that allows clients to connect and pass messages.</p>
 
         Args:
             name: <p>Room name. The value does not need to be unique.</p>
             maximum_message_rate_per_second: <p>Maximum number of messages per second that can be sent to the room (by all clients). Default: 10. </p>
             maximum_message_length: <p>Maximum number of characters in a single message. Messages are expected to be UTF-8 encoded and this limit applies specifically to rune/code-point count, not number of bytes. Default: 500.</p>
             message_review_handler: <p>Configuration information for optional review of messages.</p>
-            tags: <p>Tags to attach to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS Chat has no constraints beyond what is documented there.</p>
+            tags: <p>Tags to attach to the resource. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS Chat has no constraints beyond what is documented there.</p>
             logging_configuration_identifiers: <p>Array of logging-configuration identifiers attached to the room.</p>
 
         Raises:
@@ -440,11 +440,11 @@ class AsyncivschatClient:
         config_overrides: Optional[AsyncivschatClientConfig] = None,
         reason: Optional["capo_ivschat.types.reason.Reason"] = None,
     ) -> "capo_ivschat.types.delete_message_response.DeleteMessageResponse":
-        r"""<p>Sends an event to a specific room which directs clients to delete a specific message; that is, unrender it from view and delete it from the client’s chat history. This event’s <code>EventName</code> is <code>aws:DELETE_MESSAGE</code>. This replicates the <a href=\"https://docs.aws.amazon.com/ivs/latest/chatmsgapireference/actions-deletemessage-publish.html\"> DeleteMessage</a> WebSocket operation in the Amazon IVS Chat Messaging API.</p>
+        """<p>Sends an event to a specific room which directs clients to delete a specific message; that is, unrender it from view and delete it from the client’s chat history. This event’s <code>EventName</code> is <code>aws:DELETE_MESSAGE</code>. This replicates the <a href="https://docs.aws.amazon.com/ivs/latest/chatmsgapireference/actions-deletemessage-publish.html"> DeleteMessage</a> WebSocket operation in the Amazon IVS Chat Messaging API.</p>
 
         Args:
             room_identifier: <p>Identifier of the room where the message should be deleted. Currently this must be an ARN. </p>
-            id: <p>ID of the message to be deleted. This is the <code>Id</code> field in the received message (see <a href=\"https://docs.aws.amazon.com/ivs/latest/chatmsgapireference/actions-message-subscribe.html\"> Message (Subscribe)</a> in the Chat Messaging API).</p>
+            id: <p>ID of the message to be deleted. This is the <code>Id</code> field in the received message (see <a href="https://docs.aws.amazon.com/ivs/latest/chatmsgapireference/actions-message-subscribe.html"> Message (Subscribe)</a> in the Chat Messaging API).</p>
             reason: <p>Reason for deleting the message.</p>
 
         Raises:
@@ -540,7 +540,7 @@ class AsyncivschatClient:
         config_overrides: Optional[AsyncivschatClientConfig] = None,
         reason: Optional["capo_ivschat.types.reason.Reason"] = None,
     ) -> "capo_ivschat.types.disconnect_user_response.DisconnectUserResponse":
-        r"""<p>Disconnects all connections using a specified user ID from a room. This replicates the <a href=\"https://docs.aws.amazon.com/ivs/latest/chatmsgapireference/actions-disconnectuser-publish.html\"> DisconnectUser</a> WebSocket operation in the Amazon IVS Chat Messaging API.</p>
+        """<p>Disconnects all connections using a specified user ID from a room. This replicates the <a href="https://docs.aws.amazon.com/ivs/latest/chatmsgapireference/actions-disconnectuser-publish.html"> DisconnectUser</a> WebSocket operation in the Amazon IVS Chat Messaging API.</p>
 
         Args:
             room_identifier: <p>Identifier of the room from which the user's clients should be disconnected. Currently this must be an ARN.</p>
@@ -972,11 +972,11 @@ class AsyncivschatClient:
         *,
         config_overrides: Optional[AsyncivschatClientConfig] = None,
     ) -> "capo_ivschat.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds or updates tags for the AWS resource with the specified ARN.</p>
+        """<p>Adds or updates tags for the AWS resource with the specified ARN.</p>
 
         Args:
             resource_arn: <p>The ARN of the resource to be tagged. The ARN must be URL-encoded.</p>
-            tags: <p>Array of tags to be added or updated. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS Chat has no constraints beyond what is documented there.</p>
+            tags: <p>Array of tags to be added or updated. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS Chat has no constraints beyond what is documented there.</p>
 
         Raises:
             capo_ivschat.errors.internal_server_exception.InternalServerException: <p/>
@@ -1021,11 +1021,11 @@ class AsyncivschatClient:
         *,
         config_overrides: Optional[AsyncivschatClientConfig] = None,
     ) -> "capo_ivschat.types.untag_resource_response.UntagResourceResponse":
-        r"""<p>Removes tags from the resource with the specified ARN.</p>
+        """<p>Removes tags from the resource with the specified ARN.</p>
 
         Args:
             resource_arn: <p>The ARN of the resource to be untagged. The ARN must be URL-encoded.</p>
-            tag_keys: <p>Array of tags to be removed. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href=\"https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html\">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and \"Tag naming limits and requirements\"; Amazon IVS Chat has no constraints beyond what is documented there.</p>
+            tag_keys: <p>Array of tags to be removed. Array of maps, each of the form <code>string:string (key:value)</code>. See <a href="https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html">Best practices and strategies</a> in <i>Tagging Amazon Web Services Resources and Tag Editor</i> for details, including restrictions that apply to tags and "Tag naming limits and requirements"; Amazon IVS Chat has no constraints beyond what is documented there.</p>
 
         Raises:
             capo_ivschat.errors.internal_server_exception.InternalServerException: <p/>

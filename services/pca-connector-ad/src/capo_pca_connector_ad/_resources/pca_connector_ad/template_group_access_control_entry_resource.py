@@ -56,11 +56,11 @@ class TemplateGroupAccessControlEntryResource:
             "capo_pca_connector_ad.types.client_token.ClientToken"
         ] = None,
     ) -> None:
-        r"""<p>Create a group access control entry. Allow or deny Active Directory groups from enrolling and/or autoenrolling with the template based on the group security identifiers (SIDs).</p>
+        """<p>Create a group access control entry. Allow or deny Active Directory groups from enrolling and/or autoenrolling with the template based on the group security identifiers (SIDs).</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
             group_display_name: <p>Name of the Active Directory group. This name does not need to match the group name in Active Directory.</p>
             access_rights: <p> Allow or deny permissions for an Active Directory group to enroll or autoenroll certificates for a template.</p>
             client_token: <p>Idempotency token.</p>
@@ -114,11 +114,11 @@ class TemplateGroupAccessControlEntryResource:
         *,
         config_overrides: Optional[PcaConnectorAdClientConfig] = None,
     ) -> "capo_pca_connector_ad.types.get_template_group_access_control_entry_response.GetTemplateGroupAccessControlEntryResponse":
-        r"""<p>Retrieves the group access control entries for a template.</p>
+        """<p>Retrieves the group access control entries for a template.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -170,11 +170,11 @@ class TemplateGroupAccessControlEntryResource:
             "capo_pca_connector_ad.types.access_rights.AccessRights"
         ] = None,
     ) -> None:
-        r"""<p>Update a group access control entry you created using <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplateGroupAccessControlEntry.html\">CreateTemplateGroupAccessControlEntry</a>. </p>
+        """<p>Update a group access control entry you created using <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplateGroupAccessControlEntry.html">CreateTemplateGroupAccessControlEntry</a>. </p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
             group_display_name: <p>Name of the Active Directory group. This name does not need to match the group name in Active Directory.</p>
             access_rights: <p>Allow or deny permissions for an Active Directory group to enroll or autoenroll certificates for a template.</p>
 
@@ -225,11 +225,11 @@ class TemplateGroupAccessControlEntryResource:
         *,
         config_overrides: Optional[PcaConnectorAdClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a group access control entry.</p>
+        """<p>Deletes a group access control entry.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -277,12 +277,12 @@ class TemplateGroupAccessControlEntryResource:
         ] = None,
         next_token: Optional["capo_pca_connector_ad.types.next_token.NextToken"] = None,
     ) -> "capo_pca_connector_ad.types.list_template_group_access_control_entries_response.ListTemplateGroupAccessControlEntriesResponse":
-        r"""<p>Lists group access control entries you created. </p>
+        """<p>Lists group access control entries you created. </p>
 
         Args:
             max_results: <p>Use this parameter when paginating results to specify the maximum number of items to return in the response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.</p>
             next_token: <p>Use this parameter when paginating results in a subsequent request after you receive a response with truncated results. Set it to the value of the <code>NextToken</code> parameter from the response you just received.</p>
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -341,11 +341,11 @@ class AsyncTemplateGroupAccessControlEntryResource:
             "capo_pca_connector_ad.types.client_token.ClientToken"
         ] = None,
     ) -> None:
-        r"""<p>Create a group access control entry. Allow or deny Active Directory groups from enrolling and/or autoenrolling with the template based on the group security identifiers (SIDs).</p>
+        """<p>Create a group access control entry. Allow or deny Active Directory groups from enrolling and/or autoenrolling with the template based on the group security identifiers (SIDs).</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
             group_display_name: <p>Name of the Active Directory group. This name does not need to match the group name in Active Directory.</p>
             access_rights: <p> Allow or deny permissions for an Active Directory group to enroll or autoenroll certificates for a template.</p>
             client_token: <p>Idempotency token.</p>
@@ -400,11 +400,11 @@ class AsyncTemplateGroupAccessControlEntryResource:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> "capo_pca_connector_ad.types.get_template_group_access_control_entry_response.GetTemplateGroupAccessControlEntryResponse":
-        r"""<p>Retrieves the group access control entries for a template.</p>
+        """<p>Retrieves the group access control entries for a template.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -457,11 +457,11 @@ class AsyncTemplateGroupAccessControlEntryResource:
             "capo_pca_connector_ad.types.access_rights.AccessRights"
         ] = None,
     ) -> None:
-        r"""<p>Update a group access control entry you created using <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplateGroupAccessControlEntry.html\">CreateTemplateGroupAccessControlEntry</a>. </p>
+        """<p>Update a group access control entry you created using <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplateGroupAccessControlEntry.html">CreateTemplateGroupAccessControlEntry</a>. </p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
             group_display_name: <p>Name of the Active Directory group. This name does not need to match the group name in Active Directory.</p>
             access_rights: <p>Allow or deny permissions for an Active Directory group to enroll or autoenroll certificates for a template.</p>
 
@@ -513,11 +513,11 @@ class AsyncTemplateGroupAccessControlEntryResource:
         *,
         config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
     ) -> None:
-        r"""<p>Deletes a group access control entry.</p>
+        """<p>Deletes a group access control entry.</p>
 
         Args:
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
-            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
+            group_security_identifier: <p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>
@@ -566,12 +566,12 @@ class AsyncTemplateGroupAccessControlEntryResource:
         ] = None,
         next_token: Optional["capo_pca_connector_ad.types.next_token.NextToken"] = None,
     ) -> "capo_pca_connector_ad.types.list_template_group_access_control_entries_response.ListTemplateGroupAccessControlEntriesResponse":
-        r"""<p>Lists group access control entries you created. </p>
+        """<p>Lists group access control entries you created. </p>
 
         Args:
             max_results: <p>Use this parameter when paginating results to specify the maximum number of items to return in the response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.</p>
             next_token: <p>Use this parameter when paginating results in a subsequent request after you receive a response with truncated results. Set it to the value of the <code>NextToken</code> parameter from the response you just received.</p>
-            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>
+            template_arn: <p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>
 
         Raises:
             capo_pca_connector_ad.errors.access_denied_exception.AccessDeniedException: <p>You can receive this error if you attempt to create a resource share when you don't have the required permissions. This can be caused by insufficient permissions in policies attached to your Amazon Web Services Identity and Access Management (IAM) principal. It can also happen because of restrictions in place from an Amazon Web Services Organizations service control policy (SCP) that affects your Amazon Web Services account. </p>

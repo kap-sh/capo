@@ -26,7 +26,7 @@ class XMLClassifier(TypedDict, closed=True):
     version: "capo_glue.types.version_id.VersionId"
     """<p>The version of this classifier.</p>"""
     row_tag: NotRequired["capo_glue.types.row_tag.RowTag"]
-    r"""<p>The XML tag designating the element that contains each record in an XML document being parsed. This can't identify a self-closing element (closed by <code>/></code>). An empty row element that contains only attributes can be parsed as long as it ends with a closing tag (for example, <code><row item_a=\"A\" item_b=\"B\"></row></code> is okay, but <code><row item_a=\"A\" item_b=\"B\" /></code> is not).</p>"""
+    """<p>The XML tag designating the element that contains each record in an XML document being parsed. This can't identify a self-closing element (closed by <code>/></code>). An empty row element that contains only attributes can be parsed as long as it ends with a closing tag (for example, <code><row item_a="A" item_b="B"></row></code> is okay, but <code><row item_a="A" item_b="B" /></code> is not).</p>"""
 
 
 # --- awsJson1_1 ser/de ---

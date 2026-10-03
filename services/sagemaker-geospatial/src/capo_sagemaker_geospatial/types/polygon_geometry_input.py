@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class PolygonGeometryInput(TypedDict, closed=True):
     coordinates: "capo_sagemaker_geospatial.types.linear_rings.LinearRings"
-    r"""<p>Coordinates representing a Polygon based on the <a href=\"https://www.rfc-editor.org/rfc/rfc7946#section-3.1.6\">GeoJson spec</a>.</p>"""
+    """<p>Coordinates representing a Polygon based on the <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1.6">GeoJson spec</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -250,7 +250,7 @@ class AppIntegrationsClient:
             "capo_appintegrations.types.auth_config.AuthConfig"
         ] = None,
     ) -> "capo_appintegrations.types.create_application_response.CreateApplicationResponse":
-        r"""<p>Creates and persists an Application resource.</p>
+        """<p>Creates and persists an Application resource.</p>
 
         Args:
             name: <p>The name of the application.</p>
@@ -259,8 +259,8 @@ class AppIntegrationsClient:
             application_source_config: <p>The configuration for where the application should be loaded from.</p>
             subscriptions: <p>The events that the application subscribes.</p>
             publications: <p>The events that the application publishes.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
             permissions: <p>The configuration of events or requests that the application has access to.</p>
             is_service: <p>Indicates whether the application is a service.</p>
             initialization_timeout: <p>The maximum time in milliseconds allowed to establish a connection with the workspace.</p>
@@ -364,7 +364,7 @@ class AppIntegrationsClient:
             "capo_appintegrations.types.object_configuration.ObjectConfiguration"
         ] = None,
     ) -> "capo_appintegrations.types.create_data_integration_response.CreateDataIntegrationResponse":
-        r"""<p>Creates and persists a DataIntegration resource.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <code>CreateDataIntegration</code> API.</p> </note>
+        """<p>Creates and persists a DataIntegration resource.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <code>CreateDataIntegration</code> API.</p> </note>
 
         Args:
             name: <p>The name of the DataIntegration.</p>
@@ -372,8 +372,8 @@ class AppIntegrationsClient:
             kms_key: <p>The KMS key ARN for the DataIntegration.</p>
             source_uri: <p>The URI of the data source.</p>
             schedule_config: <p>The name of the data and how often it should be pulled from the source.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             file_configuration: <p>The configuration for what files should be pulled from the source.</p>
             object_configuration: <p>The configuration for what data should be pulled from the source.</p>
 
@@ -452,14 +452,14 @@ class AppIntegrationsClient:
             "capo_appintegrations.types.execution_configuration.ExecutionConfiguration"
         ] = None,
     ) -> "capo_appintegrations.types.create_data_integration_association_response.CreateDataIntegrationAssociationResponse":
-        r"""<p>Creates and persists a DataIntegrationAssociation resource.</p>
+        """<p>Creates and persists a DataIntegrationAssociation resource.</p>
 
         Args:
             data_integration_identifier: <p>A unique identifier for the DataIntegration.</p>
             client_id: <p>The identifier for the client that is associated with the DataIntegration association.</p>
             destination_uri: <p>The URI of the data destination.</p>
             client_association_metadata: <p>The mapping of metadata to be extracted from the data.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             execution_configuration: <p>The configuration for how the files should be pulled from the source.</p>
 
         Raises:
@@ -527,15 +527,15 @@ class AppIntegrationsClient:
         ] = None,
         tags: Optional["capo_appintegrations.types.tag_map.TagMap"] = None,
     ) -> "capo_appintegrations.types.create_event_integration_response.CreateEventIntegrationResponse":
-        r"""<p>Creates an EventIntegration, given a specified name, description, and a reference to an Amazon EventBridge bus in your account and a partner event source that pushes events to that bus. No objects are created in the your account, only metadata that is persisted on the EventIntegration control plane.</p>
+        """<p>Creates an EventIntegration, given a specified name, description, and a reference to an Amazon EventBridge bus in your account and a partner event source that pushes events to that bus. No objects are created in the your account, only metadata that is persisted on the EventIntegration control plane.</p>
 
         Args:
             name: <p>The name of the event integration.</p>
             description: <p>The description of the event integration.</p>
             event_filter: <p>The event filter.</p>
             event_bridge_bus: <p>The EventBridge bus.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_appintegrations.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -646,7 +646,7 @@ class AppIntegrationsClient:
         *,
         config_overrides: Optional[AppIntegrationsClientConfig] = None,
     ) -> "capo_appintegrations.types.delete_data_integration_response.DeleteDataIntegrationResponse":
-        r"""<p>Deletes the DataIntegration. Only DataIntegrations that don't have any DataIntegrationAssociations can be deleted. Deleting a DataIntegration also deletes the underlying Amazon AppFlow flow and service linked role. </p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html\">CreateDataIntegration</a> API.</p> </note>
+        """<p>Deletes the DataIntegration. Only DataIntegrations that don't have any DataIntegrationAssociations can be deleted. Deleting a DataIntegration also deletes the underlying Amazon AppFlow flow and service linked role. </p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html">CreateDataIntegration</a> API.</p> </note>
 
         Args:
             data_integration_identifier: <p>A unique identifier for the DataIntegration.</p>
@@ -793,7 +793,7 @@ class AppIntegrationsClient:
         *,
         config_overrides: Optional[AppIntegrationsClientConfig] = None,
     ) -> "capo_appintegrations.types.get_data_integration_response.GetDataIntegrationResponse":
-        r"""<p>Returns information about the DataIntegration.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html\">CreateDataIntegration</a> API.</p> </note>
+        """<p>Returns information about the DataIntegration.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html">CreateDataIntegration</a> API.</p> </note>
 
         Args:
             identifier: <p>A unique identifier.</p>
@@ -1072,7 +1072,7 @@ class AppIntegrationsClient:
             "capo_appintegrations.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_appintegrations.types.list_data_integration_associations_response.ListDataIntegrationAssociationsResponse":
-        r"""<p>Returns a paginated list of DataIntegration associations in the account.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html\">CreateDataIntegration</a> API.</p> </note>
+        """<p>Returns a paginated list of DataIntegration associations in the account.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html">CreateDataIntegration</a> API.</p> </note>
 
         Args:
             data_integration_identifier: <p>A unique identifier for the DataIntegration.</p>
@@ -1153,7 +1153,7 @@ class AppIntegrationsClient:
             "capo_appintegrations.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_appintegrations.types.list_data_integrations_response.ListDataIntegrationsResponse":
-        r"""<p>Returns a paginated list of DataIntegrations in the account.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html\">CreateDataIntegration</a> API.</p> </note>
+        """<p>Returns a paginated list of DataIntegrations in the account.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html">CreateDataIntegration</a> API.</p> </note>
 
         Args:
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
@@ -1429,11 +1429,11 @@ class AppIntegrationsClient:
         *,
         config_overrides: Optional[AppIntegrationsClientConfig] = None,
     ) -> "capo_appintegrations.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds the specified tags to the specified resource.</p>
+        """<p>Adds the specified tags to the specified resource.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource.</p>
-            tags: <p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_appintegrations.errors.internal_service_error.InternalServiceError: <p>Request processing failed due to an error or failure with the service.</p>
@@ -1655,7 +1655,7 @@ class AppIntegrationsClient:
             "capo_appintegrations.types.description.Description"
         ] = None,
     ) -> "capo_appintegrations.types.update_data_integration_response.UpdateDataIntegrationResponse":
-        r"""<p>Updates the description of a DataIntegration.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html\">CreateDataIntegration</a> API.</p> </note>
+        """<p>Updates the description of a DataIntegration.</p> <note> <p>You cannot create a DataIntegration association for a DataIntegration that has been previously associated. Use a different DataIntegration, or recreate the DataIntegration using the <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html">CreateDataIntegration</a> API.</p> </note>
 
         Args:
             identifier: <p>A unique identifier for the DataIntegration.</p>

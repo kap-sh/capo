@@ -62,7 +62,7 @@ class EnvironmentSummary(TypedDict, closed=True):
     provisioning: NotRequired["capo_proton.types.provisioning.Provisioning"]
     """<p>When included, indicates that the environment template is for customer provisioned and managed infrastructure.</p>"""
     component_role_arn: NotRequired["capo_proton.types.arn.Arn"]
-    r"""<p>The Amazon Resource Name (ARN) of the IAM service role that Proton uses when provisioning directly defined components in this environment. It determines the scope of infrastructure that a component can provision.</p> <p>The environment must have a <code>componentRoleArn</code> to allow directly defined components to be associated with the environment.</p> <p>For more information about components, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html\">Proton components</a> in the <i>Proton User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM service role that Proton uses when provisioning directly defined components in this environment. It determines the scope of infrastructure that a component can provision.</p> <p>The environment must have a <code>componentRoleArn</code> to allow directly defined components to be associated with the environment.</p> <p>For more information about components, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html">Proton components</a> in the <i>Proton User Guide</i>.</p>"""
     last_attempted_deployment_id: NotRequired[
         "capo_proton.types.deployment_id.DeploymentId"
     ]

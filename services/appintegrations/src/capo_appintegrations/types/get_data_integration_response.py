@@ -35,7 +35,7 @@ class GetDataIntegrationResponse(TypedDict, closed=True):
     ]
     """<p>The name of the data and how often it should be pulled from the source.</p>"""
     tags: NotRequired["capo_appintegrations.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     file_configuration: NotRequired[
         "capo_appintegrations.types.file_configuration.FileConfiguration"
     ]

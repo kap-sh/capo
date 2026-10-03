@@ -18,7 +18,7 @@ class DescribeIntentRequest(TypedDict, closed=True):
     bot_version: "capo_lex_models_v2.types.bot_version.BotVersion"
     """<p>The version of the bot associated with the intent.</p>"""
     locale_id: "capo_lex_models_v2.types.locale_id.LocaleId"
-    r"""<p>The identifier of the language and locale of the intent to describe. The string must match one of the supported locales. For more information, see <a href=\"https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html\">Supported languages</a>.</p>"""
+    """<p>The identifier of the language and locale of the intent to describe. The string must match one of the supported locales. For more information, see <a href="https://docs.aws.amazon.com/lexv2/latest/dg/how-languages.html">Supported languages</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

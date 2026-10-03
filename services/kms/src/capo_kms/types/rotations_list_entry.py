@@ -39,7 +39,7 @@ class RotationsListEntry(TypedDict, closed=True):
     rotation_date: NotRequired["capo_kms.types.date_type.DateType"]
     """<p>Date and time that the key material rotation completed. Formatted as Unix time. This field is not present for the first key material or an imported key material in <code>PENDING_ROTATION</code> state.</p>"""
     rotation_type: NotRequired["capo_kms.types.rotation_type.RotationType"]
-    r"""<p>Identifies whether the key material rotation was a scheduled <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-enable-disable.html\">automatic rotation</a> or an <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-on-demand.html\">on-demand rotation</a>. This field is not present for the first key material or an imported key material in <code>PENDING_ROTATION</code> state.</p>"""
+    """<p>Identifies whether the key material rotation was a scheduled <a href="https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-enable-disable.html">automatic rotation</a> or an <a href="https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-on-demand.html">on-demand rotation</a>. This field is not present for the first key material or an imported key material in <code>PENDING_ROTATION</code> state.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

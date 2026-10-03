@@ -22,7 +22,7 @@ class TimestreamSettings(TypedDict, closed=True):
     magnetic_duration: (
         "capo_database_migration_service.types.integer_optional.IntegerOptional"
     )
-    r"""<p>Set this attribute to specify the default magnetic duration applied to the Amazon Timestream tables in days. This is the number of days that records remain in magnetic store before being discarded. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/storage.html\">Storage</a> in the <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/\">Amazon Timestream Developer Guide</a>.</p>"""
+    """<p>Set this attribute to specify the default magnetic duration applied to the Amazon Timestream tables in days. This is the number of days that records remain in magnetic store before being discarded. For more information, see <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/storage.html">Storage</a> in the <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/">Amazon Timestream Developer Guide</a>.</p>"""
     cdc_inserts_and_updates: NotRequired[
         "capo_database_migration_service.types.boolean_optional.BooleanOptional"
     ]
@@ -30,7 +30,7 @@ class TimestreamSettings(TypedDict, closed=True):
     enable_magnetic_store_writes: NotRequired[
         "capo_database_migration_service.types.boolean_optional.BooleanOptional"
     ]
-    r"""<p>Set this attribute to <code>true</code> to enable memory store writes. When this value is <code>false</code>, DMS does not write records that are older in days than the value specified in <code>MagneticDuration</code>, because Amazon Timestream does not allow memory writes by default. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/storage.html\">Storage</a> in the <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/\">Amazon Timestream Developer Guide</a>.</p>"""
+    """<p>Set this attribute to <code>true</code> to enable memory store writes. When this value is <code>false</code>, DMS does not write records that are older in days than the value specified in <code>MagneticDuration</code>, because Amazon Timestream does not allow memory writes by default. For more information, see <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/storage.html">Storage</a> in the <a href="https://docs.aws.amazon.com/timestream/latest/developerguide/">Amazon Timestream Developer Guide</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

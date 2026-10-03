@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ConfigureAgentResponse(TypedDict, closed=True):
     configuration: "capo_codeguruprofiler.types.agent_configuration.AgentConfiguration"
-    r"""<p> An <a href=\"https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentConfiguration.html\"> <code>AgentConfiguration</code> </a> object that specifies if an agent profiles or not and for how long to return profiling data. </p>"""
+    """<p> An <a href="https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentConfiguration.html"> <code>AgentConfiguration</code> </a> object that specifies if an agent profiles or not and for how long to return profiling data. </p>"""
 
 
 # --- restJson1 ser/de ---

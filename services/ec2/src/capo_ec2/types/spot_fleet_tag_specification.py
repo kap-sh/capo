@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class SpotFleetTagSpecification(TypedDict, closed=True):
     resource_type: NotRequired["capo_ec2.types.resource_type.ResourceType"]
-    r"""<p>The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag the Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in <code> <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html\">SpotFleetRequestConfigData</a> </code>.</p>"""
+    """<p>The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag the Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>.</p>"""
     tags: NotRequired["capo_ec2.types.tag_list.TagList"]
     """<p>The tags.</p>"""
 

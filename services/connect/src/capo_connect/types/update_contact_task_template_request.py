@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 
 class UpdateContactTaskTemplateRequest(TypedDict, closed=True):
     instance_id: "capo_connect.types.instance_id.InstanceId"
-    r"""<p>The identifier of the Connect Customer instance. You can <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html\">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
+    """<p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>"""
     task_template_id: "capo_connect.types.task_template_id.TaskTemplateId"
-    r"""<p>A unique identifier for the task template. For more information about task templates, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/task-templates.html\">Task templates</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
+    """<p>A unique identifier for the task template. For more information about task templates, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/task-templates.html">Task templates</a> in the <i>Connect Customer Administrator Guide</i>.</p>"""
     contact_id: "capo_connect.types.contact_id.ContactId"
     """<p>The identifier of the contact in this instance of Connect Customer. </p>"""
 

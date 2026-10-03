@@ -14,7 +14,7 @@ class GetHookResultInput(TypedDict, closed=True):
     hook_result_id: NotRequired[
         "capo_cloudformation.types.hook_invocation_id.HookInvocationId"
     ]
-    r"""<p>The unique identifier (ID) of the Hook invocation result that you want details about. You can get the ID from the <a href=\"https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ListHookResults.html\">ListHookResults</a> operation.</p>"""
+    """<p>The unique identifier (ID) of the Hook invocation result that you want details about. You can get the ID from the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ListHookResults.html">ListHookResults</a> operation.</p>"""
 
 
 # --- awsQuery ser/de ---

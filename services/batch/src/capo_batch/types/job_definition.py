@@ -31,11 +31,11 @@ class JobDefinition(TypedDict, closed=True):
     status: NotRequired["capo_batch.types.string.String"]
     """<p>The status of the job definition.</p>"""
     type: NotRequired["capo_batch.types.string.String"]
-    r"""<p>The type of job definition. It's either <code>container</code> or <code>multinode</code>. If the job is run on Fargate resources, then <code>multinode</code> isn't supported. For more information about multi-node parallel jobs, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html\">Creating a multi-node parallel job definition</a> in the <i>Batch User Guide</i>.</p>"""
+    """<p>The type of job definition. It's either <code>container</code> or <code>multinode</code>. If the job is run on Fargate resources, then <code>multinode</code> isn't supported. For more information about multi-node parallel jobs, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html">Creating a multi-node parallel job definition</a> in the <i>Batch User Guide</i>.</p>"""
     scheduling_priority: NotRequired["capo_batch.types.integer.Integer"]
     """<p>The scheduling priority of the job definition. This only affects jobs in job queues with a fair-share policy. Jobs with a higher scheduling priority are scheduled before jobs with a lower scheduling priority.</p>"""
     parameters: NotRequired["capo_batch.types.parameters_map.ParametersMap"]
-    r"""<p>Default parameters or parameter substitution placeholders that are set in the job definition. Parameters are specified as a key-value pair mapping. Parameters in a <code>SubmitJob</code> request override any corresponding parameter defaults from the job definition. For more information about specifying parameters, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html\">Job definition parameters</a> in the <i>Batch User Guide</i>.</p>"""
+    """<p>Default parameters or parameter substitution placeholders that are set in the job definition. Parameters are specified as a key-value pair mapping. Parameters in a <code>SubmitJob</code> request override any corresponding parameter defaults from the job definition. For more information about specifying parameters, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html">Job definition parameters</a> in the <i>Batch User Guide</i>.</p>"""
     retry_strategy: NotRequired["capo_batch.types.retry_strategy.RetryStrategy"]
     """<p>The retry strategy to use for failed jobs that are submitted with this job definition.</p>"""
     container_properties: NotRequired[

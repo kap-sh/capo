@@ -17,7 +17,7 @@ class CustomizedMetricSpecification(TypedDict, closed=True):
     metric_name: NotRequired[
         "capo_application_auto_scaling.types.metric_name.MetricName"
     ]
-    r"""<p>The name of the metric. To get the exact metric name, namespace, and dimensions, inspect the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Metric.html\">Metric</a> object that's returned by a call to <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html\">ListMetrics</a>.</p>"""
+    """<p>The name of the metric. To get the exact metric name, namespace, and dimensions, inspect the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Metric.html">Metric</a> object that's returned by a call to <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html">ListMetrics</a>.</p>"""
     namespace: NotRequired[
         "capo_application_auto_scaling.types.metric_namespace.MetricNamespace"
     ]
@@ -31,7 +31,7 @@ class CustomizedMetricSpecification(TypedDict, closed=True):
     ]
     """<p>The statistic of the metric.</p>"""
     unit: NotRequired["capo_application_auto_scaling.types.metric_unit.MetricUnit"]
-    r"""<p>The unit of the metric. For a complete list of the units that CloudWatch supports, see the <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html\">MetricDatum</a> data type in the <i>Amazon CloudWatch API Reference</i>.</p>"""
+    """<p>The unit of the metric. For a complete list of the units that CloudWatch supports, see the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html">MetricDatum</a> data type in the <i>Amazon CloudWatch API Reference</i>.</p>"""
     metrics: NotRequired[
         "capo_application_auto_scaling.types.target_tracking_metric_data_queries.TargetTrackingMetricDataQueries"
     ]

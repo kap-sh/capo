@@ -15,11 +15,11 @@ if TYPE_CHECKING:
 
 class TaskActionDefinition(TypedDict, closed=True):
     name: "capo_connect.types.task_name_expression.TaskNameExpression"
-    r"""<p>The name. Supports variable injection. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html\">JSONPath reference</a> in the <i>Connect Customer Administrators Guide</i>.</p>"""
+    """<p>The name. Supports variable injection. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html">JSONPath reference</a> in the <i>Connect Customer Administrators Guide</i>.</p>"""
     description: NotRequired[
         "capo_connect.types.task_description_expression.TaskDescriptionExpression"
     ]
-    r"""<p>The description. Supports variable injection. For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html\">JSONPath reference</a> in the <i>Connect Customer Administrators Guide</i>.</p>"""
+    """<p>The description. Supports variable injection. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-variable-injection.html">JSONPath reference</a> in the <i>Connect Customer Administrators Guide</i>.</p>"""
     contact_flow_id: "capo_connect.types.contact_flow_id.ContactFlowId"
     """<p>The identifier of the flow.</p>"""
     references: NotRequired["capo_connect.types.contact_references.ContactReferences"]

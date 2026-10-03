@@ -38,7 +38,7 @@ class GetPackageVersionResponse(TypedDict, closed=True):
     ]
     """<p>The various components that make up a software package version.</p>"""
     status: NotRequired["capo_iot.types.package_version_status.PackageVersionStatus"]
-    r"""<p>The status associated to the package version. For more information, see <a href=\"https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle\">Package version lifecycle</a>.</p>"""
+    """<p>The status associated to the package version. For more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle">Package version lifecycle</a>.</p>"""
     error_reason: NotRequired[
         "capo_iot.types.package_version_error_reason.PackageVersionErrorReason"
     ]

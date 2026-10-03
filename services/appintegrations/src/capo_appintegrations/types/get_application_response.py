@@ -54,7 +54,7 @@ class GetApplicationResponse(TypedDict, closed=True):
     last_modified_time: NotRequired["capo_appintegrations.types.timestamp.Timestamp"]
     """<p>The last modified time of the Application.</p>"""
     tags: NotRequired["capo_appintegrations.types.tag_map.TagMap"]
-    r"""<p>The tags used to organize, track, or control access for this resource. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>"""
+    """<p>The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>"""
     permissions: NotRequired[
         "capo_appintegrations.types.permission_list.PermissionList"
     ]

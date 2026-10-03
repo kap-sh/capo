@@ -23,11 +23,11 @@ class ListResourcesRequest(TypedDict, closed=True):
     resource_type: NotRequired["capo_ram.types.string.String"]
     """<p>Specifies that you want to list only the resource shares that include resources of the specified resource type.</p> <p>For valid values, query the <a>ListResourceTypes</a> operation.</p>"""
     resource_arns: NotRequired["capo_ram.types.resource_arn_list.ResourceArnList"]
-    r"""<p>Specifies that you want to list only the resource shares that include resources with the specified <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a>.</p>"""
+    """<p>Specifies that you want to list only the resource shares that include resources with the specified <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a>.</p>"""
     resource_share_arns: NotRequired[
         "capo_ram.types.resource_share_arn_list.ResourceShareArnList"
     ]
-    r"""<p>Specifies that you want to list only resources in the resource shares identified by the specified <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a>.</p>"""
+    """<p>Specifies that you want to list only resources in the resource shares identified by the specified <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a>.</p>"""
     next_token: NotRequired["capo_ram.types.string.String"]
     """<p>Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code> response in the previous request. If you did, it indicates that more output is available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response to request the next page of results.</p>"""
     max_results: NotRequired["capo_ram.types.max_results.MaxResults"]

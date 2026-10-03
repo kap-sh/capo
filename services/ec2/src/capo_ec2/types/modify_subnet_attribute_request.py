@@ -22,7 +22,7 @@ class ModifySubnetAttributeRequest(TypedDict, closed=True):
     map_public_ip_on_launch: NotRequired[
         "capo_ec2.types.attribute_boolean_value.AttributeBooleanValue"
     ]
-    r"""<p>Specify <code>true</code> to indicate that network interfaces attached to instances created in the specified subnet should be assigned a public IPv4 address.</p> <p>Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the <a href=\"http://aws.amazon.com/vpc/pricing/\">Amazon VPC pricing page</a>.</p>"""
+    """<p>Specify <code>true</code> to indicate that network interfaces attached to instances created in the specified subnet should be assigned a public IPv4 address.</p> <p>Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.</p>"""
     subnet_id: NotRequired["capo_ec2.types.subnet_id.SubnetId"]
     """<p>The ID of the subnet.</p>"""
     map_customer_owned_ip_on_launch: NotRequired[
@@ -34,7 +34,7 @@ class ModifySubnetAttributeRequest(TypedDict, closed=True):
     enable_dns64: NotRequired[
         "capo_ec2.types.attribute_boolean_value.AttributeBooleanValue"
     ]
-    r"""<p>Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations.</p> <p>You must first configure a NAT gateway in a public subnet (separate from the subnet containing the IPv6-only workloads). For example, the subnet containing the NAT gateway should have a <code>0.0.0.0/0</code> route pointing to the internet gateway. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-nat64-dns64.html#nat-gateway-nat64-dns64-walkthrough\">Configure DNS64 and NAT64</a> in the <i>Amazon VPC User Guide</i>.</p>"""
+    """<p>Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations.</p> <p>You must first configure a NAT gateway in a public subnet (separate from the subnet containing the IPv6-only workloads). For example, the subnet containing the NAT gateway should have a <code>0.0.0.0/0</code> route pointing to the internet gateway. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-nat64-dns64.html#nat-gateway-nat64-dns64-walkthrough">Configure DNS64 and NAT64</a> in the <i>Amazon VPC User Guide</i>.</p>"""
     private_dns_hostname_type_on_launch: NotRequired[
         "capo_ec2.types.hostname_type.HostnameType"
     ]

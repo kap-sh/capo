@@ -19,7 +19,7 @@ class AwsServiceRequestConfiguration(TypedDict, closed=True):
     runtime: "capo_mediatailor.types.runtime_type.RuntimeType"
     """<p>The expression language used to evaluate expressions in the function configuration. The only supported value is <code>JSONata</code>.</p>"""
     output: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
-    r"""<p>A map of output bindings. Each key is a namespaced output path, such as <code>player_params.device_type</code>. Each value is an expression that MediaTailor evaluates at runtime and can reference the <code>response</code> object from the target service. For more information, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-jsonata.html\">JSONata expression reference</a> in the <i>MediaTailor User Guide</i>.</p>"""
+    """<p>A map of output bindings. Each key is a namespaced output path, such as <code>player_params.device_type</code>. Each value is an expression that MediaTailor evaluates at runtime and can reference the <code>response</code> object from the target service. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-jsonata.html">JSONata expression reference</a> in the <i>MediaTailor User Guide</i>.</p>"""
     method_type: "capo_mediatailor.types.method_type.MethodType"
     """<p>Specifies how the function sends the request to the target service. The value must match what the target service operation requires. Valid values:</p> <ul> <li> <p> <code>GET</code> – Retrieves data from the target service.</p> </li> <li> <p> <code>POST</code> – Submits a request body to the target service.</p> </li> </ul>"""
     request_timeout_milliseconds: "capo_mediatailor.types.__integer.__integer"

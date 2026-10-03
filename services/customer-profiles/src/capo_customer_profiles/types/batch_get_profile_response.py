@@ -13,7 +13,7 @@ class BatchGetProfileResponse(TypedDict, closed=True):
     errors: NotRequired[
         "capo_customer_profiles.types.batch_get_profile_error_list.BatchGetProfileErrorList"
     ]
-    r"""<p>For information about the errors that are common to all actions, see <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/CommonErrors.html\">Common Errors</a>.</p>"""
+    """<p>For information about the errors that are common to all actions, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/CommonErrors.html">Common Errors</a>.</p>"""
     profiles: NotRequired["capo_customer_profiles.types.profile_list.ProfileList"]
     """<p>Array of Profile Objects.</p>"""
 

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class EdgeConfig(TypedDict, closed=True):
     hub_device_arn: "capo_kinesis_video.types.hub_device_arn.HubDeviceArn"
-    r"""<p>The \"<b>Internet of Things (IoT) Thing</b>\" Arn of the stream.</p>"""
+    """<p>The "<b>Internet of Things (IoT) Thing</b>" Arn of the stream.</p>"""
     recorder_config: "capo_kinesis_video.types.recorder_config.RecorderConfig"
     """<p>The recorder configuration consists of the local <code>MediaSourceConfig</code> details, that are used as credentials to access the local media files streamed on the camera. </p>"""
     uploader_config: NotRequired[

@@ -15,7 +15,7 @@ class ResourceTag(TypedDict, closed=True):
     key: "capo_fms.types.resource_tag_key.ResourceTagKey"
     """<p>The resource tag key.</p>"""
     value: NotRequired["capo_fms.types.resource_tag_value.ResourceTagValue"]
-    r"""<p>The resource tag value. To specify an empty string value, either don't provide this or specify it as \"\". </p>"""
+    """<p>The resource tag value. To specify an empty string value, either don't provide this or specify it as "". </p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class BatchPutMessageRequest(TypedDict, closed=True):
     messages: "capo_iot_events_data.types.messages.Messages"
-    r"""<p>The list of messages to send. Each message has the following format: <code>'{ \"messageId\": \"string\", \"inputName\": \"string\", \"payload\": \"string\"}'</code> </p>"""
+    """<p>The list of messages to send. Each message has the following format: <code>'{ "messageId": "string", "inputName": "string", "payload": "string"}'</code> </p>"""
 
 
 # --- restJson1 ser/de ---

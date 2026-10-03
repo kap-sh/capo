@@ -31,13 +31,13 @@ class EngagementSummary(TypedDict, closed=True):
     member_count: NotRequired["int"]
     """<p>The number of members in the Engagement.</p>"""
     modified_at: NotRequired["capo_partnercentral_selling.types.date_time.DateTime"]
-    r"""<p>The timestamp indicating when the engagement was last modified, in ISO 8601 format (UTC). Example: \"2023-05-01T20:37:46Z\".</p>"""
+    """<p>The timestamp indicating when the engagement was last modified, in ISO 8601 format (UTC). Example: "2023-05-01T20:37:46Z".</p>"""
     modified_by: NotRequired["capo_partnercentral_selling.types.aws_account.AwsAccount"]
     """<p>The AWS account ID of the user who last modified the engagement. This field helps track who made the most recent changes to the engagement.</p>"""
     context_types: NotRequired[
         "capo_partnercentral_selling.types.engagement_context_type_list.EngagementContextTypeList"
     ]
-    r"""<p>An array of context types associated with the engagement, such as \"CustomerProject\" or \"Lead\". This provides a quick overview of the types of contexts included in the engagement.</p>"""
+    """<p>An array of context types associated with the engagement, such as "CustomerProject" or "Lead". This provides a quick overview of the types of contexts included in the engagement.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

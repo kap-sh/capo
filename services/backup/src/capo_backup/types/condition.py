@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class Condition(TypedDict, closed=True):
     condition_type: "capo_backup.types.condition_type.ConditionType"
-    r"""<p>An operation applied to a key-value pair used to assign resources to your backup plan. Condition only supports <code>StringEquals</code>. For more flexible assignment options, including <code>StringLike</code> and the ability to exclude resources from your backup plan, use <code>Conditions</code> (with an \"s\" on the end) for your <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html\"> <code>BackupSelection</code> </a>.</p>"""
+    """<p>An operation applied to a key-value pair used to assign resources to your backup plan. Condition only supports <code>StringEquals</code>. For more flexible assignment options, including <code>StringLike</code> and the ability to exclude resources from your backup plan, use <code>Conditions</code> (with an "s" on the end) for your <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html"> <code>BackupSelection</code> </a>.</p>"""
     condition_key: "capo_backup.types.condition_key.ConditionKey"
     """<p>The key in a key-value pair. For example, in the tag <code>Department: Accounting</code>, <code>Department</code> is the key.</p>"""
     condition_value: "capo_backup.types.condition_value.ConditionValue"

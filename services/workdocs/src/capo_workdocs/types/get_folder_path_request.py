@@ -22,7 +22,7 @@ class GetFolderPathRequest(TypedDict, closed=True):
     limit: NotRequired["capo_workdocs.types.limit_type.LimitType"]
     """<p>The maximum number of levels in the hierarchy to return.</p>"""
     fields: NotRequired["capo_workdocs.types.field_names_type.FieldNamesType"]
-    r"""<p>A comma-separated list of values. Specify \"NAME\" to include the names of the parent folders.</p>"""
+    """<p>A comma-separated list of values. Specify "NAME" to include the names of the parent folders.</p>"""
     marker: NotRequired["capo_workdocs.types.page_marker_type.PageMarkerType"]
     """<p>This value is not supported.</p>"""
 

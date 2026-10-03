@@ -91,7 +91,7 @@ class TaggingResource:
         *,
         config_overrides: Optional[BedrockAgentClientConfig] = None,
     ) -> "capo_bedrock_agent.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Associate tags with a resource. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Tagging resources</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Associate tags with a resource. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Tagging resources</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource to tag.</p>
@@ -245,7 +245,7 @@ class AsyncTaggingResource:
         *,
         config_overrides: Optional[AsyncBedrockAgentClientConfig] = None,
     ) -> "capo_bedrock_agent.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Associate tags with a resource. For more information, see <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html\">Tagging resources</a> in the Amazon Bedrock User Guide.</p>
+        """<p>Associate tags with a resource. For more information, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html">Tagging resources</a> in the Amazon Bedrock User Guide.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource to tag.</p>

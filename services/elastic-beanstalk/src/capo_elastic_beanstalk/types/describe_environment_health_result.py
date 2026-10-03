@@ -22,13 +22,13 @@ class DescribeEnvironmentHealthResult(TypedDict, closed=True):
     ]
     """<p>The environment's name.</p>"""
     health_status: NotRequired["capo_elastic_beanstalk.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html\">health status</a> of the environment. For example, <code>Ok</code>.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html">health status</a> of the environment. For example, <code>Ok</code>.</p>"""
     status: NotRequired[
         "capo_elastic_beanstalk.types.environment_health.EnvironmentHealth"
     ]
     """<p>The environment's operational status. <code>Ready</code>, <code>Launching</code>, <code>Updating</code>, <code>Terminating</code>, or <code>Terminated</code>.</p>"""
     color: NotRequired["capo_elastic_beanstalk.types.string.String"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html\">health color</a> of the environment.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html">health color</a> of the environment.</p>"""
     causes: NotRequired["capo_elastic_beanstalk.types.causes.Causes"]
     """<p>Descriptions of the data that contributed to the environment's current health status.</p>"""
     application_metrics: NotRequired[

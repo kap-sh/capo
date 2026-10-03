@@ -27,7 +27,7 @@ class DataSourceSummary(TypedDict, closed=True):
     status: NotRequired["capo_kendra.types.data_source_status.DataSourceStatus"]
     """<p>The status of the data source. When the status is <code>ACTIVE</code> the data source is ready to use.</p>"""
     language_code: NotRequired["capo_kendra.types.language_code.LanguageCode"]
-    r"""<p>The code for a language. This shows a supported language for all documents in the data source. English is supported by default. For more information on supported languages, including their codes, see <a href=\"https://docs.aws.amazon.com/kendra/latest/dg/in-adding-languages.html\">Adding documents in languages other than English</a>.</p>"""
+    """<p>The code for a language. This shows a supported language for all documents in the data source. English is supported by default. For more information on supported languages, including their codes, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/in-adding-languages.html">Adding documents in languages other than English</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

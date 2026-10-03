@@ -52,15 +52,15 @@ class CreateWorkflowVersionRequest(TypedDict, closed=True):
     parameter_template: NotRequired[
         "capo_omics.types.workflow_parameter_template.WorkflowParameterTemplate"
     ]
-    r"""<p>A parameter template for this workflow version. If this field is blank, Amazon Web Services HealthOmics will automatically parse the parameter template values from your workflow definition file. To override these service generated default values, provide a parameter template. To view an example of a parameter template, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/parameter-templates.html\">Parameter template files</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
+    """<p>A parameter template for this workflow version. If this field is blank, Amazon Web Services HealthOmics will automatically parse the parameter template values from your workflow definition file. To override these service generated default values, provide a parameter template. To view an example of a parameter template, see <a href="https://docs.aws.amazon.com/omics/latest/dev/parameter-templates.html">Parameter template files</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
     request_id: "capo_omics.types.workflow_request_id.WorkflowRequestId"
     """<p>An idempotency token to ensure that duplicate workflows are not created when Amazon Web Services HealthOmics submits retry requests.</p>"""
     storage_type: NotRequired["capo_omics.types.storage_type.StorageType"]
-    r"""<p>The default storage type for runs that use this workflow version. The <code>storageType</code> can be overridden at run time. <code>DYNAMIC</code> storage dynamically scales the storage up or down, based on file system utilization. STATIC storage allocates a fixed amount of storage. For more information about dynamic and static storage types, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflows-run-types.html\">Run storage types</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
+    """<p>The default storage type for runs that use this workflow version. The <code>storageType</code> can be overridden at run time. <code>DYNAMIC</code> storage dynamically scales the storage up or down, based on file system utilization. STATIC storage allocates a fixed amount of storage. For more information about dynamic and static storage types, see <a href="https://docs.aws.amazon.com/omics/latest/dev/workflows-run-types.html">Run storage types</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
     storage_capacity: NotRequired["int"]
     """<p>The default static storage capacity (in gibibytes) for runs that use this workflow version. The <code>storageCapacity</code> can be overwritten at run time. The storage capacity is not required for runs with a <code>DYNAMIC</code> storage type.</p>"""
     tags: NotRequired["capo_omics.types.tag_map.TagMap"]
-    r"""<p>Tags for this workflow version. You can define up to 50 tags for the workflow. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/add-a-tag.html\">Adding a tag</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
+    """<p>Tags for this workflow version. You can define up to 50 tags for the workflow. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/add-a-tag.html">Adding a tag</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
     workflow_bucket_owner_id: NotRequired[
         "capo_omics.types.workflow_bucket_owner_id.WorkflowBucketOwnerId"
     ]
@@ -68,7 +68,7 @@ class CreateWorkflowVersionRequest(TypedDict, closed=True):
     container_registry_map: NotRequired[
         "capo_omics.types.container_registry_map.ContainerRegistryMap"
     ]
-    r"""<p>(Optional) Use a container registry map to specify mappings between the ECR private repository and one or more upstream registries. For more information, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/workflows-ecr.html\">Container images</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
+    """<p>(Optional) Use a container registry map to specify mappings between the ECR private repository and one or more upstream registries. For more information, see <a href="https://docs.aws.amazon.com/omics/latest/dev/workflows-ecr.html">Container images</a> in the <i>Amazon Web Services HealthOmics User Guide</i>.</p>"""
     container_registry_map_uri: NotRequired["capo_omics.types.uri.Uri"]
     """<p>(Optional) URI of the S3 location for the registry mapping file.</p>"""
     readme_markdown: NotRequired["capo_omics.types.readme_markdown.ReadmeMarkdown"]

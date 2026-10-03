@@ -19,7 +19,7 @@ class S3LogDestinationParameters(TypedDict, closed=True):
     output_format: NotRequired["capo_pipes.types.s3_output_format.S3OutputFormat"]
     """<p>How EventBridge should format the log records.</p> <p>EventBridge currently only supports <code>json</code> formatting.</p>"""
     prefix: NotRequired["capo_pipes.types.string.String"]
-    r"""<p>Specifies any prefix text with which to begin Amazon S3 log object names.</p> <p>You can use prefixes to organize the data that you store in Amazon S3 buckets. A prefix is a string of characters at the beginning of the object key name. A prefix can be any length, subject to the maximum length of the object key name (1,024 bytes). For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-prefixes.html\">Organizing objects using prefixes</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>"""
+    """<p>Specifies any prefix text with which to begin Amazon S3 log object names.</p> <p>You can use prefixes to organize the data that you store in Amazon S3 buckets. A prefix is a string of characters at the beginning of the object key name. A prefix can be any length, subject to the maximum length of the object key name (1,024 bytes). For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-prefixes.html">Organizing objects using prefixes</a> in the <i>Amazon Simple Storage Service User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

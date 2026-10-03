@@ -32,7 +32,7 @@ class RdsRequirements(TypedDict, closed=True):
     deployment_option: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>The required deployment option for the Amazon RDS DB instance. Valid values include <code>\"MULTI_AZ\"</code> for Multi-AZ deployments and <code>\"SINGLE_AZ\"</code> for Single-AZ deployments.</p>"""
+    """<p>The required deployment option for the Amazon RDS DB instance. Valid values include <code>"MULTI_AZ"</code> for Multi-AZ deployments and <code>"SINGLE_AZ"</code> for Single-AZ deployments.</p>"""
     engine_version: NotRequired["capo_database_migration_service.types.string.String"]
     """<p>The required target Amazon RDS engine version.</p>"""
 

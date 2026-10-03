@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 
 class UpdateTemplateGroupAccessControlEntryRequest(TypedDict, closed=True):
     template_arn: "capo_pca_connector_ad.types.template_arn.TemplateArn"
-    r"""<p>The Amazon Resource Name (ARN) that was returned when you called <a href=\"https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html\">CreateTemplate</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) that was returned when you called <a href="https://docs.aws.amazon.com/pca-connector-ad/latest/APIReference/API_CreateTemplate.html">CreateTemplate</a>.</p>"""
     group_security_identifier: (
         "capo_pca_connector_ad.types.group_security_identifier.GroupSecurityIdentifier"
     )
-    r"""<p>Security identifier (SID) of the group object from Active Directory. The SID starts with \"S-\".</p>"""
+    """<p>Security identifier (SID) of the group object from Active Directory. The SID starts with "S-".</p>"""
     group_display_name: NotRequired[
         "capo_pca_connector_ad.types.display_name.DisplayName"
     ]

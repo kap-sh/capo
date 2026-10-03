@@ -19,7 +19,7 @@ class CopySnapshotRequest(TypedDict, closed=True):
     target_snapshot_name: "capo_memorydb.types.string.String"
     """<p>A name for the snapshot copy. MemoryDB does not permit overwriting a snapshot, therefore this name must be unique within its context - MemoryDB or an Amazon S3 bucket if exporting.</p>"""
     target_bucket: NotRequired["capo_memorydb.types.target_bucket.TargetBucket"]
-    r"""<p>The Amazon S3 bucket to which the snapshot is exported. This parameter is used only when exporting a snapshot for external access. When using this parameter to export a snapshot, be sure MemoryDB has the needed permissions to this S3 bucket. For more information, see <a href=\"https://docs.aws.amazon.com/MemoryDB/latest/devguide/snapshots-exporting.html\">Step 2: Grant MemoryDB Access to Your Amazon S3 Bucket</a>. </p>"""
+    """<p>The Amazon S3 bucket to which the snapshot is exported. This parameter is used only when exporting a snapshot for external access. When using this parameter to export a snapshot, be sure MemoryDB has the needed permissions to this S3 bucket. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/snapshots-exporting.html">Step 2: Grant MemoryDB Access to Your Amazon S3 Bucket</a>. </p>"""
     kms_key_id: NotRequired["capo_memorydb.types.kms_key_id.KmsKeyId"]
     """<p>The ID of the KMS key used to encrypt the target snapshot.</p>"""
     tags: NotRequired["capo_memorydb.types.tag_list.TagList"]

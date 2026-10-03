@@ -60,7 +60,7 @@ class SearchTextResultItem(TypedDict, closed=True):
     opening_hours: NotRequired[
         "capo_geo_places.types.opening_hours_list.OpeningHoursList"
     ]
-    r"""<p> List of opening hours objects. Not available in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href=\"https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html\">GrabMaps</a> customers. </p>"""
+    """<p> List of opening hours objects. Not available in <code>ap-southeast-1</code> and <code>ap-southeast-5</code> regions for <a href="https://docs.aws.amazon.com/location/latest/developerguide/GrabMaps.html">GrabMaps</a> customers. </p>"""
     access_points: NotRequired[
         "capo_geo_places.types.access_point_list.AccessPointList"
     ]

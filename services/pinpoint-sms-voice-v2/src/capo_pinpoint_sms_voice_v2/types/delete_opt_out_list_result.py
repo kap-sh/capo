@@ -18,7 +18,7 @@ class DeleteOptOutListResult(TypedDict, closed=True):
     ]
     """<p>The name of the OptOutList that was removed.</p>"""
     created_timestamp: NotRequired["datetime.datetime"]
-    r"""<p>The time when the OptOutList was created, in <a href=\"https://www.epochconverter.com/\">UNIX epoch time</a> format.</p>"""
+    """<p>The time when the OptOutList was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

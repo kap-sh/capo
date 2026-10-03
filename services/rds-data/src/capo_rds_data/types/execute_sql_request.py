@@ -16,7 +16,7 @@ class ExecuteSqlRequest(TypedDict, closed=True):
     db_cluster_or_instance_arn: "capo_rds_data.types.arn.Arn"
     """<p>The ARN of the Aurora Serverless DB cluster.</p>"""
     aws_secret_store_arn: "capo_rds_data.types.arn.Arn"
-    r"""<p>The Amazon Resource Name (ARN) of the secret that enables access to the DB cluster. Enter the database user name and password for the credentials in the secret.</p> <p>For information about creating the secret, see <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html\">Create a database secret</a>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the secret that enables access to the DB cluster. Enter the database user name and password for the credentials in the secret.</p> <p>For information about creating the secret, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a database secret</a>.</p>"""
     sql_statements: "capo_rds_data.types.sql_statement.SqlStatement"
     """<p>One or more SQL statements to run on the DB cluster.</p> <p>You can separate SQL statements from each other with a semicolon (;). Any valid SQL statement is permitted, including data definition, data manipulation, and commit statements. </p>"""
     database: NotRequired["capo_rds_data.types.db_name.DbName"]

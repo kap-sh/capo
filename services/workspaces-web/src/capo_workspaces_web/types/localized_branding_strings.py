@@ -23,15 +23,15 @@ class LocalizedBrandingStrings(TypedDict, closed=True):
     login_title: NotRequired[
         "capo_workspaces_web.types.branding_safe_string_type.BrandingSafeStringType"
     ]
-    r"""<p>The title text for the login section. This field is optional and defaults to \"Sign In\".</p>"""
+    """<p>The title text for the login section. This field is optional and defaults to "Sign In".</p>"""
     login_description: NotRequired[
         "capo_workspaces_web.types.branding_safe_string_type.BrandingSafeStringType"
     ]
-    r"""<p>The description text for the login section. This field is optional and defaults to \"Sign in to your session\".</p>"""
+    """<p>The description text for the login section. This field is optional and defaults to "Sign in to your session".</p>"""
     login_button_text: NotRequired[
         "capo_workspaces_web.types.branding_safe_string_type.BrandingSafeStringType"
     ]
-    r"""<p>The text displayed on the login button. This field is optional and defaults to \"Sign In\".</p>"""
+    """<p>The text displayed on the login button. This field is optional and defaults to "Sign In".</p>"""
     contact_link: NotRequired[
         "capo_workspaces_web.types.contact_link_url.ContactLinkUrl"
     ]
@@ -39,11 +39,11 @@ class LocalizedBrandingStrings(TypedDict, closed=True):
     contact_button_text: NotRequired[
         "capo_workspaces_web.types.branding_safe_string_type.BrandingSafeStringType"
     ]
-    r"""<p>The text displayed on the contact button. This field is optional and defaults to \"Contact us\".</p>"""
+    """<p>The text displayed on the contact button. This field is optional and defaults to "Contact us".</p>"""
     loading_text: NotRequired[
         "capo_workspaces_web.types.branding_safe_string_type.BrandingSafeStringType"
     ]
-    r"""<p>The text displayed during session loading. This field is optional and defaults to \"Loading your session\".</p>"""
+    """<p>The text displayed during session loading. This field is optional and defaults to "Loading your session".</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -43,7 +43,7 @@ if TYPE_CHECKING:
 
 class InstanceTypeInfo(TypedDict, closed=True):
     instance_type: NotRequired["capo_ec2.types.instance_type.InstanceType"]
-    r"""<p>The instance type. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html\">Instance types</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The instance type. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     current_generation: NotRequired[
         "capo_ec2.types.current_generation_flag.CurrentGenerationFlag"
     ]
@@ -107,7 +107,7 @@ class InstanceTypeInfo(TypedDict, closed=True):
     burstable_performance_supported: NotRequired[
         "capo_ec2.types.burstable_performance_flag.BurstablePerformanceFlag"
     ]
-    r"""<p>Indicates whether the instance type is a burstable performance T instance type. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html\">Burstable performance instances</a>.</p>"""
+    """<p>Indicates whether the instance type is a burstable performance T instance type. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable performance instances</a>.</p>"""
     dedicated_hosts_supported: NotRequired[
         "capo_ec2.types.dedicated_host_flag.DedicatedHostFlag"
     ]
@@ -119,7 +119,7 @@ class InstanceTypeInfo(TypedDict, closed=True):
     supported_boot_modes: NotRequired[
         "capo_ec2.types.boot_mode_type_list.BootModeTypeList"
     ]
-    r"""<p>The supported boot modes. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html\">Boot modes</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>The supported boot modes. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     nitro_enclaves_support: NotRequired[
         "capo_ec2.types.nitro_enclaves_support.NitroEnclavesSupport"
     ]
@@ -139,7 +139,7 @@ class InstanceTypeInfo(TypedDict, closed=True):
     reboot_migration_support: NotRequired[
         "capo_ec2.types.reboot_migration_support.RebootMigrationSupport"
     ]
-    r"""<p>Indicates whether reboot migration during a user-initiated reboot is supported for instances that have a scheduled <code>system-reboot</code> event. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/schedevents_actions_reboot.html#reboot-migration\">Enable or disable reboot migration</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
+    """<p>Indicates whether reboot migration during a user-initiated reboot is supported for instances that have a scheduled <code>system-reboot</code> event. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/schedevents_actions_reboot.html#reboot-migration">Enable or disable reboot migration</a> in the <i>Amazon EC2 User Guide</i>.</p>"""
     supported_in_region: NotRequired[
         "capo_ec2.types.supported_in_region.SupportedInRegion"
     ]

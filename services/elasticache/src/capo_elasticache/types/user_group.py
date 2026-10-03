@@ -19,7 +19,7 @@ class UserGroup(TypedDict, closed=True):
     user_group_id: NotRequired["capo_elasticache.types.string.String"]
     """<p>The ID of the user group.</p>"""
     status: NotRequired["capo_elasticache.types.string.String"]
-    r"""<p>Indicates user group status. Can be \"creating\", \"active\", \"modifying\", \"deleting\".</p>"""
+    """<p>Indicates user group status. Can be "creating", "active", "modifying", "deleting".</p>"""
     engine: NotRequired["capo_elasticache.types.engine_type.EngineType"]
     """<p>The options are valkey or redis.</p>"""
     user_ids: NotRequired["capo_elasticache.types.user_id_list.UserIdList"]

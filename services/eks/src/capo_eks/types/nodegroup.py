@@ -61,7 +61,7 @@ class Nodegroup(TypedDict, closed=True):
     labels: NotRequired["capo_eks.types.labels_map.labelsMap"]
     """<p>The Kubernetes <code>labels</code> applied to the nodes in the node group.</p> <note> <p>Only <code>labels</code> that are applied with the Amazon EKS API are shown here. There may be other Kubernetes <code>labels</code> applied to the nodes in this group.</p> </note>"""
     taints: NotRequired["capo_eks.types.taints_list.taintsList"]
-    r"""<p>The Kubernetes taints to be applied to the nodes in the node group when they are created. Effect is one of <code>No_Schedule</code>, <code>Prefer_No_Schedule</code>, or <code>No_Execute</code>. Kubernetes taints can be used together with tolerations to control how workloads are scheduled to your nodes. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html\">Node taints on managed node groups</a>.</p>"""
+    """<p>The Kubernetes taints to be applied to the nodes in the node group when they are created. Effect is one of <code>No_Schedule</code>, <code>Prefer_No_Schedule</code>, or <code>No_Execute</code>. Kubernetes taints can be used together with tolerations to control how workloads are scheduled to your nodes. For more information, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html">Node taints on managed node groups</a>.</p>"""
     resources: NotRequired["capo_eks.types.nodegroup_resources.NodegroupResources"]
     """<p>The resources associated with the node group, such as Auto Scaling groups and security groups for remote access.</p>"""
     disk_size: NotRequired["capo_eks.types.boxed_integer.BoxedInteger"]

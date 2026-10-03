@@ -14,7 +14,7 @@ class ExportFilesMetadata(TypedDict, closed=True):
     status: NotRequired[
         "capo_gameliftstreams.types.export_files_status.ExportFilesStatus"
     ]
-    r"""<p>The result of the <a href=\"https://docs.aws.amazon.com/gameliftstreams/latest/apireference/API_ExportStreamSessionFiles.html\">ExportStreamSessionFiles</a> operation.</p>"""
+    """<p>The result of the <a href="https://docs.aws.amazon.com/gameliftstreams/latest/apireference/API_ExportStreamSessionFiles.html">ExportStreamSessionFiles</a> operation.</p>"""
     status_reason: NotRequired[
         "capo_gameliftstreams.types.export_files_reason.ExportFilesReason"
     ]

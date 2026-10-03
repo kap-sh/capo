@@ -27,9 +27,9 @@ class JobSummary(TypedDict, closed=True):
     ]
     """<p>The configured capacity usage information for this job, including the unit of measure and quantity of resources.</p>"""
     created_at: NotRequired["capo_batch.types.long.Long"]
-    r"""<p>The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array jobs, this is when the job entered the <code>SUBMITTED</code> state (at the time <a href=\"https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html\">SubmitJob</a> was called). For array child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code> state.</p>"""
+    """<p>The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array jobs, this is when the job entered the <code>SUBMITTED</code> state (at the time <a href="https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html">SubmitJob</a> was called). For array child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code> state.</p>"""
     scheduled_at: NotRequired["capo_batch.types.long.Long"]
-    r"""<p>The Unix timestamp (in milliseconds) for when the job was scheduled for execution. For more information on job statues, see <a href=\"https://docs.aws.amazon.com/batch/latest/userguide/service-job-status.html\">Service job status</a> in the <i>Batch User Guide</i>.</p>"""
+    """<p>The Unix timestamp (in milliseconds) for when the job was scheduled for execution. For more information on job statues, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/service-job-status.html">Service job status</a> in the <i>Batch User Guide</i>.</p>"""
     share_identifier: NotRequired["capo_batch.types.string.String"]
     """<p>The share identifier for the fairshare scheduling queue that this job is associated with.</p>"""
     status: NotRequired["capo_batch.types.job_status.JobStatus"]

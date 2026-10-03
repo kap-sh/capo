@@ -20,7 +20,7 @@ class SendChatIntegrationEventRequest(TypedDict, closed=True):
     destination_id: "capo_connect.types.destination_id.DestinationId"
     """<p>Chat system identifier, used in part to uniquely identify chat. This is associated with the Connect Customer instance and flow to be used to start chats. For Server Migration Service, this is the phone number destination of inbound Server Migration Service messages represented by an Amazon Web Services End User Messaging phone number ARN.</p>"""
     subtype: NotRequired["capo_connect.types.subtype.Subtype"]
-    r"""<p>Classification of a channel. This is used in part to uniquely identify chat. </p> <p>Valid value: <code>[\"connect:sms\", connect:\"WhatsApp\"]</code> </p>"""
+    """<p>Classification of a channel. This is used in part to uniquely identify chat. </p> <p>Valid value: <code>["connect:sms", connect:"WhatsApp"]</code> </p>"""
     event: "capo_connect.types.chat_event.ChatEvent"
     """<p>Chat integration event payload</p>"""
     new_session_details: NotRequired[

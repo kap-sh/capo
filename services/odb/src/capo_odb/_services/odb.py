@@ -3898,14 +3898,14 @@ class odbClient:
         ] = None,
         scan_listener_port_tcp: Optional[int] = None,
     ) -> "capo_odb.types.create_cloud_vm_cluster_output.CreateCloudVmClusterOutput":
-        r"""<p>Creates a VM cluster on the specified Exadata infrastructure.</p>
+        """<p>Creates a VM cluster on the specified Exadata infrastructure.</p>
 
         Args:
             cloud_exadata_infrastructure_id: <p>The unique identifier of the Exadata infrastructure for this VM cluster.</p>
             cpu_core_count: <p>The number of CPU cores to enable on the VM cluster.</p>
             display_name: <p>A user-friendly name for the VM cluster.</p>
             gi_version: <p>A valid software version of Oracle Grid Infrastructure (GI). To get the list of valid values, use the <code>ListGiVersions</code> operation and specify the shape of the Exadata infrastructure.</p> <p>Example: <code>19.0.0.0</code> </p>
-            hostname: <p>The host name for the VM cluster.</p> <p>Constraints:</p> <ul> <li> <p>Can't be \"localhost\" or \"hostname\".</p> </li> <li> <p>Can't contain \"-version\".</p> </li> <li> <p>The maximum length of the combined hostname and domain is 63 characters.</p> </li> <li> <p>The hostname must be unique within the subnet.</p> </li> </ul>
+            hostname: <p>The host name for the VM cluster.</p> <p>Constraints:</p> <ul> <li> <p>Can't be "localhost" or "hostname".</p> </li> <li> <p>Can't contain "-version".</p> </li> <li> <p>The maximum length of the combined hostname and domain is 63 characters.</p> </li> <li> <p>The hostname must be unique within the subnet.</p> </li> </ul>
             ssh_public_keys: <p>The public key portion of one or more key pairs used for SSH access to the VM cluster.</p>
             odb_network_id: <p>The unique identifier of the ODB network for the VM cluster.</p>
             cluster_name: <p>A name for the Grid Infrastructure cluster. The name isn't case sensitive.</p>

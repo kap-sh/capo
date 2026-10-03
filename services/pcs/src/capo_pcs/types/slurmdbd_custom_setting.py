@@ -7,7 +7,7 @@ from capo_pcs.errors import DeserializationError
 
 class SlurmdbdCustomSetting(TypedDict, closed=True):
     parameter_name: "str"
-    r"""<p>PCS supports custom SlurmDBD settings for clusters. For more information, see <a href=\"https://docs.aws.amazon.com/pcs/latest/userguide/slurmdbd-custom-settings.html\">Configuring custom SlurmDBD settings in PCS</a> in the <i>PCS User Guide</i>.</p>"""
+    """<p>PCS supports custom SlurmDBD settings for clusters. For more information, see <a href="https://docs.aws.amazon.com/pcs/latest/userguide/slurmdbd-custom-settings.html">Configuring custom SlurmDBD settings in PCS</a> in the <i>PCS User Guide</i>.</p>"""
     parameter_value: "str"
     """<p>The values for the configured SlurmDBD settings.</p>"""
 

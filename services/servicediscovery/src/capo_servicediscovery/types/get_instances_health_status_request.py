@@ -15,11 +15,11 @@ if TYPE_CHECKING:
 
 class GetInstancesHealthStatusRequest(TypedDict, closed=True):
     service_id: "capo_servicediscovery.types.arn.Arn"
-    r"""<p>The ID or Amazon Resource Name (ARN) of the service that the instance is associated with. For services created in a shared namespace, specify the service ARN. For more information about shared namespaces, see <a href=\"https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html\">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
+    """<p>The ID or Amazon Resource Name (ARN) of the service that the instance is associated with. For services created in a shared namespace, specify the service ARN. For more information about shared namespaces, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/sharing-namespaces.html">Cross-account Cloud Map namespace sharing</a> in the <i>Cloud Map Developer Guide</i>.</p>"""
     instances: NotRequired[
         "capo_servicediscovery.types.instance_id_list.InstanceIdList"
     ]
-    r"""<p>An array that contains the IDs of all the instances that you want to get the health status for.</p> <p>If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are associated with the specified service.</p> <note> <p>To get the IDs for the instances that you've registered by using a specified service, submit a <a href=\"https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html\">ListInstances</a> request.</p> </note>"""
+    """<p>An array that contains the IDs of all the instances that you want to get the health status for.</p> <p>If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are associated with the specified service.</p> <note> <p>To get the IDs for the instances that you've registered by using a specified service, submit a <a href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.</p> </note>"""
     max_results: NotRequired["capo_servicediscovery.types.max_results.MaxResults"]
     """<p>The maximum number of instances that you want Cloud Map to return in the response to a <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud Map returns up to 100 instances.</p>"""
     next_token: NotRequired["capo_servicediscovery.types.next_token.NextToken"]

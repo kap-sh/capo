@@ -467,7 +467,7 @@ class ManagedThingResource:
             "capo_iot_managed_integrations.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_iot_managed_integrations.types.list_managed_things_response.ListManagedThingsResponse":
-        r"""<p>Listing all managed things with provision for filters.</p>
+        """<p>Listing all managed things with provision for filters.</p>
 
         Args:
             owner_filter: <p>Filter on device owners when listing managed things.</p>
@@ -478,7 +478,7 @@ class ManagedThingResource:
             connector_destination_id_filter: <p>Filter managed things by the connector destination ID they are associated with.</p>
             connector_device_id_filter: <p>Filter managed things by the connector device ID they are associated with. When specified, only managed things with this connector device ID will be returned.</p>
             serial_number_filter: <p>Filter on the serial number of the device.</p>
-            provisioning_status_filter: <p>Filter on the status of the device. For more information, see <a href=\"https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html\">Device Provisioning</a>.</p>
+            provisioning_status_filter: <p>Filter on the status of the device. For more information, see <a href="https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html">Device Provisioning</a>.</p>
             next_token: <p>A token that can be used to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return at one time.</p>
 
@@ -1214,7 +1214,7 @@ class AsyncManagedThingResource:
             "capo_iot_managed_integrations.types.max_results.MaxResults"
         ] = None,
     ) -> "capo_iot_managed_integrations.types.list_managed_things_response.ListManagedThingsResponse":
-        r"""<p>Listing all managed things with provision for filters.</p>
+        """<p>Listing all managed things with provision for filters.</p>
 
         Args:
             owner_filter: <p>Filter on device owners when listing managed things.</p>
@@ -1225,7 +1225,7 @@ class AsyncManagedThingResource:
             connector_destination_id_filter: <p>Filter managed things by the connector destination ID they are associated with.</p>
             connector_device_id_filter: <p>Filter managed things by the connector device ID they are associated with. When specified, only managed things with this connector device ID will be returned.</p>
             serial_number_filter: <p>Filter on the serial number of the device.</p>
-            provisioning_status_filter: <p>Filter on the status of the device. For more information, see <a href=\"https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html\">Device Provisioning</a>.</p>
+            provisioning_status_filter: <p>Filter on the status of the device. For more information, see <a href="https://docs.aws.amazon.com/iot-mi/latest/devguide/device-provisioning.html">Device Provisioning</a>.</p>
             next_token: <p>A token that can be used to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return at one time.</p>
 

@@ -80,7 +80,7 @@ class TrialComponent(TypedDict, closed=True):
     ]
     """<p>The Amazon Resource Name (ARN) of the lineage group resource.</p>"""
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>The list of tags that are associated with the component. You can use <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html\">Search</a> API to search on the tags.</p>"""
+    """<p>The list of tags that are associated with the component. You can use <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html">Search</a> API to search on the tags.</p>"""
     parents: NotRequired["capo_sagemaker.types.parents.Parents"]
     """<p>An array of the parents of the component. A parent is a trial the component is associated with and the experiment the trial is part of. A component might not have any parents.</p>"""
     run_name: NotRequired[

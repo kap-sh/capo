@@ -34,7 +34,7 @@ class ListResourceTelemetryForOrganizationInput(TypedDict, closed=True):
     resource_tags: NotRequired[
         "capo_observabilityadmin.types.tag_map_input.TagMapInput"
     ]
-    r"""<p> A key-value pair to filter resources in the organization based on tags associated with the resource. Fore more information about tags, see <a href=\"https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/what-are-tags.html\">What are tags?</a> </p>"""
+    """<p> A key-value pair to filter resources in the organization based on tags associated with the resource. Fore more information about tags, see <a href="https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/what-are-tags.html">What are tags?</a> </p>"""
     max_results: NotRequired[
         "capo_observabilityadmin.types.list_resource_telemetry_for_organization_max_results.ListResourceTelemetryForOrganizationMaxResults"
     ]

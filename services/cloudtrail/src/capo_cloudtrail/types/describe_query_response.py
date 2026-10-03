@@ -34,7 +34,7 @@ class DescribeQueryResponse(TypedDict, closed=True):
     delivery_status: NotRequired["capo_cloudtrail.types.delivery_status.DeliveryStatus"]
     """<p>The delivery status.</p>"""
     prompt: NotRequired["capo_cloudtrail.types.prompt.Prompt"]
-    r"""<p> The prompt used for a generated query. For information about generated queries, see <a href=\"https://docs.aws.amazon.com/awscloudtrail/latest/userguide/lake-query-generator.html\">Create CloudTrail Lake queries from natural language prompts</a> in the <i>CloudTrail </i> user guide. </p>"""
+    """<p> The prompt used for a generated query. For information about generated queries, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/lake-query-generator.html">Create CloudTrail Lake queries from natural language prompts</a> in the <i>CloudTrail </i> user guide. </p>"""
     event_data_store_owner_account_id: NotRequired[
         "capo_cloudtrail.types.account_id.AccountId"
     ]

@@ -42,7 +42,7 @@ class Trial(TypedDict, closed=True):
         "capo_sagemaker.types.metadata_properties.MetadataProperties"
     ]
     tags: NotRequired["capo_sagemaker.types.tag_list.TagList"]
-    r"""<p>The list of tags that are associated with the trial. You can use <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html\">Search</a> API to search on the tags.</p>"""
+    """<p>The list of tags that are associated with the trial. You can use <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html">Search</a> API to search on the tags.</p>"""
     trial_component_summaries: NotRequired[
         "capo_sagemaker.types.trial_component_simple_summaries.TrialComponentSimpleSummaries"
     ]

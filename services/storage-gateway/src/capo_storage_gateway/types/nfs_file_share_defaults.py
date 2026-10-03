@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 class NFSFileShareDefaults(TypedDict, closed=True):
     file_mode: NotRequired["capo_storage_gateway.types.permission_mode.PermissionMode"]
-    r"""<p>The Unix file mode in the form \"nnnn\". For example, <code>0666</code> represents the default file mode inside the file share. The default value is <code>0666</code>.</p>"""
+    """<p>The Unix file mode in the form "nnnn". For example, <code>0666</code> represents the default file mode inside the file share. The default value is <code>0666</code>.</p>"""
     directory_mode: NotRequired[
         "capo_storage_gateway.types.permission_mode.PermissionMode"
     ]
-    r"""<p>The Unix directory mode in the form \"nnnn\". For example, <code>0666</code> represents the default access mode for all directories inside the file share. The default value is <code>0777</code>.</p>"""
+    """<p>The Unix directory mode in the form "nnnn". For example, <code>0666</code> represents the default access mode for all directories inside the file share. The default value is <code>0777</code>.</p>"""
     group_id: NotRequired["capo_storage_gateway.types.permission_id.PermissionId"]
     """<p>The default group ID for the file share (unless the files have another group ID specified). The default value is <code>nfsnobody</code>.</p>"""
     owner_id: NotRequired["capo_storage_gateway.types.permission_id.PermissionId"]

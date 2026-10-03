@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class ListAssessmentControlInsightsByControlDomainRequest(TypedDict, closed=True):
     control_domain_id: "capo_auditmanager.types.control_domain_id.ControlDomainId"
-    r"""<p>The unique identifier for the control domain. </p> <p>Audit Manager supports the control domains that are provided by Amazon Web Services Control Catalog. For information about how to find a list of available control domains, see <a href=\"https://docs.aws.amazon.com/controlcatalog/latest/APIReference/API_ListDomains.html\"> <code>ListDomains</code> </a> in the Amazon Web Services Control Catalog API Reference.</p>"""
+    """<p>The unique identifier for the control domain. </p> <p>Audit Manager supports the control domains that are provided by Amazon Web Services Control Catalog. For information about how to find a list of available control domains, see <a href="https://docs.aws.amazon.com/controlcatalog/latest/APIReference/API_ListDomains.html"> <code>ListDomains</code> </a> in the Amazon Web Services Control Catalog API Reference.</p>"""
     assessment_id: "capo_auditmanager.types.uuid.UUID"
     """<p>The unique identifier for the active assessment. </p>"""
     next_token: NotRequired["capo_auditmanager.types.token.Token"]

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class AwsWafv2VisibilityConfigDetails(TypedDict, closed=True):
     cloud_watch_metrics_enabled: NotRequired["capo_securityhub.types.boolean.Boolean"]
-    r"""<p> A boolean indicating whether the associated resource sends metrics to Amazon CloudWatch. For the list of available metrics, see <a href=\"https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#waf-metrics\">WAF metrics and dimensions</a> in the <i>WAF Developer Guide</i>. </p>"""
+    """<p> A boolean indicating whether the associated resource sends metrics to Amazon CloudWatch. For the list of available metrics, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#waf-metrics">WAF metrics and dimensions</a> in the <i>WAF Developer Guide</i>. </p>"""
     metric_name: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p> A name of the Amazon CloudWatch metric. </p>"""
     sampled_requests_enabled: NotRequired["capo_securityhub.types.boolean.Boolean"]

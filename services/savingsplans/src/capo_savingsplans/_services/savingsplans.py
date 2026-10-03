@@ -747,11 +747,11 @@ class savingsplansClient:
         *,
         config_overrides: Optional[savingsplansClientConfig] = None,
     ) -> "capo_savingsplans.types.tag_resource_response.TagResourceResponse":
-        r"""<p>Adds the specified tags to the specified resource.</p>
+        """<p>Adds the specified tags to the specified resource.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource.</p>
-            tags: <p>One or more tags. For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.</p>
+            tags: <p>One or more tags. For example, { "tags": {"key1":"value1", "key2":"value2"} }.</p>
 
         Raises:
             capo_savingsplans.errors.internal_server_exception.InternalServerException: <p>An unexpected error occurred.</p>

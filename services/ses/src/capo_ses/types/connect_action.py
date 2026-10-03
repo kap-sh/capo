@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ConnectAction(TypedDict, closed=True):
     instance_arn: "capo_ses.types.connect_instance_arn.ConnectInstanceArn"
-    r"""<p>The Amazon Resource Name (ARN) for the Amazon Connect instance that Amazon SES integrates with for starting email contacts.</p> <p>For more information about Amazon Connect instances, see the <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-instances.html\">Amazon Connect Administrator Guide</a> </p>"""
+    """<p>The Amazon Resource Name (ARN) for the Amazon Connect instance that Amazon SES integrates with for starting email contacts.</p> <p>For more information about Amazon Connect instances, see the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-instances.html">Amazon Connect Administrator Guide</a> </p>"""
     iam_role_arn: "capo_ses.types.iam_role_arn.IAMRoleARN"
     """<p> The Amazon Resource Name (ARN) of the IAM role to be used by Amazon Simple Email Service while starting email contacts to the Amazon Connect instance. This role should have permission to invoke <code>connect:StartEmailContact</code> for the given Amazon Connect instance.</p>"""
 

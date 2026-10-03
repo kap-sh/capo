@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class GetGroupRequest(TypedDict, closed=True):
     group_name: "capo_iam.types.group_name_type.groupNameType"
-    r"""<p>The name of the group.</p> <p>This parameter allows (through its <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
+    """<p>The name of the group.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>"""
     marker: NotRequired["capo_iam.types.marker_type.markerType"]
     """<p>Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the <code>Marker</code> element in the response that you received to indicate where the next call should start.</p>"""
     max_items: NotRequired["capo_iam.types.max_items_type.maxItemsType"]

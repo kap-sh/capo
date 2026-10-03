@@ -19,7 +19,7 @@ class CreateLocationFsxLustreRequest(TypedDict, closed=True):
     security_group_arns: (
         "capo_datasync.types.ec2_security_group_arn_list.Ec2SecurityGroupArnList"
     )
-    r"""<p>Specifies the Amazon Resource Names (ARNs) of up to five security groups that provide access to your FSx for Lustre file system.</p> <p>The security groups must be able to access the file system's ports. The file system must also allow access from the security groups. For information about file system access, see the <a href=\"https://docs.aws.amazon.com/fsx/latest/LustreGuide/limit-access-security-groups.html\"> <i>Amazon FSx for Lustre User Guide</i> </a>.</p>"""
+    """<p>Specifies the Amazon Resource Names (ARNs) of up to five security groups that provide access to your FSx for Lustre file system.</p> <p>The security groups must be able to access the file system's ports. The file system must also allow access from the security groups. For information about file system access, see the <a href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/limit-access-security-groups.html"> <i>Amazon FSx for Lustre User Guide</i> </a>.</p>"""
     subdirectory: NotRequired[
         "capo_datasync.types.fsx_lustre_subdirectory.FsxLustreSubdirectory"
     ]

@@ -27,11 +27,11 @@ class StartReplicationTaskAssessmentRunMessage(TypedDict, closed=True):
     result_encryption_mode: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>Encryption mode that you can specify to encrypt the results of this assessment run. If you don't specify this request parameter, DMS stores the assessment run results without encryption. You can specify one of the options following:</p> <ul> <li> <p> <code>\"SSE_S3\"</code> – The server-side encryption provided as a default by Amazon S3.</p> </li> <li> <p> <code>\"SSE_KMS\"</code> – Key Management Service (KMS) encryption. This encryption can use either a custom KMS encryption key that you specify or the default KMS encryption key that DMS provides.</p> </li> </ul>"""
+    """<p>Encryption mode that you can specify to encrypt the results of this assessment run. If you don't specify this request parameter, DMS stores the assessment run results without encryption. You can specify one of the options following:</p> <ul> <li> <p> <code>"SSE_S3"</code> – The server-side encryption provided as a default by Amazon S3.</p> </li> <li> <p> <code>"SSE_KMS"</code> – Key Management Service (KMS) encryption. This encryption can use either a custom KMS encryption key that you specify or the default KMS encryption key that DMS provides.</p> </li> </ul>"""
     result_kms_key_arn: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>ARN of a custom KMS encryption key that you specify when you set <code>ResultEncryptionMode</code> to <code>\"SSE_KMS</code>\".</p>"""
+    """<p>ARN of a custom KMS encryption key that you specify when you set <code>ResultEncryptionMode</code> to <code>"SSE_KMS</code>".</p>"""
     assessment_run_name: "capo_database_migration_service.types.string.String"
     """<p>Unique name to identify the assessment run.</p>"""
     include_only: NotRequired[

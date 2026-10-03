@@ -70,7 +70,7 @@ class UpdateApplicationRequest(TypedDict, closed=True):
     runtime_configuration: NotRequired[
         "capo_emr_serverless.types.configuration_list.ConfigurationList"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html\">Configuration</a> specifications to use when updating an application. Each configuration consists of a classification and properties. This configuration is applied across all the job runs submitted under the application.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html">Configuration</a> specifications to use when updating an application. Each configuration consists of a classification and properties. This configuration is applied across all the job runs submitted under the application.</p>"""
     monitoring_configuration: NotRequired[
         "capo_emr_serverless.types.monitoring_configuration.MonitoringConfiguration"
     ]

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class SchemaFacet(TypedDict, closed=True):
     schema_arn: NotRequired["capo_clouddirectory.types.arn.Arn"]
-    r"""<p>The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html\">In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set, FacetName must also be set.</p>"""
+    """<p>The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html">In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set, FacetName must also be set.</p>"""
     facet_name: NotRequired["capo_clouddirectory.types.facet_name.FacetName"]
     """<p>The name of the facet. If this value is set, SchemaArn must also be set.</p>"""
 

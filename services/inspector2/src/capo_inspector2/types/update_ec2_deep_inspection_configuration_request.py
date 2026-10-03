@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class UpdateEc2DeepInspectionConfigurationRequest(TypedDict, closed=True):
     activate_deep_inspection: NotRequired["bool"]
-    r"""<p>Specify <code>TRUE</code> to activate Amazon Inspector deep inspection in your account, or <code>FALSE</code> to deactivate. Member accounts in an organization cannot deactivate deep inspection, instead the delegated administrator for the organization can deactivate a member account using <a href=\"https://docs.aws.amazon.com/inspector/v2/APIReference/API_BatchUpdateMemberEc2DeepInspectionStatus.html\">BatchUpdateMemberEc2DeepInspectionStatus</a>.</p>"""
+    """<p>Specify <code>TRUE</code> to activate Amazon Inspector deep inspection in your account, or <code>FALSE</code> to deactivate. Member accounts in an organization cannot deactivate deep inspection, instead the delegated administrator for the organization can deactivate a member account using <a href="https://docs.aws.amazon.com/inspector/v2/APIReference/API_BatchUpdateMemberEc2DeepInspectionStatus.html">BatchUpdateMemberEc2DeepInspectionStatus</a>.</p>"""
     package_paths: NotRequired["capo_inspector2.types.path_list.PathList"]
     """<p>The Amazon Inspector deep inspection custom paths you are adding for your account.</p>"""
 

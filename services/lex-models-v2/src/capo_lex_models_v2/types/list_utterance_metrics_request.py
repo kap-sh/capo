@@ -36,7 +36,7 @@ class ListUtteranceMetricsRequest(TypedDict, closed=True):
     group_by: NotRequired[
         "capo_lex_models_v2.types.analytics_utterance_group_by_list.AnalyticsUtteranceGroupByList"
     ]
-    r"""<p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>UtteranceText</code> – The transcription of the utterance.</p> </li> <li> <p> <code>UtteranceState</code> – The state of the utterance. The possible states are detailed in <a href=\"https://docs.aws.amazon.com/analytics-key-definitions-utterances\">Key definitions</a> in the user guide.</p> </li> </ul>"""
+    """<p>A list of objects, each of which specifies how to group the results. You can group by the following criteria:</p> <ul> <li> <p> <code>UtteranceText</code> – The transcription of the utterance.</p> </li> <li> <p> <code>UtteranceState</code> – The state of the utterance. The possible states are detailed in <a href="https://docs.aws.amazon.com/analytics-key-definitions-utterances">Key definitions</a> in the user guide.</p> </li> </ul>"""
     attributes: NotRequired[
         "capo_lex_models_v2.types.analytics_utterance_attributes.AnalyticsUtteranceAttributes"
     ]

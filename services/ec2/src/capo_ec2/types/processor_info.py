@@ -25,7 +25,7 @@ class ProcessorInfo(TypedDict, closed=True):
     supported_features: NotRequired[
         "capo_ec2.types.supported_additional_processor_feature_list.SupportedAdditionalProcessorFeatureList"
     ]
-    r"""<p>Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>, AMD SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html\"> AMD SEV-SNP</a>.</p>"""
+    """<p>Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>, AMD SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.</p>"""
     manufacturer: NotRequired[
         "capo_ec2.types.cpu_manufacturer_name.CpuManufacturerName"
     ]

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class SelfManagedKafkaEventSourceConfig(TypedDict, closed=True):
     consumer_group_id: NotRequired["capo_lambda.types.uri.URI"]
-    r"""<p> The identifier for the Kafka consumer group to join. The consumer group ID must be unique among all your Kafka event sources. After creating a Kafka event source mapping with the consumer group ID specified, you cannot update this value. For more information, see <a href=\"https://docs.aws.amazon.com/lambda/latest/dg/with-kafka-process.html#services-smaa-topic-add\">Customizable consumer group ID</a>.</p>"""
+    """<p> The identifier for the Kafka consumer group to join. The consumer group ID must be unique among all your Kafka event sources. After creating a Kafka event source mapping with the consumer group ID specified, you cannot update this value. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-kafka-process.html#services-smaa-topic-add">Customizable consumer group ID</a>.</p>"""
     schema_registry_config: NotRequired[
         "capo_lambda.types.kafka_schema_registry_config.KafkaSchemaRegistryConfig"
     ]

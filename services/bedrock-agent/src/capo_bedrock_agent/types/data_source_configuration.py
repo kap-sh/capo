@@ -26,15 +26,15 @@ class DataSourceConfiguration(TypedDict, closed=True):
     s3_configuration: NotRequired[
         "capo_bedrock_agent.types.s3_data_source_configuration.S3DataSourceConfiguration"
     ]
-    r"""<p>The configuration information to connect to Amazon S3 as your data source for self-managed knowledge bases. To configure this data source for managed knowledge bases, use <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ManagedKnowledgeBaseConnectorConfiguration.html\">managedKnowledgeBaseConnectorConfiguration</a>.</p>"""
+    """<p>The configuration information to connect to Amazon S3 as your data source for self-managed knowledge bases. To configure this data source for managed knowledge bases, use <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ManagedKnowledgeBaseConnectorConfiguration.html">managedKnowledgeBaseConnectorConfiguration</a>.</p>"""
     web_configuration: NotRequired[
         "capo_bedrock_agent.types.web_data_source_configuration.WebDataSourceConfiguration"
     ]
-    r"""<p>The configuration of web URLs to crawl for your data source. You should be authorized to crawl the URLs.</p> <note> <p>To configure this data source for managed knowledge bases, use <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ManagedKnowledgeBaseConnectorConfiguration.html\">managedKnowledgeBaseConnectorConfiguration</a>. Web crawler data source connector for self-managed knowledge bases is in preview release and is subject to change.</p> </note>"""
+    """<p>The configuration of web URLs to crawl for your data source. You should be authorized to crawl the URLs.</p> <note> <p>To configure this data source for managed knowledge bases, use <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ManagedKnowledgeBaseConnectorConfiguration.html">managedKnowledgeBaseConnectorConfiguration</a>. Web crawler data source connector for self-managed knowledge bases is in preview release and is subject to change.</p> </note>"""
     confluence_configuration: NotRequired[
         "capo_bedrock_agent.types.confluence_data_source_configuration.ConfluenceDataSourceConfiguration"
     ]
-    r"""<p>The configuration information to connect to Confluence as your data source for self-managed knowledge bases.</p> <note> <p>To configure this data source for managed knowledge bases, use <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ManagedKnowledgeBaseConnectorConfiguration.html\">managedKnowledgeBaseConnectorConfiguration</a>. Confluence data source connector for self-managed knowledge bases is in preview release and is subject to change.</p> </note>"""
+    """<p>The configuration information to connect to Confluence as your data source for self-managed knowledge bases.</p> <note> <p>To configure this data source for managed knowledge bases, use <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ManagedKnowledgeBaseConnectorConfiguration.html">managedKnowledgeBaseConnectorConfiguration</a>. Confluence data source connector for self-managed knowledge bases is in preview release and is subject to change.</p> </note>"""
     salesforce_configuration: NotRequired[
         "capo_bedrock_agent.types.salesforce_data_source_configuration.SalesforceDataSourceConfiguration"
     ]
@@ -42,7 +42,7 @@ class DataSourceConfiguration(TypedDict, closed=True):
     share_point_configuration: NotRequired[
         "capo_bedrock_agent.types.share_point_data_source_configuration.SharePointDataSourceConfiguration"
     ]
-    r"""<p>The configuration information to connect to SharePoint as your data source for self-managed knowledge bases.</p> <note> <p>To configure this data source for managed knowledge bases, use <a href=\"https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ManagedKnowledgeBaseConnectorConfiguration.html\">managedKnowledgeBaseConnectorConfiguration</a>. SharePoint data source connector for self-managed knowledge bases is in preview release and is subject to change.</p> </note>"""
+    """<p>The configuration information to connect to SharePoint as your data source for self-managed knowledge bases.</p> <note> <p>To configure this data source for managed knowledge bases, use <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ManagedKnowledgeBaseConnectorConfiguration.html">managedKnowledgeBaseConnectorConfiguration</a>. SharePoint data source connector for self-managed knowledge bases is in preview release and is subject to change.</p> </note>"""
 
 
 # --- restJson1 ser/de ---

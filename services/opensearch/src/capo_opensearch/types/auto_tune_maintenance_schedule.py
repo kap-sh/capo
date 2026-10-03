@@ -14,7 +14,7 @@ class AutoTuneMaintenanceSchedule(TypedDict, closed=True):
     start_at: NotRequired["capo_opensearch.types.start_at.StartAt"]
     """<p>The Epoch timestamp at which the Auto-Tune maintenance schedule starts.</p>"""
     duration: NotRequired["capo_opensearch.types.duration.Duration"]
-    r"""<p>The duration of the maintenance schedule. For example, <code>\"Duration\": {\"Value\": 2, \"Unit\": \"HOURS\"}</code>.</p>"""
+    """<p>The duration of the maintenance schedule. For example, <code>"Duration": {"Value": 2, "Unit": "HOURS"}</code>.</p>"""
     cron_expression_for_recurrence: NotRequired["capo_opensearch.types.string.String"]
     """<p>A cron expression for a recurring maintenance schedule during which Auto-Tune can deploy changes.</p>"""
 

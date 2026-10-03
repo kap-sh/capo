@@ -13,7 +13,7 @@ class ComponentDependencyRequirement(TypedDict, closed=True):
     version_requirement: NotRequired[
         "capo_greengrassv2.types.non_empty_string.NonEmptyString"
     ]
-    r"""<p>The component version requirement for the component dependency.</p> <p>IoT Greengrass V2 uses semantic version constraints. For more information, see <a href=\"https://semver.org/\">Semantic Versioning</a>.</p>"""
+    """<p>The component version requirement for the component dependency.</p> <p>IoT Greengrass V2 uses semantic version constraints. For more information, see <a href="https://semver.org/">Semantic Versioning</a>.</p>"""
     dependency_type: NotRequired[
         "capo_greengrassv2.types.component_dependency_type.ComponentDependencyType"
     ]

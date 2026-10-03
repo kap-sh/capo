@@ -152,15 +152,15 @@ class DBCluster(TypedDict, closed=True):
     enabled_cloudwatch_logs_exports: NotRequired[
         "capo_rds.types.log_type_list.LogTypeList"
     ]
-    r"""<p>A list of log types that this DB cluster is configured to export to CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the log types for each DB engine, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html\">Amazon RDS Database Log Files</a> in the <i>Amazon Aurora User Guide.</i> </p>"""
+    """<p>A list of log types that this DB cluster is configured to export to CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the log types for each DB engine, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html">Amazon RDS Database Log Files</a> in the <i>Amazon Aurora User Guide.</i> </p>"""
     capacity: NotRequired["capo_rds.types.integer_optional.IntegerOptional"]
-    r"""<p>The current capacity of an Aurora Serverless v1 DB cluster. The capacity is <code>0</code> (zero) when the cluster is paused.</p> <p>For more information about Aurora Serverless v1, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html\">Using Amazon Aurora Serverless v1</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
+    """<p>The current capacity of an Aurora Serverless v1 DB cluster. The capacity is <code>0</code> (zero) when the cluster is paused.</p> <p>For more information about Aurora Serverless v1, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html">Using Amazon Aurora Serverless v1</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
     pending_modified_values: NotRequired[
         "capo_rds.types.cluster_pending_modified_values.ClusterPendingModifiedValues"
     ]
     """<p>Information about pending changes to the DB cluster. This information is returned only when there are pending changes. Specific changes are identified by subelements.</p>"""
     engine_mode: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html\"> CreateDBCluster</a>.</p>"""
+    """<p>The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.</p>"""
     scaling_configuration_info: NotRequired[
         "capo_rds.types.scaling_configuration_info.ScalingConfigurationInfo"
     ]
@@ -183,13 +183,13 @@ class DBCluster(TypedDict, closed=True):
     publicly_accessible: NotRequired["capo_rds.types.boolean_optional.BooleanOptional"]
     """<p>Indicates whether the DB cluster is publicly accessible.</p> <p>When the DB cluster is publicly accessible and you connect from outside of the DB cluster's virtual private cloud (VPC), its Domain Name System (DNS) endpoint resolves to the public IP address. When you connect from within the same VPC as the DB cluster, the endpoint resolves to the private IP address. Access to the DB cluster is ultimately controlled by the security group it uses. That public access isn't permitted if the security group assigned to the DB cluster doesn't permit it.</p> <p>When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves to a private IP address.</p> <p>For more information, see <a>CreateDBCluster</a>.</p> <p>This setting is only for non-Aurora Multi-AZ DB clusters.</p>"""
     auto_minor_version_upgrade: NotRequired["capo_rds.types.boolean.Boolean"]
-    r"""<p>Indicates whether minor version patches are applied automatically.</p> <p>This setting is for Aurora DB clusters and Multi-AZ DB clusters.</p> <p>For more information about automatic minor version upgrades, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Upgrading.html#USER_UpgradeDBInstance.Upgrading.AutoMinorVersionUpgrades\">Automatically upgrading the minor engine version</a>.</p>"""
+    """<p>Indicates whether minor version patches are applied automatically.</p> <p>This setting is for Aurora DB clusters and Multi-AZ DB clusters.</p> <p>For more information about automatic minor version upgrades, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Upgrading.html#USER_UpgradeDBInstance.Upgrading.AutoMinorVersionUpgrades">Automatically upgrading the minor engine version</a>.</p>"""
     deletion_protection: NotRequired["capo_rds.types.boolean_optional.BooleanOptional"]
     """<p>Indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion protection is enabled.</p>"""
     http_endpoint_enabled: NotRequired[
         "capo_rds.types.boolean_optional.BooleanOptional"
     ]
-    r"""<p>Indicates whether the HTTP endpoint is enabled for an Aurora DB cluster.</p> <p>When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL queries on the DB cluster. You can also query your database from inside the RDS console with the RDS query editor.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html\">Using RDS Data API</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
+    """<p>Indicates whether the HTTP endpoint is enabled for an Aurora DB cluster.</p> <p>When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL queries on the DB cluster. You can also query your database from inside the RDS console with the RDS query editor.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
     activity_stream_mode: NotRequired[
         "capo_rds.types.activity_stream_mode.ActivityStreamMode"
     ]
@@ -226,14 +226,14 @@ class DBCluster(TypedDict, closed=True):
     ]
     """<p>Indicates whether write forwarding is enabled for a secondary cluster in an Aurora global database. Because write forwarding takes time to enable, check the value of <code>GlobalWriteForwardingStatus</code> to confirm that the request has completed before using the write forwarding feature for this cluster.</p>"""
     network_type: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The network type of the DB instance.</p> <p>The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html\"> Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i> </p> <p>This setting is only for Aurora DB clusters.</p> <p>Valid Values: <code>IPV4 | DUAL</code> </p>"""
+    """<p>The network type of the DB instance.</p> <p>The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i> </p> <p>This setting is only for Aurora DB clusters.</p> <p>Valid Values: <code>IPV4 | DUAL</code> </p>"""
     automatic_restart_time: NotRequired["capo_rds.types.t_stamp.TStamp"]
     """<p>The time when a stopped DB cluster is restarted automatically.</p>"""
     serverless_v2_scaling_configuration: NotRequired[
         "capo_rds.types.serverless_v2_scaling_configuration_info.ServerlessV2ScalingConfigurationInfo"
     ]
     serverless_v2_platform_version: NotRequired["capo_rds.types.string.String"]
-    r"""<p>The version of the Aurora Serverless V2 platform used by the DB cluster. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html\">Using Aurora Serverless v2</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
+    """<p>The version of the Aurora Serverless V2 platform used by the DB cluster. For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html">Using Aurora Serverless v2</a> in the <i>Amazon Aurora User Guide</i>.</p>"""
     monitoring_interval: NotRequired["capo_rds.types.integer_optional.IntegerOptional"]
     """<p>The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB cluster.</p> <p>This setting is only for -Aurora DB clusters and Multi-AZ DB clusters.</p>"""
     monitoring_role_arn: NotRequired["capo_rds.types.string.String"]
@@ -257,7 +257,7 @@ class DBCluster(TypedDict, closed=True):
     master_user_secret: NotRequired[
         "capo_rds.types.master_user_secret.MasterUserSecret"
     ]
-    r"""<p>The secret managed by RDS in Amazon Web Services Secrets Manager for the master user password.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html\">Password management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a href=\"https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html\">Password management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i> </p>"""
+    """<p>The secret managed by RDS in Amazon Web Services Secrets Manager for the master user password.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i> </p>"""
     local_write_forwarding_status: NotRequired[
         "capo_rds.types.local_write_forwarding_status.LocalWriteForwardingStatus"
     ]

@@ -26,7 +26,7 @@ class SecretValueEntry(TypedDict, closed=True):
     secret_binary: NotRequired[
         "capo_secrets_manager.types.secret_binary_type.SecretBinaryType"
     ]
-    r"""<p>The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte array. The parameter represents the binary data as a <a href=\"https://tools.ietf.org/html/rfc4648#section-4\">base64-encoded</a> string.</p>"""
+    """<p>The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte array. The parameter represents the binary data as a <a href="https://tools.ietf.org/html/rfc4648#section-4">base64-encoded</a> string.</p>"""
     secret_string: NotRequired[
         "capo_secrets_manager.types.secret_string_type.SecretStringType"
     ]

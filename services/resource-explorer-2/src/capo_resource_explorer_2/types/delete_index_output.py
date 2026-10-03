@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DeleteIndexOutput(TypedDict, closed=True):
     arn: NotRequired["str"]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon resource name (ARN)</a> of the index that you successfully started the deletion process.</p> <note> <p>This operation is asynchronous. To check its status, call the <a>GetIndex</a> operation.</p> </note>"""
+    """<p>The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon resource name (ARN)</a> of the index that you successfully started the deletion process.</p> <note> <p>This operation is asynchronous. To check its status, call the <a>GetIndex</a> operation.</p> </note>"""
     state: NotRequired["capo_resource_explorer_2.types.index_state.IndexState"]
     """<p>Indicates the current state of the index. </p>"""
     last_updated_at: NotRequired["datetime.datetime"]

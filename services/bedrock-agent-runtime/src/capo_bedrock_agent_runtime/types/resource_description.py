@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""/ @documentation(\"Description of the using the resource.\")"""
+"""/ @documentation("Description of the using the resource.")"""
 ResourceDescription: TypeAlias = str

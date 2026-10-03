@@ -33,21 +33,21 @@ class Target(TypedDict, closed=True):
     input: NotRequired["capo_scheduler.types.target_input.TargetInput"]
     """<p>The text, or well-formed JSON, passed to the target. If you are configuring a templated Lambda, AWS Step Functions, or Amazon EventBridge target, the input must be a well-formed JSON. For all other target types, a JSON is not required. If you do not specify anything for this field, EventBridge Scheduler delivers a default notification to the target.</p>"""
     ecs_parameters: NotRequired["capo_scheduler.types.ecs_parameters.EcsParameters"]
-    r"""<p>The templated target type for the Amazon ECS <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html\"> <code>RunTask</code> </a> API operation.</p>"""
+    """<p>The templated target type for the Amazon ECS <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html"> <code>RunTask</code> </a> API operation.</p>"""
     event_bridge_parameters: NotRequired[
         "capo_scheduler.types.event_bridge_parameters.EventBridgeParameters"
     ]
-    r"""<p>The templated target type for the EventBridge <a href=\"https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html\"> <code>PutEvents</code> </a> API operation.</p>"""
+    """<p>The templated target type for the EventBridge <a href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html"> <code>PutEvents</code> </a> API operation.</p>"""
     kinesis_parameters: NotRequired[
         "capo_scheduler.types.kinesis_parameters.KinesisParameters"
     ]
-    r"""<p>The templated target type for the Amazon Kinesis <a href=\"kinesis/latest/APIReference/API_PutRecord.html\"> <code>PutRecord</code> </a> API operation.</p>"""
+    """<p>The templated target type for the Amazon Kinesis <a href="kinesis/latest/APIReference/API_PutRecord.html"> <code>PutRecord</code> </a> API operation.</p>"""
     sage_maker_pipeline_parameters: NotRequired[
         "capo_scheduler.types.sage_maker_pipeline_parameters.SageMakerPipelineParameters"
     ]
-    r"""<p>The templated target type for the Amazon SageMaker <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_StartPipelineExecution.html\"> <code>StartPipelineExecution</code> </a> API operation.</p>"""
+    """<p>The templated target type for the Amazon SageMaker <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_StartPipelineExecution.html"> <code>StartPipelineExecution</code> </a> API operation.</p>"""
     sqs_parameters: NotRequired["capo_scheduler.types.sqs_parameters.SqsParameters"]
-    r"""<p>The templated target type for the Amazon SQS <a href=\"https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html\"> <code>SendMessage</code> </a> API operation. Contains the message group ID to use when the target is a FIFO queue. If you specify an Amazon SQS FIFO queue as a target, the queue must have content-based deduplication enabled. For more information, see <a href=\"https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html\">Using the Amazon SQS message deduplication ID</a> in the <i>Amazon SQS Developer Guide</i>.</p>"""
+    """<p>The templated target type for the Amazon SQS <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html"> <code>SendMessage</code> </a> API operation. Contains the message group ID to use when the target is a FIFO queue. If you specify an Amazon SQS FIFO queue as a target, the queue must have content-based deduplication enabled. For more information, see <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html">Using the Amazon SQS message deduplication ID</a> in the <i>Amazon SQS Developer Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---

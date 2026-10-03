@@ -23,7 +23,7 @@ class CheckoutBorrowLicenseRequest(TypedDict, closed=True):
     digital_signature_method: (
         "capo_license_manager.types.digital_signature_method.DigitalSignatureMethod"
     )
-    r"""<p>Digital signature method. The possible value is JSON Web Signature (JWS) algorithm PS384. For more information, see <a href=\"https://tools.ietf.org/html/rfc7518#section-3.5\">RFC 7518 Digital Signature with RSASSA-PSS</a>.</p>"""
+    """<p>Digital signature method. The possible value is JSON Web Signature (JWS) algorithm PS384. For more information, see <a href="https://tools.ietf.org/html/rfc7518#section-3.5">RFC 7518 Digital Signature with RSASSA-PSS</a>.</p>"""
     node_id: NotRequired["capo_license_manager.types.string.String"]
     """<p>Node ID.</p>"""
     checkout_metadata: NotRequired[

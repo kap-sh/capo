@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ReplicationConfiguration(TypedDict, closed=True):
     role: "capo_s3.types.role.Role"
-    r"""<p>The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that Amazon S3 assumes when replicating objects. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-how-setup.html\">How to Set Up Replication</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that Amazon S3 assumes when replicating objects. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-how-setup.html">How to Set Up Replication</a> in the <i>Amazon S3 User Guide</i>.</p>"""
     rules: "capo_s3.types.replication_rules.ReplicationRules"
     """<p>A container for one or more replication rules. A replication configuration must have at least one rule and can contain a maximum of 1,000 rules. </p>"""
 

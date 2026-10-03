@@ -19,7 +19,7 @@ class EffectivePolicyValidationError(TypedDict, closed=True):
     path_to_error: NotRequired["capo_organizations.types.path_to_error.PathToError"]
     """<p>The path within the effective policy where the validation error occurred.</p>"""
     contributing_policies: NotRequired["capo_organizations.types.policy_ids.PolicyIds"]
-    r"""<p>The individual policies <a href=\"https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inheritance_mgmt.html\">inherited</a> and <a href=\"https://docs.aws.amazon.com/organizations/latest/userguide/orgs_policies_attach.html\">attached</a> to the account which contributed to the validation error.</p>"""
+    """<p>The individual policies <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inheritance_mgmt.html">inherited</a> and <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_policies_attach.html">attached</a> to the account which contributed to the validation error.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

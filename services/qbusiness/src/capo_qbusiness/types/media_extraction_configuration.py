@@ -14,7 +14,7 @@ class MediaExtractionConfiguration(TypedDict, closed=True):
     image_extraction_configuration: NotRequired[
         "capo_qbusiness.types.image_extraction_configuration.ImageExtractionConfiguration"
     ]
-    r"""<p>The configuration for extracting semantic meaning from images in documents. For more information, see <a href=\"https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/extracting-meaning-from-images.html\">Extracting semantic meaning from images and visuals</a>. </p>"""
+    """<p>The configuration for extracting semantic meaning from images in documents. For more information, see <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/extracting-meaning-from-images.html">Extracting semantic meaning from images and visuals</a>. </p>"""
     audio_extraction_configuration: NotRequired[
         "capo_qbusiness.types.audio_extraction_configuration.AudioExtractionConfiguration"
     ]

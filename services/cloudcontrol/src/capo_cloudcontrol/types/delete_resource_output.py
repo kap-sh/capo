@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class DeleteResourceOutput(TypedDict, closed=True):
     progress_event: NotRequired["capo_cloudcontrol.types.progress_event.ProgressEvent"]
-    r"""<p>Represents the current status of the resource deletion request.</p> <p>After you have initiated a resource deletion request, you can monitor the progress of your request by calling <a href=\"https://docs.aws.amazon.com/cloudcontrolapi/latest/APIReference/API_GetResourceRequestStatus.html\">GetResourceRequestStatus</a> using the <code>RequestToken</code> of the <code>ProgressEvent</code> returned by <code>DeleteResource</code>.</p>"""
+    """<p>Represents the current status of the resource deletion request.</p> <p>After you have initiated a resource deletion request, you can monitor the progress of your request by calling <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/APIReference/API_GetResourceRequestStatus.html">GetResourceRequestStatus</a> using the <code>RequestToken</code> of the <code>ProgressEvent</code> returned by <code>DeleteResource</code>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

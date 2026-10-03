@@ -18,7 +18,7 @@ class ExportToS3TaskSpecification(TypedDict, closed=True):
     container_format: NotRequired["capo_ec2.types.container_format.ContainerFormat"]
     """<p>The container format used to combine disk images with metadata (such as OVF). If absent, only the disk image is exported.</p>"""
     s3_bucket: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access control list (ACL) attached that specifies the Region-specific canonical account ID for the <code>Grantee</code>. For more information about the ACL to your S3 bucket, see <a href=\"https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites\">Prerequisites</a> in the VM Import/Export User Guide.</p>"""
+    """<p>The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access control list (ACL) attached that specifies the Region-specific canonical account ID for the <code>Grantee</code>. For more information about the ACL to your S3 bucket, see <a href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites">Prerequisites</a> in the VM Import/Export User Guide.</p>"""
     s3_prefix: NotRequired["capo_ec2.types.string.String"]
     """<p>The image is written to a single object in the Amazon S3 bucket at the S3 key s3prefix + exportTaskId + '.' + diskImageFormat.</p>"""
 

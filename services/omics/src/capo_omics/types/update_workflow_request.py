@@ -22,7 +22,7 @@ class UpdateWorkflowRequest(TypedDict, closed=True):
     ]
     """<p>A description for the workflow.</p>"""
     storage_type: NotRequired["capo_omics.types.storage_type.StorageType"]
-    r"""<p>The default storage type for runs that use this workflow. STATIC storage allocates a fixed amount of storage. DYNAMIC storage dynamically scales the storage up or down, based on file system utilization. For more information about static and dynamic storage, see <a href=\"https://docs.aws.amazon.com/omics/latest/dev/Using-workflows.html\">Running workflows</a> in the <i>Amazon Web Services HealthOmics User Guide</i>. </p>"""
+    """<p>The default storage type for runs that use this workflow. STATIC storage allocates a fixed amount of storage. DYNAMIC storage dynamically scales the storage up or down, based on file system utilization. For more information about static and dynamic storage, see <a href="https://docs.aws.amazon.com/omics/latest/dev/Using-workflows.html">Running workflows</a> in the <i>Amazon Web Services HealthOmics User Guide</i>. </p>"""
     storage_capacity: NotRequired["int"]
     """<p>The default static storage capacity (in gibibytes) for runs that use this workflow or workflow version. </p>"""
     readme_markdown: NotRequired["capo_omics.types.readme_markdown.ReadmeMarkdown"]

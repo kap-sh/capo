@@ -27,11 +27,11 @@ class X12InterchangeControlHeaders(TypedDict, closed=True):
     repetition_separator: NotRequired[
         "capo_b2bi.types.x12_repetition_separator.X12RepetitionSeparator"
     ]
-    r"""<p>Located at position ISA-11 in the header. This string makes it easier when you need to group similar adjacent element values together without using extra segments.</p> <note> <p>This parameter is only honored for version greater than 401 (<code>VERSION_4010</code> and higher).</p> <p>For versions less than 401, this field is called <a href=\"https://www.stedi.com/edi/x12-004010/segment/ISA#ISA-11\">StandardsId</a>, in which case our service sets the value to <code>U</code>.</p> </note>"""
+    """<p>Located at position ISA-11 in the header. This string makes it easier when you need to group similar adjacent element values together without using extra segments.</p> <note> <p>This parameter is only honored for version greater than 401 (<code>VERSION_4010</code> and higher).</p> <p>For versions less than 401, this field is called <a href="https://www.stedi.com/edi/x12-004010/segment/ISA#ISA-11">StandardsId</a>, in which case our service sets the value to <code>U</code>.</p> </note>"""
     acknowledgment_requested_code: NotRequired[
         "capo_b2bi.types.x12_acknowledgment_requested_code.X12AcknowledgmentRequestedCode"
     ]
-    r"""<p>Located at position ISA-14 in the header. The value \"1\" indicates that the sender is requesting an interchange acknowledgment at receipt of the interchange. The value \"0\" is used otherwise.</p>"""
+    """<p>Located at position ISA-14 in the header. The value "1" indicates that the sender is requesting an interchange acknowledgment at receipt of the interchange. The value "0" is used otherwise.</p>"""
     usage_indicator_code: NotRequired[
         "capo_b2bi.types.x12_usage_indicator_code.X12UsageIndicatorCode"
     ]

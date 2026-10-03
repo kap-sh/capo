@@ -32,9 +32,9 @@ class AdvancedSecurityOptions(TypedDict, closed=True):
     anonymous_auth_disable_date: NotRequired[
         "capo_opensearch.types.disable_timestamp.DisableTimestamp"
     ]
-    r"""<p>Date and time when the migration period will be disabled. Only necessary when <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html#fgac-enabling-existing\">enabling fine-grained access control on an existing domain</a>.</p>"""
+    """<p>Date and time when the migration period will be disabled. Only necessary when <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html#fgac-enabling-existing">enabling fine-grained access control on an existing domain</a>.</p>"""
     anonymous_auth_enabled: NotRequired["capo_opensearch.types.boolean.Boolean"]
-    r"""<p>True if a 30-day migration period is enabled, during which administrators can create role mappings. Only necessary when <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html#fgac-enabling-existing\">enabling fine-grained access control on an existing domain</a>.</p>"""
+    """<p>True if a 30-day migration period is enabled, during which administrators can create role mappings. Only necessary when <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html#fgac-enabling-existing">enabling fine-grained access control on an existing domain</a>.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -22,15 +22,15 @@ class ProvisionIpamPoolCidrRequest(TypedDict, closed=True):
     ipam_pool_id: NotRequired["capo_ec2.types.ipam_pool_id.IpamPoolId"]
     """<p>The ID of the IPAM pool to which you want to assign a CIDR.</p>"""
     cidr: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The CIDR you want to assign to the IPAM pool. Either \"NetmaskLength\" or \"Cidr\" is required. This value will be null if you specify \"NetmaskLength\" and will be filled in during the provisioning process.</p>"""
+    """<p>The CIDR you want to assign to the IPAM pool. Either "NetmaskLength" or "Cidr" is required. This value will be null if you specify "NetmaskLength" and will be filled in during the provisioning process.</p>"""
     cidr_authorization_context: NotRequired[
         "capo_ec2.types.ipam_cidr_authorization_context.IpamCidrAuthorizationContext"
     ]
     """<p>A signed document that proves that you are authorized to bring a specified IP address range to Amazon using BYOIP. This option only applies to IPv4 and IPv6 pools in the public scope.</p>"""
     netmask_length: NotRequired["capo_ec2.types.integer.Integer"]
-    r"""<p>The netmask length of the CIDR you'd like to provision to a pool. Can be used for provisioning Amazon-provided IPv6 CIDRs to top-level pools and for provisioning CIDRs to pools with source pools. Cannot be used to provision BYOIP CIDRs to top-level pools. Either \"NetmaskLength\" or \"Cidr\" is required.</p>"""
+    """<p>The netmask length of the CIDR you'd like to provision to a pool. Can be used for provisioning Amazon-provided IPv6 CIDRs to top-level pools and for provisioning CIDRs to pools with source pools. Cannot be used to provision BYOIP CIDRs to top-level pools. Either "NetmaskLength" or "Cidr" is required.</p>"""
     client_token: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href=\"https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html\">Ensuring idempotency</a>.</p>"""
+    """<p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.</p>"""
     verification_method: NotRequired[
         "capo_ec2.types.verification_method.VerificationMethod"
     ]

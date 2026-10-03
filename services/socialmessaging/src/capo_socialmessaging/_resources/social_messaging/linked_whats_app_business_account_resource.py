@@ -166,10 +166,10 @@ class LinkedWhatsAppBusinessAccountResource:
         *,
         config_overrides: Optional[SocialMessagingClientConfig] = None,
     ) -> "capo_socialmessaging.types.get_linked_whats_app_business_account_output.GetLinkedWhatsAppBusinessAccountOutput":
-        r"""<p>Get the details of your linked WhatsApp Business Account.</p>
+        """<p>Get the details of your linked WhatsApp Business Account.</p>
 
         Args:
-            id: <p>The unique identifier, from Amazon Web Services, of the linked WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html\">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
+            id: <p>The unique identifier, from Amazon Web Services, of the linked WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
 
         Raises:
             capo_socialmessaging.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -215,10 +215,10 @@ class LinkedWhatsAppBusinessAccountResource:
         *,
         config_overrides: Optional[SocialMessagingClientConfig] = None,
     ) -> "capo_socialmessaging.types.disassociate_whats_app_business_account_output.DisassociateWhatsAppBusinessAccountOutput":
-        r"""<p>Disassociate a WhatsApp Business Account (WABA) from your Amazon Web Services account.</p>
+        """<p>Disassociate a WhatsApp Business Account (WABA) from your Amazon Web Services account.</p>
 
         Args:
-            id: <p>The unique identifier of your WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html\">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
+            id: <p>The unique identifier of your WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
 
         Raises:
             capo_socialmessaging.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1256,10 +1256,10 @@ class LinkedWhatsAppBusinessAccountResource:
         *,
         config_overrides: Optional[SocialMessagingClientConfig] = None,
     ) -> "capo_socialmessaging.types.put_whats_app_business_account_event_destinations_output.PutWhatsAppBusinessAccountEventDestinationsOutput":
-        r"""<p>Add an event destination to log event data from WhatsApp for a WhatsApp Business Account (WABA). A WABA can only have one event destination at a time. All resources associated with the WABA use the same event destination.</p>
+        """<p>Add an event destination to log event data from WhatsApp for a WhatsApp Business Account (WABA). A WABA can only have one event destination at a time. All resources associated with the WABA use the same event destination.</p>
 
         Args:
-            id: <p>The unique identifier of your WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html\">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
+            id: <p>The unique identifier of your WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
             event_destinations: <p>An array of <code>WhatsAppBusinessAccountEventDestination</code> event destinations.</p>
 
         Raises:
@@ -1307,12 +1307,12 @@ class LinkedWhatsAppBusinessAccountResource:
         *,
         config_overrides: Optional[SocialMessagingClientConfig] = None,
     ) -> "capo_socialmessaging.types.send_whats_app_conversion_event_output.SendWhatsAppConversionEventOutput":
-        r"""<p>Sends a conversion event to Meta's Conversions API for the specified WhatsApp Business Account dataset.</p>
+        """<p>Sends a conversion event to Meta's Conversions API for the specified WhatsApp Business Account dataset.</p>
 
         Args:
             id: <p>The ID of the WhatsApp Business Account associated with the dataset, formatted as <code>waba-01234567890123456789012345678901</code>.</p>
             dataset_id: <p>The Meta-generated dataset ID to send the event to.</p>
-            event_data: <p>The raw Meta Conversions API event payload as a JSON blob. See <a href=\"https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event\">Meta's server event parameters</a> for the supported format.</p>
+            event_data: <p>The raw Meta Conversions API event payload as a JSON blob. See <a href="https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event">Meta's server event parameters</a> for the supported format.</p>
 
         Raises:
             capo_socialmessaging.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1374,7 +1374,7 @@ class LinkedWhatsAppBusinessAccountResource:
             "capo_socialmessaging.types.meta_flow_application_id.MetaFlowApplicationId"
         ] = None,
     ) -> "capo_socialmessaging.types.update_whats_app_flow_output.UpdateWhatsAppFlowOutput":
-        r"""<p>Updates the metadata of a WhatsApp Flow, such as its name or categories. This does not update the Flow JSON definition. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_UpdateWhatsAppFlowAssets.html\">UpdateWhatsAppFlowAssets</a> to update the Flow JSON.</p>
+        """<p>Updates the metadata of a WhatsApp Flow, such as its name or categories. This does not update the Flow JSON definition. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_UpdateWhatsAppFlowAssets.html">UpdateWhatsAppFlowAssets</a> to update the Flow JSON.</p>
 
         Args:
             id: <p>The ID of the WhatsApp Business Account associated with this Flow.</p>
@@ -1648,10 +1648,10 @@ class AsyncLinkedWhatsAppBusinessAccountResource:
         *,
         config_overrides: Optional[AsyncSocialMessagingClientConfig] = None,
     ) -> "capo_socialmessaging.types.get_linked_whats_app_business_account_output.GetLinkedWhatsAppBusinessAccountOutput":
-        r"""<p>Get the details of your linked WhatsApp Business Account.</p>
+        """<p>Get the details of your linked WhatsApp Business Account.</p>
 
         Args:
-            id: <p>The unique identifier, from Amazon Web Services, of the linked WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html\">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
+            id: <p>The unique identifier, from Amazon Web Services, of the linked WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
 
         Raises:
             capo_socialmessaging.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1698,10 +1698,10 @@ class AsyncLinkedWhatsAppBusinessAccountResource:
         *,
         config_overrides: Optional[AsyncSocialMessagingClientConfig] = None,
     ) -> "capo_socialmessaging.types.disassociate_whats_app_business_account_output.DisassociateWhatsAppBusinessAccountOutput":
-        r"""<p>Disassociate a WhatsApp Business Account (WABA) from your Amazon Web Services account.</p>
+        """<p>Disassociate a WhatsApp Business Account (WABA) from your Amazon Web Services account.</p>
 
         Args:
-            id: <p>The unique identifier of your WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html\">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
+            id: <p>The unique identifier of your WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
 
         Raises:
             capo_socialmessaging.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -2757,10 +2757,10 @@ class AsyncLinkedWhatsAppBusinessAccountResource:
         *,
         config_overrides: Optional[AsyncSocialMessagingClientConfig] = None,
     ) -> "capo_socialmessaging.types.put_whats_app_business_account_event_destinations_output.PutWhatsAppBusinessAccountEventDestinationsOutput":
-        r"""<p>Add an event destination to log event data from WhatsApp for a WhatsApp Business Account (WABA). A WABA can only have one event destination at a time. All resources associated with the WABA use the same event destination.</p>
+        """<p>Add an event destination to log event data from WhatsApp for a WhatsApp Business Account (WABA). A WABA can only have one event destination at a time. All resources associated with the WABA use the same event destination.</p>
 
         Args:
-            id: <p>The unique identifier of your WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html\">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
+            id: <p>The unique identifier of your WhatsApp Business Account. WABA identifiers are formatted as <code>waba-01234567890123456789012345678901</code>. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_ListLinkedWhatsAppBusinessAccounts.html">ListLinkedWhatsAppBusinessAccounts</a> to list all WABAs and their details.</p>
             event_destinations: <p>An array of <code>WhatsAppBusinessAccountEventDestination</code> event destinations.</p>
 
         Raises:
@@ -2809,12 +2809,12 @@ class AsyncLinkedWhatsAppBusinessAccountResource:
         *,
         config_overrides: Optional[AsyncSocialMessagingClientConfig] = None,
     ) -> "capo_socialmessaging.types.send_whats_app_conversion_event_output.SendWhatsAppConversionEventOutput":
-        r"""<p>Sends a conversion event to Meta's Conversions API for the specified WhatsApp Business Account dataset.</p>
+        """<p>Sends a conversion event to Meta's Conversions API for the specified WhatsApp Business Account dataset.</p>
 
         Args:
             id: <p>The ID of the WhatsApp Business Account associated with the dataset, formatted as <code>waba-01234567890123456789012345678901</code>.</p>
             dataset_id: <p>The Meta-generated dataset ID to send the event to.</p>
-            event_data: <p>The raw Meta Conversions API event payload as a JSON blob. See <a href=\"https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event\">Meta's server event parameters</a> for the supported format.</p>
+            event_data: <p>The raw Meta Conversions API event payload as a JSON blob. See <a href="https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event">Meta's server event parameters</a> for the supported format.</p>
 
         Raises:
             capo_socialmessaging.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -2877,7 +2877,7 @@ class AsyncLinkedWhatsAppBusinessAccountResource:
             "capo_socialmessaging.types.meta_flow_application_id.MetaFlowApplicationId"
         ] = None,
     ) -> "capo_socialmessaging.types.update_whats_app_flow_output.UpdateWhatsAppFlowOutput":
-        r"""<p>Updates the metadata of a WhatsApp Flow, such as its name or categories. This does not update the Flow JSON definition. Use <a href=\"https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_UpdateWhatsAppFlowAssets.html\">UpdateWhatsAppFlowAssets</a> to update the Flow JSON.</p>
+        """<p>Updates the metadata of a WhatsApp Flow, such as its name or categories. This does not update the Flow JSON definition. Use <a href="https://docs.aws.amazon.com/social-messaging/latest/APIReference/API_UpdateWhatsAppFlowAssets.html">UpdateWhatsAppFlowAssets</a> to update the Flow JSON.</p>
 
         Args:
             id: <p>The ID of the WhatsApp Business Account associated with this Flow.</p>

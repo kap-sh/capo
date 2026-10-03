@@ -23,7 +23,7 @@ class PutOrganizationConformancePackRequest(TypedDict, closed=True):
     template_s3_uri: NotRequired[
         "capo_config_service.types.template_s3_uri.TemplateS3Uri"
     ]
-    r"""<p>Location of file containing the template body. The uri must point to the conformance pack template (max size: 300 KB).</p> <note> <p>You must have access to read Amazon S3 bucket. In addition, in order to ensure a successful deployment, the template object must not be in an <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html\">archived storage class</a> if this parameter is passed.</p> </note>"""
+    """<p>Location of file containing the template body. The uri must point to the conformance pack template (max size: 300 KB).</p> <note> <p>You must have access to read Amazon S3 bucket. In addition, in order to ensure a successful deployment, the template object must not be in an <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html">archived storage class</a> if this parameter is passed.</p> </note>"""
     template_body: NotRequired["capo_config_service.types.template_body.TemplateBody"]
     """<p>A string that contains the full conformance pack template body. Structure containing the template body with a minimum length of 1 byte and a maximum length of 51,200 bytes.</p>"""
     delivery_s3_bucket: NotRequired[

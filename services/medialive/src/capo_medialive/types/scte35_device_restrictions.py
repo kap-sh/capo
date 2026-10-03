@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""Corresponds to the device_restrictions parameter in a segmentation_descriptor. If you include one of the \"restriction\" flags then you must include all four of them."""
+"""Corresponds to the device_restrictions parameter in a segmentation_descriptor. If you include one of the "restriction" flags then you must include all four of them."""
 Scte35DeviceRestrictions: TypeAlias = Literal[
     "NONE",
     "RESTRICT_GROUP0",

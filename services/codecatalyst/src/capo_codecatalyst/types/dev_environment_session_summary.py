@@ -20,7 +20,7 @@ class DevEnvironmentSessionSummary(TypedDict, closed=True):
     dev_environment_id: "capo_codecatalyst.types.uuid.Uuid"
     """<p>The system-generated unique ID of the Dev Environment.</p>"""
     started_time: "capo_codecatalyst.types.timestamp.Timestamp"
-    r"""<p>The date and time the session started, in coordinated universal time (UTC) timestamp format as specified in <a href=\"https://www.rfc-editor.org/rfc/rfc3339#section-5.6\">RFC 3339</a> </p>"""
+    """<p>The date and time the session started, in coordinated universal time (UTC) timestamp format as specified in <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a> </p>"""
     id: "str"
     """<p>The system-generated unique ID of the Dev Environment session.</p>"""
 

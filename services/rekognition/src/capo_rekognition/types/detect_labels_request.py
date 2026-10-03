@@ -28,7 +28,7 @@ class DetectLabelsRequest(TypedDict, closed=True):
     settings: NotRequired[
         "capo_rekognition.types.detect_labels_settings.DetectLabelsSettings"
     ]
-    r"""<p>A list of the filters to be applied to returned detected labels and image properties. Specified filters can be inclusive, exclusive, or a combination of both. Filters can be used for individual labels or label categories. The exact label names or label categories must be supplied. For a full list of labels and label categories, see <a href=\"https://docs.aws.amazon.com/rekognition/latest/dg/labels.html\">Detecting labels</a>.</p>"""
+    """<p>A list of the filters to be applied to returned detected labels and image properties. Specified filters can be inclusive, exclusive, or a combination of both. Filters can be used for individual labels or label categories. The exact label names or label categories must be supplied. For a full list of labels and label categories, see <a href="https://docs.aws.amazon.com/rekognition/latest/dg/labels.html">Detecting labels</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

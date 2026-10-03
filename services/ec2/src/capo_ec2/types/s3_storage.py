@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class S3Storage(TypedDict, closed=True):
     aws_access_key_id: NotRequired["capo_ec2.types.string.String"]
-    r"""<p>The access key ID of the owner of the bucket. Before you specify a value for your access key ID, review and follow the guidance in <a href=\"https://docs.aws.amazon.com/accounts/latest/reference/best-practices.html\">Best Practices for Amazon Web Services accounts</a> in the <i>Account ManagementReference Guide</i>.</p>"""
+    """<p>The access key ID of the owner of the bucket. Before you specify a value for your access key ID, review and follow the guidance in <a href="https://docs.aws.amazon.com/accounts/latest/reference/best-practices.html">Best Practices for Amazon Web Services accounts</a> in the <i>Account ManagementReference Guide</i>.</p>"""
     bucket: NotRequired["capo_ec2.types.string.String"]
     """<p>The bucket in which to store the AMI. You can specify a bucket that you already own or a new bucket that Amazon EC2 creates on your behalf. If you specify a bucket that belongs to someone else, Amazon EC2 returns an error.</p>"""
     prefix: NotRequired["capo_ec2.types.string.String"]

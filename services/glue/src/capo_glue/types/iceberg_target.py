@@ -16,7 +16,7 @@ class IcebergTarget(TypedDict, closed=True):
     connection_name: NotRequired["capo_glue.types.connection_name.ConnectionName"]
     """<p>The name of the connection to use to connect to the Iceberg target.</p>"""
     exclusions: NotRequired["capo_glue.types.path_list.PathList"]
-    r"""<p>A list of glob patterns used to exclude from the crawl. For more information, see <a href=\"https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html\">Catalog Tables with a Crawler</a>.</p>"""
+    """<p>A list of glob patterns used to exclude from the crawl. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html">Catalog Tables with a Crawler</a>.</p>"""
     maximum_traversal_depth: NotRequired[
         "capo_glue.types.nullable_integer.NullableInteger"
     ]

@@ -3,7 +3,7 @@
 import base64
 from typing import TypeAlias
 
-"""<p>The base-64 encoded blob that is alert manager definition.</p> <p>For details about the alert manager definition, see <a href=\"https://docs.aws.amazon.com/prometheus/latest/APIReference/yaml-AlertManagerDefinitionData.html\">AlertManagedDefinitionData</a>.</p>"""
+"""<p>The base-64 encoded blob that is alert manager definition.</p> <p>For details about the alert manager definition, see <a href="https://docs.aws.amazon.com/prometheus/latest/APIReference/yaml-AlertManagerDefinitionData.html">AlertManagedDefinitionData</a>.</p>"""
 AlertManagerDefinitionData: TypeAlias = bytes
 
 

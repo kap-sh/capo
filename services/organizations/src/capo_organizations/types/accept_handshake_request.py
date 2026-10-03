@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class AcceptHandshakeRequest(TypedDict, closed=True):
     handshake_id: "capo_organizations.types.handshake_id.HandshakeId"
-    r"""<p>ID for the handshake that you want to accept.</p> <p>The <a href=\"http://wikipedia.org/wiki/regex\">regex pattern</a> for handshake ID string requires \"h-\" followed by from 8 to 32 lowercase letters or digits.</p>"""
+    """<p>ID for the handshake that you want to accept.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -24,7 +24,7 @@ class AssociateOpportunityRequest(TypedDict, closed=True):
     )
     """<p>Specifies the entity type that you're associating with the <code> Opportunity</code>. This helps to categorize and properly process the association.</p>"""
     related_entity_identifier: "str"
-    r"""<p>Requires the related entity's unique identifier when you want to associate it with the <code> Opportunity</code>. For Amazon Web Services Marketplace entities, provide the Amazon Resource Name (ARN). Use the <a href=\"https://docs.aws.amazon.com/marketplace-catalog/latest/api-reference/welcome.html\"> Amazon Web Services Marketplace API</a> to obtain the ARN.</p>"""
+    """<p>Requires the related entity's unique identifier when you want to associate it with the <code> Opportunity</code>. For Amazon Web Services Marketplace entities, provide the Amazon Resource Name (ARN). Use the <a href="https://docs.aws.amazon.com/marketplace-catalog/latest/api-reference/welcome.html"> Amazon Web Services Marketplace API</a> to obtain the ARN.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

@@ -66,7 +66,7 @@ class Notebook:
         parameters: Optional["capo_datazone.types.parameters.Parameters"] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.create_notebook_output.CreateNotebookOutput":
-        r"""<p>Creates a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook</a> in Amazon SageMaker Unified Studio. A notebook is a collaborative document within a project that contains code cells for interactive computing.</p>
+        """<p>Creates a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook</a> in Amazon SageMaker Unified Studio. A notebook is a collaborative document within a project that contains code cells for interactive computing.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which to create the notebook.</p>
@@ -137,7 +137,7 @@ class Notebook:
         *,
         config_overrides: Optional[DataZoneClientConfig] = None,
     ) -> "capo_datazone.types.get_notebook_output.GetNotebookOutput":
-        r"""<p>Gets the details of a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Gets the details of a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook exists.</p>
@@ -199,7 +199,7 @@ class Notebook:
         ] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.update_notebook_output.UpdateNotebookOutput":
-        r"""<p>Updates a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Updates a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook exists.</p>
@@ -279,7 +279,7 @@ class Notebook:
         *,
         config_overrides: Optional[DataZoneClientConfig] = None,
     ) -> "capo_datazone.types.delete_notebook_output.DeleteNotebookOutput":
-        r"""<p>Deletes a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Deletes a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook exists.</p>
@@ -338,7 +338,7 @@ class Notebook:
             "capo_datazone.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_datazone.types.list_notebooks_output.ListNotebooksOutput":
-        r"""<p>Lists <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebooks</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Lists <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebooks</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which to list notebooks.</p>
@@ -417,7 +417,7 @@ class AsyncNotebook:
         parameters: Optional["capo_datazone.types.parameters.Parameters"] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.create_notebook_output.CreateNotebookOutput":
-        r"""<p>Creates a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook</a> in Amazon SageMaker Unified Studio. A notebook is a collaborative document within a project that contains code cells for interactive computing.</p>
+        """<p>Creates a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook</a> in Amazon SageMaker Unified Studio. A notebook is a collaborative document within a project that contains code cells for interactive computing.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which to create the notebook.</p>
@@ -489,7 +489,7 @@ class AsyncNotebook:
         *,
         config_overrides: Optional[AsyncDataZoneClientConfig] = None,
     ) -> "capo_datazone.types.get_notebook_output.GetNotebookOutput":
-        r"""<p>Gets the details of a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Gets the details of a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook exists.</p>
@@ -552,7 +552,7 @@ class AsyncNotebook:
         ] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.update_notebook_output.UpdateNotebookOutput":
-        r"""<p>Updates a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Updates a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook exists.</p>
@@ -633,7 +633,7 @@ class AsyncNotebook:
         *,
         config_overrides: Optional[AsyncDataZoneClientConfig] = None,
     ) -> "capo_datazone.types.delete_notebook_output.DeleteNotebookOutput":
-        r"""<p>Deletes a <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebook</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Deletes a <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebook</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which the notebook exists.</p>
@@ -693,7 +693,7 @@ class AsyncNotebook:
             "capo_datazone.types.pagination_token.PaginationToken"
         ] = None,
     ) -> "capo_datazone.types.list_notebooks_output.ListNotebooksOutput":
-        r"""<p>Lists <a href=\"https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html\">notebooks</a> in Amazon SageMaker Unified Studio.</p>
+        """<p>Lists <a href="https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/notebooks.html">notebooks</a> in Amazon SageMaker Unified Studio.</p>
 
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which to list notebooks.</p>

@@ -18,7 +18,7 @@ class CampaignDateRangeKpiResponse(TypedDict, closed=True):
     end_time: NotRequired["capo_pinpoint.types.__timestamp_iso8601.__timestampIso8601"]
     """<p>The last date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.</p>"""
     kpi_name: NotRequired["capo_pinpoint.types.__string.__string"]
-    r"""<p>The name of the metric, also referred to as a <i>key performance indicator (KPI)</i>, that the data was retrieved for. This value describes the associated metric and consists of two or more terms, which are comprised of lowercase alphanumeric characters, separated by a hyphen. For a list of possible values, see the <a href=\"https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html\">Amazon Pinpoint Developer Guide</a>.</p>"""
+    """<p>The name of the metric, also referred to as a <i>key performance indicator (KPI)</i>, that the data was retrieved for. This value describes the associated metric and consists of two or more terms, which are comprised of lowercase alphanumeric characters, separated by a hyphen. For a list of possible values, see the <a href="https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html">Amazon Pinpoint Developer Guide</a>.</p>"""
     kpi_result: NotRequired["capo_pinpoint.types.base_kpi_result.BaseKpiResult"]
     """<p>An array of objects that contains the results of the query. Each object contains the value for the metric and metadata about that value.</p>"""
     next_token: NotRequired["capo_pinpoint.types.__string.__string"]

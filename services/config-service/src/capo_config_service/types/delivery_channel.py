@@ -12,15 +12,15 @@ if TYPE_CHECKING:
 
 class DeliveryChannel(TypedDict, closed=True):
     name: NotRequired["capo_config_service.types.channel_name.ChannelName"]
-    r"""<p>The name of the delivery channel. By default, Config assigns the name \"default\" when creating the delivery channel. To change the delivery channel name, you must use the DeleteDeliveryChannel action to delete your current delivery channel, and then you must use the PutDeliveryChannel command to create a delivery channel that has the desired name.</p>"""
+    """<p>The name of the delivery channel. By default, Config assigns the name "default" when creating the delivery channel. To change the delivery channel name, you must use the DeleteDeliveryChannel action to delete your current delivery channel, and then you must use the PutDeliveryChannel command to create a delivery channel that has the desired name.</p>"""
     s3_bucket_name: NotRequired["capo_config_service.types.string.String"]
-    r"""<p>The name of the Amazon S3 bucket to which Config delivers configuration snapshots and configuration history files.</p> <p>If you specify a bucket that belongs to another Amazon Web Services account, that bucket must have policies that grant access permissions to Config. For more information, see <a href=\"https://docs.aws.amazon.com/config/latest/developerguide/s3-bucket-policy.html\">Permissions for the Amazon S3 Bucket</a> in the <i>Config Developer Guide</i>.</p>"""
+    """<p>The name of the Amazon S3 bucket to which Config delivers configuration snapshots and configuration history files.</p> <p>If you specify a bucket that belongs to another Amazon Web Services account, that bucket must have policies that grant access permissions to Config. For more information, see <a href="https://docs.aws.amazon.com/config/latest/developerguide/s3-bucket-policy.html">Permissions for the Amazon S3 Bucket</a> in the <i>Config Developer Guide</i>.</p>"""
     s3_key_prefix: NotRequired["capo_config_service.types.string.String"]
     """<p>The prefix for the specified Amazon S3 bucket.</p>"""
     s3_kms_key_arn: NotRequired["capo_config_service.types.string.String"]
     """<p>The Amazon Resource Name (ARN) of the Key Management Service (KMS ) KMS key (KMS key) used to encrypt objects delivered by Config. Must belong to the same Region as the destination S3 bucket.</p>"""
     sns_topic_arn: NotRequired["capo_config_service.types.string.String"]
-    r"""<p>The Amazon Resource Name (ARN) of the Amazon SNS topic to which Config sends notifications about configuration changes.</p> <p>If you choose a topic from another account, the topic must have policies that grant access permissions to Config. For more information, see <a href=\"https://docs.aws.amazon.com/config/latest/developerguide/sns-topic-policy.html\">Permissions for the Amazon SNS Topic</a> in the <i>Config Developer Guide</i>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon SNS topic to which Config sends notifications about configuration changes.</p> <p>If you choose a topic from another account, the topic must have policies that grant access permissions to Config. For more information, see <a href="https://docs.aws.amazon.com/config/latest/developerguide/sns-topic-policy.html">Permissions for the Amazon SNS Topic</a> in the <i>Config Developer Guide</i>.</p>"""
     config_snapshot_delivery_properties: NotRequired[
         "capo_config_service.types.config_snapshot_delivery_properties.ConfigSnapshotDeliveryProperties"
     ]

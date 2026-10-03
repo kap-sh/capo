@@ -224,14 +224,14 @@ class AsyncIoTEventsClient:
             "capo_iot_events.types.alarm_capabilities.AlarmCapabilities"
         ] = None,
     ) -> "capo_iot_events.types.create_alarm_model_response.CreateAlarmModelResponse":
-        r"""<p>Creates an alarm model to monitor an AWS IoT Events input attribute. You can use the alarm to get notified when the value is outside a specified range. For more information, see <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/create-alarms.html\">Create an alarm model</a> in the <i>AWS IoT Events Developer Guide</i>.</p>
+        """<p>Creates an alarm model to monitor an AWS IoT Events input attribute. You can use the alarm to get notified when the value is outside a specified range. For more information, see <a href="https://docs.aws.amazon.com/iotevents/latest/developerguide/create-alarms.html">Create an alarm model</a> in the <i>AWS IoT Events Developer Guide</i>.</p>
 
         Args:
             alarm_model_name: <p>A unique name that helps you identify the alarm model. You can't change this name after you create the alarm model.</p>
             alarm_model_description: <p>A description that tells you what the alarm model detects.</p>
-            role_arn: <p>The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>
-            tags: <p>A list of key-value pairs that contain metadata for the alarm model. The tags help you manage the alarm model. For more information, see <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/tagging-iotevents.html\">Tagging your AWS IoT Events resources</a> in the <i>AWS IoT Events Developer Guide</i>.</p> <p>You can create up to 50 tags for one alarm model.</p>
-            key: <p>An input attribute used as a key to create an alarm. AWS IoT Events routes <a href=\"https://docs.aws.amazon.com/iotevents/latest/apireference/API_Input.html\">inputs</a> associated with this key to the alarm.</p>
+            role_arn: <p>The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>
+            tags: <p>A list of key-value pairs that contain metadata for the alarm model. The tags help you manage the alarm model. For more information, see <a href="https://docs.aws.amazon.com/iotevents/latest/developerguide/tagging-iotevents.html">Tagging your AWS IoT Events resources</a> in the <i>AWS IoT Events Developer Guide</i>.</p> <p>You can create up to 50 tags for one alarm model.</p>
+            key: <p>An input attribute used as a key to create an alarm. AWS IoT Events routes <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Input.html">inputs</a> associated with this key to the alarm.</p>
             severity: <p>A non-negative integer that reflects the severity level of the alarm.</p>
             alarm_rule: <p>Defines when your alarm is invoked.</p>
             alarm_notification: <p>Contains information about one or more notification actions.</p>
@@ -1308,7 +1308,7 @@ class AsyncIoTEventsClient:
         *,
         config_overrides: Optional[AsyncIoTEventsClientConfig] = None,
     ) -> "capo_iot_events.types.start_detector_model_analysis_response.StartDetectorModelAnalysisResponse":
-        r"""<p>Performs an analysis of your detector model. For more information, see <a href=\"https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-analyze-api.html\">Troubleshooting a detector model</a> in the <i>AWS IoT Events Developer Guide</i>.</p>
+        """<p>Performs an analysis of your detector model. For more information, see <a href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-analyze-api.html">Troubleshooting a detector model</a> in the <i>AWS IoT Events Developer Guide</i>.</p>
 
         Raises:
             capo_iot_events.errors.internal_failure_exception.InternalFailureException: <p>An internal failure occurred.</p>
@@ -1471,12 +1471,12 @@ class AsyncIoTEventsClient:
             "capo_iot_events.types.alarm_capabilities.AlarmCapabilities"
         ] = None,
     ) -> "capo_iot_events.types.update_alarm_model_response.UpdateAlarmModelResponse":
-        r"""<p>Updates an alarm model. Any alarms that were created based on the previous version are deleted and then created again as new data arrives.</p>
+        """<p>Updates an alarm model. Any alarms that were created based on the previous version are deleted and then created again as new data arrives.</p>
 
         Args:
             alarm_model_name: <p>The name of the alarm model.</p>
             alarm_model_description: <p>The description of the alarm model.</p>
-            role_arn: <p>The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href=\"https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html\">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>
+            role_arn: <p>The ARN of the IAM role that allows the alarm to perform actions and access AWS resources. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> in the <i>AWS General Reference</i>.</p>
             severity: <p>A non-negative integer that reflects the severity level of the alarm.</p>
             alarm_rule: <p>Defines when your alarm is invoked.</p>
             alarm_notification: <p>Contains information about one or more notification actions.</p>

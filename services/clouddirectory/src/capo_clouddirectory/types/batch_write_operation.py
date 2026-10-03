@@ -62,7 +62,7 @@ class BatchWriteOperation(TypedDict, closed=True):
     create_index: NotRequired[
         "capo_clouddirectory.types.batch_create_index.BatchCreateIndex"
     ]
-    r"""<p>Creates an index object. See <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm\">Indexing and search</a> for more information.</p>"""
+    """<p>Creates an index object. See <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and search</a> for more information.</p>"""
     attach_to_index: NotRequired[
         "capo_clouddirectory.types.batch_attach_to_index.BatchAttachToIndex"
     ]
@@ -74,11 +74,11 @@ class BatchWriteOperation(TypedDict, closed=True):
     attach_typed_link: NotRequired[
         "capo_clouddirectory.types.batch_attach_typed_link.BatchAttachTypedLink"
     ]
-    r"""<p>Attaches a typed link to a specified source and target object. For more information, see <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink\">Typed Links</a>.</p>"""
+    """<p>Attaches a typed link to a specified source and target object. For more information, see <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink">Typed Links</a>.</p>"""
     detach_typed_link: NotRequired[
         "capo_clouddirectory.types.batch_detach_typed_link.BatchDetachTypedLink"
     ]
-    r"""<p>Detaches a typed link from a specified source and target object. For more information, see <a href=\"https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink\">Typed Links</a>.</p>"""
+    """<p>Detaches a typed link from a specified source and target object. For more information, see <a href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink">Typed Links</a>.</p>"""
     update_link_attributes: NotRequired[
         "capo_clouddirectory.types.batch_update_link_attributes.BatchUpdateLinkAttributes"
     ]

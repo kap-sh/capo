@@ -584,15 +584,15 @@ class QConnectClient:
             "capo_qconnect.types.server_side_encryption_configuration.ServerSideEncryptionConfiguration"
         ] = None,
     ) -> "capo_qconnect.types.create_assistant_response.CreateAssistantResponse":
-        r"""<p>Creates an Amazon Q in Connect assistant.</p>
+        """<p>Creates an Amazon Q in Connect assistant.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             name: <p>The name of the assistant.</p>
             type: <p>The type of assistant.</p>
             description: <p>The description of the assistant.</p>
             tags: <p>The tags used to organize, track, or control access for this resource.</p>
-            server_side_encryption_configuration: <p>The configuration information for the customer managed key used for encryption. </p> <p>The customer managed key must have a policy that allows <code>kms:CreateGrant</code>, <code> kms:DescribeKey</code>, <code>kms:Decrypt</code>, and <code>kms:GenerateDataKey*</code> permissions to the IAM identity using the key to invoke Amazon Q in Connect. To use Amazon Q in Connect with chat, the key policy must also allow <code>kms:Decrypt</code>, <code>kms:GenerateDataKey*</code>, and <code>kms:DescribeKey</code> permissions to the <code>connect.amazonaws.com</code> service principal. </p> <p>For more information about setting up a customer managed key for Amazon Q in Connect, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-q.html\">Enable Amazon Q in Connect for your instance</a>.</p>
+            server_side_encryption_configuration: <p>The configuration information for the customer managed key used for encryption. </p> <p>The customer managed key must have a policy that allows <code>kms:CreateGrant</code>, <code> kms:DescribeKey</code>, <code>kms:Decrypt</code>, and <code>kms:GenerateDataKey*</code> permissions to the IAM identity using the key to invoke Amazon Q in Connect. To use Amazon Q in Connect with chat, the key policy must also allow <code>kms:Decrypt</code>, <code>kms:GenerateDataKey*</code>, and <code>kms:DescribeKey</code> permissions to the <code>connect.amazonaws.com</code> service principal. </p> <p>For more information about setting up a customer managed key for Amazon Q in Connect, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-q.html">Enable Amazon Q in Connect for your instance</a>.</p>
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -819,7 +819,7 @@ class QConnectClient:
             "capo_qconnect.types.recommendation_type.RecommendationType"
         ] = None,
     ) -> "capo_qconnect.types.get_recommendations_response.GetRecommendationsResponse":
-        r"""<important> <p>This API will be discontinued starting June 1, 2024. To receive generative responses after March 1, 2024, you will need to create a new Assistant in the Connect Customer console and integrate the Amazon Q in Connect JavaScript library (amazon-q-connectjs) into your applications.</p> </important> <p>Retrieves recommendations for the specified session. To avoid retrieving the same recommendations in subsequent calls, use <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_NotifyRecommendationsReceived.html\">NotifyRecommendationsReceived</a>. This API supports long-polling behavior with the <code>waitTimeSeconds</code> parameter. Short poll is the default behavior and only returns recommendations already available. To perform a manual query against an assistant, use <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_QueryAssistant.html\">QueryAssistant</a>.</p>
+        """<important> <p>This API will be discontinued starting June 1, 2024. To receive generative responses after March 1, 2024, you will need to create a new Assistant in the Connect Customer console and integrate the Amazon Q in Connect JavaScript library (amazon-q-connectjs) into your applications.</p> </important> <p>Retrieves recommendations for the specified session. To avoid retrieving the same recommendations in subsequent calls, use <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_NotifyRecommendationsReceived.html">NotifyRecommendationsReceived</a>. This API supports long-polling behavior with the <code>waitTimeSeconds</code> parameter. Short poll is the default behavior and only returns recommendations already available. To perform a manual query against an assistant, use <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_QueryAssistant.html">QueryAssistant</a>.</p>
 
         Args:
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
@@ -979,7 +979,7 @@ class QConnectClient:
         *,
         config_overrides: Optional[QConnectClientConfig] = None,
     ) -> "capo_qconnect.types.notify_recommendations_received_response.NotifyRecommendationsReceivedResponse":
-        r"""<p>Removes the specified recommendations from the specified assistant's queue of newly available recommendations. You can use this API in conjunction with <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_GetRecommendations.html\">GetRecommendations</a> and a <code>waitTimeSeconds</code> input for long-polling behavior and avoiding duplicate recommendations.</p>
+        """<p>Removes the specified recommendations from the specified assistant's queue of newly available recommendations. You can use this API in conjunction with <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_GetRecommendations.html">GetRecommendations</a> and a <code>waitTimeSeconds</code> input for long-polling behavior and avoiding duplicate recommendations.</p>
 
         Args:
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
@@ -1095,7 +1095,7 @@ class QConnectClient:
             "capo_qconnect.types.knowledge_base_search_type.KnowledgeBaseSearchType"
         ] = None,
     ) -> "capo_qconnect.types.query_assistant_response.QueryAssistantResponse":
-        r"""<important> <p>This API will be discontinued starting June 1, 2024. To receive generative responses after March 1, 2024, you will need to create a new Assistant in the Connect Customer console and integrate the Amazon Q in Connect JavaScript library (amazon-q-connectjs) into your applications.</p> </important> <p>Performs a manual search against the specified assistant. To retrieve recommendations for an assistant, use <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_GetRecommendations.html\">GetRecommendations</a>. </p>
+        """<important> <p>This API will be discontinued starting June 1, 2024. To receive generative responses after March 1, 2024, you will need to create a new Assistant in the Connect Customer console and integrate the Amazon Q in Connect JavaScript library (amazon-q-connectjs) into your applications.</p> </important> <p>Performs a manual search against the specified assistant. To retrieve recommendations for an assistant, use <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_GetRecommendations.html">GetRecommendations</a>. </p>
 
         Args:
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
@@ -1461,10 +1461,10 @@ class QConnectClient:
         tags: Optional["capo_qconnect.types.tags.Tags"] = None,
         description: Optional["capo_qconnect.types.description.Description"] = None,
     ) -> "capo_qconnect.types.create_ai_agent_response.CreateAIAgentResponse":
-        r"""<p>Creates an Amazon Q in Connect AI Agent.</p>
+        """<p>Creates an Amazon Q in Connect AI Agent.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             name: <p>The name of the AI Agent.</p>
             type: <p>The type of the AI Agent.</p>
@@ -1585,10 +1585,10 @@ class QConnectClient:
         ] = None,
         description: Optional["capo_qconnect.types.description.Description"] = None,
     ) -> "capo_qconnect.types.update_ai_agent_response.UpdateAIAgentResponse":
-        r"""<p>Updates an AI Agent.</p>
+        """<p>Updates an AI Agent.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             ai_agent_id: <p>The identifier of the Amazon Q in Connect AI Agent.</p>
             visibility_status: <p>The visbility status of the Amazon Q in Connect AI Agent.</p>
@@ -1784,13 +1784,13 @@ class QConnectClient:
         modified_time: Optional[datetime.datetime] = None,
         client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
     ) -> "capo_qconnect.types.create_ai_agent_version_response.CreateAIAgentVersionResponse":
-        r"""<p>Creates and Amazon Q in Connect AI Agent version.</p>
+        """<p>Creates and Amazon Q in Connect AI Agent version.</p>
 
         Args:
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             ai_agent_id: <p>The identifier of the Amazon Q in Connect AI Agent.</p>
             modified_time: <p>The modification time of the AI Agent should be tracked for version creation. This field should be specified to avoid version creation when simultaneous update to the underlying AI Agent are possible. The value should be the modifiedTime returned from the request to create or update an AI Agent so that version creation can fail if an update to the AI Agent post the specified modification time has been made.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -2009,10 +2009,10 @@ class QConnectClient:
         ] = None,
         tags: Optional["capo_qconnect.types.tags.Tags"] = None,
     ) -> "capo_qconnect.types.create_ai_guardrail_response.CreateAIGuardrailResponse":
-        r"""<p>Creates an Amazon Q in Connect AI Guardrail.</p>
+        """<p>Creates an Amazon Q in Connect AI Guardrail.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             name: <p>The name of the AI Guardrail.</p>
             blocked_input_messaging: <p>The message to return when the AI Guardrail blocks a prompt.</p>
@@ -2168,10 +2168,10 @@ class QConnectClient:
             "capo_qconnect.types.ai_guardrail_contextual_grounding_policy_config.AIGuardrailContextualGroundingPolicyConfig"
         ] = None,
     ) -> "capo_qconnect.types.update_ai_guardrail_response.UpdateAIGuardrailResponse":
-        r"""<p>Updates an AI Guardrail.</p>
+        """<p>Updates an AI Guardrail.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             ai_guardrail_id: <p>The identifier of the Amazon Q in Connect AI Guardrail.</p>
             visibility_status: <p>The visibility status of the Amazon Q in Connect AI Guardrail.</p>
@@ -2382,13 +2382,13 @@ class QConnectClient:
         modified_time: Optional[datetime.datetime] = None,
         client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
     ) -> "capo_qconnect.types.create_ai_guardrail_version_response.CreateAIGuardrailVersionResponse":
-        r"""<p>Creates an Amazon Q in Connect AI Guardrail version.</p>
+        """<p>Creates an Amazon Q in Connect AI Guardrail version.</p>
 
         Args:
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             ai_guardrail_id: <p>The identifier of the Amazon Q in Connect AI Guardrail.</p>
             modified_time: <p>The time the AI Guardrail was last modified.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -2590,17 +2590,17 @@ class QConnectClient:
             "capo_qconnect.types.ai_prompt_inference_configuration.AIPromptInferenceConfiguration"
         ] = None,
     ) -> "capo_qconnect.types.create_ai_prompt_response.CreateAIPromptResponse":
-        r"""<p>Creates an Amazon Q in Connect AI Prompt.</p>
+        """<p>Creates an Amazon Q in Connect AI Prompt.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             name: <p>The name of the AI Prompt.</p>
             type: <p>The type of this AI Prompt.</p>
             template_configuration: <p>The configuration of the prompt template for this AI Prompt.</p>
             visibility_status: <p>The visibility status of the AI Prompt.</p>
             template_type: <p>The type of the prompt template for this AI Prompt.</p>
-            model_id: <p>The identifier of the model used for this AI Prompt.</p> <note> <p>For information about which models are supported in each Amazon Web Services Region, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-ai-prompts.html#cli-create-aiprompt\">Supported models for system/custom prompts</a>.</p> </note>
+            model_id: <p>The identifier of the model used for this AI Prompt.</p> <note> <p>For information about which models are supported in each Amazon Web Services Region, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-ai-prompts.html#cli-create-aiprompt">Supported models for system/custom prompts</a>.</p> </note>
             api_format: <p>The API Format of the AI Prompt.</p> <p>Recommended values: <code>MESSAGES | TEXT_COMPLETIONS</code> </p> <note> <p>The values <code>ANTHROPIC_CLAUDE_MESSAGES | ANTHROPIC_CLAUDE_TEXT_COMPLETIONS</code> will be deprecated.</p> </note>
             tags: <p>The tags used to organize, track, or control access for this resource.</p>
             description: <p>The description of the AI Prompt.</p>
@@ -2729,16 +2729,16 @@ class QConnectClient:
             "capo_qconnect.types.ai_prompt_inference_configuration.AIPromptInferenceConfiguration"
         ] = None,
     ) -> "capo_qconnect.types.update_ai_prompt_response.UpdateAIPromptResponse":
-        r"""<p>Updates an AI Prompt.</p>
+        """<p>Updates an AI Prompt.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             ai_prompt_id: <p>The identifier of the Amazon Q in Connect AI Prompt.</p>
             visibility_status: <p>The visibility status of the Amazon Q in Connect AI prompt.</p>
             template_configuration: <p>The configuration of the prompt template for this AI Prompt.</p>
             description: <p>The description of the Amazon Q in Connect AI Prompt.</p>
-            model_id: <p>The identifier of the model used for this AI Prompt.</p> <note> <p>For information about which models are supported in each Amazon Web Services Region, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/create-ai-prompts.html#cli-create-aiprompt\">Supported models for system/custom prompts</a>.</p> </note>
+            model_id: <p>The identifier of the model used for this AI Prompt.</p> <note> <p>For information about which models are supported in each Amazon Web Services Region, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/create-ai-prompts.html#cli-create-aiprompt">Supported models for system/custom prompts</a>.</p> </note>
             inference_configuration: <p>The updated inference configuration for the AI Prompt.</p>
 
         Raises:
@@ -2934,13 +2934,13 @@ class QConnectClient:
         modified_time: Optional[datetime.datetime] = None,
         client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
     ) -> "capo_qconnect.types.create_ai_prompt_version_response.CreateAIPromptVersionResponse":
-        r"""<p>Creates an Amazon Q in Connect AI Prompt version.</p>
+        """<p>Creates an Amazon Q in Connect AI Prompt version.</p>
 
         Args:
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             ai_prompt_id: <p>The identifier of the Amazon Q in Connect AI prompt.</p>
             modified_time: <p>The time the AI Prompt was last modified.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>..</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>..</p>
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -3141,13 +3141,13 @@ class QConnectClient:
         client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
         tags: Optional["capo_qconnect.types.tags.Tags"] = None,
     ) -> "capo_qconnect.types.create_assistant_association_response.CreateAssistantAssociationResponse":
-        r"""<p>Creates an association between an Amazon Q in Connect assistant and another resource. Currently, the only supported association is with a knowledge base. An assistant can have only a single association.</p>
+        """<p>Creates an association between an Amazon Q in Connect assistant and another resource. Currently, the only supported association is with a knowledge base. An assistant can have only a single association.</p>
 
         Args:
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             association_type: <p>The type of association.</p>
             association: <p>The identifier of the associated resource.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             tags: <p>The tags used to organize, track, or control access for this resource.</p>
 
         Raises:
@@ -3386,10 +3386,10 @@ class QConnectClient:
         ] = None,
         remove_orchestrator_configuration_list: Optional[bool] = None,
     ) -> "capo_qconnect.types.create_session_response.CreateSessionResponse":
-        r"""<p>Creates a session. A session is a contextual container used for generating recommendations. Connect Customer creates a new Amazon Q in Connect session for each contact on which Amazon Q in Connect is enabled.</p>
+        """<p>Creates a session. A session is a contextual container used for generating recommendations. Connect Customer creates a new Amazon Q in Connect session for each contact on which Amazon Q in Connect is enabled.</p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             name: <p>The name of the session.</p>
             description: <p>The description.</p>
@@ -3833,7 +3833,7 @@ class QConnectClient:
             "capo_qconnect.types.non_empty_string.NonEmptyString"
         ] = None,
     ) -> "capo_qconnect.types.send_message_response.SendMessageResponse":
-        r"""<p>Submits a message to the Amazon Q in Connect session.</p>
+        """<p>Submits a message to the Amazon Q in Connect session.</p>
 
         Args:
             assistant_id: <p>The identifier of the Amazon Q in Connect assistant.</p>
@@ -3842,7 +3842,7 @@ class QConnectClient:
             message: <p>The message data to submit to the Amazon Q in Connect session.</p>
             ai_agent_id: <p>The identifier of the AI Agent to use for processing the message.</p>
             conversation_context: <p>The conversation context before the Amazon Q in Connect session.</p>
-            configuration: <p>The configuration of the <a href=\"https://docs.aws.amazon.com/connect/latest/APIReference/API_amazon-q-connect_SendMessage.html\">SendMessage</a> request.</p>
+            configuration: <p>The configuration of the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_amazon-q-connect_SendMessage.html">SendMessage</a> request.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the AWS SDK populates this field.For more information about idempotency, see Making retries safe with idempotent APIs.</p>
             orchestrator_use_case: <p>The orchestrator use case for message processing.</p>
             metadata: <p>Additional metadata for the message.</p>
@@ -3989,16 +3989,16 @@ class QConnectClient:
     ) -> (
         "capo_qconnect.types.create_knowledge_base_response.CreateKnowledgeBaseResponse"
     ):
-        r"""<p>Creates a knowledge base.</p> <note> <p>When using this API, you cannot reuse <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/Welcome.html\">Amazon AppIntegrations</a> DataIntegrations with external knowledge bases such as Salesforce and ServiceNow. If you do, you'll get an <code>InvalidRequestException</code> error. </p> <p>For example, you're programmatically managing your external knowledge base, and you want to add or remove one of the fields that is being ingested from Salesforce. Do the following:</p> <ol> <li> <p>Call <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_DeleteKnowledgeBase.html\">DeleteKnowledgeBase</a>.</p> </li> <li> <p>Call <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_DeleteDataIntegration.html\">DeleteDataIntegration</a>.</p> </li> <li> <p>Call <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html\">CreateDataIntegration</a> to recreate the DataIntegration or a create different one.</p> </li> <li> <p>Call CreateKnowledgeBase.</p> </li> </ol> </note>
+        """<p>Creates a knowledge base.</p> <note> <p>When using this API, you cannot reuse <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/Welcome.html">Amazon AppIntegrations</a> DataIntegrations with external knowledge bases such as Salesforce and ServiceNow. If you do, you'll get an <code>InvalidRequestException</code> error. </p> <p>For example, you're programmatically managing your external knowledge base, and you want to add or remove one of the fields that is being ingested from Salesforce. Do the following:</p> <ol> <li> <p>Call <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_DeleteKnowledgeBase.html">DeleteKnowledgeBase</a>.</p> </li> <li> <p>Call <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_DeleteDataIntegration.html">DeleteDataIntegration</a>.</p> </li> <li> <p>Call <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html">CreateDataIntegration</a> to recreate the DataIntegration or a create different one.</p> </li> <li> <p>Call CreateKnowledgeBase.</p> </li> </ol> </note>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             name: <p>The name of the knowledge base.</p>
             knowledge_base_type: <p>The type of knowledge base. Only CUSTOM knowledge bases allow you to upload your own content. EXTERNAL knowledge bases support integrations with third-party systems whose content is synchronized automatically. </p>
             source_configuration: <p>The source of the knowledge base content. Only set this argument for EXTERNAL or Managed knowledge bases.</p>
             rendering_configuration: <p>Information about how to render the content.</p>
             vector_ingestion_configuration: <p>Contains details about how to ingest the documents in a data source.</p>
-            server_side_encryption_configuration: <p>The configuration information for the customer managed key used for encryption. </p> <p>This KMS key must have a policy that allows <code>kms:CreateGrant</code>, <code>kms:DescribeKey</code>, <code>kms:Decrypt</code>, and <code>kms:GenerateDataKey*</code> permissions to the IAM identity using the key to invoke Amazon Q in Connect.</p> <p>For more information about setting up a customer managed key for Amazon Q in Connect, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/enable-q.html\">Enable Amazon Q in Connect for your instance</a>.</p>
+            server_side_encryption_configuration: <p>The configuration information for the customer managed key used for encryption. </p> <p>This KMS key must have a policy that allows <code>kms:CreateGrant</code>, <code>kms:DescribeKey</code>, <code>kms:Decrypt</code>, and <code>kms:GenerateDataKey*</code> permissions to the IAM identity using the key to invoke Amazon Q in Connect.</p> <p>For more information about setting up a customer managed key for Amazon Q in Connect, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/enable-q.html">Enable Amazon Q in Connect for your instance</a>.</p>
             description: <p>The description.</p>
             tags: <p>The tags used to organize, track, or control access for this resource.</p>
 
@@ -4110,7 +4110,7 @@ class QConnectClient:
     ) -> (
         "capo_qconnect.types.delete_knowledge_base_response.DeleteKnowledgeBaseResponse"
     ):
-        r"""<p>Deletes the knowledge base.</p> <note> <p>When you use this API to delete an external knowledge base such as Salesforce or ServiceNow, you must also delete the <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/Welcome.html\">Amazon AppIntegrations</a> DataIntegration. This is because you can't reuse the DataIntegration after it's been associated with an external knowledge base. However, you can delete and recreate it. See <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_DeleteDataIntegration.html\">DeleteDataIntegration</a> and <a href=\"https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html\">CreateDataIntegration</a> in the <i>Amazon AppIntegrations API Reference</i>.</p> </note>
+        """<p>Deletes the knowledge base.</p> <note> <p>When you use this API to delete an external knowledge base such as Salesforce or ServiceNow, you must also delete the <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/Welcome.html">Amazon AppIntegrations</a> DataIntegration. This is because you can't reuse the DataIntegration after it's been associated with an external knowledge base. However, you can delete and recreate it. See <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_DeleteDataIntegration.html">DeleteDataIntegration</a> and <a href="https://docs.aws.amazon.com/appintegrations/latest/APIReference/API_CreateDataIntegration.html">CreateDataIntegration</a> in the <i>Amazon AppIntegrations API Reference</i>.</p> </note>
 
         Args:
             knowledge_base_id: <p>The knowledge base to delete content from. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
@@ -4625,14 +4625,14 @@ class QConnectClient:
             "capo_qconnect.types.contact_attributes.ContactAttributes"
         ] = None,
     ) -> "capo_qconnect.types.search_quick_responses_response.SearchQuickResponsesResponse":
-        r"""<p>Searches existing Amazon Q in Connect quick responses in an Amazon Q in Connect knowledge base.</p>
+        """<p>Searches existing Amazon Q in Connect quick responses in an Amazon Q in Connect knowledge base.</p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base. This should be a QUICK_RESPONSES type knowledge base. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
             search_expression: <p>The search expression for querying the quick response.</p>
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
             max_results: <p>The maximum number of results to return per page.</p>
-            attributes: <p>The <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/connect-attrib-list.html#user-defined-attributes\">user-defined Connect Customer contact attributes</a> to be resolved when search results are returned.</p>
+            attributes: <p>The <a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-attrib-list.html#user-defined-attributes">user-defined Connect Customer contact attributes</a> to be resolved when search results are returned.</p>
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -4718,7 +4718,7 @@ class QConnectClient:
             "capo_qconnect.types.time_to_live.TimeToLive"
         ] = None,
     ) -> "capo_qconnect.types.start_content_upload_response.StartContentUploadResponse":
-        r"""<p>Get a URL to upload content to a knowledge base. To upload content, first make a PUT request to the returned URL with your file, making sure to include the required headers. Then use <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_CreateContent.html\">CreateContent</a> to finalize the content creation process or <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_UpdateContent.html\">UpdateContent</a> to modify an existing resource. You can only upload content to a knowledge base of type CUSTOM.</p>
+        """<p>Get a URL to upload content to a knowledge base. To upload content, first make a PUT request to the returned URL with your file, making sure to include the required headers. Then use <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_CreateContent.html">CreateContent</a> to finalize the content creation process or <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_UpdateContent.html">UpdateContent</a> to modify an existing resource. You can only upload content to a knowledge base of type CUSTOM.</p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
@@ -4780,12 +4780,12 @@ class QConnectClient:
             "capo_qconnect.types.external_source_configuration.ExternalSourceConfiguration"
         ] = None,
     ) -> "capo_qconnect.types.start_import_job_response.StartImportJobResponse":
-        r"""<p>Start an asynchronous job to import Amazon Q in Connect resources from an uploaded source file. Before calling this API, use <a href=\"https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html\">StartContentUpload</a> to upload an asset that contains the resource data.</p> <ul> <li> <p>For importing Amazon Q in Connect quick responses, you need to upload a csv file including the quick responses. For information about how to format the csv file for importing quick responses, see <a href=\"https://docs.aws.amazon.com/console/connect/quick-responses/add-data\">Import quick responses</a>.</p> </li> </ul>
+        """<p>Start an asynchronous job to import Amazon Q in Connect resources from an uploaded source file. Before calling this API, use <a href="https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html">StartContentUpload</a> to upload an asset that contains the resource data.</p> <ul> <li> <p>For importing Amazon Q in Connect quick responses, you need to upload a csv file including the quick responses. For information about how to format the csv file for importing quick responses, see <a href="https://docs.aws.amazon.com/console/connect/quick-responses/add-data">Import quick responses</a>.</p> </li> </ul>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base. Can be either the ID or the ARN. URLs cannot contain the ARN.</p> <ul> <li> <p>For importing Amazon Q in Connect quick responses, this should be a <code>QUICK_RESPONSES</code> type knowledge base.</p> </li> </ul>
             import_job_type: <p>The type of the import job.</p> <ul> <li> <p>For importing quick response resource, set the value to <code>QUICK_RESPONSES</code>.</p> </li> </ul>
-            upload_id: <p>A pointer to the uploaded asset. This value is returned by <a href=\"https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html\">StartContentUpload</a>.</p>
+            upload_id: <p>A pointer to the uploaded asset. This value is returned by <a href="https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html">StartContentUpload</a>.</p>
             client_token: <p>The tags used to organize, track, or control access for this resource.</p>
             metadata: <p>The metadata fields of the imported Amazon Q in Connect resources.</p>
             external_source_configuration: <p>The configuration information of the external source that the resource data are imported from.</p>
@@ -4901,16 +4901,16 @@ class QConnectClient:
         ] = None,
         tags: Optional["capo_qconnect.types.tags.Tags"] = None,
     ) -> "capo_qconnect.types.create_content_response.CreateContentResponse":
-        r"""<p>Creates Amazon Q in Connect content. Before to calling this API, use <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_StartContentUpload.html\">StartContentUpload</a> to upload an asset.</p>
+        """<p>Creates Amazon Q in Connect content. Before to calling this API, use <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_StartContentUpload.html">StartContentUpload</a> to upload an asset.</p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base. This should not be a QUICK_RESPONSES type knowledge base. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
-            name: <p>The name of the content. Each piece of content in a knowledge base must have a unique name. You can retrieve a piece of content using only its knowledge base and its name with the <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_SearchContent.html\">SearchContent</a> API.</p>
+            name: <p>The name of the content. Each piece of content in a knowledge base must have a unique name. You can retrieve a piece of content using only its knowledge base and its name with the <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_SearchContent.html">SearchContent</a> API.</p>
             title: <p>The title of the content. If not set, the title is equal to the name.</p>
             override_link_out_uri: <p>The URI you want to use for the article. If the knowledge base has a templateUri, setting this argument overrides it for this piece of content.</p>
             metadata: <p>A key/value map to store attributes without affecting tagging or recommendations. For example, when synchronizing data between an external system and Amazon Q in Connect, you can store an external version identifier as metadata to utilize for determining drift.</p>
-            upload_id: <p>A pointer to the uploaded asset. This value is returned by <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_StartContentUpload.html\">StartContentUpload</a>.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            upload_id: <p>A pointer to the uploaded asset. This value is returned by <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_StartContentUpload.html">StartContentUpload</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             tags: <p>The tags used to organize, track, or control access for this resource.</p>
 
         Raises:
@@ -5029,7 +5029,7 @@ class QConnectClient:
         ] = None,
         upload_id: Optional["capo_qconnect.types.upload_id.UploadId"] = None,
     ) -> "capo_qconnect.types.update_content_response.UpdateContentResponse":
-        r"""<p>Updates information about the content.</p>
+        """<p>Updates information about the content.</p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base. This should not be a QUICK_RESPONSES type knowledge base. Can be either the ID or the ARN</p>
@@ -5039,7 +5039,7 @@ class QConnectClient:
             override_link_out_uri: <p>The URI for the article. If the knowledge base has a templateUri, setting this argument overrides it for this piece of content. To remove an existing <code>overrideLinkOurUri</code>, exclude this argument and set <code>removeOverrideLinkOutUri</code> to true.</p>
             remove_override_link_out_uri: <p>Unset the existing <code>overrideLinkOutUri</code> if it exists.</p>
             metadata: <p>A key/value map to store attributes without affecting tagging or recommendations. For example, when synchronizing data between an external system and Amazon Q in Connect, you can store an external version identifier as metadata to utilize for determining drift.</p>
-            upload_id: <p>A pointer to the uploaded asset. This value is returned by <a href=\"https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_StartContentUpload.html\">StartContentUpload</a>. </p>
+            upload_id: <p>A pointer to the uploaded asset. This value is returned by <a href="https://docs.aws.amazon.com/amazon-q-connect/latest/APIReference/API_StartContentUpload.html">StartContentUpload</a>. </p>
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -5276,10 +5276,10 @@ class QConnectClient:
         client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
         tags: Optional["capo_qconnect.types.tags.Tags"] = None,
     ) -> "capo_qconnect.types.create_content_association_response.CreateContentAssociationResponse":
-        r"""<p>Creates an association between a content resource in a knowledge base and <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/step-by-step-guided-experiences.html\">step-by-step guides</a>. Step-by-step guides offer instructions to agents for resolving common customer issues. You create a content association to integrate Amazon Q in Connect and step-by-step guides. </p> <p>After you integrate Amazon Q and step-by-step guides, when Amazon Q provides a recommendation to an agent based on the intent that it's detected, it also provides them with the option to start the step-by-step guide that you have associated with the content.</p> <p>Note the following limitations:</p> <ul> <li> <p>You can create only one content association for each content resource in a knowledge base.</p> </li> <li> <p>You can associate a step-by-step guide with multiple content resources.</p> </li> </ul> <p>For more information, see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/integrate-q-with-guides.html\">Integrate Amazon Q in Connect with step-by-step guides</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+        """<p>Creates an association between a content resource in a knowledge base and <a href="https://docs.aws.amazon.com/connect/latest/adminguide/step-by-step-guided-experiences.html">step-by-step guides</a>. Step-by-step guides offer instructions to agents for resolving common customer issues. You create a content association to integrate Amazon Q in Connect and step-by-step guides. </p> <p>After you integrate Amazon Q and step-by-step guides, when Amazon Q provides a recommendation to an agent based on the intent that it's detected, it also provides them with the option to start the step-by-step guide that you have associated with the content.</p> <p>Note the following limitations:</p> <ul> <li> <p>You can create only one content association for each content resource in a knowledge base.</p> </li> <li> <p>You can associate a step-by-step guide with multiple content resources.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/integrate-q-with-guides.html">Integrate Amazon Q in Connect with step-by-step guides</a> in the <i>Connect Customer Administrator Guide</i>. </p>
 
         Args:
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             knowledge_base_id: <p>The identifier of the knowledge base.</p>
             content_id: <p>The identifier of the content.</p>
             association_type: <p>The type of association.</p>
@@ -5340,7 +5340,7 @@ class QConnectClient:
         *,
         config_overrides: Optional[QConnectClientConfig] = None,
     ) -> "capo_qconnect.types.get_content_association_response.GetContentAssociationResponse":
-        r"""<p>Returns the content association.</p> <p>For more information about content associations--what they are and when they are used--see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/integrate-q-with-guides.html\">Integrate Amazon Q in Connect with step-by-step guides</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Returns the content association.</p> <p>For more information about content associations--what they are and when they are used--see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/integrate-q-with-guides.html">Integrate Amazon Q in Connect with step-by-step guides</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base.</p>
@@ -5392,7 +5392,7 @@ class QConnectClient:
         *,
         config_overrides: Optional[QConnectClientConfig] = None,
     ) -> "capo_qconnect.types.delete_content_association_response.DeleteContentAssociationResponse":
-        r"""<p>Deletes the content association. </p> <p>For more information about content associations--what they are and when they are used--see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/integrate-q-with-guides.html\">Integrate Amazon Q in Connect with step-by-step guides</a> in the <i>Connect Customer Administrator Guide</i>. </p>
+        """<p>Deletes the content association. </p> <p>For more information about content associations--what they are and when they are used--see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/integrate-q-with-guides.html">Integrate Amazon Q in Connect with step-by-step guides</a> in the <i>Connect Customer Administrator Guide</i>. </p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base.</p>
@@ -5445,7 +5445,7 @@ class QConnectClient:
         next_token: Optional["capo_qconnect.types.next_token.NextToken"] = None,
         max_results: Optional["capo_qconnect.types.max_results.MaxResults"] = None,
     ) -> "capo_qconnect.types.list_content_associations_response.ListContentAssociationsResponse":
-        r"""<p>Lists the content associations.</p> <p>For more information about content associations--what they are and when they are used--see <a href=\"https://docs.aws.amazon.com/connect/latest/adminguide/integrate-q-with-guides.html\">Integrate Amazon Q in Connect with step-by-step guides</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+        """<p>Lists the content associations.</p> <p>For more information about content associations--what they are and when they are used--see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/integrate-q-with-guides.html">Integrate Amazon Q in Connect with step-by-step guides</a> in the <i>Connect Customer Administrator Guide</i>.</p>
 
         Args:
             next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
@@ -5542,7 +5542,7 @@ class QConnectClient:
         client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
         tags: Optional["capo_qconnect.types.tags.Tags"] = None,
     ) -> "capo_qconnect.types.create_message_template_response.CreateMessageTemplateResponse":
-        r"""<p>Creates an Amazon Q in Connect message template. The name of the message template has to be unique for each knowledge base. The channel subtype of the message template is immutable and cannot be modified after creation. After the message template is created, you can use the <code>$LATEST</code> qualifier to reference the created message template.</p>
+        """<p>Creates an Amazon Q in Connect message template. The name of the message template has to be unique for each knowledge base. The channel subtype of the message template is immutable and cannot be modified after creation. After the message template is created, you can use the <code>$LATEST</code> qualifier to reference the created message template.</p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
@@ -5553,7 +5553,7 @@ class QConnectClient:
             language: <p>The language code value for the language in which the quick response is written. The supported language codes include <code>de_DE</code>, <code>en_US</code>, <code>es_ES</code>, <code>fr_FR</code>, <code>id_ID</code>, <code>it_IT</code>, <code>ja_JP</code>, <code>ko_KR</code>, <code>pt_BR</code>, <code>zh_CN</code>, <code>zh_TW</code> </p>
             source_configuration: <p>The source configuration of the message template. Only set this argument for WHATSAPP channel subtype.</p>
             default_attributes: <p>An object that specifies the default values to use for variables in the message template. This object contains different categories of key-value pairs. Each key defines a variable or placeholder in the message template. The corresponding value defines the default value for that variable.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             tags: <p>The tags used to organize, track, or control access for this resource.</p>
 
         Raises:
@@ -5928,7 +5928,7 @@ class QConnectClient:
         config_overrides: Optional[QConnectClientConfig] = None,
         client_token: Optional["capo_qconnect.types.client_token.ClientToken"] = None,
     ) -> "capo_qconnect.types.create_message_template_attachment_response.CreateMessageTemplateAttachmentResponse":
-        r"""<p>Uploads an attachment file to the specified Amazon Q in Connect message template. The name of the message template attachment has to be unique for each message template referenced by the <code>$LATEST</code> qualifier. The body of the attachment file should be encoded using base64 encoding. After the file is uploaded, you can use the pre-signed Amazon S3 URL returned in response to download the uploaded file.</p>
+        """<p>Uploads an attachment file to the specified Amazon Q in Connect message template. The name of the message template attachment has to be unique for each message template referenced by the <code>$LATEST</code> qualifier. The body of the attachment file should be encoded using base64 encoding. After the file is uploaded, you can use the pre-signed Amazon S3 URL returned in response to download the uploaded file.</p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
@@ -5936,7 +5936,7 @@ class QConnectClient:
             content_disposition: <p>The presentation information for the attachment file.</p>
             name: <p>The name of the attachment file being uploaded. The name should include the file extension.</p>
             body: <p>The body of the attachment file being uploaded. It should be encoded using base64 encoding.</p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
 
         Raises:
             capo_qconnect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -6369,7 +6369,7 @@ class QConnectClient:
     ) -> (
         "capo_qconnect.types.create_quick_response_response.CreateQuickResponseResponse"
     ):
-        r"""<p>Creates an Amazon Q in Connect quick response.</p>
+        """<p>Creates an Amazon Q in Connect quick response.</p>
 
         Args:
             knowledge_base_id: <p>The identifier of the knowledge base. Can be either the ID or the ARN. URLs cannot contain the ARN.</p>
@@ -6382,7 +6382,7 @@ class QConnectClient:
             is_active: <p>Whether the quick response is active.</p>
             channels: <p>The Connect Customer channels this quick response applies to.</p>
             language: <p>The language code value for the language in which the quick response is written. The supported language codes include <code>de_DE</code>, <code>en_US</code>, <code>es_ES</code>, <code>fr_FR</code>, <code>id_ID</code>, <code>it_IT</code>, <code>ja_JP</code>, <code>ko_KR</code>, <code>pt_BR</code>, <code>zh_CN</code>, <code>zh_TW</code> </p>
-            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href=\"http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/\">Making retries safe with idempotent APIs</a>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If not provided, the Amazon Web Services SDK populates this field. For more information about idempotency, see <a href="http://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/">Making retries safe with idempotent APIs</a>.</p>
             tags: <p>The tags used to organize, track, or control access for this resource.</p>
 
         Raises:

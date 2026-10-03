@@ -31,7 +31,7 @@ class SourceAttribution(TypedDict, closed=True):
     index_id: NotRequired["capo_qbusiness.types.string.String"]
     """<p>The identifier of the index containing the source document's metadata and access control information. This links the citation back to the specific Amazon Q Business index where the document's searchable content and permissions are stored.</p>"""
     datasource_id: NotRequired["capo_qbusiness.types.string.String"]
-    r"""<p>The identifier of the data source from which the document was ingested. This field is not present if the document is ingested by directly calling the BatchPutDocument API (similar to checkDocumentAccess). If the document is from a file-upload data source, the datasource will be \"uploaded-docs-file-stat-datasourceid\".</p>"""
+    """<p>The identifier of the data source from which the document was ingested. This field is not present if the document is ingested by directly calling the BatchPutDocument API (similar to checkDocumentAccess). If the document is from a file-upload data source, the datasource will be "uploaded-docs-file-stat-datasourceid".</p>"""
 
 
 # --- restJson1 ser/de ---

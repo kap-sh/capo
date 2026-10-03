@@ -31,7 +31,7 @@ class IdentityPool(TypedDict, closed=True):
     allow_classic_flow: NotRequired[
         "capo_cognito_identity.types.classic_flow.ClassicFlow"
     ]
-    r"""<p>Enables or disables the Basic (Classic) authentication flow. For more information, see <a href=\"https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html\">Identity Pools (Federated Identities) Authentication Flow</a> in the <i>Amazon Cognito Developer Guide</i>.</p>"""
+    """<p>Enables or disables the Basic (Classic) authentication flow. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html">Identity Pools (Federated Identities) Authentication Flow</a> in the <i>Amazon Cognito Developer Guide</i>.</p>"""
     supported_login_providers: NotRequired[
         "capo_cognito_identity.types.identity_providers.IdentityProviders"
     ]
@@ -39,7 +39,7 @@ class IdentityPool(TypedDict, closed=True):
     developer_provider_name: NotRequired[
         "capo_cognito_identity.types.developer_provider_name.DeveloperProviderName"
     ]
-    r"""<p>The \"domain\" by which Cognito will refer to your users.</p>"""
+    """<p>The "domain" by which Cognito will refer to your users.</p>"""
     open_id_connect_provider_ar_ns: NotRequired[
         "capo_cognito_identity.types.oidc_provider_list.OIDCProviderList"
     ]

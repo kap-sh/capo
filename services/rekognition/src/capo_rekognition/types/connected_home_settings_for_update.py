@@ -13,7 +13,7 @@ class ConnectedHomeSettingsForUpdate(TypedDict, closed=True):
     labels: NotRequired[
         "capo_rekognition.types.connected_home_labels.ConnectedHomeLabels"
     ]
-    r"""<p> Specifies what you want to detect in the video, such as people, packages, or pets. The current valid labels you can include in this list are: \"PERSON\", \"PET\", \"PACKAGE\", and \"ALL\". </p>"""
+    """<p> Specifies what you want to detect in the video, such as people, packages, or pets. The current valid labels you can include in this list are: "PERSON", "PET", "PACKAGE", and "ALL". </p>"""
     min_confidence: NotRequired["capo_rekognition.types.percent.Percent"]
     """<p> The minimum confidence required to label an object in the video. </p>"""
 

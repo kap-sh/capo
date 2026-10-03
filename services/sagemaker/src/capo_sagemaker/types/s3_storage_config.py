@@ -13,7 +13,7 @@ class S3StorageConfig(TypedDict, closed=True):
     s3_uri: NotRequired["capo_sagemaker.types.s3_uri.S3Uri"]
     """<p>The S3 URI, or location in Amazon S3, of <code>OfflineStore</code>.</p> <p>S3 URIs have a format similar to the following: <code>s3://example-bucket/prefix/</code>.</p>"""
     kms_key_id: NotRequired["capo_sagemaker.types.kms_key_id.KmsKeyId"]
-    r"""<p>The Amazon Web Services Key Management Service (KMS) key ARN of the key used to encrypt any objects written into the <code>OfflineStore</code> S3 location.</p> <p>The IAM <code>roleARN</code> that is passed as a parameter to <code>CreateFeatureGroup</code> must have below permissions to the <code>KmsKeyId</code>:</p> <ul> <li> <p> <code>\"kms:GenerateDataKey\"</code> </p> </li> </ul>"""
+    """<p>The Amazon Web Services Key Management Service (KMS) key ARN of the key used to encrypt any objects written into the <code>OfflineStore</code> S3 location.</p> <p>The IAM <code>roleARN</code> that is passed as a parameter to <code>CreateFeatureGroup</code> must have below permissions to the <code>KmsKeyId</code>:</p> <ul> <li> <p> <code>"kms:GenerateDataKey"</code> </p> </li> </ul>"""
     resolved_output_s3_uri: NotRequired["capo_sagemaker.types.s3_uri.S3Uri"]
     """<p>The S3 path where offline records are written.</p>"""
 

@@ -16,7 +16,7 @@ class ResponseHeadersPolicyFrameOptions(TypedDict, closed=True):
     override: "capo_cloudfront.types.boolean.boolean"
     """<p>A Boolean that determines whether CloudFront overrides the <code>X-Frame-Options</code> HTTP response header received from the origin with the one specified in this response headers policy.</p>"""
     frame_option: "capo_cloudfront.types.frame_options_list.FrameOptionsList"
-    r"""<p>The value of the <code>X-Frame-Options</code> HTTP response header. Valid values are <code>DENY</code> and <code>SAMEORIGIN</code>.</p> <p>For more information about these values, see <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options\">X-Frame-Options</a> in the MDN Web Docs.</p>"""
+    """<p>The value of the <code>X-Frame-Options</code> HTTP response header. Valid values are <code>DENY</code> and <code>SAMEORIGIN</code>.</p> <p>For more information about these values, see <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">X-Frame-Options</a> in the MDN Web Docs.</p>"""
 
 
 # --- restXml ser/de ---

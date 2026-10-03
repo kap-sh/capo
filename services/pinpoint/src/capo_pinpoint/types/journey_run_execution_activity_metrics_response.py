@@ -21,7 +21,7 @@ class JourneyRunExecutionActivityMetricsResponse(TypedDict, closed=True):
     last_evaluated_time: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The date and time, in ISO 8601 format, when Amazon Pinpoint last evaluated the execution status of the activity for this journey run and updated the data for the metric.</p>"""
     metrics: NotRequired["capo_pinpoint.types.map_of__string.MapOf__string"]
-    r"""<p>A JSON object that contains the results of the query. For information about the structure and contents of the results, see see <a href=\"https://docs.aws.amazon.com//pinpoint/latest/developerguide/analytics-standard-metrics.html\">Standard Amazon Pinpoint analytics metrics</a> in the <i>Amazon Pinpoint Developer Guide</i>.</p>"""
+    """<p>A JSON object that contains the results of the query. For information about the structure and contents of the results, see see <a href="https://docs.aws.amazon.com//pinpoint/latest/developerguide/analytics-standard-metrics.html">Standard Amazon Pinpoint analytics metrics</a> in the <i>Amazon Pinpoint Developer Guide</i>.</p>"""
     run_id: NotRequired["capo_pinpoint.types.__string.__string"]
     """<p>The unique identifier for the journey run that the metric applies to.</p>"""
 

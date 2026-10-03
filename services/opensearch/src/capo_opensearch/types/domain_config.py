@@ -74,7 +74,7 @@ class DomainConfig(TypedDict, closed=True):
     advanced_options: NotRequired[
         "capo_opensearch.types.advanced_options_status.AdvancedOptionsStatus"
     ]
-    r"""<p>Key-value pairs to specify advanced configuration options. For more information, see <a href=\"https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options\">Advanced options</a>.</p>"""
+    """<p>Key-value pairs to specify advanced configuration options. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options">Advanced options</a>.</p>"""
     log_publishing_options: NotRequired[
         "capo_opensearch.types.log_publishing_options_status.LogPublishingOptionsStatus"
     ]

@@ -14,7 +14,7 @@ class IamPolicyConstraints(TypedDict, closed=True):
     vpc_source_ip: NotRequired[
         "capo_sagemaker.types.enabled_or_disabled.EnabledOrDisabled"
     ]
-    r"""<p>When <code>VpcSourceIp</code> is <code>Enabled</code> the worker's IP address when a task is rendered in private worker portal inside the VPC is added to the IAM policy as a <code>Condition</code> used to generate the Amazon S3 presigned URL. To render the task successfully Amazon S3 checks that the presigned URL is being accessed over an Amazon S3 VPC Endpoint, and that the worker's IP address matches the IP address in the IAM policy. To learn more about configuring private worker portal, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/samurai-vpc-worker-portal.html\">Use Amazon VPC mode from a private worker portal</a>.</p>"""
+    """<p>When <code>VpcSourceIp</code> is <code>Enabled</code> the worker's IP address when a task is rendered in private worker portal inside the VPC is added to the IAM policy as a <code>Condition</code> used to generate the Amazon S3 presigned URL. To render the task successfully Amazon S3 checks that the presigned URL is being accessed over an Amazon S3 VPC Endpoint, and that the worker's IP address matches the IP address in the IAM policy. To learn more about configuring private worker portal, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/samurai-vpc-worker-portal.html">Use Amazon VPC mode from a private worker portal</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

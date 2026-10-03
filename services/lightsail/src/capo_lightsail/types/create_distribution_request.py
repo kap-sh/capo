@@ -42,7 +42,7 @@ class CreateDistributionRequest(TypedDict, closed=True):
     tags: NotRequired["capo_lightsail.types.tag_list.TagList"]
     """<p>The tag keys and optional values to add to the distribution during create.</p> <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>"""
     certificate_name: NotRequired["capo_lightsail.types.resource_name.ResourceName"]
-    r"""<p>The name of the SSL/TLS certificate that you want to attach to the distribution.</p> <p>Use the <a href=\"https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetCertificates.html\">GetCertificates</a> action to get a list of certificate names that you can specify.</p>"""
+    """<p>The name of the SSL/TLS certificate that you want to attach to the distribution.</p> <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetCertificates.html">GetCertificates</a> action to get a list of certificate names that you can specify.</p>"""
     viewer_minimum_tls_protocol_version: NotRequired[
         "capo_lightsail.types.viewer_minimum_tls_protocol_version_enum.ViewerMinimumTlsProtocolVersionEnum"
     ]

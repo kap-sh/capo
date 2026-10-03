@@ -13,7 +13,7 @@ class ExecuteGremlinProfileQueryInput(TypedDict, closed=True):
     chop: NotRequired["int"]
     """<p>If non-zero, causes the results string to be truncated at that number of characters. If set to zero, the string contains all the results.</p>"""
     serializer: NotRequired["str"]
-    r"""<p>If non-null, the gathered results are returned in a serialized response message in the format specified by this parameter. See <a href=\"https://docs.aws.amazon.com/neptune/latest/userguide/gremlin-profile-api.html\">Gremlin profile API in Neptune</a> for more information.</p>"""
+    """<p>If non-null, the gathered results are returned in a serialized response message in the format specified by this parameter. See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/gremlin-profile-api.html">Gremlin profile API in Neptune</a> for more information.</p>"""
     index_ops: NotRequired["bool"]
     """<p>If this flag is set to <code>TRUE</code>, the results include a detailed report of all index operations that took place during query execution and serialization.</p>"""
 

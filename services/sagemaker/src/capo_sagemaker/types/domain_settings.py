@@ -27,7 +27,7 @@ class DomainSettings(TypedDict, closed=True):
     execution_role_identity_config: NotRequired[
         "capo_sagemaker.types.execution_role_identity_config.ExecutionRoleIdentityConfig"
     ]
-    r"""<p>The configuration for attaching a SageMaker AI user profile name to the execution role as a <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html\">sts:SourceIdentity key</a>.</p>"""
+    """<p>The configuration for attaching a SageMaker AI user profile name to the execution role as a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_monitor.html">sts:SourceIdentity key</a>.</p>"""
     trusted_identity_propagation_settings: NotRequired[
         "capo_sagemaker.types.trusted_identity_propagation_settings.TrustedIdentityPropagationSettings"
     ]

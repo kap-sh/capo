@@ -20,7 +20,7 @@ class UpdateCACertificateRequest(TypedDict, closed=True):
     new_auto_registration_status: NotRequired[
         "capo_iot.types.auto_registration_status.AutoRegistrationStatus"
     ]
-    r"""<p>The new value for the auto registration status. Valid values are: \"ENABLE\" or \"DISABLE\".</p>"""
+    """<p>The new value for the auto registration status. Valid values are: "ENABLE" or "DISABLE".</p>"""
     registration_config: NotRequired[
         "capo_iot.types.registration_config.RegistrationConfig"
     ]

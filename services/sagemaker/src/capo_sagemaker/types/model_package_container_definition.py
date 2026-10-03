@@ -27,7 +27,7 @@ class ModelPackageContainerDefinition(TypedDict, closed=True):
     ]
     """<p>The DNS host name for the Docker container.</p>"""
     image: NotRequired["capo_sagemaker.types.container_image.ContainerImage"]
-    r"""<p>The Amazon Elastic Container Registry (Amazon ECR) path where inference code is stored.</p> <p>If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html\">Using Your Own Algorithms with Amazon SageMaker</a>.</p>"""
+    """<p>The Amazon Elastic Container Registry (Amazon ECR) path where inference code is stored.</p> <p>If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats. For more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon SageMaker</a>.</p>"""
     image_digest: NotRequired["capo_sagemaker.types.image_digest.ImageDigest"]
     """<p>An MD5 hash of the training algorithm that identifies the Docker image used for training.</p>"""
     model_data_url: NotRequired["capo_sagemaker.types.url.Url"]

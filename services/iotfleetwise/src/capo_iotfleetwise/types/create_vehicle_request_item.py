@@ -23,7 +23,7 @@ class CreateVehicleRequestItem(TypedDict, closed=True):
     decoder_manifest_arn: "capo_iotfleetwise.types.arn.arn"
     """<p>The Amazon Resource Name (ARN) of a decoder manifest associated with the vehicle to create. </p>"""
     attributes: NotRequired["capo_iotfleetwise.types.attributes_map.attributesMap"]
-    r"""<p>Static information about a vehicle in a key-value pair. For example: <code>\"engine Type\"</code> : <code>\"v6\"</code> </p>"""
+    """<p>Static information about a vehicle in a key-value pair. For example: <code>"engine Type"</code> : <code>"v6"</code> </p>"""
     association_behavior: NotRequired[
         "capo_iotfleetwise.types.vehicle_association_behavior.VehicleAssociationBehavior"
     ]

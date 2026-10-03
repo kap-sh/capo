@@ -15,7 +15,7 @@ class JobExecutionSettings(TypedDict, closed=True):
     data_access_role_arn: NotRequired[
         "capo_transcribe.types.data_access_role_arn.DataAccessRoleArn"
     ]
-    r"""<p>The Amazon Resource Name (ARN) of an IAM role that has permissions to access the Amazon S3 bucket that contains your input files. If the role that you specify doesn’t have the appropriate permissions to access the specified Amazon S3 location, your request fails.</p> <p>IAM role ARNs have the format <code>arn:partition:iam::account:role/role-name-with-path</code>. For example: <code>arn:aws:iam::111122223333:role/Admin</code>. For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns\">IAM ARNs</a>.</p> <p>Note that if you include <code>DataAccessRoleArn</code> in your request, you must also include <code>AllowDeferredExecution</code>.</p>"""
+    """<p>The Amazon Resource Name (ARN) of an IAM role that has permissions to access the Amazon S3 bucket that contains your input files. If the role that you specify doesn’t have the appropriate permissions to access the specified Amazon S3 location, your request fails.</p> <p>IAM role ARNs have the format <code>arn:partition:iam::account:role/role-name-with-path</code>. For example: <code>arn:aws:iam::111122223333:role/Admin</code>. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>.</p> <p>Note that if you include <code>DataAccessRoleArn</code> in your request, you must also include <code>AllowDeferredExecution</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

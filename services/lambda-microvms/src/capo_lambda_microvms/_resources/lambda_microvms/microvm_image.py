@@ -591,7 +591,7 @@ class MicrovmImage:
         ] = None,
         client_token: Optional[str] = None,
     ) -> "capo_lambda_microvms.types.update_microvm_image_response.UpdateMicrovmImageResponse":
-        r"""<p>Updates the configuration of a MicroVM image and triggers a new version build. This operation uses PUT semantics — all required fields (codeArtifact, baseImageArn, buildRoleArn) must be provided with every request.</p>
+        """<p>Updates the configuration of a MicroVM image and triggers a new version build. This operation uses PUT semantics — all required fields (codeArtifact, baseImageArn, buildRoleArn) must be provided with every request.</p>
 
         Args:
             base_image_arn: <p>The ARN of the base MicroVM image.</p>
@@ -599,7 +599,7 @@ class MicrovmImage:
             build_role_arn: <p>The ARN of the IAM build role.</p>
             description: <p>The description of the MicroVM image.</p>
             code_artifact: <p>The code artifact containing the application code and metadata for the MicroVM image.</p>
-            logging: <p>The logging configuration for build-time and runtime logs. Specify {\"cloudWatch\": {\"logGroup\": \"...\"}} to stream logs to a custom CloudWatch log group, or {\"disabled\": {}} to turn off logging.</p>
+            logging: <p>The logging configuration for build-time and runtime logs. Specify {"cloudWatch": {"logGroup": "..."}} to stream logs to a custom CloudWatch log group, or {"disabled": {}} to turn off logging.</p>
             egress_network_connectors: <p>The list of egress network connectors available to the MicroVM at runtime.</p>
             cpu_configurations: <p>The list of supported CPU configurations for the MicroVM.</p>
             resources: <p>The resource requirements for the MicroVM.</p>
@@ -1258,7 +1258,7 @@ class AsyncMicrovmImage:
         ] = None,
         client_token: Optional[str] = None,
     ) -> "capo_lambda_microvms.types.update_microvm_image_response.UpdateMicrovmImageResponse":
-        r"""<p>Updates the configuration of a MicroVM image and triggers a new version build. This operation uses PUT semantics — all required fields (codeArtifact, baseImageArn, buildRoleArn) must be provided with every request.</p>
+        """<p>Updates the configuration of a MicroVM image and triggers a new version build. This operation uses PUT semantics — all required fields (codeArtifact, baseImageArn, buildRoleArn) must be provided with every request.</p>
 
         Args:
             base_image_arn: <p>The ARN of the base MicroVM image.</p>
@@ -1266,7 +1266,7 @@ class AsyncMicrovmImage:
             build_role_arn: <p>The ARN of the IAM build role.</p>
             description: <p>The description of the MicroVM image.</p>
             code_artifact: <p>The code artifact containing the application code and metadata for the MicroVM image.</p>
-            logging: <p>The logging configuration for build-time and runtime logs. Specify {\"cloudWatch\": {\"logGroup\": \"...\"}} to stream logs to a custom CloudWatch log group, or {\"disabled\": {}} to turn off logging.</p>
+            logging: <p>The logging configuration for build-time and runtime logs. Specify {"cloudWatch": {"logGroup": "..."}} to stream logs to a custom CloudWatch log group, or {"disabled": {}} to turn off logging.</p>
             egress_network_connectors: <p>The list of egress network connectors available to the MicroVM at runtime.</p>
             cpu_configurations: <p>The list of supported CPU configurations for the MicroVM.</p>
             resources: <p>The resource requirements for the MicroVM.</p>

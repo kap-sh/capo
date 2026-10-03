@@ -54,7 +54,7 @@ class Component(TypedDict, closed=True):
     data: NotRequired["capo_imagebuilder.types.component_data.ComponentData"]
     """<p>Component data contains the YAML document content for the component.</p>"""
     kms_key_id: NotRequired["capo_imagebuilder.types.non_empty_string.NonEmptyString"]
-    r"""<p>The KMS key identifier used to encrypt the component. This can be either the Key ARN or the Alias ARN. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN\">Key identifiers (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
+    """<p>The KMS key identifier used to encrypt the component. This can be either the Key ARN or the Alias ARN. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">Key identifiers (KeyId)</a> in the <i>Key Management Service Developer Guide</i>.</p>"""
     encrypted: NotRequired["capo_imagebuilder.types.nullable_boolean.NullableBoolean"]
     """<p>Indicates whether the component data is encrypted at rest. Image Builder encrypts all component data at rest, so this value is always <code>true</code>. This field is retained for backward compatibility.</p>"""
     date_created: NotRequired["capo_imagebuilder.types.date_time.DateTime"]

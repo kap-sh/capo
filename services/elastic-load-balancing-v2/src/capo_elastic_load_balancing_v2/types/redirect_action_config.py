@@ -31,11 +31,11 @@ class RedirectActionConfig(TypedDict, closed=True):
     path: NotRequired[
         "capo_elastic_load_balancing_v2.types.redirect_action_path.RedirectActionPath"
     ]
-    r"""<p>The absolute path, starting with the leading \"/\". This component is not percent-encoded. The path can contain #{host}, #{path}, and #{port}.</p>"""
+    """<p>The absolute path, starting with the leading "/". This component is not percent-encoded. The path can contain #{host}, #{path}, and #{port}.</p>"""
     query: NotRequired[
         "capo_elastic_load_balancing_v2.types.redirect_action_query.RedirectActionQuery"
     ]
-    r"""<p>The query parameters, URL-encoded when necessary, but not percent-encoded. Do not include the leading \"?\", as it is automatically added. You can specify any of the reserved keywords.</p>"""
+    """<p>The query parameters, URL-encoded when necessary, but not percent-encoded. Do not include the leading "?", as it is automatically added. You can specify any of the reserved keywords.</p>"""
     status_code: NotRequired[
         "capo_elastic_load_balancing_v2.types.redirect_action_status_code_enum.RedirectActionStatusCodeEnum"
     ]

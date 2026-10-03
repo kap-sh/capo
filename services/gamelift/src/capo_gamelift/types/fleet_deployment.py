@@ -43,7 +43,7 @@ class FleetDeployment(TypedDict, closed=True):
     ]
     """<p>Instructions for how to deploy updates to a container fleet and what actions to take if the deployment fails.</p>"""
     creation_time: NotRequired["capo_gamelift.types.timestamp.Timestamp"]
-    r"""<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>\"1469498468.057\"</code>).</p>"""
+    """<p>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).</p>"""
 
 
 # --- awsJson1_1 ser/de ---

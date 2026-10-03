@@ -18,7 +18,7 @@ class FailureConditions(TypedDict, closed=True):
     ]
     """<p>The retry configuration specifies automatic retry for a failed stage, along with the configured retry mode.</p>"""
     conditions: NotRequired["capo_codepipeline.types.condition_list.ConditionList"]
-    r"""<p>The conditions that are configured as failure conditions. For more information about conditions, see <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/stage-conditions.html\">Stage conditions</a> and <a href=\"https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-how-it-works-conditions.html\">How do stage conditions work?</a>.</p>"""
+    """<p>The conditions that are configured as failure conditions. For more information about conditions, see <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/stage-conditions.html">Stage conditions</a> and <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-how-it-works-conditions.html">How do stage conditions work?</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

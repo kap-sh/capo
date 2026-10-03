@@ -26,7 +26,7 @@ class ComparedFace(TypedDict, closed=True):
     quality: NotRequired["capo_rekognition.types.image_quality.ImageQuality"]
     """<p>Identifies face image brightness and sharpness. </p>"""
     emotions: NotRequired["capo_rekognition.types.emotions.Emotions"]
-    r"""<p> The emotions that appear to be expressed on the face, and the confidence level in the determination. Valid values include \"Happy\", \"Sad\", \"Angry\", \"Confused\", \"Disgusted\", \"Surprised\", \"Calm\", \"Unknown\", and \"Fear\". </p>"""
+    """<p> The emotions that appear to be expressed on the face, and the confidence level in the determination. Valid values include "Happy", "Sad", "Angry", "Confused", "Disgusted", "Surprised", "Calm", "Unknown", and "Fear". </p>"""
     smile: NotRequired["capo_rekognition.types.smile.Smile"]
     """<p> Indicates whether or not the face is smiling, and the confidence level in the determination. </p>"""
 

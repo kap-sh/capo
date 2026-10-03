@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class LeadInvitationInteraction(TypedDict, closed=True):
     source_type: "capo_partnercentral_selling.types.lead_source_type.LeadSourceType"
-    r"""<p>Specifies the type of source that generated the lead interaction, such as \"Event\", \"Website\", or \"Campaign\". This helps partners understand the lead generation channel and assess lead quality based on the source type.</p>"""
+    """<p>Specifies the type of source that generated the lead interaction, such as "Event", "Website", or "Campaign". This helps partners understand the lead generation channel and assess lead quality based on the source type.</p>"""
     source_id: "capo_partnercentral_selling.types.lead_source_id.LeadSourceId"
     """<p>The unique identifier of the specific source that generated the lead interaction. This provides traceability to the original lead generation activity for reference and follow-up purposes.</p>"""
     source_name: "capo_partnercentral_selling.types.lead_source_name.LeadSourceName"

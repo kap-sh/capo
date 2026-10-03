@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class SupportedEndpointType(TypedDict, closed=True):
     engine_name: NotRequired["capo_database_migration_service.types.string.String"]
-    r"""<p>The database engine name. Valid values, depending on the EndpointType, include <code>\"mysql\"</code>, <code>\"oracle\"</code>, <code>\"postgres\"</code>, <code>\"mariadb\"</code>, <code>\"aurora\"</code>, <code>\"aurora-postgresql\"</code>, <code>\"redshift\"</code>, <code>\"s3\"</code>, <code>\"db2\"</code>, <code>\"db2-zos\"</code>, <code>\"azuredb\"</code>, <code>\"sybase\"</code>, <code>\"dynamodb\"</code>, <code>\"mongodb\"</code>, <code>\"kinesis\"</code>, <code>\"kafka\"</code>, <code>\"elasticsearch\"</code>, <code>\"documentdb\"</code>, <code>\"sqlserver\"</code>, <code>\"neptune\"</code>, and <code>\"babelfish\"</code>.</p>"""
+    """<p>The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>, <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>, <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>, <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>, <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>, <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.</p>"""
     supports_cdc: "capo_database_migration_service.types.boolean.Boolean"
     """<p>Indicates if change data capture (CDC) is supported.</p>"""
     endpoint_type: NotRequired[
@@ -26,7 +26,7 @@ class SupportedEndpointType(TypedDict, closed=True):
     engine_display_name: NotRequired[
         "capo_database_migration_service.types.string.String"
     ]
-    r"""<p>The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is \"aurora\", this value would be \"Amazon Aurora MySQL\".</p>"""
+    """<p>The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora", this value would be "Amazon Aurora MySQL".</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -39,7 +39,7 @@ class VpcBlockPublicAccessOptions(TypedDict, closed=True):
     exclusions_allowed: NotRequired[
         "capo_ec2.types.vpc_block_public_access_exclusions_allowed.VpcBlockPublicAccessExclusionsAllowed"
     ]
-    r"""<p>Determines if exclusions are allowed. If you have <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/security-vpc-bpa.html#security-vpc-bpa-exclusions-orgs\">enabled VPC BPA at the Organization level</a>, exclusions may be <code>not-allowed</code>. Otherwise, they are <code>allowed</code>.</p>"""
+    """<p>Determines if exclusions are allowed. If you have <a href="https://docs.aws.amazon.com/vpc/latest/userguide/security-vpc-bpa.html#security-vpc-bpa-exclusions-orgs">enabled VPC BPA at the Organization level</a>, exclusions may be <code>not-allowed</code>. Otherwise, they are <code>allowed</code>.</p>"""
 
 
 # --- ec2Query ser/de ---

@@ -22,7 +22,7 @@ class RefreshSchedule(TypedDict, closed=True):
     start_after_date_time: NotRequired["capo_quicksight.types.timestamp.Timestamp"]
     """<p>Time after which the refresh schedule can be started, expressed in <code>YYYY-MM-DDTHH:MM:SS</code> format.</p>"""
     refresh_type: "capo_quicksight.types.ingestion_type.IngestionType"
-    r"""<p>The type of refresh that a datset undergoes. Valid values are as follows:</p> <ul> <li> <p> <code>FULL_REFRESH</code>: A complete refresh of a dataset.</p> </li> <li> <p> <code>INCREMENTAL_REFRESH</code>: A partial refresh of some rows of a dataset, based on the time window specified.</p> </li> </ul> <p>For more information on full and incremental refreshes, see <a href=\"https://docs.aws.amazon.com/quicksight/latest/user/refreshing-imported-data.html\">Refreshing SPICE data</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
+    """<p>The type of refresh that a datset undergoes. Valid values are as follows:</p> <ul> <li> <p> <code>FULL_REFRESH</code>: A complete refresh of a dataset.</p> </li> <li> <p> <code>INCREMENTAL_REFRESH</code>: A partial refresh of some rows of a dataset, based on the time window specified.</p> </li> </ul> <p>For more information on full and incremental refreshes, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/refreshing-imported-data.html">Refreshing SPICE data</a> in the <i>Amazon Quick Suite User Guide</i>.</p>"""
     arn: NotRequired["capo_quicksight.types.arn.Arn"]
     """<p>The Amazon Resource Name (ARN) for the refresh schedule.</p>"""
 

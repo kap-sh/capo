@@ -35,7 +35,7 @@ class Instance(TypedDict, closed=True):
     lifecycle_state: NotRequired[
         "capo_auto_scaling.types.lifecycle_state.LifecycleState"
     ]
-    r"""<p>A description of the current lifecycle state. The <code>Quarantined</code> state is not used. For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html\">Amazon EC2 Auto Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>"""
+    """<p>A description of the current lifecycle state. The <code>Quarantined</code> state is not used. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html">Amazon EC2 Auto Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>"""
     health_status: NotRequired[
         "capo_auto_scaling.types.xml_string_max_len32.XmlStringMaxLen32"
     ]

@@ -30,9 +30,9 @@ class WorkflowSummary(TypedDict, closed=True):
     )
     """<p>Information about the workflow definition file.</p>"""
     created_time: "capo_codecatalyst.types.timestamp.Timestamp"
-    r"""<p>The date and time the workflow was created, in coordinated universal time (UTC) timestamp format as specified in <a href=\"https://www.rfc-editor.org/rfc/rfc3339#section-5.6\">RFC 3339</a> </p>"""
+    """<p>The date and time the workflow was created, in coordinated universal time (UTC) timestamp format as specified in <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a> </p>"""
     last_updated_time: "capo_codecatalyst.types.timestamp.Timestamp"
-    r"""<p>The date and time the workflow was last updated, in coordinated universal time (UTC) timestamp format as specified in <a href=\"https://www.rfc-editor.org/rfc/rfc3339#section-5.6\">RFC 3339</a> </p>"""
+    """<p>The date and time the workflow was last updated, in coordinated universal time (UTC) timestamp format as specified in <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a> </p>"""
     run_mode: "capo_codecatalyst.types.workflow_run_mode.WorkflowRunMode"
     """<p>The run mode of the workflow.</p>"""
     status: "capo_codecatalyst.types.workflow_status.WorkflowStatus"

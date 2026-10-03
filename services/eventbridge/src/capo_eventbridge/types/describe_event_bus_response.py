@@ -26,14 +26,14 @@ class DescribeEventBusResponse(TypedDict, closed=True):
     kms_key_identifier: NotRequired[
         "capo_eventbridge.types.kms_key_identifier.KmsKeyIdentifier"
     ]
-    r"""<p>The identifier of the KMS customer managed key for EventBridge to use to encrypt events on this event bus, if one has been specified.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-encryption.html\">Data encryption in EventBridge</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
+    """<p>The identifier of the KMS customer managed key for EventBridge to use to encrypt events on this event bus, if one has been specified.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-encryption.html">Data encryption in EventBridge</a> in the <i>Amazon EventBridge User Guide</i>.</p>"""
     dead_letter_config: NotRequired[
         "capo_eventbridge.types.dead_letter_config.DeadLetterConfig"
     ]
     policy: NotRequired["capo_eventbridge.types.string.String"]
     """<p>The policy that enables the external account to send events to your account.</p>"""
     log_config: NotRequired["capo_eventbridge.types.log_config.LogConfig"]
-    r"""<p>The logging configuration settings for the event bus.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-bus-logs.html\">Configuring logs for event buses</a> in the <i>EventBridge User Guide</i>.</p>"""
+    """<p>The logging configuration settings for the event bus.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-bus-logs.html">Configuring logs for event buses</a> in the <i>EventBridge User Guide</i>.</p>"""
     creation_time: NotRequired["capo_eventbridge.types.timestamp.Timestamp"]
     """<p>The time the event bus was created.</p>"""
     last_modified_time: NotRequired["capo_eventbridge.types.timestamp.Timestamp"]

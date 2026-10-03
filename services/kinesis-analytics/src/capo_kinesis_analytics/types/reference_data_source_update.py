@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class ReferenceDataSourceUpdate(TypedDict, closed=True):
     reference_id: "capo_kinesis_analytics.types.id.Id"
-    r"""<p>ID of the reference data source being updated. You can use the <a href=\"https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html\">DescribeApplication</a> operation to get this value.</p>"""
+    """<p>ID of the reference data source being updated. You can use the <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a> operation to get this value.</p>"""
     table_name_update: NotRequired[
         "capo_kinesis_analytics.types.in_app_table_name.InAppTableName"
     ]

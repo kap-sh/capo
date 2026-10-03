@@ -21,7 +21,7 @@ class XksProxyConfigurationType(TypedDict, closed=True):
     access_key_id: NotRequired[
         "capo_kms.types.xks_proxy_authentication_access_key_id_type.XksProxyAuthenticationAccessKeyIdType"
     ]
-    r"""<p>The part of the external key store <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateCustomKeyStore.html#KMS-CreateCustomKeyStore-request-XksProxyAuthenticationCredential\">proxy authentication credential</a> that uniquely identifies the secret access key.</p>"""
+    """<p>The part of the external key store <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateCustomKeyStore.html#KMS-CreateCustomKeyStore-request-XksProxyAuthenticationCredential">proxy authentication credential</a> that uniquely identifies the secret access key.</p>"""
     uri_endpoint: NotRequired[
         "capo_kms.types.xks_proxy_uri_endpoint_type.XksProxyUriEndpointType"
     ]

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class OutputArtifact(TypedDict, closed=True):
     name: "capo_codepipeline.types.artifact_name.ArtifactName"
-    r"""<p>The name of the output of an artifact, such as \"My App\".</p> <p>The input artifact of an action must exactly match the output artifact declared in a preceding action, but the input artifact does not have to be the next action in strict sequence from the action that provided the output artifact. Actions in parallel can declare different output artifacts, which are in turn consumed by different following actions.</p> <p>Output artifact names must be unique within a pipeline.</p>"""
+    """<p>The name of the output of an artifact, such as "My App".</p> <p>The input artifact of an action must exactly match the output artifact declared in a preceding action, but the input artifact does not have to be the next action in strict sequence from the action that provided the output artifact. Actions in parallel can declare different output artifacts, which are in turn consumed by different following actions.</p> <p>Output artifact names must be unique within a pipeline.</p>"""
     files: NotRequired["capo_codepipeline.types.file_path_list.FilePathList"]
     """<p>The files that you want to associate with the output artifact that will be exported from the compute action.</p>"""
 

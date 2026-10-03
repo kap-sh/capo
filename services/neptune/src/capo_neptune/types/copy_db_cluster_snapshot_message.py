@@ -16,7 +16,7 @@ class CopyDBClusterSnapshotMessage(TypedDict, closed=True):
     source_db_cluster_snapshot_identifier: NotRequired[
         "capo_neptune.types.string.String"
     ]
-    r"""<p>The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive. If the source DB cluster snapshot is in a different region or owned by another account, specify the snapshot ARN.</p> <p>Constraints:</p> <ul> <li> <p>Must specify a valid system snapshot in the \"available\" state.</p> </li> <li> <p>Specify a valid DB snapshot identifier.</p> </li> </ul> <p>Example: <code>my-cluster-snapshot1</code> </p>"""
+    """<p>The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive. If the source DB cluster snapshot is in a different region or owned by another account, specify the snapshot ARN.</p> <p>Constraints:</p> <ul> <li> <p>Must specify a valid system snapshot in the "available" state.</p> </li> <li> <p>Specify a valid DB snapshot identifier.</p> </li> </ul> <p>Example: <code>my-cluster-snapshot1</code> </p>"""
     target_db_cluster_snapshot_identifier: NotRequired[
         "capo_neptune.types.string.String"
     ]

@@ -34,15 +34,15 @@ class DescribeHyperParameterTuningJobResponse(TypedDict, closed=True):
     hyper_parameter_tuning_job_config: NotRequired[
         "capo_sagemaker.types.hyper_parameter_tuning_job_config.HyperParameterTuningJobConfig"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html\">HyperParameterTuningJobConfig</a> object that specifies the configuration of the tuning job.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">HyperParameterTuningJobConfig</a> object that specifies the configuration of the tuning job.</p>"""
     training_job_definition: NotRequired[
         "capo_sagemaker.types.hyper_parameter_training_job_definition.HyperParameterTrainingJobDefinition"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html\">HyperParameterTrainingJobDefinition</a> object that specifies the definition of the training jobs that this tuning job launches.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html">HyperParameterTrainingJobDefinition</a> object that specifies the definition of the training jobs that this tuning job launches.</p>"""
     training_job_definitions: NotRequired[
         "capo_sagemaker.types.hyper_parameter_training_job_definitions.HyperParameterTrainingJobDefinitions"
     ]
-    r"""<p>A list of the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html\">HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.</p>"""
+    """<p>A list of the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html">HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.</p>"""
     hyper_parameter_tuning_job_status: NotRequired[
         "capo_sagemaker.types.hyper_parameter_tuning_job_status.HyperParameterTuningJobStatus"
     ]
@@ -58,19 +58,19 @@ class DescribeHyperParameterTuningJobResponse(TypedDict, closed=True):
     training_job_status_counters: NotRequired[
         "capo_sagemaker.types.training_job_status_counters.TrainingJobStatusCounters"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobStatusCounters.html\">TrainingJobStatusCounters</a> object that specifies the number of training jobs, categorized by status, that this tuning job launched.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobStatusCounters.html">TrainingJobStatusCounters</a> object that specifies the number of training jobs, categorized by status, that this tuning job launched.</p>"""
     objective_status_counters: NotRequired[
         "capo_sagemaker.types.objective_status_counters.ObjectiveStatusCounters"
     ]
-    r"""<p>The <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ObjectiveStatusCounters.html\">ObjectiveStatusCounters</a> object that specifies the number of training jobs, categorized by the status of their final objective metric, that this tuning job launched.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ObjectiveStatusCounters.html">ObjectiveStatusCounters</a> object that specifies the number of training jobs, categorized by the status of their final objective metric, that this tuning job launched.</p>"""
     best_training_job: NotRequired[
         "capo_sagemaker.types.hyper_parameter_training_job_summary.HyperParameterTrainingJobSummary"
     ]
-    r"""<p>A <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobSummary.html\">TrainingJobSummary</a> object that describes the training job that completed with the best current <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html\">HyperParameterTuningJobObjective</a>.</p>"""
+    """<p>A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobSummary.html">TrainingJobSummary</a> object that describes the training job that completed with the best current <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html">HyperParameterTuningJobObjective</a>.</p>"""
     overall_best_training_job: NotRequired[
         "capo_sagemaker.types.hyper_parameter_training_job_summary.HyperParameterTrainingJobSummary"
     ]
-    r"""<p>If the hyperparameter tuning job is an warm start tuning job with a <code>WarmStartType</code> of <code>IDENTICAL_DATA_AND_ALGORITHM</code>, this is the <a href=\"https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobSummary.html\">TrainingJobSummary</a> for the training job with the best objective metric value of all training jobs launched by this tuning job and all parent jobs specified for the warm start tuning job.</p>"""
+    """<p>If the hyperparameter tuning job is an warm start tuning job with a <code>WarmStartType</code> of <code>IDENTICAL_DATA_AND_ALGORITHM</code>, this is the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_TrainingJobSummary.html">TrainingJobSummary</a> for the training job with the best objective metric value of all training jobs launched by this tuning job and all parent jobs specified for the warm start tuning job.</p>"""
     warm_start_config: NotRequired[
         "capo_sagemaker.types.hyper_parameter_tuning_job_warm_start_config.HyperParameterTuningJobWarmStartConfig"
     ]
