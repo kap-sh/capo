@@ -1,5 +1,11 @@
 # aws-sdk-elastic-load-balancing
 
+## 0.13.0
+
+### Minor Changes
+
+- f3c2061: fix: links in operation and type docs rendering as relative URLs because of escaped quotes in docstrings
+
 ## 0.12.0
 
 ### Minor Changes
