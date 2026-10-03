@@ -32,8 +32,16 @@ jobs:
       - name: Build site
         run: uvx zensical build --strict
 
-      # The main site lives under the `_root/` prefix of the bucket, which the
-      # worker in docs-worker/ serves as `capo-sdk.dev`.
+      # The main site lives under the `_root/` prefix of the bucket and each
+      # service site under `<service>/`, uploaded by service-docs.yml. The
+      # bucket is served through an R2 custom domain on `capo-sdk.dev`, with no
+      # worker in between; rules on the zone do the rest:
+      #   - URL rewrites: `/x` to `_root/x` and `/services/<service>/x` to
+      #     `<service>/x`, with `index.html` appended to a path ending in `/`.
+      #   - Redirect: a path with no extension and no trailing `/` gets the `/`.
+      #   - Redirect: `<service>.capo-sdk.dev/x` to
+      #     `capo-sdk.dev/services/<service>/x`.
+      #   - Cache rule: everything is eligible for cache, HTML included.
       - name: Upload site
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}

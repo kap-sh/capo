@@ -59,7 +59,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
 
       # Each site lives under its own `<service>/` prefix of the bucket, which
-      # the worker in docs-worker/ serves as `<service>.capo-sdk.dev`.
+      # is served as `capo-sdk.dev/services/<service>/`; see docs.yml.
       - name: Build and upload batch
         env:
           BATCH: ${{ matrix.batch }}

@@ -2,7 +2,7 @@
 """Generate docs/services.md, the index of per-service documentation sites.
 
 Every service with a `zensical.toml` has its own site at
-`https://<service>.capo-sdk.dev`. Services without one are left out, so the
+`https://capo-sdk.dev/services/<service>/`. Services without one are left out, so the
 index never links to a site that does not exist.
 """
 
@@ -69,8 +69,8 @@ def table(services: List[str]) -> str:
         m = _DESCRIPTION_RE.search(pyproject.read_text())
         if not m:
             raise ValueError(f"no description in {pyproject}")
-        host = f"{service}.capo-sdk.dev"
-        rows.append(f"| {m.group(1)} | `capo-{service}` | [{host}](https://{host}) |\n")
+        site = f"capo-sdk.dev/services/{service}"
+        rows.append(f"| {m.group(1)} | `capo-{service}` | [{site}](https://{site}/) |\n")
     return TABLE_HEADER + "".join(rows)
 
 
