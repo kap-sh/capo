@@ -1,0 +1,8 @@
+---
+title: MutualAuthenticationAttributes
+---
+
+::: capo_elastic_load_balancing_v2.types.mutual_authentication_attributes.MutualAuthenticationAttributes
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: AssociateExternalConnectionResult
+---
+
+::: capo_codeartifact.types.associate_external_connection_result.AssociateExternalConnectionResult
+    options:
+      show_source: true
+      merge_init_into_class: false

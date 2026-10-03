@@ -1,0 +1,8 @@
+---
+title: UpdateContainerAssociationRequest
+---
+
+::: capo_network_firewall.types.update_container_association_request.UpdateContainerAssociationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

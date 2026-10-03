@@ -1,0 +1,8 @@
+---
+title: SessionSummary
+---
+
+::: capo_deadline.types.session_summary.SessionSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

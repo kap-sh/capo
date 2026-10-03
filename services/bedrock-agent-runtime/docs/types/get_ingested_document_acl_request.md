@@ -1,0 +1,8 @@
+---
+title: GetIngestedDocumentAclRequest
+---
+
+::: capo_bedrock_agent_runtime.types.get_ingested_document_acl_request.GetIngestedDocumentAclRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

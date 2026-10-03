@@ -1,0 +1,8 @@
+---
+title: CreateBackendResponse
+---
+
+::: capo_amplifybackend.types.create_backend_response.CreateBackendResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

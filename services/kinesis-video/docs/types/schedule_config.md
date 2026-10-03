@@ -1,0 +1,8 @@
+---
+title: ScheduleConfig
+---
+
+::: capo_kinesis_video.types.schedule_config.ScheduleConfig
+    options:
+      show_source: true
+      merge_init_into_class: false

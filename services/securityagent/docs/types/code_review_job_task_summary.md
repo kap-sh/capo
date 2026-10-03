@@ -1,0 +1,8 @@
+---
+title: CodeReviewJobTaskSummary
+---
+
+::: capo_securityagent.types.code_review_job_task_summary.CodeReviewJobTaskSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

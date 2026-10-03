@@ -1,0 +1,8 @@
+---
+title: ListAgreementCancellationRequestsOutput
+---
+
+::: capo_marketplace_agreement.types.list_agreement_cancellation_requests_output.ListAgreementCancellationRequestsOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ListDeliveryStreamsInput
+---
+
+::: capo_firehose.types.list_delivery_streams_input.ListDeliveryStreamsInput
+    options:
+      show_source: true
+      merge_init_into_class: false

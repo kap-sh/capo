@@ -1,0 +1,345 @@
+[project]
+site_name = "capo-waf-regional"
+site_description = "Python SDK for AWS WAF Regional."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "WAFRegionalClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/associate_web_acl.md",
+      "sync-client/operations/create_byte_match_set.md",
+      "sync-client/operations/create_geo_match_set.md",
+      "sync-client/operations/create_ip_set.md",
+      "sync-client/operations/create_rate_based_rule.md",
+      "sync-client/operations/create_regex_match_set.md",
+      "sync-client/operations/create_regex_pattern_set.md",
+      "sync-client/operations/create_rule.md",
+      "sync-client/operations/create_rule_group.md",
+      "sync-client/operations/create_size_constraint_set.md",
+      "sync-client/operations/create_sql_injection_match_set.md",
+      "sync-client/operations/create_web_acl.md",
+      "sync-client/operations/create_web_acl_migration_stack.md",
+      "sync-client/operations/create_xss_match_set.md",
+      "sync-client/operations/delete_byte_match_set.md",
+      "sync-client/operations/delete_geo_match_set.md",
+      "sync-client/operations/delete_ip_set.md",
+      "sync-client/operations/delete_logging_configuration.md",
+      "sync-client/operations/delete_permission_policy.md",
+      "sync-client/operations/delete_rate_based_rule.md",
+      "sync-client/operations/delete_regex_match_set.md",
+      "sync-client/operations/delete_regex_pattern_set.md",
+      "sync-client/operations/delete_rule.md",
+      "sync-client/operations/delete_rule_group.md",
+      "sync-client/operations/delete_size_constraint_set.md",
+      "sync-client/operations/delete_sql_injection_match_set.md",
+      "sync-client/operations/delete_web_acl.md",
+      "sync-client/operations/delete_xss_match_set.md",
+      "sync-client/operations/disassociate_web_acl.md",
+      "sync-client/operations/get_byte_match_set.md",
+      "sync-client/operations/get_change_token.md",
+      "sync-client/operations/get_change_token_status.md",
+      "sync-client/operations/get_geo_match_set.md",
+      "sync-client/operations/get_ip_set.md",
+      "sync-client/operations/get_logging_configuration.md",
+      "sync-client/operations/get_permission_policy.md",
+      "sync-client/operations/get_rate_based_rule.md",
+      "sync-client/operations/get_rate_based_rule_managed_keys.md",
+      "sync-client/operations/get_regex_match_set.md",
+      "sync-client/operations/get_regex_pattern_set.md",
+      "sync-client/operations/get_rule.md",
+      "sync-client/operations/get_rule_group.md",
+      "sync-client/operations/get_sampled_requests.md",
+      "sync-client/operations/get_size_constraint_set.md",
+      "sync-client/operations/get_sql_injection_match_set.md",
+      "sync-client/operations/get_web_acl.md",
+      "sync-client/operations/get_web_acl_for_resource.md",
+      "sync-client/operations/get_xss_match_set.md",
+      "sync-client/operations/list_activated_rules_in_rule_group.md",
+      "sync-client/operations/list_byte_match_sets.md",
+      "sync-client/operations/list_geo_match_sets.md",
+      "sync-client/operations/list_ip_sets.md",
+      "sync-client/operations/list_logging_configurations.md",
+      "sync-client/operations/list_rate_based_rules.md",
+      "sync-client/operations/list_regex_match_sets.md",
+      "sync-client/operations/list_regex_pattern_sets.md",
+      "sync-client/operations/list_resources_for_web_acl.md",
+      "sync-client/operations/list_rule_groups.md",
+      "sync-client/operations/list_rules.md",
+      "sync-client/operations/list_size_constraint_sets.md",
+      "sync-client/operations/list_sql_injection_match_sets.md",
+      "sync-client/operations/list_subscribed_rule_groups.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_web_ac_ls.md",
+      "sync-client/operations/list_xss_match_sets.md",
+      "sync-client/operations/put_logging_configuration.md",
+      "sync-client/operations/put_permission_policy.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_byte_match_set.md",
+      "sync-client/operations/update_geo_match_set.md",
+      "sync-client/operations/update_ip_set.md",
+      "sync-client/operations/update_rate_based_rule.md",
+      "sync-client/operations/update_regex_match_set.md",
+      "sync-client/operations/update_regex_pattern_set.md",
+      "sync-client/operations/update_rule.md",
+      "sync-client/operations/update_rule_group.md",
+      "sync-client/operations/update_size_constraint_set.md",
+      "sync-client/operations/update_sql_injection_match_set.md",
+      "sync-client/operations/update_web_acl.md",
+      "sync-client/operations/update_xss_match_set.md",
+    ] },
+  ] },
+  { "AsyncWAFRegionalClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/associate_web_acl.md",
+      "async-client/operations/create_byte_match_set.md",
+      "async-client/operations/create_geo_match_set.md",
+      "async-client/operations/create_ip_set.md",
+      "async-client/operations/create_rate_based_rule.md",
+      "async-client/operations/create_regex_match_set.md",
+      "async-client/operations/create_regex_pattern_set.md",
+      "async-client/operations/create_rule.md",
+      "async-client/operations/create_rule_group.md",
+      "async-client/operations/create_size_constraint_set.md",
+      "async-client/operations/create_sql_injection_match_set.md",
+      "async-client/operations/create_web_acl.md",
+      "async-client/operations/create_web_acl_migration_stack.md",
+      "async-client/operations/create_xss_match_set.md",
+      "async-client/operations/delete_byte_match_set.md",
+      "async-client/operations/delete_geo_match_set.md",
+      "async-client/operations/delete_ip_set.md",
+      "async-client/operations/delete_logging_configuration.md",
+      "async-client/operations/delete_permission_policy.md",
+      "async-client/operations/delete_rate_based_rule.md",
+      "async-client/operations/delete_regex_match_set.md",
+      "async-client/operations/delete_regex_pattern_set.md",
+      "async-client/operations/delete_rule.md",
+      "async-client/operations/delete_rule_group.md",
+      "async-client/operations/delete_size_constraint_set.md",
+      "async-client/operations/delete_sql_injection_match_set.md",
+      "async-client/operations/delete_web_acl.md",
+      "async-client/operations/delete_xss_match_set.md",
+      "async-client/operations/disassociate_web_acl.md",
+      "async-client/operations/get_byte_match_set.md",
+      "async-client/operations/get_change_token.md",
+      "async-client/operations/get_change_token_status.md",
+      "async-client/operations/get_geo_match_set.md",
+      "async-client/operations/get_ip_set.md",
+      "async-client/operations/get_logging_configuration.md",
+      "async-client/operations/get_permission_policy.md",
+      "async-client/operations/get_rate_based_rule.md",
+      "async-client/operations/get_rate_based_rule_managed_keys.md",
+      "async-client/operations/get_regex_match_set.md",
+      "async-client/operations/get_regex_pattern_set.md",
+      "async-client/operations/get_rule.md",
+      "async-client/operations/get_rule_group.md",
+      "async-client/operations/get_sampled_requests.md",
+      "async-client/operations/get_size_constraint_set.md",
+      "async-client/operations/get_sql_injection_match_set.md",
+      "async-client/operations/get_web_acl.md",
+      "async-client/operations/get_web_acl_for_resource.md",
+      "async-client/operations/get_xss_match_set.md",
+      "async-client/operations/list_activated_rules_in_rule_group.md",
+      "async-client/operations/list_byte_match_sets.md",
+      "async-client/operations/list_geo_match_sets.md",
+      "async-client/operations/list_ip_sets.md",
+      "async-client/operations/list_logging_configurations.md",
+      "async-client/operations/list_rate_based_rules.md",
+      "async-client/operations/list_regex_match_sets.md",
+      "async-client/operations/list_regex_pattern_sets.md",
+      "async-client/operations/list_resources_for_web_acl.md",
+      "async-client/operations/list_rule_groups.md",
+      "async-client/operations/list_rules.md",
+      "async-client/operations/list_size_constraint_sets.md",
+      "async-client/operations/list_sql_injection_match_sets.md",
+      "async-client/operations/list_subscribed_rule_groups.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_web_ac_ls.md",
+      "async-client/operations/list_xss_match_sets.md",
+      "async-client/operations/put_logging_configuration.md",
+      "async-client/operations/put_permission_policy.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_byte_match_set.md",
+      "async-client/operations/update_geo_match_set.md",
+      "async-client/operations/update_ip_set.md",
+      "async-client/operations/update_rate_based_rule.md",
+      "async-client/operations/update_regex_match_set.md",
+      "async-client/operations/update_regex_pattern_set.md",
+      "async-client/operations/update_rule.md",
+      "async-client/operations/update_rule_group.md",
+      "async-client/operations/update_size_constraint_set.md",
+      "async-client/operations/update_sql_injection_match_set.md",
+      "async-client/operations/update_web_acl.md",
+      "async-client/operations/update_xss_match_set.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/DeserializationError.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/UnknownServiceError.md",
+    "errors/WAFBadRequestException.md",
+    "errors/WAFDisallowedNameException.md",
+    "errors/WAFEntityMigrationException.md",
+    "errors/WAFInternalErrorException.md",
+    "errors/WAFInvalidAccountException.md",
+    "errors/WAFInvalidOperationException.md",
+    "errors/WAFInvalidParameterException.md",
+    "errors/WAFInvalidPermissionPolicyException.md",
+    "errors/WAFInvalidRegexPatternException.md",
+    "errors/WAFLimitsExceededException.md",
+    "errors/WAFNonEmptyEntityException.md",
+    "errors/WAFNonexistentContainerException.md",
+    "errors/WAFNonexistentItemException.md",
+    "errors/WAFReferencedItemException.md",
+    "errors/WAFRegionalError.md",
+    "errors/WAFServiceLinkedRoleErrorException.md",
+    "errors/WAFStaleDataException.md",
+    "errors/WAFSubscriptionNotFoundException.md",
+    "errors/WAFTagOperationException.md",
+    "errors/WAFTagOperationInternalErrorException.md",
+    "errors/WAFUnavailableEntityException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_waf_regional` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_waf_regional.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

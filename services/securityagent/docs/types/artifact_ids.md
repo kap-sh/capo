@@ -1,0 +1,8 @@
+---
+title: ArtifactIds
+---
+
+::: capo_securityagent.types.artifact_ids.ArtifactIds
+    options:
+      show_source: true
+      merge_init_into_class: false

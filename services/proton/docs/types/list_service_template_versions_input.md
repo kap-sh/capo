@@ -1,0 +1,8 @@
+---
+title: ListServiceTemplateVersionsInput
+---
+
+::: capo_proton.types.list_service_template_versions_input.ListServiceTemplateVersionsInput
+    options:
+      show_source: true
+      merge_init_into_class: false

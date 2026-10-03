@@ -1,0 +1,8 @@
+---
+title: RestoreWindow
+---
+
+::: capo_rds.types.restore_window.RestoreWindow
+    options:
+      show_source: true
+      merge_init_into_class: false

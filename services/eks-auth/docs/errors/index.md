@@ -1,0 +1,18 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [DeserializationError](DeserializationError.md)
+- [EKSAuthError](EKSAuthError.md)
+- [ExpiredTokenException](ExpiredTokenException.md)
+- [InternalServerException](InternalServerException.md)
+- [InvalidParameterException](InvalidParameterException.md)
+- [InvalidRequestException](InvalidRequestException.md)
+- [InvalidTokenException](InvalidTokenException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

@@ -1,0 +1,17 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [ApplicationInsightsError](ApplicationInsightsError.md)
+- [BadRequestException](BadRequestException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [ResourceInUseException](ResourceInUseException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TagsAlreadyExistException](TagsAlreadyExistException.md)
+- [TooManyTagsException](TooManyTagsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

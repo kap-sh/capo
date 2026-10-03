@@ -1,0 +1,8 @@
+---
+title: CreateRepositoryCreationTemplateResponse
+---
+
+::: capo_ecr.types.create_repository_creation_template_response.CreateRepositoryCreationTemplateResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

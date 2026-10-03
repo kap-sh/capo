@@ -1,0 +1,8 @@
+---
+title: DescribeFleetsResult
+---
+
+::: capo_appstream.types.describe_fleets_result.DescribeFleetsResult
+    options:
+      show_source: true
+      merge_init_into_class: false

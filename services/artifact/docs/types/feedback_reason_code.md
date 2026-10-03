@@ -1,0 +1,8 @@
+---
+title: FeedbackReasonCode
+---
+
+::: capo_artifact.types.feedback_reason_code.FeedbackReasonCode
+    options:
+      show_source: true
+      merge_init_into_class: false

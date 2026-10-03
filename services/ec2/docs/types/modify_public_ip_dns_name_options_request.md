@@ -1,0 +1,8 @@
+---
+title: ModifyPublicIpDnsNameOptionsRequest
+---
+
+::: capo_ec2.types.modify_public_ip_dns_name_options_request.ModifyPublicIpDnsNameOptionsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

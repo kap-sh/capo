@@ -1,0 +1,7 @@
+---
+title: get_resource_metrics_configuration
+---
+
+::: capo_cloudwatch._services.cloud_watch.CloudWatchClient.get_resource_metrics_configuration
+    options:
+      show_source: true

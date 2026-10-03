@@ -1,0 +1,16 @@
+# Errors
+
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [LexModelsV2Error](LexModelsV2Error.md)
+- [PreconditionFailedException](PreconditionFailedException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

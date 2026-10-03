@@ -1,0 +1,8 @@
+---
+title: AutomationActionName
+---
+
+::: capo_ssm.types.automation_action_name.AutomationActionName
+    options:
+      show_source: true
+      merge_init_into_class: false

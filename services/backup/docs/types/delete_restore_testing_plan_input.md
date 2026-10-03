@@ -1,0 +1,8 @@
+---
+title: DeleteRestoreTestingPlanInput
+---
+
+::: capo_backup.types.delete_restore_testing_plan_input.DeleteRestoreTestingPlanInput
+    options:
+      show_source: true
+      merge_init_into_class: false

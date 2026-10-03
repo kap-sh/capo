@@ -1,0 +1,8 @@
+---
+title: BatchScheduleActionDeleteResult
+---
+
+::: capo_medialive.types.batch_schedule_action_delete_result.BatchScheduleActionDeleteResult
+    options:
+      show_source: true
+      merge_init_into_class: false

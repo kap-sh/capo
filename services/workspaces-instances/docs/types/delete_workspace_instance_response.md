@@ -1,0 +1,8 @@
+---
+title: DeleteWorkspaceInstanceResponse
+---
+
+::: capo_workspaces_instances.types.delete_workspace_instance_response.DeleteWorkspaceInstanceResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

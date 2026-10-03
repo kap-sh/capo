@@ -1,0 +1,8 @@
+---
+title: DeleteUsagePlanRequest
+---
+
+::: capo_api_gateway.types.delete_usage_plan_request.DeleteUsagePlanRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

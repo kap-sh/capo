@@ -1,0 +1,8 @@
+---
+title: SNOMEDCTTraitList
+---
+
+::: capo_comprehendmedical.types.snomedct_trait_list.SNOMEDCTTraitList
+    options:
+      show_source: true
+      merge_init_into_class: false

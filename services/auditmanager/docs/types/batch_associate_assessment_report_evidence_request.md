@@ -1,0 +1,8 @@
+---
+title: BatchAssociateAssessmentReportEvidenceRequest
+---
+
+::: capo_auditmanager.types.batch_associate_assessment_report_evidence_request.BatchAssociateAssessmentReportEvidenceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

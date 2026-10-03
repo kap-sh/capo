@@ -1,0 +1,8 @@
+---
+title: SessionStatus
+---
+
+::: capo_payment_cryptography.types.session_status.SessionStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

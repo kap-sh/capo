@@ -1,0 +1,8 @@
+---
+title: GetChannelScheduleRequest
+---
+
+::: capo_mediatailor.types.get_channel_schedule_request.GetChannelScheduleRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

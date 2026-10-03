@@ -1,0 +1,8 @@
+---
+title: ModifyRuleInput
+---
+
+::: capo_elastic_load_balancing_v2.types.modify_rule_input.ModifyRuleInput
+    options:
+      show_source: true
+      merge_init_into_class: false

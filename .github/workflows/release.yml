@@ -97,3 +97,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SERVICES: ${{ steps.changed.outputs.services }}
         run: gh workflow run publish.yml -f services="$SERVICES"
+
+      - name: Dispatch service docs workflow
+        if: steps.changed.outputs.services != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SERVICES: ${{ steps.changed.outputs.services }}
+        run: gh workflow run service-docs.yml -f services="$SERVICES"

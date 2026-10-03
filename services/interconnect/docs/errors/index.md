@@ -1,0 +1,16 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [DeserializationError](DeserializationError.md)
+- [InterconnectClientException](InterconnectClientException.md)
+- [InterconnectError](InterconnectError.md)
+- [InterconnectServerException](InterconnectServerException.md)
+- [InterconnectValidationException](InterconnectValidationException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

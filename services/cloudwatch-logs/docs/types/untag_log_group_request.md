@@ -1,0 +1,8 @@
+---
+title: UntagLogGroupRequest
+---
+
+::: capo_cloudwatch_logs.types.untag_log_group_request.UntagLogGroupRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

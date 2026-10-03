@@ -1,0 +1,8 @@
+---
+title: InstanceMetadataOptionsState
+---
+
+::: capo_ec2.types.instance_metadata_options_state.InstanceMetadataOptionsState
+    options:
+      show_source: true
+      merge_init_into_class: false

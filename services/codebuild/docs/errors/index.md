@@ -1,0 +1,15 @@
+# Errors
+
+- [AccountLimitExceededException](AccountLimitExceededException.md)
+- [AccountSuspendedException](AccountSuspendedException.md)
+- [CodeBuildError](CodeBuildError.md)
+- [DeserializationError](DeserializationError.md)
+- [InvalidInputException](InvalidInputException.md)
+- [OAuthProviderException](OAuthProviderException.md)
+- [ResourceAlreadyExistsException](ResourceAlreadyExistsException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

@@ -1,0 +1,15 @@
+# Errors
+
+- [AlreadyExistsException](AlreadyExistsException.md)
+- [BadRequestException](BadRequestException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServiceErrorException](InternalServiceErrorException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [NotFoundException](NotFoundException.md)
+- [PinpointSMSVoiceError](PinpointSMSVoiceError.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TooManyRequestsException](TooManyRequestsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

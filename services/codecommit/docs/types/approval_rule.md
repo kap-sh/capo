@@ -1,0 +1,8 @@
+---
+title: ApprovalRule
+---
+
+::: capo_codecommit.types.approval_rule.ApprovalRule
+    options:
+      show_source: true
+      merge_init_into_class: false

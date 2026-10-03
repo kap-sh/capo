@@ -1,0 +1,8 @@
+---
+title: ResourceGatewayIpAddressType
+---
+
+::: capo_vpc_lattice.types.resource_gateway_ip_address_type.ResourceGatewayIpAddressType
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,16 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [AccountError](AccountError.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [ResourceUnavailableException](ResourceUnavailableException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TooManyRequestsException](TooManyRequestsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

@@ -1,0 +1,8 @@
+---
+title: TaskArnOrIdentifier
+---
+
+::: capo_partnercentral_selling.types.task_arn_or_identifier.TaskArnOrIdentifier
+    options:
+      show_source: true
+      merge_init_into_class: false

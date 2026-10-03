@@ -1,0 +1,8 @@
+---
+title: MetricSemantics
+---
+
+::: capo_cloudwatchomni.types.metric_semantics.MetricSemantics
+    options:
+      show_source: true
+      merge_init_into_class: false

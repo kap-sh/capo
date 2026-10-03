@@ -1,0 +1,7 @@
+---
+title: delete_workspace_page
+---
+
+::: capo_connect._services.async_connect.AsyncConnectClient.delete_workspace_page
+    options:
+      show_source: true

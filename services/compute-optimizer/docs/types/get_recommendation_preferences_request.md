@@ -1,0 +1,8 @@
+---
+title: GetRecommendationPreferencesRequest
+---
+
+::: capo_compute_optimizer.types.get_recommendation_preferences_request.GetRecommendationPreferencesRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

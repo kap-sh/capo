@@ -1,0 +1,17 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [ConcurrentModificationException](ConcurrentModificationException.md)
+- [ConfigurationException](ConfigurationException.md)
+- [DeserializationError](DeserializationError.md)
+- [InvalidNextTokenException](InvalidNextTokenException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ResourceAlreadyExistsException](ResourceAlreadyExistsException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)
+- [codestarnotificationsError](codestarnotificationsError.md)

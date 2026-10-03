@@ -1,0 +1,430 @@
+[project]
+site_name = "capo-cloudformation"
+site_description = "Python SDK for AWS Cloudformation."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "CloudFormationClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/activate_organizations_access.md",
+      "sync-client/operations/activate_type.md",
+      "sync-client/operations/batch_describe_type_configurations.md",
+      "sync-client/operations/cancel_update_stack.md",
+      "sync-client/operations/continue_update_rollback.md",
+      "sync-client/operations/create_change_set.md",
+      "sync-client/operations/create_generated_template.md",
+      "sync-client/operations/create_stack.md",
+      "sync-client/operations/create_stack_instances.md",
+      "sync-client/operations/create_stack_refactor.md",
+      "sync-client/operations/create_stack_set.md",
+      "sync-client/operations/deactivate_organizations_access.md",
+      "sync-client/operations/deactivate_type.md",
+      "sync-client/operations/delete_change_set.md",
+      "sync-client/operations/delete_generated_template.md",
+      "sync-client/operations/delete_stack.md",
+      "sync-client/operations/delete_stack_instances.md",
+      "sync-client/operations/delete_stack_set.md",
+      "sync-client/operations/deregister_type.md",
+      "sync-client/operations/describe_account_limits.md",
+      "sync-client/operations/describe_change_set.md",
+      "sync-client/operations/describe_change_set_hooks.md",
+      "sync-client/operations/describe_events.md",
+      "sync-client/operations/describe_generated_template.md",
+      "sync-client/operations/describe_organizations_access.md",
+      "sync-client/operations/describe_publisher.md",
+      "sync-client/operations/describe_resource_scan.md",
+      "sync-client/operations/describe_stack_drift_detection_status.md",
+      "sync-client/operations/describe_stack_events.md",
+      "sync-client/operations/describe_stack_instance.md",
+      "sync-client/operations/describe_stack_refactor.md",
+      "sync-client/operations/describe_stack_resource.md",
+      "sync-client/operations/describe_stack_resource_drifts.md",
+      "sync-client/operations/describe_stack_resources.md",
+      "sync-client/operations/describe_stack_set.md",
+      "sync-client/operations/describe_stack_set_operation.md",
+      "sync-client/operations/describe_stacks.md",
+      "sync-client/operations/describe_type.md",
+      "sync-client/operations/describe_type_registration.md",
+      "sync-client/operations/detect_stack_drift.md",
+      "sync-client/operations/detect_stack_resource_drift.md",
+      "sync-client/operations/detect_stack_set_drift.md",
+      "sync-client/operations/estimate_template_cost.md",
+      "sync-client/operations/execute_change_set.md",
+      "sync-client/operations/execute_stack_refactor.md",
+      "sync-client/operations/get_generated_template.md",
+      "sync-client/operations/get_hook_result.md",
+      "sync-client/operations/get_stack_policy.md",
+      "sync-client/operations/get_template.md",
+      "sync-client/operations/get_template_summary.md",
+      "sync-client/operations/import_stacks_to_stack_set.md",
+      "sync-client/operations/list_change_sets.md",
+      "sync-client/operations/list_exports.md",
+      "sync-client/operations/list_generated_templates.md",
+      "sync-client/operations/list_hook_results.md",
+      "sync-client/operations/list_imports.md",
+      "sync-client/operations/list_resource_scan_related_resources.md",
+      "sync-client/operations/list_resource_scan_resources.md",
+      "sync-client/operations/list_resource_scans.md",
+      "sync-client/operations/list_stack_instance_resource_drifts.md",
+      "sync-client/operations/list_stack_instances.md",
+      "sync-client/operations/list_stack_refactor_actions.md",
+      "sync-client/operations/list_stack_refactors.md",
+      "sync-client/operations/list_stack_resources.md",
+      "sync-client/operations/list_stack_set_auto_deployment_targets.md",
+      "sync-client/operations/list_stack_set_operation_results.md",
+      "sync-client/operations/list_stack_set_operations.md",
+      "sync-client/operations/list_stack_sets.md",
+      "sync-client/operations/list_stacks.md",
+      "sync-client/operations/list_type_registrations.md",
+      "sync-client/operations/list_type_versions.md",
+      "sync-client/operations/list_types.md",
+      "sync-client/operations/publish_type.md",
+      "sync-client/operations/record_handler_progress.md",
+      "sync-client/operations/register_publisher.md",
+      "sync-client/operations/register_type.md",
+      "sync-client/operations/rollback_stack.md",
+      "sync-client/operations/set_stack_policy.md",
+      "sync-client/operations/set_type_configuration.md",
+      "sync-client/operations/set_type_default_version.md",
+      "sync-client/operations/signal_resource.md",
+      "sync-client/operations/start_resource_scan.md",
+      "sync-client/operations/stop_stack_set_operation.md",
+      "sync-client/operations/test_type.md",
+      "sync-client/operations/update_generated_template.md",
+      "sync-client/operations/update_stack.md",
+      "sync-client/operations/update_stack_instances.md",
+      "sync-client/operations/update_stack_set.md",
+      "sync-client/operations/update_termination_protection.md",
+      "sync-client/operations/validate_template.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_account_limits.md",
+      "sync-client/paginators/iter_describe_change_set.md",
+      "sync-client/paginators/iter_describe_events.md",
+      "sync-client/paginators/iter_describe_stack_events.md",
+      "sync-client/paginators/iter_describe_stack_resource_drifts.md",
+      "sync-client/paginators/iter_describe_stacks.md",
+      "sync-client/paginators/iter_list_change_sets.md",
+      "sync-client/paginators/iter_list_exports.md",
+      "sync-client/paginators/iter_list_generated_templates.md",
+      "sync-client/paginators/iter_list_imports.md",
+      "sync-client/paginators/iter_list_resource_scan_related_resources.md",
+      "sync-client/paginators/iter_list_resource_scan_resources.md",
+      "sync-client/paginators/iter_list_resource_scans.md",
+      "sync-client/paginators/iter_list_stack_instances.md",
+      "sync-client/paginators/iter_list_stack_refactor_actions.md",
+      "sync-client/paginators/iter_list_stack_refactors.md",
+      "sync-client/paginators/iter_list_stack_resources.md",
+      "sync-client/paginators/iter_list_stack_set_operation_results.md",
+      "sync-client/paginators/iter_list_stack_set_operations.md",
+      "sync-client/paginators/iter_list_stack_sets.md",
+      "sync-client/paginators/iter_list_stacks.md",
+      "sync-client/paginators/iter_list_type_registrations.md",
+      "sync-client/paginators/iter_list_type_versions.md",
+      "sync-client/paginators/iter_list_types.md",
+    ] },
+    { "Waiters" = [
+      "sync-client/waiters/wait_until_stack_exists.md",
+    ] },
+  ] },
+  { "AsyncCloudFormationClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/activate_organizations_access.md",
+      "async-client/operations/activate_type.md",
+      "async-client/operations/batch_describe_type_configurations.md",
+      "async-client/operations/cancel_update_stack.md",
+      "async-client/operations/continue_update_rollback.md",
+      "async-client/operations/create_change_set.md",
+      "async-client/operations/create_generated_template.md",
+      "async-client/operations/create_stack.md",
+      "async-client/operations/create_stack_instances.md",
+      "async-client/operations/create_stack_refactor.md",
+      "async-client/operations/create_stack_set.md",
+      "async-client/operations/deactivate_organizations_access.md",
+      "async-client/operations/deactivate_type.md",
+      "async-client/operations/delete_change_set.md",
+      "async-client/operations/delete_generated_template.md",
+      "async-client/operations/delete_stack.md",
+      "async-client/operations/delete_stack_instances.md",
+      "async-client/operations/delete_stack_set.md",
+      "async-client/operations/deregister_type.md",
+      "async-client/operations/describe_account_limits.md",
+      "async-client/operations/describe_change_set.md",
+      "async-client/operations/describe_change_set_hooks.md",
+      "async-client/operations/describe_events.md",
+      "async-client/operations/describe_generated_template.md",
+      "async-client/operations/describe_organizations_access.md",
+      "async-client/operations/describe_publisher.md",
+      "async-client/operations/describe_resource_scan.md",
+      "async-client/operations/describe_stack_drift_detection_status.md",
+      "async-client/operations/describe_stack_events.md",
+      "async-client/operations/describe_stack_instance.md",
+      "async-client/operations/describe_stack_refactor.md",
+      "async-client/operations/describe_stack_resource.md",
+      "async-client/operations/describe_stack_resource_drifts.md",
+      "async-client/operations/describe_stack_resources.md",
+      "async-client/operations/describe_stack_set.md",
+      "async-client/operations/describe_stack_set_operation.md",
+      "async-client/operations/describe_stacks.md",
+      "async-client/operations/describe_type.md",
+      "async-client/operations/describe_type_registration.md",
+      "async-client/operations/detect_stack_drift.md",
+      "async-client/operations/detect_stack_resource_drift.md",
+      "async-client/operations/detect_stack_set_drift.md",
+      "async-client/operations/estimate_template_cost.md",
+      "async-client/operations/execute_change_set.md",
+      "async-client/operations/execute_stack_refactor.md",
+      "async-client/operations/get_generated_template.md",
+      "async-client/operations/get_hook_result.md",
+      "async-client/operations/get_stack_policy.md",
+      "async-client/operations/get_template.md",
+      "async-client/operations/get_template_summary.md",
+      "async-client/operations/import_stacks_to_stack_set.md",
+      "async-client/operations/list_change_sets.md",
+      "async-client/operations/list_exports.md",
+      "async-client/operations/list_generated_templates.md",
+      "async-client/operations/list_hook_results.md",
+      "async-client/operations/list_imports.md",
+      "async-client/operations/list_resource_scan_related_resources.md",
+      "async-client/operations/list_resource_scan_resources.md",
+      "async-client/operations/list_resource_scans.md",
+      "async-client/operations/list_stack_instance_resource_drifts.md",
+      "async-client/operations/list_stack_instances.md",
+      "async-client/operations/list_stack_refactor_actions.md",
+      "async-client/operations/list_stack_refactors.md",
+      "async-client/operations/list_stack_resources.md",
+      "async-client/operations/list_stack_set_auto_deployment_targets.md",
+      "async-client/operations/list_stack_set_operation_results.md",
+      "async-client/operations/list_stack_set_operations.md",
+      "async-client/operations/list_stack_sets.md",
+      "async-client/operations/list_stacks.md",
+      "async-client/operations/list_type_registrations.md",
+      "async-client/operations/list_type_versions.md",
+      "async-client/operations/list_types.md",
+      "async-client/operations/publish_type.md",
+      "async-client/operations/record_handler_progress.md",
+      "async-client/operations/register_publisher.md",
+      "async-client/operations/register_type.md",
+      "async-client/operations/rollback_stack.md",
+      "async-client/operations/set_stack_policy.md",
+      "async-client/operations/set_type_configuration.md",
+      "async-client/operations/set_type_default_version.md",
+      "async-client/operations/signal_resource.md",
+      "async-client/operations/start_resource_scan.md",
+      "async-client/operations/stop_stack_set_operation.md",
+      "async-client/operations/test_type.md",
+      "async-client/operations/update_generated_template.md",
+      "async-client/operations/update_stack.md",
+      "async-client/operations/update_stack_instances.md",
+      "async-client/operations/update_stack_set.md",
+      "async-client/operations/update_termination_protection.md",
+      "async-client/operations/validate_template.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_account_limits.md",
+      "async-client/paginators/iter_describe_change_set.md",
+      "async-client/paginators/iter_describe_events.md",
+      "async-client/paginators/iter_describe_stack_events.md",
+      "async-client/paginators/iter_describe_stack_resource_drifts.md",
+      "async-client/paginators/iter_describe_stacks.md",
+      "async-client/paginators/iter_list_change_sets.md",
+      "async-client/paginators/iter_list_exports.md",
+      "async-client/paginators/iter_list_generated_templates.md",
+      "async-client/paginators/iter_list_imports.md",
+      "async-client/paginators/iter_list_resource_scan_related_resources.md",
+      "async-client/paginators/iter_list_resource_scan_resources.md",
+      "async-client/paginators/iter_list_resource_scans.md",
+      "async-client/paginators/iter_list_stack_instances.md",
+      "async-client/paginators/iter_list_stack_refactor_actions.md",
+      "async-client/paginators/iter_list_stack_refactors.md",
+      "async-client/paginators/iter_list_stack_resources.md",
+      "async-client/paginators/iter_list_stack_set_operation_results.md",
+      "async-client/paginators/iter_list_stack_set_operations.md",
+      "async-client/paginators/iter_list_stack_sets.md",
+      "async-client/paginators/iter_list_stacks.md",
+      "async-client/paginators/iter_list_type_registrations.md",
+      "async-client/paginators/iter_list_type_versions.md",
+      "async-client/paginators/iter_list_types.md",
+    ] },
+    { "Waiters" = [
+      "async-client/waiters/wait_until_stack_exists.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AlreadyExistsException.md",
+    "errors/CFNRegistryException.md",
+    "errors/ChangeSetNotFoundException.md",
+    "errors/CloudFormationError.md",
+    "errors/ConcurrentResourcesLimitExceededException.md",
+    "errors/CreatedButModifiedException.md",
+    "errors/DeserializationError.md",
+    "errors/GeneratedTemplateNotFoundException.md",
+    "errors/HookResultNotFoundException.md",
+    "errors/InsufficientCapabilitiesException.md",
+    "errors/InvalidChangeSetStatusException.md",
+    "errors/InvalidOperationException.md",
+    "errors/InvalidStateTransitionException.md",
+    "errors/LimitExceededException.md",
+    "errors/NameAlreadyExistsException.md",
+    "errors/OperationIdAlreadyExistsException.md",
+    "errors/OperationInProgressException.md",
+    "errors/OperationNotFoundException.md",
+    "errors/OperationStatusCheckFailedException.md",
+    "errors/ResourceScanInProgressException.md",
+    "errors/ResourceScanLimitExceededException.md",
+    "errors/ResourceScanNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/StackInstanceNotFoundException.md",
+    "errors/StackNotFoundException.md",
+    "errors/StackRefactorNotFoundException.md",
+    "errors/StackSetNotEmptyException.md",
+    "errors/StackSetNotFoundException.md",
+    "errors/StaleRequestException.md",
+    "errors/TokenAlreadyExistsException.md",
+    "errors/TypeConfigurationNotFoundException.md",
+    "errors/TypeNotFoundException.md",
+    "errors/UnknownServiceError.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_cloudformation` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_cloudformation.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

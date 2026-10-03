@@ -1,0 +1,8 @@
+---
+title: DescribedWebAppVpcConfig
+---
+
+::: capo_transfer.types.described_web_app_vpc_config.DescribedWebAppVpcConfig
+    options:
+      show_source: true
+      merge_init_into_class: false

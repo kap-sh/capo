@@ -1,0 +1,8 @@
+---
+title: LimitsProfile
+---
+
+::: capo_quicksight.types.limits_profile.LimitsProfile
+    options:
+      show_source: true
+      merge_init_into_class: false

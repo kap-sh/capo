@@ -1,0 +1,8 @@
+---
+title: WhatsAppMessageTemplateContentData
+---
+
+::: capo_qconnect.types.whats_app_message_template_content_data.WhatsAppMessageTemplateContentData
+    options:
+      show_source: true
+      merge_init_into_class: false

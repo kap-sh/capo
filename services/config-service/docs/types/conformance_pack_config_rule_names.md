@@ -1,0 +1,8 @@
+---
+title: ConformancePackConfigRuleNames
+---
+
+::: capo_config_service.types.conformance_pack_config_rule_names.ConformancePackConfigRuleNames
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ProductCodeType
+---
+
+::: capo_license_manager.types.product_code_type.ProductCodeType
+    options:
+      show_source: true
+      merge_init_into_class: false

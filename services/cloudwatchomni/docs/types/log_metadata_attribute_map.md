@@ -1,0 +1,8 @@
+---
+title: LogMetadataAttributeMap
+---
+
+::: capo_cloudwatchomni.types.log_metadata_attribute_map.LogMetadataAttributeMap
+    options:
+      show_source: true
+      merge_init_into_class: false

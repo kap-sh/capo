@@ -1,0 +1,8 @@
+---
+title: DefaultUdpStreamTimeout
+---
+
+::: capo_ec2.types.default_udp_stream_timeout.DefaultUdpStreamTimeout
+    options:
+      show_source: true
+      merge_init_into_class: false

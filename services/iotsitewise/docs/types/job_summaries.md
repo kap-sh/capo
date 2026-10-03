@@ -1,0 +1,8 @@
+---
+title: JobSummaries
+---
+
+::: capo_iotsitewise.types.job_summaries.JobSummaries
+    options:
+      show_source: true
+      merge_init_into_class: false

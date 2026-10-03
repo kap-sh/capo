@@ -1,0 +1,8 @@
+---
+title: Validator
+---
+
+::: capo_bedrock.types.validator.Validator
+    options:
+      show_source: true
+      merge_init_into_class: false

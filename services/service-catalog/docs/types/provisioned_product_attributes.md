@@ -1,0 +1,8 @@
+---
+title: ProvisionedProductAttributes
+---
+
+::: capo_service_catalog.types.provisioned_product_attributes.ProvisionedProductAttributes
+    options:
+      show_source: true
+      merge_init_into_class: false

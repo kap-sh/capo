@@ -1,0 +1,8 @@
+---
+title: GetGroupResponse
+---
+
+::: capo_qbusiness.types.get_group_response.GetGroupResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

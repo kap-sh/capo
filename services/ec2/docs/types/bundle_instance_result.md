@@ -1,0 +1,8 @@
+---
+title: BundleInstanceResult
+---
+
+::: capo_ec2.types.bundle_instance_result.BundleInstanceResult
+    options:
+      show_source: true
+      merge_init_into_class: false

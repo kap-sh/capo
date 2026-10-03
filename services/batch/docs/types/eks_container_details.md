@@ -1,0 +1,8 @@
+---
+title: EksContainerDetails
+---
+
+::: capo_batch.types.eks_container_details.EksContainerDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

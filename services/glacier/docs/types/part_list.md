@@ -1,0 +1,8 @@
+---
+title: PartList
+---
+
+::: capo_glacier.types.part_list.PartList
+    options:
+      show_source: true
+      merge_init_into_class: false

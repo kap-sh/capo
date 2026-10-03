@@ -1,0 +1,8 @@
+---
+title: FilterRequirement
+---
+
+::: capo_wafv2.types.filter_requirement.FilterRequirement
+    options:
+      show_source: true
+      merge_init_into_class: false

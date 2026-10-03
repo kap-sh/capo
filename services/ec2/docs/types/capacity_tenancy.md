@@ -1,0 +1,8 @@
+---
+title: CapacityTenancy
+---
+
+::: capo_ec2.types.capacity_tenancy.CapacityTenancy
+    options:
+      show_source: true
+      merge_init_into_class: false

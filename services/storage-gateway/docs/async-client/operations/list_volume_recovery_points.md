@@ -1,0 +1,7 @@
+---
+title: list_volume_recovery_points
+---
+
+::: capo_storage_gateway._services.async_storage_gateway.AsyncStorageGatewayClient.list_volume_recovery_points
+    options:
+      show_source: true

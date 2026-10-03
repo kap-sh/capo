@@ -1,0 +1,8 @@
+---
+title: __listOfBrokerSummary
+---
+
+::: capo_mq.types.__list_of_broker_summary.__listOfBrokerSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

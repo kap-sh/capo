@@ -1,0 +1,8 @@
+---
+title: ScheduledInstanceAvailability
+---
+
+::: capo_ec2.types.scheduled_instance_availability.ScheduledInstanceAvailability
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: MLModelName
+---
+
+::: capo_machine_learning.types.ml_model_name.MLModelName
+    options:
+      show_source: true
+      merge_init_into_class: false

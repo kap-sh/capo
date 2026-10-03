@@ -1,0 +1,8 @@
+---
+title: SsmDocumentType
+---
+
+::: capo_mgn.types.ssm_document_type.SsmDocumentType
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: MetaFlowPreviewInfo
+---
+
+::: capo_socialmessaging.types.meta_flow_preview_info.MetaFlowPreviewInfo
+    options:
+      show_source: true
+      merge_init_into_class: false

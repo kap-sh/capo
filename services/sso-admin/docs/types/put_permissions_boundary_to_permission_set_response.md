@@ -1,0 +1,8 @@
+---
+title: PutPermissionsBoundaryToPermissionSetResponse
+---
+
+::: capo_sso_admin.types.put_permissions_boundary_to_permission_set_response.PutPermissionsBoundaryToPermissionSetResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,415 @@
+[project]
+site_name = "capo-pinpoint"
+site_description = "Python SDK for AWS Pinpoint."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "PinpointClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/create_app.md",
+      "sync-client/operations/create_campaign.md",
+      "sync-client/operations/create_email_template.md",
+      "sync-client/operations/create_export_job.md",
+      "sync-client/operations/create_import_job.md",
+      "sync-client/operations/create_in_app_template.md",
+      "sync-client/operations/create_journey.md",
+      "sync-client/operations/create_push_template.md",
+      "sync-client/operations/create_recommender_configuration.md",
+      "sync-client/operations/create_segment.md",
+      "sync-client/operations/create_sms_template.md",
+      "sync-client/operations/create_voice_template.md",
+      "sync-client/operations/delete_adm_channel.md",
+      "sync-client/operations/delete_apns_channel.md",
+      "sync-client/operations/delete_apns_sandbox_channel.md",
+      "sync-client/operations/delete_apns_voip_channel.md",
+      "sync-client/operations/delete_apns_voip_sandbox_channel.md",
+      "sync-client/operations/delete_app.md",
+      "sync-client/operations/delete_baidu_channel.md",
+      "sync-client/operations/delete_campaign.md",
+      "sync-client/operations/delete_email_channel.md",
+      "sync-client/operations/delete_email_template.md",
+      "sync-client/operations/delete_endpoint.md",
+      "sync-client/operations/delete_event_stream.md",
+      "sync-client/operations/delete_gcm_channel.md",
+      "sync-client/operations/delete_in_app_template.md",
+      "sync-client/operations/delete_journey.md",
+      "sync-client/operations/delete_push_template.md",
+      "sync-client/operations/delete_recommender_configuration.md",
+      "sync-client/operations/delete_segment.md",
+      "sync-client/operations/delete_sms_channel.md",
+      "sync-client/operations/delete_sms_template.md",
+      "sync-client/operations/delete_user_endpoints.md",
+      "sync-client/operations/delete_voice_channel.md",
+      "sync-client/operations/delete_voice_template.md",
+      "sync-client/operations/get_adm_channel.md",
+      "sync-client/operations/get_apns_channel.md",
+      "sync-client/operations/get_apns_sandbox_channel.md",
+      "sync-client/operations/get_apns_voip_channel.md",
+      "sync-client/operations/get_apns_voip_sandbox_channel.md",
+      "sync-client/operations/get_app.md",
+      "sync-client/operations/get_application_date_range_kpi.md",
+      "sync-client/operations/get_application_settings.md",
+      "sync-client/operations/get_apps.md",
+      "sync-client/operations/get_baidu_channel.md",
+      "sync-client/operations/get_campaign.md",
+      "sync-client/operations/get_campaign_activities.md",
+      "sync-client/operations/get_campaign_date_range_kpi.md",
+      "sync-client/operations/get_campaign_version.md",
+      "sync-client/operations/get_campaign_versions.md",
+      "sync-client/operations/get_campaigns.md",
+      "sync-client/operations/get_channels.md",
+      "sync-client/operations/get_email_channel.md",
+      "sync-client/operations/get_email_template.md",
+      "sync-client/operations/get_endpoint.md",
+      "sync-client/operations/get_event_stream.md",
+      "sync-client/operations/get_export_job.md",
+      "sync-client/operations/get_export_jobs.md",
+      "sync-client/operations/get_gcm_channel.md",
+      "sync-client/operations/get_import_job.md",
+      "sync-client/operations/get_import_jobs.md",
+      "sync-client/operations/get_in_app_messages.md",
+      "sync-client/operations/get_in_app_template.md",
+      "sync-client/operations/get_journey.md",
+      "sync-client/operations/get_journey_date_range_kpi.md",
+      "sync-client/operations/get_journey_execution_activity_metrics.md",
+      "sync-client/operations/get_journey_execution_metrics.md",
+      "sync-client/operations/get_journey_run_execution_activity_metrics.md",
+      "sync-client/operations/get_journey_run_execution_metrics.md",
+      "sync-client/operations/get_journey_runs.md",
+      "sync-client/operations/get_push_template.md",
+      "sync-client/operations/get_recommender_configuration.md",
+      "sync-client/operations/get_recommender_configurations.md",
+      "sync-client/operations/get_segment.md",
+      "sync-client/operations/get_segment_export_jobs.md",
+      "sync-client/operations/get_segment_import_jobs.md",
+      "sync-client/operations/get_segment_version.md",
+      "sync-client/operations/get_segment_versions.md",
+      "sync-client/operations/get_segments.md",
+      "sync-client/operations/get_sms_channel.md",
+      "sync-client/operations/get_sms_template.md",
+      "sync-client/operations/get_user_endpoints.md",
+      "sync-client/operations/get_voice_channel.md",
+      "sync-client/operations/get_voice_template.md",
+      "sync-client/operations/list_journeys.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_template_versions.md",
+      "sync-client/operations/list_templates.md",
+      "sync-client/operations/phone_number_validate.md",
+      "sync-client/operations/put_event_stream.md",
+      "sync-client/operations/put_events.md",
+      "sync-client/operations/remove_attributes.md",
+      "sync-client/operations/send_messages.md",
+      "sync-client/operations/send_otp_message.md",
+      "sync-client/operations/send_users_messages.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_adm_channel.md",
+      "sync-client/operations/update_apns_channel.md",
+      "sync-client/operations/update_apns_sandbox_channel.md",
+      "sync-client/operations/update_apns_voip_channel.md",
+      "sync-client/operations/update_apns_voip_sandbox_channel.md",
+      "sync-client/operations/update_application_settings.md",
+      "sync-client/operations/update_baidu_channel.md",
+      "sync-client/operations/update_campaign.md",
+      "sync-client/operations/update_email_channel.md",
+      "sync-client/operations/update_email_template.md",
+      "sync-client/operations/update_endpoint.md",
+      "sync-client/operations/update_endpoints_batch.md",
+      "sync-client/operations/update_gcm_channel.md",
+      "sync-client/operations/update_in_app_template.md",
+      "sync-client/operations/update_journey.md",
+      "sync-client/operations/update_journey_state.md",
+      "sync-client/operations/update_push_template.md",
+      "sync-client/operations/update_recommender_configuration.md",
+      "sync-client/operations/update_segment.md",
+      "sync-client/operations/update_sms_channel.md",
+      "sync-client/operations/update_sms_template.md",
+      "sync-client/operations/update_template_active_version.md",
+      "sync-client/operations/update_voice_channel.md",
+      "sync-client/operations/update_voice_template.md",
+      "sync-client/operations/verify_otp_message.md",
+    ] },
+  ] },
+  { "AsyncPinpointClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/create_app.md",
+      "async-client/operations/create_campaign.md",
+      "async-client/operations/create_email_template.md",
+      "async-client/operations/create_export_job.md",
+      "async-client/operations/create_import_job.md",
+      "async-client/operations/create_in_app_template.md",
+      "async-client/operations/create_journey.md",
+      "async-client/operations/create_push_template.md",
+      "async-client/operations/create_recommender_configuration.md",
+      "async-client/operations/create_segment.md",
+      "async-client/operations/create_sms_template.md",
+      "async-client/operations/create_voice_template.md",
+      "async-client/operations/delete_adm_channel.md",
+      "async-client/operations/delete_apns_channel.md",
+      "async-client/operations/delete_apns_sandbox_channel.md",
+      "async-client/operations/delete_apns_voip_channel.md",
+      "async-client/operations/delete_apns_voip_sandbox_channel.md",
+      "async-client/operations/delete_app.md",
+      "async-client/operations/delete_baidu_channel.md",
+      "async-client/operations/delete_campaign.md",
+      "async-client/operations/delete_email_channel.md",
+      "async-client/operations/delete_email_template.md",
+      "async-client/operations/delete_endpoint.md",
+      "async-client/operations/delete_event_stream.md",
+      "async-client/operations/delete_gcm_channel.md",
+      "async-client/operations/delete_in_app_template.md",
+      "async-client/operations/delete_journey.md",
+      "async-client/operations/delete_push_template.md",
+      "async-client/operations/delete_recommender_configuration.md",
+      "async-client/operations/delete_segment.md",
+      "async-client/operations/delete_sms_channel.md",
+      "async-client/operations/delete_sms_template.md",
+      "async-client/operations/delete_user_endpoints.md",
+      "async-client/operations/delete_voice_channel.md",
+      "async-client/operations/delete_voice_template.md",
+      "async-client/operations/get_adm_channel.md",
+      "async-client/operations/get_apns_channel.md",
+      "async-client/operations/get_apns_sandbox_channel.md",
+      "async-client/operations/get_apns_voip_channel.md",
+      "async-client/operations/get_apns_voip_sandbox_channel.md",
+      "async-client/operations/get_app.md",
+      "async-client/operations/get_application_date_range_kpi.md",
+      "async-client/operations/get_application_settings.md",
+      "async-client/operations/get_apps.md",
+      "async-client/operations/get_baidu_channel.md",
+      "async-client/operations/get_campaign.md",
+      "async-client/operations/get_campaign_activities.md",
+      "async-client/operations/get_campaign_date_range_kpi.md",
+      "async-client/operations/get_campaign_version.md",
+      "async-client/operations/get_campaign_versions.md",
+      "async-client/operations/get_campaigns.md",
+      "async-client/operations/get_channels.md",
+      "async-client/operations/get_email_channel.md",
+      "async-client/operations/get_email_template.md",
+      "async-client/operations/get_endpoint.md",
+      "async-client/operations/get_event_stream.md",
+      "async-client/operations/get_export_job.md",
+      "async-client/operations/get_export_jobs.md",
+      "async-client/operations/get_gcm_channel.md",
+      "async-client/operations/get_import_job.md",
+      "async-client/operations/get_import_jobs.md",
+      "async-client/operations/get_in_app_messages.md",
+      "async-client/operations/get_in_app_template.md",
+      "async-client/operations/get_journey.md",
+      "async-client/operations/get_journey_date_range_kpi.md",
+      "async-client/operations/get_journey_execution_activity_metrics.md",
+      "async-client/operations/get_journey_execution_metrics.md",
+      "async-client/operations/get_journey_run_execution_activity_metrics.md",
+      "async-client/operations/get_journey_run_execution_metrics.md",
+      "async-client/operations/get_journey_runs.md",
+      "async-client/operations/get_push_template.md",
+      "async-client/operations/get_recommender_configuration.md",
+      "async-client/operations/get_recommender_configurations.md",
+      "async-client/operations/get_segment.md",
+      "async-client/operations/get_segment_export_jobs.md",
+      "async-client/operations/get_segment_import_jobs.md",
+      "async-client/operations/get_segment_version.md",
+      "async-client/operations/get_segment_versions.md",
+      "async-client/operations/get_segments.md",
+      "async-client/operations/get_sms_channel.md",
+      "async-client/operations/get_sms_template.md",
+      "async-client/operations/get_user_endpoints.md",
+      "async-client/operations/get_voice_channel.md",
+      "async-client/operations/get_voice_template.md",
+      "async-client/operations/list_journeys.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_template_versions.md",
+      "async-client/operations/list_templates.md",
+      "async-client/operations/phone_number_validate.md",
+      "async-client/operations/put_event_stream.md",
+      "async-client/operations/put_events.md",
+      "async-client/operations/remove_attributes.md",
+      "async-client/operations/send_messages.md",
+      "async-client/operations/send_otp_message.md",
+      "async-client/operations/send_users_messages.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_adm_channel.md",
+      "async-client/operations/update_apns_channel.md",
+      "async-client/operations/update_apns_sandbox_channel.md",
+      "async-client/operations/update_apns_voip_channel.md",
+      "async-client/operations/update_apns_voip_sandbox_channel.md",
+      "async-client/operations/update_application_settings.md",
+      "async-client/operations/update_baidu_channel.md",
+      "async-client/operations/update_campaign.md",
+      "async-client/operations/update_email_channel.md",
+      "async-client/operations/update_email_template.md",
+      "async-client/operations/update_endpoint.md",
+      "async-client/operations/update_endpoints_batch.md",
+      "async-client/operations/update_gcm_channel.md",
+      "async-client/operations/update_in_app_template.md",
+      "async-client/operations/update_journey.md",
+      "async-client/operations/update_journey_state.md",
+      "async-client/operations/update_push_template.md",
+      "async-client/operations/update_recommender_configuration.md",
+      "async-client/operations/update_segment.md",
+      "async-client/operations/update_sms_channel.md",
+      "async-client/operations/update_sms_template.md",
+      "async-client/operations/update_template_active_version.md",
+      "async-client/operations/update_voice_channel.md",
+      "async-client/operations/update_voice_template.md",
+      "async-client/operations/verify_otp_message.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/BadRequestException.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/ForbiddenException.md",
+    "errors/InternalServerErrorException.md",
+    "errors/MethodNotAllowedException.md",
+    "errors/NotFoundException.md",
+    "errors/PayloadTooLargeException.md",
+    "errors/PinpointError.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/TooManyRequestsException.md",
+    "errors/UnknownServiceError.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_pinpoint` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_pinpoint.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

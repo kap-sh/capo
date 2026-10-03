@@ -1,0 +1,8 @@
+---
+title: AdminUpdateUserAttributesResponse
+---
+
+::: capo_cognito_identity_provider.types.admin_update_user_attributes_response.AdminUpdateUserAttributesResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

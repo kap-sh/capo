@@ -1,0 +1,8 @@
+---
+title: RuleGroupSourceCustomActionsList
+---
+
+::: capo_securityhub.types.rule_group_source_custom_actions_list.RuleGroupSourceCustomActionsList
+    options:
+      show_source: true
+      merge_init_into_class: false

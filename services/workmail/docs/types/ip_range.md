@@ -1,0 +1,8 @@
+---
+title: IpRange
+---
+
+::: capo_workmail.types.ip_range.IpRange
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: CreateGroupVersionResponse
+---
+
+::: capo_greengrass.types.create_group_version_response.CreateGroupVersionResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

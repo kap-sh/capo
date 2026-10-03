@@ -1,0 +1,8 @@
+---
+title: PutEventsRequest
+---
+
+::: capo_pinpoint.types.put_events_request.PutEventsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

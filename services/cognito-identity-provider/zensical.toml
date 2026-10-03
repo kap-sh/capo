@@ -1,0 +1,508 @@
+[project]
+site_name = "capo-cognito-identity-provider"
+site_description = "Python SDK for AWS Cognito Identity Provider."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "CognitoIdentityProviderClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/add_custom_attributes.md",
+      "sync-client/operations/add_user_pool_client_secret.md",
+      "sync-client/operations/admin_add_user_to_group.md",
+      "sync-client/operations/admin_confirm_sign_up.md",
+      "sync-client/operations/admin_create_user.md",
+      "sync-client/operations/admin_delete_software_token.md",
+      "sync-client/operations/admin_delete_user.md",
+      "sync-client/operations/admin_delete_user_attributes.md",
+      "sync-client/operations/admin_disable_provider_for_user.md",
+      "sync-client/operations/admin_disable_user.md",
+      "sync-client/operations/admin_enable_user.md",
+      "sync-client/operations/admin_forget_device.md",
+      "sync-client/operations/admin_get_device.md",
+      "sync-client/operations/admin_get_user.md",
+      "sync-client/operations/admin_get_user_auth_factors.md",
+      "sync-client/operations/admin_initiate_auth.md",
+      "sync-client/operations/admin_link_provider_for_user.md",
+      "sync-client/operations/admin_list_devices.md",
+      "sync-client/operations/admin_list_groups_for_user.md",
+      "sync-client/operations/admin_list_user_auth_events.md",
+      "sync-client/operations/admin_remove_user_from_group.md",
+      "sync-client/operations/admin_reset_user_password.md",
+      "sync-client/operations/admin_respond_to_auth_challenge.md",
+      "sync-client/operations/admin_set_user_mfa_preference.md",
+      "sync-client/operations/admin_set_user_password.md",
+      "sync-client/operations/admin_set_user_settings.md",
+      "sync-client/operations/admin_update_auth_event_feedback.md",
+      "sync-client/operations/admin_update_device_status.md",
+      "sync-client/operations/admin_update_user_attributes.md",
+      "sync-client/operations/admin_user_global_sign_out.md",
+      "sync-client/operations/associate_software_token.md",
+      "sync-client/operations/change_password.md",
+      "sync-client/operations/complete_web_authn_registration.md",
+      "sync-client/operations/confirm_device.md",
+      "sync-client/operations/confirm_forgot_password.md",
+      "sync-client/operations/confirm_sign_up.md",
+      "sync-client/operations/create_group.md",
+      "sync-client/operations/create_identity_provider.md",
+      "sync-client/operations/create_managed_login_branding.md",
+      "sync-client/operations/create_resource_server.md",
+      "sync-client/operations/create_terms.md",
+      "sync-client/operations/create_user_import_job.md",
+      "sync-client/operations/create_user_pool.md",
+      "sync-client/operations/create_user_pool_client.md",
+      "sync-client/operations/create_user_pool_domain.md",
+      "sync-client/operations/create_user_pool_replica.md",
+      "sync-client/operations/delete_group.md",
+      "sync-client/operations/delete_identity_provider.md",
+      "sync-client/operations/delete_managed_login_branding.md",
+      "sync-client/operations/delete_resource_server.md",
+      "sync-client/operations/delete_terms.md",
+      "sync-client/operations/delete_user.md",
+      "sync-client/operations/delete_user_attributes.md",
+      "sync-client/operations/delete_user_pool.md",
+      "sync-client/operations/delete_user_pool_client.md",
+      "sync-client/operations/delete_user_pool_client_secret.md",
+      "sync-client/operations/delete_user_pool_domain.md",
+      "sync-client/operations/delete_user_pool_replica.md",
+      "sync-client/operations/delete_web_authn_credential.md",
+      "sync-client/operations/describe_identity_provider.md",
+      "sync-client/operations/describe_managed_login_branding.md",
+      "sync-client/operations/describe_managed_login_branding_by_client.md",
+      "sync-client/operations/describe_resource_server.md",
+      "sync-client/operations/describe_risk_configuration.md",
+      "sync-client/operations/describe_terms.md",
+      "sync-client/operations/describe_terms_by_client.md",
+      "sync-client/operations/describe_user_import_job.md",
+      "sync-client/operations/describe_user_pool.md",
+      "sync-client/operations/describe_user_pool_client.md",
+      "sync-client/operations/describe_user_pool_domain.md",
+      "sync-client/operations/forget_device.md",
+      "sync-client/operations/forgot_password.md",
+      "sync-client/operations/get_client_token.md",
+      "sync-client/operations/get_csv_header.md",
+      "sync-client/operations/get_device.md",
+      "sync-client/operations/get_group.md",
+      "sync-client/operations/get_identity_provider_by_identifier.md",
+      "sync-client/operations/get_log_delivery_configuration.md",
+      "sync-client/operations/get_provisioned_limit.md",
+      "sync-client/operations/get_signing_certificate.md",
+      "sync-client/operations/get_tokens_from_refresh_token.md",
+      "sync-client/operations/get_ui_customization.md",
+      "sync-client/operations/get_user.md",
+      "sync-client/operations/get_user_attribute_verification_code.md",
+      "sync-client/operations/get_user_auth_factors.md",
+      "sync-client/operations/get_user_pool_mfa_config.md",
+      "sync-client/operations/global_sign_out.md",
+      "sync-client/operations/initiate_auth.md",
+      "sync-client/operations/list_devices.md",
+      "sync-client/operations/list_groups.md",
+      "sync-client/operations/list_identity_providers.md",
+      "sync-client/operations/list_resource_servers.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_terms.md",
+      "sync-client/operations/list_user_import_jobs.md",
+      "sync-client/operations/list_user_pool_client_secrets.md",
+      "sync-client/operations/list_user_pool_clients.md",
+      "sync-client/operations/list_user_pool_replicas.md",
+      "sync-client/operations/list_user_pools.md",
+      "sync-client/operations/list_users.md",
+      "sync-client/operations/list_users_in_group.md",
+      "sync-client/operations/list_web_authn_credentials.md",
+      "sync-client/operations/resend_confirmation_code.md",
+      "sync-client/operations/respond_to_auth_challenge.md",
+      "sync-client/operations/revoke_token.md",
+      "sync-client/operations/set_log_delivery_configuration.md",
+      "sync-client/operations/set_risk_configuration.md",
+      "sync-client/operations/set_ui_customization.md",
+      "sync-client/operations/set_user_mfa_preference.md",
+      "sync-client/operations/set_user_pool_mfa_config.md",
+      "sync-client/operations/set_user_settings.md",
+      "sync-client/operations/sign_up.md",
+      "sync-client/operations/start_user_import_job.md",
+      "sync-client/operations/start_web_authn_registration.md",
+      "sync-client/operations/stop_user_import_job.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_auth_event_feedback.md",
+      "sync-client/operations/update_device_status.md",
+      "sync-client/operations/update_group.md",
+      "sync-client/operations/update_identity_provider.md",
+      "sync-client/operations/update_managed_login_branding.md",
+      "sync-client/operations/update_provisioned_limit.md",
+      "sync-client/operations/update_resource_server.md",
+      "sync-client/operations/update_terms.md",
+      "sync-client/operations/update_user_attributes.md",
+      "sync-client/operations/update_user_pool.md",
+      "sync-client/operations/update_user_pool_client.md",
+      "sync-client/operations/update_user_pool_domain.md",
+      "sync-client/operations/update_user_pool_replica.md",
+      "sync-client/operations/verify_software_token.md",
+      "sync-client/operations/verify_user_attribute.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_admin_list_groups_for_user.md",
+      "sync-client/paginators/iter_admin_list_user_auth_events.md",
+      "sync-client/paginators/iter_list_groups.md",
+      "sync-client/paginators/iter_list_identity_providers.md",
+      "sync-client/paginators/iter_list_resource_servers.md",
+      "sync-client/paginators/iter_list_user_pool_clients.md",
+      "sync-client/paginators/iter_list_user_pools.md",
+      "sync-client/paginators/iter_list_users.md",
+      "sync-client/paginators/iter_list_users_in_group.md",
+    ] },
+  ] },
+  { "AsyncCognitoIdentityProviderClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/add_custom_attributes.md",
+      "async-client/operations/add_user_pool_client_secret.md",
+      "async-client/operations/admin_add_user_to_group.md",
+      "async-client/operations/admin_confirm_sign_up.md",
+      "async-client/operations/admin_create_user.md",
+      "async-client/operations/admin_delete_software_token.md",
+      "async-client/operations/admin_delete_user.md",
+      "async-client/operations/admin_delete_user_attributes.md",
+      "async-client/operations/admin_disable_provider_for_user.md",
+      "async-client/operations/admin_disable_user.md",
+      "async-client/operations/admin_enable_user.md",
+      "async-client/operations/admin_forget_device.md",
+      "async-client/operations/admin_get_device.md",
+      "async-client/operations/admin_get_user.md",
+      "async-client/operations/admin_get_user_auth_factors.md",
+      "async-client/operations/admin_initiate_auth.md",
+      "async-client/operations/admin_link_provider_for_user.md",
+      "async-client/operations/admin_list_devices.md",
+      "async-client/operations/admin_list_groups_for_user.md",
+      "async-client/operations/admin_list_user_auth_events.md",
+      "async-client/operations/admin_remove_user_from_group.md",
+      "async-client/operations/admin_reset_user_password.md",
+      "async-client/operations/admin_respond_to_auth_challenge.md",
+      "async-client/operations/admin_set_user_mfa_preference.md",
+      "async-client/operations/admin_set_user_password.md",
+      "async-client/operations/admin_set_user_settings.md",
+      "async-client/operations/admin_update_auth_event_feedback.md",
+      "async-client/operations/admin_update_device_status.md",
+      "async-client/operations/admin_update_user_attributes.md",
+      "async-client/operations/admin_user_global_sign_out.md",
+      "async-client/operations/associate_software_token.md",
+      "async-client/operations/change_password.md",
+      "async-client/operations/complete_web_authn_registration.md",
+      "async-client/operations/confirm_device.md",
+      "async-client/operations/confirm_forgot_password.md",
+      "async-client/operations/confirm_sign_up.md",
+      "async-client/operations/create_group.md",
+      "async-client/operations/create_identity_provider.md",
+      "async-client/operations/create_managed_login_branding.md",
+      "async-client/operations/create_resource_server.md",
+      "async-client/operations/create_terms.md",
+      "async-client/operations/create_user_import_job.md",
+      "async-client/operations/create_user_pool.md",
+      "async-client/operations/create_user_pool_client.md",
+      "async-client/operations/create_user_pool_domain.md",
+      "async-client/operations/create_user_pool_replica.md",
+      "async-client/operations/delete_group.md",
+      "async-client/operations/delete_identity_provider.md",
+      "async-client/operations/delete_managed_login_branding.md",
+      "async-client/operations/delete_resource_server.md",
+      "async-client/operations/delete_terms.md",
+      "async-client/operations/delete_user.md",
+      "async-client/operations/delete_user_attributes.md",
+      "async-client/operations/delete_user_pool.md",
+      "async-client/operations/delete_user_pool_client.md",
+      "async-client/operations/delete_user_pool_client_secret.md",
+      "async-client/operations/delete_user_pool_domain.md",
+      "async-client/operations/delete_user_pool_replica.md",
+      "async-client/operations/delete_web_authn_credential.md",
+      "async-client/operations/describe_identity_provider.md",
+      "async-client/operations/describe_managed_login_branding.md",
+      "async-client/operations/describe_managed_login_branding_by_client.md",
+      "async-client/operations/describe_resource_server.md",
+      "async-client/operations/describe_risk_configuration.md",
+      "async-client/operations/describe_terms.md",
+      "async-client/operations/describe_terms_by_client.md",
+      "async-client/operations/describe_user_import_job.md",
+      "async-client/operations/describe_user_pool.md",
+      "async-client/operations/describe_user_pool_client.md",
+      "async-client/operations/describe_user_pool_domain.md",
+      "async-client/operations/forget_device.md",
+      "async-client/operations/forgot_password.md",
+      "async-client/operations/get_client_token.md",
+      "async-client/operations/get_csv_header.md",
+      "async-client/operations/get_device.md",
+      "async-client/operations/get_group.md",
+      "async-client/operations/get_identity_provider_by_identifier.md",
+      "async-client/operations/get_log_delivery_configuration.md",
+      "async-client/operations/get_provisioned_limit.md",
+      "async-client/operations/get_signing_certificate.md",
+      "async-client/operations/get_tokens_from_refresh_token.md",
+      "async-client/operations/get_ui_customization.md",
+      "async-client/operations/get_user.md",
+      "async-client/operations/get_user_attribute_verification_code.md",
+      "async-client/operations/get_user_auth_factors.md",
+      "async-client/operations/get_user_pool_mfa_config.md",
+      "async-client/operations/global_sign_out.md",
+      "async-client/operations/initiate_auth.md",
+      "async-client/operations/list_devices.md",
+      "async-client/operations/list_groups.md",
+      "async-client/operations/list_identity_providers.md",
+      "async-client/operations/list_resource_servers.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_terms.md",
+      "async-client/operations/list_user_import_jobs.md",
+      "async-client/operations/list_user_pool_client_secrets.md",
+      "async-client/operations/list_user_pool_clients.md",
+      "async-client/operations/list_user_pool_replicas.md",
+      "async-client/operations/list_user_pools.md",
+      "async-client/operations/list_users.md",
+      "async-client/operations/list_users_in_group.md",
+      "async-client/operations/list_web_authn_credentials.md",
+      "async-client/operations/resend_confirmation_code.md",
+      "async-client/operations/respond_to_auth_challenge.md",
+      "async-client/operations/revoke_token.md",
+      "async-client/operations/set_log_delivery_configuration.md",
+      "async-client/operations/set_risk_configuration.md",
+      "async-client/operations/set_ui_customization.md",
+      "async-client/operations/set_user_mfa_preference.md",
+      "async-client/operations/set_user_pool_mfa_config.md",
+      "async-client/operations/set_user_settings.md",
+      "async-client/operations/sign_up.md",
+      "async-client/operations/start_user_import_job.md",
+      "async-client/operations/start_web_authn_registration.md",
+      "async-client/operations/stop_user_import_job.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_auth_event_feedback.md",
+      "async-client/operations/update_device_status.md",
+      "async-client/operations/update_group.md",
+      "async-client/operations/update_identity_provider.md",
+      "async-client/operations/update_managed_login_branding.md",
+      "async-client/operations/update_provisioned_limit.md",
+      "async-client/operations/update_resource_server.md",
+      "async-client/operations/update_terms.md",
+      "async-client/operations/update_user_attributes.md",
+      "async-client/operations/update_user_pool.md",
+      "async-client/operations/update_user_pool_client.md",
+      "async-client/operations/update_user_pool_domain.md",
+      "async-client/operations/update_user_pool_replica.md",
+      "async-client/operations/verify_software_token.md",
+      "async-client/operations/verify_user_attribute.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_admin_list_groups_for_user.md",
+      "async-client/paginators/iter_admin_list_user_auth_events.md",
+      "async-client/paginators/iter_list_groups.md",
+      "async-client/paginators/iter_list_identity_providers.md",
+      "async-client/paginators/iter_list_resource_servers.md",
+      "async-client/paginators/iter_list_user_pool_clients.md",
+      "async-client/paginators/iter_list_user_pools.md",
+      "async-client/paginators/iter_list_users.md",
+      "async-client/paginators/iter_list_users_in_group.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/AliasExistsException.md",
+    "errors/CodeDeliveryFailureException.md",
+    "errors/CodeMismatchException.md",
+    "errors/CognitoIdentityProviderError.md",
+    "errors/ConcurrentModificationException.md",
+    "errors/DeserializationError.md",
+    "errors/DeviceKeyExistsException.md",
+    "errors/DuplicateProviderException.md",
+    "errors/EnableSoftwareTokenMFAException.md",
+    "errors/ExpiredCodeException.md",
+    "errors/FeatureUnavailableInTierException.md",
+    "errors/ForbiddenException.md",
+    "errors/GroupExistsException.md",
+    "errors/InternalErrorException.md",
+    "errors/InternalServerException.md",
+    "errors/InvalidEmailRoleAccessPolicyException.md",
+    "errors/InvalidLambdaResponseException.md",
+    "errors/InvalidOAuthFlowException.md",
+    "errors/InvalidParameterException.md",
+    "errors/InvalidPasswordException.md",
+    "errors/InvalidSmsRoleAccessPolicyException.md",
+    "errors/InvalidSmsRoleTrustRelationshipException.md",
+    "errors/InvalidUserPoolConfigurationException.md",
+    "errors/LimitExceededException.md",
+    "errors/MFAMethodNotFoundException.md",
+    "errors/ManagedLoginBrandingExistsException.md",
+    "errors/NotAuthorizedException.md",
+    "errors/OperationNotEnabledException.md",
+    "errors/PasswordHistoryPolicyViolationException.md",
+    "errors/PasswordResetRequiredException.md",
+    "errors/PreconditionNotMetException.md",
+    "errors/RefreshTokenReuseException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/ScopeDoesNotExistException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/SoftwareTokenMFANotFoundException.md",
+    "errors/TermsExistsException.md",
+    "errors/TierChangeNotAllowedException.md",
+    "errors/TooManyFailedAttemptsException.md",
+    "errors/TooManyRequestsException.md",
+    "errors/UnauthorizedException.md",
+    "errors/UnexpectedLambdaException.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnsupportedIdentityProviderException.md",
+    "errors/UnsupportedOperationException.md",
+    "errors/UnsupportedTokenTypeException.md",
+    "errors/UnsupportedUserStateException.md",
+    "errors/UserImportInProgressException.md",
+    "errors/UserLambdaValidationException.md",
+    "errors/UserNotConfirmedException.md",
+    "errors/UserNotFoundException.md",
+    "errors/UserPoolAddOnNotEnabledException.md",
+    "errors/UserPoolTaggingException.md",
+    "errors/UsernameExistsException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+    "errors/WebAuthnChallengeNotFoundException.md",
+    "errors/WebAuthnClientMismatchException.md",
+    "errors/WebAuthnConfigurationMissingException.md",
+    "errors/WebAuthnCredentialNotSupportedException.md",
+    "errors/WebAuthnNotEnabledException.md",
+    "errors/WebAuthnOriginNotAllowedException.md",
+    "errors/WebAuthnRelyingPartyMismatchException.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_cognito_identity_provider` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_cognito_identity_provider.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

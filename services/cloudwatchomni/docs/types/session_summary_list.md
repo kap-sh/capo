@@ -1,0 +1,8 @@
+---
+title: SessionSummaryList
+---
+
+::: capo_cloudwatchomni.types.session_summary_list.SessionSummaryList
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ColorPrimaries
+---
+
+::: capo_mediaconvert.types.color_primaries.ColorPrimaries
+    options:
+      show_source: true
+      merge_init_into_class: false

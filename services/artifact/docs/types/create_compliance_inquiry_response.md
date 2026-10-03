@@ -1,0 +1,8 @@
+---
+title: CreateComplianceInquiryResponse
+---
+
+::: capo_artifact.types.create_compliance_inquiry_response.CreateComplianceInquiryResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

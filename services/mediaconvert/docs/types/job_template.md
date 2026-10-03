@@ -1,0 +1,8 @@
+---
+title: JobTemplate
+---
+
+::: capo_mediaconvert.types.job_template.JobTemplate
+    options:
+      show_source: true
+      merge_init_into_class: false

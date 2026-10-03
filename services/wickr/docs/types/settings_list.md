@@ -1,0 +1,8 @@
+---
+title: SettingsList
+---
+
+::: capo_wickr.types.settings_list.SettingsList
+    options:
+      show_source: true
+      merge_init_into_class: false

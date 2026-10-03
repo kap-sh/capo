@@ -1,0 +1,8 @@
+---
+title: EventDestination
+---
+
+::: capo_pinpoint_sms_voice.types.event_destination.EventDestination
+    options:
+      show_source: true
+      merge_init_into_class: false

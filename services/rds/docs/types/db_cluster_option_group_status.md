@@ -1,0 +1,8 @@
+---
+title: DBClusterOptionGroupStatus
+---
+
+::: capo_rds.types.db_cluster_option_group_status.DBClusterOptionGroupStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

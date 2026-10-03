@@ -1,0 +1,8 @@
+---
+title: DeleteNodeOutput
+---
+
+::: capo_managedblockchain.types.delete_node_output.DeleteNodeOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

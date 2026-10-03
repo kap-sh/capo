@@ -1,0 +1,8 @@
+---
+title: ItemSourceList
+---
+
+::: capo_sagemaker_geospatial.types.item_source_list.ItemSourceList
+    options:
+      show_source: true
+      merge_init_into_class: false

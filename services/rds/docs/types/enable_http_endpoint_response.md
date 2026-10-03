@@ -1,0 +1,8 @@
+---
+title: EnableHttpEndpointResponse
+---
+
+::: capo_rds.types.enable_http_endpoint_response.EnableHttpEndpointResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

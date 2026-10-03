@@ -1,0 +1,17 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [DuplicateResourceException](DuplicateResourceException.md)
+- [InvalidParametersException](InvalidParametersException.md)
+- [InvalidStateException](InvalidStateException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [OperationNotSupportedException](OperationNotSupportedException.md)
+- [ResourceInUseException](ResourceInUseException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceCatalogError](ServiceCatalogError.md)
+- [ServiceError](ServiceError.md)
+- [TagOptionNotMigratedException](TagOptionNotMigratedException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

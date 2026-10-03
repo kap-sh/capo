@@ -1,0 +1,7 @@
+---
+title: batch_delete_cluster_snapshots
+---
+
+::: capo_redshift._services.redshift.RedshiftClient.batch_delete_cluster_snapshots
+    options:
+      show_source: true

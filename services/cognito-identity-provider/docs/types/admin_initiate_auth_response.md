@@ -1,0 +1,8 @@
+---
+title: AdminInitiateAuthResponse
+---
+
+::: capo_cognito_identity_provider.types.admin_initiate_auth_response.AdminInitiateAuthResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

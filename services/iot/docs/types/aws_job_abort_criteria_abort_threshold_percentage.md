@@ -1,0 +1,8 @@
+---
+title: AwsJobAbortCriteriaAbortThresholdPercentage
+---
+
+::: capo_iot.types.aws_job_abort_criteria_abort_threshold_percentage.AwsJobAbortCriteriaAbortThresholdPercentage
+    options:
+      show_source: true
+      merge_init_into_class: false

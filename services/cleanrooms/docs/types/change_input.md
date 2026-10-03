@@ -1,0 +1,8 @@
+---
+title: ChangeInput
+---
+
+::: capo_cleanrooms.types.change_input.ChangeInput
+    options:
+      show_source: true
+      merge_init_into_class: false

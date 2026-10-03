@@ -1,0 +1,8 @@
+---
+title: ConsumerIdentifierList
+---
+
+::: capo_redshift.types.consumer_identifier_list.ConsumerIdentifierList
+    options:
+      show_source: true
+      merge_init_into_class: false

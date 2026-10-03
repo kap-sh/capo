@@ -1,0 +1,8 @@
+---
+title: JobIds
+---
+
+::: capo_compute_optimizer.types.job_ids.JobIds
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: UpdateHoursOfOperationRequest
+---
+
+::: capo_connect.types.update_hours_of_operation_request.UpdateHoursOfOperationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

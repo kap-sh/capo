@@ -1,0 +1,8 @@
+---
+title: LogConfiguration
+---
+
+::: capo_managedblockchain.types.log_configuration.LogConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

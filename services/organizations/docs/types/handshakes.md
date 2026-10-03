@@ -1,0 +1,8 @@
+---
+title: Handshakes
+---
+
+::: capo_organizations.types.handshakes.Handshakes
+    options:
+      show_source: true
+      merge_init_into_class: false

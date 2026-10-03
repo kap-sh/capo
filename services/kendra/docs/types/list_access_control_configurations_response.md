@@ -1,0 +1,8 @@
+---
+title: ListAccessControlConfigurationsResponse
+---
+
+::: capo_kendra.types.list_access_control_configurations_response.ListAccessControlConfigurationsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

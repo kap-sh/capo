@@ -1,0 +1,8 @@
+---
+title: GetDatabasesResponse
+---
+
+::: capo_glue.types.get_databases_response.GetDatabasesResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

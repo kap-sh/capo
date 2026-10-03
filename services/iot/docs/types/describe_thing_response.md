@@ -1,0 +1,8 @@
+---
+title: DescribeThingResponse
+---
+
+::: capo_iot.types.describe_thing_response.DescribeThingResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

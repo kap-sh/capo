@@ -1,0 +1,8 @@
+---
+title: GetBackendEnvironmentResult
+---
+
+::: capo_amplify.types.get_backend_environment_result.GetBackendEnvironmentResult
+    options:
+      show_source: true
+      merge_init_into_class: false

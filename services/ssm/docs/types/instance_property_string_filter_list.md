@@ -1,0 +1,8 @@
+---
+title: InstancePropertyStringFilterList
+---
+
+::: capo_ssm.types.instance_property_string_filter_list.InstancePropertyStringFilterList
+    options:
+      show_source: true
+      merge_init_into_class: false

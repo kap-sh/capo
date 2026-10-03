@@ -1,0 +1,8 @@
+---
+title: AutoRecoveryEnum
+---
+
+::: capo_workspaces_instances.types.auto_recovery_enum.AutoRecoveryEnum
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,7 @@
+---
+title: get_opportunity
+---
+
+::: capo_partnercentral_selling._services.partner_central_selling.PartnerCentralSellingClient.get_opportunity
+    options:
+      show_source: true

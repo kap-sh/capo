@@ -1,0 +1,8 @@
+---
+title: campaignSummaries
+---
+
+::: capo_iotfleetwise.types.campaign_summaries.campaignSummaries
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: TableInlineVisualization
+---
+
+::: capo_quicksight.types.table_inline_visualization.TableInlineVisualization
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: StartAutomatedReasoningPolicyBuildWorkflowRequest
+---
+
+::: capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.StartAutomatedReasoningPolicyBuildWorkflowRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

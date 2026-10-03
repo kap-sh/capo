@@ -1,0 +1,8 @@
+---
+title: ListFirewallRulesResponse
+---
+
+::: capo_route53resolver.types.list_firewall_rules_response.ListFirewallRulesResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

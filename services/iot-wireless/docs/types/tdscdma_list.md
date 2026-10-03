@@ -1,0 +1,8 @@
+---
+title: TdscdmaList
+---
+
+::: capo_iot_wireless.types.tdscdma_list.TdscdmaList
+    options:
+      show_source: true
+      merge_init_into_class: false

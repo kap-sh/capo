@@ -1,0 +1,8 @@
+---
+title: UpdateCertificateResponse
+---
+
+::: capo_transfer.types.update_certificate_response.UpdateCertificateResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

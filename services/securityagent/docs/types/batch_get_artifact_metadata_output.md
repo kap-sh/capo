@@ -1,0 +1,8 @@
+---
+title: BatchGetArtifactMetadataOutput
+---
+
+::: capo_securityagent.types.batch_get_artifact_metadata_output.BatchGetArtifactMetadataOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

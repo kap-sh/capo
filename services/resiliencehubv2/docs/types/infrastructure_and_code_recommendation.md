@@ -1,0 +1,8 @@
+---
+title: InfrastructureAndCodeRecommendation
+---
+
+::: capo_resiliencehubv2.types.infrastructure_and_code_recommendation.InfrastructureAndCodeRecommendation
+    options:
+      show_source: true
+      merge_init_into_class: false

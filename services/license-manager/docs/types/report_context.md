@@ -1,0 +1,8 @@
+---
+title: ReportContext
+---
+
+::: capo_license_manager.types.report_context.ReportContext
+    options:
+      show_source: true
+      merge_init_into_class: false

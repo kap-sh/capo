@@ -1,0 +1,8 @@
+---
+title: AwsEc2ClientVpnEndpointAuthenticationOptionsDetails
+---
+
+::: capo_securityhub.types.aws_ec2_client_vpn_endpoint_authentication_options_details.AwsEc2ClientVpnEndpointAuthenticationOptionsDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

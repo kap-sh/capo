@@ -1,0 +1,8 @@
+---
+title: AcceleratorType
+---
+
+::: capo_auto_scaling.types.accelerator_type.AcceleratorType
+    options:
+      show_source: true
+      merge_init_into_class: false

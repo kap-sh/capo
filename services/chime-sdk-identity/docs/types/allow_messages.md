@@ -1,0 +1,8 @@
+---
+title: AllowMessages
+---
+
+::: capo_chime_sdk_identity.types.allow_messages.AllowMessages
+    options:
+      show_source: true
+      merge_init_into_class: false

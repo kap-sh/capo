@@ -1,0 +1,7 @@
+---
+title: cancel_capacity_task
+---
+
+::: capo_outposts._services.outposts.OutpostsClient.cancel_capacity_task
+    options:
+      show_source: true

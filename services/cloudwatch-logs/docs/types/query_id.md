@@ -1,0 +1,8 @@
+---
+title: QueryId
+---
+
+::: capo_cloudwatch_logs.types.query_id.QueryId
+    options:
+      show_source: true
+      merge_init_into_class: false

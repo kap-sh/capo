@@ -1,0 +1,8 @@
+---
+title: EnabledStandardIdentifierList
+---
+
+::: capo_securityhub.types.enabled_standard_identifier_list.EnabledStandardIdentifierList
+    options:
+      show_source: true
+      merge_init_into_class: false

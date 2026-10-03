@@ -1,0 +1,8 @@
+---
+title: LogUrl
+---
+
+::: capo_iotdeviceadvisor.types.log_url.LogUrl
+    options:
+      show_source: true
+      merge_init_into_class: false

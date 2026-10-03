@@ -1,0 +1,8 @@
+---
+title: ImplicitFilterConfiguration
+---
+
+::: capo_bedrock_agent_runtime.types.implicit_filter_configuration.ImplicitFilterConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

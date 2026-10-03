@@ -1,0 +1,8 @@
+---
+title: OutputPayload
+---
+
+::: capo_lambda.types.output_payload.OutputPayload
+    options:
+      show_source: true
+      merge_init_into_class: false

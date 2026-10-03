@@ -1,0 +1,8 @@
+---
+title: FlowTimeouts
+---
+
+::: capo_network_firewall.types.flow_timeouts.FlowTimeouts
+    options:
+      show_source: true
+      merge_init_into_class: false

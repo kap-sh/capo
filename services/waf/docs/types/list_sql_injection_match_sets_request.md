@@ -1,0 +1,8 @@
+---
+title: ListSqlInjectionMatchSetsRequest
+---
+
+::: capo_waf.types.list_sql_injection_match_sets_request.ListSqlInjectionMatchSetsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

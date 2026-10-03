@@ -1,0 +1,8 @@
+---
+title: SchemaJson
+---
+
+::: capo_verifiedpermissions.types.schema_json.SchemaJson
+    options:
+      show_source: true
+      merge_init_into_class: false

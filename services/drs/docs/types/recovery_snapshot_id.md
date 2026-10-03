@@ -1,0 +1,8 @@
+---
+title: RecoverySnapshotID
+---
+
+::: capo_drs.types.recovery_snapshot_id.RecoverySnapshotID
+    options:
+      show_source: true
+      merge_init_into_class: false

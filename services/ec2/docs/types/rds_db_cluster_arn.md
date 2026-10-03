@@ -1,0 +1,8 @@
+---
+title: RdsDbClusterArn
+---
+
+::: capo_ec2.types.rds_db_cluster_arn.RdsDbClusterArn
+    options:
+      show_source: true
+      merge_init_into_class: false

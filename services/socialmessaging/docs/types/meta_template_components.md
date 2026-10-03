@@ -1,0 +1,8 @@
+---
+title: MetaTemplateComponents
+---
+
+::: capo_socialmessaging.types.meta_template_components.MetaTemplateComponents
+    options:
+      show_source: true
+      merge_init_into_class: false

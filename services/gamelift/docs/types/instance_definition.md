@@ -1,0 +1,8 @@
+---
+title: InstanceDefinition
+---
+
+::: capo_gamelift.types.instance_definition.InstanceDefinition
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,16 @@
+# Errors
+
+- [AmplifyError](AmplifyError.md)
+- [BadRequestException](BadRequestException.md)
+- [DependentServiceFailureException](DependentServiceFailureException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalFailureException](InternalFailureException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [NotFoundException](NotFoundException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnauthorizedException](UnauthorizedException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

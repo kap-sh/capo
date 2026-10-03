@@ -1,0 +1,8 @@
+---
+title: ServiceEnvironmentState
+---
+
+::: capo_batch.types.service_environment_state.ServiceEnvironmentState
+    options:
+      show_source: true
+      merge_init_into_class: false

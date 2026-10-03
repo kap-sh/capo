@@ -1,0 +1,8 @@
+---
+title: LambdaEffectiveRecommendationPreferences
+---
+
+::: capo_compute_optimizer.types.lambda_effective_recommendation_preferences.LambdaEffectiveRecommendationPreferences
+    options:
+      show_source: true
+      merge_init_into_class: false

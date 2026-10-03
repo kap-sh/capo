@@ -1,0 +1,8 @@
+---
+title: ActionIdentifier
+---
+
+::: capo_qapps.types.action_identifier.ActionIdentifier
+    options:
+      show_source: true
+      merge_init_into_class: false

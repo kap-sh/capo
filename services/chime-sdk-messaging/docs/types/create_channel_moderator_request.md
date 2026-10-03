@@ -1,0 +1,8 @@
+---
+title: CreateChannelModeratorRequest
+---
+
+::: capo_chime_sdk_messaging.types.create_channel_moderator_request.CreateChannelModeratorRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

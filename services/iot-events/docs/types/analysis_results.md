@@ -1,0 +1,8 @@
+---
+title: AnalysisResults
+---
+
+::: capo_iot_events.types.analysis_results.AnalysisResults
+    options:
+      show_source: true
+      merge_init_into_class: false

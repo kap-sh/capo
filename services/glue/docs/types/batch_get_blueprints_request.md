@@ -1,0 +1,8 @@
+---
+title: BatchGetBlueprintsRequest
+---
+
+::: capo_glue.types.batch_get_blueprints_request.BatchGetBlueprintsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: DescribeS3AccessPointAttachmentsResponse
+---
+
+::: capo_fsx.types.describe_s3_access_point_attachments_response.DescribeS3AccessPointAttachmentsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

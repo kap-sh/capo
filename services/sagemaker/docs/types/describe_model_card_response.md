@@ -1,0 +1,8 @@
+---
+title: DescribeModelCardResponse
+---
+
+::: capo_sagemaker.types.describe_model_card_response.DescribeModelCardResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

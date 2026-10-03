@@ -1,0 +1,8 @@
+---
+title: BusinessVerificationDetails
+---
+
+::: capo_partnercentral_account.types.business_verification_details.BusinessVerificationDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

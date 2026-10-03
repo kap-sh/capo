@@ -1,0 +1,8 @@
+---
+title: HierarchyLevelUpdate
+---
+
+::: capo_connect.types.hierarchy_level_update.HierarchyLevelUpdate
+    options:
+      show_source: true
+      merge_init_into_class: false

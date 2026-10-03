@@ -1,0 +1,8 @@
+---
+title: PartialMatches
+---
+
+::: capo_fms.types.partial_matches.PartialMatches
+    options:
+      show_source: true
+      merge_init_into_class: false

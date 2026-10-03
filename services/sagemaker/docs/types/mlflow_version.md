@@ -1,0 +1,8 @@
+---
+title: MlflowVersion
+---
+
+::: capo_sagemaker.types.mlflow_version.MlflowVersion
+    options:
+      show_source: true
+      merge_init_into_class: false

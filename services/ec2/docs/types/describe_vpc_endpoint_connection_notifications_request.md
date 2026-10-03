@@ -1,0 +1,8 @@
+---
+title: DescribeVpcEndpointConnectionNotificationsRequest
+---
+
+::: capo_ec2.types.describe_vpc_endpoint_connection_notifications_request.DescribeVpcEndpointConnectionNotificationsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

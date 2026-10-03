@@ -1,0 +1,8 @@
+---
+title: AdHocFilteringOption
+---
+
+::: capo_quicksight.types.ad_hoc_filtering_option.AdHocFilteringOption
+    options:
+      show_source: true
+      merge_init_into_class: false

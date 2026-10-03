@@ -1,0 +1,8 @@
+---
+title: LabelDetectionFeatureName
+---
+
+::: capo_rekognition.types.label_detection_feature_name.LabelDetectionFeatureName
+    options:
+      show_source: true
+      merge_init_into_class: false

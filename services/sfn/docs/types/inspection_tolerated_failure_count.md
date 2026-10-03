@@ -1,0 +1,8 @@
+---
+title: InspectionToleratedFailureCount
+---
+
+::: capo_sfn.types.inspection_tolerated_failure_count.InspectionToleratedFailureCount
+    options:
+      show_source: true
+      merge_init_into_class: false

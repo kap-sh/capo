@@ -1,0 +1,8 @@
+---
+title: PackageAggregation
+---
+
+::: capo_inspector2.types.package_aggregation.PackageAggregation
+    options:
+      show_source: true
+      merge_init_into_class: false

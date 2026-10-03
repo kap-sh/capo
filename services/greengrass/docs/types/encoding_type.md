@@ -1,0 +1,8 @@
+---
+title: EncodingType
+---
+
+::: capo_greengrass.types.encoding_type.EncodingType
+    options:
+      show_source: true
+      merge_init_into_class: false

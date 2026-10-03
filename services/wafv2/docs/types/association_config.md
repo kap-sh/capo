@@ -1,0 +1,8 @@
+---
+title: AssociationConfig
+---
+
+::: capo_wafv2.types.association_config.AssociationConfig
+    options:
+      show_source: true
+      merge_init_into_class: false

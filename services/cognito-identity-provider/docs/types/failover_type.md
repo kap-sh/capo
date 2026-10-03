@@ -1,0 +1,8 @@
+---
+title: FailoverType
+---
+
+::: capo_cognito_identity_provider.types.failover_type.FailoverType
+    options:
+      show_source: true
+      merge_init_into_class: false

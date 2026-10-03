@@ -1,0 +1,8 @@
+---
+title: SourceLocation
+---
+
+::: capo_ssm.types.source_location.SourceLocation
+    options:
+      show_source: true
+      merge_init_into_class: false

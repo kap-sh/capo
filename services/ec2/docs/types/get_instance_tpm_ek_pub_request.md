@@ -1,0 +1,8 @@
+---
+title: GetInstanceTpmEkPubRequest
+---
+
+::: capo_ec2.types.get_instance_tpm_ek_pub_request.GetInstanceTpmEkPubRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

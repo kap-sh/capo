@@ -1,0 +1,8 @@
+---
+title: ModifyActivityStreamResponse
+---
+
+::: capo_rds.types.modify_activity_stream_response.ModifyActivityStreamResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: DeprecateSystemTemplateRequest
+---
+
+::: capo_iotthingsgraph.types.deprecate_system_template_request.DeprecateSystemTemplateRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

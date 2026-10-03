@@ -1,0 +1,7 @@
+---
+title: close_case
+---
+
+::: capo_security_ir._services.async_security_ir.AsyncSecurityIRClient.close_case
+    options:
+      show_source: true

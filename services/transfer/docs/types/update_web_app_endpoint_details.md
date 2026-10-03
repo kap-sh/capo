@@ -1,0 +1,14 @@
+---
+title: UpdateWebAppEndpointDetails
+---
+
+::: capo_transfer.types.update_web_app_endpoint_details.UpdateWebAppEndpointDetails
+    options:
+      show_source: true
+      merge_init_into_class: false
+
+::: capo_transfer.types.update_web_app_endpoint_details._UpdateWebAppEndpointDetails_Vpc
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

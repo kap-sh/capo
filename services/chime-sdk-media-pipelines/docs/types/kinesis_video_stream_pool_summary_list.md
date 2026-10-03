@@ -1,0 +1,8 @@
+---
+title: KinesisVideoStreamPoolSummaryList
+---
+
+::: capo_chime_sdk_media_pipelines.types.kinesis_video_stream_pool_summary_list.KinesisVideoStreamPoolSummaryList
+    options:
+      show_source: true
+      merge_init_into_class: false

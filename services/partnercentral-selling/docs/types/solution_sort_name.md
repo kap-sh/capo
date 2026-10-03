@@ -1,0 +1,8 @@
+---
+title: SolutionSortName
+---
+
+::: capo_partnercentral_selling.types.solution_sort_name.SolutionSortName
+    options:
+      show_source: true
+      merge_init_into_class: false

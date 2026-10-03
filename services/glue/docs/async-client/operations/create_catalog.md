@@ -1,0 +1,7 @@
+---
+title: create_catalog
+---
+
+::: capo_glue._services.async_glue.AsyncGlueClient.create_catalog
+    options:
+      show_source: true

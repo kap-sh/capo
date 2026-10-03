@@ -1,0 +1,8 @@
+---
+title: ListScriptsInput
+---
+
+::: capo_gamelift.types.list_scripts_input.ListScriptsInput
+    options:
+      show_source: true
+      merge_init_into_class: false

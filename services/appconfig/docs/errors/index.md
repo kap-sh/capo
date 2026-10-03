@@ -1,0 +1,15 @@
+# Errors
+
+- [AppConfigError](AppConfigError.md)
+- [BadRequestException](BadRequestException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [PayloadTooLargeException](PayloadTooLargeException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

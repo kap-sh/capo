@@ -1,0 +1,18 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [InternalFailureException](InternalFailureException.md)
+- [InvalidRequestException](InvalidRequestException.md)
+- [IoTEventsError](IoTEventsError.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ResourceAlreadyExistsException](ResourceAlreadyExistsException.md)
+- [ResourceInUseException](ResourceInUseException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [UnsupportedOperationException](UnsupportedOperationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

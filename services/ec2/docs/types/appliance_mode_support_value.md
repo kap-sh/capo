@@ -1,0 +1,8 @@
+---
+title: ApplianceModeSupportValue
+---
+
+::: capo_ec2.types.appliance_mode_support_value.ApplianceModeSupportValue
+    options:
+      show_source: true
+      merge_init_into_class: false

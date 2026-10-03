@@ -1,0 +1,8 @@
+---
+title: ElasticInferenceAcceleratorAssociation
+---
+
+::: capo_ec2.types.elastic_inference_accelerator_association.ElasticInferenceAcceleratorAssociation
+    options:
+      show_source: true
+      merge_init_into_class: false

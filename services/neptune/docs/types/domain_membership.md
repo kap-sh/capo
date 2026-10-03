@@ -1,0 +1,8 @@
+---
+title: DomainMembership
+---
+
+::: capo_neptune.types.domain_membership.DomainMembership
+    options:
+      show_source: true
+      merge_init_into_class: false

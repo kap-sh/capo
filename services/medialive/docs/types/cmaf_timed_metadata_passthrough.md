@@ -1,0 +1,8 @@
+---
+title: CmafTimedMetadataPassthrough
+---
+
+::: capo_medialive.types.cmaf_timed_metadata_passthrough.CmafTimedMetadataPassthrough
+    options:
+      show_source: true
+      merge_init_into_class: false

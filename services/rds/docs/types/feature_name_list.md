@@ -1,0 +1,8 @@
+---
+title: FeatureNameList
+---
+
+::: capo_rds.types.feature_name_list.FeatureNameList
+    options:
+      show_source: true
+      merge_init_into_class: false

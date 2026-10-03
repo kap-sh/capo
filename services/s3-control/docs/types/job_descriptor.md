@@ -1,0 +1,8 @@
+---
+title: JobDescriptor
+---
+
+::: capo_s3_control.types.job_descriptor.JobDescriptor
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: AgentSummaries
+---
+
+::: capo_quicksight.types.agent_summaries.AgentSummaries
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,15 @@
+# Errors
+
+- [ClientLimitExceededException](ClientLimitExceededException.md)
+- [DeserializationError](DeserializationError.md)
+- [InvalidArgumentException](InvalidArgumentException.md)
+- [InvalidClientException](InvalidClientException.md)
+- [KinesisVideoSignalingError](KinesisVideoSignalingError.md)
+- [NotAuthorizedException](NotAuthorizedException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [SessionExpiredException](SessionExpiredException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

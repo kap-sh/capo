@@ -1,0 +1,8 @@
+---
+title: ApproveAfterDays
+---
+
+::: capo_ssm.types.approve_after_days.ApproveAfterDays
+    options:
+      show_source: true
+      merge_init_into_class: false

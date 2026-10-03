@@ -1,0 +1,8 @@
+---
+title: RegisterDefaultPatchBaselineResult
+---
+
+::: capo_ssm.types.register_default_patch_baseline_result.RegisterDefaultPatchBaselineResult
+    options:
+      show_source: true
+      merge_init_into_class: false

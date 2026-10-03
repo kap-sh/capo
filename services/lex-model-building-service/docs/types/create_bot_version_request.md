@@ -1,0 +1,8 @@
+---
+title: CreateBotVersionRequest
+---
+
+::: capo_lex_model_building_service.types.create_bot_version_request.CreateBotVersionRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

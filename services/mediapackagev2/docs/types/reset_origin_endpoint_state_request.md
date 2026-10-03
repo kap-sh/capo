@@ -1,0 +1,8 @@
+---
+title: ResetOriginEndpointStateRequest
+---
+
+::: capo_mediapackagev2.types.reset_origin_endpoint_state_request.ResetOriginEndpointStateRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

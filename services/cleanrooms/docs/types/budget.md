@@ -1,0 +1,8 @@
+---
+title: Budget
+---
+
+::: capo_cleanrooms.types.budget.Budget
+    options:
+      show_source: true
+      merge_init_into_class: false

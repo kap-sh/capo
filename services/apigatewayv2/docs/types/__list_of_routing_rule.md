@@ -1,0 +1,8 @@
+---
+title: __listOfRoutingRule
+---
+
+::: capo_apigatewayv2.types.__list_of_routing_rule.__listOfRoutingRule
+    options:
+      show_source: true
+      merge_init_into_class: false

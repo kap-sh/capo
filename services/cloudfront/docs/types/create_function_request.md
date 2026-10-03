@@ -1,0 +1,8 @@
+---
+title: CreateFunctionRequest
+---
+
+::: capo_cloudfront.types.create_function_request.CreateFunctionRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ReasonType
+---
+
+::: capo_iam.types.reason_type.ReasonType
+    options:
+      show_source: true
+      merge_init_into_class: false

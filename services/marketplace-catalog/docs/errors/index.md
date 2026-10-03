@@ -1,0 +1,17 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServiceException](InternalServiceException.md)
+- [MarketplaceCatalogError](MarketplaceCatalogError.md)
+- [ResourceInUseException](ResourceInUseException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [ResourceNotSupportedException](ResourceNotSupportedException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

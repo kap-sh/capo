@@ -1,0 +1,8 @@
+---
+title: PagerDutyDetails
+---
+
+::: capo_devops_agent.types.pager_duty_details.PagerDutyDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

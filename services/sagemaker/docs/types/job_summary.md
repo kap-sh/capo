@@ -1,0 +1,8 @@
+---
+title: JobSummary
+---
+
+::: capo_sagemaker.types.job_summary.JobSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

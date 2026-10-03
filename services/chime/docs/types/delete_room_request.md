@@ -1,0 +1,8 @@
+---
+title: DeleteRoomRequest
+---
+
+::: capo_chime.types.delete_room_request.DeleteRoomRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

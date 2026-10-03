@@ -1,0 +1,7 @@
+---
+title: iter_list_work_groups
+---
+
+::: capo_athena._services.athena.AthenaClient.iter_list_work_groups
+    options:
+      show_source: true

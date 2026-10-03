@@ -1,0 +1,8 @@
+---
+title: Effort
+---
+
+::: capo_wellarchitected.types.effort.Effort
+    options:
+      show_source: true
+      merge_init_into_class: false

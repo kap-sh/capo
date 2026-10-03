@@ -1,0 +1,8 @@
+---
+title: WorkflowSummaryList
+---
+
+::: capo_imagebuilder.types.workflow_summary_list.WorkflowSummaryList
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: AssociatePersonasToEntitiesRequest
+---
+
+::: capo_kendra.types.associate_personas_to_entities_request.AssociatePersonasToEntitiesRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

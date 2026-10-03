@@ -1,0 +1,326 @@
+[project]
+site_name = "capo-location"
+site_description = "Python SDK for AWS Location."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "LocationClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/associate_tracker_consumer.md",
+      "sync-client/operations/batch_delete_device_position_history.md",
+      "sync-client/operations/batch_delete_geofence.md",
+      "sync-client/operations/batch_evaluate_geofences.md",
+      "sync-client/operations/batch_get_device_position.md",
+      "sync-client/operations/batch_put_geofence.md",
+      "sync-client/operations/batch_update_device_position.md",
+      "sync-client/operations/calculate_route.md",
+      "sync-client/operations/calculate_route_matrix.md",
+      "sync-client/operations/cancel_job.md",
+      "sync-client/operations/create_geofence_collection.md",
+      "sync-client/operations/create_key.md",
+      "sync-client/operations/create_map.md",
+      "sync-client/operations/create_place_index.md",
+      "sync-client/operations/create_route_calculator.md",
+      "sync-client/operations/create_tracker.md",
+      "sync-client/operations/delete_geofence_collection.md",
+      "sync-client/operations/delete_key.md",
+      "sync-client/operations/delete_map.md",
+      "sync-client/operations/delete_place_index.md",
+      "sync-client/operations/delete_route_calculator.md",
+      "sync-client/operations/delete_tracker.md",
+      "sync-client/operations/describe_geofence_collection.md",
+      "sync-client/operations/describe_key.md",
+      "sync-client/operations/describe_map.md",
+      "sync-client/operations/describe_place_index.md",
+      "sync-client/operations/describe_route_calculator.md",
+      "sync-client/operations/describe_tracker.md",
+      "sync-client/operations/disassociate_tracker_consumer.md",
+      "sync-client/operations/forecast_geofence_events.md",
+      "sync-client/operations/get_device_position.md",
+      "sync-client/operations/get_device_position_history.md",
+      "sync-client/operations/get_geofence.md",
+      "sync-client/operations/get_job.md",
+      "sync-client/operations/get_map_glyphs.md",
+      "sync-client/operations/get_map_sprites.md",
+      "sync-client/operations/get_map_style_descriptor.md",
+      "sync-client/operations/get_map_tile.md",
+      "sync-client/operations/get_place.md",
+      "sync-client/operations/list_device_positions.md",
+      "sync-client/operations/list_geofence_collections.md",
+      "sync-client/operations/list_geofences.md",
+      "sync-client/operations/list_jobs.md",
+      "sync-client/operations/list_keys.md",
+      "sync-client/operations/list_maps.md",
+      "sync-client/operations/list_place_indexes.md",
+      "sync-client/operations/list_route_calculators.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_tracker_consumers.md",
+      "sync-client/operations/list_trackers.md",
+      "sync-client/operations/put_geofence.md",
+      "sync-client/operations/search_place_index_for_position.md",
+      "sync-client/operations/search_place_index_for_suggestions.md",
+      "sync-client/operations/search_place_index_for_text.md",
+      "sync-client/operations/start_job.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_geofence_collection.md",
+      "sync-client/operations/update_key.md",
+      "sync-client/operations/update_map.md",
+      "sync-client/operations/update_place_index.md",
+      "sync-client/operations/update_route_calculator.md",
+      "sync-client/operations/update_tracker.md",
+      "sync-client/operations/verify_device_position.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_forecast_geofence_events.md",
+      "sync-client/paginators/iter_get_device_position_history.md",
+      "sync-client/paginators/iter_list_device_positions.md",
+      "sync-client/paginators/iter_list_geofence_collections.md",
+      "sync-client/paginators/iter_list_geofences.md",
+      "sync-client/paginators/iter_list_jobs.md",
+      "sync-client/paginators/iter_list_keys.md",
+      "sync-client/paginators/iter_list_maps.md",
+      "sync-client/paginators/iter_list_place_indexes.md",
+      "sync-client/paginators/iter_list_route_calculators.md",
+      "sync-client/paginators/iter_list_tracker_consumers.md",
+      "sync-client/paginators/iter_list_trackers.md",
+    ] },
+  ] },
+  { "AsyncLocationClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/associate_tracker_consumer.md",
+      "async-client/operations/batch_delete_device_position_history.md",
+      "async-client/operations/batch_delete_geofence.md",
+      "async-client/operations/batch_evaluate_geofences.md",
+      "async-client/operations/batch_get_device_position.md",
+      "async-client/operations/batch_put_geofence.md",
+      "async-client/operations/batch_update_device_position.md",
+      "async-client/operations/calculate_route.md",
+      "async-client/operations/calculate_route_matrix.md",
+      "async-client/operations/cancel_job.md",
+      "async-client/operations/create_geofence_collection.md",
+      "async-client/operations/create_key.md",
+      "async-client/operations/create_map.md",
+      "async-client/operations/create_place_index.md",
+      "async-client/operations/create_route_calculator.md",
+      "async-client/operations/create_tracker.md",
+      "async-client/operations/delete_geofence_collection.md",
+      "async-client/operations/delete_key.md",
+      "async-client/operations/delete_map.md",
+      "async-client/operations/delete_place_index.md",
+      "async-client/operations/delete_route_calculator.md",
+      "async-client/operations/delete_tracker.md",
+      "async-client/operations/describe_geofence_collection.md",
+      "async-client/operations/describe_key.md",
+      "async-client/operations/describe_map.md",
+      "async-client/operations/describe_place_index.md",
+      "async-client/operations/describe_route_calculator.md",
+      "async-client/operations/describe_tracker.md",
+      "async-client/operations/disassociate_tracker_consumer.md",
+      "async-client/operations/forecast_geofence_events.md",
+      "async-client/operations/get_device_position.md",
+      "async-client/operations/get_device_position_history.md",
+      "async-client/operations/get_geofence.md",
+      "async-client/operations/get_job.md",
+      "async-client/operations/get_map_glyphs.md",
+      "async-client/operations/get_map_sprites.md",
+      "async-client/operations/get_map_style_descriptor.md",
+      "async-client/operations/get_map_tile.md",
+      "async-client/operations/get_place.md",
+      "async-client/operations/list_device_positions.md",
+      "async-client/operations/list_geofence_collections.md",
+      "async-client/operations/list_geofences.md",
+      "async-client/operations/list_jobs.md",
+      "async-client/operations/list_keys.md",
+      "async-client/operations/list_maps.md",
+      "async-client/operations/list_place_indexes.md",
+      "async-client/operations/list_route_calculators.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_tracker_consumers.md",
+      "async-client/operations/list_trackers.md",
+      "async-client/operations/put_geofence.md",
+      "async-client/operations/search_place_index_for_position.md",
+      "async-client/operations/search_place_index_for_suggestions.md",
+      "async-client/operations/search_place_index_for_text.md",
+      "async-client/operations/start_job.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_geofence_collection.md",
+      "async-client/operations/update_key.md",
+      "async-client/operations/update_map.md",
+      "async-client/operations/update_place_index.md",
+      "async-client/operations/update_route_calculator.md",
+      "async-client/operations/update_tracker.md",
+      "async-client/operations/verify_device_position.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_forecast_geofence_events.md",
+      "async-client/paginators/iter_get_device_position_history.md",
+      "async-client/paginators/iter_list_device_positions.md",
+      "async-client/paginators/iter_list_geofence_collections.md",
+      "async-client/paginators/iter_list_geofences.md",
+      "async-client/paginators/iter_list_jobs.md",
+      "async-client/paginators/iter_list_keys.md",
+      "async-client/paginators/iter_list_maps.md",
+      "async-client/paginators/iter_list_place_indexes.md",
+      "async-client/paginators/iter_list_route_calculators.md",
+      "async-client/paginators/iter_list_tracker_consumers.md",
+      "async-client/paginators/iter_list_trackers.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/InternalServerException.md",
+    "errors/LocationError.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/ThrottlingException.md",
+    "errors/UnknownServiceError.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_location` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_location.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

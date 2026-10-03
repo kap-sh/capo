@@ -1,0 +1,8 @@
+---
+title: RecommendedFixSteps
+---
+
+::: capo_wellarchitected.types.recommended_fix_steps.RecommendedFixSteps
+    options:
+      show_source: true
+      merge_init_into_class: false

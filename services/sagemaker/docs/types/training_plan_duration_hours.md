@@ -1,0 +1,8 @@
+---
+title: TrainingPlanDurationHours
+---
+
+::: capo_sagemaker.types.training_plan_duration_hours.TrainingPlanDurationHours
+    options:
+      show_source: true
+      merge_init_into_class: false

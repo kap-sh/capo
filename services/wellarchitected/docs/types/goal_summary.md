@@ -1,0 +1,8 @@
+---
+title: GoalSummary
+---
+
+::: capo_wellarchitected.types.goal_summary.GoalSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

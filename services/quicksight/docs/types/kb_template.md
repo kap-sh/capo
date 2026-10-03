@@ -1,0 +1,8 @@
+---
+title: KbTemplate
+---
+
+::: capo_quicksight.types.kb_template.KbTemplate
+    options:
+      show_source: true
+      merge_init_into_class: false

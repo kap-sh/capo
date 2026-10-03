@@ -1,0 +1,16 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [DeserializationError](DeserializationError.md)
+- [ElasticTranscoderError](ElasticTranscoderError.md)
+- [IncompatibleVersionException](IncompatibleVersionException.md)
+- [InternalServiceException](InternalServiceException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ResourceInUseException](ResourceInUseException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

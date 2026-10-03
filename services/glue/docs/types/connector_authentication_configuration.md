@@ -1,0 +1,8 @@
+---
+title: ConnectorAuthenticationConfiguration
+---
+
+::: capo_glue.types.connector_authentication_configuration.ConnectorAuthenticationConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

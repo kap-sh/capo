@@ -1,0 +1,8 @@
+---
+title: InputRequestDestinationRoute
+---
+
+::: capo_medialive.types.input_request_destination_route.InputRequestDestinationRoute
+    options:
+      show_source: true
+      merge_init_into_class: false

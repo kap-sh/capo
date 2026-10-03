@@ -1,0 +1,15 @@
+# Errors
+
+- [ARCRegionswitchError](ARCRegionswitchError.md)
+- [AccessDeniedException](AccessDeniedException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [IllegalArgumentException](IllegalArgumentException.md)
+- [IllegalStateException](IllegalStateException.md)
+- [InternalServerException](InternalServerException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

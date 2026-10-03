@@ -1,0 +1,8 @@
+---
+title: KeyCount
+---
+
+::: capo_s3.types.key_count.KeyCount
+    options:
+      show_source: true
+      merge_init_into_class: false

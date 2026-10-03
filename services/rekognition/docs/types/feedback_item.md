@@ -1,0 +1,8 @@
+---
+title: FeedbackItem
+---
+
+::: capo_rekognition.types.feedback_item.FeedbackItem
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: Threat
+---
+
+::: capo_securityhub.types.threat.Threat
+    options:
+      show_source: true
+      merge_init_into_class: false

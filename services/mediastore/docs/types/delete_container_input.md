@@ -1,0 +1,8 @@
+---
+title: DeleteContainerInput
+---
+
+::: capo_mediastore.types.delete_container_input.DeleteContainerInput
+    options:
+      show_source: true
+      merge_init_into_class: false

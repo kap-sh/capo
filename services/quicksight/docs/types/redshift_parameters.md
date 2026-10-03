@@ -1,0 +1,8 @@
+---
+title: RedshiftParameters
+---
+
+::: capo_quicksight.types.redshift_parameters.RedshiftParameters
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: DataReplicationInitiationSteps
+---
+
+::: capo_drs.types.data_replication_initiation_steps.DataReplicationInitiationSteps
+    options:
+      show_source: true
+      merge_init_into_class: false

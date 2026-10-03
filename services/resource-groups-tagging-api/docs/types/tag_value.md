@@ -1,0 +1,8 @@
+---
+title: TagValue
+---
+
+::: capo_resource_groups_tagging_api.types.tag_value.TagValue
+    options:
+      show_source: true
+      merge_init_into_class: false

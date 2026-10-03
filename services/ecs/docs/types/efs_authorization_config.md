@@ -1,0 +1,8 @@
+---
+title: EFSAuthorizationConfig
+---
+
+::: capo_ecs.types.efs_authorization_config.EFSAuthorizationConfig
+    options:
+      show_source: true
+      merge_init_into_class: false

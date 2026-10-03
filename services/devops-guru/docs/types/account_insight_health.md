@@ -1,0 +1,8 @@
+---
+title: AccountInsightHealth
+---
+
+::: capo_devops_guru.types.account_insight_health.AccountInsightHealth
+    options:
+      show_source: true
+      merge_init_into_class: false

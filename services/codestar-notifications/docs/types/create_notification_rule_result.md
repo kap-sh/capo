@@ -1,0 +1,8 @@
+---
+title: CreateNotificationRuleResult
+---
+
+::: capo_codestar_notifications.types.create_notification_rule_result.CreateNotificationRuleResult
+    options:
+      show_source: true
+      merge_init_into_class: false

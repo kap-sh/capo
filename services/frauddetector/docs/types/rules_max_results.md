@@ -1,0 +1,8 @@
+---
+title: RulesMaxResults
+---
+
+::: capo_frauddetector.types.rules_max_results.RulesMaxResults
+    options:
+      show_source: true
+      merge_init_into_class: false

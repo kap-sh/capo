@@ -1,0 +1,8 @@
+---
+title: ContactFlowSummary
+---
+
+::: capo_connect.types.contact_flow_summary.ContactFlowSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

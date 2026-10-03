@@ -1,0 +1,8 @@
+---
+title: LatestSoftware
+---
+
+::: capo_panorama.types.latest_software.LatestSoftware
+    options:
+      show_source: true
+      merge_init_into_class: false

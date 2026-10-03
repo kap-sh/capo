@@ -1,0 +1,8 @@
+---
+title: ListGatewaysInput
+---
+
+::: capo_storage_gateway.types.list_gateways_input.ListGatewaysInput
+    options:
+      show_source: true
+      merge_init_into_class: false

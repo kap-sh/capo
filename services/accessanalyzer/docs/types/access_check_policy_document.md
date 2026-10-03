@@ -1,0 +1,8 @@
+---
+title: AccessCheckPolicyDocument
+---
+
+::: capo_accessanalyzer.types.access_check_policy_document.AccessCheckPolicyDocument
+    options:
+      show_source: true
+      merge_init_into_class: false

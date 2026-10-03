@@ -1,0 +1,8 @@
+---
+title: EndpointEventBusList
+---
+
+::: capo_eventbridge.types.endpoint_event_bus_list.EndpointEventBusList
+    options:
+      show_source: true
+      merge_init_into_class: false

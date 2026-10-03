@@ -1,0 +1,7 @@
+---
+title: delete_scheduled_action
+---
+
+::: capo_redshift_serverless._services.redshift_serverless.RedshiftServerlessClient.delete_scheduled_action
+    options:
+      show_source: true

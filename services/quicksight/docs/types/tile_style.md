@@ -1,0 +1,8 @@
+---
+title: TileStyle
+---
+
+::: capo_quicksight.types.tile_style.TileStyle
+    options:
+      show_source: true
+      merge_init_into_class: false

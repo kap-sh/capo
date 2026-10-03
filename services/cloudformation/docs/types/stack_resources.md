@@ -1,0 +1,8 @@
+---
+title: StackResources
+---
+
+::: capo_cloudformation.types.stack_resources.StackResources
+    options:
+      show_source: true
+      merge_init_into_class: false

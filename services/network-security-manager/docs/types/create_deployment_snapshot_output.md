@@ -1,0 +1,8 @@
+---
+title: CreateDeploymentSnapshotOutput
+---
+
+::: capo_network_security_manager.types.create_deployment_snapshot_output.CreateDeploymentSnapshotOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

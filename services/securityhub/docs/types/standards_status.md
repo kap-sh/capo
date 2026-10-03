@@ -1,0 +1,8 @@
+---
+title: StandardsStatus
+---
+
+::: capo_securityhub.types.standards_status.StandardsStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

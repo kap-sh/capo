@@ -1,0 +1,8 @@
+---
+title: Aliases
+---
+
+::: capo_workmail.types.aliases.Aliases
+    options:
+      show_source: true
+      merge_init_into_class: false

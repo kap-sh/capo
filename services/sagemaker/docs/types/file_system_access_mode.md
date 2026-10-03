@@ -1,0 +1,8 @@
+---
+title: FileSystemAccessMode
+---
+
+::: capo_sagemaker.types.file_system_access_mode.FileSystemAccessMode
+    options:
+      show_source: true
+      merge_init_into_class: false

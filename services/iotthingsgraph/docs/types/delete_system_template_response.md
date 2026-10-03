@@ -1,0 +1,8 @@
+---
+title: DeleteSystemTemplateResponse
+---
+
+::: capo_iotthingsgraph.types.delete_system_template_response.DeleteSystemTemplateResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: Buckets
+---
+
+::: capo_iot.types.buckets.Buckets
+    options:
+      show_source: true
+      merge_init_into_class: false

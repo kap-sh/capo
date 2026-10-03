@@ -1,0 +1,8 @@
+---
+title: DeleteBillingGroupResponse
+---
+
+::: capo_iot.types.delete_billing_group_response.DeleteBillingGroupResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

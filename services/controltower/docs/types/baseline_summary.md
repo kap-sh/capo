@@ -1,0 +1,8 @@
+---
+title: BaselineSummary
+---
+
+::: capo_controltower.types.baseline_summary.BaselineSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

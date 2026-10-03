@@ -1,0 +1,16 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [CodeGuruReviewerError](CodeGuruReviewerError.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [NotFoundException](NotFoundException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

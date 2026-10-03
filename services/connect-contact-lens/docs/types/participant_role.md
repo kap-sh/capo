@@ -1,0 +1,8 @@
+---
+title: ParticipantRole
+---
+
+::: capo_connect_contact_lens.types.participant_role.ParticipantRole
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: CustomizedScalingMetricSpecification
+---
+
+::: capo_auto_scaling_plans.types.customized_scaling_metric_specification.CustomizedScalingMetricSpecification
+    options:
+      show_source: true
+      merge_init_into_class: false

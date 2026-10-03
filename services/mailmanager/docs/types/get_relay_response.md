@@ -1,0 +1,8 @@
+---
+title: GetRelayResponse
+---
+
+::: capo_mailmanager.types.get_relay_response.GetRelayResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

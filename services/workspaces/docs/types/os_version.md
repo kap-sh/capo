@@ -1,0 +1,8 @@
+---
+title: OSVersion
+---
+
+::: capo_workspaces.types.os_version.OSVersion
+    options:
+      show_source: true
+      merge_init_into_class: false

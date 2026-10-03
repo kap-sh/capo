@@ -1,0 +1,8 @@
+---
+title: ActiveDirectoryStatus
+---
+
+::: capo_storage_gateway.types.active_directory_status.ActiveDirectoryStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

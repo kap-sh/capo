@@ -1,0 +1,8 @@
+---
+title: OptimizationMetric
+---
+
+::: capo_forecast.types.optimization_metric.OptimizationMetric
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,18 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [DisabledOperationException](DisabledOperationException.md)
+- [InternalException](InternalException.md)
+- [InvalidPaginationTokenException](InvalidPaginationTokenException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [OSISError](OSISError.md)
+- [ResourceAlreadyExistsException](ResourceAlreadyExistsException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

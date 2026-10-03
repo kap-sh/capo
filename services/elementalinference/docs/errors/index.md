@@ -1,0 +1,18 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [ElementalInferenceError](ElementalInferenceError.md)
+- [GatewayTimedOutException](GatewayTimedOutException.md)
+- [InternalServerErrorException](InternalServerErrorException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
+- [TooManyRequestException](TooManyRequestException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

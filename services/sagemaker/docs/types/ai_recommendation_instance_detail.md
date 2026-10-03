@@ -1,0 +1,8 @@
+---
+title: AIRecommendationInstanceDetail
+---
+
+::: capo_sagemaker.types.ai_recommendation_instance_detail.AIRecommendationInstanceDetail
+    options:
+      show_source: true
+      merge_init_into_class: false

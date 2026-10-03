@@ -1,0 +1,8 @@
+---
+title: ProviderARN
+---
+
+::: capo_api_gateway.types.provider_arn.ProviderARN
+    options:
+      show_source: true
+      merge_init_into_class: false

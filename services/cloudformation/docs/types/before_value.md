@@ -1,0 +1,8 @@
+---
+title: BeforeValue
+---
+
+::: capo_cloudformation.types.before_value.BeforeValue
+    options:
+      show_source: true
+      merge_init_into_class: false

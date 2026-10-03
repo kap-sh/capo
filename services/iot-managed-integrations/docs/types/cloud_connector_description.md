@@ -1,0 +1,8 @@
+---
+title: CloudConnectorDescription
+---
+
+::: capo_iot_managed_integrations.types.cloud_connector_description.CloudConnectorDescription
+    options:
+      show_source: true
+      merge_init_into_class: false

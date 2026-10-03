@@ -1,0 +1,8 @@
+---
+title: ValidateStateMachineDefinitionCode
+---
+
+::: capo_sfn.types.validate_state_machine_definition_code.ValidateStateMachineDefinitionCode
+    options:
+      show_source: true
+      merge_init_into_class: false

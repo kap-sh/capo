@@ -1,0 +1,8 @@
+---
+title: KubernetesUserDetails
+---
+
+::: capo_guardduty.types.kubernetes_user_details.KubernetesUserDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

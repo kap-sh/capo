@@ -1,0 +1,8 @@
+---
+title: KinesisPartitionKey
+---
+
+::: capo_pipes.types.kinesis_partition_key.KinesisPartitionKey
+    options:
+      show_source: true
+      merge_init_into_class: false

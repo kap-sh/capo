@@ -1,0 +1,8 @@
+---
+title: eventAggregateField
+---
+
+::: capo_health.types.event_aggregate_field.eventAggregateField
+    options:
+      show_source: true
+      merge_init_into_class: false

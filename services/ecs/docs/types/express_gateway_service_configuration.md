@@ -1,0 +1,8 @@
+---
+title: ExpressGatewayServiceConfiguration
+---
+
+::: capo_ecs.types.express_gateway_service_configuration.ExpressGatewayServiceConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

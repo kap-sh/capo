@@ -1,0 +1,8 @@
+---
+title: Section
+---
+
+::: capo_apigatewayv2.types.section.Section
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: AddonName
+---
+
+::: capo_mailmanager.types.addon_name.AddonName
+    options:
+      show_source: true
+      merge_init_into_class: false

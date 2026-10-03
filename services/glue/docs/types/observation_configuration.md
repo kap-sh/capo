@@ -1,0 +1,8 @@
+---
+title: ObservationConfiguration
+---
+
+::: capo_glue.types.observation_configuration.ObservationConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: PutBucketPolicyRequest
+---
+
+::: capo_s3_control.types.put_bucket_policy_request.PutBucketPolicyRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

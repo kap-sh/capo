@@ -1,0 +1,8 @@
+---
+title: Addresses
+---
+
+::: capo_identitystore.types.addresses.Addresses
+    options:
+      show_source: true
+      merge_init_into_class: false

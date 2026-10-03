@@ -1,0 +1,8 @@
+---
+title: EstimatedCostTier
+---
+
+::: capo_resiliencehub.types.estimated_cost_tier.EstimatedCostTier
+    options:
+      show_source: true
+      merge_init_into_class: false

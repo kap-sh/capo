@@ -1,0 +1,8 @@
+---
+title: GetTestCaseExecutionSummaryRequest
+---
+
+::: capo_connect.types.get_test_case_execution_summary_request.GetTestCaseExecutionSummaryRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

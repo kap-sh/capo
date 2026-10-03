@@ -1,0 +1,7 @@
+---
+title: enable_control
+---
+
+::: capo_controltower._services.async_control_tower.AsyncControlTowerClient.enable_control
+    options:
+      show_source: true

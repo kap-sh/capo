@@ -1,0 +1,8 @@
+---
+title: CreateRepositoryLinkInput
+---
+
+::: capo_codestar_connections.types.create_repository_link_input.CreateRepositoryLinkInput
+    options:
+      show_source: true
+      merge_init_into_class: false

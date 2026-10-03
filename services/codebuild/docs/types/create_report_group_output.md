@@ -1,0 +1,8 @@
+---
+title: CreateReportGroupOutput
+---
+
+::: capo_codebuild.types.create_report_group_output.CreateReportGroupOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

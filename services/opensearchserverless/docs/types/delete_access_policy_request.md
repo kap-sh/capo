@@ -1,0 +1,8 @@
+---
+title: DeleteAccessPolicyRequest
+---
+
+::: capo_opensearchserverless.types.delete_access_policy_request.DeleteAccessPolicyRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: RegionName
+---
+
+::: capo_s3_control.types.region_name.RegionName
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,379 @@
+[project]
+site_name = "capo-organizations"
+site_description = "Python SDK for AWS Organizations."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "OrganizationsClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/accept_handshake.md",
+      "sync-client/operations/attach_policy.md",
+      "sync-client/operations/cancel_handshake.md",
+      "sync-client/operations/close_account.md",
+      "sync-client/operations/create_account.md",
+      "sync-client/operations/create_gov_cloud_account.md",
+      "sync-client/operations/create_organization.md",
+      "sync-client/operations/create_organizational_unit.md",
+      "sync-client/operations/create_policy.md",
+      "sync-client/operations/decline_handshake.md",
+      "sync-client/operations/delete_organization.md",
+      "sync-client/operations/delete_organizational_unit.md",
+      "sync-client/operations/delete_policy.md",
+      "sync-client/operations/delete_resource_policy.md",
+      "sync-client/operations/deregister_delegated_administrator.md",
+      "sync-client/operations/describe_account.md",
+      "sync-client/operations/describe_create_account_status.md",
+      "sync-client/operations/describe_effective_policy.md",
+      "sync-client/operations/describe_handshake.md",
+      "sync-client/operations/describe_organization.md",
+      "sync-client/operations/describe_organizational_unit.md",
+      "sync-client/operations/describe_policy.md",
+      "sync-client/operations/describe_resource_policy.md",
+      "sync-client/operations/describe_responsibility_transfer.md",
+      "sync-client/operations/detach_policy.md",
+      "sync-client/operations/disable_aws_service_access.md",
+      "sync-client/operations/disable_policy_type.md",
+      "sync-client/operations/enable_all_features.md",
+      "sync-client/operations/enable_aws_service_access.md",
+      "sync-client/operations/enable_policy_type.md",
+      "sync-client/operations/invite_account_to_organization.md",
+      "sync-client/operations/invite_organization_to_transfer_responsibility.md",
+      "sync-client/operations/leave_organization.md",
+      "sync-client/operations/list_accounts.md",
+      "sync-client/operations/list_accounts_for_parent.md",
+      "sync-client/operations/list_accounts_with_invalid_effective_policy.md",
+      "sync-client/operations/list_aws_service_access_for_organization.md",
+      "sync-client/operations/list_children.md",
+      "sync-client/operations/list_create_account_status.md",
+      "sync-client/operations/list_delegated_administrators.md",
+      "sync-client/operations/list_delegated_services_for_account.md",
+      "sync-client/operations/list_effective_policy_validation_errors.md",
+      "sync-client/operations/list_handshakes_for_account.md",
+      "sync-client/operations/list_handshakes_for_organization.md",
+      "sync-client/operations/list_inbound_responsibility_transfers.md",
+      "sync-client/operations/list_organizational_units_for_parent.md",
+      "sync-client/operations/list_outbound_responsibility_transfers.md",
+      "sync-client/operations/list_parents.md",
+      "sync-client/operations/list_policies.md",
+      "sync-client/operations/list_policies_for_target.md",
+      "sync-client/operations/list_roots.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_targets_for_policy.md",
+      "sync-client/operations/move_account.md",
+      "sync-client/operations/put_resource_policy.md",
+      "sync-client/operations/register_delegated_administrator.md",
+      "sync-client/operations/remove_account_from_organization.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/terminate_responsibility_transfer.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_organizational_unit.md",
+      "sync-client/operations/update_policy.md",
+      "sync-client/operations/update_responsibility_transfer.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_accounts.md",
+      "sync-client/paginators/iter_list_accounts_for_parent.md",
+      "sync-client/paginators/iter_list_accounts_with_invalid_effective_policy.md",
+      "sync-client/paginators/iter_list_aws_service_access_for_organization.md",
+      "sync-client/paginators/iter_list_children.md",
+      "sync-client/paginators/iter_list_create_account_status.md",
+      "sync-client/paginators/iter_list_delegated_administrators.md",
+      "sync-client/paginators/iter_list_delegated_services_for_account.md",
+      "sync-client/paginators/iter_list_effective_policy_validation_errors.md",
+      "sync-client/paginators/iter_list_handshakes_for_account.md",
+      "sync-client/paginators/iter_list_handshakes_for_organization.md",
+      "sync-client/paginators/iter_list_organizational_units_for_parent.md",
+      "sync-client/paginators/iter_list_parents.md",
+      "sync-client/paginators/iter_list_policies.md",
+      "sync-client/paginators/iter_list_policies_for_target.md",
+      "sync-client/paginators/iter_list_roots.md",
+      "sync-client/paginators/iter_list_tags_for_resource.md",
+      "sync-client/paginators/iter_list_targets_for_policy.md",
+    ] },
+  ] },
+  { "AsyncOrganizationsClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/accept_handshake.md",
+      "async-client/operations/attach_policy.md",
+      "async-client/operations/cancel_handshake.md",
+      "async-client/operations/close_account.md",
+      "async-client/operations/create_account.md",
+      "async-client/operations/create_gov_cloud_account.md",
+      "async-client/operations/create_organization.md",
+      "async-client/operations/create_organizational_unit.md",
+      "async-client/operations/create_policy.md",
+      "async-client/operations/decline_handshake.md",
+      "async-client/operations/delete_organization.md",
+      "async-client/operations/delete_organizational_unit.md",
+      "async-client/operations/delete_policy.md",
+      "async-client/operations/delete_resource_policy.md",
+      "async-client/operations/deregister_delegated_administrator.md",
+      "async-client/operations/describe_account.md",
+      "async-client/operations/describe_create_account_status.md",
+      "async-client/operations/describe_effective_policy.md",
+      "async-client/operations/describe_handshake.md",
+      "async-client/operations/describe_organization.md",
+      "async-client/operations/describe_organizational_unit.md",
+      "async-client/operations/describe_policy.md",
+      "async-client/operations/describe_resource_policy.md",
+      "async-client/operations/describe_responsibility_transfer.md",
+      "async-client/operations/detach_policy.md",
+      "async-client/operations/disable_aws_service_access.md",
+      "async-client/operations/disable_policy_type.md",
+      "async-client/operations/enable_all_features.md",
+      "async-client/operations/enable_aws_service_access.md",
+      "async-client/operations/enable_policy_type.md",
+      "async-client/operations/invite_account_to_organization.md",
+      "async-client/operations/invite_organization_to_transfer_responsibility.md",
+      "async-client/operations/leave_organization.md",
+      "async-client/operations/list_accounts.md",
+      "async-client/operations/list_accounts_for_parent.md",
+      "async-client/operations/list_accounts_with_invalid_effective_policy.md",
+      "async-client/operations/list_aws_service_access_for_organization.md",
+      "async-client/operations/list_children.md",
+      "async-client/operations/list_create_account_status.md",
+      "async-client/operations/list_delegated_administrators.md",
+      "async-client/operations/list_delegated_services_for_account.md",
+      "async-client/operations/list_effective_policy_validation_errors.md",
+      "async-client/operations/list_handshakes_for_account.md",
+      "async-client/operations/list_handshakes_for_organization.md",
+      "async-client/operations/list_inbound_responsibility_transfers.md",
+      "async-client/operations/list_organizational_units_for_parent.md",
+      "async-client/operations/list_outbound_responsibility_transfers.md",
+      "async-client/operations/list_parents.md",
+      "async-client/operations/list_policies.md",
+      "async-client/operations/list_policies_for_target.md",
+      "async-client/operations/list_roots.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_targets_for_policy.md",
+      "async-client/operations/move_account.md",
+      "async-client/operations/put_resource_policy.md",
+      "async-client/operations/register_delegated_administrator.md",
+      "async-client/operations/remove_account_from_organization.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/terminate_responsibility_transfer.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_organizational_unit.md",
+      "async-client/operations/update_policy.md",
+      "async-client/operations/update_responsibility_transfer.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_accounts.md",
+      "async-client/paginators/iter_list_accounts_for_parent.md",
+      "async-client/paginators/iter_list_accounts_with_invalid_effective_policy.md",
+      "async-client/paginators/iter_list_aws_service_access_for_organization.md",
+      "async-client/paginators/iter_list_children.md",
+      "async-client/paginators/iter_list_create_account_status.md",
+      "async-client/paginators/iter_list_delegated_administrators.md",
+      "async-client/paginators/iter_list_delegated_services_for_account.md",
+      "async-client/paginators/iter_list_effective_policy_validation_errors.md",
+      "async-client/paginators/iter_list_handshakes_for_account.md",
+      "async-client/paginators/iter_list_handshakes_for_organization.md",
+      "async-client/paginators/iter_list_organizational_units_for_parent.md",
+      "async-client/paginators/iter_list_parents.md",
+      "async-client/paginators/iter_list_policies.md",
+      "async-client/paginators/iter_list_policies_for_target.md",
+      "async-client/paginators/iter_list_roots.md",
+      "async-client/paginators/iter_list_tags_for_resource.md",
+      "async-client/paginators/iter_list_targets_for_policy.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AWSOrganizationsNotInUseException.md",
+    "errors/AccessDeniedException.md",
+    "errors/AccessDeniedForDependencyException.md",
+    "errors/AccountAlreadyClosedException.md",
+    "errors/AccountAlreadyRegisteredException.md",
+    "errors/AccountNotFoundException.md",
+    "errors/AccountNotRegisteredException.md",
+    "errors/AccountOwnerNotVerifiedException.md",
+    "errors/AlreadyInOrganizationException.md",
+    "errors/ChildNotFoundException.md",
+    "errors/ConcurrentModificationException.md",
+    "errors/ConflictException.md",
+    "errors/ConstraintViolationException.md",
+    "errors/CreateAccountStatusNotFoundException.md",
+    "errors/DeserializationError.md",
+    "errors/DestinationParentNotFoundException.md",
+    "errors/DuplicateAccountException.md",
+    "errors/DuplicateHandshakeException.md",
+    "errors/DuplicateOrganizationalUnitException.md",
+    "errors/DuplicatePolicyAttachmentException.md",
+    "errors/DuplicatePolicyException.md",
+    "errors/EffectivePolicyNotFoundException.md",
+    "errors/FinalizingOrganizationException.md",
+    "errors/HandshakeAlreadyInStateException.md",
+    "errors/HandshakeConstraintViolationException.md",
+    "errors/HandshakeNotFoundException.md",
+    "errors/InvalidHandshakeTransitionException.md",
+    "errors/InvalidInputException.md",
+    "errors/InvalidResponsibilityTransferTransitionException.md",
+    "errors/MalformedPolicyDocumentException.md",
+    "errors/MasterCannotLeaveOrganizationException.md",
+    "errors/OrganizationNotEmptyException.md",
+    "errors/OrganizationalUnitNotEmptyException.md",
+    "errors/OrganizationalUnitNotFoundException.md",
+    "errors/OrganizationsError.md",
+    "errors/ParentNotFoundException.md",
+    "errors/PolicyChangesInProgressException.md",
+    "errors/PolicyInUseException.md",
+    "errors/PolicyNotAttachedException.md",
+    "errors/PolicyNotFoundException.md",
+    "errors/PolicyTypeAlreadyEnabledException.md",
+    "errors/PolicyTypeNotAvailableForOrganizationException.md",
+    "errors/PolicyTypeNotEnabledException.md",
+    "errors/ResourcePolicyNotFoundException.md",
+    "errors/ResponsibilityTransferAlreadyInStatusException.md",
+    "errors/ResponsibilityTransferNotFoundException.md",
+    "errors/RootNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceException.md",
+    "errors/SourceParentNotFoundException.md",
+    "errors/TargetNotFoundException.md",
+    "errors/TooManyRequestsException.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnsupportedAPIEndpointException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_organizations` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_organizations.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

@@ -1,0 +1,17 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [IdempotentParameterMismatchException](IdempotentParameterMismatchException.md)
+- [InternalServerException](InternalServerException.md)
+- [InvalidInputException](InvalidInputException.md)
+- [InvalidTagException](InvalidTagException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [MachineLearningError](MachineLearningError.md)
+- [PredictorNotMountedException](PredictorNotMountedException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TagLimitExceededException](TagLimitExceededException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

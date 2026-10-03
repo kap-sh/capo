@@ -1,0 +1,8 @@
+---
+title: Snapshot
+---
+
+::: capo_memorydb.types.snapshot.Snapshot
+    options:
+      show_source: true
+      merge_init_into_class: false

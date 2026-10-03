@@ -1,0 +1,8 @@
+---
+title: FabricConfiguration
+---
+
+::: capo_mediaconnect.types.fabric_configuration.FabricConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

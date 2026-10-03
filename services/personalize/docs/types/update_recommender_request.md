@@ -1,0 +1,8 @@
+---
+title: UpdateRecommenderRequest
+---
+
+::: capo_personalize.types.update_recommender_request.UpdateRecommenderRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

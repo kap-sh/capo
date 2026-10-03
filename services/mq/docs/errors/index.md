@@ -1,0 +1,15 @@
+# Errors
+
+- [BadRequestException](BadRequestException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [ForbiddenException](ForbiddenException.md)
+- [InternalServerErrorException](InternalServerErrorException.md)
+- [NotFoundException](NotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnauthorizedException](UnauthorizedException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)
+- [mqError](mqError.md)

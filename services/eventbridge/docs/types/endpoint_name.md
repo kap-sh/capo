@@ -1,0 +1,8 @@
+---
+title: EndpointName
+---
+
+::: capo_eventbridge.types.endpoint_name.EndpointName
+    options:
+      show_source: true
+      merge_init_into_class: false

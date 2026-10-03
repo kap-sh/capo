@@ -1,0 +1,8 @@
+---
+title: CalculatedCustomAttributes
+---
+
+::: capo_customer_profiles.types.calculated_custom_attributes.CalculatedCustomAttributes
+    options:
+      show_source: true
+      merge_init_into_class: false

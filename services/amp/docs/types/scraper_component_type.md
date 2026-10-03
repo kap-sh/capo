@@ -1,0 +1,8 @@
+---
+title: ScraperComponentType
+---
+
+::: capo_amp.types.scraper_component_type.ScraperComponentType
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: RelatedDeployments
+---
+
+::: capo_codedeploy.types.related_deployments.RelatedDeployments
+    options:
+      show_source: true
+      merge_init_into_class: false

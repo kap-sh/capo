@@ -1,0 +1,8 @@
+---
+title: ChannelRole
+---
+
+::: capo_repostspace.types.channel_role.ChannelRole
+    options:
+      show_source: true
+      merge_init_into_class: false

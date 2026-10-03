@@ -1,0 +1,8 @@
+---
+title: ExecutionId
+---
+
+::: capo_qbusiness.types.execution_id.ExecutionId
+    options:
+      show_source: true
+      merge_init_into_class: false

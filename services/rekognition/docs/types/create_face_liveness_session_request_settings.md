@@ -1,0 +1,8 @@
+---
+title: CreateFaceLivenessSessionRequestSettings
+---
+
+::: capo_rekognition.types.create_face_liveness_session_request_settings.CreateFaceLivenessSessionRequestSettings
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ShutdownGatewayOutput
+---
+
+::: capo_storage_gateway.types.shutdown_gateway_output.ShutdownGatewayOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

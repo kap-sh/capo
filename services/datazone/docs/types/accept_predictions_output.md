@@ -1,0 +1,8 @@
+---
+title: AcceptPredictionsOutput
+---
+
+::: capo_datazone.types.accept_predictions_output.AcceptPredictionsOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

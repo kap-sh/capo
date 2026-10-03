@@ -1,0 +1,7 @@
+---
+title: iter_list_subscriptions
+---
+
+::: capo_pricing_plan_manager._services.pricing_plan_manager.PricingPlanManagerClient.iter_list_subscriptions
+    options:
+      show_source: true

@@ -1,0 +1,8 @@
+---
+title: CreateUserPoolDomainResponse
+---
+
+::: capo_cognito_identity_provider.types.create_user_pool_domain_response.CreateUserPoolDomainResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

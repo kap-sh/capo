@@ -1,0 +1,7 @@
+---
+title: iter_list_collaboration_trained_model_inference_jobs
+---
+
+::: capo_cleanroomsml._services.clean_rooms_ml.CleanRoomsMLClient.iter_list_collaboration_trained_model_inference_jobs
+    options:
+      show_source: true

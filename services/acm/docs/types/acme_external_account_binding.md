@@ -1,0 +1,8 @@
+---
+title: AcmeExternalAccountBinding
+---
+
+::: capo_acm.types.acme_external_account_binding.AcmeExternalAccountBinding
+    options:
+      show_source: true
+      merge_init_into_class: false

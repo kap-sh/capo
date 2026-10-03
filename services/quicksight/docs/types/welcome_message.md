@@ -1,0 +1,8 @@
+---
+title: WelcomeMessage
+---
+
+::: capo_quicksight.types.welcome_message.WelcomeMessage
+    options:
+      show_source: true
+      merge_init_into_class: false

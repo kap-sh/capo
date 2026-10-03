@@ -1,0 +1,7 @@
+---
+title: describe_data_source_permissions
+---
+
+::: capo_quicksight._services.async_quick_sight.AsyncQuickSightClient.describe_data_source_permissions
+    options:
+      show_source: true

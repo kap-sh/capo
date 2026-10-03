@@ -1,0 +1,8 @@
+---
+title: DataModelS3Configuration
+---
+
+::: capo_timestream_write.types.data_model_s3_configuration.DataModelS3Configuration
+    options:
+      show_source: true
+      merge_init_into_class: false

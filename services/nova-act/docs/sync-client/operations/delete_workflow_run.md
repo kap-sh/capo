@@ -1,0 +1,7 @@
+---
+title: delete_workflow_run
+---
+
+::: capo_nova_act._services.nova_act.NovaActClient.delete_workflow_run
+    options:
+      show_source: true

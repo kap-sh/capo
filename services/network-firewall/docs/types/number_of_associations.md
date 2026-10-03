@@ -1,0 +1,8 @@
+---
+title: NumberOfAssociations
+---
+
+::: capo_network_firewall.types.number_of_associations.NumberOfAssociations
+    options:
+      show_source: true
+      merge_init_into_class: false

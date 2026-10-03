@@ -1,0 +1,8 @@
+---
+title: CisSecurityLevelFilter
+---
+
+::: capo_inspector2.types.cis_security_level_filter.CisSecurityLevelFilter
+    options:
+      show_source: true
+      merge_init_into_class: false

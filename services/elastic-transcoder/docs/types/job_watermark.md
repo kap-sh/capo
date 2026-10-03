@@ -1,0 +1,8 @@
+---
+title: JobWatermark
+---
+
+::: capo_elastic_transcoder.types.job_watermark.JobWatermark
+    options:
+      show_source: true
+      merge_init_into_class: false

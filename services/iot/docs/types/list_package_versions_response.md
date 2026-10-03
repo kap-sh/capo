@@ -1,0 +1,8 @@
+---
+title: ListPackageVersionsResponse
+---
+
+::: capo_iot.types.list_package_versions_response.ListPackageVersionsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

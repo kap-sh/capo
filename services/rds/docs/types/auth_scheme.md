@@ -1,0 +1,8 @@
+---
+title: AuthScheme
+---
+
+::: capo_rds.types.auth_scheme.AuthScheme
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ListManagedJobTemplatesRequest
+---
+
+::: capo_iot.types.list_managed_job_templates_request.ListManagedJobTemplatesRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

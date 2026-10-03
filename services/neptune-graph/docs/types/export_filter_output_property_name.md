@@ -1,0 +1,8 @@
+---
+title: ExportFilterOutputPropertyName
+---
+
+::: capo_neptune_graph.types.export_filter_output_property_name.ExportFilterOutputPropertyName
+    options:
+      show_source: true
+      merge_init_into_class: false

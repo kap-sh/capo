@@ -1,0 +1,8 @@
+---
+title: SendEventResponse
+---
+
+::: capo_connectparticipant.types.send_event_response.SendEventResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

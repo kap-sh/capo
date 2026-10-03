@@ -1,0 +1,8 @@
+---
+title: UpdateFindingAggregatorResponse
+---
+
+::: capo_securityhub.types.update_finding_aggregator_response.UpdateFindingAggregatorResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

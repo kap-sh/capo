@@ -1,0 +1,8 @@
+---
+title: AssociateDelegationSignerToDomainRequest
+---
+
+::: capo_route_53_domains.types.associate_delegation_signer_to_domain_request.AssociateDelegationSignerToDomainRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

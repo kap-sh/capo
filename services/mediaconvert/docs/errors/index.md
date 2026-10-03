@@ -1,0 +1,17 @@
+# Errors
+
+- [BadRequestException](BadRequestException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [ForbiddenException](ForbiddenException.md)
+- [InternalServerErrorException](InternalServerErrorException.md)
+- [MediaConvertError](MediaConvertError.md)
+- [NotFoundException](NotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
+- [TooManyRequestsException](TooManyRequestsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [UnprocessableEntityException](UnprocessableEntityException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

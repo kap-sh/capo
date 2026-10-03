@@ -1,0 +1,8 @@
+---
+title: AdditionalAttribute
+---
+
+::: capo_elastic_load_balancing.types.additional_attribute.AdditionalAttribute
+    options:
+      show_source: true
+      merge_init_into_class: false

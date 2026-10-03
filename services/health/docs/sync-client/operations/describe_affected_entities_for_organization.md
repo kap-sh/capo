@@ -1,0 +1,7 @@
+---
+title: describe_affected_entities_for_organization
+---
+
+::: capo_health._services.health.HealthClient.describe_affected_entities_for_organization
+    options:
+      show_source: true

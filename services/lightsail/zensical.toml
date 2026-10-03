@@ -1,0 +1,495 @@
+[project]
+site_name = "capo-lightsail"
+site_description = "Python SDK for AWS Lightsail."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "LightsailClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/allocate_static_ip.md",
+      "sync-client/operations/attach_certificate_to_distribution.md",
+      "sync-client/operations/attach_disk.md",
+      "sync-client/operations/attach_instances_to_load_balancer.md",
+      "sync-client/operations/attach_load_balancer_tls_certificate.md",
+      "sync-client/operations/attach_static_ip.md",
+      "sync-client/operations/close_instance_public_ports.md",
+      "sync-client/operations/copy_snapshot.md",
+      "sync-client/operations/create_bucket.md",
+      "sync-client/operations/create_bucket_access_key.md",
+      "sync-client/operations/create_certificate.md",
+      "sync-client/operations/create_cloud_formation_stack.md",
+      "sync-client/operations/create_contact_method.md",
+      "sync-client/operations/create_container_service.md",
+      "sync-client/operations/create_container_service_deployment.md",
+      "sync-client/operations/create_container_service_registry_login.md",
+      "sync-client/operations/create_disk.md",
+      "sync-client/operations/create_disk_from_snapshot.md",
+      "sync-client/operations/create_disk_snapshot.md",
+      "sync-client/operations/create_distribution.md",
+      "sync-client/operations/create_domain.md",
+      "sync-client/operations/create_domain_entry.md",
+      "sync-client/operations/create_gui_session_access_details.md",
+      "sync-client/operations/create_instance_snapshot.md",
+      "sync-client/operations/create_instances.md",
+      "sync-client/operations/create_instances_from_snapshot.md",
+      "sync-client/operations/create_key_pair.md",
+      "sync-client/operations/create_load_balancer.md",
+      "sync-client/operations/create_load_balancer_tls_certificate.md",
+      "sync-client/operations/create_relational_database.md",
+      "sync-client/operations/create_relational_database_from_snapshot.md",
+      "sync-client/operations/create_relational_database_snapshot.md",
+      "sync-client/operations/delete_alarm.md",
+      "sync-client/operations/delete_auto_snapshot.md",
+      "sync-client/operations/delete_bucket.md",
+      "sync-client/operations/delete_bucket_access_key.md",
+      "sync-client/operations/delete_certificate.md",
+      "sync-client/operations/delete_contact_method.md",
+      "sync-client/operations/delete_container_image.md",
+      "sync-client/operations/delete_container_service.md",
+      "sync-client/operations/delete_disk.md",
+      "sync-client/operations/delete_disk_snapshot.md",
+      "sync-client/operations/delete_distribution.md",
+      "sync-client/operations/delete_domain.md",
+      "sync-client/operations/delete_domain_entry.md",
+      "sync-client/operations/delete_instance.md",
+      "sync-client/operations/delete_instance_snapshot.md",
+      "sync-client/operations/delete_key_pair.md",
+      "sync-client/operations/delete_known_host_keys.md",
+      "sync-client/operations/delete_load_balancer.md",
+      "sync-client/operations/delete_load_balancer_tls_certificate.md",
+      "sync-client/operations/delete_relational_database.md",
+      "sync-client/operations/delete_relational_database_snapshot.md",
+      "sync-client/operations/detach_certificate_from_distribution.md",
+      "sync-client/operations/detach_disk.md",
+      "sync-client/operations/detach_instances_from_load_balancer.md",
+      "sync-client/operations/detach_static_ip.md",
+      "sync-client/operations/disable_add_on.md",
+      "sync-client/operations/download_default_key_pair.md",
+      "sync-client/operations/enable_add_on.md",
+      "sync-client/operations/export_snapshot.md",
+      "sync-client/operations/get_active_names.md",
+      "sync-client/operations/get_alarms.md",
+      "sync-client/operations/get_auto_snapshots.md",
+      "sync-client/operations/get_blueprints.md",
+      "sync-client/operations/get_bucket_access_keys.md",
+      "sync-client/operations/get_bucket_bundles.md",
+      "sync-client/operations/get_bucket_metric_data.md",
+      "sync-client/operations/get_buckets.md",
+      "sync-client/operations/get_bundles.md",
+      "sync-client/operations/get_certificates.md",
+      "sync-client/operations/get_cloud_formation_stack_records.md",
+      "sync-client/operations/get_contact_methods.md",
+      "sync-client/operations/get_container_api_metadata.md",
+      "sync-client/operations/get_container_images.md",
+      "sync-client/operations/get_container_log.md",
+      "sync-client/operations/get_container_service_deployments.md",
+      "sync-client/operations/get_container_service_metric_data.md",
+      "sync-client/operations/get_container_service_powers.md",
+      "sync-client/operations/get_container_services.md",
+      "sync-client/operations/get_cost_estimate.md",
+      "sync-client/operations/get_disk.md",
+      "sync-client/operations/get_disk_snapshot.md",
+      "sync-client/operations/get_disk_snapshots.md",
+      "sync-client/operations/get_disks.md",
+      "sync-client/operations/get_distribution_bundles.md",
+      "sync-client/operations/get_distribution_latest_cache_reset.md",
+      "sync-client/operations/get_distribution_metric_data.md",
+      "sync-client/operations/get_distributions.md",
+      "sync-client/operations/get_domain.md",
+      "sync-client/operations/get_domains.md",
+      "sync-client/operations/get_export_snapshot_records.md",
+      "sync-client/operations/get_instance.md",
+      "sync-client/operations/get_instance_access_details.md",
+      "sync-client/operations/get_instance_metric_data.md",
+      "sync-client/operations/get_instance_port_states.md",
+      "sync-client/operations/get_instance_snapshot.md",
+      "sync-client/operations/get_instance_snapshots.md",
+      "sync-client/operations/get_instance_state.md",
+      "sync-client/operations/get_instances.md",
+      "sync-client/operations/get_key_pair.md",
+      "sync-client/operations/get_key_pairs.md",
+      "sync-client/operations/get_load_balancer.md",
+      "sync-client/operations/get_load_balancer_metric_data.md",
+      "sync-client/operations/get_load_balancer_tls_certificates.md",
+      "sync-client/operations/get_load_balancer_tls_policies.md",
+      "sync-client/operations/get_load_balancers.md",
+      "sync-client/operations/get_operation.md",
+      "sync-client/operations/get_operations.md",
+      "sync-client/operations/get_operations_for_resource.md",
+      "sync-client/operations/get_profile.md",
+      "sync-client/operations/get_regions.md",
+      "sync-client/operations/get_relational_database.md",
+      "sync-client/operations/get_relational_database_blueprints.md",
+      "sync-client/operations/get_relational_database_bundles.md",
+      "sync-client/operations/get_relational_database_events.md",
+      "sync-client/operations/get_relational_database_log_events.md",
+      "sync-client/operations/get_relational_database_log_streams.md",
+      "sync-client/operations/get_relational_database_master_user_password.md",
+      "sync-client/operations/get_relational_database_metric_data.md",
+      "sync-client/operations/get_relational_database_parameters.md",
+      "sync-client/operations/get_relational_database_snapshot.md",
+      "sync-client/operations/get_relational_database_snapshots.md",
+      "sync-client/operations/get_relational_databases.md",
+      "sync-client/operations/get_setup_history.md",
+      "sync-client/operations/get_static_ip.md",
+      "sync-client/operations/get_static_ips.md",
+      "sync-client/operations/import_key_pair.md",
+      "sync-client/operations/is_vpc_peered.md",
+      "sync-client/operations/open_instance_public_ports.md",
+      "sync-client/operations/peer_vpc.md",
+      "sync-client/operations/put_alarm.md",
+      "sync-client/operations/put_instance_public_ports.md",
+      "sync-client/operations/reboot_instance.md",
+      "sync-client/operations/reboot_relational_database.md",
+      "sync-client/operations/register_container_image.md",
+      "sync-client/operations/release_static_ip.md",
+      "sync-client/operations/reset_distribution_cache.md",
+      "sync-client/operations/send_contact_method_verification.md",
+      "sync-client/operations/set_ip_address_type.md",
+      "sync-client/operations/set_resource_access_for_bucket.md",
+      "sync-client/operations/setup_instance_https.md",
+      "sync-client/operations/start_gui_session.md",
+      "sync-client/operations/start_instance.md",
+      "sync-client/operations/start_relational_database.md",
+      "sync-client/operations/stop_gui_session.md",
+      "sync-client/operations/stop_instance.md",
+      "sync-client/operations/stop_relational_database.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/test_alarm.md",
+      "sync-client/operations/unpeer_vpc.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_bucket.md",
+      "sync-client/operations/update_bucket_bundle.md",
+      "sync-client/operations/update_container_service.md",
+      "sync-client/operations/update_distribution.md",
+      "sync-client/operations/update_distribution_bundle.md",
+      "sync-client/operations/update_domain_entry.md",
+      "sync-client/operations/update_instance_metadata_options.md",
+      "sync-client/operations/update_load_balancer_attribute.md",
+      "sync-client/operations/update_relational_database.md",
+      "sync-client/operations/update_relational_database_parameters.md",
+    ] },
+  ] },
+  { "AsyncLightsailClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/allocate_static_ip.md",
+      "async-client/operations/attach_certificate_to_distribution.md",
+      "async-client/operations/attach_disk.md",
+      "async-client/operations/attach_instances_to_load_balancer.md",
+      "async-client/operations/attach_load_balancer_tls_certificate.md",
+      "async-client/operations/attach_static_ip.md",
+      "async-client/operations/close_instance_public_ports.md",
+      "async-client/operations/copy_snapshot.md",
+      "async-client/operations/create_bucket.md",
+      "async-client/operations/create_bucket_access_key.md",
+      "async-client/operations/create_certificate.md",
+      "async-client/operations/create_cloud_formation_stack.md",
+      "async-client/operations/create_contact_method.md",
+      "async-client/operations/create_container_service.md",
+      "async-client/operations/create_container_service_deployment.md",
+      "async-client/operations/create_container_service_registry_login.md",
+      "async-client/operations/create_disk.md",
+      "async-client/operations/create_disk_from_snapshot.md",
+      "async-client/operations/create_disk_snapshot.md",
+      "async-client/operations/create_distribution.md",
+      "async-client/operations/create_domain.md",
+      "async-client/operations/create_domain_entry.md",
+      "async-client/operations/create_gui_session_access_details.md",
+      "async-client/operations/create_instance_snapshot.md",
+      "async-client/operations/create_instances.md",
+      "async-client/operations/create_instances_from_snapshot.md",
+      "async-client/operations/create_key_pair.md",
+      "async-client/operations/create_load_balancer.md",
+      "async-client/operations/create_load_balancer_tls_certificate.md",
+      "async-client/operations/create_relational_database.md",
+      "async-client/operations/create_relational_database_from_snapshot.md",
+      "async-client/operations/create_relational_database_snapshot.md",
+      "async-client/operations/delete_alarm.md",
+      "async-client/operations/delete_auto_snapshot.md",
+      "async-client/operations/delete_bucket.md",
+      "async-client/operations/delete_bucket_access_key.md",
+      "async-client/operations/delete_certificate.md",
+      "async-client/operations/delete_contact_method.md",
+      "async-client/operations/delete_container_image.md",
+      "async-client/operations/delete_container_service.md",
+      "async-client/operations/delete_disk.md",
+      "async-client/operations/delete_disk_snapshot.md",
+      "async-client/operations/delete_distribution.md",
+      "async-client/operations/delete_domain.md",
+      "async-client/operations/delete_domain_entry.md",
+      "async-client/operations/delete_instance.md",
+      "async-client/operations/delete_instance_snapshot.md",
+      "async-client/operations/delete_key_pair.md",
+      "async-client/operations/delete_known_host_keys.md",
+      "async-client/operations/delete_load_balancer.md",
+      "async-client/operations/delete_load_balancer_tls_certificate.md",
+      "async-client/operations/delete_relational_database.md",
+      "async-client/operations/delete_relational_database_snapshot.md",
+      "async-client/operations/detach_certificate_from_distribution.md",
+      "async-client/operations/detach_disk.md",
+      "async-client/operations/detach_instances_from_load_balancer.md",
+      "async-client/operations/detach_static_ip.md",
+      "async-client/operations/disable_add_on.md",
+      "async-client/operations/download_default_key_pair.md",
+      "async-client/operations/enable_add_on.md",
+      "async-client/operations/export_snapshot.md",
+      "async-client/operations/get_active_names.md",
+      "async-client/operations/get_alarms.md",
+      "async-client/operations/get_auto_snapshots.md",
+      "async-client/operations/get_blueprints.md",
+      "async-client/operations/get_bucket_access_keys.md",
+      "async-client/operations/get_bucket_bundles.md",
+      "async-client/operations/get_bucket_metric_data.md",
+      "async-client/operations/get_buckets.md",
+      "async-client/operations/get_bundles.md",
+      "async-client/operations/get_certificates.md",
+      "async-client/operations/get_cloud_formation_stack_records.md",
+      "async-client/operations/get_contact_methods.md",
+      "async-client/operations/get_container_api_metadata.md",
+      "async-client/operations/get_container_images.md",
+      "async-client/operations/get_container_log.md",
+      "async-client/operations/get_container_service_deployments.md",
+      "async-client/operations/get_container_service_metric_data.md",
+      "async-client/operations/get_container_service_powers.md",
+      "async-client/operations/get_container_services.md",
+      "async-client/operations/get_cost_estimate.md",
+      "async-client/operations/get_disk.md",
+      "async-client/operations/get_disk_snapshot.md",
+      "async-client/operations/get_disk_snapshots.md",
+      "async-client/operations/get_disks.md",
+      "async-client/operations/get_distribution_bundles.md",
+      "async-client/operations/get_distribution_latest_cache_reset.md",
+      "async-client/operations/get_distribution_metric_data.md",
+      "async-client/operations/get_distributions.md",
+      "async-client/operations/get_domain.md",
+      "async-client/operations/get_domains.md",
+      "async-client/operations/get_export_snapshot_records.md",
+      "async-client/operations/get_instance.md",
+      "async-client/operations/get_instance_access_details.md",
+      "async-client/operations/get_instance_metric_data.md",
+      "async-client/operations/get_instance_port_states.md",
+      "async-client/operations/get_instance_snapshot.md",
+      "async-client/operations/get_instance_snapshots.md",
+      "async-client/operations/get_instance_state.md",
+      "async-client/operations/get_instances.md",
+      "async-client/operations/get_key_pair.md",
+      "async-client/operations/get_key_pairs.md",
+      "async-client/operations/get_load_balancer.md",
+      "async-client/operations/get_load_balancer_metric_data.md",
+      "async-client/operations/get_load_balancer_tls_certificates.md",
+      "async-client/operations/get_load_balancer_tls_policies.md",
+      "async-client/operations/get_load_balancers.md",
+      "async-client/operations/get_operation.md",
+      "async-client/operations/get_operations.md",
+      "async-client/operations/get_operations_for_resource.md",
+      "async-client/operations/get_profile.md",
+      "async-client/operations/get_regions.md",
+      "async-client/operations/get_relational_database.md",
+      "async-client/operations/get_relational_database_blueprints.md",
+      "async-client/operations/get_relational_database_bundles.md",
+      "async-client/operations/get_relational_database_events.md",
+      "async-client/operations/get_relational_database_log_events.md",
+      "async-client/operations/get_relational_database_log_streams.md",
+      "async-client/operations/get_relational_database_master_user_password.md",
+      "async-client/operations/get_relational_database_metric_data.md",
+      "async-client/operations/get_relational_database_parameters.md",
+      "async-client/operations/get_relational_database_snapshot.md",
+      "async-client/operations/get_relational_database_snapshots.md",
+      "async-client/operations/get_relational_databases.md",
+      "async-client/operations/get_setup_history.md",
+      "async-client/operations/get_static_ip.md",
+      "async-client/operations/get_static_ips.md",
+      "async-client/operations/import_key_pair.md",
+      "async-client/operations/is_vpc_peered.md",
+      "async-client/operations/open_instance_public_ports.md",
+      "async-client/operations/peer_vpc.md",
+      "async-client/operations/put_alarm.md",
+      "async-client/operations/put_instance_public_ports.md",
+      "async-client/operations/reboot_instance.md",
+      "async-client/operations/reboot_relational_database.md",
+      "async-client/operations/register_container_image.md",
+      "async-client/operations/release_static_ip.md",
+      "async-client/operations/reset_distribution_cache.md",
+      "async-client/operations/send_contact_method_verification.md",
+      "async-client/operations/set_ip_address_type.md",
+      "async-client/operations/set_resource_access_for_bucket.md",
+      "async-client/operations/setup_instance_https.md",
+      "async-client/operations/start_gui_session.md",
+      "async-client/operations/start_instance.md",
+      "async-client/operations/start_relational_database.md",
+      "async-client/operations/stop_gui_session.md",
+      "async-client/operations/stop_instance.md",
+      "async-client/operations/stop_relational_database.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/test_alarm.md",
+      "async-client/operations/unpeer_vpc.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_bucket.md",
+      "async-client/operations/update_bucket_bundle.md",
+      "async-client/operations/update_container_service.md",
+      "async-client/operations/update_distribution.md",
+      "async-client/operations/update_distribution_bundle.md",
+      "async-client/operations/update_domain_entry.md",
+      "async-client/operations/update_instance_metadata_options.md",
+      "async-client/operations/update_load_balancer_attribute.md",
+      "async-client/operations/update_relational_database.md",
+      "async-client/operations/update_relational_database_parameters.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/AccountSetupInProgressException.md",
+    "errors/DeserializationError.md",
+    "errors/InvalidInputException.md",
+    "errors/LightsailError.md",
+    "errors/NotFoundException.md",
+    "errors/OperationFailureException.md",
+    "errors/RegionSetupInProgressException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceException.md",
+    "errors/UnauthenticatedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_lightsail` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_lightsail.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

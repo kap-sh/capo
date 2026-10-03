@@ -1,0 +1,8 @@
+---
+title: AwsCodeBuildProjectVpcConfig
+---
+
+::: capo_securityhub.types.aws_code_build_project_vpc_config.AwsCodeBuildProjectVpcConfig
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: RateLimitJA4Fingerprint
+---
+
+::: capo_wafv2.types.rate_limit_ja4_fingerprint.RateLimitJA4Fingerprint
+    options:
+      show_source: true
+      merge_init_into_class: false

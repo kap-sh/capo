@@ -1,0 +1,8 @@
+---
+title: EvaluationJobIdentifier
+---
+
+::: capo_bedrock.types.evaluation_job_identifier.EvaluationJobIdentifier
+    options:
+      show_source: true
+      merge_init_into_class: false

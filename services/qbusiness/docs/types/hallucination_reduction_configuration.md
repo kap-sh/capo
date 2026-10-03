@@ -1,0 +1,8 @@
+---
+title: HallucinationReductionConfiguration
+---
+
+::: capo_qbusiness.types.hallucination_reduction_configuration.HallucinationReductionConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

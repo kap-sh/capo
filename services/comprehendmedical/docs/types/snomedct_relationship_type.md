@@ -1,0 +1,8 @@
+---
+title: SNOMEDCTRelationshipType
+---
+
+::: capo_comprehendmedical.types.snomedct_relationship_type.SNOMEDCTRelationshipType
+    options:
+      show_source: true
+      merge_init_into_class: false

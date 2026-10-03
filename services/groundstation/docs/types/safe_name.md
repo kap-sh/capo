@@ -1,0 +1,8 @@
+---
+title: SafeName
+---
+
+::: capo_groundstation.types.safe_name.SafeName
+    options:
+      show_source: true
+      merge_init_into_class: false

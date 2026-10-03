@@ -1,0 +1,8 @@
+---
+title: MachineType
+---
+
+::: capo_codebuild.types.machine_type.MachineType
+    options:
+      show_source: true
+      merge_init_into_class: false

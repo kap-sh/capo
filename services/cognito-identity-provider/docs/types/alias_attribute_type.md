@@ -1,0 +1,8 @@
+---
+title: AliasAttributeType
+---
+
+::: capo_cognito_identity_provider.types.alias_attribute_type.AliasAttributeType
+    options:
+      show_source: true
+      merge_init_into_class: false

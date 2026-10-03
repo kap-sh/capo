@@ -1,0 +1,8 @@
+---
+title: WidgetConfig
+---
+
+::: capo_bcm_dashboards.types.widget_config.WidgetConfig
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: RecoveryPlanExecutionStatus
+---
+
+::: capo_drs.types.recovery_plan_execution_status.RecoveryPlanExecutionStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

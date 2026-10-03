@@ -1,0 +1,8 @@
+---
+title: VirtualMFADevice
+---
+
+::: capo_iam.types.virtual_mfa_device.VirtualMFADevice
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: PutMobileDeviceAccessOverrideRequest
+---
+
+::: capo_workmail.types.put_mobile_device_access_override_request.PutMobileDeviceAccessOverrideRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

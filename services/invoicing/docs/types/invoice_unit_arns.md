@@ -1,0 +1,8 @@
+---
+title: InvoiceUnitArns
+---
+
+::: capo_invoicing.types.invoice_unit_arns.InvoiceUnitArns
+    options:
+      show_source: true
+      merge_init_into_class: false

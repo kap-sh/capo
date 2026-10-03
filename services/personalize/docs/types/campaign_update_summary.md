@@ -1,0 +1,8 @@
+---
+title: CampaignUpdateSummary
+---
+
+::: capo_personalize.types.campaign_update_summary.CampaignUpdateSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

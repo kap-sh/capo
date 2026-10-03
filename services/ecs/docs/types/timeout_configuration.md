@@ -1,0 +1,8 @@
+---
+title: TimeoutConfiguration
+---
+
+::: capo_ecs.types.timeout_configuration.TimeoutConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

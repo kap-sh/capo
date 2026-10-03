@@ -1,0 +1,8 @@
+---
+title: CdmaLocalId
+---
+
+::: capo_iot_wireless.types.cdma_local_id.CdmaLocalId
+    options:
+      show_source: true
+      merge_init_into_class: false

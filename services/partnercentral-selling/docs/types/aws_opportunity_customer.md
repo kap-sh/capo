@@ -1,0 +1,8 @@
+---
+title: AwsOpportunityCustomer
+---
+
+::: capo_partnercentral_selling.types.aws_opportunity_customer.AwsOpportunityCustomer
+    options:
+      show_source: true
+      merge_init_into_class: false

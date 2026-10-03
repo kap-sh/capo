@@ -1,0 +1,8 @@
+---
+title: AccountIdsList
+---
+
+::: capo_accessanalyzer.types.account_ids_list.AccountIdsList
+    options:
+      show_source: true
+      merge_init_into_class: false

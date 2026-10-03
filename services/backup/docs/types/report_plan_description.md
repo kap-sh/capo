@@ -1,0 +1,8 @@
+---
+title: ReportPlanDescription
+---
+
+::: capo_backup.types.report_plan_description.ReportPlanDescription
+    options:
+      show_source: true
+      merge_init_into_class: false

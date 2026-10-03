@@ -1,0 +1,8 @@
+---
+title: SourceReference
+---
+
+::: capo_omics.types.source_reference.SourceReference
+    options:
+      show_source: true
+      merge_init_into_class: false

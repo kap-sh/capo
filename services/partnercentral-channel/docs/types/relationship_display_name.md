@@ -1,0 +1,8 @@
+---
+title: RelationshipDisplayName
+---
+
+::: capo_partnercentral_channel.types.relationship_display_name.RelationshipDisplayName
+    options:
+      show_source: true
+      merge_init_into_class: false

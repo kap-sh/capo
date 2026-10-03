@@ -1,0 +1,8 @@
+---
+title: DescribeInstanceSqlHaStatesResult
+---
+
+::: capo_ec2.types.describe_instance_sql_ha_states_result.DescribeInstanceSqlHaStatesResult
+    options:
+      show_source: true
+      merge_init_into_class: false

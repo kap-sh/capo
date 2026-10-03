@@ -1,0 +1,8 @@
+---
+title: EndTime
+---
+
+::: capo_application_insights.types.end_time.EndTime
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: GetExportResponse
+---
+
+::: capo_simpledbv2.types.get_export_response.GetExportResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

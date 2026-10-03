@@ -1,0 +1,8 @@
+---
+title: CreateKeyResponse
+---
+
+::: capo_location.types.create_key_response.CreateKeyResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: BinaryOperationPayload
+---
+
+::: capo_lambda.types.binary_operation_payload.BinaryOperationPayload
+    options:
+      show_source: true
+      merge_init_into_class: false

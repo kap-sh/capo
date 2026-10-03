@@ -1,0 +1,371 @@
+[project]
+site_name = "capo-macie2"
+site_description = "Python SDK for AWS Macie2."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "Macie2Client" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/accept_invitation.md",
+      "sync-client/operations/batch_get_custom_data_identifiers.md",
+      "sync-client/operations/batch_update_automated_discovery_accounts.md",
+      "sync-client/operations/create_allow_list.md",
+      "sync-client/operations/create_classification_job.md",
+      "sync-client/operations/create_custom_data_identifier.md",
+      "sync-client/operations/create_findings_filter.md",
+      "sync-client/operations/create_invitations.md",
+      "sync-client/operations/create_member.md",
+      "sync-client/operations/create_sample_findings.md",
+      "sync-client/operations/decline_invitations.md",
+      "sync-client/operations/delete_allow_list.md",
+      "sync-client/operations/delete_custom_data_identifier.md",
+      "sync-client/operations/delete_findings_filter.md",
+      "sync-client/operations/delete_invitations.md",
+      "sync-client/operations/delete_member.md",
+      "sync-client/operations/describe_buckets.md",
+      "sync-client/operations/describe_classification_job.md",
+      "sync-client/operations/describe_organization_configuration.md",
+      "sync-client/operations/disable_macie.md",
+      "sync-client/operations/disable_organization_admin_account.md",
+      "sync-client/operations/disassociate_from_administrator_account.md",
+      "sync-client/operations/disassociate_from_master_account.md",
+      "sync-client/operations/disassociate_member.md",
+      "sync-client/operations/enable_macie.md",
+      "sync-client/operations/enable_organization_admin_account.md",
+      "sync-client/operations/get_administrator_account.md",
+      "sync-client/operations/get_allow_list.md",
+      "sync-client/operations/get_automated_discovery_configuration.md",
+      "sync-client/operations/get_bucket_statistics.md",
+      "sync-client/operations/get_classification_export_configuration.md",
+      "sync-client/operations/get_classification_scope.md",
+      "sync-client/operations/get_custom_data_identifier.md",
+      "sync-client/operations/get_finding_statistics.md",
+      "sync-client/operations/get_findings.md",
+      "sync-client/operations/get_findings_filter.md",
+      "sync-client/operations/get_findings_publication_configuration.md",
+      "sync-client/operations/get_invitations_count.md",
+      "sync-client/operations/get_macie_session.md",
+      "sync-client/operations/get_master_account.md",
+      "sync-client/operations/get_member.md",
+      "sync-client/operations/get_resource_profile.md",
+      "sync-client/operations/get_reveal_configuration.md",
+      "sync-client/operations/get_sensitive_data_occurrences.md",
+      "sync-client/operations/get_sensitive_data_occurrences_availability.md",
+      "sync-client/operations/get_sensitivity_inspection_template.md",
+      "sync-client/operations/get_usage_statistics.md",
+      "sync-client/operations/get_usage_totals.md",
+      "sync-client/operations/list_allow_lists.md",
+      "sync-client/operations/list_automated_discovery_accounts.md",
+      "sync-client/operations/list_classification_jobs.md",
+      "sync-client/operations/list_classification_scopes.md",
+      "sync-client/operations/list_custom_data_identifiers.md",
+      "sync-client/operations/list_findings.md",
+      "sync-client/operations/list_findings_filters.md",
+      "sync-client/operations/list_invitations.md",
+      "sync-client/operations/list_managed_data_identifiers.md",
+      "sync-client/operations/list_members.md",
+      "sync-client/operations/list_organization_admin_accounts.md",
+      "sync-client/operations/list_resource_profile_artifacts.md",
+      "sync-client/operations/list_resource_profile_detections.md",
+      "sync-client/operations/list_sensitivity_inspection_templates.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/put_classification_export_configuration.md",
+      "sync-client/operations/put_findings_publication_configuration.md",
+      "sync-client/operations/search_resources.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/test_custom_data_identifier.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_allow_list.md",
+      "sync-client/operations/update_automated_discovery_configuration.md",
+      "sync-client/operations/update_classification_job.md",
+      "sync-client/operations/update_classification_scope.md",
+      "sync-client/operations/update_findings_filter.md",
+      "sync-client/operations/update_macie_session.md",
+      "sync-client/operations/update_member_session.md",
+      "sync-client/operations/update_organization_configuration.md",
+      "sync-client/operations/update_resource_profile.md",
+      "sync-client/operations/update_resource_profile_detections.md",
+      "sync-client/operations/update_reveal_configuration.md",
+      "sync-client/operations/update_sensitivity_inspection_template.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_buckets.md",
+      "sync-client/paginators/iter_get_usage_statistics.md",
+      "sync-client/paginators/iter_list_allow_lists.md",
+      "sync-client/paginators/iter_list_automated_discovery_accounts.md",
+      "sync-client/paginators/iter_list_classification_jobs.md",
+      "sync-client/paginators/iter_list_classification_scopes.md",
+      "sync-client/paginators/iter_list_custom_data_identifiers.md",
+      "sync-client/paginators/iter_list_findings.md",
+      "sync-client/paginators/iter_list_findings_filters.md",
+      "sync-client/paginators/iter_list_invitations.md",
+      "sync-client/paginators/iter_list_managed_data_identifiers.md",
+      "sync-client/paginators/iter_list_members.md",
+      "sync-client/paginators/iter_list_organization_admin_accounts.md",
+      "sync-client/paginators/iter_list_resource_profile_artifacts.md",
+      "sync-client/paginators/iter_list_resource_profile_detections.md",
+      "sync-client/paginators/iter_list_sensitivity_inspection_templates.md",
+      "sync-client/paginators/iter_search_resources.md",
+    ] },
+  ] },
+  { "AsyncMacie2Client" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/accept_invitation.md",
+      "async-client/operations/batch_get_custom_data_identifiers.md",
+      "async-client/operations/batch_update_automated_discovery_accounts.md",
+      "async-client/operations/create_allow_list.md",
+      "async-client/operations/create_classification_job.md",
+      "async-client/operations/create_custom_data_identifier.md",
+      "async-client/operations/create_findings_filter.md",
+      "async-client/operations/create_invitations.md",
+      "async-client/operations/create_member.md",
+      "async-client/operations/create_sample_findings.md",
+      "async-client/operations/decline_invitations.md",
+      "async-client/operations/delete_allow_list.md",
+      "async-client/operations/delete_custom_data_identifier.md",
+      "async-client/operations/delete_findings_filter.md",
+      "async-client/operations/delete_invitations.md",
+      "async-client/operations/delete_member.md",
+      "async-client/operations/describe_buckets.md",
+      "async-client/operations/describe_classification_job.md",
+      "async-client/operations/describe_organization_configuration.md",
+      "async-client/operations/disable_macie.md",
+      "async-client/operations/disable_organization_admin_account.md",
+      "async-client/operations/disassociate_from_administrator_account.md",
+      "async-client/operations/disassociate_from_master_account.md",
+      "async-client/operations/disassociate_member.md",
+      "async-client/operations/enable_macie.md",
+      "async-client/operations/enable_organization_admin_account.md",
+      "async-client/operations/get_administrator_account.md",
+      "async-client/operations/get_allow_list.md",
+      "async-client/operations/get_automated_discovery_configuration.md",
+      "async-client/operations/get_bucket_statistics.md",
+      "async-client/operations/get_classification_export_configuration.md",
+      "async-client/operations/get_classification_scope.md",
+      "async-client/operations/get_custom_data_identifier.md",
+      "async-client/operations/get_finding_statistics.md",
+      "async-client/operations/get_findings.md",
+      "async-client/operations/get_findings_filter.md",
+      "async-client/operations/get_findings_publication_configuration.md",
+      "async-client/operations/get_invitations_count.md",
+      "async-client/operations/get_macie_session.md",
+      "async-client/operations/get_master_account.md",
+      "async-client/operations/get_member.md",
+      "async-client/operations/get_resource_profile.md",
+      "async-client/operations/get_reveal_configuration.md",
+      "async-client/operations/get_sensitive_data_occurrences.md",
+      "async-client/operations/get_sensitive_data_occurrences_availability.md",
+      "async-client/operations/get_sensitivity_inspection_template.md",
+      "async-client/operations/get_usage_statistics.md",
+      "async-client/operations/get_usage_totals.md",
+      "async-client/operations/list_allow_lists.md",
+      "async-client/operations/list_automated_discovery_accounts.md",
+      "async-client/operations/list_classification_jobs.md",
+      "async-client/operations/list_classification_scopes.md",
+      "async-client/operations/list_custom_data_identifiers.md",
+      "async-client/operations/list_findings.md",
+      "async-client/operations/list_findings_filters.md",
+      "async-client/operations/list_invitations.md",
+      "async-client/operations/list_managed_data_identifiers.md",
+      "async-client/operations/list_members.md",
+      "async-client/operations/list_organization_admin_accounts.md",
+      "async-client/operations/list_resource_profile_artifacts.md",
+      "async-client/operations/list_resource_profile_detections.md",
+      "async-client/operations/list_sensitivity_inspection_templates.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/put_classification_export_configuration.md",
+      "async-client/operations/put_findings_publication_configuration.md",
+      "async-client/operations/search_resources.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/test_custom_data_identifier.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_allow_list.md",
+      "async-client/operations/update_automated_discovery_configuration.md",
+      "async-client/operations/update_classification_job.md",
+      "async-client/operations/update_classification_scope.md",
+      "async-client/operations/update_findings_filter.md",
+      "async-client/operations/update_macie_session.md",
+      "async-client/operations/update_member_session.md",
+      "async-client/operations/update_organization_configuration.md",
+      "async-client/operations/update_resource_profile.md",
+      "async-client/operations/update_resource_profile_detections.md",
+      "async-client/operations/update_reveal_configuration.md",
+      "async-client/operations/update_sensitivity_inspection_template.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_buckets.md",
+      "async-client/paginators/iter_get_usage_statistics.md",
+      "async-client/paginators/iter_list_allow_lists.md",
+      "async-client/paginators/iter_list_automated_discovery_accounts.md",
+      "async-client/paginators/iter_list_classification_jobs.md",
+      "async-client/paginators/iter_list_classification_scopes.md",
+      "async-client/paginators/iter_list_custom_data_identifiers.md",
+      "async-client/paginators/iter_list_findings.md",
+      "async-client/paginators/iter_list_findings_filters.md",
+      "async-client/paginators/iter_list_invitations.md",
+      "async-client/paginators/iter_list_managed_data_identifiers.md",
+      "async-client/paginators/iter_list_members.md",
+      "async-client/paginators/iter_list_organization_admin_accounts.md",
+      "async-client/paginators/iter_list_resource_profile_artifacts.md",
+      "async-client/paginators/iter_list_resource_profile_detections.md",
+      "async-client/paginators/iter_list_sensitivity_inspection_templates.md",
+      "async-client/paginators/iter_search_resources.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/InternalServerException.md",
+    "errors/Macie2Error.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/ThrottlingException.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnprocessableEntityException.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_macie2` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_macie2.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

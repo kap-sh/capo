@@ -1,0 +1,8 @@
+---
+title: CreateCellRequest
+---
+
+::: capo_route53_recovery_readiness.types.create_cell_request.CreateCellRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

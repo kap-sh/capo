@@ -1,0 +1,8 @@
+---
+title: DomainSecurityGroupIds
+---
+
+::: capo_sagemaker.types.domain_security_group_ids.DomainSecurityGroupIds
+    options:
+      show_source: true
+      merge_init_into_class: false

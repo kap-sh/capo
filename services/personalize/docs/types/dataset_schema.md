@@ -1,0 +1,8 @@
+---
+title: DatasetSchema
+---
+
+::: capo_personalize.types.dataset_schema.DatasetSchema
+    options:
+      show_source: true
+      merge_init_into_class: false

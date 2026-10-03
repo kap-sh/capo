@@ -1,0 +1,8 @@
+---
+title: KMSKeyArn
+---
+
+::: capo_lambda.types.kms_key_arn.KMSKeyArn
+    options:
+      show_source: true
+      merge_init_into_class: false

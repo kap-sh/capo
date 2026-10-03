@@ -1,0 +1,645 @@
+[project]
+site_name = "capo-iam"
+site_description = "Python SDK for AWS IAM."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "IAMClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/accept_delegation_request.md",
+      "sync-client/operations/acquire_role.md",
+      "sync-client/operations/add_client_id_to_open_id_connect_provider.md",
+      "sync-client/operations/add_role_to_instance_profile.md",
+      "sync-client/operations/add_user_to_group.md",
+      "sync-client/operations/associate_delegation_request.md",
+      "sync-client/operations/attach_group_policy.md",
+      "sync-client/operations/attach_role_policy.md",
+      "sync-client/operations/attach_user_policy.md",
+      "sync-client/operations/change_password.md",
+      "sync-client/operations/create_access_key.md",
+      "sync-client/operations/create_account_alias.md",
+      "sync-client/operations/create_delegation_request.md",
+      "sync-client/operations/create_group.md",
+      "sync-client/operations/create_instance_profile.md",
+      "sync-client/operations/create_login_profile.md",
+      "sync-client/operations/create_open_id_connect_provider.md",
+      "sync-client/operations/create_policy.md",
+      "sync-client/operations/create_policy_version.md",
+      "sync-client/operations/create_role.md",
+      "sync-client/operations/create_saml_provider.md",
+      "sync-client/operations/create_service_linked_role.md",
+      "sync-client/operations/create_service_specific_credential.md",
+      "sync-client/operations/create_user.md",
+      "sync-client/operations/create_virtual_mfa_device.md",
+      "sync-client/operations/deactivate_mfa_device.md",
+      "sync-client/operations/delete_access_key.md",
+      "sync-client/operations/delete_account_alias.md",
+      "sync-client/operations/delete_account_password_policy.md",
+      "sync-client/operations/delete_group.md",
+      "sync-client/operations/delete_group_policy.md",
+      "sync-client/operations/delete_instance_profile.md",
+      "sync-client/operations/delete_login_profile.md",
+      "sync-client/operations/delete_open_id_connect_provider.md",
+      "sync-client/operations/delete_policy.md",
+      "sync-client/operations/delete_policy_version.md",
+      "sync-client/operations/delete_role.md",
+      "sync-client/operations/delete_role_permissions_boundary.md",
+      "sync-client/operations/delete_role_policy.md",
+      "sync-client/operations/delete_saml_provider.md",
+      "sync-client/operations/delete_server_certificate.md",
+      "sync-client/operations/delete_service_linked_role.md",
+      "sync-client/operations/delete_service_specific_credential.md",
+      "sync-client/operations/delete_signing_certificate.md",
+      "sync-client/operations/delete_ssh_public_key.md",
+      "sync-client/operations/delete_user.md",
+      "sync-client/operations/delete_user_permissions_boundary.md",
+      "sync-client/operations/delete_user_policy.md",
+      "sync-client/operations/delete_virtual_mfa_device.md",
+      "sync-client/operations/detach_group_policy.md",
+      "sync-client/operations/detach_role_policy.md",
+      "sync-client/operations/detach_user_policy.md",
+      "sync-client/operations/disable_organizations_root_credentials_management.md",
+      "sync-client/operations/disable_organizations_root_sessions.md",
+      "sync-client/operations/disable_outbound_web_identity_federation.md",
+      "sync-client/operations/enable_mfa_device.md",
+      "sync-client/operations/enable_organizations_root_credentials_management.md",
+      "sync-client/operations/enable_organizations_root_sessions.md",
+      "sync-client/operations/enable_outbound_web_identity_federation.md",
+      "sync-client/operations/generate_credential_report.md",
+      "sync-client/operations/generate_organizations_access_report.md",
+      "sync-client/operations/generate_service_last_accessed_details.md",
+      "sync-client/operations/get_access_key_last_used.md",
+      "sync-client/operations/get_account_authorization_details.md",
+      "sync-client/operations/get_account_password_policy.md",
+      "sync-client/operations/get_account_properties.md",
+      "sync-client/operations/get_account_summary.md",
+      "sync-client/operations/get_context_keys_for_custom_policy.md",
+      "sync-client/operations/get_context_keys_for_principal_policy.md",
+      "sync-client/operations/get_credential_report.md",
+      "sync-client/operations/get_delegation_request.md",
+      "sync-client/operations/get_group.md",
+      "sync-client/operations/get_group_policy.md",
+      "sync-client/operations/get_human_readable_summary.md",
+      "sync-client/operations/get_instance_profile.md",
+      "sync-client/operations/get_login_profile.md",
+      "sync-client/operations/get_mfa_device.md",
+      "sync-client/operations/get_open_id_connect_provider.md",
+      "sync-client/operations/get_organizations_access_report.md",
+      "sync-client/operations/get_outbound_web_identity_federation_info.md",
+      "sync-client/operations/get_policy.md",
+      "sync-client/operations/get_policy_version.md",
+      "sync-client/operations/get_role.md",
+      "sync-client/operations/get_role_policy.md",
+      "sync-client/operations/get_role_template_version.md",
+      "sync-client/operations/get_saml_provider.md",
+      "sync-client/operations/get_server_certificate.md",
+      "sync-client/operations/get_service_last_accessed_details.md",
+      "sync-client/operations/get_service_last_accessed_details_with_entities.md",
+      "sync-client/operations/get_service_linked_role_deletion_status.md",
+      "sync-client/operations/get_ssh_public_key.md",
+      "sync-client/operations/get_user.md",
+      "sync-client/operations/get_user_policy.md",
+      "sync-client/operations/list_access_keys.md",
+      "sync-client/operations/list_account_aliases.md",
+      "sync-client/operations/list_attached_group_policies.md",
+      "sync-client/operations/list_attached_role_policies.md",
+      "sync-client/operations/list_attached_user_policies.md",
+      "sync-client/operations/list_delegation_requests.md",
+      "sync-client/operations/list_entities_for_policy.md",
+      "sync-client/operations/list_group_policies.md",
+      "sync-client/operations/list_groups.md",
+      "sync-client/operations/list_groups_for_user.md",
+      "sync-client/operations/list_instance_profile_tags.md",
+      "sync-client/operations/list_instance_profiles.md",
+      "sync-client/operations/list_instance_profiles_for_role.md",
+      "sync-client/operations/list_mfa_device_tags.md",
+      "sync-client/operations/list_mfa_devices.md",
+      "sync-client/operations/list_open_id_connect_provider_tags.md",
+      "sync-client/operations/list_open_id_connect_providers.md",
+      "sync-client/operations/list_organizations_features.md",
+      "sync-client/operations/list_policies.md",
+      "sync-client/operations/list_policies_granting_service_access.md",
+      "sync-client/operations/list_policy_tags.md",
+      "sync-client/operations/list_policy_versions.md",
+      "sync-client/operations/list_role_policies.md",
+      "sync-client/operations/list_role_tags.md",
+      "sync-client/operations/list_roles.md",
+      "sync-client/operations/list_saml_provider_tags.md",
+      "sync-client/operations/list_saml_providers.md",
+      "sync-client/operations/list_server_certificate_tags.md",
+      "sync-client/operations/list_server_certificates.md",
+      "sync-client/operations/list_service_specific_credentials.md",
+      "sync-client/operations/list_signing_certificates.md",
+      "sync-client/operations/list_ssh_public_keys.md",
+      "sync-client/operations/list_user_policies.md",
+      "sync-client/operations/list_user_tags.md",
+      "sync-client/operations/list_users.md",
+      "sync-client/operations/list_virtual_mfa_devices.md",
+      "sync-client/operations/put_account_properties.md",
+      "sync-client/operations/put_group_policy.md",
+      "sync-client/operations/put_role_permissions_boundary.md",
+      "sync-client/operations/put_role_policy.md",
+      "sync-client/operations/put_user_permissions_boundary.md",
+      "sync-client/operations/put_user_policy.md",
+      "sync-client/operations/reject_delegation_request.md",
+      "sync-client/operations/remove_client_id_from_open_id_connect_provider.md",
+      "sync-client/operations/remove_role_from_instance_profile.md",
+      "sync-client/operations/remove_user_from_group.md",
+      "sync-client/operations/reset_service_specific_credential.md",
+      "sync-client/operations/resync_mfa_device.md",
+      "sync-client/operations/send_delegation_token.md",
+      "sync-client/operations/set_default_policy_version.md",
+      "sync-client/operations/set_security_token_service_preferences.md",
+      "sync-client/operations/simulate_custom_policy.md",
+      "sync-client/operations/simulate_principal_policy.md",
+      "sync-client/operations/tag_instance_profile.md",
+      "sync-client/operations/tag_mfa_device.md",
+      "sync-client/operations/tag_open_id_connect_provider.md",
+      "sync-client/operations/tag_policy.md",
+      "sync-client/operations/tag_role.md",
+      "sync-client/operations/tag_saml_provider.md",
+      "sync-client/operations/tag_server_certificate.md",
+      "sync-client/operations/tag_user.md",
+      "sync-client/operations/untag_instance_profile.md",
+      "sync-client/operations/untag_mfa_device.md",
+      "sync-client/operations/untag_open_id_connect_provider.md",
+      "sync-client/operations/untag_policy.md",
+      "sync-client/operations/untag_role.md",
+      "sync-client/operations/untag_saml_provider.md",
+      "sync-client/operations/untag_server_certificate.md",
+      "sync-client/operations/untag_user.md",
+      "sync-client/operations/update_access_key.md",
+      "sync-client/operations/update_account_password_policy.md",
+      "sync-client/operations/update_assume_role_policy.md",
+      "sync-client/operations/update_delegation_request.md",
+      "sync-client/operations/update_group.md",
+      "sync-client/operations/update_login_profile.md",
+      "sync-client/operations/update_open_id_connect_provider_thumbprint.md",
+      "sync-client/operations/update_role.md",
+      "sync-client/operations/update_role_description.md",
+      "sync-client/operations/update_saml_provider.md",
+      "sync-client/operations/update_server_certificate.md",
+      "sync-client/operations/update_service_specific_credential.md",
+      "sync-client/operations/update_signing_certificate.md",
+      "sync-client/operations/update_ssh_public_key.md",
+      "sync-client/operations/update_user.md",
+      "sync-client/operations/upload_server_certificate.md",
+      "sync-client/operations/upload_signing_certificate.md",
+      "sync-client/operations/upload_ssh_public_key.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_get_account_authorization_details.md",
+      "sync-client/paginators/iter_get_group.md",
+      "sync-client/paginators/iter_list_access_keys.md",
+      "sync-client/paginators/iter_list_account_aliases.md",
+      "sync-client/paginators/iter_list_attached_group_policies.md",
+      "sync-client/paginators/iter_list_attached_role_policies.md",
+      "sync-client/paginators/iter_list_attached_user_policies.md",
+      "sync-client/paginators/iter_list_entities_for_policy.md",
+      "sync-client/paginators/iter_list_group_policies.md",
+      "sync-client/paginators/iter_list_groups.md",
+      "sync-client/paginators/iter_list_groups_for_user.md",
+      "sync-client/paginators/iter_list_instance_profile_tags.md",
+      "sync-client/paginators/iter_list_instance_profiles.md",
+      "sync-client/paginators/iter_list_instance_profiles_for_role.md",
+      "sync-client/paginators/iter_list_mfa_device_tags.md",
+      "sync-client/paginators/iter_list_mfa_devices.md",
+      "sync-client/paginators/iter_list_open_id_connect_provider_tags.md",
+      "sync-client/paginators/iter_list_policies.md",
+      "sync-client/paginators/iter_list_policy_tags.md",
+      "sync-client/paginators/iter_list_policy_versions.md",
+      "sync-client/paginators/iter_list_role_policies.md",
+      "sync-client/paginators/iter_list_role_tags.md",
+      "sync-client/paginators/iter_list_roles.md",
+      "sync-client/paginators/iter_list_saml_provider_tags.md",
+      "sync-client/paginators/iter_list_server_certificate_tags.md",
+      "sync-client/paginators/iter_list_server_certificates.md",
+      "sync-client/paginators/iter_list_signing_certificates.md",
+      "sync-client/paginators/iter_list_ssh_public_keys.md",
+      "sync-client/paginators/iter_list_user_policies.md",
+      "sync-client/paginators/iter_list_user_tags.md",
+      "sync-client/paginators/iter_list_users.md",
+      "sync-client/paginators/iter_list_virtual_mfa_devices.md",
+      "sync-client/paginators/iter_simulate_custom_policy.md",
+      "sync-client/paginators/iter_simulate_principal_policy.md",
+    ] },
+    { "Waiters" = [
+      "sync-client/waiters/wait_until_instance_profile_exists.md",
+      "sync-client/waiters/wait_until_policy_exists.md",
+      "sync-client/waiters/wait_until_role_exists.md",
+      "sync-client/waiters/wait_until_user_exists.md",
+    ] },
+  ] },
+  { "AsyncIAMClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/accept_delegation_request.md",
+      "async-client/operations/acquire_role.md",
+      "async-client/operations/add_client_id_to_open_id_connect_provider.md",
+      "async-client/operations/add_role_to_instance_profile.md",
+      "async-client/operations/add_user_to_group.md",
+      "async-client/operations/associate_delegation_request.md",
+      "async-client/operations/attach_group_policy.md",
+      "async-client/operations/attach_role_policy.md",
+      "async-client/operations/attach_user_policy.md",
+      "async-client/operations/change_password.md",
+      "async-client/operations/create_access_key.md",
+      "async-client/operations/create_account_alias.md",
+      "async-client/operations/create_delegation_request.md",
+      "async-client/operations/create_group.md",
+      "async-client/operations/create_instance_profile.md",
+      "async-client/operations/create_login_profile.md",
+      "async-client/operations/create_open_id_connect_provider.md",
+      "async-client/operations/create_policy.md",
+      "async-client/operations/create_policy_version.md",
+      "async-client/operations/create_role.md",
+      "async-client/operations/create_saml_provider.md",
+      "async-client/operations/create_service_linked_role.md",
+      "async-client/operations/create_service_specific_credential.md",
+      "async-client/operations/create_user.md",
+      "async-client/operations/create_virtual_mfa_device.md",
+      "async-client/operations/deactivate_mfa_device.md",
+      "async-client/operations/delete_access_key.md",
+      "async-client/operations/delete_account_alias.md",
+      "async-client/operations/delete_account_password_policy.md",
+      "async-client/operations/delete_group.md",
+      "async-client/operations/delete_group_policy.md",
+      "async-client/operations/delete_instance_profile.md",
+      "async-client/operations/delete_login_profile.md",
+      "async-client/operations/delete_open_id_connect_provider.md",
+      "async-client/operations/delete_policy.md",
+      "async-client/operations/delete_policy_version.md",
+      "async-client/operations/delete_role.md",
+      "async-client/operations/delete_role_permissions_boundary.md",
+      "async-client/operations/delete_role_policy.md",
+      "async-client/operations/delete_saml_provider.md",
+      "async-client/operations/delete_server_certificate.md",
+      "async-client/operations/delete_service_linked_role.md",
+      "async-client/operations/delete_service_specific_credential.md",
+      "async-client/operations/delete_signing_certificate.md",
+      "async-client/operations/delete_ssh_public_key.md",
+      "async-client/operations/delete_user.md",
+      "async-client/operations/delete_user_permissions_boundary.md",
+      "async-client/operations/delete_user_policy.md",
+      "async-client/operations/delete_virtual_mfa_device.md",
+      "async-client/operations/detach_group_policy.md",
+      "async-client/operations/detach_role_policy.md",
+      "async-client/operations/detach_user_policy.md",
+      "async-client/operations/disable_organizations_root_credentials_management.md",
+      "async-client/operations/disable_organizations_root_sessions.md",
+      "async-client/operations/disable_outbound_web_identity_federation.md",
+      "async-client/operations/enable_mfa_device.md",
+      "async-client/operations/enable_organizations_root_credentials_management.md",
+      "async-client/operations/enable_organizations_root_sessions.md",
+      "async-client/operations/enable_outbound_web_identity_federation.md",
+      "async-client/operations/generate_credential_report.md",
+      "async-client/operations/generate_organizations_access_report.md",
+      "async-client/operations/generate_service_last_accessed_details.md",
+      "async-client/operations/get_access_key_last_used.md",
+      "async-client/operations/get_account_authorization_details.md",
+      "async-client/operations/get_account_password_policy.md",
+      "async-client/operations/get_account_properties.md",
+      "async-client/operations/get_account_summary.md",
+      "async-client/operations/get_context_keys_for_custom_policy.md",
+      "async-client/operations/get_context_keys_for_principal_policy.md",
+      "async-client/operations/get_credential_report.md",
+      "async-client/operations/get_delegation_request.md",
+      "async-client/operations/get_group.md",
+      "async-client/operations/get_group_policy.md",
+      "async-client/operations/get_human_readable_summary.md",
+      "async-client/operations/get_instance_profile.md",
+      "async-client/operations/get_login_profile.md",
+      "async-client/operations/get_mfa_device.md",
+      "async-client/operations/get_open_id_connect_provider.md",
+      "async-client/operations/get_organizations_access_report.md",
+      "async-client/operations/get_outbound_web_identity_federation_info.md",
+      "async-client/operations/get_policy.md",
+      "async-client/operations/get_policy_version.md",
+      "async-client/operations/get_role.md",
+      "async-client/operations/get_role_policy.md",
+      "async-client/operations/get_role_template_version.md",
+      "async-client/operations/get_saml_provider.md",
+      "async-client/operations/get_server_certificate.md",
+      "async-client/operations/get_service_last_accessed_details.md",
+      "async-client/operations/get_service_last_accessed_details_with_entities.md",
+      "async-client/operations/get_service_linked_role_deletion_status.md",
+      "async-client/operations/get_ssh_public_key.md",
+      "async-client/operations/get_user.md",
+      "async-client/operations/get_user_policy.md",
+      "async-client/operations/list_access_keys.md",
+      "async-client/operations/list_account_aliases.md",
+      "async-client/operations/list_attached_group_policies.md",
+      "async-client/operations/list_attached_role_policies.md",
+      "async-client/operations/list_attached_user_policies.md",
+      "async-client/operations/list_delegation_requests.md",
+      "async-client/operations/list_entities_for_policy.md",
+      "async-client/operations/list_group_policies.md",
+      "async-client/operations/list_groups.md",
+      "async-client/operations/list_groups_for_user.md",
+      "async-client/operations/list_instance_profile_tags.md",
+      "async-client/operations/list_instance_profiles.md",
+      "async-client/operations/list_instance_profiles_for_role.md",
+      "async-client/operations/list_mfa_device_tags.md",
+      "async-client/operations/list_mfa_devices.md",
+      "async-client/operations/list_open_id_connect_provider_tags.md",
+      "async-client/operations/list_open_id_connect_providers.md",
+      "async-client/operations/list_organizations_features.md",
+      "async-client/operations/list_policies.md",
+      "async-client/operations/list_policies_granting_service_access.md",
+      "async-client/operations/list_policy_tags.md",
+      "async-client/operations/list_policy_versions.md",
+      "async-client/operations/list_role_policies.md",
+      "async-client/operations/list_role_tags.md",
+      "async-client/operations/list_roles.md",
+      "async-client/operations/list_saml_provider_tags.md",
+      "async-client/operations/list_saml_providers.md",
+      "async-client/operations/list_server_certificate_tags.md",
+      "async-client/operations/list_server_certificates.md",
+      "async-client/operations/list_service_specific_credentials.md",
+      "async-client/operations/list_signing_certificates.md",
+      "async-client/operations/list_ssh_public_keys.md",
+      "async-client/operations/list_user_policies.md",
+      "async-client/operations/list_user_tags.md",
+      "async-client/operations/list_users.md",
+      "async-client/operations/list_virtual_mfa_devices.md",
+      "async-client/operations/put_account_properties.md",
+      "async-client/operations/put_group_policy.md",
+      "async-client/operations/put_role_permissions_boundary.md",
+      "async-client/operations/put_role_policy.md",
+      "async-client/operations/put_user_permissions_boundary.md",
+      "async-client/operations/put_user_policy.md",
+      "async-client/operations/reject_delegation_request.md",
+      "async-client/operations/remove_client_id_from_open_id_connect_provider.md",
+      "async-client/operations/remove_role_from_instance_profile.md",
+      "async-client/operations/remove_user_from_group.md",
+      "async-client/operations/reset_service_specific_credential.md",
+      "async-client/operations/resync_mfa_device.md",
+      "async-client/operations/send_delegation_token.md",
+      "async-client/operations/set_default_policy_version.md",
+      "async-client/operations/set_security_token_service_preferences.md",
+      "async-client/operations/simulate_custom_policy.md",
+      "async-client/operations/simulate_principal_policy.md",
+      "async-client/operations/tag_instance_profile.md",
+      "async-client/operations/tag_mfa_device.md",
+      "async-client/operations/tag_open_id_connect_provider.md",
+      "async-client/operations/tag_policy.md",
+      "async-client/operations/tag_role.md",
+      "async-client/operations/tag_saml_provider.md",
+      "async-client/operations/tag_server_certificate.md",
+      "async-client/operations/tag_user.md",
+      "async-client/operations/untag_instance_profile.md",
+      "async-client/operations/untag_mfa_device.md",
+      "async-client/operations/untag_open_id_connect_provider.md",
+      "async-client/operations/untag_policy.md",
+      "async-client/operations/untag_role.md",
+      "async-client/operations/untag_saml_provider.md",
+      "async-client/operations/untag_server_certificate.md",
+      "async-client/operations/untag_user.md",
+      "async-client/operations/update_access_key.md",
+      "async-client/operations/update_account_password_policy.md",
+      "async-client/operations/update_assume_role_policy.md",
+      "async-client/operations/update_delegation_request.md",
+      "async-client/operations/update_group.md",
+      "async-client/operations/update_login_profile.md",
+      "async-client/operations/update_open_id_connect_provider_thumbprint.md",
+      "async-client/operations/update_role.md",
+      "async-client/operations/update_role_description.md",
+      "async-client/operations/update_saml_provider.md",
+      "async-client/operations/update_server_certificate.md",
+      "async-client/operations/update_service_specific_credential.md",
+      "async-client/operations/update_signing_certificate.md",
+      "async-client/operations/update_ssh_public_key.md",
+      "async-client/operations/update_user.md",
+      "async-client/operations/upload_server_certificate.md",
+      "async-client/operations/upload_signing_certificate.md",
+      "async-client/operations/upload_ssh_public_key.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_get_account_authorization_details.md",
+      "async-client/paginators/iter_get_group.md",
+      "async-client/paginators/iter_list_access_keys.md",
+      "async-client/paginators/iter_list_account_aliases.md",
+      "async-client/paginators/iter_list_attached_group_policies.md",
+      "async-client/paginators/iter_list_attached_role_policies.md",
+      "async-client/paginators/iter_list_attached_user_policies.md",
+      "async-client/paginators/iter_list_entities_for_policy.md",
+      "async-client/paginators/iter_list_group_policies.md",
+      "async-client/paginators/iter_list_groups.md",
+      "async-client/paginators/iter_list_groups_for_user.md",
+      "async-client/paginators/iter_list_instance_profile_tags.md",
+      "async-client/paginators/iter_list_instance_profiles.md",
+      "async-client/paginators/iter_list_instance_profiles_for_role.md",
+      "async-client/paginators/iter_list_mfa_device_tags.md",
+      "async-client/paginators/iter_list_mfa_devices.md",
+      "async-client/paginators/iter_list_open_id_connect_provider_tags.md",
+      "async-client/paginators/iter_list_policies.md",
+      "async-client/paginators/iter_list_policy_tags.md",
+      "async-client/paginators/iter_list_policy_versions.md",
+      "async-client/paginators/iter_list_role_policies.md",
+      "async-client/paginators/iter_list_role_tags.md",
+      "async-client/paginators/iter_list_roles.md",
+      "async-client/paginators/iter_list_saml_provider_tags.md",
+      "async-client/paginators/iter_list_server_certificate_tags.md",
+      "async-client/paginators/iter_list_server_certificates.md",
+      "async-client/paginators/iter_list_signing_certificates.md",
+      "async-client/paginators/iter_list_ssh_public_keys.md",
+      "async-client/paginators/iter_list_user_policies.md",
+      "async-client/paginators/iter_list_user_tags.md",
+      "async-client/paginators/iter_list_users.md",
+      "async-client/paginators/iter_list_virtual_mfa_devices.md",
+      "async-client/paginators/iter_simulate_custom_policy.md",
+      "async-client/paginators/iter_simulate_principal_policy.md",
+    ] },
+    { "Waiters" = [
+      "async-client/waiters/wait_until_instance_profile_exists.md",
+      "async-client/waiters/wait_until_policy_exists.md",
+      "async-client/waiters/wait_until_role_exists.md",
+      "async-client/waiters/wait_until_user_exists.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccountNotManagementOrDelegatedAdministratorException.md",
+    "errors/CallerIsNotManagementAccountException.md",
+    "errors/ConcurrentModificationException.md",
+    "errors/CredentialReportExpiredException.md",
+    "errors/CredentialReportNotPresentException.md",
+    "errors/CredentialReportNotReadyException.md",
+    "errors/DeleteConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/DuplicateCertificateException.md",
+    "errors/DuplicateSSHPublicKeyException.md",
+    "errors/EntityAlreadyExistsException.md",
+    "errors/EntityTemporarilyUnmodifiableException.md",
+    "errors/FeatureDisabledException.md",
+    "errors/FeatureEnabledException.md",
+    "errors/IAMError.md",
+    "errors/InvalidAuthenticationCodeException.md",
+    "errors/InvalidCertificateException.md",
+    "errors/InvalidInputException.md",
+    "errors/InvalidPublicKeyException.md",
+    "errors/InvalidUserTypeException.md",
+    "errors/KeyPairMismatchException.md",
+    "errors/LimitExceededException.md",
+    "errors/MalformedCertificateException.md",
+    "errors/MalformedPolicyDocumentException.md",
+    "errors/NameConflictException.md",
+    "errors/NoSuchEntityException.md",
+    "errors/OpenIdIdpCommunicationErrorException.md",
+    "errors/OrganizationNotFoundException.md",
+    "errors/OrganizationNotInAllFeaturesModeException.md",
+    "errors/PasswordPolicyViolationException.md",
+    "errors/PolicyEvaluationException.md",
+    "errors/PolicyNotAttachableException.md",
+    "errors/ReportGenerationLimitExceededException.md",
+    "errors/RoleModifiedException.md",
+    "errors/RoleTemplateDisabledException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceAccessNotEnabledException.md",
+    "errors/ServiceError.md",
+    "errors/ServiceFailureException.md",
+    "errors/ServiceNotSupportedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnmodifiableEntityException.md",
+    "errors/UnrecognizedPublicKeyEncodingException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_iam` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_iam.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

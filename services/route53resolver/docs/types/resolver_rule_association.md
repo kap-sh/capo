@@ -1,0 +1,8 @@
+---
+title: ResolverRuleAssociation
+---
+
+::: capo_route53resolver.types.resolver_rule_association.ResolverRuleAssociation
+    options:
+      show_source: true
+      merge_init_into_class: false

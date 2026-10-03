@@ -1,0 +1,8 @@
+---
+title: CacheReportList
+---
+
+::: capo_storage_gateway.types.cache_report_list.CacheReportList
+    options:
+      show_source: true
+      merge_init_into_class: false

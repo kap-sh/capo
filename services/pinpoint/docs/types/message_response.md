@@ -1,0 +1,8 @@
+---
+title: MessageResponse
+---
+
+::: capo_pinpoint.types.message_response.MessageResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

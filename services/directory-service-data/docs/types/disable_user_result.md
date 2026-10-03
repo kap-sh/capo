@@ -1,0 +1,8 @@
+---
+title: DisableUserResult
+---
+
+::: capo_directory_service_data.types.disable_user_result.DisableUserResult
+    options:
+      show_source: true
+      merge_init_into_class: false

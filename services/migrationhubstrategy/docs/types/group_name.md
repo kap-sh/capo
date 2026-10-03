@@ -1,0 +1,8 @@
+---
+title: GroupName
+---
+
+::: capo_migrationhubstrategy.types.group_name.GroupName
+    options:
+      show_source: true
+      merge_init_into_class: false

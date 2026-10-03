@@ -1,0 +1,8 @@
+---
+title: IntelligenceTagMap
+---
+
+::: capo_cloudwatchomni.types.intelligence_tag_map.IntelligenceTagMap
+    options:
+      show_source: true
+      merge_init_into_class: false

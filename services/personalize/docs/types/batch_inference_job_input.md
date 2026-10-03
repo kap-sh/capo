@@ -1,0 +1,8 @@
+---
+title: BatchInferenceJobInput
+---
+
+::: capo_personalize.types.batch_inference_job_input.BatchInferenceJobInput
+    options:
+      show_source: true
+      merge_init_into_class: false

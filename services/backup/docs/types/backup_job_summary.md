@@ -1,0 +1,8 @@
+---
+title: BackupJobSummary
+---
+
+::: capo_backup.types.backup_job_summary.BackupJobSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

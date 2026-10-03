@@ -1,0 +1,8 @@
+---
+title: AwsOpportunityLifeCycle
+---
+
+::: capo_partnercentral_selling.types.aws_opportunity_life_cycle.AwsOpportunityLifeCycle
+    options:
+      show_source: true
+      merge_init_into_class: false

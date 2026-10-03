@@ -1,0 +1,8 @@
+---
+title: GlobalReplicationGroupList
+---
+
+::: capo_elasticache.types.global_replication_group_list.GlobalReplicationGroupList
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: AdminForgetDeviceRequest
+---
+
+::: capo_cognito_identity_provider.types.admin_forget_device_request.AdminForgetDeviceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

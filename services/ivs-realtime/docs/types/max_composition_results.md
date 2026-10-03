@@ -1,0 +1,8 @@
+---
+title: MaxCompositionResults
+---
+
+::: capo_ivs_realtime.types.max_composition_results.MaxCompositionResults
+    options:
+      show_source: true
+      merge_init_into_class: false

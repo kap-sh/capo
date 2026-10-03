@@ -1,0 +1,8 @@
+---
+title: DeleteBlueprintRequest
+---
+
+::: capo_glue.types.delete_blueprint_request.DeleteBlueprintRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

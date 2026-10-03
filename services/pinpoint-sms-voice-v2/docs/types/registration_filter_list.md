@@ -1,0 +1,8 @@
+---
+title: RegistrationFilterList
+---
+
+::: capo_pinpoint_sms_voice_v2.types.registration_filter_list.RegistrationFilterList
+    options:
+      show_source: true
+      merge_init_into_class: false

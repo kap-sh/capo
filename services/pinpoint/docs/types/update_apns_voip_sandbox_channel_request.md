@@ -1,0 +1,8 @@
+---
+title: UpdateApnsVoipSandboxChannelRequest
+---
+
+::: capo_pinpoint.types.update_apns_voip_sandbox_channel_request.UpdateApnsVoipSandboxChannelRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

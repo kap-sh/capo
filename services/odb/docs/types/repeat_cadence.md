@@ -1,0 +1,8 @@
+---
+title: RepeatCadence
+---
+
+::: capo_odb.types.repeat_cadence.RepeatCadence
+    options:
+      show_source: true
+      merge_init_into_class: false

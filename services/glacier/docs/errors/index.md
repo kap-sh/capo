@@ -1,0 +1,18 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [GlacierError](GlacierError.md)
+- [InsufficientCapacityException](InsufficientCapacityException.md)
+- [InvalidParameterValueException](InvalidParameterValueException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [MissingParameterValueException](MissingParameterValueException.md)
+- [NoLongerSupportedException](NoLongerSupportedException.md)
+- [PolicyEnforcedException](PolicyEnforcedException.md)
+- [RequestTimeoutException](RequestTimeoutException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

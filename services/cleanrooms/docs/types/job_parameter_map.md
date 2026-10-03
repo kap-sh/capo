@@ -1,0 +1,8 @@
+---
+title: JobParameterMap
+---
+
+::: capo_cleanrooms.types.job_parameter_map.JobParameterMap
+    options:
+      show_source: true
+      merge_init_into_class: false

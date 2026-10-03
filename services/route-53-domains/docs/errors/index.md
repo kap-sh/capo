@@ -1,0 +1,17 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [DnssecLimitExceeded](DnssecLimitExceeded.md)
+- [DomainLimitExceeded](DomainLimitExceeded.md)
+- [DuplicateRequest](DuplicateRequest.md)
+- [InvalidInput](InvalidInput.md)
+- [OperationLimitExceeded](OperationLimitExceeded.md)
+- [Route53DomainsError](Route53DomainsError.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TLDInMaintenance](TLDInMaintenance.md)
+- [TLDRulesViolation](TLDRulesViolation.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [UnsupportedTLD](UnsupportedTLD.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

@@ -1,0 +1,8 @@
+---
+title: BedrockModelCustomPrompt
+---
+
+::: capo_lex_models_v2.types.bedrock_model_custom_prompt.BedrockModelCustomPrompt
+    options:
+      show_source: true
+      merge_init_into_class: false

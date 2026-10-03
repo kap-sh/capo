@@ -1,0 +1,477 @@
+[project]
+site_name = "capo-gamelift"
+site_description = "Python SDK for AWS Gamelift."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "GameLiftClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/accept_match.md",
+      "sync-client/operations/claim_game_server.md",
+      "sync-client/operations/create_alias.md",
+      "sync-client/operations/create_build.md",
+      "sync-client/operations/create_container_fleet.md",
+      "sync-client/operations/create_container_group_definition.md",
+      "sync-client/operations/create_fleet.md",
+      "sync-client/operations/create_fleet_locations.md",
+      "sync-client/operations/create_game_server_group.md",
+      "sync-client/operations/create_game_session.md",
+      "sync-client/operations/create_game_session_queue.md",
+      "sync-client/operations/create_location.md",
+      "sync-client/operations/create_matchmaking_configuration.md",
+      "sync-client/operations/create_matchmaking_rule_set.md",
+      "sync-client/operations/create_player_session.md",
+      "sync-client/operations/create_player_sessions.md",
+      "sync-client/operations/create_script.md",
+      "sync-client/operations/create_vpc_peering_authorization.md",
+      "sync-client/operations/create_vpc_peering_connection.md",
+      "sync-client/operations/delete_alias.md",
+      "sync-client/operations/delete_build.md",
+      "sync-client/operations/delete_container_fleet.md",
+      "sync-client/operations/delete_container_group_definition.md",
+      "sync-client/operations/delete_fleet.md",
+      "sync-client/operations/delete_fleet_locations.md",
+      "sync-client/operations/delete_game_server_group.md",
+      "sync-client/operations/delete_game_session_queue.md",
+      "sync-client/operations/delete_location.md",
+      "sync-client/operations/delete_matchmaking_configuration.md",
+      "sync-client/operations/delete_matchmaking_rule_set.md",
+      "sync-client/operations/delete_scaling_policy.md",
+      "sync-client/operations/delete_script.md",
+      "sync-client/operations/delete_vpc_peering_authorization.md",
+      "sync-client/operations/delete_vpc_peering_connection.md",
+      "sync-client/operations/deregister_compute.md",
+      "sync-client/operations/deregister_game_server.md",
+      "sync-client/operations/describe_alias.md",
+      "sync-client/operations/describe_build.md",
+      "sync-client/operations/describe_compute.md",
+      "sync-client/operations/describe_container_fleet.md",
+      "sync-client/operations/describe_container_group_definition.md",
+      "sync-client/operations/describe_container_group_port_mappings.md",
+      "sync-client/operations/describe_ec2_instance_limits.md",
+      "sync-client/operations/describe_fleet_attributes.md",
+      "sync-client/operations/describe_fleet_capacity.md",
+      "sync-client/operations/describe_fleet_deployment.md",
+      "sync-client/operations/describe_fleet_events.md",
+      "sync-client/operations/describe_fleet_location_attributes.md",
+      "sync-client/operations/describe_fleet_location_capacity.md",
+      "sync-client/operations/describe_fleet_location_utilization.md",
+      "sync-client/operations/describe_fleet_port_settings.md",
+      "sync-client/operations/describe_fleet_utilization.md",
+      "sync-client/operations/describe_game_server.md",
+      "sync-client/operations/describe_game_server_group.md",
+      "sync-client/operations/describe_game_server_instances.md",
+      "sync-client/operations/describe_game_session_details.md",
+      "sync-client/operations/describe_game_session_placement.md",
+      "sync-client/operations/describe_game_session_queues.md",
+      "sync-client/operations/describe_game_sessions.md",
+      "sync-client/operations/describe_instances.md",
+      "sync-client/operations/describe_matchmaking.md",
+      "sync-client/operations/describe_matchmaking_configurations.md",
+      "sync-client/operations/describe_matchmaking_rule_sets.md",
+      "sync-client/operations/describe_player_sessions.md",
+      "sync-client/operations/describe_runtime_configuration.md",
+      "sync-client/operations/describe_scaling_policies.md",
+      "sync-client/operations/describe_script.md",
+      "sync-client/operations/describe_vpc_peering_authorizations.md",
+      "sync-client/operations/describe_vpc_peering_connections.md",
+      "sync-client/operations/get_compute_access.md",
+      "sync-client/operations/get_compute_auth_token.md",
+      "sync-client/operations/get_game_session_log_url.md",
+      "sync-client/operations/get_instance_access.md",
+      "sync-client/operations/get_player_connection_details.md",
+      "sync-client/operations/list_aliases.md",
+      "sync-client/operations/list_builds.md",
+      "sync-client/operations/list_compute.md",
+      "sync-client/operations/list_container_fleets.md",
+      "sync-client/operations/list_container_group_definition_versions.md",
+      "sync-client/operations/list_container_group_definitions.md",
+      "sync-client/operations/list_fleet_deployments.md",
+      "sync-client/operations/list_fleets.md",
+      "sync-client/operations/list_game_server_groups.md",
+      "sync-client/operations/list_game_servers.md",
+      "sync-client/operations/list_locations.md",
+      "sync-client/operations/list_scripts.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/put_scaling_policy.md",
+      "sync-client/operations/register_compute.md",
+      "sync-client/operations/register_game_server.md",
+      "sync-client/operations/request_upload_credentials.md",
+      "sync-client/operations/resolve_alias.md",
+      "sync-client/operations/resume_game_server_group.md",
+      "sync-client/operations/search_game_sessions.md",
+      "sync-client/operations/start_fleet_actions.md",
+      "sync-client/operations/start_game_session_placement.md",
+      "sync-client/operations/start_match_backfill.md",
+      "sync-client/operations/start_matchmaking.md",
+      "sync-client/operations/stop_fleet_actions.md",
+      "sync-client/operations/stop_game_session_placement.md",
+      "sync-client/operations/stop_matchmaking.md",
+      "sync-client/operations/suspend_game_server_group.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/terminate_game_session.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_alias.md",
+      "sync-client/operations/update_build.md",
+      "sync-client/operations/update_container_fleet.md",
+      "sync-client/operations/update_container_group_definition.md",
+      "sync-client/operations/update_fleet_attributes.md",
+      "sync-client/operations/update_fleet_capacity.md",
+      "sync-client/operations/update_fleet_port_settings.md",
+      "sync-client/operations/update_game_server.md",
+      "sync-client/operations/update_game_server_group.md",
+      "sync-client/operations/update_game_session.md",
+      "sync-client/operations/update_game_session_queue.md",
+      "sync-client/operations/update_matchmaking_configuration.md",
+      "sync-client/operations/update_runtime_configuration.md",
+      "sync-client/operations/update_script.md",
+      "sync-client/operations/validate_matchmaking_rule_set.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_fleet_attributes.md",
+      "sync-client/paginators/iter_describe_fleet_capacity.md",
+      "sync-client/paginators/iter_describe_fleet_events.md",
+      "sync-client/paginators/iter_describe_fleet_location_attributes.md",
+      "sync-client/paginators/iter_describe_fleet_utilization.md",
+      "sync-client/paginators/iter_describe_game_server_instances.md",
+      "sync-client/paginators/iter_describe_game_session_details.md",
+      "sync-client/paginators/iter_describe_game_session_queues.md",
+      "sync-client/paginators/iter_describe_game_sessions.md",
+      "sync-client/paginators/iter_describe_instances.md",
+      "sync-client/paginators/iter_describe_matchmaking_configurations.md",
+      "sync-client/paginators/iter_describe_matchmaking_rule_sets.md",
+      "sync-client/paginators/iter_describe_player_sessions.md",
+      "sync-client/paginators/iter_describe_scaling_policies.md",
+      "sync-client/paginators/iter_list_aliases.md",
+      "sync-client/paginators/iter_list_builds.md",
+      "sync-client/paginators/iter_list_compute.md",
+      "sync-client/paginators/iter_list_container_fleets.md",
+      "sync-client/paginators/iter_list_container_group_definition_versions.md",
+      "sync-client/paginators/iter_list_container_group_definitions.md",
+      "sync-client/paginators/iter_list_fleet_deployments.md",
+      "sync-client/paginators/iter_list_fleets.md",
+      "sync-client/paginators/iter_list_game_server_groups.md",
+      "sync-client/paginators/iter_list_game_servers.md",
+      "sync-client/paginators/iter_list_locations.md",
+      "sync-client/paginators/iter_list_scripts.md",
+      "sync-client/paginators/iter_search_game_sessions.md",
+    ] },
+  ] },
+  { "AsyncGameLiftClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/accept_match.md",
+      "async-client/operations/claim_game_server.md",
+      "async-client/operations/create_alias.md",
+      "async-client/operations/create_build.md",
+      "async-client/operations/create_container_fleet.md",
+      "async-client/operations/create_container_group_definition.md",
+      "async-client/operations/create_fleet.md",
+      "async-client/operations/create_fleet_locations.md",
+      "async-client/operations/create_game_server_group.md",
+      "async-client/operations/create_game_session.md",
+      "async-client/operations/create_game_session_queue.md",
+      "async-client/operations/create_location.md",
+      "async-client/operations/create_matchmaking_configuration.md",
+      "async-client/operations/create_matchmaking_rule_set.md",
+      "async-client/operations/create_player_session.md",
+      "async-client/operations/create_player_sessions.md",
+      "async-client/operations/create_script.md",
+      "async-client/operations/create_vpc_peering_authorization.md",
+      "async-client/operations/create_vpc_peering_connection.md",
+      "async-client/operations/delete_alias.md",
+      "async-client/operations/delete_build.md",
+      "async-client/operations/delete_container_fleet.md",
+      "async-client/operations/delete_container_group_definition.md",
+      "async-client/operations/delete_fleet.md",
+      "async-client/operations/delete_fleet_locations.md",
+      "async-client/operations/delete_game_server_group.md",
+      "async-client/operations/delete_game_session_queue.md",
+      "async-client/operations/delete_location.md",
+      "async-client/operations/delete_matchmaking_configuration.md",
+      "async-client/operations/delete_matchmaking_rule_set.md",
+      "async-client/operations/delete_scaling_policy.md",
+      "async-client/operations/delete_script.md",
+      "async-client/operations/delete_vpc_peering_authorization.md",
+      "async-client/operations/delete_vpc_peering_connection.md",
+      "async-client/operations/deregister_compute.md",
+      "async-client/operations/deregister_game_server.md",
+      "async-client/operations/describe_alias.md",
+      "async-client/operations/describe_build.md",
+      "async-client/operations/describe_compute.md",
+      "async-client/operations/describe_container_fleet.md",
+      "async-client/operations/describe_container_group_definition.md",
+      "async-client/operations/describe_container_group_port_mappings.md",
+      "async-client/operations/describe_ec2_instance_limits.md",
+      "async-client/operations/describe_fleet_attributes.md",
+      "async-client/operations/describe_fleet_capacity.md",
+      "async-client/operations/describe_fleet_deployment.md",
+      "async-client/operations/describe_fleet_events.md",
+      "async-client/operations/describe_fleet_location_attributes.md",
+      "async-client/operations/describe_fleet_location_capacity.md",
+      "async-client/operations/describe_fleet_location_utilization.md",
+      "async-client/operations/describe_fleet_port_settings.md",
+      "async-client/operations/describe_fleet_utilization.md",
+      "async-client/operations/describe_game_server.md",
+      "async-client/operations/describe_game_server_group.md",
+      "async-client/operations/describe_game_server_instances.md",
+      "async-client/operations/describe_game_session_details.md",
+      "async-client/operations/describe_game_session_placement.md",
+      "async-client/operations/describe_game_session_queues.md",
+      "async-client/operations/describe_game_sessions.md",
+      "async-client/operations/describe_instances.md",
+      "async-client/operations/describe_matchmaking.md",
+      "async-client/operations/describe_matchmaking_configurations.md",
+      "async-client/operations/describe_matchmaking_rule_sets.md",
+      "async-client/operations/describe_player_sessions.md",
+      "async-client/operations/describe_runtime_configuration.md",
+      "async-client/operations/describe_scaling_policies.md",
+      "async-client/operations/describe_script.md",
+      "async-client/operations/describe_vpc_peering_authorizations.md",
+      "async-client/operations/describe_vpc_peering_connections.md",
+      "async-client/operations/get_compute_access.md",
+      "async-client/operations/get_compute_auth_token.md",
+      "async-client/operations/get_game_session_log_url.md",
+      "async-client/operations/get_instance_access.md",
+      "async-client/operations/get_player_connection_details.md",
+      "async-client/operations/list_aliases.md",
+      "async-client/operations/list_builds.md",
+      "async-client/operations/list_compute.md",
+      "async-client/operations/list_container_fleets.md",
+      "async-client/operations/list_container_group_definition_versions.md",
+      "async-client/operations/list_container_group_definitions.md",
+      "async-client/operations/list_fleet_deployments.md",
+      "async-client/operations/list_fleets.md",
+      "async-client/operations/list_game_server_groups.md",
+      "async-client/operations/list_game_servers.md",
+      "async-client/operations/list_locations.md",
+      "async-client/operations/list_scripts.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/put_scaling_policy.md",
+      "async-client/operations/register_compute.md",
+      "async-client/operations/register_game_server.md",
+      "async-client/operations/request_upload_credentials.md",
+      "async-client/operations/resolve_alias.md",
+      "async-client/operations/resume_game_server_group.md",
+      "async-client/operations/search_game_sessions.md",
+      "async-client/operations/start_fleet_actions.md",
+      "async-client/operations/start_game_session_placement.md",
+      "async-client/operations/start_match_backfill.md",
+      "async-client/operations/start_matchmaking.md",
+      "async-client/operations/stop_fleet_actions.md",
+      "async-client/operations/stop_game_session_placement.md",
+      "async-client/operations/stop_matchmaking.md",
+      "async-client/operations/suspend_game_server_group.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/terminate_game_session.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_alias.md",
+      "async-client/operations/update_build.md",
+      "async-client/operations/update_container_fleet.md",
+      "async-client/operations/update_container_group_definition.md",
+      "async-client/operations/update_fleet_attributes.md",
+      "async-client/operations/update_fleet_capacity.md",
+      "async-client/operations/update_fleet_port_settings.md",
+      "async-client/operations/update_game_server.md",
+      "async-client/operations/update_game_server_group.md",
+      "async-client/operations/update_game_session.md",
+      "async-client/operations/update_game_session_queue.md",
+      "async-client/operations/update_matchmaking_configuration.md",
+      "async-client/operations/update_runtime_configuration.md",
+      "async-client/operations/update_script.md",
+      "async-client/operations/validate_matchmaking_rule_set.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_fleet_attributes.md",
+      "async-client/paginators/iter_describe_fleet_capacity.md",
+      "async-client/paginators/iter_describe_fleet_events.md",
+      "async-client/paginators/iter_describe_fleet_location_attributes.md",
+      "async-client/paginators/iter_describe_fleet_utilization.md",
+      "async-client/paginators/iter_describe_game_server_instances.md",
+      "async-client/paginators/iter_describe_game_session_details.md",
+      "async-client/paginators/iter_describe_game_session_queues.md",
+      "async-client/paginators/iter_describe_game_sessions.md",
+      "async-client/paginators/iter_describe_instances.md",
+      "async-client/paginators/iter_describe_matchmaking_configurations.md",
+      "async-client/paginators/iter_describe_matchmaking_rule_sets.md",
+      "async-client/paginators/iter_describe_player_sessions.md",
+      "async-client/paginators/iter_describe_scaling_policies.md",
+      "async-client/paginators/iter_list_aliases.md",
+      "async-client/paginators/iter_list_builds.md",
+      "async-client/paginators/iter_list_compute.md",
+      "async-client/paginators/iter_list_container_fleets.md",
+      "async-client/paginators/iter_list_container_group_definition_versions.md",
+      "async-client/paginators/iter_list_container_group_definitions.md",
+      "async-client/paginators/iter_list_fleet_deployments.md",
+      "async-client/paginators/iter_list_fleets.md",
+      "async-client/paginators/iter_list_game_server_groups.md",
+      "async-client/paginators/iter_list_game_servers.md",
+      "async-client/paginators/iter_list_locations.md",
+      "async-client/paginators/iter_list_scripts.md",
+      "async-client/paginators/iter_search_game_sessions.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/FleetCapacityExceededException.md",
+    "errors/GameLiftError.md",
+    "errors/GameSessionFullException.md",
+    "errors/IdempotentParameterMismatchException.md",
+    "errors/InternalServiceException.md",
+    "errors/InvalidFleetStatusException.md",
+    "errors/InvalidGameSessionStatusException.md",
+    "errors/InvalidRequestException.md",
+    "errors/LimitExceededException.md",
+    "errors/NotFoundException.md",
+    "errors/NotReadyException.md",
+    "errors/OutOfCapacityException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/TaggingFailedException.md",
+    "errors/TerminalRoutingStrategyException.md",
+    "errors/UnauthorizedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnsupportedRegionException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_gamelift` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_gamelift.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

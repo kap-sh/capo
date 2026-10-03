@@ -1,0 +1,8 @@
+---
+title: GetStorageLensGroupResult
+---
+
+::: capo_s3_control.types.get_storage_lens_group_result.GetStorageLensGroupResult
+    options:
+      show_source: true
+      merge_init_into_class: false

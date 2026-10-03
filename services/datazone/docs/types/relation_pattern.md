@@ -1,0 +1,8 @@
+---
+title: RelationPattern
+---
+
+::: capo_datazone.types.relation_pattern.RelationPattern
+    options:
+      show_source: true
+      merge_init_into_class: false

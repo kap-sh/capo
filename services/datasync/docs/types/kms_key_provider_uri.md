@@ -1,0 +1,8 @@
+---
+title: KmsKeyProviderUri
+---
+
+::: capo_datasync.types.kms_key_provider_uri.KmsKeyProviderUri
+    options:
+      show_source: true
+      merge_init_into_class: false

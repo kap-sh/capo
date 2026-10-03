@@ -1,0 +1,8 @@
+---
+title: ExperimentDefinitionSnapshot
+---
+
+::: capo_appconfig.types.experiment_definition_snapshot.ExperimentDefinitionSnapshot
+    options:
+      show_source: true
+      merge_init_into_class: false

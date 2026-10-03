@@ -1,0 +1,8 @@
+---
+title: UpdateTrafficPolicyRequest
+---
+
+::: capo_mailmanager.types.update_traffic_policy_request.UpdateTrafficPolicyRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

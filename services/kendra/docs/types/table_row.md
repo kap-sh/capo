@@ -1,0 +1,8 @@
+---
+title: TableRow
+---
+
+::: capo_kendra.types.table_row.TableRow
+    options:
+      show_source: true
+      merge_init_into_class: false

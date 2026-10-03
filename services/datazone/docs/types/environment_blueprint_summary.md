@@ -1,0 +1,8 @@
+---
+title: EnvironmentBlueprintSummary
+---
+
+::: capo_datazone.types.environment_blueprint_summary.EnvironmentBlueprintSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

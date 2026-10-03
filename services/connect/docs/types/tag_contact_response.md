@@ -1,0 +1,8 @@
+---
+title: TagContactResponse
+---
+
+::: capo_connect.types.tag_contact_response.TagContactResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

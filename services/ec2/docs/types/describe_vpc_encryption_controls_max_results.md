@@ -1,0 +1,8 @@
+---
+title: DescribeVpcEncryptionControlsMaxResults
+---
+
+::: capo_ec2.types.describe_vpc_encryption_controls_max_results.DescribeVpcEncryptionControlsMaxResults
+    options:
+      show_source: true
+      merge_init_into_class: false

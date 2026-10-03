@@ -1,0 +1,15 @@
+# Errors
+
+- [AthenaError](AthenaError.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [InvalidRequestException](InvalidRequestException.md)
+- [MetadataException](MetadataException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [SessionAlreadyExistsException](SessionAlreadyExistsException.md)
+- [TooManyRequestsException](TooManyRequestsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

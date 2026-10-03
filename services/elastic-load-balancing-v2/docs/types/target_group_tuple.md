@@ -1,0 +1,8 @@
+---
+title: TargetGroupTuple
+---
+
+::: capo_elastic_load_balancing_v2.types.target_group_tuple.TargetGroupTuple
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: CreateDomainUnitInput
+---
+
+::: capo_datazone.types.create_domain_unit_input.CreateDomainUnitInput
+    options:
+      show_source: true
+      merge_init_into_class: false

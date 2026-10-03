@@ -1,0 +1,8 @@
+---
+title: CompositionRelationshipItem
+---
+
+::: capo_iotsitewise.types.composition_relationship_item.CompositionRelationshipItem
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: RecommendationJobVpcConfig
+---
+
+::: capo_sagemaker.types.recommendation_job_vpc_config.RecommendationJobVpcConfig
+    options:
+      show_source: true
+      merge_init_into_class: false

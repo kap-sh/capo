@@ -1,0 +1,8 @@
+---
+title: OpsAggregatorValueMap
+---
+
+::: capo_ssm.types.ops_aggregator_value_map.OpsAggregatorValueMap
+    options:
+      show_source: true
+      merge_init_into_class: false

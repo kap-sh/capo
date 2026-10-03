@@ -1,0 +1,8 @@
+---
+title: ImageReferrer
+---
+
+::: capo_ecr.types.image_referrer.ImageReferrer
+    options:
+      show_source: true
+      merge_init_into_class: false

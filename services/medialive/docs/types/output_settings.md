@@ -1,0 +1,8 @@
+---
+title: OutputSettings
+---
+
+::: capo_medialive.types.output_settings.OutputSettings
+    options:
+      show_source: true
+      merge_init_into_class: false

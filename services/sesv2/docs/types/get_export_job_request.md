@@ -1,0 +1,8 @@
+---
+title: GetExportJobRequest
+---
+
+::: capo_sesv2.types.get_export_job_request.GetExportJobRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

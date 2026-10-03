@@ -1,0 +1,8 @@
+---
+title: PrefixListAssociationList
+---
+
+::: capo_networkmanager.types.prefix_list_association_list.PrefixListAssociationList
+    options:
+      show_source: true
+      merge_init_into_class: false

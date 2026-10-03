@@ -1,0 +1,8 @@
+---
+title: BandwidthType
+---
+
+::: capo_storage_gateway.types.bandwidth_type.BandwidthType
+    options:
+      show_source: true
+      merge_init_into_class: false

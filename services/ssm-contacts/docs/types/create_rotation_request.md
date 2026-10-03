@@ -1,0 +1,8 @@
+---
+title: CreateRotationRequest
+---
+
+::: capo_ssm_contacts.types.create_rotation_request.CreateRotationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

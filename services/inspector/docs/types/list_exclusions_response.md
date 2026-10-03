@@ -1,0 +1,8 @@
+---
+title: ListExclusionsResponse
+---
+
+::: capo_inspector.types.list_exclusions_response.ListExclusionsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

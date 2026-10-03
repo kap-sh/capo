@@ -1,0 +1,8 @@
+---
+title: Detector
+---
+
+::: capo_frauddetector.types.detector.Detector
+    options:
+      show_source: true
+      merge_init_into_class: false

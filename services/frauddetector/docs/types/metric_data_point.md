@@ -1,0 +1,8 @@
+---
+title: MetricDataPoint
+---
+
+::: capo_frauddetector.types.metric_data_point.MetricDataPoint
+    options:
+      show_source: true
+      merge_init_into_class: false

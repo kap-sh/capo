@@ -1,0 +1,8 @@
+---
+title: RefreshableMode
+---
+
+::: capo_odb.types.refreshable_mode.RefreshableMode
+    options:
+      show_source: true
+      merge_init_into_class: false

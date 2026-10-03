@@ -1,0 +1,8 @@
+---
+title: FleetProxyRules
+---
+
+::: capo_codebuild.types.fleet_proxy_rules.FleetProxyRules
+    options:
+      show_source: true
+      merge_init_into_class: false

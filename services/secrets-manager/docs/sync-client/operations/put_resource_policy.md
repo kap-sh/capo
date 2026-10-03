@@ -1,0 +1,7 @@
+---
+title: put_resource_policy
+---
+
+::: capo_secrets_manager._services.secrets_manager.SecretsManagerClient.put_resource_policy
+    options:
+      show_source: true

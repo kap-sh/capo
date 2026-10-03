@@ -21,3 +21,6 @@ site/
 # Pyodide test run (scripts/test-pyodide.sh)
 .pyodide-venv/
 .pyodide-reqs.txt
+
+# Wrangler state (docs-worker)
+.wrangler/

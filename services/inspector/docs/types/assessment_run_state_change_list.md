@@ -1,0 +1,8 @@
+---
+title: AssessmentRunStateChangeList
+---
+
+::: capo_inspector.types.assessment_run_state_change_list.AssessmentRunStateChangeList
+    options:
+      show_source: true
+      merge_init_into_class: false

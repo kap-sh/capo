@@ -1,0 +1,8 @@
+---
+title: DetectorSummaries
+---
+
+::: capo_iot_events_data.types.detector_summaries.DetectorSummaries
+    options:
+      show_source: true
+      merge_init_into_class: false

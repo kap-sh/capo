@@ -1,0 +1,8 @@
+---
+title: StorediSCSIVolumes
+---
+
+::: capo_storage_gateway.types.storedi_scsi_volumes.StorediSCSIVolumes
+    options:
+      show_source: true
+      merge_init_into_class: false

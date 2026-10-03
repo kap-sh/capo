@@ -1,0 +1,8 @@
+---
+title: CreateDecoderManifestRequest
+---
+
+::: capo_iotfleetwise.types.create_decoder_manifest_request.CreateDecoderManifestRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

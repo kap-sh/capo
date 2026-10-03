@@ -1,0 +1,8 @@
+---
+title: PartitionTransform
+---
+
+::: capo_kinesis.types.partition_transform.PartitionTransform
+    options:
+      show_source: true
+      merge_init_into_class: false

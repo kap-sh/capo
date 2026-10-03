@@ -1,0 +1,16 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [OutpostOfflineException](OutpostOfflineException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [S3OutpostsError](S3OutpostsError.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

@@ -1,0 +1,8 @@
+---
+title: GetResourceEventConfigurationRequest
+---
+
+::: capo_iot_wireless.types.get_resource_event_configuration_request.GetResourceEventConfigurationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

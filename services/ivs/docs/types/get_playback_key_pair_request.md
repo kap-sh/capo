@@ -1,0 +1,8 @@
+---
+title: GetPlaybackKeyPairRequest
+---
+
+::: capo_ivs.types.get_playback_key_pair_request.GetPlaybackKeyPairRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

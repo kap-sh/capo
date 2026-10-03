@@ -1,0 +1,16 @@
+# Errors
+
+- [CloudHSMV2Error](CloudHSMV2Error.md)
+- [CloudHsmAccessDeniedException](CloudHsmAccessDeniedException.md)
+- [CloudHsmInternalFailureException](CloudHsmInternalFailureException.md)
+- [CloudHsmInvalidRequestException](CloudHsmInvalidRequestException.md)
+- [CloudHsmResourceLimitExceededException](CloudHsmResourceLimitExceededException.md)
+- [CloudHsmResourceNotFoundException](CloudHsmResourceNotFoundException.md)
+- [CloudHsmServiceException](CloudHsmServiceException.md)
+- [CloudHsmTagException](CloudHsmTagException.md)
+- [DeserializationError](DeserializationError.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

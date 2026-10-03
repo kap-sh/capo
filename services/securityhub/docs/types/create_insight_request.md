@@ -1,0 +1,8 @@
+---
+title: CreateInsightRequest
+---
+
+::: capo_securityhub.types.create_insight_request.CreateInsightRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: SuccessfulProfileOutboundRequest
+---
+
+::: capo_connectcampaignsv2.types.successful_profile_outbound_request.SuccessfulProfileOutboundRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

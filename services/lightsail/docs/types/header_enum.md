@@ -1,0 +1,8 @@
+---
+title: HeaderEnum
+---
+
+::: capo_lightsail.types.header_enum.HeaderEnum
+    options:
+      show_source: true
+      merge_init_into_class: false

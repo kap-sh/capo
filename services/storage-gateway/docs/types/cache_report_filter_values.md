@@ -1,0 +1,8 @@
+---
+title: CacheReportFilterValues
+---
+
+::: capo_storage_gateway.types.cache_report_filter_values.CacheReportFilterValues
+    options:
+      show_source: true
+      merge_init_into_class: false

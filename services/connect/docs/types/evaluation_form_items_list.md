@@ -1,0 +1,8 @@
+---
+title: EvaluationFormItemsList
+---
+
+::: capo_connect.types.evaluation_form_items_list.EvaluationFormItemsList
+    options:
+      show_source: true
+      merge_init_into_class: false

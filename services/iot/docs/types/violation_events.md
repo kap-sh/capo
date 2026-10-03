@@ -1,0 +1,8 @@
+---
+title: ViolationEvents
+---
+
+::: capo_iot.types.violation_events.ViolationEvents
+    options:
+      show_source: true
+      merge_init_into_class: false

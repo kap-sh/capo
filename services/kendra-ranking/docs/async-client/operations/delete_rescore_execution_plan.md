@@ -1,0 +1,7 @@
+---
+title: delete_rescore_execution_plan
+---
+
+::: capo_kendra_ranking._services.async_kendra_ranking.AsyncKendraRankingClient.delete_rescore_execution_plan
+    options:
+      show_source: true

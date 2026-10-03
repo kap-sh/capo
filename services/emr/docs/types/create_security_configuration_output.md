@@ -1,0 +1,8 @@
+---
+title: CreateSecurityConfigurationOutput
+---
+
+::: capo_emr.types.create_security_configuration_output.CreateSecurityConfigurationOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: AnalysisReports
+---
+
+::: capo_network_firewall.types.analysis_reports.AnalysisReports
+    options:
+      show_source: true
+      merge_init_into_class: false

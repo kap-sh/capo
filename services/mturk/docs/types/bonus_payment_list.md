@@ -1,0 +1,8 @@
+---
+title: BonusPaymentList
+---
+
+::: capo_mturk.types.bonus_payment_list.BonusPaymentList
+    options:
+      show_source: true
+      merge_init_into_class: false

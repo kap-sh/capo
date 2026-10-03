@@ -1,0 +1,8 @@
+---
+title: Gpu
+---
+
+::: capo_compute_optimizer.types.gpu.Gpu
+    options:
+      show_source: true
+      merge_init_into_class: false

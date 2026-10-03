@@ -1,0 +1,8 @@
+---
+title: DynatraceMetadata
+---
+
+::: capo_appflow.types.dynatrace_metadata.DynatraceMetadata
+    options:
+      show_source: true
+      merge_init_into_class: false

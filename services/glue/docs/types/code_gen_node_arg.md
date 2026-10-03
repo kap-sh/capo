@@ -1,0 +1,8 @@
+---
+title: CodeGenNodeArg
+---
+
+::: capo_glue.types.code_gen_node_arg.CodeGenNodeArg
+    options:
+      show_source: true
+      merge_init_into_class: false

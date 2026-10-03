@@ -1,0 +1,8 @@
+---
+title: CaptionDestinationType
+---
+
+::: capo_mediaconvert.types.caption_destination_type.CaptionDestinationType
+    options:
+      show_source: true
+      merge_init_into_class: false

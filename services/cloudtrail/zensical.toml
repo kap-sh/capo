@@ -1,0 +1,397 @@
+[project]
+site_name = "capo-cloudtrail"
+site_description = "Python SDK for AWS Cloudtrail."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "CloudTrailClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/add_tags.md",
+      "sync-client/operations/cancel_query.md",
+      "sync-client/operations/create_channel.md",
+      "sync-client/operations/create_dashboard.md",
+      "sync-client/operations/create_event_data_store.md",
+      "sync-client/operations/create_trail.md",
+      "sync-client/operations/delete_channel.md",
+      "sync-client/operations/delete_dashboard.md",
+      "sync-client/operations/delete_event_data_store.md",
+      "sync-client/operations/delete_resource_policy.md",
+      "sync-client/operations/delete_trail.md",
+      "sync-client/operations/deregister_organization_delegated_admin.md",
+      "sync-client/operations/describe_query.md",
+      "sync-client/operations/describe_trails.md",
+      "sync-client/operations/disable_federation.md",
+      "sync-client/operations/enable_federation.md",
+      "sync-client/operations/generate_query.md",
+      "sync-client/operations/get_channel.md",
+      "sync-client/operations/get_dashboard.md",
+      "sync-client/operations/get_event_configuration.md",
+      "sync-client/operations/get_event_data_store.md",
+      "sync-client/operations/get_event_selectors.md",
+      "sync-client/operations/get_import.md",
+      "sync-client/operations/get_insight_selectors.md",
+      "sync-client/operations/get_query_results.md",
+      "sync-client/operations/get_resource_policy.md",
+      "sync-client/operations/get_trail.md",
+      "sync-client/operations/get_trail_status.md",
+      "sync-client/operations/list_channels.md",
+      "sync-client/operations/list_dashboards.md",
+      "sync-client/operations/list_event_data_stores.md",
+      "sync-client/operations/list_import_failures.md",
+      "sync-client/operations/list_imports.md",
+      "sync-client/operations/list_insights_data.md",
+      "sync-client/operations/list_insights_metric_data.md",
+      "sync-client/operations/list_public_keys.md",
+      "sync-client/operations/list_queries.md",
+      "sync-client/operations/list_tags.md",
+      "sync-client/operations/list_trails.md",
+      "sync-client/operations/lookup_events.md",
+      "sync-client/operations/put_event_configuration.md",
+      "sync-client/operations/put_event_selectors.md",
+      "sync-client/operations/put_insight_selectors.md",
+      "sync-client/operations/put_resource_policy.md",
+      "sync-client/operations/register_organization_delegated_admin.md",
+      "sync-client/operations/remove_tags.md",
+      "sync-client/operations/restore_event_data_store.md",
+      "sync-client/operations/search_sample_queries.md",
+      "sync-client/operations/start_dashboard_refresh.md",
+      "sync-client/operations/start_event_data_store_ingestion.md",
+      "sync-client/operations/start_import.md",
+      "sync-client/operations/start_logging.md",
+      "sync-client/operations/start_query.md",
+      "sync-client/operations/stop_event_data_store_ingestion.md",
+      "sync-client/operations/stop_import.md",
+      "sync-client/operations/stop_logging.md",
+      "sync-client/operations/update_channel.md",
+      "sync-client/operations/update_dashboard.md",
+      "sync-client/operations/update_event_data_store.md",
+      "sync-client/operations/update_trail.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_get_query_results.md",
+      "sync-client/paginators/iter_list_channels.md",
+      "sync-client/paginators/iter_list_event_data_stores.md",
+      "sync-client/paginators/iter_list_import_failures.md",
+      "sync-client/paginators/iter_list_imports.md",
+      "sync-client/paginators/iter_list_insights_data.md",
+      "sync-client/paginators/iter_list_insights_metric_data.md",
+      "sync-client/paginators/iter_list_public_keys.md",
+      "sync-client/paginators/iter_list_queries.md",
+      "sync-client/paginators/iter_list_tags.md",
+      "sync-client/paginators/iter_list_trails.md",
+      "sync-client/paginators/iter_lookup_events.md",
+    ] },
+  ] },
+  { "AsyncCloudTrailClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/add_tags.md",
+      "async-client/operations/cancel_query.md",
+      "async-client/operations/create_channel.md",
+      "async-client/operations/create_dashboard.md",
+      "async-client/operations/create_event_data_store.md",
+      "async-client/operations/create_trail.md",
+      "async-client/operations/delete_channel.md",
+      "async-client/operations/delete_dashboard.md",
+      "async-client/operations/delete_event_data_store.md",
+      "async-client/operations/delete_resource_policy.md",
+      "async-client/operations/delete_trail.md",
+      "async-client/operations/deregister_organization_delegated_admin.md",
+      "async-client/operations/describe_query.md",
+      "async-client/operations/describe_trails.md",
+      "async-client/operations/disable_federation.md",
+      "async-client/operations/enable_federation.md",
+      "async-client/operations/generate_query.md",
+      "async-client/operations/get_channel.md",
+      "async-client/operations/get_dashboard.md",
+      "async-client/operations/get_event_configuration.md",
+      "async-client/operations/get_event_data_store.md",
+      "async-client/operations/get_event_selectors.md",
+      "async-client/operations/get_import.md",
+      "async-client/operations/get_insight_selectors.md",
+      "async-client/operations/get_query_results.md",
+      "async-client/operations/get_resource_policy.md",
+      "async-client/operations/get_trail.md",
+      "async-client/operations/get_trail_status.md",
+      "async-client/operations/list_channels.md",
+      "async-client/operations/list_dashboards.md",
+      "async-client/operations/list_event_data_stores.md",
+      "async-client/operations/list_import_failures.md",
+      "async-client/operations/list_imports.md",
+      "async-client/operations/list_insights_data.md",
+      "async-client/operations/list_insights_metric_data.md",
+      "async-client/operations/list_public_keys.md",
+      "async-client/operations/list_queries.md",
+      "async-client/operations/list_tags.md",
+      "async-client/operations/list_trails.md",
+      "async-client/operations/lookup_events.md",
+      "async-client/operations/put_event_configuration.md",
+      "async-client/operations/put_event_selectors.md",
+      "async-client/operations/put_insight_selectors.md",
+      "async-client/operations/put_resource_policy.md",
+      "async-client/operations/register_organization_delegated_admin.md",
+      "async-client/operations/remove_tags.md",
+      "async-client/operations/restore_event_data_store.md",
+      "async-client/operations/search_sample_queries.md",
+      "async-client/operations/start_dashboard_refresh.md",
+      "async-client/operations/start_event_data_store_ingestion.md",
+      "async-client/operations/start_import.md",
+      "async-client/operations/start_logging.md",
+      "async-client/operations/start_query.md",
+      "async-client/operations/stop_event_data_store_ingestion.md",
+      "async-client/operations/stop_import.md",
+      "async-client/operations/stop_logging.md",
+      "async-client/operations/update_channel.md",
+      "async-client/operations/update_dashboard.md",
+      "async-client/operations/update_event_data_store.md",
+      "async-client/operations/update_trail.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_get_query_results.md",
+      "async-client/paginators/iter_list_channels.md",
+      "async-client/paginators/iter_list_event_data_stores.md",
+      "async-client/paginators/iter_list_import_failures.md",
+      "async-client/paginators/iter_list_imports.md",
+      "async-client/paginators/iter_list_insights_data.md",
+      "async-client/paginators/iter_list_insights_metric_data.md",
+      "async-client/paginators/iter_list_public_keys.md",
+      "async-client/paginators/iter_list_queries.md",
+      "async-client/paginators/iter_list_tags.md",
+      "async-client/paginators/iter_list_trails.md",
+      "async-client/paginators/iter_lookup_events.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/AccountHasOngoingImportException.md",
+    "errors/AccountNotFoundException.md",
+    "errors/AccountNotRegisteredException.md",
+    "errors/AccountRegisteredException.md",
+    "errors/CannotDelegateManagementAccountException.md",
+    "errors/ChannelARNInvalidException.md",
+    "errors/ChannelAlreadyExistsException.md",
+    "errors/ChannelExistsForEDSException.md",
+    "errors/ChannelMaxLimitExceededException.md",
+    "errors/ChannelNotFoundException.md",
+    "errors/CloudTrailARNInvalidException.md",
+    "errors/CloudTrailAccessNotEnabledException.md",
+    "errors/CloudTrailError.md",
+    "errors/CloudTrailInvalidClientTokenIdException.md",
+    "errors/CloudWatchLogsDeliveryUnavailableException.md",
+    "errors/ConcurrentModificationException.md",
+    "errors/ConflictException.md",
+    "errors/DelegatedAdminAccountLimitExceededException.md",
+    "errors/DeserializationError.md",
+    "errors/EventDataStoreARNInvalidException.md",
+    "errors/EventDataStoreAlreadyExistsException.md",
+    "errors/EventDataStoreFederationEnabledException.md",
+    "errors/EventDataStoreHasOngoingImportException.md",
+    "errors/EventDataStoreMaxLimitExceededException.md",
+    "errors/EventDataStoreNotFoundException.md",
+    "errors/EventDataStoreTerminationProtectedException.md",
+    "errors/GenerateResponseException.md",
+    "errors/ImportNotFoundException.md",
+    "errors/InactiveEventDataStoreException.md",
+    "errors/InactiveQueryException.md",
+    "errors/InsightNotEnabledException.md",
+    "errors/InsufficientDependencyServiceAccessPermissionException.md",
+    "errors/InsufficientEncryptionPolicyException.md",
+    "errors/InsufficientIAMAccessPermissionException.md",
+    "errors/InsufficientS3BucketPolicyException.md",
+    "errors/InsufficientSnsTopicPolicyException.md",
+    "errors/InvalidCloudWatchLogsLogGroupArnException.md",
+    "errors/InvalidCloudWatchLogsRoleArnException.md",
+    "errors/InvalidDateRangeException.md",
+    "errors/InvalidEventCategoryException.md",
+    "errors/InvalidEventDataStoreCategoryException.md",
+    "errors/InvalidEventDataStoreStatusException.md",
+    "errors/InvalidEventSelectorsException.md",
+    "errors/InvalidHomeRegionException.md",
+    "errors/InvalidImportSourceException.md",
+    "errors/InvalidInsightSelectorsException.md",
+    "errors/InvalidKmsKeyIdException.md",
+    "errors/InvalidLookupAttributesException.md",
+    "errors/InvalidMaxResultsException.md",
+    "errors/InvalidNextTokenException.md",
+    "errors/InvalidParameterCombinationException.md",
+    "errors/InvalidParameterException.md",
+    "errors/InvalidQueryStatementException.md",
+    "errors/InvalidQueryStatusException.md",
+    "errors/InvalidS3BucketNameException.md",
+    "errors/InvalidS3PrefixException.md",
+    "errors/InvalidSnsTopicNameException.md",
+    "errors/InvalidSourceException.md",
+    "errors/InvalidTagParameterException.md",
+    "errors/InvalidTimeRangeException.md",
+    "errors/InvalidTokenException.md",
+    "errors/InvalidTrailNameException.md",
+    "errors/KmsException.md",
+    "errors/KmsKeyDisabledException.md",
+    "errors/KmsKeyNotFoundException.md",
+    "errors/MaxConcurrentQueriesException.md",
+    "errors/MaximumNumberOfTrailsExceededException.md",
+    "errors/NoManagementAccountSLRExistsException.md",
+    "errors/NotOrganizationManagementAccountException.md",
+    "errors/NotOrganizationMasterAccountException.md",
+    "errors/OperationNotPermittedException.md",
+    "errors/OrganizationNotInAllFeaturesModeException.md",
+    "errors/OrganizationsNotInUseException.md",
+    "errors/QueryIdNotFoundException.md",
+    "errors/ResourceARNNotValidException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/ResourcePolicyNotFoundException.md",
+    "errors/ResourcePolicyNotValidException.md",
+    "errors/ResourceTypeNotSupportedException.md",
+    "errors/S3BucketDoesNotExistException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/TagsLimitExceededException.md",
+    "errors/ThrottlingException.md",
+    "errors/TrailAlreadyExistsException.md",
+    "errors/TrailNotFoundException.md",
+    "errors/TrailNotProvidedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnsupportedOperationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_cloudtrail` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_cloudtrail.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

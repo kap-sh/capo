@@ -1,0 +1,8 @@
+---
+title: FieldFolderMap
+---
+
+::: capo_quicksight.types.field_folder_map.FieldFolderMap
+    options:
+      show_source: true
+      merge_init_into_class: false

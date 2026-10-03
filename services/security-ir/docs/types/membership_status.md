@@ -1,0 +1,8 @@
+---
+title: MembershipStatus
+---
+
+::: capo_security_ir.types.membership_status.MembershipStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

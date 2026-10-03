@@ -1,0 +1,8 @@
+---
+title: GetIdNamespaceInput
+---
+
+::: capo_entityresolution.types.get_id_namespace_input.GetIdNamespaceInput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: AttendeeId
+---
+
+::: capo_connectparticipant.types.attendee_id.AttendeeId
+    options:
+      show_source: true
+      merge_init_into_class: false

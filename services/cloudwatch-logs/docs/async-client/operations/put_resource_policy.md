@@ -1,0 +1,7 @@
+---
+title: put_resource_policy
+---
+
+::: capo_cloudwatch_logs._services.async_cloud_watch_logs.AsyncCloudWatchLogsClient.put_resource_policy
+    options:
+      show_source: true

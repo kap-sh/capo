@@ -1,0 +1,8 @@
+---
+title: PolicyVersionIdentifier
+---
+
+::: capo_iot.types.policy_version_identifier.PolicyVersionIdentifier
+    options:
+      show_source: true
+      merge_init_into_class: false

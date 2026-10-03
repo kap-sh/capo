@@ -1,0 +1,8 @@
+---
+title: InstanceEventWindowTimeRange
+---
+
+::: capo_ec2.types.instance_event_window_time_range.InstanceEventWindowTimeRange
+    options:
+      show_source: true
+      merge_init_into_class: false

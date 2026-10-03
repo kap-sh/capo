@@ -1,0 +1,393 @@
+[project]
+site_name = "capo-service-catalog"
+site_description = "Python SDK for AWS Service Catalog."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "ServiceCatalogClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/accept_portfolio_share.md",
+      "sync-client/operations/associate_budget_with_resource.md",
+      "sync-client/operations/associate_principal_with_portfolio.md",
+      "sync-client/operations/associate_product_with_portfolio.md",
+      "sync-client/operations/associate_service_action_with_provisioning_artifact.md",
+      "sync-client/operations/associate_tag_option_with_resource.md",
+      "sync-client/operations/batch_associate_service_action_with_provisioning_artifact.md",
+      "sync-client/operations/batch_disassociate_service_action_from_provisioning_artifact.md",
+      "sync-client/operations/copy_product.md",
+      "sync-client/operations/create_constraint.md",
+      "sync-client/operations/create_portfolio.md",
+      "sync-client/operations/create_portfolio_share.md",
+      "sync-client/operations/create_product.md",
+      "sync-client/operations/create_provisioned_product_plan.md",
+      "sync-client/operations/create_provisioning_artifact.md",
+      "sync-client/operations/create_service_action.md",
+      "sync-client/operations/create_tag_option.md",
+      "sync-client/operations/delete_constraint.md",
+      "sync-client/operations/delete_portfolio.md",
+      "sync-client/operations/delete_portfolio_share.md",
+      "sync-client/operations/delete_product.md",
+      "sync-client/operations/delete_provisioned_product_plan.md",
+      "sync-client/operations/delete_provisioning_artifact.md",
+      "sync-client/operations/delete_service_action.md",
+      "sync-client/operations/delete_tag_option.md",
+      "sync-client/operations/describe_constraint.md",
+      "sync-client/operations/describe_copy_product_status.md",
+      "sync-client/operations/describe_portfolio.md",
+      "sync-client/operations/describe_portfolio_share_status.md",
+      "sync-client/operations/describe_portfolio_shares.md",
+      "sync-client/operations/describe_product.md",
+      "sync-client/operations/describe_product_as_admin.md",
+      "sync-client/operations/describe_product_view.md",
+      "sync-client/operations/describe_provisioned_product.md",
+      "sync-client/operations/describe_provisioned_product_plan.md",
+      "sync-client/operations/describe_provisioning_artifact.md",
+      "sync-client/operations/describe_provisioning_parameters.md",
+      "sync-client/operations/describe_record.md",
+      "sync-client/operations/describe_service_action.md",
+      "sync-client/operations/describe_service_action_execution_parameters.md",
+      "sync-client/operations/describe_tag_option.md",
+      "sync-client/operations/disable_aws_organizations_access.md",
+      "sync-client/operations/disassociate_budget_from_resource.md",
+      "sync-client/operations/disassociate_principal_from_portfolio.md",
+      "sync-client/operations/disassociate_product_from_portfolio.md",
+      "sync-client/operations/disassociate_service_action_from_provisioning_artifact.md",
+      "sync-client/operations/disassociate_tag_option_from_resource.md",
+      "sync-client/operations/enable_aws_organizations_access.md",
+      "sync-client/operations/execute_provisioned_product_plan.md",
+      "sync-client/operations/execute_provisioned_product_service_action.md",
+      "sync-client/operations/get_aws_organizations_access_status.md",
+      "sync-client/operations/get_provisioned_product_outputs.md",
+      "sync-client/operations/import_as_provisioned_product.md",
+      "sync-client/operations/list_accepted_portfolio_shares.md",
+      "sync-client/operations/list_budgets_for_resource.md",
+      "sync-client/operations/list_constraints_for_portfolio.md",
+      "sync-client/operations/list_launch_paths.md",
+      "sync-client/operations/list_organization_portfolio_access.md",
+      "sync-client/operations/list_portfolio_access.md",
+      "sync-client/operations/list_portfolios.md",
+      "sync-client/operations/list_portfolios_for_product.md",
+      "sync-client/operations/list_principals_for_portfolio.md",
+      "sync-client/operations/list_provisioned_product_plans.md",
+      "sync-client/operations/list_provisioning_artifacts.md",
+      "sync-client/operations/list_provisioning_artifacts_for_service_action.md",
+      "sync-client/operations/list_record_history.md",
+      "sync-client/operations/list_resources_for_tag_option.md",
+      "sync-client/operations/list_service_actions.md",
+      "sync-client/operations/list_service_actions_for_provisioning_artifact.md",
+      "sync-client/operations/list_stack_instances_for_provisioned_product.md",
+      "sync-client/operations/list_tag_options.md",
+      "sync-client/operations/notify_provision_product_engine_workflow_result.md",
+      "sync-client/operations/notify_terminate_provisioned_product_engine_workflow_result.md",
+      "sync-client/operations/notify_update_provisioned_product_engine_workflow_result.md",
+      "sync-client/operations/provision_product.md",
+      "sync-client/operations/reject_portfolio_share.md",
+      "sync-client/operations/scan_provisioned_products.md",
+      "sync-client/operations/search_products.md",
+      "sync-client/operations/search_products_as_admin.md",
+      "sync-client/operations/search_provisioned_products.md",
+      "sync-client/operations/terminate_provisioned_product.md",
+      "sync-client/operations/update_constraint.md",
+      "sync-client/operations/update_portfolio.md",
+      "sync-client/operations/update_portfolio_share.md",
+      "sync-client/operations/update_product.md",
+      "sync-client/operations/update_provisioned_product.md",
+      "sync-client/operations/update_provisioned_product_properties.md",
+      "sync-client/operations/update_provisioning_artifact.md",
+      "sync-client/operations/update_service_action.md",
+      "sync-client/operations/update_tag_option.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_portfolio_shares.md",
+      "sync-client/paginators/iter_get_provisioned_product_outputs.md",
+      "sync-client/paginators/iter_list_accepted_portfolio_shares.md",
+      "sync-client/paginators/iter_list_budgets_for_resource.md",
+      "sync-client/paginators/iter_list_constraints_for_portfolio.md",
+      "sync-client/paginators/iter_list_launch_paths.md",
+      "sync-client/paginators/iter_list_organization_portfolio_access.md",
+      "sync-client/paginators/iter_list_portfolio_access.md",
+      "sync-client/paginators/iter_list_portfolios.md",
+      "sync-client/paginators/iter_list_portfolios_for_product.md",
+      "sync-client/paginators/iter_list_principals_for_portfolio.md",
+      "sync-client/paginators/iter_list_provisioning_artifacts_for_service_action.md",
+      "sync-client/paginators/iter_list_resources_for_tag_option.md",
+      "sync-client/paginators/iter_list_service_actions.md",
+      "sync-client/paginators/iter_list_service_actions_for_provisioning_artifact.md",
+      "sync-client/paginators/iter_list_tag_options.md",
+      "sync-client/paginators/iter_search_products.md",
+      "sync-client/paginators/iter_search_products_as_admin.md",
+      "sync-client/paginators/iter_search_provisioned_products.md",
+    ] },
+  ] },
+  { "AsyncServiceCatalogClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/accept_portfolio_share.md",
+      "async-client/operations/associate_budget_with_resource.md",
+      "async-client/operations/associate_principal_with_portfolio.md",
+      "async-client/operations/associate_product_with_portfolio.md",
+      "async-client/operations/associate_service_action_with_provisioning_artifact.md",
+      "async-client/operations/associate_tag_option_with_resource.md",
+      "async-client/operations/batch_associate_service_action_with_provisioning_artifact.md",
+      "async-client/operations/batch_disassociate_service_action_from_provisioning_artifact.md",
+      "async-client/operations/copy_product.md",
+      "async-client/operations/create_constraint.md",
+      "async-client/operations/create_portfolio.md",
+      "async-client/operations/create_portfolio_share.md",
+      "async-client/operations/create_product.md",
+      "async-client/operations/create_provisioned_product_plan.md",
+      "async-client/operations/create_provisioning_artifact.md",
+      "async-client/operations/create_service_action.md",
+      "async-client/operations/create_tag_option.md",
+      "async-client/operations/delete_constraint.md",
+      "async-client/operations/delete_portfolio.md",
+      "async-client/operations/delete_portfolio_share.md",
+      "async-client/operations/delete_product.md",
+      "async-client/operations/delete_provisioned_product_plan.md",
+      "async-client/operations/delete_provisioning_artifact.md",
+      "async-client/operations/delete_service_action.md",
+      "async-client/operations/delete_tag_option.md",
+      "async-client/operations/describe_constraint.md",
+      "async-client/operations/describe_copy_product_status.md",
+      "async-client/operations/describe_portfolio.md",
+      "async-client/operations/describe_portfolio_share_status.md",
+      "async-client/operations/describe_portfolio_shares.md",
+      "async-client/operations/describe_product.md",
+      "async-client/operations/describe_product_as_admin.md",
+      "async-client/operations/describe_product_view.md",
+      "async-client/operations/describe_provisioned_product.md",
+      "async-client/operations/describe_provisioned_product_plan.md",
+      "async-client/operations/describe_provisioning_artifact.md",
+      "async-client/operations/describe_provisioning_parameters.md",
+      "async-client/operations/describe_record.md",
+      "async-client/operations/describe_service_action.md",
+      "async-client/operations/describe_service_action_execution_parameters.md",
+      "async-client/operations/describe_tag_option.md",
+      "async-client/operations/disable_aws_organizations_access.md",
+      "async-client/operations/disassociate_budget_from_resource.md",
+      "async-client/operations/disassociate_principal_from_portfolio.md",
+      "async-client/operations/disassociate_product_from_portfolio.md",
+      "async-client/operations/disassociate_service_action_from_provisioning_artifact.md",
+      "async-client/operations/disassociate_tag_option_from_resource.md",
+      "async-client/operations/enable_aws_organizations_access.md",
+      "async-client/operations/execute_provisioned_product_plan.md",
+      "async-client/operations/execute_provisioned_product_service_action.md",
+      "async-client/operations/get_aws_organizations_access_status.md",
+      "async-client/operations/get_provisioned_product_outputs.md",
+      "async-client/operations/import_as_provisioned_product.md",
+      "async-client/operations/list_accepted_portfolio_shares.md",
+      "async-client/operations/list_budgets_for_resource.md",
+      "async-client/operations/list_constraints_for_portfolio.md",
+      "async-client/operations/list_launch_paths.md",
+      "async-client/operations/list_organization_portfolio_access.md",
+      "async-client/operations/list_portfolio_access.md",
+      "async-client/operations/list_portfolios.md",
+      "async-client/operations/list_portfolios_for_product.md",
+      "async-client/operations/list_principals_for_portfolio.md",
+      "async-client/operations/list_provisioned_product_plans.md",
+      "async-client/operations/list_provisioning_artifacts.md",
+      "async-client/operations/list_provisioning_artifacts_for_service_action.md",
+      "async-client/operations/list_record_history.md",
+      "async-client/operations/list_resources_for_tag_option.md",
+      "async-client/operations/list_service_actions.md",
+      "async-client/operations/list_service_actions_for_provisioning_artifact.md",
+      "async-client/operations/list_stack_instances_for_provisioned_product.md",
+      "async-client/operations/list_tag_options.md",
+      "async-client/operations/notify_provision_product_engine_workflow_result.md",
+      "async-client/operations/notify_terminate_provisioned_product_engine_workflow_result.md",
+      "async-client/operations/notify_update_provisioned_product_engine_workflow_result.md",
+      "async-client/operations/provision_product.md",
+      "async-client/operations/reject_portfolio_share.md",
+      "async-client/operations/scan_provisioned_products.md",
+      "async-client/operations/search_products.md",
+      "async-client/operations/search_products_as_admin.md",
+      "async-client/operations/search_provisioned_products.md",
+      "async-client/operations/terminate_provisioned_product.md",
+      "async-client/operations/update_constraint.md",
+      "async-client/operations/update_portfolio.md",
+      "async-client/operations/update_portfolio_share.md",
+      "async-client/operations/update_product.md",
+      "async-client/operations/update_provisioned_product.md",
+      "async-client/operations/update_provisioned_product_properties.md",
+      "async-client/operations/update_provisioning_artifact.md",
+      "async-client/operations/update_service_action.md",
+      "async-client/operations/update_tag_option.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_portfolio_shares.md",
+      "async-client/paginators/iter_get_provisioned_product_outputs.md",
+      "async-client/paginators/iter_list_accepted_portfolio_shares.md",
+      "async-client/paginators/iter_list_budgets_for_resource.md",
+      "async-client/paginators/iter_list_constraints_for_portfolio.md",
+      "async-client/paginators/iter_list_launch_paths.md",
+      "async-client/paginators/iter_list_organization_portfolio_access.md",
+      "async-client/paginators/iter_list_portfolio_access.md",
+      "async-client/paginators/iter_list_portfolios.md",
+      "async-client/paginators/iter_list_portfolios_for_product.md",
+      "async-client/paginators/iter_list_principals_for_portfolio.md",
+      "async-client/paginators/iter_list_provisioning_artifacts_for_service_action.md",
+      "async-client/paginators/iter_list_resources_for_tag_option.md",
+      "async-client/paginators/iter_list_service_actions.md",
+      "async-client/paginators/iter_list_service_actions_for_provisioning_artifact.md",
+      "async-client/paginators/iter_list_tag_options.md",
+      "async-client/paginators/iter_search_products.md",
+      "async-client/paginators/iter_search_products_as_admin.md",
+      "async-client/paginators/iter_search_provisioned_products.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/DeserializationError.md",
+    "errors/DuplicateResourceException.md",
+    "errors/InvalidParametersException.md",
+    "errors/InvalidStateException.md",
+    "errors/LimitExceededException.md",
+    "errors/OperationNotSupportedException.md",
+    "errors/ResourceInUseException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceCatalogError.md",
+    "errors/ServiceError.md",
+    "errors/TagOptionNotMigratedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_service_catalog` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_service_catalog.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

@@ -1,0 +1,8 @@
+---
+title: Angle
+---
+
+::: capo_textract.types.angle.Angle
+    options:
+      show_source: true
+      merge_init_into_class: false

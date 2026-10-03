@@ -1,0 +1,8 @@
+---
+title: ClassBTimeout
+---
+
+::: capo_iot_wireless.types.class_b_timeout.ClassBTimeout
+    options:
+      show_source: true
+      merge_init_into_class: false

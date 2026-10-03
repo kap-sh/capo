@@ -1,0 +1,8 @@
+---
+title: BatchCreateWorkloadEstimateUsageItems
+---
+
+::: capo_bcm_pricing_calculator.types.batch_create_workload_estimate_usage_items.BatchCreateWorkloadEstimateUsageItems
+    options:
+      show_source: true
+      merge_init_into_class: false

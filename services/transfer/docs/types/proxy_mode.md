@@ -1,0 +1,8 @@
+---
+title: ProxyMode
+---
+
+::: capo_transfer.types.proxy_mode.ProxyMode
+    options:
+      show_source: true
+      merge_init_into_class: false

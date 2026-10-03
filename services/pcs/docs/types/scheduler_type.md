@@ -1,0 +1,8 @@
+---
+title: SchedulerType
+---
+
+::: capo_pcs.types.scheduler_type.SchedulerType
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: CreateMountTargetRequest
+---
+
+::: capo_efs.types.create_mount_target_request.CreateMountTargetRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

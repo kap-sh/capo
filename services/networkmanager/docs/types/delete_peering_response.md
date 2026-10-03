@@ -1,0 +1,8 @@
+---
+title: DeletePeeringResponse
+---
+
+::: capo_networkmanager.types.delete_peering_response.DeletePeeringResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

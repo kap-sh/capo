@@ -1,0 +1,8 @@
+---
+title: EventsConfiguration
+---
+
+::: capo_chime.types.events_configuration.EventsConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

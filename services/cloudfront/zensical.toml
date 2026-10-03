@@ -1,0 +1,687 @@
+[project]
+site_name = "capo-cloudfront"
+site_description = "Python SDK for AWS Cloudfront."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "CloudFrontClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/associate_alias.md",
+      "sync-client/operations/associate_distribution_tenant_web_acl.md",
+      "sync-client/operations/associate_distribution_web_acl.md",
+      "sync-client/operations/copy_distribution.md",
+      "sync-client/operations/create_anycast_ip_list.md",
+      "sync-client/operations/create_cache_policy.md",
+      "sync-client/operations/create_cloud_front_origin_access_identity.md",
+      "sync-client/operations/create_connection_function.md",
+      "sync-client/operations/create_connection_group.md",
+      "sync-client/operations/create_continuous_deployment_policy.md",
+      "sync-client/operations/create_distribution.md",
+      "sync-client/operations/create_distribution_tenant.md",
+      "sync-client/operations/create_distribution_with_tags.md",
+      "sync-client/operations/create_field_level_encryption_config.md",
+      "sync-client/operations/create_field_level_encryption_profile.md",
+      "sync-client/operations/create_function.md",
+      "sync-client/operations/create_invalidation.md",
+      "sync-client/operations/create_invalidation_for_distribution_tenant.md",
+      "sync-client/operations/create_key_group.md",
+      "sync-client/operations/create_key_value_store.md",
+      "sync-client/operations/create_monitoring_subscription.md",
+      "sync-client/operations/create_origin_access_control.md",
+      "sync-client/operations/create_origin_request_policy.md",
+      "sync-client/operations/create_public_key.md",
+      "sync-client/operations/create_realtime_log_config.md",
+      "sync-client/operations/create_response_headers_policy.md",
+      "sync-client/operations/create_streaming_distribution.md",
+      "sync-client/operations/create_streaming_distribution_with_tags.md",
+      "sync-client/operations/create_trust_store.md",
+      "sync-client/operations/create_vpc_origin.md",
+      "sync-client/operations/delete_anycast_ip_list.md",
+      "sync-client/operations/delete_cache_policy.md",
+      "sync-client/operations/delete_cloud_front_origin_access_identity.md",
+      "sync-client/operations/delete_connection_function.md",
+      "sync-client/operations/delete_connection_group.md",
+      "sync-client/operations/delete_continuous_deployment_policy.md",
+      "sync-client/operations/delete_distribution.md",
+      "sync-client/operations/delete_distribution_tenant.md",
+      "sync-client/operations/delete_field_level_encryption_config.md",
+      "sync-client/operations/delete_field_level_encryption_profile.md",
+      "sync-client/operations/delete_function.md",
+      "sync-client/operations/delete_key_group.md",
+      "sync-client/operations/delete_key_value_store.md",
+      "sync-client/operations/delete_monitoring_subscription.md",
+      "sync-client/operations/delete_origin_access_control.md",
+      "sync-client/operations/delete_origin_request_policy.md",
+      "sync-client/operations/delete_public_key.md",
+      "sync-client/operations/delete_realtime_log_config.md",
+      "sync-client/operations/delete_resource_policy.md",
+      "sync-client/operations/delete_response_headers_policy.md",
+      "sync-client/operations/delete_streaming_distribution.md",
+      "sync-client/operations/delete_trust_store.md",
+      "sync-client/operations/delete_vpc_origin.md",
+      "sync-client/operations/describe_connection_function.md",
+      "sync-client/operations/describe_function.md",
+      "sync-client/operations/describe_key_value_store.md",
+      "sync-client/operations/disassociate_distribution_tenant_web_acl.md",
+      "sync-client/operations/disassociate_distribution_web_acl.md",
+      "sync-client/operations/get_anycast_ip_list.md",
+      "sync-client/operations/get_cache_policy.md",
+      "sync-client/operations/get_cache_policy_config.md",
+      "sync-client/operations/get_cloud_front_origin_access_identity.md",
+      "sync-client/operations/get_cloud_front_origin_access_identity_config.md",
+      "sync-client/operations/get_connection_function.md",
+      "sync-client/operations/get_connection_group.md",
+      "sync-client/operations/get_connection_group_by_routing_endpoint.md",
+      "sync-client/operations/get_continuous_deployment_policy.md",
+      "sync-client/operations/get_continuous_deployment_policy_config.md",
+      "sync-client/operations/get_distribution.md",
+      "sync-client/operations/get_distribution_config.md",
+      "sync-client/operations/get_distribution_tenant.md",
+      "sync-client/operations/get_distribution_tenant_by_domain.md",
+      "sync-client/operations/get_field_level_encryption.md",
+      "sync-client/operations/get_field_level_encryption_config.md",
+      "sync-client/operations/get_field_level_encryption_profile.md",
+      "sync-client/operations/get_field_level_encryption_profile_config.md",
+      "sync-client/operations/get_function.md",
+      "sync-client/operations/get_invalidation.md",
+      "sync-client/operations/get_invalidation_for_distribution_tenant.md",
+      "sync-client/operations/get_key_group.md",
+      "sync-client/operations/get_key_group_config.md",
+      "sync-client/operations/get_managed_certificate_details.md",
+      "sync-client/operations/get_monitoring_subscription.md",
+      "sync-client/operations/get_origin_access_control.md",
+      "sync-client/operations/get_origin_access_control_config.md",
+      "sync-client/operations/get_origin_request_policy.md",
+      "sync-client/operations/get_origin_request_policy_config.md",
+      "sync-client/operations/get_public_key.md",
+      "sync-client/operations/get_public_key_config.md",
+      "sync-client/operations/get_realtime_log_config.md",
+      "sync-client/operations/get_resource_policy.md",
+      "sync-client/operations/get_response_headers_policy.md",
+      "sync-client/operations/get_response_headers_policy_config.md",
+      "sync-client/operations/get_streaming_distribution.md",
+      "sync-client/operations/get_streaming_distribution_config.md",
+      "sync-client/operations/get_trust_store.md",
+      "sync-client/operations/get_vpc_origin.md",
+      "sync-client/operations/list_anycast_ip_lists.md",
+      "sync-client/operations/list_cache_policies.md",
+      "sync-client/operations/list_cloud_front_origin_access_identities.md",
+      "sync-client/operations/list_conflicting_aliases.md",
+      "sync-client/operations/list_connection_functions.md",
+      "sync-client/operations/list_connection_groups.md",
+      "sync-client/operations/list_continuous_deployment_policies.md",
+      "sync-client/operations/list_distribution_tenants.md",
+      "sync-client/operations/list_distribution_tenants_by_customization.md",
+      "sync-client/operations/list_distributions.md",
+      "sync-client/operations/list_distributions_by_anycast_ip_list_id.md",
+      "sync-client/operations/list_distributions_by_cache_policy_id.md",
+      "sync-client/operations/list_distributions_by_connection_function.md",
+      "sync-client/operations/list_distributions_by_connection_mode.md",
+      "sync-client/operations/list_distributions_by_key_group.md",
+      "sync-client/operations/list_distributions_by_origin_request_policy_id.md",
+      "sync-client/operations/list_distributions_by_owned_resource.md",
+      "sync-client/operations/list_distributions_by_realtime_log_config.md",
+      "sync-client/operations/list_distributions_by_response_headers_policy_id.md",
+      "sync-client/operations/list_distributions_by_trust_store.md",
+      "sync-client/operations/list_distributions_by_vpc_origin_id.md",
+      "sync-client/operations/list_distributions_by_web_acl_id.md",
+      "sync-client/operations/list_domain_conflicts.md",
+      "sync-client/operations/list_field_level_encryption_configs.md",
+      "sync-client/operations/list_field_level_encryption_profiles.md",
+      "sync-client/operations/list_functions.md",
+      "sync-client/operations/list_invalidations.md",
+      "sync-client/operations/list_invalidations_for_distribution_tenant.md",
+      "sync-client/operations/list_key_groups.md",
+      "sync-client/operations/list_key_value_stores.md",
+      "sync-client/operations/list_origin_access_controls.md",
+      "sync-client/operations/list_origin_request_policies.md",
+      "sync-client/operations/list_public_keys.md",
+      "sync-client/operations/list_realtime_log_configs.md",
+      "sync-client/operations/list_response_headers_policies.md",
+      "sync-client/operations/list_streaming_distributions.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_trust_stores.md",
+      "sync-client/operations/list_vpc_origins.md",
+      "sync-client/operations/publish_connection_function.md",
+      "sync-client/operations/publish_function.md",
+      "sync-client/operations/put_resource_policy.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/test_connection_function.md",
+      "sync-client/operations/test_function.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_anycast_ip_list.md",
+      "sync-client/operations/update_cache_policy.md",
+      "sync-client/operations/update_cloud_front_origin_access_identity.md",
+      "sync-client/operations/update_connection_function.md",
+      "sync-client/operations/update_connection_group.md",
+      "sync-client/operations/update_continuous_deployment_policy.md",
+      "sync-client/operations/update_distribution.md",
+      "sync-client/operations/update_distribution_tenant.md",
+      "sync-client/operations/update_distribution_with_staging_config.md",
+      "sync-client/operations/update_domain_association.md",
+      "sync-client/operations/update_field_level_encryption_config.md",
+      "sync-client/operations/update_field_level_encryption_profile.md",
+      "sync-client/operations/update_function.md",
+      "sync-client/operations/update_key_group.md",
+      "sync-client/operations/update_key_value_store.md",
+      "sync-client/operations/update_origin_access_control.md",
+      "sync-client/operations/update_origin_request_policy.md",
+      "sync-client/operations/update_public_key.md",
+      "sync-client/operations/update_realtime_log_config.md",
+      "sync-client/operations/update_response_headers_policy.md",
+      "sync-client/operations/update_streaming_distribution.md",
+      "sync-client/operations/update_trust_store.md",
+      "sync-client/operations/update_vpc_origin.md",
+      "sync-client/operations/verify_dns_configuration.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_cloud_front_origin_access_identities.md",
+      "sync-client/paginators/iter_list_connection_functions.md",
+      "sync-client/paginators/iter_list_connection_groups.md",
+      "sync-client/paginators/iter_list_distribution_tenants.md",
+      "sync-client/paginators/iter_list_distribution_tenants_by_customization.md",
+      "sync-client/paginators/iter_list_distributions.md",
+      "sync-client/paginators/iter_list_distributions_by_connection_function.md",
+      "sync-client/paginators/iter_list_distributions_by_connection_mode.md",
+      "sync-client/paginators/iter_list_distributions_by_trust_store.md",
+      "sync-client/paginators/iter_list_domain_conflicts.md",
+      "sync-client/paginators/iter_list_invalidations.md",
+      "sync-client/paginators/iter_list_invalidations_for_distribution_tenant.md",
+      "sync-client/paginators/iter_list_key_value_stores.md",
+      "sync-client/paginators/iter_list_origin_access_controls.md",
+      "sync-client/paginators/iter_list_public_keys.md",
+      "sync-client/paginators/iter_list_streaming_distributions.md",
+      "sync-client/paginators/iter_list_trust_stores.md",
+    ] },
+  ] },
+  { "AsyncCloudFrontClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/associate_alias.md",
+      "async-client/operations/associate_distribution_tenant_web_acl.md",
+      "async-client/operations/associate_distribution_web_acl.md",
+      "async-client/operations/copy_distribution.md",
+      "async-client/operations/create_anycast_ip_list.md",
+      "async-client/operations/create_cache_policy.md",
+      "async-client/operations/create_cloud_front_origin_access_identity.md",
+      "async-client/operations/create_connection_function.md",
+      "async-client/operations/create_connection_group.md",
+      "async-client/operations/create_continuous_deployment_policy.md",
+      "async-client/operations/create_distribution.md",
+      "async-client/operations/create_distribution_tenant.md",
+      "async-client/operations/create_distribution_with_tags.md",
+      "async-client/operations/create_field_level_encryption_config.md",
+      "async-client/operations/create_field_level_encryption_profile.md",
+      "async-client/operations/create_function.md",
+      "async-client/operations/create_invalidation.md",
+      "async-client/operations/create_invalidation_for_distribution_tenant.md",
+      "async-client/operations/create_key_group.md",
+      "async-client/operations/create_key_value_store.md",
+      "async-client/operations/create_monitoring_subscription.md",
+      "async-client/operations/create_origin_access_control.md",
+      "async-client/operations/create_origin_request_policy.md",
+      "async-client/operations/create_public_key.md",
+      "async-client/operations/create_realtime_log_config.md",
+      "async-client/operations/create_response_headers_policy.md",
+      "async-client/operations/create_streaming_distribution.md",
+      "async-client/operations/create_streaming_distribution_with_tags.md",
+      "async-client/operations/create_trust_store.md",
+      "async-client/operations/create_vpc_origin.md",
+      "async-client/operations/delete_anycast_ip_list.md",
+      "async-client/operations/delete_cache_policy.md",
+      "async-client/operations/delete_cloud_front_origin_access_identity.md",
+      "async-client/operations/delete_connection_function.md",
+      "async-client/operations/delete_connection_group.md",
+      "async-client/operations/delete_continuous_deployment_policy.md",
+      "async-client/operations/delete_distribution.md",
+      "async-client/operations/delete_distribution_tenant.md",
+      "async-client/operations/delete_field_level_encryption_config.md",
+      "async-client/operations/delete_field_level_encryption_profile.md",
+      "async-client/operations/delete_function.md",
+      "async-client/operations/delete_key_group.md",
+      "async-client/operations/delete_key_value_store.md",
+      "async-client/operations/delete_monitoring_subscription.md",
+      "async-client/operations/delete_origin_access_control.md",
+      "async-client/operations/delete_origin_request_policy.md",
+      "async-client/operations/delete_public_key.md",
+      "async-client/operations/delete_realtime_log_config.md",
+      "async-client/operations/delete_resource_policy.md",
+      "async-client/operations/delete_response_headers_policy.md",
+      "async-client/operations/delete_streaming_distribution.md",
+      "async-client/operations/delete_trust_store.md",
+      "async-client/operations/delete_vpc_origin.md",
+      "async-client/operations/describe_connection_function.md",
+      "async-client/operations/describe_function.md",
+      "async-client/operations/describe_key_value_store.md",
+      "async-client/operations/disassociate_distribution_tenant_web_acl.md",
+      "async-client/operations/disassociate_distribution_web_acl.md",
+      "async-client/operations/get_anycast_ip_list.md",
+      "async-client/operations/get_cache_policy.md",
+      "async-client/operations/get_cache_policy_config.md",
+      "async-client/operations/get_cloud_front_origin_access_identity.md",
+      "async-client/operations/get_cloud_front_origin_access_identity_config.md",
+      "async-client/operations/get_connection_function.md",
+      "async-client/operations/get_connection_group.md",
+      "async-client/operations/get_connection_group_by_routing_endpoint.md",
+      "async-client/operations/get_continuous_deployment_policy.md",
+      "async-client/operations/get_continuous_deployment_policy_config.md",
+      "async-client/operations/get_distribution.md",
+      "async-client/operations/get_distribution_config.md",
+      "async-client/operations/get_distribution_tenant.md",
+      "async-client/operations/get_distribution_tenant_by_domain.md",
+      "async-client/operations/get_field_level_encryption.md",
+      "async-client/operations/get_field_level_encryption_config.md",
+      "async-client/operations/get_field_level_encryption_profile.md",
+      "async-client/operations/get_field_level_encryption_profile_config.md",
+      "async-client/operations/get_function.md",
+      "async-client/operations/get_invalidation.md",
+      "async-client/operations/get_invalidation_for_distribution_tenant.md",
+      "async-client/operations/get_key_group.md",
+      "async-client/operations/get_key_group_config.md",
+      "async-client/operations/get_managed_certificate_details.md",
+      "async-client/operations/get_monitoring_subscription.md",
+      "async-client/operations/get_origin_access_control.md",
+      "async-client/operations/get_origin_access_control_config.md",
+      "async-client/operations/get_origin_request_policy.md",
+      "async-client/operations/get_origin_request_policy_config.md",
+      "async-client/operations/get_public_key.md",
+      "async-client/operations/get_public_key_config.md",
+      "async-client/operations/get_realtime_log_config.md",
+      "async-client/operations/get_resource_policy.md",
+      "async-client/operations/get_response_headers_policy.md",
+      "async-client/operations/get_response_headers_policy_config.md",
+      "async-client/operations/get_streaming_distribution.md",
+      "async-client/operations/get_streaming_distribution_config.md",
+      "async-client/operations/get_trust_store.md",
+      "async-client/operations/get_vpc_origin.md",
+      "async-client/operations/list_anycast_ip_lists.md",
+      "async-client/operations/list_cache_policies.md",
+      "async-client/operations/list_cloud_front_origin_access_identities.md",
+      "async-client/operations/list_conflicting_aliases.md",
+      "async-client/operations/list_connection_functions.md",
+      "async-client/operations/list_connection_groups.md",
+      "async-client/operations/list_continuous_deployment_policies.md",
+      "async-client/operations/list_distribution_tenants.md",
+      "async-client/operations/list_distribution_tenants_by_customization.md",
+      "async-client/operations/list_distributions.md",
+      "async-client/operations/list_distributions_by_anycast_ip_list_id.md",
+      "async-client/operations/list_distributions_by_cache_policy_id.md",
+      "async-client/operations/list_distributions_by_connection_function.md",
+      "async-client/operations/list_distributions_by_connection_mode.md",
+      "async-client/operations/list_distributions_by_key_group.md",
+      "async-client/operations/list_distributions_by_origin_request_policy_id.md",
+      "async-client/operations/list_distributions_by_owned_resource.md",
+      "async-client/operations/list_distributions_by_realtime_log_config.md",
+      "async-client/operations/list_distributions_by_response_headers_policy_id.md",
+      "async-client/operations/list_distributions_by_trust_store.md",
+      "async-client/operations/list_distributions_by_vpc_origin_id.md",
+      "async-client/operations/list_distributions_by_web_acl_id.md",
+      "async-client/operations/list_domain_conflicts.md",
+      "async-client/operations/list_field_level_encryption_configs.md",
+      "async-client/operations/list_field_level_encryption_profiles.md",
+      "async-client/operations/list_functions.md",
+      "async-client/operations/list_invalidations.md",
+      "async-client/operations/list_invalidations_for_distribution_tenant.md",
+      "async-client/operations/list_key_groups.md",
+      "async-client/operations/list_key_value_stores.md",
+      "async-client/operations/list_origin_access_controls.md",
+      "async-client/operations/list_origin_request_policies.md",
+      "async-client/operations/list_public_keys.md",
+      "async-client/operations/list_realtime_log_configs.md",
+      "async-client/operations/list_response_headers_policies.md",
+      "async-client/operations/list_streaming_distributions.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_trust_stores.md",
+      "async-client/operations/list_vpc_origins.md",
+      "async-client/operations/publish_connection_function.md",
+      "async-client/operations/publish_function.md",
+      "async-client/operations/put_resource_policy.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/test_connection_function.md",
+      "async-client/operations/test_function.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_anycast_ip_list.md",
+      "async-client/operations/update_cache_policy.md",
+      "async-client/operations/update_cloud_front_origin_access_identity.md",
+      "async-client/operations/update_connection_function.md",
+      "async-client/operations/update_connection_group.md",
+      "async-client/operations/update_continuous_deployment_policy.md",
+      "async-client/operations/update_distribution.md",
+      "async-client/operations/update_distribution_tenant.md",
+      "async-client/operations/update_distribution_with_staging_config.md",
+      "async-client/operations/update_domain_association.md",
+      "async-client/operations/update_field_level_encryption_config.md",
+      "async-client/operations/update_field_level_encryption_profile.md",
+      "async-client/operations/update_function.md",
+      "async-client/operations/update_key_group.md",
+      "async-client/operations/update_key_value_store.md",
+      "async-client/operations/update_origin_access_control.md",
+      "async-client/operations/update_origin_request_policy.md",
+      "async-client/operations/update_public_key.md",
+      "async-client/operations/update_realtime_log_config.md",
+      "async-client/operations/update_response_headers_policy.md",
+      "async-client/operations/update_streaming_distribution.md",
+      "async-client/operations/update_trust_store.md",
+      "async-client/operations/update_vpc_origin.md",
+      "async-client/operations/verify_dns_configuration.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_cloud_front_origin_access_identities.md",
+      "async-client/paginators/iter_list_connection_functions.md",
+      "async-client/paginators/iter_list_connection_groups.md",
+      "async-client/paginators/iter_list_distribution_tenants.md",
+      "async-client/paginators/iter_list_distribution_tenants_by_customization.md",
+      "async-client/paginators/iter_list_distributions.md",
+      "async-client/paginators/iter_list_distributions_by_connection_function.md",
+      "async-client/paginators/iter_list_distributions_by_connection_mode.md",
+      "async-client/paginators/iter_list_distributions_by_trust_store.md",
+      "async-client/paginators/iter_list_domain_conflicts.md",
+      "async-client/paginators/iter_list_invalidations.md",
+      "async-client/paginators/iter_list_invalidations_for_distribution_tenant.md",
+      "async-client/paginators/iter_list_key_value_stores.md",
+      "async-client/paginators/iter_list_origin_access_controls.md",
+      "async-client/paginators/iter_list_public_keys.md",
+      "async-client/paginators/iter_list_streaming_distributions.md",
+      "async-client/paginators/iter_list_trust_stores.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDenied.md",
+    "errors/BatchTooLarge.md",
+    "errors/CNAMEAlreadyExists.md",
+    "errors/CachePolicyAlreadyExists.md",
+    "errors/CachePolicyInUse.md",
+    "errors/CannotChangeImmutablePublicKeyFields.md",
+    "errors/CannotDeleteEntityWhileInUse.md",
+    "errors/CannotUpdateEntityWhileInUse.md",
+    "errors/CloudFrontError.md",
+    "errors/CloudFrontOriginAccessIdentityAlreadyExists.md",
+    "errors/CloudFrontOriginAccessIdentityInUse.md",
+    "errors/ContinuousDeploymentPolicyAlreadyExists.md",
+    "errors/ContinuousDeploymentPolicyInUse.md",
+    "errors/DeserializationError.md",
+    "errors/DistributionAlreadyExists.md",
+    "errors/DistributionNotDisabled.md",
+    "errors/EntityAlreadyExists.md",
+    "errors/EntityLimitExceeded.md",
+    "errors/EntityNotFound.md",
+    "errors/EntitySizeLimitExceeded.md",
+    "errors/FieldLevelEncryptionConfigAlreadyExists.md",
+    "errors/FieldLevelEncryptionConfigInUse.md",
+    "errors/FieldLevelEncryptionProfileAlreadyExists.md",
+    "errors/FieldLevelEncryptionProfileInUse.md",
+    "errors/FieldLevelEncryptionProfileSizeExceeded.md",
+    "errors/FunctionAlreadyExists.md",
+    "errors/FunctionInUse.md",
+    "errors/FunctionSizeLimitExceeded.md",
+    "errors/IllegalDelete.md",
+    "errors/IllegalFieldLevelEncryptionConfigAssociationWithCacheBehavior.md",
+    "errors/IllegalOriginAccessConfiguration.md",
+    "errors/IllegalUpdate.md",
+    "errors/InconsistentQuantities.md",
+    "errors/InvalidArgument.md",
+    "errors/InvalidAssociation.md",
+    "errors/InvalidDefaultRootObject.md",
+    "errors/InvalidDomainNameForOriginAccessControl.md",
+    "errors/InvalidErrorCode.md",
+    "errors/InvalidForwardCookies.md",
+    "errors/InvalidFunctionAssociation.md",
+    "errors/InvalidGeoRestrictionParameter.md",
+    "errors/InvalidHeadersForS3Origin.md",
+    "errors/InvalidIfMatchVersion.md",
+    "errors/InvalidLambdaFunctionAssociation.md",
+    "errors/InvalidLocationCode.md",
+    "errors/InvalidMinimumProtocolVersion.md",
+    "errors/InvalidOrigin.md",
+    "errors/InvalidOriginAccessControl.md",
+    "errors/InvalidOriginAccessIdentity.md",
+    "errors/InvalidOriginKeepaliveTimeout.md",
+    "errors/InvalidOriginReadTimeout.md",
+    "errors/InvalidProtocolSettings.md",
+    "errors/InvalidQueryStringParameters.md",
+    "errors/InvalidRelativePath.md",
+    "errors/InvalidRequiredProtocol.md",
+    "errors/InvalidResponseCode.md",
+    "errors/InvalidTTLOrder.md",
+    "errors/InvalidTagging.md",
+    "errors/InvalidViewerCertificate.md",
+    "errors/InvalidWebACLId.md",
+    "errors/KeyGroupAlreadyExists.md",
+    "errors/MissingBody.md",
+    "errors/MonitoringSubscriptionAlreadyExists.md",
+    "errors/NoSuchCachePolicy.md",
+    "errors/NoSuchCloudFrontOriginAccessIdentity.md",
+    "errors/NoSuchContinuousDeploymentPolicy.md",
+    "errors/NoSuchDistribution.md",
+    "errors/NoSuchFieldLevelEncryptionConfig.md",
+    "errors/NoSuchFieldLevelEncryptionProfile.md",
+    "errors/NoSuchFunctionExists.md",
+    "errors/NoSuchInvalidation.md",
+    "errors/NoSuchMonitoringSubscription.md",
+    "errors/NoSuchOrigin.md",
+    "errors/NoSuchOriginAccessControl.md",
+    "errors/NoSuchOriginRequestPolicy.md",
+    "errors/NoSuchPublicKey.md",
+    "errors/NoSuchRealtimeLogConfig.md",
+    "errors/NoSuchResource.md",
+    "errors/NoSuchResponseHeadersPolicy.md",
+    "errors/NoSuchStreamingDistribution.md",
+    "errors/OriginAccessControlAlreadyExists.md",
+    "errors/OriginAccessControlInUse.md",
+    "errors/OriginRequestPolicyAlreadyExists.md",
+    "errors/OriginRequestPolicyInUse.md",
+    "errors/PreconditionFailed.md",
+    "errors/PublicKeyAlreadyExists.md",
+    "errors/PublicKeyInUse.md",
+    "errors/QueryArgProfileEmpty.md",
+    "errors/RealtimeLogConfigAlreadyExists.md",
+    "errors/RealtimeLogConfigInUse.md",
+    "errors/RealtimeLogConfigOwnerMismatch.md",
+    "errors/ResourceInUse.md",
+    "errors/ResourceNotDisabled.md",
+    "errors/ResponseHeadersPolicyAlreadyExists.md",
+    "errors/ResponseHeadersPolicyInUse.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/StagingDistributionInUse.md",
+    "errors/StreamingDistributionAlreadyExists.md",
+    "errors/StreamingDistributionNotDisabled.md",
+    "errors/TestFunctionFailed.md",
+    "errors/TooLongCSPInResponseHeadersPolicy.md",
+    "errors/TooManyCacheBehaviors.md",
+    "errors/TooManyCachePolicies.md",
+    "errors/TooManyCertificates.md",
+    "errors/TooManyCloudFrontOriginAccessIdentities.md",
+    "errors/TooManyContinuousDeploymentPolicies.md",
+    "errors/TooManyCookieNamesInWhiteList.md",
+    "errors/TooManyCookiesInCachePolicy.md",
+    "errors/TooManyCookiesInOriginRequestPolicy.md",
+    "errors/TooManyCustomHeadersInResponseHeadersPolicy.md",
+    "errors/TooManyDistributionCNAMEs.md",
+    "errors/TooManyDistributions.md",
+    "errors/TooManyDistributionsAssociatedToCachePolicy.md",
+    "errors/TooManyDistributionsAssociatedToFieldLevelEncryptionConfig.md",
+    "errors/TooManyDistributionsAssociatedToKeyGroup.md",
+    "errors/TooManyDistributionsAssociatedToOriginAccessControl.md",
+    "errors/TooManyDistributionsAssociatedToOriginRequestPolicy.md",
+    "errors/TooManyDistributionsAssociatedToResponseHeadersPolicy.md",
+    "errors/TooManyDistributionsWithFunctionAssociations.md",
+    "errors/TooManyDistributionsWithLambdaAssociations.md",
+    "errors/TooManyDistributionsWithSingleFunctionARN.md",
+    "errors/TooManyFieldLevelEncryptionConfigs.md",
+    "errors/TooManyFieldLevelEncryptionContentTypeProfiles.md",
+    "errors/TooManyFieldLevelEncryptionEncryptionEntities.md",
+    "errors/TooManyFieldLevelEncryptionFieldPatterns.md",
+    "errors/TooManyFieldLevelEncryptionProfiles.md",
+    "errors/TooManyFieldLevelEncryptionQueryArgProfiles.md",
+    "errors/TooManyFunctionAssociations.md",
+    "errors/TooManyFunctions.md",
+    "errors/TooManyHeadersInCachePolicy.md",
+    "errors/TooManyHeadersInForwardedValues.md",
+    "errors/TooManyHeadersInOriginRequestPolicy.md",
+    "errors/TooManyInvalidationsInProgress.md",
+    "errors/TooManyKeyGroups.md",
+    "errors/TooManyKeyGroupsAssociatedToDistribution.md",
+    "errors/TooManyLambdaFunctionAssociations.md",
+    "errors/TooManyOriginAccessControls.md",
+    "errors/TooManyOriginCustomHeaders.md",
+    "errors/TooManyOriginGroupsPerDistribution.md",
+    "errors/TooManyOriginRequestPolicies.md",
+    "errors/TooManyOrigins.md",
+    "errors/TooManyPublicKeys.md",
+    "errors/TooManyPublicKeysInKeyGroup.md",
+    "errors/TooManyQueryStringParameters.md",
+    "errors/TooManyQueryStringsInCachePolicy.md",
+    "errors/TooManyQueryStringsInOriginRequestPolicy.md",
+    "errors/TooManyRealtimeLogConfigs.md",
+    "errors/TooManyRemoveHeadersInResponseHeadersPolicy.md",
+    "errors/TooManyResponseHeadersPolicies.md",
+    "errors/TooManyStreamingDistributionCNAMEs.md",
+    "errors/TooManyStreamingDistributions.md",
+    "errors/TooManyTrustedSigners.md",
+    "errors/TrustedKeyGroupDoesNotExist.md",
+    "errors/TrustedSignerDoesNotExist.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnsupportedOperation.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_cloudfront` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_cloudfront.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

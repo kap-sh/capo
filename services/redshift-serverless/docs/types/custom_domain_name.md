@@ -1,0 +1,8 @@
+---
+title: CustomDomainName
+---
+
+::: capo_redshift_serverless.types.custom_domain_name.CustomDomainName
+    options:
+      show_source: true
+      merge_init_into_class: false

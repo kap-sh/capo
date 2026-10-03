@@ -1,0 +1,17 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [BadGatewayException](BadGatewayException.md)
+- [ConflictException](ConflictException.md)
+- [DependencyFailedException](DependencyFailedException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [LexRuntimeV2Error](LexRuntimeV2Error.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

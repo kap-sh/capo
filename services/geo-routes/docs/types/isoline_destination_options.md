@@ -1,0 +1,8 @@
+---
+title: IsolineDestinationOptions
+---
+
+::: capo_geo_routes.types.isoline_destination_options.IsolineDestinationOptions
+    options:
+      show_source: true
+      merge_init_into_class: false

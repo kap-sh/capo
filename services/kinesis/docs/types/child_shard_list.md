@@ -1,0 +1,8 @@
+---
+title: ChildShardList
+---
+
+::: capo_kinesis.types.child_shard_list.ChildShardList
+    options:
+      show_source: true
+      merge_init_into_class: false

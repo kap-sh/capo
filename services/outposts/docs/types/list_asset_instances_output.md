@@ -1,0 +1,8 @@
+---
+title: ListAssetInstancesOutput
+---
+
+::: capo_outposts.types.list_asset_instances_output.ListAssetInstancesOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

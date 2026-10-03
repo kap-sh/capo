@@ -1,0 +1,8 @@
+---
+title: OperationStatusFilter
+---
+
+::: capo_sso_admin.types.operation_status_filter.OperationStatusFilter
+    options:
+      show_source: true
+      merge_init_into_class: false

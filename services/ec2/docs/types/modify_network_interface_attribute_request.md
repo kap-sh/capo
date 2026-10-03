@@ -1,0 +1,8 @@
+---
+title: ModifyNetworkInterfaceAttributeRequest
+---
+
+::: capo_ec2.types.modify_network_interface_attribute_request.ModifyNetworkInterfaceAttributeRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

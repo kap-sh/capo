@@ -1,0 +1,8 @@
+---
+title: service
+---
+
+::: capo_health.types.service.service
+    options:
+      show_source: true
+      merge_init_into_class: false

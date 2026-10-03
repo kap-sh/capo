@@ -1,0 +1,8 @@
+---
+title: AbortCriteriaAction
+---
+
+::: capo_iot_managed_integrations.types.abort_criteria_action.AbortCriteriaAction
+    options:
+      show_source: true
+      merge_init_into_class: false

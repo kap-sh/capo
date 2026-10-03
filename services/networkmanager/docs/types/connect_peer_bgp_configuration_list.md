@@ -1,0 +1,8 @@
+---
+title: ConnectPeerBgpConfigurationList
+---
+
+::: capo_networkmanager.types.connect_peer_bgp_configuration_list.ConnectPeerBgpConfigurationList
+    options:
+      show_source: true
+      merge_init_into_class: false

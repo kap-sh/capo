@@ -1,0 +1,8 @@
+---
+title: RelationDirection
+---
+
+::: capo_datazone.types.relation_direction.RelationDirection
+    options:
+      show_source: true
+      merge_init_into_class: false

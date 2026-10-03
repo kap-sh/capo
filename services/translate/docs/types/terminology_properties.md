@@ -1,0 +1,8 @@
+---
+title: TerminologyProperties
+---
+
+::: capo_translate.types.terminology_properties.TerminologyProperties
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: UpdateRulesOfIpGroupRequest
+---
+
+::: capo_workspaces.types.update_rules_of_ip_group_request.UpdateRulesOfIpGroupRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

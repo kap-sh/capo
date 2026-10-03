@@ -1,0 +1,8 @@
+---
+title: MediaAnalysisS3KeyPrefix
+---
+
+::: capo_rekognition.types.media_analysis_s3_key_prefix.MediaAnalysisS3KeyPrefix
+    options:
+      show_source: true
+      merge_init_into_class: false

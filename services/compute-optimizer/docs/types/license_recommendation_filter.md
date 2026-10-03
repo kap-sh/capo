@@ -1,0 +1,8 @@
+---
+title: LicenseRecommendationFilter
+---
+
+::: capo_compute_optimizer.types.license_recommendation_filter.LicenseRecommendationFilter
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: Suggester
+---
+
+::: capo_cloudsearch_domain.types.suggester.Suggester
+    options:
+      show_source: true
+      merge_init_into_class: false

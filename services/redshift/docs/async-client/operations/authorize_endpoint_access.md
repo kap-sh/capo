@@ -1,0 +1,7 @@
+---
+title: authorize_endpoint_access
+---
+
+::: capo_redshift._services.async_redshift.AsyncRedshiftClient.authorize_endpoint_access
+    options:
+      show_source: true

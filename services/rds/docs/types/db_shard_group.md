@@ -1,0 +1,8 @@
+---
+title: DBShardGroup
+---
+
+::: capo_rds.types.db_shard_group.DBShardGroup
+    options:
+      show_source: true
+      merge_init_into_class: false

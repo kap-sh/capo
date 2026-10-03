@@ -1,0 +1,8 @@
+---
+title: AcceleratorManufacturer
+---
+
+::: capo_ec2.types.accelerator_manufacturer.AcceleratorManufacturer
+    options:
+      show_source: true
+      merge_init_into_class: false

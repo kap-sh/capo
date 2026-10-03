@@ -1,0 +1,8 @@
+---
+title: AwsJobAbortConfig
+---
+
+::: capo_iot.types.aws_job_abort_config.AwsJobAbortConfig
+    options:
+      show_source: true
+      merge_init_into_class: false

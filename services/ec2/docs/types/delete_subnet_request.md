@@ -1,0 +1,8 @@
+---
+title: DeleteSubnetRequest
+---
+
+::: capo_ec2.types.delete_subnet_request.DeleteSubnetRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

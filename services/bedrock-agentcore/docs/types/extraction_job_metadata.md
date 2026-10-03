@@ -1,0 +1,8 @@
+---
+title: ExtractionJobMetadata
+---
+
+::: capo_bedrock_agentcore.types.extraction_job_metadata.ExtractionJobMetadata
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: UpdateResourceShareResponse
+---
+
+::: capo_ram.types.update_resource_share_response.UpdateResourceShareResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

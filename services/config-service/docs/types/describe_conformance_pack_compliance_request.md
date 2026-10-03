@@ -1,0 +1,8 @@
+---
+title: DescribeConformancePackComplianceRequest
+---
+
+::: capo_config_service.types.describe_conformance_pack_compliance_request.DescribeConformancePackComplianceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

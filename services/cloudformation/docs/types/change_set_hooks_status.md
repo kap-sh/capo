@@ -1,0 +1,8 @@
+---
+title: ChangeSetHooksStatus
+---
+
+::: capo_cloudformation.types.change_set_hooks_status.ChangeSetHooksStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

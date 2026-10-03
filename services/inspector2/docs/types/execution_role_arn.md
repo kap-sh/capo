@@ -1,0 +1,8 @@
+---
+title: ExecutionRoleArn
+---
+
+::: capo_inspector2.types.execution_role_arn.ExecutionRoleArn
+    options:
+      show_source: true
+      merge_init_into_class: false

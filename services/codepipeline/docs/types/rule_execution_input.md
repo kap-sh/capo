@@ -1,0 +1,8 @@
+---
+title: RuleExecutionInput
+---
+
+::: capo_codepipeline.types.rule_execution_input.RuleExecutionInput
+    options:
+      show_source: true
+      merge_init_into_class: false

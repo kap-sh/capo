@@ -1,0 +1,8 @@
+---
+title: PerformanceFactorReference
+---
+
+::: capo_ec2.types.performance_factor_reference.PerformanceFactorReference
+    options:
+      show_source: true
+      merge_init_into_class: false

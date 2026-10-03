@@ -1,0 +1,8 @@
+---
+title: RoutingRulePriority
+---
+
+::: capo_apigatewayv2.types.routing_rule_priority.RoutingRulePriority
+    options:
+      show_source: true
+      merge_init_into_class: false

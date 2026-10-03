@@ -1,0 +1,8 @@
+---
+title: DescribeSharedResourcesResponse
+---
+
+::: capo_mq.types.describe_shared_resources_response.DescribeSharedResourcesResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

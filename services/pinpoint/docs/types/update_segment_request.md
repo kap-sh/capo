@@ -1,0 +1,8 @@
+---
+title: UpdateSegmentRequest
+---
+
+::: capo_pinpoint.types.update_segment_request.UpdateSegmentRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

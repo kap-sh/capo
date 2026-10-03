@@ -1,0 +1,8 @@
+---
+title: FileShareInfo
+---
+
+::: capo_storage_gateway.types.file_share_info.FileShareInfo
+    options:
+      show_source: true
+      merge_init_into_class: false

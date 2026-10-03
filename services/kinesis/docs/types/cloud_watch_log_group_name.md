@@ -1,0 +1,8 @@
+---
+title: CloudWatchLogGroupName
+---
+
+::: capo_kinesis.types.cloud_watch_log_group_name.CloudWatchLogGroupName
+    options:
+      show_source: true
+      merge_init_into_class: false

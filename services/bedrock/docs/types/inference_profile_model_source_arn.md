@@ -1,0 +1,8 @@
+---
+title: InferenceProfileModelSourceArn
+---
+
+::: capo_bedrock.types.inference_profile_model_source_arn.InferenceProfileModelSourceArn
+    options:
+      show_source: true
+      merge_init_into_class: false

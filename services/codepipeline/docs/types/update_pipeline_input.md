@@ -1,0 +1,8 @@
+---
+title: UpdatePipelineInput
+---
+
+::: capo_codepipeline.types.update_pipeline_input.UpdatePipelineInput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: LocaleName
+---
+
+::: capo_lex_models_v2.types.locale_name.LocaleName
+    options:
+      show_source: true
+      merge_init_into_class: false

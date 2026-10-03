@@ -1,0 +1,7 @@
+---
+title: delete_resource_server
+---
+
+::: capo_cognito_identity_provider._services.cognito_identity_provider.CognitoIdentityProviderClient.delete_resource_server
+    options:
+      show_source: true

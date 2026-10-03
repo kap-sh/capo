@@ -1,0 +1,8 @@
+---
+title: GetConnectionRequest
+---
+
+::: capo_outposts.types.get_connection_request.GetConnectionRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

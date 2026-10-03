@@ -1,0 +1,7 @@
+---
+title: get_knowledge_base
+---
+
+::: capo_bedrock_agent._services.bedrock_agent.BedrockAgentClient.get_knowledge_base
+    options:
+      show_source: true

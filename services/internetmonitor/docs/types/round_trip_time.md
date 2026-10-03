@@ -1,0 +1,8 @@
+---
+title: RoundTripTime
+---
+
+::: capo_internetmonitor.types.round_trip_time.RoundTripTime
+    options:
+      show_source: true
+      merge_init_into_class: false

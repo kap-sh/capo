@@ -1,0 +1,8 @@
+---
+title: OperatorTargetListMember
+---
+
+::: capo_cloudtrail.types.operator_target_list_member.OperatorTargetListMember
+    options:
+      show_source: true
+      merge_init_into_class: false

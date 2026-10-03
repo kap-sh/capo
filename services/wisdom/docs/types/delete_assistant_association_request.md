@@ -1,0 +1,8 @@
+---
+title: DeleteAssistantAssociationRequest
+---
+
+::: capo_wisdom.types.delete_assistant_association_request.DeleteAssistantAssociationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

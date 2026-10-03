@@ -1,0 +1,8 @@
+---
+title: ListOpsItemEventsResponse
+---
+
+::: capo_ssm.types.list_ops_item_events_response.ListOpsItemEventsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

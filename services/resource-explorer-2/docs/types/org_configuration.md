@@ -1,0 +1,8 @@
+---
+title: OrgConfiguration
+---
+
+::: capo_resource_explorer_2.types.org_configuration.OrgConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

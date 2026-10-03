@@ -1,0 +1,8 @@
+---
+title: AssociationDescriptionList
+---
+
+::: capo_ssm.types.association_description_list.AssociationDescriptionList
+    options:
+      show_source: true
+      merge_init_into_class: false

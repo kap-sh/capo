@@ -1,0 +1,8 @@
+---
+title: DnsResolverList
+---
+
+::: capo_quicksight.types.dns_resolver_list.DnsResolverList
+    options:
+      show_source: true
+      merge_init_into_class: false

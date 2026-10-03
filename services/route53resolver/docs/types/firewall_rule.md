@@ -1,0 +1,8 @@
+---
+title: FirewallRule
+---
+
+::: capo_route53resolver.types.firewall_rule.FirewallRule
+    options:
+      show_source: true
+      merge_init_into_class: false

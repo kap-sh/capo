@@ -1,0 +1,8 @@
+---
+title: DocumentValuedMap
+---
+
+::: capo_neptunedata.types.document_valued_map.DocumentValuedMap
+    options:
+      show_source: true
+      merge_init_into_class: false

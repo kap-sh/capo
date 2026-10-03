@@ -1,0 +1,8 @@
+---
+title: WarmupStatus
+---
+
+::: capo_pinpoint_email.types.warmup_status.WarmupStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: JobStatus
+---
+
+::: capo_location.types.job_status.JobStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

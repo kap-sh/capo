@@ -1,0 +1,7 @@
+---
+title: start_medical_scribe_listening_session
+---
+
+::: capo_connecthealth._services.async_connect_health.AsyncConnectHealthClient.start_medical_scribe_listening_session
+    options:
+      show_source: true

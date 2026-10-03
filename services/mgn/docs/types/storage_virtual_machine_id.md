@@ -1,0 +1,8 @@
+---
+title: StorageVirtualMachineId
+---
+
+::: capo_mgn.types.storage_virtual_machine_id.StorageVirtualMachineId
+    options:
+      show_source: true
+      merge_init_into_class: false

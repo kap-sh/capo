@@ -1,0 +1,8 @@
+---
+title: BatchGetFieldList
+---
+
+::: capo_connectcases.types.batch_get_field_list.BatchGetFieldList
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,17 @@
+# Errors
+
+- [BadRequestException](BadRequestException.md)
+- [Cloud9Error](Cloud9Error.md)
+- [ConcurrentAccessException](ConcurrentAccessException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [ForbiddenException](ForbiddenException.md)
+- [InternalServerErrorException](InternalServerErrorException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [NotFoundException](NotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TooManyRequestsException](TooManyRequestsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

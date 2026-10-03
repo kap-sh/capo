@@ -1,0 +1,269 @@
+[project]
+site_name = "capo-codecatalyst"
+site_description = "Python SDK for AWS Codecatalyst."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "CodeCatalystClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/create_access_token.md",
+      "sync-client/operations/create_dev_environment.md",
+      "sync-client/operations/create_project.md",
+      "sync-client/operations/create_source_repository.md",
+      "sync-client/operations/create_source_repository_branch.md",
+      "sync-client/operations/delete_access_token.md",
+      "sync-client/operations/delete_dev_environment.md",
+      "sync-client/operations/delete_project.md",
+      "sync-client/operations/delete_source_repository.md",
+      "sync-client/operations/delete_space.md",
+      "sync-client/operations/get_dev_environment.md",
+      "sync-client/operations/get_project.md",
+      "sync-client/operations/get_source_repository.md",
+      "sync-client/operations/get_source_repository_clone_urls.md",
+      "sync-client/operations/get_space.md",
+      "sync-client/operations/get_subscription.md",
+      "sync-client/operations/get_user_details.md",
+      "sync-client/operations/get_workflow.md",
+      "sync-client/operations/get_workflow_run.md",
+      "sync-client/operations/list_access_tokens.md",
+      "sync-client/operations/list_dev_environment_sessions.md",
+      "sync-client/operations/list_dev_environments.md",
+      "sync-client/operations/list_event_logs.md",
+      "sync-client/operations/list_projects.md",
+      "sync-client/operations/list_source_repositories.md",
+      "sync-client/operations/list_source_repository_branches.md",
+      "sync-client/operations/list_spaces.md",
+      "sync-client/operations/list_workflow_runs.md",
+      "sync-client/operations/list_workflows.md",
+      "sync-client/operations/start_dev_environment.md",
+      "sync-client/operations/start_dev_environment_session.md",
+      "sync-client/operations/start_workflow_run.md",
+      "sync-client/operations/stop_dev_environment.md",
+      "sync-client/operations/stop_dev_environment_session.md",
+      "sync-client/operations/update_dev_environment.md",
+      "sync-client/operations/update_project.md",
+      "sync-client/operations/update_space.md",
+      "sync-client/operations/verify_session.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_access_tokens.md",
+      "sync-client/paginators/iter_list_dev_environment_sessions.md",
+      "sync-client/paginators/iter_list_dev_environments.md",
+      "sync-client/paginators/iter_list_event_logs.md",
+      "sync-client/paginators/iter_list_projects.md",
+      "sync-client/paginators/iter_list_source_repositories.md",
+      "sync-client/paginators/iter_list_source_repository_branches.md",
+      "sync-client/paginators/iter_list_spaces.md",
+      "sync-client/paginators/iter_list_workflow_runs.md",
+      "sync-client/paginators/iter_list_workflows.md",
+    ] },
+  ] },
+  { "AsyncCodeCatalystClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/create_access_token.md",
+      "async-client/operations/create_dev_environment.md",
+      "async-client/operations/create_project.md",
+      "async-client/operations/create_source_repository.md",
+      "async-client/operations/create_source_repository_branch.md",
+      "async-client/operations/delete_access_token.md",
+      "async-client/operations/delete_dev_environment.md",
+      "async-client/operations/delete_project.md",
+      "async-client/operations/delete_source_repository.md",
+      "async-client/operations/delete_space.md",
+      "async-client/operations/get_dev_environment.md",
+      "async-client/operations/get_project.md",
+      "async-client/operations/get_source_repository.md",
+      "async-client/operations/get_source_repository_clone_urls.md",
+      "async-client/operations/get_space.md",
+      "async-client/operations/get_subscription.md",
+      "async-client/operations/get_user_details.md",
+      "async-client/operations/get_workflow.md",
+      "async-client/operations/get_workflow_run.md",
+      "async-client/operations/list_access_tokens.md",
+      "async-client/operations/list_dev_environment_sessions.md",
+      "async-client/operations/list_dev_environments.md",
+      "async-client/operations/list_event_logs.md",
+      "async-client/operations/list_projects.md",
+      "async-client/operations/list_source_repositories.md",
+      "async-client/operations/list_source_repository_branches.md",
+      "async-client/operations/list_spaces.md",
+      "async-client/operations/list_workflow_runs.md",
+      "async-client/operations/list_workflows.md",
+      "async-client/operations/start_dev_environment.md",
+      "async-client/operations/start_dev_environment_session.md",
+      "async-client/operations/start_workflow_run.md",
+      "async-client/operations/stop_dev_environment.md",
+      "async-client/operations/stop_dev_environment_session.md",
+      "async-client/operations/update_dev_environment.md",
+      "async-client/operations/update_project.md",
+      "async-client/operations/update_space.md",
+      "async-client/operations/verify_session.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_access_tokens.md",
+      "async-client/paginators/iter_list_dev_environment_sessions.md",
+      "async-client/paginators/iter_list_dev_environments.md",
+      "async-client/paginators/iter_list_event_logs.md",
+      "async-client/paginators/iter_list_projects.md",
+      "async-client/paginators/iter_list_source_repositories.md",
+      "async-client/paginators/iter_list_source_repository_branches.md",
+      "async-client/paginators/iter_list_spaces.md",
+      "async-client/paginators/iter_list_workflow_runs.md",
+      "async-client/paginators/iter_list_workflows.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/CodeCatalystError.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/ThrottlingException.md",
+    "errors/UnknownServiceError.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_codecatalyst` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_codecatalyst.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

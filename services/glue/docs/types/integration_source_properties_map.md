@@ -1,0 +1,8 @@
+---
+title: IntegrationSourcePropertiesMap
+---
+
+::: capo_glue.types.integration_source_properties_map.IntegrationSourcePropertiesMap
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ListStreamConsumersOutput
+---
+
+::: capo_kinesis.types.list_stream_consumers_output.ListStreamConsumersOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

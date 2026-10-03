@@ -1,0 +1,8 @@
+---
+title: StartLabelDetectionRequest
+---
+
+::: capo_rekognition.types.start_label_detection_request.StartLabelDetectionRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

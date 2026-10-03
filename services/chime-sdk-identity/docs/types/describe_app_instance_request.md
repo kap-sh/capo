@@ -1,0 +1,8 @@
+---
+title: DescribeAppInstanceRequest
+---
+
+::: capo_chime_sdk_identity.types.describe_app_instance_request.DescribeAppInstanceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

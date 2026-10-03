@@ -1,0 +1,17 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [InvalidInputException](InvalidInputException.md)
+- [InvalidNextTokenException](InvalidNextTokenException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [PersonalizeError](PersonalizeError.md)
+- [ResourceAlreadyExistsException](ResourceAlreadyExistsException.md)
+- [ResourceInUseException](ResourceInUseException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TooManyTagKeysException](TooManyTagKeysException.md)
+- [TooManyTagsException](TooManyTagsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

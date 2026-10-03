@@ -1,0 +1,8 @@
+---
+title: IAMRoleArn
+---
+
+::: capo_glue.types.iam_role_arn.IAMRoleArn
+    options:
+      show_source: true
+      merge_init_into_class: false

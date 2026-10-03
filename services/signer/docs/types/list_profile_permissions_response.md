@@ -1,0 +1,8 @@
+---
+title: ListProfilePermissionsResponse
+---
+
+::: capo_signer.types.list_profile_permissions_response.ListProfilePermissionsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: RecommendationOptions
+---
+
+::: capo_compute_optimizer.types.recommendation_options.RecommendationOptions
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: SummaryMode
+---
+
+::: capo_connect.types.summary_mode.SummaryMode
+    options:
+      show_source: true
+      merge_init_into_class: false

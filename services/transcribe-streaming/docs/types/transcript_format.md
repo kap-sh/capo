@@ -1,0 +1,8 @@
+---
+title: TranscriptFormat
+---
+
+::: capo_transcribe_streaming.types.transcript_format.TranscriptFormat
+    options:
+      show_source: true
+      merge_init_into_class: false

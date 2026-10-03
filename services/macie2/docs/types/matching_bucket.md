@@ -1,0 +1,8 @@
+---
+title: MatchingBucket
+---
+
+::: capo_macie2.types.matching_bucket.MatchingBucket
+    options:
+      show_source: true
+      merge_init_into_class: false

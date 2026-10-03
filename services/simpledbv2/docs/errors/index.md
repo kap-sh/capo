@@ -1,0 +1,16 @@
+# Errors
+
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [InvalidNextTokenException](InvalidNextTokenException.md)
+- [InvalidParameterCombinationException](InvalidParameterCombinationException.md)
+- [InvalidParameterValueException](InvalidParameterValueException.md)
+- [NoSuchDomainException](NoSuchDomainException.md)
+- [NoSuchExportException](NoSuchExportException.md)
+- [NumberExportsLimitExceeded](NumberExportsLimitExceeded.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [SimpleDBv2Error](SimpleDBv2Error.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

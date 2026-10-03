@@ -1,0 +1,8 @@
+---
+title: EpssDetails
+---
+
+::: capo_inspector2.types.epss_details.EpssDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

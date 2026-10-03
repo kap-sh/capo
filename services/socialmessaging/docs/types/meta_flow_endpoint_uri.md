@@ -1,0 +1,8 @@
+---
+title: MetaFlowEndpointUri
+---
+
+::: capo_socialmessaging.types.meta_flow_endpoint_uri.MetaFlowEndpointUri
+    options:
+      show_source: true
+      merge_init_into_class: false

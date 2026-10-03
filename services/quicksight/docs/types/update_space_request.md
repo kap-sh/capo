@@ -1,0 +1,8 @@
+---
+title: UpdateSpaceRequest
+---
+
+::: capo_quicksight.types.update_space_request.UpdateSpaceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

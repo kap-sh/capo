@@ -1,0 +1,8 @@
+---
+title: InboundCrossClusterSearchConnectionStatus
+---
+
+::: capo_elasticsearch_service.types.inbound_cross_cluster_search_connection_status.InboundCrossClusterSearchConnectionStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

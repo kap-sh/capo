@@ -1,0 +1,8 @@
+---
+title: ProductionVariantSummaryList
+---
+
+::: capo_sagemaker.types.production_variant_summary_list.ProductionVariantSummaryList
+    options:
+      show_source: true
+      merge_init_into_class: false

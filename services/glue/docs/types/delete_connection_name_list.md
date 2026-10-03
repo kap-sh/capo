@@ -1,0 +1,8 @@
+---
+title: DeleteConnectionNameList
+---
+
+::: capo_glue.types.delete_connection_name_list.DeleteConnectionNameList
+    options:
+      show_source: true
+      merge_init_into_class: false

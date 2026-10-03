@@ -1,0 +1,8 @@
+---
+title: EnableSsoRequest
+---
+
+::: capo_directory_service.types.enable_sso_request.EnableSsoRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

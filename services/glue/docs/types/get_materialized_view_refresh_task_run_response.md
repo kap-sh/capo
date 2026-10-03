@@ -1,0 +1,8 @@
+---
+title: GetMaterializedViewRefreshTaskRunResponse
+---
+
+::: capo_glue.types.get_materialized_view_refresh_task_run_response.GetMaterializedViewRefreshTaskRunResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

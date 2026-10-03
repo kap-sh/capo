@@ -1,0 +1,8 @@
+---
+title: AvcIntraClass
+---
+
+::: capo_mediaconvert.types.avc_intra_class.AvcIntraClass
+    options:
+      show_source: true
+      merge_init_into_class: false

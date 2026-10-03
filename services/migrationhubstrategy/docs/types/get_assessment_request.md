@@ -1,0 +1,8 @@
+---
+title: GetAssessmentRequest
+---
+
+::: capo_migrationhubstrategy.types.get_assessment_request.GetAssessmentRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: DeleteMLTransformResponse
+---
+
+::: capo_glue.types.delete_ml_transform_response.DeleteMLTransformResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

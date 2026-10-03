@@ -1,0 +1,384 @@
+[project]
+site_name = "capo-workspaces"
+site_description = "Python SDK for AWS Workspaces."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "WorkSpacesClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/accept_account_link_invitation.md",
+      "sync-client/operations/associate_connection_alias.md",
+      "sync-client/operations/associate_ip_groups.md",
+      "sync-client/operations/associate_workspace_application.md",
+      "sync-client/operations/authorize_ip_rules.md",
+      "sync-client/operations/copy_workspace_image.md",
+      "sync-client/operations/create_account_link_invitation.md",
+      "sync-client/operations/create_connect_client_add_in.md",
+      "sync-client/operations/create_connection_alias.md",
+      "sync-client/operations/create_ip_group.md",
+      "sync-client/operations/create_standby_workspaces.md",
+      "sync-client/operations/create_tags.md",
+      "sync-client/operations/create_updated_workspace_image.md",
+      "sync-client/operations/create_workspace_bundle.md",
+      "sync-client/operations/create_workspace_image.md",
+      "sync-client/operations/create_workspaces.md",
+      "sync-client/operations/create_workspaces_pool.md",
+      "sync-client/operations/delete_account_link_invitation.md",
+      "sync-client/operations/delete_client_branding.md",
+      "sync-client/operations/delete_connect_client_add_in.md",
+      "sync-client/operations/delete_connection_alias.md",
+      "sync-client/operations/delete_ip_group.md",
+      "sync-client/operations/delete_tags.md",
+      "sync-client/operations/delete_workspace_bundle.md",
+      "sync-client/operations/delete_workspace_image.md",
+      "sync-client/operations/deploy_workspace_applications.md",
+      "sync-client/operations/deregister_workspace_directory.md",
+      "sync-client/operations/describe_account.md",
+      "sync-client/operations/describe_account_modifications.md",
+      "sync-client/operations/describe_application_associations.md",
+      "sync-client/operations/describe_applications.md",
+      "sync-client/operations/describe_bundle_associations.md",
+      "sync-client/operations/describe_client_branding.md",
+      "sync-client/operations/describe_client_properties.md",
+      "sync-client/operations/describe_connect_client_add_ins.md",
+      "sync-client/operations/describe_connection_alias_permissions.md",
+      "sync-client/operations/describe_connection_aliases.md",
+      "sync-client/operations/describe_custom_workspace_image_import.md",
+      "sync-client/operations/describe_image_associations.md",
+      "sync-client/operations/describe_ip_groups.md",
+      "sync-client/operations/describe_tags.md",
+      "sync-client/operations/describe_workspace_associations.md",
+      "sync-client/operations/describe_workspace_bundles.md",
+      "sync-client/operations/describe_workspace_directories.md",
+      "sync-client/operations/describe_workspace_image_permissions.md",
+      "sync-client/operations/describe_workspace_images.md",
+      "sync-client/operations/describe_workspace_snapshots.md",
+      "sync-client/operations/describe_workspaces.md",
+      "sync-client/operations/describe_workspaces_connection_status.md",
+      "sync-client/operations/describe_workspaces_pool_sessions.md",
+      "sync-client/operations/describe_workspaces_pools.md",
+      "sync-client/operations/disassociate_connection_alias.md",
+      "sync-client/operations/disassociate_ip_groups.md",
+      "sync-client/operations/disassociate_workspace_application.md",
+      "sync-client/operations/get_account_link.md",
+      "sync-client/operations/import_client_branding.md",
+      "sync-client/operations/import_custom_workspace_image.md",
+      "sync-client/operations/import_workspace_image.md",
+      "sync-client/operations/list_account_links.md",
+      "sync-client/operations/list_available_management_cidr_ranges.md",
+      "sync-client/operations/migrate_workspace.md",
+      "sync-client/operations/modify_account.md",
+      "sync-client/operations/modify_certificate_based_auth_properties.md",
+      "sync-client/operations/modify_client_properties.md",
+      "sync-client/operations/modify_endpoint_encryption_mode.md",
+      "sync-client/operations/modify_saml_properties.md",
+      "sync-client/operations/modify_selfservice_permissions.md",
+      "sync-client/operations/modify_streaming_properties.md",
+      "sync-client/operations/modify_workspace_access_properties.md",
+      "sync-client/operations/modify_workspace_creation_properties.md",
+      "sync-client/operations/modify_workspace_properties.md",
+      "sync-client/operations/modify_workspace_state.md",
+      "sync-client/operations/reboot_workspaces.md",
+      "sync-client/operations/rebuild_workspaces.md",
+      "sync-client/operations/register_workspace_directory.md",
+      "sync-client/operations/reject_account_link_invitation.md",
+      "sync-client/operations/restore_workspace.md",
+      "sync-client/operations/revoke_ip_rules.md",
+      "sync-client/operations/start_workspaces.md",
+      "sync-client/operations/start_workspaces_pool.md",
+      "sync-client/operations/stop_workspaces.md",
+      "sync-client/operations/stop_workspaces_pool.md",
+      "sync-client/operations/terminate_workspaces.md",
+      "sync-client/operations/terminate_workspaces_pool.md",
+      "sync-client/operations/terminate_workspaces_pool_session.md",
+      "sync-client/operations/update_connect_client_add_in.md",
+      "sync-client/operations/update_connection_alias_permission.md",
+      "sync-client/operations/update_rules_of_ip_group.md",
+      "sync-client/operations/update_workspace_bundle.md",
+      "sync-client/operations/update_workspace_image_permission.md",
+      "sync-client/operations/update_workspaces_pool.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_application_associations.md",
+      "sync-client/paginators/iter_describe_applications.md",
+      "sync-client/paginators/iter_describe_workspace_bundles.md",
+      "sync-client/paginators/iter_describe_workspace_directories.md",
+      "sync-client/paginators/iter_describe_workspaces.md",
+      "sync-client/paginators/iter_list_account_links.md",
+    ] },
+  ] },
+  { "AsyncWorkSpacesClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/accept_account_link_invitation.md",
+      "async-client/operations/associate_connection_alias.md",
+      "async-client/operations/associate_ip_groups.md",
+      "async-client/operations/associate_workspace_application.md",
+      "async-client/operations/authorize_ip_rules.md",
+      "async-client/operations/copy_workspace_image.md",
+      "async-client/operations/create_account_link_invitation.md",
+      "async-client/operations/create_connect_client_add_in.md",
+      "async-client/operations/create_connection_alias.md",
+      "async-client/operations/create_ip_group.md",
+      "async-client/operations/create_standby_workspaces.md",
+      "async-client/operations/create_tags.md",
+      "async-client/operations/create_updated_workspace_image.md",
+      "async-client/operations/create_workspace_bundle.md",
+      "async-client/operations/create_workspace_image.md",
+      "async-client/operations/create_workspaces.md",
+      "async-client/operations/create_workspaces_pool.md",
+      "async-client/operations/delete_account_link_invitation.md",
+      "async-client/operations/delete_client_branding.md",
+      "async-client/operations/delete_connect_client_add_in.md",
+      "async-client/operations/delete_connection_alias.md",
+      "async-client/operations/delete_ip_group.md",
+      "async-client/operations/delete_tags.md",
+      "async-client/operations/delete_workspace_bundle.md",
+      "async-client/operations/delete_workspace_image.md",
+      "async-client/operations/deploy_workspace_applications.md",
+      "async-client/operations/deregister_workspace_directory.md",
+      "async-client/operations/describe_account.md",
+      "async-client/operations/describe_account_modifications.md",
+      "async-client/operations/describe_application_associations.md",
+      "async-client/operations/describe_applications.md",
+      "async-client/operations/describe_bundle_associations.md",
+      "async-client/operations/describe_client_branding.md",
+      "async-client/operations/describe_client_properties.md",
+      "async-client/operations/describe_connect_client_add_ins.md",
+      "async-client/operations/describe_connection_alias_permissions.md",
+      "async-client/operations/describe_connection_aliases.md",
+      "async-client/operations/describe_custom_workspace_image_import.md",
+      "async-client/operations/describe_image_associations.md",
+      "async-client/operations/describe_ip_groups.md",
+      "async-client/operations/describe_tags.md",
+      "async-client/operations/describe_workspace_associations.md",
+      "async-client/operations/describe_workspace_bundles.md",
+      "async-client/operations/describe_workspace_directories.md",
+      "async-client/operations/describe_workspace_image_permissions.md",
+      "async-client/operations/describe_workspace_images.md",
+      "async-client/operations/describe_workspace_snapshots.md",
+      "async-client/operations/describe_workspaces.md",
+      "async-client/operations/describe_workspaces_connection_status.md",
+      "async-client/operations/describe_workspaces_pool_sessions.md",
+      "async-client/operations/describe_workspaces_pools.md",
+      "async-client/operations/disassociate_connection_alias.md",
+      "async-client/operations/disassociate_ip_groups.md",
+      "async-client/operations/disassociate_workspace_application.md",
+      "async-client/operations/get_account_link.md",
+      "async-client/operations/import_client_branding.md",
+      "async-client/operations/import_custom_workspace_image.md",
+      "async-client/operations/import_workspace_image.md",
+      "async-client/operations/list_account_links.md",
+      "async-client/operations/list_available_management_cidr_ranges.md",
+      "async-client/operations/migrate_workspace.md",
+      "async-client/operations/modify_account.md",
+      "async-client/operations/modify_certificate_based_auth_properties.md",
+      "async-client/operations/modify_client_properties.md",
+      "async-client/operations/modify_endpoint_encryption_mode.md",
+      "async-client/operations/modify_saml_properties.md",
+      "async-client/operations/modify_selfservice_permissions.md",
+      "async-client/operations/modify_streaming_properties.md",
+      "async-client/operations/modify_workspace_access_properties.md",
+      "async-client/operations/modify_workspace_creation_properties.md",
+      "async-client/operations/modify_workspace_properties.md",
+      "async-client/operations/modify_workspace_state.md",
+      "async-client/operations/reboot_workspaces.md",
+      "async-client/operations/rebuild_workspaces.md",
+      "async-client/operations/register_workspace_directory.md",
+      "async-client/operations/reject_account_link_invitation.md",
+      "async-client/operations/restore_workspace.md",
+      "async-client/operations/revoke_ip_rules.md",
+      "async-client/operations/start_workspaces.md",
+      "async-client/operations/start_workspaces_pool.md",
+      "async-client/operations/stop_workspaces.md",
+      "async-client/operations/stop_workspaces_pool.md",
+      "async-client/operations/terminate_workspaces.md",
+      "async-client/operations/terminate_workspaces_pool.md",
+      "async-client/operations/terminate_workspaces_pool_session.md",
+      "async-client/operations/update_connect_client_add_in.md",
+      "async-client/operations/update_connection_alias_permission.md",
+      "async-client/operations/update_rules_of_ip_group.md",
+      "async-client/operations/update_workspace_bundle.md",
+      "async-client/operations/update_workspace_image_permission.md",
+      "async-client/operations/update_workspaces_pool.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_application_associations.md",
+      "async-client/paginators/iter_describe_applications.md",
+      "async-client/paginators/iter_describe_workspace_bundles.md",
+      "async-client/paginators/iter_describe_workspace_directories.md",
+      "async-client/paginators/iter_describe_workspaces.md",
+      "async-client/paginators/iter_list_account_links.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/ApplicationNotSupportedException.md",
+    "errors/ComputeNotCompatibleException.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/IncompatibleApplicationsException.md",
+    "errors/InternalServerException.md",
+    "errors/InvalidParameterCombinationException.md",
+    "errors/InvalidParameterValuesException.md",
+    "errors/InvalidResourceStateException.md",
+    "errors/OperatingSystemNotCompatibleException.md",
+    "errors/OperationInProgressException.md",
+    "errors/OperationNotSupportedException.md",
+    "errors/ResourceAlreadyExistsException.md",
+    "errors/ResourceAssociatedException.md",
+    "errors/ResourceCreationFailedException.md",
+    "errors/ResourceInUseException.md",
+    "errors/ResourceLimitExceededException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/ResourceUnavailableException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnsupportedNetworkConfigurationException.md",
+    "errors/UnsupportedWorkspaceConfigurationException.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+    "errors/WorkSpacesError.md",
+    "errors/WorkspacesDefaultRoleNotFoundException.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_workspaces` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_workspaces.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

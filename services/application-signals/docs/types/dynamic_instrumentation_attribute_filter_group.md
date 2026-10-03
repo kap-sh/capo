@@ -1,0 +1,8 @@
+---
+title: DynamicInstrumentationAttributeFilterGroup
+---
+
+::: capo_application_signals.types.dynamic_instrumentation_attribute_filter_group.DynamicInstrumentationAttributeFilterGroup
+    options:
+      show_source: true
+      merge_init_into_class: false

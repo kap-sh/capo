@@ -1,0 +1,8 @@
+---
+title: TaggableResourceArn
+---
+
+::: capo_bedrock_data_automation.types.taggable_resource_arn.TaggableResourceArn
+    options:
+      show_source: true
+      merge_init_into_class: false

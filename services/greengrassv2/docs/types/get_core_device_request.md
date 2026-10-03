@@ -1,0 +1,8 @@
+---
+title: GetCoreDeviceRequest
+---
+
+::: capo_greengrassv2.types.get_core_device_request.GetCoreDeviceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

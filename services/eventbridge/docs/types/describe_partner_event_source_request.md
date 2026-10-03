@@ -1,0 +1,8 @@
+---
+title: DescribePartnerEventSourceRequest
+---
+
+::: capo_eventbridge.types.describe_partner_event_source_request.DescribePartnerEventSourceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

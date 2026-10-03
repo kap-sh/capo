@@ -1,0 +1,8 @@
+---
+title: Period
+---
+
+::: capo_compute_optimizer.types.period.Period
+    options:
+      show_source: true
+      merge_init_into_class: false

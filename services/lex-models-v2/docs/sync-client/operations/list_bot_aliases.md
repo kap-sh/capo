@@ -1,0 +1,7 @@
+---
+title: list_bot_aliases
+---
+
+::: capo_lex_models_v2._services.lex_models_v2.LexModelsV2Client.list_bot_aliases
+    options:
+      show_source: true

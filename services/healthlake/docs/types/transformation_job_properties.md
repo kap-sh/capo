@@ -1,0 +1,8 @@
+---
+title: TransformationJobProperties
+---
+
+::: capo_healthlake.types.transformation_job_properties.TransformationJobProperties
+    options:
+      show_source: true
+      merge_init_into_class: false

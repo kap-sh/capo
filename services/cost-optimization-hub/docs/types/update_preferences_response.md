@@ -1,0 +1,8 @@
+---
+title: UpdatePreferencesResponse
+---
+
+::: capo_cost_optimization_hub.types.update_preferences_response.UpdatePreferencesResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

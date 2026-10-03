@@ -1,0 +1,8 @@
+---
+title: CreateClusterInput
+---
+
+::: capo_docdb_elastic.types.create_cluster_input.CreateClusterInput
+    options:
+      show_source: true
+      merge_init_into_class: false

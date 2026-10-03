@@ -1,0 +1,8 @@
+---
+title: DatadogConnectorProfileCredentials
+---
+
+::: capo_appflow.types.datadog_connector_profile_credentials.DatadogConnectorProfileCredentials
+    options:
+      show_source: true
+      merge_init_into_class: false

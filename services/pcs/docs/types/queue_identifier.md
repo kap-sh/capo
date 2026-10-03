@@ -1,0 +1,8 @@
+---
+title: QueueIdentifier
+---
+
+::: capo_pcs.types.queue_identifier.QueueIdentifier
+    options:
+      show_source: true
+      merge_init_into_class: false

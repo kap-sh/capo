@@ -1,0 +1,8 @@
+---
+title: GetTranscriptionJobRequest
+---
+
+::: capo_transcribe.types.get_transcription_job_request.GetTranscriptionJobRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

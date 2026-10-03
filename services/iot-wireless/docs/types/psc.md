@@ -1,0 +1,8 @@
+---
+title: PSC
+---
+
+::: capo_iot_wireless.types.psc.PSC
+    options:
+      show_source: true
+      merge_init_into_class: false

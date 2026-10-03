@@ -1,0 +1,8 @@
+---
+title: DeletePermissionPolicyRequest
+---
+
+::: capo_wafv2.types.delete_permission_policy_request.DeletePermissionPolicyRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

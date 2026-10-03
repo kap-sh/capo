@@ -1,0 +1,8 @@
+---
+title: GoogleDriveParameters
+---
+
+::: capo_quicksight.types.google_drive_parameters.GoogleDriveParameters
+    options:
+      show_source: true
+      merge_init_into_class: false

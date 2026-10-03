@@ -1,0 +1,8 @@
+---
+title: AwsCredentials
+---
+
+::: capo_finspace_data.types.aws_credentials.AwsCredentials
+    options:
+      show_source: true
+      merge_init_into_class: false

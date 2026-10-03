@@ -1,0 +1,8 @@
+---
+title: CreateProfileResponse
+---
+
+::: capo_b2bi.types.create_profile_response.CreateProfileResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

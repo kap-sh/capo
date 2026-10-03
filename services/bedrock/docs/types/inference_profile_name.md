@@ -1,0 +1,8 @@
+---
+title: InferenceProfileName
+---
+
+::: capo_bedrock.types.inference_profile_name.InferenceProfileName
+    options:
+      show_source: true
+      merge_init_into_class: false

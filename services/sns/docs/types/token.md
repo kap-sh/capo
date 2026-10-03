@@ -1,0 +1,8 @@
+---
+title: token
+---
+
+::: capo_sns.types.token.token
+    options:
+      show_source: true
+      merge_init_into_class: false

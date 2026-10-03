@@ -1,0 +1,8 @@
+---
+title: ExpenseFieldList
+---
+
+::: capo_textract.types.expense_field_list.ExpenseFieldList
+    options:
+      show_source: true
+      merge_init_into_class: false

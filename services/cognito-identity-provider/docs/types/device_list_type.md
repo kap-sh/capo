@@ -1,0 +1,8 @@
+---
+title: DeviceListType
+---
+
+::: capo_cognito_identity_provider.types.device_list_type.DeviceListType
+    options:
+      show_source: true
+      merge_init_into_class: false

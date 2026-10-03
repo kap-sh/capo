@@ -1,0 +1,8 @@
+---
+title: ChangeSetHooks
+---
+
+::: capo_cloudformation.types.change_set_hooks.ChangeSetHooks
+    options:
+      show_source: true
+      merge_init_into_class: false

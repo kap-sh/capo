@@ -1,0 +1,441 @@
+[project]
+site_name = "capo-omics"
+site_description = "Python SDK for AWS Omics."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "OmicsClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/abort_multipart_read_set_upload.md",
+      "sync-client/operations/accept_share.md",
+      "sync-client/operations/batch_delete_read_set.md",
+      "sync-client/operations/cancel_annotation_import_job.md",
+      "sync-client/operations/cancel_run.md",
+      "sync-client/operations/cancel_run_batch.md",
+      "sync-client/operations/cancel_variant_import_job.md",
+      "sync-client/operations/complete_multipart_read_set_upload.md",
+      "sync-client/operations/create_annotation_store.md",
+      "sync-client/operations/create_annotation_store_version.md",
+      "sync-client/operations/create_configuration.md",
+      "sync-client/operations/create_multipart_read_set_upload.md",
+      "sync-client/operations/create_reference_store.md",
+      "sync-client/operations/create_run_cache.md",
+      "sync-client/operations/create_run_group.md",
+      "sync-client/operations/create_sequence_store.md",
+      "sync-client/operations/create_share.md",
+      "sync-client/operations/create_variant_store.md",
+      "sync-client/operations/create_workflow.md",
+      "sync-client/operations/create_workflow_version.md",
+      "sync-client/operations/delete_annotation_store.md",
+      "sync-client/operations/delete_annotation_store_versions.md",
+      "sync-client/operations/delete_batch.md",
+      "sync-client/operations/delete_configuration.md",
+      "sync-client/operations/delete_reference.md",
+      "sync-client/operations/delete_reference_store.md",
+      "sync-client/operations/delete_run.md",
+      "sync-client/operations/delete_run_batch.md",
+      "sync-client/operations/delete_run_cache.md",
+      "sync-client/operations/delete_run_group.md",
+      "sync-client/operations/delete_s3_access_policy.md",
+      "sync-client/operations/delete_sequence_store.md",
+      "sync-client/operations/delete_share.md",
+      "sync-client/operations/delete_variant_store.md",
+      "sync-client/operations/delete_workflow.md",
+      "sync-client/operations/delete_workflow_version.md",
+      "sync-client/operations/get_annotation_import_job.md",
+      "sync-client/operations/get_annotation_store.md",
+      "sync-client/operations/get_annotation_store_version.md",
+      "sync-client/operations/get_batch.md",
+      "sync-client/operations/get_configuration.md",
+      "sync-client/operations/get_read_set.md",
+      "sync-client/operations/get_read_set_activation_job.md",
+      "sync-client/operations/get_read_set_export_job.md",
+      "sync-client/operations/get_read_set_import_job.md",
+      "sync-client/operations/get_read_set_metadata.md",
+      "sync-client/operations/get_reference.md",
+      "sync-client/operations/get_reference_import_job.md",
+      "sync-client/operations/get_reference_metadata.md",
+      "sync-client/operations/get_reference_store.md",
+      "sync-client/operations/get_run.md",
+      "sync-client/operations/get_run_cache.md",
+      "sync-client/operations/get_run_group.md",
+      "sync-client/operations/get_run_task.md",
+      "sync-client/operations/get_s3_access_policy.md",
+      "sync-client/operations/get_sequence_store.md",
+      "sync-client/operations/get_share.md",
+      "sync-client/operations/get_variant_import_job.md",
+      "sync-client/operations/get_variant_store.md",
+      "sync-client/operations/get_workflow.md",
+      "sync-client/operations/get_workflow_version.md",
+      "sync-client/operations/list_annotation_import_jobs.md",
+      "sync-client/operations/list_annotation_store_versions.md",
+      "sync-client/operations/list_annotation_stores.md",
+      "sync-client/operations/list_batch.md",
+      "sync-client/operations/list_configurations.md",
+      "sync-client/operations/list_multipart_read_set_uploads.md",
+      "sync-client/operations/list_read_set_activation_jobs.md",
+      "sync-client/operations/list_read_set_export_jobs.md",
+      "sync-client/operations/list_read_set_import_jobs.md",
+      "sync-client/operations/list_read_set_upload_parts.md",
+      "sync-client/operations/list_read_sets.md",
+      "sync-client/operations/list_reference_import_jobs.md",
+      "sync-client/operations/list_reference_stores.md",
+      "sync-client/operations/list_references.md",
+      "sync-client/operations/list_run_caches.md",
+      "sync-client/operations/list_run_groups.md",
+      "sync-client/operations/list_run_tasks.md",
+      "sync-client/operations/list_runs.md",
+      "sync-client/operations/list_runs_in_batch.md",
+      "sync-client/operations/list_sequence_stores.md",
+      "sync-client/operations/list_shares.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_variant_import_jobs.md",
+      "sync-client/operations/list_variant_stores.md",
+      "sync-client/operations/list_workflow_versions.md",
+      "sync-client/operations/list_workflows.md",
+      "sync-client/operations/put_s3_access_policy.md",
+      "sync-client/operations/start_annotation_import_job.md",
+      "sync-client/operations/start_read_set_activation_job.md",
+      "sync-client/operations/start_read_set_export_job.md",
+      "sync-client/operations/start_read_set_import_job.md",
+      "sync-client/operations/start_reference_import_job.md",
+      "sync-client/operations/start_run.md",
+      "sync-client/operations/start_run_batch.md",
+      "sync-client/operations/start_variant_import_job.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_annotation_store.md",
+      "sync-client/operations/update_annotation_store_version.md",
+      "sync-client/operations/update_run_cache.md",
+      "sync-client/operations/update_run_group.md",
+      "sync-client/operations/update_sequence_store.md",
+      "sync-client/operations/update_variant_store.md",
+      "sync-client/operations/update_workflow.md",
+      "sync-client/operations/update_workflow_version.md",
+      "sync-client/operations/upload_read_set_part.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_annotation_import_jobs.md",
+      "sync-client/paginators/iter_list_annotation_store_versions.md",
+      "sync-client/paginators/iter_list_annotation_stores.md",
+      "sync-client/paginators/iter_list_batch.md",
+      "sync-client/paginators/iter_list_configurations.md",
+      "sync-client/paginators/iter_list_multipart_read_set_uploads.md",
+      "sync-client/paginators/iter_list_read_set_activation_jobs.md",
+      "sync-client/paginators/iter_list_read_set_export_jobs.md",
+      "sync-client/paginators/iter_list_read_set_import_jobs.md",
+      "sync-client/paginators/iter_list_read_set_upload_parts.md",
+      "sync-client/paginators/iter_list_read_sets.md",
+      "sync-client/paginators/iter_list_reference_import_jobs.md",
+      "sync-client/paginators/iter_list_reference_stores.md",
+      "sync-client/paginators/iter_list_references.md",
+      "sync-client/paginators/iter_list_run_caches.md",
+      "sync-client/paginators/iter_list_run_groups.md",
+      "sync-client/paginators/iter_list_run_tasks.md",
+      "sync-client/paginators/iter_list_runs.md",
+      "sync-client/paginators/iter_list_runs_in_batch.md",
+      "sync-client/paginators/iter_list_sequence_stores.md",
+      "sync-client/paginators/iter_list_shares.md",
+      "sync-client/paginators/iter_list_variant_import_jobs.md",
+      "sync-client/paginators/iter_list_variant_stores.md",
+      "sync-client/paginators/iter_list_workflow_versions.md",
+      "sync-client/paginators/iter_list_workflows.md",
+    ] },
+  ] },
+  { "AsyncOmicsClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/abort_multipart_read_set_upload.md",
+      "async-client/operations/accept_share.md",
+      "async-client/operations/batch_delete_read_set.md",
+      "async-client/operations/cancel_annotation_import_job.md",
+      "async-client/operations/cancel_run.md",
+      "async-client/operations/cancel_run_batch.md",
+      "async-client/operations/cancel_variant_import_job.md",
+      "async-client/operations/complete_multipart_read_set_upload.md",
+      "async-client/operations/create_annotation_store.md",
+      "async-client/operations/create_annotation_store_version.md",
+      "async-client/operations/create_configuration.md",
+      "async-client/operations/create_multipart_read_set_upload.md",
+      "async-client/operations/create_reference_store.md",
+      "async-client/operations/create_run_cache.md",
+      "async-client/operations/create_run_group.md",
+      "async-client/operations/create_sequence_store.md",
+      "async-client/operations/create_share.md",
+      "async-client/operations/create_variant_store.md",
+      "async-client/operations/create_workflow.md",
+      "async-client/operations/create_workflow_version.md",
+      "async-client/operations/delete_annotation_store.md",
+      "async-client/operations/delete_annotation_store_versions.md",
+      "async-client/operations/delete_batch.md",
+      "async-client/operations/delete_configuration.md",
+      "async-client/operations/delete_reference.md",
+      "async-client/operations/delete_reference_store.md",
+      "async-client/operations/delete_run.md",
+      "async-client/operations/delete_run_batch.md",
+      "async-client/operations/delete_run_cache.md",
+      "async-client/operations/delete_run_group.md",
+      "async-client/operations/delete_s3_access_policy.md",
+      "async-client/operations/delete_sequence_store.md",
+      "async-client/operations/delete_share.md",
+      "async-client/operations/delete_variant_store.md",
+      "async-client/operations/delete_workflow.md",
+      "async-client/operations/delete_workflow_version.md",
+      "async-client/operations/get_annotation_import_job.md",
+      "async-client/operations/get_annotation_store.md",
+      "async-client/operations/get_annotation_store_version.md",
+      "async-client/operations/get_batch.md",
+      "async-client/operations/get_configuration.md",
+      "async-client/operations/get_read_set.md",
+      "async-client/operations/get_read_set_activation_job.md",
+      "async-client/operations/get_read_set_export_job.md",
+      "async-client/operations/get_read_set_import_job.md",
+      "async-client/operations/get_read_set_metadata.md",
+      "async-client/operations/get_reference.md",
+      "async-client/operations/get_reference_import_job.md",
+      "async-client/operations/get_reference_metadata.md",
+      "async-client/operations/get_reference_store.md",
+      "async-client/operations/get_run.md",
+      "async-client/operations/get_run_cache.md",
+      "async-client/operations/get_run_group.md",
+      "async-client/operations/get_run_task.md",
+      "async-client/operations/get_s3_access_policy.md",
+      "async-client/operations/get_sequence_store.md",
+      "async-client/operations/get_share.md",
+      "async-client/operations/get_variant_import_job.md",
+      "async-client/operations/get_variant_store.md",
+      "async-client/operations/get_workflow.md",
+      "async-client/operations/get_workflow_version.md",
+      "async-client/operations/list_annotation_import_jobs.md",
+      "async-client/operations/list_annotation_store_versions.md",
+      "async-client/operations/list_annotation_stores.md",
+      "async-client/operations/list_batch.md",
+      "async-client/operations/list_configurations.md",
+      "async-client/operations/list_multipart_read_set_uploads.md",
+      "async-client/operations/list_read_set_activation_jobs.md",
+      "async-client/operations/list_read_set_export_jobs.md",
+      "async-client/operations/list_read_set_import_jobs.md",
+      "async-client/operations/list_read_set_upload_parts.md",
+      "async-client/operations/list_read_sets.md",
+      "async-client/operations/list_reference_import_jobs.md",
+      "async-client/operations/list_reference_stores.md",
+      "async-client/operations/list_references.md",
+      "async-client/operations/list_run_caches.md",
+      "async-client/operations/list_run_groups.md",
+      "async-client/operations/list_run_tasks.md",
+      "async-client/operations/list_runs.md",
+      "async-client/operations/list_runs_in_batch.md",
+      "async-client/operations/list_sequence_stores.md",
+      "async-client/operations/list_shares.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_variant_import_jobs.md",
+      "async-client/operations/list_variant_stores.md",
+      "async-client/operations/list_workflow_versions.md",
+      "async-client/operations/list_workflows.md",
+      "async-client/operations/put_s3_access_policy.md",
+      "async-client/operations/start_annotation_import_job.md",
+      "async-client/operations/start_read_set_activation_job.md",
+      "async-client/operations/start_read_set_export_job.md",
+      "async-client/operations/start_read_set_import_job.md",
+      "async-client/operations/start_reference_import_job.md",
+      "async-client/operations/start_run.md",
+      "async-client/operations/start_run_batch.md",
+      "async-client/operations/start_variant_import_job.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_annotation_store.md",
+      "async-client/operations/update_annotation_store_version.md",
+      "async-client/operations/update_run_cache.md",
+      "async-client/operations/update_run_group.md",
+      "async-client/operations/update_sequence_store.md",
+      "async-client/operations/update_variant_store.md",
+      "async-client/operations/update_workflow.md",
+      "async-client/operations/update_workflow_version.md",
+      "async-client/operations/upload_read_set_part.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_annotation_import_jobs.md",
+      "async-client/paginators/iter_list_annotation_store_versions.md",
+      "async-client/paginators/iter_list_annotation_stores.md",
+      "async-client/paginators/iter_list_batch.md",
+      "async-client/paginators/iter_list_configurations.md",
+      "async-client/paginators/iter_list_multipart_read_set_uploads.md",
+      "async-client/paginators/iter_list_read_set_activation_jobs.md",
+      "async-client/paginators/iter_list_read_set_export_jobs.md",
+      "async-client/paginators/iter_list_read_set_import_jobs.md",
+      "async-client/paginators/iter_list_read_set_upload_parts.md",
+      "async-client/paginators/iter_list_read_sets.md",
+      "async-client/paginators/iter_list_reference_import_jobs.md",
+      "async-client/paginators/iter_list_reference_stores.md",
+      "async-client/paginators/iter_list_references.md",
+      "async-client/paginators/iter_list_run_caches.md",
+      "async-client/paginators/iter_list_run_groups.md",
+      "async-client/paginators/iter_list_run_tasks.md",
+      "async-client/paginators/iter_list_runs.md",
+      "async-client/paginators/iter_list_runs_in_batch.md",
+      "async-client/paginators/iter_list_sequence_stores.md",
+      "async-client/paginators/iter_list_shares.md",
+      "async-client/paginators/iter_list_variant_import_jobs.md",
+      "async-client/paginators/iter_list_variant_stores.md",
+      "async-client/paginators/iter_list_workflow_versions.md",
+      "async-client/paginators/iter_list_workflows.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/InternalServerException.md",
+    "errors/NotSupportedOperationException.md",
+    "errors/OmicsError.md",
+    "errors/RangeNotSatisfiableException.md",
+    "errors/RequestTimeoutException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/ThrottlingException.md",
+    "errors/UnknownServiceError.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_omics` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_omics.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

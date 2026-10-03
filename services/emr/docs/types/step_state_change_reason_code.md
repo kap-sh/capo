@@ -1,0 +1,8 @@
+---
+title: StepStateChangeReasonCode
+---
+
+::: capo_emr.types.step_state_change_reason_code.StepStateChangeReasonCode
+    options:
+      show_source: true
+      merge_init_into_class: false

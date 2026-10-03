@@ -1,0 +1,15 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [ForbiddenException](ForbiddenException.md)
+- [InternalServerErrorException](InternalServerErrorException.md)
+- [MediaPackageVodError](MediaPackageVodError.md)
+- [NotFoundException](NotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
+- [TooManyRequestsException](TooManyRequestsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [UnprocessableEntityException](UnprocessableEntityException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

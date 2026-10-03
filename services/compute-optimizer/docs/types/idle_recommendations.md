@@ -1,0 +1,8 @@
+---
+title: IdleRecommendations
+---
+
+::: capo_compute_optimizer.types.idle_recommendations.IdleRecommendations
+    options:
+      show_source: true
+      merge_init_into_class: false

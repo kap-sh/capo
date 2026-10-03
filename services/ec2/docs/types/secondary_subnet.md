@@ -1,0 +1,8 @@
+---
+title: SecondarySubnet
+---
+
+::: capo_ec2.types.secondary_subnet.SecondarySubnet
+    options:
+      show_source: true
+      merge_init_into_class: false

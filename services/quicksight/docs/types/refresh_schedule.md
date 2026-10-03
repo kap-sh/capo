@@ -1,0 +1,8 @@
+---
+title: RefreshSchedule
+---
+
+::: capo_quicksight.types.refresh_schedule.RefreshSchedule
+    options:
+      show_source: true
+      merge_init_into_class: false

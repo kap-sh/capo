@@ -1,0 +1,8 @@
+---
+title: SupportedInRegion
+---
+
+::: capo_ec2.types.supported_in_region.SupportedInRegion
+    options:
+      show_source: true
+      merge_init_into_class: false

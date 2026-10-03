@@ -1,0 +1,17 @@
+# Errors
+
+- [ConcurrentModificationException](ConcurrentModificationException.md)
+- [DeserializationError](DeserializationError.md)
+- [FirehoseError](FirehoseError.md)
+- [InvalidArgumentException](InvalidArgumentException.md)
+- [InvalidKMSResourceException](InvalidKMSResourceException.md)
+- [InvalidSourceException](InvalidSourceException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ResourceInUseException](ResourceInUseException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

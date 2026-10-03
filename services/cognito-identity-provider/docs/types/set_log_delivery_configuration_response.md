@@ -1,0 +1,8 @@
+---
+title: SetLogDeliveryConfigurationResponse
+---
+
+::: capo_cognito_identity_provider.types.set_log_delivery_configuration_response.SetLogDeliveryConfigurationResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

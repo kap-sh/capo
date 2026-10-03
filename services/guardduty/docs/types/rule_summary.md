@@ -1,0 +1,8 @@
+---
+title: RuleSummary
+---
+
+::: capo_guardduty.types.rule_summary.RuleSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

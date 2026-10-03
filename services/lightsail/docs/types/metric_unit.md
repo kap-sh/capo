@@ -1,0 +1,8 @@
+---
+title: MetricUnit
+---
+
+::: capo_lightsail.types.metric_unit.MetricUnit
+    options:
+      show_source: true
+      merge_init_into_class: false

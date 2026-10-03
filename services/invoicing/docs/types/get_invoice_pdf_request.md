@@ -1,0 +1,8 @@
+---
+title: GetInvoicePDFRequest
+---
+
+::: capo_invoicing.types.get_invoice_pdf_request.GetInvoicePDFRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

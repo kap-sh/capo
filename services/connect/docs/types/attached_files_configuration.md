@@ -1,0 +1,8 @@
+---
+title: AttachedFilesConfiguration
+---
+
+::: capo_connect.types.attached_files_configuration.AttachedFilesConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

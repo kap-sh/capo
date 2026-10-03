@@ -1,0 +1,8 @@
+---
+title: StreamProcessingStopSelector
+---
+
+::: capo_rekognition.types.stream_processing_stop_selector.StreamProcessingStopSelector
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,390 @@
+[project]
+site_name = "capo-route-53"
+site_description = "Python SDK for AWS Route 53."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "Route53Client" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/activate_key_signing_key.md",
+      "sync-client/operations/associate_vpc_with_hosted_zone.md",
+      "sync-client/operations/change_cidr_collection.md",
+      "sync-client/operations/change_resource_record_sets.md",
+      "sync-client/operations/change_tags_for_resource.md",
+      "sync-client/operations/create_cidr_collection.md",
+      "sync-client/operations/create_health_check.md",
+      "sync-client/operations/create_hosted_zone.md",
+      "sync-client/operations/create_key_signing_key.md",
+      "sync-client/operations/create_query_logging_config.md",
+      "sync-client/operations/create_reusable_delegation_set.md",
+      "sync-client/operations/create_traffic_policy.md",
+      "sync-client/operations/create_traffic_policy_instance.md",
+      "sync-client/operations/create_traffic_policy_version.md",
+      "sync-client/operations/create_vpc_association_authorization.md",
+      "sync-client/operations/deactivate_key_signing_key.md",
+      "sync-client/operations/delete_cidr_collection.md",
+      "sync-client/operations/delete_health_check.md",
+      "sync-client/operations/delete_hosted_zone.md",
+      "sync-client/operations/delete_key_signing_key.md",
+      "sync-client/operations/delete_query_logging_config.md",
+      "sync-client/operations/delete_reusable_delegation_set.md",
+      "sync-client/operations/delete_traffic_policy.md",
+      "sync-client/operations/delete_traffic_policy_instance.md",
+      "sync-client/operations/delete_vpc_association_authorization.md",
+      "sync-client/operations/disable_hosted_zone_dnssec.md",
+      "sync-client/operations/disassociate_vpc_from_hosted_zone.md",
+      "sync-client/operations/enable_hosted_zone_dnssec.md",
+      "sync-client/operations/get_account_limit.md",
+      "sync-client/operations/get_change.md",
+      "sync-client/operations/get_checker_ip_ranges.md",
+      "sync-client/operations/get_dnssec.md",
+      "sync-client/operations/get_geo_location.md",
+      "sync-client/operations/get_health_check.md",
+      "sync-client/operations/get_health_check_count.md",
+      "sync-client/operations/get_health_check_last_failure_reason.md",
+      "sync-client/operations/get_health_check_status.md",
+      "sync-client/operations/get_hosted_zone.md",
+      "sync-client/operations/get_hosted_zone_count.md",
+      "sync-client/operations/get_hosted_zone_limit.md",
+      "sync-client/operations/get_query_logging_config.md",
+      "sync-client/operations/get_reusable_delegation_set.md",
+      "sync-client/operations/get_reusable_delegation_set_limit.md",
+      "sync-client/operations/get_traffic_policy.md",
+      "sync-client/operations/get_traffic_policy_instance.md",
+      "sync-client/operations/get_traffic_policy_instance_count.md",
+      "sync-client/operations/list_cidr_blocks.md",
+      "sync-client/operations/list_cidr_collections.md",
+      "sync-client/operations/list_cidr_locations.md",
+      "sync-client/operations/list_geo_locations.md",
+      "sync-client/operations/list_health_checks.md",
+      "sync-client/operations/list_hosted_zones.md",
+      "sync-client/operations/list_hosted_zones_by_name.md",
+      "sync-client/operations/list_hosted_zones_by_vpc.md",
+      "sync-client/operations/list_query_logging_configs.md",
+      "sync-client/operations/list_resource_record_sets.md",
+      "sync-client/operations/list_reusable_delegation_sets.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_tags_for_resources.md",
+      "sync-client/operations/list_traffic_policies.md",
+      "sync-client/operations/list_traffic_policy_instances.md",
+      "sync-client/operations/list_traffic_policy_instances_by_hosted_zone.md",
+      "sync-client/operations/list_traffic_policy_instances_by_policy.md",
+      "sync-client/operations/list_traffic_policy_versions.md",
+      "sync-client/operations/list_vpc_association_authorizations.md",
+      "sync-client/operations/test_dns_answer.md",
+      "sync-client/operations/update_health_check.md",
+      "sync-client/operations/update_hosted_zone_comment.md",
+      "sync-client/operations/update_hosted_zone_features.md",
+      "sync-client/operations/update_traffic_policy_comment.md",
+      "sync-client/operations/update_traffic_policy_instance.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_cidr_blocks.md",
+      "sync-client/paginators/iter_list_cidr_collections.md",
+      "sync-client/paginators/iter_list_cidr_locations.md",
+      "sync-client/paginators/iter_list_health_checks.md",
+      "sync-client/paginators/iter_list_hosted_zones.md",
+      "sync-client/paginators/iter_list_query_logging_configs.md",
+    ] },
+  ] },
+  { "AsyncRoute53Client" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/activate_key_signing_key.md",
+      "async-client/operations/associate_vpc_with_hosted_zone.md",
+      "async-client/operations/change_cidr_collection.md",
+      "async-client/operations/change_resource_record_sets.md",
+      "async-client/operations/change_tags_for_resource.md",
+      "async-client/operations/create_cidr_collection.md",
+      "async-client/operations/create_health_check.md",
+      "async-client/operations/create_hosted_zone.md",
+      "async-client/operations/create_key_signing_key.md",
+      "async-client/operations/create_query_logging_config.md",
+      "async-client/operations/create_reusable_delegation_set.md",
+      "async-client/operations/create_traffic_policy.md",
+      "async-client/operations/create_traffic_policy_instance.md",
+      "async-client/operations/create_traffic_policy_version.md",
+      "async-client/operations/create_vpc_association_authorization.md",
+      "async-client/operations/deactivate_key_signing_key.md",
+      "async-client/operations/delete_cidr_collection.md",
+      "async-client/operations/delete_health_check.md",
+      "async-client/operations/delete_hosted_zone.md",
+      "async-client/operations/delete_key_signing_key.md",
+      "async-client/operations/delete_query_logging_config.md",
+      "async-client/operations/delete_reusable_delegation_set.md",
+      "async-client/operations/delete_traffic_policy.md",
+      "async-client/operations/delete_traffic_policy_instance.md",
+      "async-client/operations/delete_vpc_association_authorization.md",
+      "async-client/operations/disable_hosted_zone_dnssec.md",
+      "async-client/operations/disassociate_vpc_from_hosted_zone.md",
+      "async-client/operations/enable_hosted_zone_dnssec.md",
+      "async-client/operations/get_account_limit.md",
+      "async-client/operations/get_change.md",
+      "async-client/operations/get_checker_ip_ranges.md",
+      "async-client/operations/get_dnssec.md",
+      "async-client/operations/get_geo_location.md",
+      "async-client/operations/get_health_check.md",
+      "async-client/operations/get_health_check_count.md",
+      "async-client/operations/get_health_check_last_failure_reason.md",
+      "async-client/operations/get_health_check_status.md",
+      "async-client/operations/get_hosted_zone.md",
+      "async-client/operations/get_hosted_zone_count.md",
+      "async-client/operations/get_hosted_zone_limit.md",
+      "async-client/operations/get_query_logging_config.md",
+      "async-client/operations/get_reusable_delegation_set.md",
+      "async-client/operations/get_reusable_delegation_set_limit.md",
+      "async-client/operations/get_traffic_policy.md",
+      "async-client/operations/get_traffic_policy_instance.md",
+      "async-client/operations/get_traffic_policy_instance_count.md",
+      "async-client/operations/list_cidr_blocks.md",
+      "async-client/operations/list_cidr_collections.md",
+      "async-client/operations/list_cidr_locations.md",
+      "async-client/operations/list_geo_locations.md",
+      "async-client/operations/list_health_checks.md",
+      "async-client/operations/list_hosted_zones.md",
+      "async-client/operations/list_hosted_zones_by_name.md",
+      "async-client/operations/list_hosted_zones_by_vpc.md",
+      "async-client/operations/list_query_logging_configs.md",
+      "async-client/operations/list_resource_record_sets.md",
+      "async-client/operations/list_reusable_delegation_sets.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_tags_for_resources.md",
+      "async-client/operations/list_traffic_policies.md",
+      "async-client/operations/list_traffic_policy_instances.md",
+      "async-client/operations/list_traffic_policy_instances_by_hosted_zone.md",
+      "async-client/operations/list_traffic_policy_instances_by_policy.md",
+      "async-client/operations/list_traffic_policy_versions.md",
+      "async-client/operations/list_vpc_association_authorizations.md",
+      "async-client/operations/test_dns_answer.md",
+      "async-client/operations/update_health_check.md",
+      "async-client/operations/update_hosted_zone_comment.md",
+      "async-client/operations/update_hosted_zone_features.md",
+      "async-client/operations/update_traffic_policy_comment.md",
+      "async-client/operations/update_traffic_policy_instance.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_cidr_blocks.md",
+      "async-client/paginators/iter_list_cidr_collections.md",
+      "async-client/paginators/iter_list_cidr_locations.md",
+      "async-client/paginators/iter_list_health_checks.md",
+      "async-client/paginators/iter_list_hosted_zones.md",
+      "async-client/paginators/iter_list_query_logging_configs.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/CidrBlockInUseException.md",
+    "errors/CidrCollectionAlreadyExistsException.md",
+    "errors/CidrCollectionInUseException.md",
+    "errors/CidrCollectionVersionMismatchException.md",
+    "errors/ConcurrentModification.md",
+    "errors/ConflictingDomainExists.md",
+    "errors/ConflictingTypes.md",
+    "errors/DNSSECNotFound.md",
+    "errors/DelegationSetAlreadyCreated.md",
+    "errors/DelegationSetAlreadyReusable.md",
+    "errors/DelegationSetInUse.md",
+    "errors/DelegationSetNotAvailable.md",
+    "errors/DelegationSetNotReusable.md",
+    "errors/DeserializationError.md",
+    "errors/HealthCheckAlreadyExists.md",
+    "errors/HealthCheckInUse.md",
+    "errors/HealthCheckVersionMismatch.md",
+    "errors/HostedZoneAlreadyExists.md",
+    "errors/HostedZoneNotEmpty.md",
+    "errors/HostedZoneNotFound.md",
+    "errors/HostedZoneNotPrivate.md",
+    "errors/HostedZonePartiallyDelegated.md",
+    "errors/IncompatibleVersion.md",
+    "errors/InsufficientCloudWatchLogsResourcePolicy.md",
+    "errors/InvalidArgument.md",
+    "errors/InvalidChangeBatch.md",
+    "errors/InvalidDomainName.md",
+    "errors/InvalidInput.md",
+    "errors/InvalidKMSArn.md",
+    "errors/InvalidKeySigningKeyName.md",
+    "errors/InvalidKeySigningKeyStatus.md",
+    "errors/InvalidPaginationToken.md",
+    "errors/InvalidSigningStatus.md",
+    "errors/InvalidTrafficPolicyDocument.md",
+    "errors/InvalidVPCId.md",
+    "errors/KeySigningKeyAlreadyExists.md",
+    "errors/KeySigningKeyInParentDSRecord.md",
+    "errors/KeySigningKeyInUse.md",
+    "errors/KeySigningKeyWithActiveStatusNotFound.md",
+    "errors/LastVPCAssociation.md",
+    "errors/LimitsExceeded.md",
+    "errors/NoSuchChange.md",
+    "errors/NoSuchCidrCollectionException.md",
+    "errors/NoSuchCidrLocationException.md",
+    "errors/NoSuchCloudWatchLogsLogGroup.md",
+    "errors/NoSuchDelegationSet.md",
+    "errors/NoSuchGeoLocation.md",
+    "errors/NoSuchHealthCheck.md",
+    "errors/NoSuchHostedZone.md",
+    "errors/NoSuchKeySigningKey.md",
+    "errors/NoSuchQueryLoggingConfig.md",
+    "errors/NoSuchTrafficPolicy.md",
+    "errors/NoSuchTrafficPolicyInstance.md",
+    "errors/NotAuthorizedException.md",
+    "errors/PriorRequestNotComplete.md",
+    "errors/PublicZoneVPCAssociation.md",
+    "errors/QueryLoggingConfigAlreadyExists.md",
+    "errors/Route53Error.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ThrottlingException.md",
+    "errors/TooManyHealthChecks.md",
+    "errors/TooManyHostedZones.md",
+    "errors/TooManyKeySigningKeys.md",
+    "errors/TooManyTrafficPolicies.md",
+    "errors/TooManyTrafficPolicyInstances.md",
+    "errors/TooManyTrafficPolicyVersionsForCurrentPolicy.md",
+    "errors/TooManyVPCAssociationAuthorizations.md",
+    "errors/TrafficPolicyAlreadyExists.md",
+    "errors/TrafficPolicyInUse.md",
+    "errors/TrafficPolicyInstanceAlreadyExists.md",
+    "errors/UnknownServiceError.md",
+    "errors/VPCAssociationAuthorizationNotFound.md",
+    "errors/VPCAssociationNotFound.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_route_53` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_route_53.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

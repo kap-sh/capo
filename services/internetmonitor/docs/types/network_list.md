@@ -1,0 +1,8 @@
+---
+title: NetworkList
+---
+
+::: capo_internetmonitor.types.network_list.NetworkList
+    options:
+      show_source: true
+      merge_init_into_class: false

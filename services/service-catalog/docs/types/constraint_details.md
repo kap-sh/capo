@@ -1,0 +1,8 @@
+---
+title: ConstraintDetails
+---
+
+::: capo_service_catalog.types.constraint_details.ConstraintDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

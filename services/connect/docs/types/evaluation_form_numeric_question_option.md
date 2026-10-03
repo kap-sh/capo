@@ -1,0 +1,8 @@
+---
+title: EvaluationFormNumericQuestionOption
+---
+
+::: capo_connect.types.evaluation_form_numeric_question_option.EvaluationFormNumericQuestionOption
+    options:
+      show_source: true
+      merge_init_into_class: false

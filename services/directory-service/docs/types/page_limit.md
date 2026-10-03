@@ -1,0 +1,8 @@
+---
+title: PageLimit
+---
+
+::: capo_directory_service.types.page_limit.PageLimit
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: VerifiedAttributeType
+---
+
+::: capo_cognito_identity_provider.types.verified_attribute_type.VerifiedAttributeType
+    options:
+      show_source: true
+      merge_init_into_class: false

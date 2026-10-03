@@ -1,0 +1,17 @@
+# Types
+
+- [AccountId](account_id.md)
+- [BucketName](bucket_name.md)
+- [ClientToken](client_token.md)
+- [ConnectionArn](connection_arn.md)
+- [ConnectionRecordingPreferences](connection_recording_preferences.md)
+- [ConnectionToken](connection_token.md)
+- [DeleteConnectionRecordingPreferencesRequest](delete_connection_recording_preferences_request.md)
+- [DeleteConnectionRecordingPreferencesResponse](delete_connection_recording_preferences_response.md)
+- [ErrorMessage](error_message.md)
+- [GetConnectionRecordingPreferencesResponse](get_connection_recording_preferences_response.md)
+- [RecordingDestinations](recording_destinations.md)
+- [S3Bucket](s3_bucket.md)
+- [S3Buckets](s3_buckets.md)
+- [UpdateConnectionRecordingPreferencesRequest](update_connection_recording_preferences_request.md)
+- [UpdateConnectionRecordingPreferencesResponse](update_connection_recording_preferences_response.md)

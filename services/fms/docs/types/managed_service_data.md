@@ -1,0 +1,8 @@
+---
+title: ManagedServiceData
+---
+
+::: capo_fms.types.managed_service_data.ManagedServiceData
+    options:
+      show_source: true
+      merge_init_into_class: false

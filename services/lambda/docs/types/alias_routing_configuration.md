@@ -1,0 +1,8 @@
+---
+title: AliasRoutingConfiguration
+---
+
+::: capo_lambda.types.alias_routing_configuration.AliasRoutingConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

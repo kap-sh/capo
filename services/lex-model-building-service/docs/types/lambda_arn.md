@@ -1,0 +1,8 @@
+---
+title: LambdaARN
+---
+
+::: capo_lex_model_building_service.types.lambda_arn.LambdaARN
+    options:
+      show_source: true
+      merge_init_into_class: false

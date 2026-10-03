@@ -1,0 +1,8 @@
+---
+title: Address
+---
+
+::: capo_geo_places.types.address.Address
+    options:
+      show_source: true
+      merge_init_into_class: false

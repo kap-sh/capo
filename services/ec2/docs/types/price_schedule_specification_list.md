@@ -1,0 +1,8 @@
+---
+title: PriceScheduleSpecificationList
+---
+
+::: capo_ec2.types.price_schedule_specification_list.PriceScheduleSpecificationList
+    options:
+      show_source: true
+      merge_init_into_class: false

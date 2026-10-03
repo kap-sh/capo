@@ -1,0 +1,7 @@
+---
+title: delete_dataset
+---
+
+::: capo_finspace_data._services.async_finspacedata.AsyncfinspacedataClient.delete_dataset
+    options:
+      show_source: true

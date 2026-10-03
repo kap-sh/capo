@@ -1,0 +1,8 @@
+---
+title: PreferredResourceValues
+---
+
+::: capo_compute_optimizer.types.preferred_resource_values.PreferredResourceValues
+    options:
+      show_source: true
+      merge_init_into_class: false

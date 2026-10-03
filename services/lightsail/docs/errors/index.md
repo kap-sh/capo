@@ -1,0 +1,17 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [AccountSetupInProgressException](AccountSetupInProgressException.md)
+- [DeserializationError](DeserializationError.md)
+- [InvalidInputException](InvalidInputException.md)
+- [LightsailError](LightsailError.md)
+- [NotFoundException](NotFoundException.md)
+- [OperationFailureException](OperationFailureException.md)
+- [RegionSetupInProgressException](RegionSetupInProgressException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceException](ServiceException.md)
+- [UnauthenticatedException](UnauthenticatedException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

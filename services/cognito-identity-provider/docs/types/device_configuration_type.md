@@ -1,0 +1,8 @@
+---
+title: DeviceConfigurationType
+---
+
+::: capo_cognito_identity_provider.types.device_configuration_type.DeviceConfigurationType
+    options:
+      show_source: true
+      merge_init_into_class: false

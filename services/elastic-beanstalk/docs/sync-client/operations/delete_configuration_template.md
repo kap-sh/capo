@@ -1,0 +1,7 @@
+---
+title: delete_configuration_template
+---
+
+::: capo_elastic_beanstalk._services.elastic_beanstalk.ElasticBeanstalkClient.delete_configuration_template
+    options:
+      show_source: true

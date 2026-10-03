@@ -1,0 +1,8 @@
+---
+title: ServicePrincipal
+---
+
+::: capo_codepipeline.types.service_principal.ServicePrincipal
+    options:
+      show_source: true
+      merge_init_into_class: false

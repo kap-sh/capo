@@ -1,0 +1,8 @@
+---
+title: EFSTransitEncryption
+---
+
+::: capo_ecs.types.efs_transit_encryption.EFSTransitEncryption
+    options:
+      show_source: true
+      merge_init_into_class: false

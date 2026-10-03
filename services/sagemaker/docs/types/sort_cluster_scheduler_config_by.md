@@ -1,0 +1,8 @@
+---
+title: SortClusterSchedulerConfigBy
+---
+
+::: capo_sagemaker.types.sort_cluster_scheduler_config_by.SortClusterSchedulerConfigBy
+    options:
+      show_source: true
+      merge_init_into_class: false

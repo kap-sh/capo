@@ -1,0 +1,8 @@
+---
+title: ApplicationComponentStrategy
+---
+
+::: capo_migrationhubstrategy.types.application_component_strategy.ApplicationComponentStrategy
+    options:
+      show_source: true
+      merge_init_into_class: false

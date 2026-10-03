@@ -1,0 +1,7 @@
+---
+title: get_revenue_attribution_allocations_task
+---
+
+::: capo_partnercentral_revenue_measurement._services.async_partner_central_revenue_measurement.AsyncPartnerCentralRevenueMeasurementClient.get_revenue_attribution_allocations_task
+    options:
+      show_source: true

@@ -1,0 +1,8 @@
+---
+title: CollaborationJobLogStatus
+---
+
+::: capo_cleanrooms.types.collaboration_job_log_status.CollaborationJobLogStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

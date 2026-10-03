@@ -1,0 +1,18 @@
+# Errors
+
+- [ApplicationAutoScalingError](ApplicationAutoScalingError.md)
+- [ConcurrentUpdateException](ConcurrentUpdateException.md)
+- [DeserializationError](DeserializationError.md)
+- [FailedResourceAccessException](FailedResourceAccessException.md)
+- [InternalServiceException](InternalServiceException.md)
+- [InvalidNextTokenException](InvalidNextTokenException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ObjectNotFoundException](ObjectNotFoundException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TooManyTagsException](TooManyTagsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

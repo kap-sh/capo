@@ -1,0 +1,8 @@
+---
+title: AnalysisTemplateSummary
+---
+
+::: capo_cleanrooms.types.analysis_template_summary.AnalysisTemplateSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

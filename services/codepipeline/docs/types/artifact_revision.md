@@ -1,0 +1,8 @@
+---
+title: ArtifactRevision
+---
+
+::: capo_codepipeline.types.artifact_revision.ArtifactRevision
+    options:
+      show_source: true
+      merge_init_into_class: false

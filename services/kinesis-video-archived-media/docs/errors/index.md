@@ -1,0 +1,18 @@
+# Errors
+
+- [ClientLimitExceededException](ClientLimitExceededException.md)
+- [DeserializationError](DeserializationError.md)
+- [InvalidArgumentException](InvalidArgumentException.md)
+- [InvalidCodecPrivateDataException](InvalidCodecPrivateDataException.md)
+- [InvalidMediaFrameException](InvalidMediaFrameException.md)
+- [KinesisVideoArchivedMediaError](KinesisVideoArchivedMediaError.md)
+- [MissingCodecPrivateDataException](MissingCodecPrivateDataException.md)
+- [NoDataRetentionException](NoDataRetentionException.md)
+- [NotAuthorizedException](NotAuthorizedException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [UnsupportedStreamMediaTypeException](UnsupportedStreamMediaTypeException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

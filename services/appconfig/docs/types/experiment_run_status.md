@@ -1,0 +1,8 @@
+---
+title: ExperimentRunStatus
+---
+
+::: capo_appconfig.types.experiment_run_status.ExperimentRunStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

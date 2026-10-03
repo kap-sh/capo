@@ -1,0 +1,8 @@
+---
+title: JobActionOptions
+---
+
+::: capo_location.types.job_action_options.JobActionOptions
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: GetSavingsPlansPurchaseRecommendationRequest
+---
+
+::: capo_cost_explorer.types.get_savings_plans_purchase_recommendation_request.GetSavingsPlansPurchaseRecommendationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

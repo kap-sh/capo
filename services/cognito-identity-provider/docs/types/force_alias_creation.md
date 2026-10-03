@@ -1,0 +1,8 @@
+---
+title: ForceAliasCreation
+---
+
+::: capo_cognito_identity_provider.types.force_alias_creation.ForceAliasCreation
+    options:
+      show_source: true
+      merge_init_into_class: false

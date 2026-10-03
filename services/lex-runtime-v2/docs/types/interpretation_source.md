@@ -1,0 +1,8 @@
+---
+title: InterpretationSource
+---
+
+::: capo_lex_runtime_v2.types.interpretation_source.InterpretationSource
+    options:
+      show_source: true
+      merge_init_into_class: false

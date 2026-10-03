@@ -1,0 +1,8 @@
+---
+title: JobManifestFormat
+---
+
+::: capo_s3_control.types.job_manifest_format.JobManifestFormat
+    options:
+      show_source: true
+      merge_init_into_class: false

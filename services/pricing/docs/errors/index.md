@@ -1,0 +1,17 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [DeserializationError](DeserializationError.md)
+- [ExpiredNextTokenException](ExpiredNextTokenException.md)
+- [InternalErrorException](InternalErrorException.md)
+- [InvalidNextTokenException](InvalidNextTokenException.md)
+- [InvalidParameterException](InvalidParameterException.md)
+- [NotFoundException](NotFoundException.md)
+- [PricingError](PricingError.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

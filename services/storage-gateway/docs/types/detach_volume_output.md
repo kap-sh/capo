@@ -1,0 +1,8 @@
+---
+title: DetachVolumeOutput
+---
+
+::: capo_storage_gateway.types.detach_volume_output.DetachVolumeOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: GuardrailPiiEntityFilter
+---
+
+::: capo_bedrock_runtime.types.guardrail_pii_entity_filter.GuardrailPiiEntityFilter
+    options:
+      show_source: true
+      merge_init_into_class: false

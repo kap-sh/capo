@@ -1,0 +1,7 @@
+---
+title: create_data_source
+---
+
+::: capo_bedrock_agent._services.bedrock_agent.BedrockAgentClient.create_data_source
+    options:
+      show_source: true

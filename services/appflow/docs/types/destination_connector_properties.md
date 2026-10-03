@@ -1,0 +1,8 @@
+---
+title: DestinationConnectorProperties
+---
+
+::: capo_appflow.types.destination_connector_properties.DestinationConnectorProperties
+    options:
+      show_source: true
+      merge_init_into_class: false

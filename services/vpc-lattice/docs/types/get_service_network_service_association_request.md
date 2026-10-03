@@ -1,0 +1,8 @@
+---
+title: GetServiceNetworkServiceAssociationRequest
+---
+
+::: capo_vpc_lattice.types.get_service_network_service_association_request.GetServiceNetworkServiceAssociationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

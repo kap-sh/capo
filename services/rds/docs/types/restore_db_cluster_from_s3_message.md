@@ -1,0 +1,8 @@
+---
+title: RestoreDBClusterFromS3Message
+---
+
+::: capo_rds.types.restore_db_cluster_from_s3_message.RestoreDBClusterFromS3Message
+    options:
+      show_source: true
+      merge_init_into_class: false

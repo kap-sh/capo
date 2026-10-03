@@ -1,0 +1,8 @@
+---
+title: RegionCodeType
+---
+
+::: capo_cognito_identity_provider.types.region_code_type.RegionCodeType
+    options:
+      show_source: true
+      merge_init_into_class: false

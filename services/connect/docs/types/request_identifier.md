@@ -1,0 +1,8 @@
+---
+title: RequestIdentifier
+---
+
+::: capo_connect.types.request_identifier.RequestIdentifier
+    options:
+      show_source: true
+      merge_init_into_class: false

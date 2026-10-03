@@ -1,0 +1,8 @@
+---
+title: UpdateConfiguredTableAnalysisRuleInput
+---
+
+::: capo_cleanrooms.types.update_configured_table_analysis_rule_input.UpdateConfiguredTableAnalysisRuleInput
+    options:
+      show_source: true
+      merge_init_into_class: false

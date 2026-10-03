@@ -1,0 +1,8 @@
+---
+title: AssociationFilterValue
+---
+
+::: capo_ssm.types.association_filter_value.AssociationFilterValue
+    options:
+      show_source: true
+      merge_init_into_class: false

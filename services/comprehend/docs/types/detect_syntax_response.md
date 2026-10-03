@@ -1,0 +1,8 @@
+---
+title: DetectSyntaxResponse
+---
+
+::: capo_comprehend.types.detect_syntax_response.DetectSyntaxResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

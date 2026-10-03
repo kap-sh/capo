@@ -1,0 +1,8 @@
+---
+title: EventSourceSummary
+---
+
+::: capo_eventbridgev2.types.event_source_summary.EventSourceSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

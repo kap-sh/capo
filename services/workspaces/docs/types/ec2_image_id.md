@@ -1,0 +1,8 @@
+---
+title: Ec2ImageId
+---
+
+::: capo_workspaces.types.ec2_image_id.Ec2ImageId
+    options:
+      show_source: true
+      merge_init_into_class: false

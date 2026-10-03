@@ -1,0 +1,8 @@
+---
+title: RtmpCacheFullBehavior
+---
+
+::: capo_medialive.types.rtmp_cache_full_behavior.RtmpCacheFullBehavior
+    options:
+      show_source: true
+      merge_init_into_class: false

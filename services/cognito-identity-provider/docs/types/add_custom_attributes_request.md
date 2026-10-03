@@ -1,0 +1,8 @@
+---
+title: AddCustomAttributesRequest
+---
+
+::: capo_cognito_identity_provider.types.add_custom_attributes_request.AddCustomAttributesRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

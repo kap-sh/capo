@@ -1,0 +1,8 @@
+---
+title: OtaStatus
+---
+
+::: capo_iot_managed_integrations.types.ota_status.OtaStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

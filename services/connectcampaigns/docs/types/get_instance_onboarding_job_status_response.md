@@ -1,0 +1,8 @@
+---
+title: GetInstanceOnboardingJobStatusResponse
+---
+
+::: capo_connectcampaigns.types.get_instance_onboarding_job_status_response.GetInstanceOnboardingJobStatusResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

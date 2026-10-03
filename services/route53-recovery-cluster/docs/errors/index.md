@@ -1,0 +1,17 @@
+# Errors
+
+- [AccessDeniedException](AccessDeniedException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [EndpointTemporarilyUnavailableException](EndpointTemporarilyUnavailableException.md)
+- [InternalServerException](InternalServerException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [Route53RecoveryClusterError](Route53RecoveryClusterError.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceLimitExceededException](ServiceLimitExceededException.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

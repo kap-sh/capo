@@ -1,0 +1,8 @@
+---
+title: TagValue
+---
+
+::: capo_security_ir.types.tag_value.TagValue
+    options:
+      show_source: true
+      merge_init_into_class: false

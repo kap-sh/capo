@@ -1,0 +1,8 @@
+---
+title: MonitoringDatasetFormat
+---
+
+::: capo_sagemaker.types.monitoring_dataset_format.MonitoringDatasetFormat
+    options:
+      show_source: true
+      merge_init_into_class: false

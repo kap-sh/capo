@@ -1,0 +1,14 @@
+---
+title: WebAppUnits
+---
+
+::: capo_transfer.types.web_app_units.WebAppUnits
+    options:
+      show_source: true
+      merge_init_into_class: false
+
+::: capo_transfer.types.web_app_units._WebAppUnits_Provisioned
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

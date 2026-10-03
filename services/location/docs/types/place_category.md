@@ -1,0 +1,8 @@
+---
+title: PlaceCategory
+---
+
+::: capo_location.types.place_category.PlaceCategory
+    options:
+      show_source: true
+      merge_init_into_class: false

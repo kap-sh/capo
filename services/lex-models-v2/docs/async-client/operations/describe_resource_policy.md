@@ -1,0 +1,7 @@
+---
+title: describe_resource_policy
+---
+
+::: capo_lex_models_v2._services.async_lex_models_v2.AsyncLexModelsV2Client.describe_resource_policy
+    options:
+      show_source: true

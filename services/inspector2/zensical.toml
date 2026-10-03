@@ -1,0 +1,373 @@
+[project]
+site_name = "capo-inspector2"
+site_description = "Python SDK for AWS Inspector2."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "Inspector2Client" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/associate_member.md",
+      "sync-client/operations/batch_associate_code_security_scan_configuration.md",
+      "sync-client/operations/batch_disassociate_code_security_scan_configuration.md",
+      "sync-client/operations/batch_get_account_status.md",
+      "sync-client/operations/batch_get_code_snippet.md",
+      "sync-client/operations/batch_get_finding_details.md",
+      "sync-client/operations/batch_get_free_trial_info.md",
+      "sync-client/operations/batch_get_member_ec2_deep_inspection_status.md",
+      "sync-client/operations/batch_update_member_ec2_deep_inspection_status.md",
+      "sync-client/operations/cancel_findings_report.md",
+      "sync-client/operations/cancel_sbom_export.md",
+      "sync-client/operations/create_cis_scan_configuration.md",
+      "sync-client/operations/create_code_security_integration.md",
+      "sync-client/operations/create_code_security_scan_configuration.md",
+      "sync-client/operations/create_connector.md",
+      "sync-client/operations/create_filter.md",
+      "sync-client/operations/create_findings_report.md",
+      "sync-client/operations/create_sbom_export.md",
+      "sync-client/operations/delete_cis_scan_configuration.md",
+      "sync-client/operations/delete_code_security_integration.md",
+      "sync-client/operations/delete_code_security_scan_configuration.md",
+      "sync-client/operations/delete_connector.md",
+      "sync-client/operations/delete_filter.md",
+      "sync-client/operations/describe_organization_configuration.md",
+      "sync-client/operations/disable.md",
+      "sync-client/operations/disable_delegated_admin_account.md",
+      "sync-client/operations/disassociate_member.md",
+      "sync-client/operations/enable.md",
+      "sync-client/operations/enable_delegated_admin_account.md",
+      "sync-client/operations/get_cis_scan_report.md",
+      "sync-client/operations/get_cis_scan_result_details.md",
+      "sync-client/operations/get_clusters_for_image.md",
+      "sync-client/operations/get_code_security_integration.md",
+      "sync-client/operations/get_code_security_scan.md",
+      "sync-client/operations/get_code_security_scan_configuration.md",
+      "sync-client/operations/get_configuration.md",
+      "sync-client/operations/get_delegated_admin_account.md",
+      "sync-client/operations/get_ec2_deep_inspection_configuration.md",
+      "sync-client/operations/get_encryption_key.md",
+      "sync-client/operations/get_findings_report_status.md",
+      "sync-client/operations/get_member.md",
+      "sync-client/operations/get_sbom_export.md",
+      "sync-client/operations/list_account_permissions.md",
+      "sync-client/operations/list_cis_scan_configurations.md",
+      "sync-client/operations/list_cis_scan_results_aggregated_by_checks.md",
+      "sync-client/operations/list_cis_scan_results_aggregated_by_target_resource.md",
+      "sync-client/operations/list_cis_scans.md",
+      "sync-client/operations/list_code_security_integrations.md",
+      "sync-client/operations/list_code_security_scan_configuration_associations.md",
+      "sync-client/operations/list_code_security_scan_configurations.md",
+      "sync-client/operations/list_connector_scan_configurations.md",
+      "sync-client/operations/list_connectors.md",
+      "sync-client/operations/list_coverage.md",
+      "sync-client/operations/list_coverage_statistics.md",
+      "sync-client/operations/list_delegated_admin_accounts.md",
+      "sync-client/operations/list_filters.md",
+      "sync-client/operations/list_finding_aggregations.md",
+      "sync-client/operations/list_findings.md",
+      "sync-client/operations/list_members.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_usage_totals.md",
+      "sync-client/operations/reset_encryption_key.md",
+      "sync-client/operations/search_vulnerabilities.md",
+      "sync-client/operations/send_cis_session_health.md",
+      "sync-client/operations/send_cis_session_telemetry.md",
+      "sync-client/operations/start_cis_session.md",
+      "sync-client/operations/start_code_security_scan.md",
+      "sync-client/operations/stop_cis_session.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_cis_scan_configuration.md",
+      "sync-client/operations/update_code_security_integration.md",
+      "sync-client/operations/update_code_security_scan_configuration.md",
+      "sync-client/operations/update_configuration.md",
+      "sync-client/operations/update_connector.md",
+      "sync-client/operations/update_connector_scan_configuration.md",
+      "sync-client/operations/update_ec2_deep_inspection_configuration.md",
+      "sync-client/operations/update_encryption_key.md",
+      "sync-client/operations/update_filter.md",
+      "sync-client/operations/update_org_ec2_deep_inspection_configuration.md",
+      "sync-client/operations/update_organization_configuration.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_get_cis_scan_result_details.md",
+      "sync-client/paginators/iter_get_clusters_for_image.md",
+      "sync-client/paginators/iter_list_account_permissions.md",
+      "sync-client/paginators/iter_list_cis_scan_configurations.md",
+      "sync-client/paginators/iter_list_cis_scan_results_aggregated_by_checks.md",
+      "sync-client/paginators/iter_list_cis_scan_results_aggregated_by_target_resource.md",
+      "sync-client/paginators/iter_list_cis_scans.md",
+      "sync-client/paginators/iter_list_connector_scan_configurations.md",
+      "sync-client/paginators/iter_list_connectors.md",
+      "sync-client/paginators/iter_list_coverage.md",
+      "sync-client/paginators/iter_list_coverage_statistics.md",
+      "sync-client/paginators/iter_list_delegated_admin_accounts.md",
+      "sync-client/paginators/iter_list_filters.md",
+      "sync-client/paginators/iter_list_finding_aggregations.md",
+      "sync-client/paginators/iter_list_findings.md",
+      "sync-client/paginators/iter_list_members.md",
+      "sync-client/paginators/iter_list_usage_totals.md",
+      "sync-client/paginators/iter_search_vulnerabilities.md",
+    ] },
+  ] },
+  { "AsyncInspector2Client" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/associate_member.md",
+      "async-client/operations/batch_associate_code_security_scan_configuration.md",
+      "async-client/operations/batch_disassociate_code_security_scan_configuration.md",
+      "async-client/operations/batch_get_account_status.md",
+      "async-client/operations/batch_get_code_snippet.md",
+      "async-client/operations/batch_get_finding_details.md",
+      "async-client/operations/batch_get_free_trial_info.md",
+      "async-client/operations/batch_get_member_ec2_deep_inspection_status.md",
+      "async-client/operations/batch_update_member_ec2_deep_inspection_status.md",
+      "async-client/operations/cancel_findings_report.md",
+      "async-client/operations/cancel_sbom_export.md",
+      "async-client/operations/create_cis_scan_configuration.md",
+      "async-client/operations/create_code_security_integration.md",
+      "async-client/operations/create_code_security_scan_configuration.md",
+      "async-client/operations/create_connector.md",
+      "async-client/operations/create_filter.md",
+      "async-client/operations/create_findings_report.md",
+      "async-client/operations/create_sbom_export.md",
+      "async-client/operations/delete_cis_scan_configuration.md",
+      "async-client/operations/delete_code_security_integration.md",
+      "async-client/operations/delete_code_security_scan_configuration.md",
+      "async-client/operations/delete_connector.md",
+      "async-client/operations/delete_filter.md",
+      "async-client/operations/describe_organization_configuration.md",
+      "async-client/operations/disable.md",
+      "async-client/operations/disable_delegated_admin_account.md",
+      "async-client/operations/disassociate_member.md",
+      "async-client/operations/enable.md",
+      "async-client/operations/enable_delegated_admin_account.md",
+      "async-client/operations/get_cis_scan_report.md",
+      "async-client/operations/get_cis_scan_result_details.md",
+      "async-client/operations/get_clusters_for_image.md",
+      "async-client/operations/get_code_security_integration.md",
+      "async-client/operations/get_code_security_scan.md",
+      "async-client/operations/get_code_security_scan_configuration.md",
+      "async-client/operations/get_configuration.md",
+      "async-client/operations/get_delegated_admin_account.md",
+      "async-client/operations/get_ec2_deep_inspection_configuration.md",
+      "async-client/operations/get_encryption_key.md",
+      "async-client/operations/get_findings_report_status.md",
+      "async-client/operations/get_member.md",
+      "async-client/operations/get_sbom_export.md",
+      "async-client/operations/list_account_permissions.md",
+      "async-client/operations/list_cis_scan_configurations.md",
+      "async-client/operations/list_cis_scan_results_aggregated_by_checks.md",
+      "async-client/operations/list_cis_scan_results_aggregated_by_target_resource.md",
+      "async-client/operations/list_cis_scans.md",
+      "async-client/operations/list_code_security_integrations.md",
+      "async-client/operations/list_code_security_scan_configuration_associations.md",
+      "async-client/operations/list_code_security_scan_configurations.md",
+      "async-client/operations/list_connector_scan_configurations.md",
+      "async-client/operations/list_connectors.md",
+      "async-client/operations/list_coverage.md",
+      "async-client/operations/list_coverage_statistics.md",
+      "async-client/operations/list_delegated_admin_accounts.md",
+      "async-client/operations/list_filters.md",
+      "async-client/operations/list_finding_aggregations.md",
+      "async-client/operations/list_findings.md",
+      "async-client/operations/list_members.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_usage_totals.md",
+      "async-client/operations/reset_encryption_key.md",
+      "async-client/operations/search_vulnerabilities.md",
+      "async-client/operations/send_cis_session_health.md",
+      "async-client/operations/send_cis_session_telemetry.md",
+      "async-client/operations/start_cis_session.md",
+      "async-client/operations/start_code_security_scan.md",
+      "async-client/operations/stop_cis_session.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_cis_scan_configuration.md",
+      "async-client/operations/update_code_security_integration.md",
+      "async-client/operations/update_code_security_scan_configuration.md",
+      "async-client/operations/update_configuration.md",
+      "async-client/operations/update_connector.md",
+      "async-client/operations/update_connector_scan_configuration.md",
+      "async-client/operations/update_ec2_deep_inspection_configuration.md",
+      "async-client/operations/update_encryption_key.md",
+      "async-client/operations/update_filter.md",
+      "async-client/operations/update_org_ec2_deep_inspection_configuration.md",
+      "async-client/operations/update_organization_configuration.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_get_cis_scan_result_details.md",
+      "async-client/paginators/iter_get_clusters_for_image.md",
+      "async-client/paginators/iter_list_account_permissions.md",
+      "async-client/paginators/iter_list_cis_scan_configurations.md",
+      "async-client/paginators/iter_list_cis_scan_results_aggregated_by_checks.md",
+      "async-client/paginators/iter_list_cis_scan_results_aggregated_by_target_resource.md",
+      "async-client/paginators/iter_list_cis_scans.md",
+      "async-client/paginators/iter_list_connector_scan_configurations.md",
+      "async-client/paginators/iter_list_connectors.md",
+      "async-client/paginators/iter_list_coverage.md",
+      "async-client/paginators/iter_list_coverage_statistics.md",
+      "async-client/paginators/iter_list_delegated_admin_accounts.md",
+      "async-client/paginators/iter_list_filters.md",
+      "async-client/paginators/iter_list_finding_aggregations.md",
+      "async-client/paginators/iter_list_findings.md",
+      "async-client/paginators/iter_list_members.md",
+      "async-client/paginators/iter_list_usage_totals.md",
+      "async-client/paginators/iter_search_vulnerabilities.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/BadRequestException.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/Inspector2Error.md",
+    "errors/InternalServerException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/ThrottlingException.md",
+    "errors/UnknownServiceError.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_inspector2` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_inspector2.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

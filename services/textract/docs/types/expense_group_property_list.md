@@ -1,0 +1,8 @@
+---
+title: ExpenseGroupPropertyList
+---
+
+::: capo_textract.types.expense_group_property_list.ExpenseGroupPropertyList
+    options:
+      show_source: true
+      merge_init_into_class: false

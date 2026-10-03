@@ -1,0 +1,8 @@
+---
+title: InsightFeedbackText
+---
+
+::: capo_opensearch.types.insight_feedback_text.InsightFeedbackText
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: GetCurrentUserDataRequest
+---
+
+::: capo_connect.types.get_current_user_data_request.GetCurrentUserDataRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

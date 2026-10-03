@@ -1,0 +1,8 @@
+---
+title: DeleteScopeInput
+---
+
+::: capo_networkflowmonitor.types.delete_scope_input.DeleteScopeInput
+    options:
+      show_source: true
+      merge_init_into_class: false

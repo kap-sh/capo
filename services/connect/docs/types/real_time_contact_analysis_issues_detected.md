@@ -1,0 +1,8 @@
+---
+title: RealTimeContactAnalysisIssuesDetected
+---
+
+::: capo_connect.types.real_time_contact_analysis_issues_detected.RealTimeContactAnalysisIssuesDetected
+    options:
+      show_source: true
+      merge_init_into_class: false

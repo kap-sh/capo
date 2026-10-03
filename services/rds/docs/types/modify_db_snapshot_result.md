@@ -1,0 +1,8 @@
+---
+title: ModifyDBSnapshotResult
+---
+
+::: capo_rds.types.modify_db_snapshot_result.ModifyDBSnapshotResult
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ListFunctionsRequest
+---
+
+::: capo_appsync.types.list_functions_request.ListFunctionsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

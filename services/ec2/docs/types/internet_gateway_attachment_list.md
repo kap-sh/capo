@@ -1,0 +1,8 @@
+---
+title: InternetGatewayAttachmentList
+---
+
+::: capo_ec2.types.internet_gateway_attachment_list.InternetGatewayAttachmentList
+    options:
+      show_source: true
+      merge_init_into_class: false

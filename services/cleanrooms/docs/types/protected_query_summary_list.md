@@ -1,0 +1,8 @@
+---
+title: ProtectedQuerySummaryList
+---
+
+::: capo_cleanrooms.types.protected_query_summary_list.ProtectedQuerySummaryList
+    options:
+      show_source: true
+      merge_init_into_class: false

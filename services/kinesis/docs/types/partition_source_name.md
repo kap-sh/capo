@@ -1,0 +1,8 @@
+---
+title: PartitionSourceName
+---
+
+::: capo_kinesis.types.partition_source_name.PartitionSourceName
+    options:
+      show_source: true
+      merge_init_into_class: false

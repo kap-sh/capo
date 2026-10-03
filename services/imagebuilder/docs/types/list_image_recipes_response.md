@@ -1,0 +1,8 @@
+---
+title: ListImageRecipesResponse
+---
+
+::: capo_imagebuilder.types.list_image_recipes_response.ListImageRecipesResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

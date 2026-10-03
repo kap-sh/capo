@@ -1,0 +1,8 @@
+---
+title: AiAgentInput
+---
+
+::: capo_connect.types.ai_agent_input.AiAgentInput
+    options:
+      show_source: true
+      merge_init_into_class: false

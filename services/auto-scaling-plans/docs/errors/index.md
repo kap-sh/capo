@@ -1,0 +1,15 @@
+# Errors
+
+- [AutoScalingPlansError](AutoScalingPlansError.md)
+- [ConcurrentUpdateException](ConcurrentUpdateException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServiceException](InternalServiceException.md)
+- [InvalidNextTokenException](InvalidNextTokenException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ObjectNotFoundException](ObjectNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

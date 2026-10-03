@@ -1,0 +1,8 @@
+---
+title: EnableDirectoryRequest
+---
+
+::: capo_clouddirectory.types.enable_directory_request.EnableDirectoryRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

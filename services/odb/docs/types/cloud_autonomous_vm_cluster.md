@@ -1,0 +1,8 @@
+---
+title: CloudAutonomousVmCluster
+---
+
+::: capo_odb.types.cloud_autonomous_vm_cluster.CloudAutonomousVmCluster
+    options:
+      show_source: true
+      merge_init_into_class: false

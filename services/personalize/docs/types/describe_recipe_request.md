@@ -1,0 +1,8 @@
+---
+title: DescribeRecipeRequest
+---
+
+::: capo_personalize.types.describe_recipe_request.DescribeRecipeRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

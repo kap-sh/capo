@@ -1,0 +1,8 @@
+---
+title: ExpirationTimestampType
+---
+
+::: capo_sso.types.expiration_timestamp_type.ExpirationTimestampType
+    options:
+      show_source: true
+      merge_init_into_class: false

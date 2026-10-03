@@ -1,0 +1,8 @@
+---
+title: ScalingPolicies
+---
+
+::: capo_application_auto_scaling.types.scaling_policies.ScalingPolicies
+    options:
+      show_source: true
+      merge_init_into_class: false

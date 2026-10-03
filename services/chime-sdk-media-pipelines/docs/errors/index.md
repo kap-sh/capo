@@ -1,0 +1,18 @@
+# Errors
+
+- [BadRequestException](BadRequestException.md)
+- [ChimeSDKMediaPipelinesError](ChimeSDKMediaPipelinesError.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [ForbiddenException](ForbiddenException.md)
+- [NotFoundException](NotFoundException.md)
+- [ResourceLimitExceededException](ResourceLimitExceededException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceFailureException](ServiceFailureException.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
+- [ThrottledClientException](ThrottledClientException.md)
+- [UnauthorizedClientException](UnauthorizedClientException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

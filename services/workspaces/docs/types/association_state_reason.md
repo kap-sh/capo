@@ -1,0 +1,8 @@
+---
+title: AssociationStateReason
+---
+
+::: capo_workspaces.types.association_state_reason.AssociationStateReason
+    options:
+      show_source: true
+      merge_init_into_class: false

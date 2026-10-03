@@ -1,0 +1,8 @@
+---
+title: AuthorizationStatus
+---
+
+::: capo_redshift.types.authorization_status.AuthorizationStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

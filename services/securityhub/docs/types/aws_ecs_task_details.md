@@ -1,0 +1,8 @@
+---
+title: AwsEcsTaskDetails
+---
+
+::: capo_securityhub.types.aws_ecs_task_details.AwsEcsTaskDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

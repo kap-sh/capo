@@ -1,0 +1,8 @@
+---
+title: AnalysisErrorType
+---
+
+::: capo_quicksight.types.analysis_error_type.AnalysisErrorType
+    options:
+      show_source: true
+      merge_init_into_class: false

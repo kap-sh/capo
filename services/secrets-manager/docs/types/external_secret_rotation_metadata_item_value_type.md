@@ -1,0 +1,8 @@
+---
+title: ExternalSecretRotationMetadataItemValueType
+---
+
+::: capo_secrets_manager.types.external_secret_rotation_metadata_item_value_type.ExternalSecretRotationMetadataItemValueType
+    options:
+      show_source: true
+      merge_init_into_class: false

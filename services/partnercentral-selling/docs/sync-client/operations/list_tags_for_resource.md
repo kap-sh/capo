@@ -1,0 +1,7 @@
+---
+title: list_tags_for_resource
+---
+
+::: capo_partnercentral_selling._services.partner_central_selling.PartnerCentralSellingClient.list_tags_for_resource
+    options:
+      show_source: true

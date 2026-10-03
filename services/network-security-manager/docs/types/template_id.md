@@ -1,0 +1,8 @@
+---
+title: TemplateId
+---
+
+::: capo_network_security_manager.types.template_id.TemplateId
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: CreateDocumentRequest
+---
+
+::: capo_ssm.types.create_document_request.CreateDocumentRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

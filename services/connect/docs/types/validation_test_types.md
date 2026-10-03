@@ -1,0 +1,8 @@
+---
+title: ValidationTestTypes
+---
+
+::: capo_connect.types.validation_test_types.ValidationTestTypes
+    options:
+      show_source: true
+      merge_init_into_class: false

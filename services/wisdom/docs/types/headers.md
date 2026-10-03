@@ -1,0 +1,8 @@
+---
+title: Headers
+---
+
+::: capo_wisdom.types.headers.Headers
+    options:
+      show_source: true
+      merge_init_into_class: false

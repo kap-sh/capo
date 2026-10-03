@@ -1,0 +1,8 @@
+---
+title: OfferTermsList
+---
+
+::: capo_marketplace_discovery.types.offer_terms_list.OfferTermsList
+    options:
+      show_source: true
+      merge_init_into_class: false

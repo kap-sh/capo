@@ -1,0 +1,8 @@
+---
+title: minorVersionType
+---
+
+::: capo_iam.types.minor_version_type.minorVersionType
+    options:
+      show_source: true
+      merge_init_into_class: false

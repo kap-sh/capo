@@ -1,0 +1,8 @@
+---
+title: PutRegistryPolicyRequest
+---
+
+::: capo_ecr.types.put_registry_policy_request.PutRegistryPolicyRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

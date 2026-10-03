@@ -1,0 +1,8 @@
+---
+title: UpdateSubnetChangeProtectionRequest
+---
+
+::: capo_network_firewall.types.update_subnet_change_protection_request.UpdateSubnetChangeProtectionRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

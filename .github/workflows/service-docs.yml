@@ -1,0 +1,81 @@
+name: Service docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      services:
+        description: Space-separated services to build and deploy docs for
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  BATCH_SIZE: 10
+  BUCKET: capo-docs
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      batches: ${{ steps.set.outputs.batches }}
+    steps:
+      - name: Build service batches
+        id: set
+        env:
+          SERVICES: ${{ inputs.services }}
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json, os
+          services = sorted(set(os.environ["SERVICES"].split()))
+          if not services:
+              raise SystemExit("no services given")
+          size = int(os.environ["BATCH_SIZE"])
+          batches = [
+              " ".join(services[i:i + size])
+              for i in range(0, len(services), size)
+          ]
+          print("batches=" + json.dumps(batches))
+          EOF
+
+  deploy:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: ${{ fromJson(needs.discover.outputs.batches) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github
+
+      - name: Check out batch services
+        env:
+          BATCH: ${{ matrix.batch }}
+        run: printf 'services/%s\n' $BATCH | xargs git sparse-checkout set
+
+      - uses: astral-sh/setup-uv@v5
+
+      # Each site lives under its own `<service>/` prefix of the bucket, which
+      # the worker in docs-worker/ serves as `<service>.capo-sdk.dev`.
+      - name: Build and upload batch
+        env:
+          BATCH: ${{ matrix.batch }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_ENDPOINT_URL: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+          AWS_DEFAULT_REGION: auto
+          # R2 rejects the checksums newer AWS CLI versions send by default.
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+        run: |
+          set -euo pipefail
+          for service in $BATCH; do
+            echo "::group::$service"
+            (cd "services/$service" && ./scripts/docs build)
+            aws s3 sync "services/$service/site" "s3://$BUCKET/$service" --delete --no-progress
+            rm -rf "services/$service/site"
+            echo "::endgroup::"
+          done

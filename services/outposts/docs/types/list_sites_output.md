@@ -1,0 +1,8 @@
+---
+title: ListSitesOutput
+---
+
+::: capo_outposts.types.list_sites_output.ListSitesOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

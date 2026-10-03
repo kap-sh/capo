@@ -1,0 +1,8 @@
+---
+title: DescribeCanariesLastRunRequest
+---
+
+::: capo_synthetics.types.describe_canaries_last_run_request.DescribeCanariesLastRunRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

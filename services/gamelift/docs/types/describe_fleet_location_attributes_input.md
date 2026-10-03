@@ -1,0 +1,8 @@
+---
+title: DescribeFleetLocationAttributesInput
+---
+
+::: capo_gamelift.types.describe_fleet_location_attributes_input.DescribeFleetLocationAttributesInput
+    options:
+      show_source: true
+      merge_init_into_class: false

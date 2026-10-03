@@ -1,0 +1,8 @@
+---
+title: WarningsListItem
+---
+
+::: capo_comprehend.types.warnings_list_item.WarningsListItem
+    options:
+      show_source: true
+      merge_init_into_class: false

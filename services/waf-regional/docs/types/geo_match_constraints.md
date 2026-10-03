@@ -1,0 +1,8 @@
+---
+title: GeoMatchConstraints
+---
+
+::: capo_waf_regional.types.geo_match_constraints.GeoMatchConstraints
+    options:
+      show_source: true
+      merge_init_into_class: false

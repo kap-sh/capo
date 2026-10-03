@@ -1,0 +1,8 @@
+---
+title: Context
+---
+
+::: capo_auto_scaling.types.context.Context
+    options:
+      show_source: true
+      merge_init_into_class: false

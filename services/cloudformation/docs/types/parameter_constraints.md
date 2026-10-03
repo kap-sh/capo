@@ -1,0 +1,8 @@
+---
+title: ParameterConstraints
+---
+
+::: capo_cloudformation.types.parameter_constraints.ParameterConstraints
+    options:
+      show_source: true
+      merge_init_into_class: false

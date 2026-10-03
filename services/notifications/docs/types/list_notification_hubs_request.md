@@ -1,0 +1,8 @@
+---
+title: ListNotificationHubsRequest
+---
+
+::: capo_notifications.types.list_notification_hubs_request.ListNotificationHubsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

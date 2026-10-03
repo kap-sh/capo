@@ -1,0 +1,8 @@
+---
+title: InfluxDBTimestampUnit
+---
+
+::: capo_iot.types.influx_db_timestamp_unit.InfluxDBTimestampUnit
+    options:
+      show_source: true
+      merge_init_into_class: false

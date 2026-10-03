@@ -1,0 +1,8 @@
+---
+title: PredicateString
+---
+
+::: capo_lakeformation.types.predicate_string.PredicateString
+    options:
+      show_source: true
+      merge_init_into_class: false

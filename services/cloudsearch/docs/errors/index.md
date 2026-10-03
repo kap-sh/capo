@@ -1,0 +1,17 @@
+# Errors
+
+- [BaseException](BaseException.md)
+- [CloudSearchError](CloudSearchError.md)
+- [DeserializationError](DeserializationError.md)
+- [DisabledOperationException](DisabledOperationException.md)
+- [InternalException](InternalException.md)
+- [InvalidTypeException](InvalidTypeException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ResourceAlreadyExistsException](ResourceAlreadyExistsException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationException](ValidationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

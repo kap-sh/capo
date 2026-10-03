@@ -1,0 +1,340 @@
+[project]
+site_name = "capo-kafka"
+site_description = "Python SDK for AWS Kafka."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "KafkaClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/batch_associate_scram_secret.md",
+      "sync-client/operations/batch_disassociate_scram_secret.md",
+      "sync-client/operations/create_channel.md",
+      "sync-client/operations/create_cluster.md",
+      "sync-client/operations/create_cluster_v2.md",
+      "sync-client/operations/create_configuration.md",
+      "sync-client/operations/create_replicator.md",
+      "sync-client/operations/create_topic.md",
+      "sync-client/operations/create_vpc_connection.md",
+      "sync-client/operations/delete_channel.md",
+      "sync-client/operations/delete_cluster.md",
+      "sync-client/operations/delete_cluster_policy.md",
+      "sync-client/operations/delete_configuration.md",
+      "sync-client/operations/delete_replicator.md",
+      "sync-client/operations/delete_topic.md",
+      "sync-client/operations/delete_vpc_connection.md",
+      "sync-client/operations/describe_channel.md",
+      "sync-client/operations/describe_cluster.md",
+      "sync-client/operations/describe_cluster_operation.md",
+      "sync-client/operations/describe_cluster_operation_v2.md",
+      "sync-client/operations/describe_cluster_v2.md",
+      "sync-client/operations/describe_configuration.md",
+      "sync-client/operations/describe_configuration_revision.md",
+      "sync-client/operations/describe_replicator.md",
+      "sync-client/operations/describe_topic.md",
+      "sync-client/operations/describe_topic_partitions.md",
+      "sync-client/operations/describe_vpc_connection.md",
+      "sync-client/operations/get_bootstrap_brokers.md",
+      "sync-client/operations/get_cluster_policy.md",
+      "sync-client/operations/get_compatible_kafka_versions.md",
+      "sync-client/operations/list_channels.md",
+      "sync-client/operations/list_client_vpc_connections.md",
+      "sync-client/operations/list_cluster_operations.md",
+      "sync-client/operations/list_cluster_operations_v2.md",
+      "sync-client/operations/list_clusters.md",
+      "sync-client/operations/list_clusters_v2.md",
+      "sync-client/operations/list_configuration_revisions.md",
+      "sync-client/operations/list_configurations.md",
+      "sync-client/operations/list_kafka_versions.md",
+      "sync-client/operations/list_nodes.md",
+      "sync-client/operations/list_replicators.md",
+      "sync-client/operations/list_scram_secrets.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_topics.md",
+      "sync-client/operations/list_vpc_connections.md",
+      "sync-client/operations/put_cluster_policy.md",
+      "sync-client/operations/reboot_broker.md",
+      "sync-client/operations/reject_client_vpc_connection.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_broker_count.md",
+      "sync-client/operations/update_broker_storage.md",
+      "sync-client/operations/update_broker_type.md",
+      "sync-client/operations/update_channel.md",
+      "sync-client/operations/update_cluster_configuration.md",
+      "sync-client/operations/update_cluster_kafka_version.md",
+      "sync-client/operations/update_configuration.md",
+      "sync-client/operations/update_connectivity.md",
+      "sync-client/operations/update_monitoring.md",
+      "sync-client/operations/update_rebalancing.md",
+      "sync-client/operations/update_replication_info.md",
+      "sync-client/operations/update_security.md",
+      "sync-client/operations/update_storage.md",
+      "sync-client/operations/update_topic.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_topic_partitions.md",
+      "sync-client/paginators/iter_list_client_vpc_connections.md",
+      "sync-client/paginators/iter_list_cluster_operations.md",
+      "sync-client/paginators/iter_list_cluster_operations_v2.md",
+      "sync-client/paginators/iter_list_clusters.md",
+      "sync-client/paginators/iter_list_clusters_v2.md",
+      "sync-client/paginators/iter_list_configuration_revisions.md",
+      "sync-client/paginators/iter_list_configurations.md",
+      "sync-client/paginators/iter_list_kafka_versions.md",
+      "sync-client/paginators/iter_list_nodes.md",
+      "sync-client/paginators/iter_list_replicators.md",
+      "sync-client/paginators/iter_list_scram_secrets.md",
+      "sync-client/paginators/iter_list_topics.md",
+      "sync-client/paginators/iter_list_vpc_connections.md",
+    ] },
+  ] },
+  { "AsyncKafkaClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/batch_associate_scram_secret.md",
+      "async-client/operations/batch_disassociate_scram_secret.md",
+      "async-client/operations/create_channel.md",
+      "async-client/operations/create_cluster.md",
+      "async-client/operations/create_cluster_v2.md",
+      "async-client/operations/create_configuration.md",
+      "async-client/operations/create_replicator.md",
+      "async-client/operations/create_topic.md",
+      "async-client/operations/create_vpc_connection.md",
+      "async-client/operations/delete_channel.md",
+      "async-client/operations/delete_cluster.md",
+      "async-client/operations/delete_cluster_policy.md",
+      "async-client/operations/delete_configuration.md",
+      "async-client/operations/delete_replicator.md",
+      "async-client/operations/delete_topic.md",
+      "async-client/operations/delete_vpc_connection.md",
+      "async-client/operations/describe_channel.md",
+      "async-client/operations/describe_cluster.md",
+      "async-client/operations/describe_cluster_operation.md",
+      "async-client/operations/describe_cluster_operation_v2.md",
+      "async-client/operations/describe_cluster_v2.md",
+      "async-client/operations/describe_configuration.md",
+      "async-client/operations/describe_configuration_revision.md",
+      "async-client/operations/describe_replicator.md",
+      "async-client/operations/describe_topic.md",
+      "async-client/operations/describe_topic_partitions.md",
+      "async-client/operations/describe_vpc_connection.md",
+      "async-client/operations/get_bootstrap_brokers.md",
+      "async-client/operations/get_cluster_policy.md",
+      "async-client/operations/get_compatible_kafka_versions.md",
+      "async-client/operations/list_channels.md",
+      "async-client/operations/list_client_vpc_connections.md",
+      "async-client/operations/list_cluster_operations.md",
+      "async-client/operations/list_cluster_operations_v2.md",
+      "async-client/operations/list_clusters.md",
+      "async-client/operations/list_clusters_v2.md",
+      "async-client/operations/list_configuration_revisions.md",
+      "async-client/operations/list_configurations.md",
+      "async-client/operations/list_kafka_versions.md",
+      "async-client/operations/list_nodes.md",
+      "async-client/operations/list_replicators.md",
+      "async-client/operations/list_scram_secrets.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_topics.md",
+      "async-client/operations/list_vpc_connections.md",
+      "async-client/operations/put_cluster_policy.md",
+      "async-client/operations/reboot_broker.md",
+      "async-client/operations/reject_client_vpc_connection.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_broker_count.md",
+      "async-client/operations/update_broker_storage.md",
+      "async-client/operations/update_broker_type.md",
+      "async-client/operations/update_channel.md",
+      "async-client/operations/update_cluster_configuration.md",
+      "async-client/operations/update_cluster_kafka_version.md",
+      "async-client/operations/update_configuration.md",
+      "async-client/operations/update_connectivity.md",
+      "async-client/operations/update_monitoring.md",
+      "async-client/operations/update_rebalancing.md",
+      "async-client/operations/update_replication_info.md",
+      "async-client/operations/update_security.md",
+      "async-client/operations/update_storage.md",
+      "async-client/operations/update_topic.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_topic_partitions.md",
+      "async-client/paginators/iter_list_client_vpc_connections.md",
+      "async-client/paginators/iter_list_cluster_operations.md",
+      "async-client/paginators/iter_list_cluster_operations_v2.md",
+      "async-client/paginators/iter_list_clusters.md",
+      "async-client/paginators/iter_list_clusters_v2.md",
+      "async-client/paginators/iter_list_configuration_revisions.md",
+      "async-client/paginators/iter_list_configurations.md",
+      "async-client/paginators/iter_list_kafka_versions.md",
+      "async-client/paginators/iter_list_nodes.md",
+      "async-client/paginators/iter_list_replicators.md",
+      "async-client/paginators/iter_list_scram_secrets.md",
+      "async-client/paginators/iter_list_topics.md",
+      "async-client/paginators/iter_list_vpc_connections.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/BadRequestException.md",
+    "errors/ClusterConnectivityException.md",
+    "errors/ConflictException.md",
+    "errors/ControllerMovedException.md",
+    "errors/DeserializationError.md",
+    "errors/ForbiddenException.md",
+    "errors/GroupSubscribedToTopicException.md",
+    "errors/InternalServerErrorException.md",
+    "errors/KafkaError.md",
+    "errors/KafkaRequestException.md",
+    "errors/KafkaTimeoutException.md",
+    "errors/NotControllerException.md",
+    "errors/NotFoundException.md",
+    "errors/ReassignmentInProgressException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceUnavailableException.md",
+    "errors/TooManyRequestsException.md",
+    "errors/TopicExistsException.md",
+    "errors/UnauthorizedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnknownTopicOrPartitionException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_kafka` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_kafka.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

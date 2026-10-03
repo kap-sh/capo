@@ -1,0 +1,8 @@
+---
+title: ListAssetVersionsResponse
+---
+
+::: capo_devops_agent.types.list_asset_versions_response.ListAssetVersionsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

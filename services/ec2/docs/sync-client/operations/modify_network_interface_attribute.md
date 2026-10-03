@@ -1,0 +1,7 @@
+---
+title: modify_network_interface_attribute
+---
+
+::: capo_ec2._services.ec2.EC2Client.modify_network_interface_attribute
+    options:
+      show_source: true

@@ -1,0 +1,8 @@
+---
+title: UpdateIndexTypeOutput
+---
+
+::: capo_resource_explorer_2.types.update_index_type_output.UpdateIndexTypeOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

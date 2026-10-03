@@ -1,0 +1,8 @@
+---
+title: EmailMfaSettingsType
+---
+
+::: capo_cognito_identity_provider.types.email_mfa_settings_type.EmailMfaSettingsType
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ConnectionNotificationType
+---
+
+::: capo_ec2.types.connection_notification_type.ConnectionNotificationType
+    options:
+      show_source: true
+      merge_init_into_class: false

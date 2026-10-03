@@ -1,0 +1,8 @@
+---
+title: SnsDestination
+---
+
+::: capo_sesv2.types.sns_destination.SnsDestination
+    options:
+      show_source: true
+      merge_init_into_class: false

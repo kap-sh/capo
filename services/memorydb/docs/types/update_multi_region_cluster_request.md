@@ -1,0 +1,8 @@
+---
+title: UpdateMultiRegionClusterRequest
+---
+
+::: capo_memorydb.types.update_multi_region_cluster_request.UpdateMultiRegionClusterRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

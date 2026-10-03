@@ -1,0 +1,8 @@
+---
+title: ListVirtualInterfaceRoutesRequest
+---
+
+::: capo_direct_connect.types.list_virtual_interface_routes_request.ListVirtualInterfaceRoutesRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

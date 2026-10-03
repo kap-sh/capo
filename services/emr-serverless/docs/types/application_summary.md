@@ -1,0 +1,8 @@
+---
+title: ApplicationSummary
+---
+
+::: capo_emr_serverless.types.application_summary.ApplicationSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

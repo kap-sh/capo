@@ -1,0 +1,8 @@
+---
+title: VerifyAuthRequestCryptogramOutput
+---
+
+::: capo_payment_cryptography_data.types.verify_auth_request_cryptogram_output.VerifyAuthRequestCryptogramOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

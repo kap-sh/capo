@@ -1,0 +1,8 @@
+---
+title: RegistrationMetadataKey
+---
+
+::: capo_ssm.types.registration_metadata_key.RegistrationMetadataKey
+    options:
+      show_source: true
+      merge_init_into_class: false

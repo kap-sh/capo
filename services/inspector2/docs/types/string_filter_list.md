@@ -1,0 +1,8 @@
+---
+title: StringFilterList
+---
+
+::: capo_inspector2.types.string_filter_list.StringFilterList
+    options:
+      show_source: true
+      merge_init_into_class: false

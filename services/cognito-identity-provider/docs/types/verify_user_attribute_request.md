@@ -1,0 +1,8 @@
+---
+title: VerifyUserAttributeRequest
+---
+
+::: capo_cognito_identity_provider.types.verify_user_attribute_request.VerifyUserAttributeRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

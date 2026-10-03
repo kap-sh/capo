@@ -1,0 +1,8 @@
+---
+title: UpdateMicrovmImageVersionResponse
+---
+
+::: capo_lambda_microvms.types.update_microvm_image_version_response.UpdateMicrovmImageVersionResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

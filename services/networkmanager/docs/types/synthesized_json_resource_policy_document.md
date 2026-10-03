@@ -1,0 +1,8 @@
+---
+title: SynthesizedJsonResourcePolicyDocument
+---
+
+::: capo_networkmanager.types.synthesized_json_resource_policy_document.SynthesizedJsonResourcePolicyDocument
+    options:
+      show_source: true
+      merge_init_into_class: false

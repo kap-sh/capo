@@ -1,0 +1,8 @@
+---
+title: FontDecoration
+---
+
+::: capo_quicksight.types.font_decoration.FontDecoration
+    options:
+      show_source: true
+      merge_init_into_class: false

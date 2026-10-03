@@ -1,0 +1,8 @@
+---
+title: CreateInstanceSnapshotRequest
+---
+
+::: capo_lightsail.types.create_instance_snapshot_request.CreateInstanceSnapshotRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

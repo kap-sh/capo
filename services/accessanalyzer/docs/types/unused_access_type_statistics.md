@@ -1,0 +1,8 @@
+---
+title: UnusedAccessTypeStatistics
+---
+
+::: capo_accessanalyzer.types.unused_access_type_statistics.UnusedAccessTypeStatistics
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: StartImportTaskInput
+---
+
+::: capo_neptune_graph.types.start_import_task_input.StartImportTaskInput
+    options:
+      show_source: true
+      merge_init_into_class: false

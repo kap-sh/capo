@@ -1,0 +1,8 @@
+---
+title: CreateFunctionResult
+---
+
+::: capo_cloudfront.types.create_function_result.CreateFunctionResult
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: KxUserArn
+---
+
+::: capo_finspace.types.kx_user_arn.KxUserArn
+    options:
+      show_source: true
+      merge_init_into_class: false

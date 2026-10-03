@@ -1,0 +1,8 @@
+---
+title: DescribeFleetAttributesInput
+---
+
+::: capo_gamelift.types.describe_fleet_attributes_input.DescribeFleetAttributesInput
+    options:
+      show_source: true
+      merge_init_into_class: false

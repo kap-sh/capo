@@ -1,0 +1,8 @@
+---
+title: EngineVersionInfo
+---
+
+::: capo_memorydb.types.engine_version_info.EngineVersionInfo
+    options:
+      show_source: true
+      merge_init_into_class: false

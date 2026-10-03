@@ -1,0 +1,8 @@
+---
+title: TermsNameType
+---
+
+::: capo_cognito_identity_provider.types.terms_name_type.TermsNameType
+    options:
+      show_source: true
+      merge_init_into_class: false

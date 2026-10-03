@@ -1,0 +1,8 @@
+---
+title: LocalizedNameString
+---
+
+::: capo_translate.types.localized_name_string.LocalizedNameString
+    options:
+      show_source: true
+      merge_init_into_class: false

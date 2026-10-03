@@ -1,0 +1,8 @@
+---
+title: ListInputsResponse
+---
+
+::: capo_iot_events.types.list_inputs_response.ListInputsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

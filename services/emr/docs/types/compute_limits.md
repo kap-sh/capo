@@ -1,0 +1,8 @@
+---
+title: ComputeLimits
+---
+
+::: capo_emr.types.compute_limits.ComputeLimits
+    options:
+      show_source: true
+      merge_init_into_class: false

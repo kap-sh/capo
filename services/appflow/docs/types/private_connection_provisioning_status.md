@@ -1,0 +1,8 @@
+---
+title: PrivateConnectionProvisioningStatus
+---
+
+::: capo_appflow.types.private_connection_provisioning_status.PrivateConnectionProvisioningStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

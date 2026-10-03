@@ -1,0 +1,8 @@
+---
+title: PutClusterCapacityProvidersResponse
+---
+
+::: capo_ecs.types.put_cluster_capacity_providers_response.PutClusterCapacityProvidersResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

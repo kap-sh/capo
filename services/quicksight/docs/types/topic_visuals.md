@@ -1,0 +1,8 @@
+---
+title: TopicVisuals
+---
+
+::: capo_quicksight.types.topic_visuals.TopicVisuals
+    options:
+      show_source: true
+      merge_init_into_class: false

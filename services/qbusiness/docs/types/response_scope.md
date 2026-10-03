@@ -1,0 +1,8 @@
+---
+title: ResponseScope
+---
+
+::: capo_qbusiness.types.response_scope.ResponseScope
+    options:
+      show_source: true
+      merge_init_into_class: false

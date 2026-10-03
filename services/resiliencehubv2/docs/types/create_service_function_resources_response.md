@@ -1,0 +1,8 @@
+---
+title: CreateServiceFunctionResourcesResponse
+---
+
+::: capo_resiliencehubv2.types.create_service_function_resources_response.CreateServiceFunctionResourcesResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

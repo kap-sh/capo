@@ -1,0 +1,8 @@
+---
+title: CreateTrustedTokenIssuerResponse
+---
+
+::: capo_sso_admin.types.create_trusted_token_issuer_response.CreateTrustedTokenIssuerResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

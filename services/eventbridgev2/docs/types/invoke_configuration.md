@@ -1,0 +1,8 @@
+---
+title: InvokeConfiguration
+---
+
+::: capo_eventbridgev2.types.invoke_configuration.InvokeConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

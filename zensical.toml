@@ -19,6 +19,7 @@ nav = [
   { "Interceptors & HTTP" = "http.md" },
   { "Caching" = "caching.md" },
   { "WASM (Pyodide)" = "wasm.md" },
+  { "Services" = "services.md" },
 ]
 watch = ["README.md"]
 

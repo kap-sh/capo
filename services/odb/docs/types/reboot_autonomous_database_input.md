@@ -1,0 +1,8 @@
+---
+title: RebootAutonomousDatabaseInput
+---
+
+::: capo_odb.types.reboot_autonomous_database_input.RebootAutonomousDatabaseInput
+    options:
+      show_source: true
+      merge_init_into_class: false

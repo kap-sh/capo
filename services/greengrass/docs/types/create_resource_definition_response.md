@@ -1,0 +1,8 @@
+---
+title: CreateResourceDefinitionResponse
+---
+
+::: capo_greengrass.types.create_resource_definition_response.CreateResourceDefinitionResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

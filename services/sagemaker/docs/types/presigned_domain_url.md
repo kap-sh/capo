@@ -1,0 +1,8 @@
+---
+title: PresignedDomainUrl
+---
+
+::: capo_sagemaker.types.presigned_domain_url.PresignedDomainUrl
+    options:
+      show_source: true
+      merge_init_into_class: false

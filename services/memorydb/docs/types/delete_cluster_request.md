@@ -1,0 +1,8 @@
+---
+title: DeleteClusterRequest
+---
+
+::: capo_memorydb.types.delete_cluster_request.DeleteClusterRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

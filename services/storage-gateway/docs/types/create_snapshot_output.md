@@ -1,0 +1,8 @@
+---
+title: CreateSnapshotOutput
+---
+
+::: capo_storage_gateway.types.create_snapshot_output.CreateSnapshotOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

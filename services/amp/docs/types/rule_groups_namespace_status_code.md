@@ -1,0 +1,8 @@
+---
+title: RuleGroupsNamespaceStatusCode
+---
+
+::: capo_amp.types.rule_groups_namespace_status_code.RuleGroupsNamespaceStatusCode
+    options:
+      show_source: true
+      merge_init_into_class: false

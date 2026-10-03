@@ -1,0 +1,8 @@
+---
+title: AssertionAttributes
+---
+
+::: capo_grafana.types.assertion_attributes.AssertionAttributes
+    options:
+      show_source: true
+      merge_init_into_class: false

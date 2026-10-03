@@ -1,0 +1,8 @@
+---
+title: __stringMin1Max32768
+---
+
+::: capo_apigatewayv2.types.__string_min1_max32768.__stringMin1Max32768
+    options:
+      show_source: true
+      merge_init_into_class: false

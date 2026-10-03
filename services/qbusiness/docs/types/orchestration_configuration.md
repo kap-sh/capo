@@ -1,0 +1,8 @@
+---
+title: OrchestrationConfiguration
+---
+
+::: capo_qbusiness.types.orchestration_configuration.OrchestrationConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

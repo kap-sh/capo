@@ -1,0 +1,8 @@
+---
+title: DecalSettingsList
+---
+
+::: capo_quicksight.types.decal_settings_list.DecalSettingsList
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ModelPackageValidationProfile
+---
+
+::: capo_sagemaker.types.model_package_validation_profile.ModelPackageValidationProfile
+    options:
+      show_source: true
+      merge_init_into_class: false

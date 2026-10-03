@@ -1,0 +1,8 @@
+---
+title: ComputationModelExecutionSummary
+---
+
+::: capo_iotsitewise.types.computation_model_execution_summary.ComputationModelExecutionSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

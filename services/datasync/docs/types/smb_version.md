@@ -1,0 +1,8 @@
+---
+title: SmbVersion
+---
+
+::: capo_datasync.types.smb_version.SmbVersion
+    options:
+      show_source: true
+      merge_init_into_class: false

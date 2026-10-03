@@ -1,0 +1,547 @@
+[project]
+site_name = "capo-codecommit"
+site_description = "Python SDK for AWS Codecommit."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "CodeCommitClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/associate_approval_rule_template_with_repository.md",
+      "sync-client/operations/batch_associate_approval_rule_template_with_repositories.md",
+      "sync-client/operations/batch_describe_merge_conflicts.md",
+      "sync-client/operations/batch_disassociate_approval_rule_template_from_repositories.md",
+      "sync-client/operations/batch_get_commits.md",
+      "sync-client/operations/batch_get_repositories.md",
+      "sync-client/operations/create_approval_rule_template.md",
+      "sync-client/operations/create_branch.md",
+      "sync-client/operations/create_commit.md",
+      "sync-client/operations/create_pull_request.md",
+      "sync-client/operations/create_pull_request_approval_rule.md",
+      "sync-client/operations/create_repository.md",
+      "sync-client/operations/create_unreferenced_merge_commit.md",
+      "sync-client/operations/delete_approval_rule_template.md",
+      "sync-client/operations/delete_branch.md",
+      "sync-client/operations/delete_comment_content.md",
+      "sync-client/operations/delete_file.md",
+      "sync-client/operations/delete_pull_request_approval_rule.md",
+      "sync-client/operations/delete_repository.md",
+      "sync-client/operations/describe_merge_conflicts.md",
+      "sync-client/operations/describe_pull_request_events.md",
+      "sync-client/operations/disassociate_approval_rule_template_from_repository.md",
+      "sync-client/operations/evaluate_pull_request_approval_rules.md",
+      "sync-client/operations/get_approval_rule_template.md",
+      "sync-client/operations/get_blob.md",
+      "sync-client/operations/get_blob_differences.md",
+      "sync-client/operations/get_branch.md",
+      "sync-client/operations/get_comment.md",
+      "sync-client/operations/get_comment_reactions.md",
+      "sync-client/operations/get_comments_for_compared_commit.md",
+      "sync-client/operations/get_comments_for_pull_request.md",
+      "sync-client/operations/get_commit.md",
+      "sync-client/operations/get_differences.md",
+      "sync-client/operations/get_file.md",
+      "sync-client/operations/get_folder.md",
+      "sync-client/operations/get_merge_commit.md",
+      "sync-client/operations/get_merge_conflicts.md",
+      "sync-client/operations/get_merge_options.md",
+      "sync-client/operations/get_pull_request.md",
+      "sync-client/operations/get_pull_request_approval_states.md",
+      "sync-client/operations/get_pull_request_override_state.md",
+      "sync-client/operations/get_repository.md",
+      "sync-client/operations/get_repository_triggers.md",
+      "sync-client/operations/list_approval_rule_templates.md",
+      "sync-client/operations/list_associated_approval_rule_templates_for_repository.md",
+      "sync-client/operations/list_branches.md",
+      "sync-client/operations/list_file_commit_history.md",
+      "sync-client/operations/list_pull_requests.md",
+      "sync-client/operations/list_repositories.md",
+      "sync-client/operations/list_repositories_for_approval_rule_template.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/merge_branches_by_fast_forward.md",
+      "sync-client/operations/merge_branches_by_squash.md",
+      "sync-client/operations/merge_branches_by_three_way.md",
+      "sync-client/operations/merge_pull_request_by_fast_forward.md",
+      "sync-client/operations/merge_pull_request_by_squash.md",
+      "sync-client/operations/merge_pull_request_by_three_way.md",
+      "sync-client/operations/override_pull_request_approval_rules.md",
+      "sync-client/operations/post_comment_for_compared_commit.md",
+      "sync-client/operations/post_comment_for_pull_request.md",
+      "sync-client/operations/post_comment_reply.md",
+      "sync-client/operations/put_comment_reaction.md",
+      "sync-client/operations/put_file.md",
+      "sync-client/operations/put_repository_triggers.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/test_repository_triggers.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_approval_rule_template_content.md",
+      "sync-client/operations/update_approval_rule_template_description.md",
+      "sync-client/operations/update_approval_rule_template_name.md",
+      "sync-client/operations/update_comment.md",
+      "sync-client/operations/update_default_branch.md",
+      "sync-client/operations/update_pull_request_approval_rule_content.md",
+      "sync-client/operations/update_pull_request_approval_state.md",
+      "sync-client/operations/update_pull_request_description.md",
+      "sync-client/operations/update_pull_request_status.md",
+      "sync-client/operations/update_pull_request_title.md",
+      "sync-client/operations/update_repository_description.md",
+      "sync-client/operations/update_repository_encryption_key.md",
+      "sync-client/operations/update_repository_name.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_merge_conflicts.md",
+      "sync-client/paginators/iter_describe_pull_request_events.md",
+      "sync-client/paginators/iter_get_blob_differences.md",
+      "sync-client/paginators/iter_get_comment_reactions.md",
+      "sync-client/paginators/iter_get_comments_for_compared_commit.md",
+      "sync-client/paginators/iter_get_comments_for_pull_request.md",
+      "sync-client/paginators/iter_get_differences.md",
+      "sync-client/paginators/iter_get_merge_conflicts.md",
+      "sync-client/paginators/iter_list_approval_rule_templates.md",
+      "sync-client/paginators/iter_list_associated_approval_rule_templates_for_repository.md",
+      "sync-client/paginators/iter_list_branches.md",
+      "sync-client/paginators/iter_list_file_commit_history.md",
+      "sync-client/paginators/iter_list_pull_requests.md",
+      "sync-client/paginators/iter_list_repositories.md",
+      "sync-client/paginators/iter_list_repositories_for_approval_rule_template.md",
+    ] },
+  ] },
+  { "AsyncCodeCommitClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/associate_approval_rule_template_with_repository.md",
+      "async-client/operations/batch_associate_approval_rule_template_with_repositories.md",
+      "async-client/operations/batch_describe_merge_conflicts.md",
+      "async-client/operations/batch_disassociate_approval_rule_template_from_repositories.md",
+      "async-client/operations/batch_get_commits.md",
+      "async-client/operations/batch_get_repositories.md",
+      "async-client/operations/create_approval_rule_template.md",
+      "async-client/operations/create_branch.md",
+      "async-client/operations/create_commit.md",
+      "async-client/operations/create_pull_request.md",
+      "async-client/operations/create_pull_request_approval_rule.md",
+      "async-client/operations/create_repository.md",
+      "async-client/operations/create_unreferenced_merge_commit.md",
+      "async-client/operations/delete_approval_rule_template.md",
+      "async-client/operations/delete_branch.md",
+      "async-client/operations/delete_comment_content.md",
+      "async-client/operations/delete_file.md",
+      "async-client/operations/delete_pull_request_approval_rule.md",
+      "async-client/operations/delete_repository.md",
+      "async-client/operations/describe_merge_conflicts.md",
+      "async-client/operations/describe_pull_request_events.md",
+      "async-client/operations/disassociate_approval_rule_template_from_repository.md",
+      "async-client/operations/evaluate_pull_request_approval_rules.md",
+      "async-client/operations/get_approval_rule_template.md",
+      "async-client/operations/get_blob.md",
+      "async-client/operations/get_blob_differences.md",
+      "async-client/operations/get_branch.md",
+      "async-client/operations/get_comment.md",
+      "async-client/operations/get_comment_reactions.md",
+      "async-client/operations/get_comments_for_compared_commit.md",
+      "async-client/operations/get_comments_for_pull_request.md",
+      "async-client/operations/get_commit.md",
+      "async-client/operations/get_differences.md",
+      "async-client/operations/get_file.md",
+      "async-client/operations/get_folder.md",
+      "async-client/operations/get_merge_commit.md",
+      "async-client/operations/get_merge_conflicts.md",
+      "async-client/operations/get_merge_options.md",
+      "async-client/operations/get_pull_request.md",
+      "async-client/operations/get_pull_request_approval_states.md",
+      "async-client/operations/get_pull_request_override_state.md",
+      "async-client/operations/get_repository.md",
+      "async-client/operations/get_repository_triggers.md",
+      "async-client/operations/list_approval_rule_templates.md",
+      "async-client/operations/list_associated_approval_rule_templates_for_repository.md",
+      "async-client/operations/list_branches.md",
+      "async-client/operations/list_file_commit_history.md",
+      "async-client/operations/list_pull_requests.md",
+      "async-client/operations/list_repositories.md",
+      "async-client/operations/list_repositories_for_approval_rule_template.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/merge_branches_by_fast_forward.md",
+      "async-client/operations/merge_branches_by_squash.md",
+      "async-client/operations/merge_branches_by_three_way.md",
+      "async-client/operations/merge_pull_request_by_fast_forward.md",
+      "async-client/operations/merge_pull_request_by_squash.md",
+      "async-client/operations/merge_pull_request_by_three_way.md",
+      "async-client/operations/override_pull_request_approval_rules.md",
+      "async-client/operations/post_comment_for_compared_commit.md",
+      "async-client/operations/post_comment_for_pull_request.md",
+      "async-client/operations/post_comment_reply.md",
+      "async-client/operations/put_comment_reaction.md",
+      "async-client/operations/put_file.md",
+      "async-client/operations/put_repository_triggers.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/test_repository_triggers.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_approval_rule_template_content.md",
+      "async-client/operations/update_approval_rule_template_description.md",
+      "async-client/operations/update_approval_rule_template_name.md",
+      "async-client/operations/update_comment.md",
+      "async-client/operations/update_default_branch.md",
+      "async-client/operations/update_pull_request_approval_rule_content.md",
+      "async-client/operations/update_pull_request_approval_state.md",
+      "async-client/operations/update_pull_request_description.md",
+      "async-client/operations/update_pull_request_status.md",
+      "async-client/operations/update_pull_request_title.md",
+      "async-client/operations/update_repository_description.md",
+      "async-client/operations/update_repository_encryption_key.md",
+      "async-client/operations/update_repository_name.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_merge_conflicts.md",
+      "async-client/paginators/iter_describe_pull_request_events.md",
+      "async-client/paginators/iter_get_blob_differences.md",
+      "async-client/paginators/iter_get_comment_reactions.md",
+      "async-client/paginators/iter_get_comments_for_compared_commit.md",
+      "async-client/paginators/iter_get_comments_for_pull_request.md",
+      "async-client/paginators/iter_get_differences.md",
+      "async-client/paginators/iter_get_merge_conflicts.md",
+      "async-client/paginators/iter_list_approval_rule_templates.md",
+      "async-client/paginators/iter_list_associated_approval_rule_templates_for_repository.md",
+      "async-client/paginators/iter_list_branches.md",
+      "async-client/paginators/iter_list_file_commit_history.md",
+      "async-client/paginators/iter_list_pull_requests.md",
+      "async-client/paginators/iter_list_repositories.md",
+      "async-client/paginators/iter_list_repositories_for_approval_rule_template.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/ActorDoesNotExistException.md",
+    "errors/ApprovalRuleContentRequiredException.md",
+    "errors/ApprovalRuleDoesNotExistException.md",
+    "errors/ApprovalRuleNameAlreadyExistsException.md",
+    "errors/ApprovalRuleNameRequiredException.md",
+    "errors/ApprovalRuleTemplateContentRequiredException.md",
+    "errors/ApprovalRuleTemplateDoesNotExistException.md",
+    "errors/ApprovalRuleTemplateInUseException.md",
+    "errors/ApprovalRuleTemplateNameAlreadyExistsException.md",
+    "errors/ApprovalRuleTemplateNameRequiredException.md",
+    "errors/ApprovalStateRequiredException.md",
+    "errors/AuthorDoesNotExistException.md",
+    "errors/BeforeCommitIdAndAfterCommitIdAreSameException.md",
+    "errors/BlobIdDoesNotExistException.md",
+    "errors/BlobIdRequiredException.md",
+    "errors/BranchDoesNotExistException.md",
+    "errors/BranchNameExistsException.md",
+    "errors/BranchNameIsTagNameException.md",
+    "errors/BranchNameRequiredException.md",
+    "errors/CannotDeleteApprovalRuleFromTemplateException.md",
+    "errors/CannotModifyApprovalRuleFromTemplateException.md",
+    "errors/ClientRequestTokenRequiredException.md",
+    "errors/CodeCommitError.md",
+    "errors/CommentContentRequiredException.md",
+    "errors/CommentContentSizeLimitExceededException.md",
+    "errors/CommentDeletedException.md",
+    "errors/CommentDoesNotExistException.md",
+    "errors/CommentIdRequiredException.md",
+    "errors/CommentNotCreatedByCallerException.md",
+    "errors/CommitDoesNotExistException.md",
+    "errors/CommitIdDoesNotExistException.md",
+    "errors/CommitIdRequiredException.md",
+    "errors/CommitIdsLimitExceededException.md",
+    "errors/CommitIdsListRequiredException.md",
+    "errors/CommitMessageLengthExceededException.md",
+    "errors/CommitRequiredException.md",
+    "errors/ConcurrentReferenceUpdateException.md",
+    "errors/DefaultBranchCannotBeDeletedException.md",
+    "errors/DeserializationError.md",
+    "errors/DirectoryNameConflictsWithFileNameException.md",
+    "errors/EncryptionIntegrityChecksFailedException.md",
+    "errors/EncryptionKeyAccessDeniedException.md",
+    "errors/EncryptionKeyDisabledException.md",
+    "errors/EncryptionKeyInvalidIdException.md",
+    "errors/EncryptionKeyInvalidUsageException.md",
+    "errors/EncryptionKeyNotFoundException.md",
+    "errors/EncryptionKeyRequiredException.md",
+    "errors/EncryptionKeyUnavailableException.md",
+    "errors/FileContentAndSourceFileSpecifiedException.md",
+    "errors/FileContentRequiredException.md",
+    "errors/FileContentSizeLimitExceededException.md",
+    "errors/FileDoesNotExistException.md",
+    "errors/FileEntryRequiredException.md",
+    "errors/FileModeRequiredException.md",
+    "errors/FileNameConflictsWithDirectoryNameException.md",
+    "errors/FilePathConflictsWithSubmodulePathException.md",
+    "errors/FileTooLargeException.md",
+    "errors/FolderContentSizeLimitExceededException.md",
+    "errors/FolderDoesNotExistException.md",
+    "errors/IdempotencyParameterMismatchException.md",
+    "errors/InvalidActorArnException.md",
+    "errors/InvalidApprovalRuleContentException.md",
+    "errors/InvalidApprovalRuleNameException.md",
+    "errors/InvalidApprovalRuleTemplateContentException.md",
+    "errors/InvalidApprovalRuleTemplateDescriptionException.md",
+    "errors/InvalidApprovalRuleTemplateNameException.md",
+    "errors/InvalidApprovalStateException.md",
+    "errors/InvalidAuthorArnException.md",
+    "errors/InvalidBlobIdException.md",
+    "errors/InvalidBranchNameException.md",
+    "errors/InvalidClientRequestTokenException.md",
+    "errors/InvalidCommentIdException.md",
+    "errors/InvalidCommitException.md",
+    "errors/InvalidCommitIdException.md",
+    "errors/InvalidConflictDetailLevelException.md",
+    "errors/InvalidConflictResolutionException.md",
+    "errors/InvalidConflictResolutionStrategyException.md",
+    "errors/InvalidContinuationTokenException.md",
+    "errors/InvalidDeletionParameterException.md",
+    "errors/InvalidDescriptionException.md",
+    "errors/InvalidDestinationCommitSpecifierException.md",
+    "errors/InvalidEmailException.md",
+    "errors/InvalidFileLocationException.md",
+    "errors/InvalidFileModeException.md",
+    "errors/InvalidFilePositionException.md",
+    "errors/InvalidMaxConflictFilesException.md",
+    "errors/InvalidMaxMergeHunksException.md",
+    "errors/InvalidMaxResultsException.md",
+    "errors/InvalidMergeOptionException.md",
+    "errors/InvalidOrderException.md",
+    "errors/InvalidOverrideStatusException.md",
+    "errors/InvalidParentCommitIdException.md",
+    "errors/InvalidPathException.md",
+    "errors/InvalidPullRequestEventTypeException.md",
+    "errors/InvalidPullRequestIdException.md",
+    "errors/InvalidPullRequestStatusException.md",
+    "errors/InvalidPullRequestStatusUpdateException.md",
+    "errors/InvalidReactionUserArnException.md",
+    "errors/InvalidReactionValueException.md",
+    "errors/InvalidReferenceNameException.md",
+    "errors/InvalidRelativeFileVersionEnumException.md",
+    "errors/InvalidReplacementContentException.md",
+    "errors/InvalidReplacementTypeException.md",
+    "errors/InvalidRepositoryDescriptionException.md",
+    "errors/InvalidRepositoryNameException.md",
+    "errors/InvalidRepositoryTriggerBranchNameException.md",
+    "errors/InvalidRepositoryTriggerCustomDataException.md",
+    "errors/InvalidRepositoryTriggerDestinationArnException.md",
+    "errors/InvalidRepositoryTriggerEventsException.md",
+    "errors/InvalidRepositoryTriggerNameException.md",
+    "errors/InvalidRepositoryTriggerRegionException.md",
+    "errors/InvalidResourceArnException.md",
+    "errors/InvalidRevisionIdException.md",
+    "errors/InvalidRuleContentSha256Exception.md",
+    "errors/InvalidSortByException.md",
+    "errors/InvalidSourceCommitSpecifierException.md",
+    "errors/InvalidSystemTagUsageException.md",
+    "errors/InvalidTagKeysListException.md",
+    "errors/InvalidTagsMapException.md",
+    "errors/InvalidTargetBranchException.md",
+    "errors/InvalidTargetException.md",
+    "errors/InvalidTargetsException.md",
+    "errors/InvalidTitleException.md",
+    "errors/ManualMergeRequiredException.md",
+    "errors/MaximumBranchesExceededException.md",
+    "errors/MaximumConflictResolutionEntriesExceededException.md",
+    "errors/MaximumFileContentToLoadExceededException.md",
+    "errors/MaximumFileEntriesExceededException.md",
+    "errors/MaximumItemsToCompareExceededException.md",
+    "errors/MaximumNumberOfApprovalsExceededException.md",
+    "errors/MaximumOpenPullRequestsExceededException.md",
+    "errors/MaximumRepositoryNamesExceededException.md",
+    "errors/MaximumRepositoryTriggersExceededException.md",
+    "errors/MaximumRuleTemplatesAssociatedWithRepositoryException.md",
+    "errors/MergeOptionRequiredException.md",
+    "errors/MultipleConflictResolutionEntriesException.md",
+    "errors/MultipleRepositoriesInPullRequestException.md",
+    "errors/NameLengthExceededException.md",
+    "errors/NoChangeException.md",
+    "errors/NumberOfRuleTemplatesExceededException.md",
+    "errors/NumberOfRulesExceededException.md",
+    "errors/OperationNotAllowedException.md",
+    "errors/OverrideAlreadySetException.md",
+    "errors/OverrideStatusRequiredException.md",
+    "errors/ParentCommitDoesNotExistException.md",
+    "errors/ParentCommitIdOutdatedException.md",
+    "errors/ParentCommitIdRequiredException.md",
+    "errors/PathDoesNotExistException.md",
+    "errors/PathRequiredException.md",
+    "errors/PullRequestAlreadyClosedException.md",
+    "errors/PullRequestApprovalRulesNotSatisfiedException.md",
+    "errors/PullRequestCannotBeApprovedByAuthorException.md",
+    "errors/PullRequestDoesNotExistException.md",
+    "errors/PullRequestIdRequiredException.md",
+    "errors/PullRequestStatusRequiredException.md",
+    "errors/PutFileEntryConflictException.md",
+    "errors/ReactionLimitExceededException.md",
+    "errors/ReactionValueRequiredException.md",
+    "errors/ReferenceDoesNotExistException.md",
+    "errors/ReferenceNameRequiredException.md",
+    "errors/ReferenceTypeNotSupportedException.md",
+    "errors/ReplacementContentRequiredException.md",
+    "errors/ReplacementTypeRequiredException.md",
+    "errors/RepositoryDoesNotExistException.md",
+    "errors/RepositoryLimitExceededException.md",
+    "errors/RepositoryNameExistsException.md",
+    "errors/RepositoryNameRequiredException.md",
+    "errors/RepositoryNamesRequiredException.md",
+    "errors/RepositoryNotAssociatedWithPullRequestException.md",
+    "errors/RepositoryTriggerBranchNameListRequiredException.md",
+    "errors/RepositoryTriggerDestinationArnRequiredException.md",
+    "errors/RepositoryTriggerEventsListRequiredException.md",
+    "errors/RepositoryTriggerNameRequiredException.md",
+    "errors/RepositoryTriggersListRequiredException.md",
+    "errors/ResourceArnRequiredException.md",
+    "errors/RestrictedSourceFileException.md",
+    "errors/RevisionIdRequiredException.md",
+    "errors/RevisionNotCurrentException.md",
+    "errors/SameFileContentException.md",
+    "errors/SamePathRequestException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/SourceAndDestinationAreSameException.md",
+    "errors/SourceFileOrContentRequiredException.md",
+    "errors/TagKeysListRequiredException.md",
+    "errors/TagPolicyException.md",
+    "errors/TagsMapRequiredException.md",
+    "errors/TargetRequiredException.md",
+    "errors/TargetsRequiredException.md",
+    "errors/TipOfSourceReferenceIsDifferentException.md",
+    "errors/TipsDivergenceExceededException.md",
+    "errors/TitleRequiredException.md",
+    "errors/TooManyTagsException.md",
+    "errors/UnknownServiceError.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_codecommit` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_codecommit.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

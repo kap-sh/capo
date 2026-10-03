@@ -1,0 +1,8 @@
+---
+title: Search
+---
+
+::: capo_kendra.types.search.Search
+    options:
+      show_source: true
+      merge_init_into_class: false

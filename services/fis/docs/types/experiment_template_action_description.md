@@ -1,0 +1,8 @@
+---
+title: ExperimentTemplateActionDescription
+---
+
+::: capo_fis.types.experiment_template_action_description.ExperimentTemplateActionDescription
+    options:
+      show_source: true
+      merge_init_into_class: false

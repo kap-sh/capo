@@ -1,0 +1,8 @@
+---
+title: DeviceiSCSIAttributes
+---
+
+::: capo_storage_gateway.types.devicei_scsi_attributes.DeviceiSCSIAttributes
+    options:
+      show_source: true
+      merge_init_into_class: false

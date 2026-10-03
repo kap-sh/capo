@@ -1,0 +1,8 @@
+---
+title: VCpuCountRangeRequest
+---
+
+::: capo_ec2.types.v_cpu_count_range_request.VCpuCountRangeRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

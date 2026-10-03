@@ -1,0 +1,15 @@
+# Errors
+
+- [ContainerInUseException](ContainerInUseException.md)
+- [ContainerNotFoundException](ContainerNotFoundException.md)
+- [CorsPolicyNotFoundException](CorsPolicyNotFoundException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerError](InternalServerError.md)
+- [LimitExceededException](LimitExceededException.md)
+- [MediaStoreError](MediaStoreError.md)
+- [PolicyNotFoundException](PolicyNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

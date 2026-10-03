@@ -1,0 +1,8 @@
+---
+title: ReplicaModificationsStatus
+---
+
+::: capo_s3.types.replica_modifications_status.ReplicaModificationsStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

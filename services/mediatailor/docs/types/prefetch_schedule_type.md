@@ -1,0 +1,8 @@
+---
+title: PrefetchScheduleType
+---
+
+::: capo_mediatailor.types.prefetch_schedule_type.PrefetchScheduleType
+    options:
+      show_source: true
+      merge_init_into_class: false

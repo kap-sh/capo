@@ -1,0 +1,8 @@
+---
+title: CreateOutput
+---
+
+::: capo_elementalinference.types.create_output.CreateOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: InstanceGroupScalingMetadata
+---
+
+::: capo_sagemaker.types.instance_group_scaling_metadata.InstanceGroupScalingMetadata
+    options:
+      show_source: true
+      merge_init_into_class: false

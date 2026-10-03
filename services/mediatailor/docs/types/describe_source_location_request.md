@@ -1,0 +1,8 @@
+---
+title: DescribeSourceLocationRequest
+---
+
+::: capo_mediatailor.types.describe_source_location_request.DescribeSourceLocationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

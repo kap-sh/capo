@@ -1,0 +1,8 @@
+---
+title: RemoveHook
+---
+
+::: capo_iot.types.remove_hook.RemoveHook
+    options:
+      show_source: true
+      merge_init_into_class: false

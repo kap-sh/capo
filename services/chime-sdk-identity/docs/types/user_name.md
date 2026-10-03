@@ -1,0 +1,8 @@
+---
+title: UserName
+---
+
+::: capo_chime_sdk_identity.types.user_name.UserName
+    options:
+      show_source: true
+      merge_init_into_class: false

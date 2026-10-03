@@ -1,0 +1,8 @@
+---
+title: PageClassification
+---
+
+::: capo_textract.types.page_classification.PageClassification
+    options:
+      show_source: true
+      merge_init_into_class: false

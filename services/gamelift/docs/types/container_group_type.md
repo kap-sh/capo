@@ -1,0 +1,8 @@
+---
+title: ContainerGroupType
+---
+
+::: capo_gamelift.types.container_group_type.ContainerGroupType
+    options:
+      show_source: true
+      merge_init_into_class: false

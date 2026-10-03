@@ -1,0 +1,8 @@
+---
+title: DissociatePackageRequest
+---
+
+::: capo_elasticsearch_service.types.dissociate_package_request.DissociatePackageRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

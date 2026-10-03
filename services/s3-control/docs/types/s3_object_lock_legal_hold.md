@@ -1,0 +1,8 @@
+---
+title: S3ObjectLockLegalHold
+---
+
+::: capo_s3_control.types.s3_object_lock_legal_hold.S3ObjectLockLegalHold
+    options:
+      show_source: true
+      merge_init_into_class: false

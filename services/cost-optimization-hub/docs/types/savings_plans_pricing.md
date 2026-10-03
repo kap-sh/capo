@@ -1,0 +1,8 @@
+---
+title: SavingsPlansPricing
+---
+
+::: capo_cost_optimization_hub.types.savings_plans_pricing.SavingsPlansPricing
+    options:
+      show_source: true
+      merge_init_into_class: false

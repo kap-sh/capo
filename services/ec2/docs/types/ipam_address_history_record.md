@@ -1,0 +1,8 @@
+---
+title: IpamAddressHistoryRecord
+---
+
+::: capo_ec2.types.ipam_address_history_record.IpamAddressHistoryRecord
+    options:
+      show_source: true
+      merge_init_into_class: false

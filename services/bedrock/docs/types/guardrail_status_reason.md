@@ -1,0 +1,8 @@
+---
+title: GuardrailStatusReason
+---
+
+::: capo_bedrock.types.guardrail_status_reason.GuardrailStatusReason
+    options:
+      show_source: true
+      merge_init_into_class: false

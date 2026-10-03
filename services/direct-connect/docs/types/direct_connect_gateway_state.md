@@ -1,0 +1,8 @@
+---
+title: DirectConnectGatewayState
+---
+
+::: capo_direct_connect.types.direct_connect_gateway_state.DirectConnectGatewayState
+    options:
+      show_source: true
+      merge_init_into_class: false

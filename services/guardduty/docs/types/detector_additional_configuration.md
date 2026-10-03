@@ -1,0 +1,8 @@
+---
+title: DetectorAdditionalConfiguration
+---
+
+::: capo_guardduty.types.detector_additional_configuration.DetectorAdditionalConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

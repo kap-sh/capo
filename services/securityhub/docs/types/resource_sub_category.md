@@ -1,0 +1,8 @@
+---
+title: ResourceSubCategory
+---
+
+::: capo_securityhub.types.resource_sub_category.ResourceSubCategory
+    options:
+      show_source: true
+      merge_init_into_class: false

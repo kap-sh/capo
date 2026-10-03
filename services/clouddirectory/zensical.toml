@@ -1,0 +1,372 @@
+[project]
+site_name = "capo-clouddirectory"
+site_description = "Python SDK for AWS Clouddirectory."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "CloudDirectoryClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/add_facet_to_object.md",
+      "sync-client/operations/apply_schema.md",
+      "sync-client/operations/attach_object.md",
+      "sync-client/operations/attach_policy.md",
+      "sync-client/operations/attach_to_index.md",
+      "sync-client/operations/attach_typed_link.md",
+      "sync-client/operations/batch_read.md",
+      "sync-client/operations/batch_write.md",
+      "sync-client/operations/create_directory.md",
+      "sync-client/operations/create_facet.md",
+      "sync-client/operations/create_index.md",
+      "sync-client/operations/create_object.md",
+      "sync-client/operations/create_schema.md",
+      "sync-client/operations/create_typed_link_facet.md",
+      "sync-client/operations/delete_directory.md",
+      "sync-client/operations/delete_facet.md",
+      "sync-client/operations/delete_object.md",
+      "sync-client/operations/delete_schema.md",
+      "sync-client/operations/delete_typed_link_facet.md",
+      "sync-client/operations/detach_from_index.md",
+      "sync-client/operations/detach_object.md",
+      "sync-client/operations/detach_policy.md",
+      "sync-client/operations/detach_typed_link.md",
+      "sync-client/operations/disable_directory.md",
+      "sync-client/operations/enable_directory.md",
+      "sync-client/operations/get_applied_schema_version.md",
+      "sync-client/operations/get_directory.md",
+      "sync-client/operations/get_facet.md",
+      "sync-client/operations/get_link_attributes.md",
+      "sync-client/operations/get_object_attributes.md",
+      "sync-client/operations/get_object_information.md",
+      "sync-client/operations/get_schema_as_json.md",
+      "sync-client/operations/get_typed_link_facet_information.md",
+      "sync-client/operations/list_applied_schema_arns.md",
+      "sync-client/operations/list_attached_indices.md",
+      "sync-client/operations/list_development_schema_arns.md",
+      "sync-client/operations/list_directories.md",
+      "sync-client/operations/list_facet_attributes.md",
+      "sync-client/operations/list_facet_names.md",
+      "sync-client/operations/list_incoming_typed_links.md",
+      "sync-client/operations/list_index.md",
+      "sync-client/operations/list_managed_schema_arns.md",
+      "sync-client/operations/list_object_attributes.md",
+      "sync-client/operations/list_object_children.md",
+      "sync-client/operations/list_object_parent_paths.md",
+      "sync-client/operations/list_object_parents.md",
+      "sync-client/operations/list_object_policies.md",
+      "sync-client/operations/list_outgoing_typed_links.md",
+      "sync-client/operations/list_policy_attachments.md",
+      "sync-client/operations/list_published_schema_arns.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_typed_link_facet_attributes.md",
+      "sync-client/operations/list_typed_link_facet_names.md",
+      "sync-client/operations/lookup_policy.md",
+      "sync-client/operations/publish_schema.md",
+      "sync-client/operations/put_schema_from_json.md",
+      "sync-client/operations/remove_facet_from_object.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_facet.md",
+      "sync-client/operations/update_link_attributes.md",
+      "sync-client/operations/update_object_attributes.md",
+      "sync-client/operations/update_schema.md",
+      "sync-client/operations/update_typed_link_facet.md",
+      "sync-client/operations/upgrade_applied_schema.md",
+      "sync-client/operations/upgrade_published_schema.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_applied_schema_arns.md",
+      "sync-client/paginators/iter_list_attached_indices.md",
+      "sync-client/paginators/iter_list_development_schema_arns.md",
+      "sync-client/paginators/iter_list_directories.md",
+      "sync-client/paginators/iter_list_facet_attributes.md",
+      "sync-client/paginators/iter_list_facet_names.md",
+      "sync-client/paginators/iter_list_index.md",
+      "sync-client/paginators/iter_list_managed_schema_arns.md",
+      "sync-client/paginators/iter_list_object_attributes.md",
+      "sync-client/paginators/iter_list_object_children.md",
+      "sync-client/paginators/iter_list_object_parent_paths.md",
+      "sync-client/paginators/iter_list_object_parents.md",
+      "sync-client/paginators/iter_list_object_policies.md",
+      "sync-client/paginators/iter_list_policy_attachments.md",
+      "sync-client/paginators/iter_list_published_schema_arns.md",
+      "sync-client/paginators/iter_list_tags_for_resource.md",
+      "sync-client/paginators/iter_list_typed_link_facet_attributes.md",
+      "sync-client/paginators/iter_list_typed_link_facet_names.md",
+      "sync-client/paginators/iter_lookup_policy.md",
+    ] },
+  ] },
+  { "AsyncCloudDirectoryClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/add_facet_to_object.md",
+      "async-client/operations/apply_schema.md",
+      "async-client/operations/attach_object.md",
+      "async-client/operations/attach_policy.md",
+      "async-client/operations/attach_to_index.md",
+      "async-client/operations/attach_typed_link.md",
+      "async-client/operations/batch_read.md",
+      "async-client/operations/batch_write.md",
+      "async-client/operations/create_directory.md",
+      "async-client/operations/create_facet.md",
+      "async-client/operations/create_index.md",
+      "async-client/operations/create_object.md",
+      "async-client/operations/create_schema.md",
+      "async-client/operations/create_typed_link_facet.md",
+      "async-client/operations/delete_directory.md",
+      "async-client/operations/delete_facet.md",
+      "async-client/operations/delete_object.md",
+      "async-client/operations/delete_schema.md",
+      "async-client/operations/delete_typed_link_facet.md",
+      "async-client/operations/detach_from_index.md",
+      "async-client/operations/detach_object.md",
+      "async-client/operations/detach_policy.md",
+      "async-client/operations/detach_typed_link.md",
+      "async-client/operations/disable_directory.md",
+      "async-client/operations/enable_directory.md",
+      "async-client/operations/get_applied_schema_version.md",
+      "async-client/operations/get_directory.md",
+      "async-client/operations/get_facet.md",
+      "async-client/operations/get_link_attributes.md",
+      "async-client/operations/get_object_attributes.md",
+      "async-client/operations/get_object_information.md",
+      "async-client/operations/get_schema_as_json.md",
+      "async-client/operations/get_typed_link_facet_information.md",
+      "async-client/operations/list_applied_schema_arns.md",
+      "async-client/operations/list_attached_indices.md",
+      "async-client/operations/list_development_schema_arns.md",
+      "async-client/operations/list_directories.md",
+      "async-client/operations/list_facet_attributes.md",
+      "async-client/operations/list_facet_names.md",
+      "async-client/operations/list_incoming_typed_links.md",
+      "async-client/operations/list_index.md",
+      "async-client/operations/list_managed_schema_arns.md",
+      "async-client/operations/list_object_attributes.md",
+      "async-client/operations/list_object_children.md",
+      "async-client/operations/list_object_parent_paths.md",
+      "async-client/operations/list_object_parents.md",
+      "async-client/operations/list_object_policies.md",
+      "async-client/operations/list_outgoing_typed_links.md",
+      "async-client/operations/list_policy_attachments.md",
+      "async-client/operations/list_published_schema_arns.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_typed_link_facet_attributes.md",
+      "async-client/operations/list_typed_link_facet_names.md",
+      "async-client/operations/lookup_policy.md",
+      "async-client/operations/publish_schema.md",
+      "async-client/operations/put_schema_from_json.md",
+      "async-client/operations/remove_facet_from_object.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_facet.md",
+      "async-client/operations/update_link_attributes.md",
+      "async-client/operations/update_object_attributes.md",
+      "async-client/operations/update_schema.md",
+      "async-client/operations/update_typed_link_facet.md",
+      "async-client/operations/upgrade_applied_schema.md",
+      "async-client/operations/upgrade_published_schema.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_applied_schema_arns.md",
+      "async-client/paginators/iter_list_attached_indices.md",
+      "async-client/paginators/iter_list_development_schema_arns.md",
+      "async-client/paginators/iter_list_directories.md",
+      "async-client/paginators/iter_list_facet_attributes.md",
+      "async-client/paginators/iter_list_facet_names.md",
+      "async-client/paginators/iter_list_index.md",
+      "async-client/paginators/iter_list_managed_schema_arns.md",
+      "async-client/paginators/iter_list_object_attributes.md",
+      "async-client/paginators/iter_list_object_children.md",
+      "async-client/paginators/iter_list_object_parent_paths.md",
+      "async-client/paginators/iter_list_object_parents.md",
+      "async-client/paginators/iter_list_object_policies.md",
+      "async-client/paginators/iter_list_policy_attachments.md",
+      "async-client/paginators/iter_list_published_schema_arns.md",
+      "async-client/paginators/iter_list_tags_for_resource.md",
+      "async-client/paginators/iter_list_typed_link_facet_attributes.md",
+      "async-client/paginators/iter_list_typed_link_facet_names.md",
+      "async-client/paginators/iter_lookup_policy.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/BatchWriteException.md",
+    "errors/CannotListParentOfRootException.md",
+    "errors/CloudDirectoryError.md",
+    "errors/DeserializationError.md",
+    "errors/DirectoryAlreadyExistsException.md",
+    "errors/DirectoryDeletedException.md",
+    "errors/DirectoryNotDisabledException.md",
+    "errors/DirectoryNotEnabledException.md",
+    "errors/FacetAlreadyExistsException.md",
+    "errors/FacetInUseException.md",
+    "errors/FacetNotFoundException.md",
+    "errors/FacetValidationException.md",
+    "errors/IncompatibleSchemaException.md",
+    "errors/IndexedAttributeMissingException.md",
+    "errors/InternalServiceException.md",
+    "errors/InvalidArnException.md",
+    "errors/InvalidAttachmentException.md",
+    "errors/InvalidFacetUpdateException.md",
+    "errors/InvalidNextTokenException.md",
+    "errors/InvalidRuleException.md",
+    "errors/InvalidSchemaDocException.md",
+    "errors/InvalidTaggingRequestException.md",
+    "errors/LimitExceededException.md",
+    "errors/LinkNameAlreadyInUseException.md",
+    "errors/NotIndexException.md",
+    "errors/NotNodeException.md",
+    "errors/NotPolicyException.md",
+    "errors/ObjectAlreadyDetachedException.md",
+    "errors/ObjectNotDetachedException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/RetryableConflictException.md",
+    "errors/SchemaAlreadyExistsException.md",
+    "errors/SchemaAlreadyPublishedException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/StillContainsLinksException.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnsupportedIndexTypeException.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_clouddirectory` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_clouddirectory.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

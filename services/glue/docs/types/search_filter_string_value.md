@@ -1,0 +1,8 @@
+---
+title: SearchFilterStringValue
+---
+
+::: capo_glue.types.search_filter_string_value.SearchFilterStringValue
+    options:
+      show_source: true
+      merge_init_into_class: false

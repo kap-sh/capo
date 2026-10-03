@@ -1,0 +1,8 @@
+---
+title: FeesBreakdownAmount
+---
+
+::: capo_invoicing.types.fees_breakdown_amount.FeesBreakdownAmount
+    options:
+      show_source: true
+      merge_init_into_class: false

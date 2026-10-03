@@ -1,0 +1,8 @@
+---
+title: AssociateHostedZoneInput
+---
+
+::: capo_route53globalresolver.types.associate_hosted_zone_input.AssociateHostedZoneInput
+    options:
+      show_source: true
+      merge_init_into_class: false

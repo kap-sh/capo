@@ -1,0 +1,8 @@
+---
+title: RoadSnapNoticeCode
+---
+
+::: capo_geo_routes.types.road_snap_notice_code.RoadSnapNoticeCode
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: GetPermissionResponse
+---
+
+::: capo_ram.types.get_permission_response.GetPermissionResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

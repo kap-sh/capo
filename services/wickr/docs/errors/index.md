@@ -1,0 +1,16 @@
+# Errors
+
+- [BadRequestError](BadRequestError.md)
+- [DeserializationError](DeserializationError.md)
+- [ForbiddenError](ForbiddenError.md)
+- [InternalServerError](InternalServerError.md)
+- [RateLimitError](RateLimitError.md)
+- [ResourceNotFoundError](ResourceNotFoundError.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnauthorizedError](UnauthorizedError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [ValidationError](ValidationError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)
+- [WickrError](WickrError.md)

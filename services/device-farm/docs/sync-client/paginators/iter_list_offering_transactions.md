@@ -1,0 +1,7 @@
+---
+title: iter_list_offering_transactions
+---
+
+::: capo_device_farm._services.device_farm.DeviceFarmClient.iter_list_offering_transactions
+    options:
+      show_source: true

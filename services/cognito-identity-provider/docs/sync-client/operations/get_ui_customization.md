@@ -1,0 +1,7 @@
+---
+title: get_ui_customization
+---
+
+::: capo_cognito_identity_provider._services.cognito_identity_provider.CognitoIdentityProviderClient.get_ui_customization
+    options:
+      show_source: true

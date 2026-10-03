@@ -1,0 +1,8 @@
+---
+title: ErrorMetrics
+---
+
+::: capo_forecast.types.error_metrics.ErrorMetrics
+    options:
+      show_source: true
+      merge_init_into_class: false

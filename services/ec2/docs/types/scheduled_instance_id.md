@@ -1,0 +1,8 @@
+---
+title: ScheduledInstanceId
+---
+
+::: capo_ec2.types.scheduled_instance_id.ScheduledInstanceId
+    options:
+      show_source: true
+      merge_init_into_class: false

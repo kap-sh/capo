@@ -1,0 +1,8 @@
+---
+title: UpdateTestCaseRequest
+---
+
+::: capo_connect.types.update_test_case_request.UpdateTestCaseRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

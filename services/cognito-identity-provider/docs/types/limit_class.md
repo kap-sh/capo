@@ -1,0 +1,8 @@
+---
+title: LimitClass
+---
+
+::: capo_cognito_identity_provider.types.limit_class.LimitClass
+    options:
+      show_source: true
+      merge_init_into_class: false

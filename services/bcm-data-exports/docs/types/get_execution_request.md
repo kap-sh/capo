@@ -1,0 +1,8 @@
+---
+title: GetExecutionRequest
+---
+
+::: capo_bcm_data_exports.types.get_execution_request.GetExecutionRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

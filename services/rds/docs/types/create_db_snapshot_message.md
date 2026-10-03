@@ -1,0 +1,8 @@
+---
+title: CreateDBSnapshotMessage
+---
+
+::: capo_rds.types.create_db_snapshot_message.CreateDBSnapshotMessage
+    options:
+      show_source: true
+      merge_init_into_class: false

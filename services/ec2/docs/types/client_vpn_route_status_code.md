@@ -1,0 +1,8 @@
+---
+title: ClientVpnRouteStatusCode
+---
+
+::: capo_ec2.types.client_vpn_route_status_code.ClientVpnRouteStatusCode
+    options:
+      show_source: true
+      merge_init_into_class: false

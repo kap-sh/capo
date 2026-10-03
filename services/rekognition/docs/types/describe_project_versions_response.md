@@ -1,0 +1,8 @@
+---
+title: DescribeProjectVersionsResponse
+---
+
+::: capo_rekognition.types.describe_project_versions_response.DescribeProjectVersionsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

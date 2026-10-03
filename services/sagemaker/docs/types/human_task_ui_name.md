@@ -1,0 +1,8 @@
+---
+title: HumanTaskUiName
+---
+
+::: capo_sagemaker.types.human_task_ui_name.HumanTaskUiName
+    options:
+      show_source: true
+      merge_init_into_class: false

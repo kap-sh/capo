@@ -1,0 +1,8 @@
+---
+title: CopyBackupToRegionResponse
+---
+
+::: capo_cloudhsm_v2.types.copy_backup_to_region_response.CopyBackupToRegionResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

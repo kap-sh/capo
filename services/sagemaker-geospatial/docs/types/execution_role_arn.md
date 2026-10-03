@@ -1,0 +1,8 @@
+---
+title: ExecutionRoleArn
+---
+
+::: capo_sagemaker_geospatial.types.execution_role_arn.ExecutionRoleArn
+    options:
+      show_source: true
+      merge_init_into_class: false

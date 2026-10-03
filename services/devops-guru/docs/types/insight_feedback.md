@@ -1,0 +1,8 @@
+---
+title: InsightFeedback
+---
+
+::: capo_devops_guru.types.insight_feedback.InsightFeedback
+    options:
+      show_source: true
+      merge_init_into_class: false

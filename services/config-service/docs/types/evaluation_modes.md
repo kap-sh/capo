@@ -1,0 +1,8 @@
+---
+title: EvaluationModes
+---
+
+::: capo_config_service.types.evaluation_modes.EvaluationModes
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: SplunkS3BackupMode
+---
+
+::: capo_firehose.types.splunk_s3_backup_mode.SplunkS3BackupMode
+    options:
+      show_source: true
+      merge_init_into_class: false

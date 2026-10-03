@@ -1,0 +1,7 @@
+---
+title: iter_list_email_identity_certificates
+---
+
+::: capo_sesv2._services.async_se_sv2.AsyncSESv2Client.iter_list_email_identity_certificates
+    options:
+      show_source: true

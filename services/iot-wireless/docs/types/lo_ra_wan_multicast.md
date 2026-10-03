@@ -1,0 +1,8 @@
+---
+title: LoRaWANMulticast
+---
+
+::: capo_iot_wireless.types.lo_ra_wan_multicast.LoRaWANMulticast
+    options:
+      show_source: true
+      merge_init_into_class: false

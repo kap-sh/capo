@@ -1,0 +1,8 @@
+---
+title: CreateWirelessGatewayTaskDefinitionResponse
+---
+
+::: capo_iot_wireless.types.create_wireless_gateway_task_definition_response.CreateWirelessGatewayTaskDefinitionResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,15 @@
+# Errors
+
+- [ChannelInsufficientPermission](ChannelInsufficientPermission.md)
+- [ChannelNotFound](ChannelNotFound.md)
+- [ChannelUnsupportedSchema](ChannelUnsupportedSchema.md)
+- [CloudTrailDataError](CloudTrailDataError.md)
+- [DeserializationError](DeserializationError.md)
+- [DuplicatedAuditEventId](DuplicatedAuditEventId.md)
+- [InvalidChannelARN](InvalidChannelARN.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [UnsupportedOperationException](UnsupportedOperationException.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

@@ -1,0 +1,7 @@
+---
+title: describe_default_cluster_parameters
+---
+
+::: capo_redshift._services.async_redshift.AsyncRedshiftClient.describe_default_cluster_parameters
+    options:
+      show_source: true

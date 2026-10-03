@@ -1,0 +1,8 @@
+---
+title: CreateEventStreamResponse
+---
+
+::: capo_customer_profiles.types.create_event_stream_response.CreateEventStreamResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

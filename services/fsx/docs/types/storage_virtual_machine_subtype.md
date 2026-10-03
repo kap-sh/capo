@@ -1,0 +1,8 @@
+---
+title: StorageVirtualMachineSubtype
+---
+
+::: capo_fsx.types.storage_virtual_machine_subtype.StorageVirtualMachineSubtype
+    options:
+      show_source: true
+      merge_init_into_class: false

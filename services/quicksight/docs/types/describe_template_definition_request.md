@@ -1,0 +1,8 @@
+---
+title: DescribeTemplateDefinitionRequest
+---
+
+::: capo_quicksight.types.describe_template_definition_request.DescribeTemplateDefinitionRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

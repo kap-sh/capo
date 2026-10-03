@@ -1,0 +1,8 @@
+---
+title: GrantTokenType
+---
+
+::: capo_kms.types.grant_token_type.GrantTokenType
+    options:
+      show_source: true
+      merge_init_into_class: false

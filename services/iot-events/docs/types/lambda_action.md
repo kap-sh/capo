@@ -1,0 +1,8 @@
+---
+title: LambdaAction
+---
+
+::: capo_iot_events.types.lambda_action.LambdaAction
+    options:
+      show_source: true
+      merge_init_into_class: false

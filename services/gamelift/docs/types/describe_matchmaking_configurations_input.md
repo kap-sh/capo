@@ -1,0 +1,8 @@
+---
+title: DescribeMatchmakingConfigurationsInput
+---
+
+::: capo_gamelift.types.describe_matchmaking_configurations_input.DescribeMatchmakingConfigurationsInput
+    options:
+      show_source: true
+      merge_init_into_class: false

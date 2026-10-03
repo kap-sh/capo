@@ -1,0 +1,8 @@
+---
+title: ValidatePipelineRequest
+---
+
+::: capo_osis.types.validate_pipeline_request.ValidatePipelineRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

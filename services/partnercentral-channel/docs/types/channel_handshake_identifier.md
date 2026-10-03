@@ -1,0 +1,8 @@
+---
+title: ChannelHandshakeIdentifier
+---
+
+::: capo_partnercentral_channel.types.channel_handshake_identifier.ChannelHandshakeIdentifier
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: TemplateProviderDetailList
+---
+
+::: capo_sagemaker.types.template_provider_detail_list.TemplateProviderDetailList
+    options:
+      show_source: true
+      merge_init_into_class: false

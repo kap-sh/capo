@@ -1,0 +1,8 @@
+---
+title: BedrockFoundationModelConfigurationForParsing
+---
+
+::: capo_qconnect.types.bedrock_foundation_model_configuration_for_parsing.BedrockFoundationModelConfigurationForParsing
+    options:
+      show_source: true
+      merge_init_into_class: false

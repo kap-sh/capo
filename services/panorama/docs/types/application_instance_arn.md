@@ -1,0 +1,8 @@
+---
+title: ApplicationInstanceArn
+---
+
+::: capo_panorama.types.application_instance_arn.ApplicationInstanceArn
+    options:
+      show_source: true
+      merge_init_into_class: false

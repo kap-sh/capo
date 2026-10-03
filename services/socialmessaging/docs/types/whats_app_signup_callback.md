@@ -1,0 +1,8 @@
+---
+title: WhatsAppSignupCallback
+---
+
+::: capo_socialmessaging.types.whats_app_signup_callback.WhatsAppSignupCallback
+    options:
+      show_source: true
+      merge_init_into_class: false

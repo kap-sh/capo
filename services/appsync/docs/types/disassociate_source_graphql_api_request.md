@@ -1,0 +1,8 @@
+---
+title: DisassociateSourceGraphqlApiRequest
+---
+
+::: capo_appsync.types.disassociate_source_graphql_api_request.DisassociateSourceGraphqlApiRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

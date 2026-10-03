@@ -1,0 +1,8 @@
+---
+title: Workload
+---
+
+::: capo_ec2.types.workload.Workload
+    options:
+      show_source: true
+      merge_init_into_class: false

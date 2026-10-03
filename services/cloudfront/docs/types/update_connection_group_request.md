@@ -1,0 +1,8 @@
+---
+title: UpdateConnectionGroupRequest
+---
+
+::: capo_cloudfront.types.update_connection_group_request.UpdateConnectionGroupRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

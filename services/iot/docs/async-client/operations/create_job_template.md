@@ -1,0 +1,7 @@
+---
+title: create_job_template
+---
+
+::: capo_iot._services.async_io_t.AsyncIoTClient.create_job_template
+    options:
+      show_source: true

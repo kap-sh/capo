@@ -1,0 +1,8 @@
+---
+title: Queue
+---
+
+::: capo_elastic_beanstalk.types.queue.Queue
+    options:
+      show_source: true
+      merge_init_into_class: false

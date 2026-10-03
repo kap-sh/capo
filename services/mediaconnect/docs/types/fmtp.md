@@ -1,0 +1,8 @@
+---
+title: Fmtp
+---
+
+::: capo_mediaconnect.types.fmtp.Fmtp
+    options:
+      show_source: true
+      merge_init_into_class: false

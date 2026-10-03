@@ -1,0 +1,8 @@
+---
+title: ScanCategory
+---
+
+::: capo_guardduty.types.scan_category.ScanCategory
+    options:
+      show_source: true
+      merge_init_into_class: false

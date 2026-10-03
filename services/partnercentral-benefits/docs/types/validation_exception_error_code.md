@@ -1,0 +1,8 @@
+---
+title: ValidationExceptionErrorCode
+---
+
+::: capo_partnercentral_benefits.types.validation_exception_error_code.ValidationExceptionErrorCode
+    options:
+      show_source: true
+      merge_init_into_class: false

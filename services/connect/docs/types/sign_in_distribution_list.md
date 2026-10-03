@@ -1,0 +1,8 @@
+---
+title: SignInDistributionList
+---
+
+::: capo_connect.types.sign_in_distribution_list.SignInDistributionList
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: RemoteAgentServiceDetails
+---
+
+::: capo_devops_agent.types.remote_agent_service_details.RemoteAgentServiceDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: OperandType
+---
+
+::: capo_amplifyuibuilder.types.operand_type.OperandType
+    options:
+      show_source: true
+      merge_init_into_class: false

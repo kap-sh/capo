@@ -1,0 +1,8 @@
+---
+title: ShrinkPolicy
+---
+
+::: capo_emr.types.shrink_policy.ShrinkPolicy
+    options:
+      show_source: true
+      merge_init_into_class: false

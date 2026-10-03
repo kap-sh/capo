@@ -1,0 +1,386 @@
+[project]
+site_name = "capo-storage-gateway"
+site_description = "Python SDK for AWS Storage Gateway."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "StorageGatewayClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/activate_gateway.md",
+      "sync-client/operations/add_cache.md",
+      "sync-client/operations/add_tags_to_resource.md",
+      "sync-client/operations/add_upload_buffer.md",
+      "sync-client/operations/add_working_storage.md",
+      "sync-client/operations/assign_tape_pool.md",
+      "sync-client/operations/associate_file_system.md",
+      "sync-client/operations/attach_volume.md",
+      "sync-client/operations/cancel_archival.md",
+      "sync-client/operations/cancel_cache_report.md",
+      "sync-client/operations/cancel_retrieval.md",
+      "sync-client/operations/create_cachedi_scsi_volume.md",
+      "sync-client/operations/create_nfs_file_share.md",
+      "sync-client/operations/create_smb_file_share.md",
+      "sync-client/operations/create_snapshot.md",
+      "sync-client/operations/create_snapshot_from_volume_recovery_point.md",
+      "sync-client/operations/create_storedi_scsi_volume.md",
+      "sync-client/operations/create_tape_pool.md",
+      "sync-client/operations/create_tape_with_barcode.md",
+      "sync-client/operations/create_tapes.md",
+      "sync-client/operations/delete_automatic_tape_creation_policy.md",
+      "sync-client/operations/delete_bandwidth_rate_limit.md",
+      "sync-client/operations/delete_cache_report.md",
+      "sync-client/operations/delete_chap_credentials.md",
+      "sync-client/operations/delete_file_share.md",
+      "sync-client/operations/delete_gateway.md",
+      "sync-client/operations/delete_snapshot_schedule.md",
+      "sync-client/operations/delete_tape.md",
+      "sync-client/operations/delete_tape_archive.md",
+      "sync-client/operations/delete_tape_pool.md",
+      "sync-client/operations/delete_volume.md",
+      "sync-client/operations/describe_availability_monitor_test.md",
+      "sync-client/operations/describe_bandwidth_rate_limit.md",
+      "sync-client/operations/describe_bandwidth_rate_limit_schedule.md",
+      "sync-client/operations/describe_cache.md",
+      "sync-client/operations/describe_cache_report.md",
+      "sync-client/operations/describe_cachedi_scsi_volumes.md",
+      "sync-client/operations/describe_chap_credentials.md",
+      "sync-client/operations/describe_file_system_associations.md",
+      "sync-client/operations/describe_gateway_information.md",
+      "sync-client/operations/describe_maintenance_start_time.md",
+      "sync-client/operations/describe_nfs_file_shares.md",
+      "sync-client/operations/describe_smb_file_shares.md",
+      "sync-client/operations/describe_smb_settings.md",
+      "sync-client/operations/describe_snapshot_schedule.md",
+      "sync-client/operations/describe_storedi_scsi_volumes.md",
+      "sync-client/operations/describe_tape_archives.md",
+      "sync-client/operations/describe_tape_recovery_points.md",
+      "sync-client/operations/describe_tapes.md",
+      "sync-client/operations/describe_upload_buffer.md",
+      "sync-client/operations/describe_vtl_devices.md",
+      "sync-client/operations/describe_working_storage.md",
+      "sync-client/operations/detach_volume.md",
+      "sync-client/operations/disable_gateway.md",
+      "sync-client/operations/disassociate_file_system.md",
+      "sync-client/operations/evict_files_failing_upload.md",
+      "sync-client/operations/join_domain.md",
+      "sync-client/operations/list_automatic_tape_creation_policies.md",
+      "sync-client/operations/list_cache_reports.md",
+      "sync-client/operations/list_file_shares.md",
+      "sync-client/operations/list_file_system_associations.md",
+      "sync-client/operations/list_gateways.md",
+      "sync-client/operations/list_local_disks.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_tape_pools.md",
+      "sync-client/operations/list_tapes.md",
+      "sync-client/operations/list_volume_initiators.md",
+      "sync-client/operations/list_volume_recovery_points.md",
+      "sync-client/operations/list_volumes.md",
+      "sync-client/operations/notify_when_uploaded.md",
+      "sync-client/operations/refresh_cache.md",
+      "sync-client/operations/remove_tags_from_resource.md",
+      "sync-client/operations/reset_cache.md",
+      "sync-client/operations/retrieve_tape_archive.md",
+      "sync-client/operations/retrieve_tape_recovery_point.md",
+      "sync-client/operations/set_local_console_password.md",
+      "sync-client/operations/set_smb_guest_password.md",
+      "sync-client/operations/shutdown_gateway.md",
+      "sync-client/operations/start_availability_monitor_test.md",
+      "sync-client/operations/start_cache_report.md",
+      "sync-client/operations/start_gateway.md",
+      "sync-client/operations/update_automatic_tape_creation_policy.md",
+      "sync-client/operations/update_bandwidth_rate_limit.md",
+      "sync-client/operations/update_bandwidth_rate_limit_schedule.md",
+      "sync-client/operations/update_chap_credentials.md",
+      "sync-client/operations/update_file_system_association.md",
+      "sync-client/operations/update_gateway_information.md",
+      "sync-client/operations/update_gateway_software_now.md",
+      "sync-client/operations/update_maintenance_start_time.md",
+      "sync-client/operations/update_nfs_file_share.md",
+      "sync-client/operations/update_smb_file_share.md",
+      "sync-client/operations/update_smb_file_share_visibility.md",
+      "sync-client/operations/update_smb_local_groups.md",
+      "sync-client/operations/update_smb_security_strategy.md",
+      "sync-client/operations/update_snapshot_schedule.md",
+      "sync-client/operations/update_vtl_device_type.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_tape_archives.md",
+      "sync-client/paginators/iter_describe_tape_recovery_points.md",
+      "sync-client/paginators/iter_describe_tapes.md",
+      "sync-client/paginators/iter_describe_vtl_devices.md",
+      "sync-client/paginators/iter_list_cache_reports.md",
+      "sync-client/paginators/iter_list_file_shares.md",
+      "sync-client/paginators/iter_list_file_system_associations.md",
+      "sync-client/paginators/iter_list_gateways.md",
+      "sync-client/paginators/iter_list_tags_for_resource.md",
+      "sync-client/paginators/iter_list_tape_pools.md",
+      "sync-client/paginators/iter_list_tapes.md",
+      "sync-client/paginators/iter_list_volumes.md",
+    ] },
+  ] },
+  { "AsyncStorageGatewayClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/activate_gateway.md",
+      "async-client/operations/add_cache.md",
+      "async-client/operations/add_tags_to_resource.md",
+      "async-client/operations/add_upload_buffer.md",
+      "async-client/operations/add_working_storage.md",
+      "async-client/operations/assign_tape_pool.md",
+      "async-client/operations/associate_file_system.md",
+      "async-client/operations/attach_volume.md",
+      "async-client/operations/cancel_archival.md",
+      "async-client/operations/cancel_cache_report.md",
+      "async-client/operations/cancel_retrieval.md",
+      "async-client/operations/create_cachedi_scsi_volume.md",
+      "async-client/operations/create_nfs_file_share.md",
+      "async-client/operations/create_smb_file_share.md",
+      "async-client/operations/create_snapshot.md",
+      "async-client/operations/create_snapshot_from_volume_recovery_point.md",
+      "async-client/operations/create_storedi_scsi_volume.md",
+      "async-client/operations/create_tape_pool.md",
+      "async-client/operations/create_tape_with_barcode.md",
+      "async-client/operations/create_tapes.md",
+      "async-client/operations/delete_automatic_tape_creation_policy.md",
+      "async-client/operations/delete_bandwidth_rate_limit.md",
+      "async-client/operations/delete_cache_report.md",
+      "async-client/operations/delete_chap_credentials.md",
+      "async-client/operations/delete_file_share.md",
+      "async-client/operations/delete_gateway.md",
+      "async-client/operations/delete_snapshot_schedule.md",
+      "async-client/operations/delete_tape.md",
+      "async-client/operations/delete_tape_archive.md",
+      "async-client/operations/delete_tape_pool.md",
+      "async-client/operations/delete_volume.md",
+      "async-client/operations/describe_availability_monitor_test.md",
+      "async-client/operations/describe_bandwidth_rate_limit.md",
+      "async-client/operations/describe_bandwidth_rate_limit_schedule.md",
+      "async-client/operations/describe_cache.md",
+      "async-client/operations/describe_cache_report.md",
+      "async-client/operations/describe_cachedi_scsi_volumes.md",
+      "async-client/operations/describe_chap_credentials.md",
+      "async-client/operations/describe_file_system_associations.md",
+      "async-client/operations/describe_gateway_information.md",
+      "async-client/operations/describe_maintenance_start_time.md",
+      "async-client/operations/describe_nfs_file_shares.md",
+      "async-client/operations/describe_smb_file_shares.md",
+      "async-client/operations/describe_smb_settings.md",
+      "async-client/operations/describe_snapshot_schedule.md",
+      "async-client/operations/describe_storedi_scsi_volumes.md",
+      "async-client/operations/describe_tape_archives.md",
+      "async-client/operations/describe_tape_recovery_points.md",
+      "async-client/operations/describe_tapes.md",
+      "async-client/operations/describe_upload_buffer.md",
+      "async-client/operations/describe_vtl_devices.md",
+      "async-client/operations/describe_working_storage.md",
+      "async-client/operations/detach_volume.md",
+      "async-client/operations/disable_gateway.md",
+      "async-client/operations/disassociate_file_system.md",
+      "async-client/operations/evict_files_failing_upload.md",
+      "async-client/operations/join_domain.md",
+      "async-client/operations/list_automatic_tape_creation_policies.md",
+      "async-client/operations/list_cache_reports.md",
+      "async-client/operations/list_file_shares.md",
+      "async-client/operations/list_file_system_associations.md",
+      "async-client/operations/list_gateways.md",
+      "async-client/operations/list_local_disks.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_tape_pools.md",
+      "async-client/operations/list_tapes.md",
+      "async-client/operations/list_volume_initiators.md",
+      "async-client/operations/list_volume_recovery_points.md",
+      "async-client/operations/list_volumes.md",
+      "async-client/operations/notify_when_uploaded.md",
+      "async-client/operations/refresh_cache.md",
+      "async-client/operations/remove_tags_from_resource.md",
+      "async-client/operations/reset_cache.md",
+      "async-client/operations/retrieve_tape_archive.md",
+      "async-client/operations/retrieve_tape_recovery_point.md",
+      "async-client/operations/set_local_console_password.md",
+      "async-client/operations/set_smb_guest_password.md",
+      "async-client/operations/shutdown_gateway.md",
+      "async-client/operations/start_availability_monitor_test.md",
+      "async-client/operations/start_cache_report.md",
+      "async-client/operations/start_gateway.md",
+      "async-client/operations/update_automatic_tape_creation_policy.md",
+      "async-client/operations/update_bandwidth_rate_limit.md",
+      "async-client/operations/update_bandwidth_rate_limit_schedule.md",
+      "async-client/operations/update_chap_credentials.md",
+      "async-client/operations/update_file_system_association.md",
+      "async-client/operations/update_gateway_information.md",
+      "async-client/operations/update_gateway_software_now.md",
+      "async-client/operations/update_maintenance_start_time.md",
+      "async-client/operations/update_nfs_file_share.md",
+      "async-client/operations/update_smb_file_share.md",
+      "async-client/operations/update_smb_file_share_visibility.md",
+      "async-client/operations/update_smb_local_groups.md",
+      "async-client/operations/update_smb_security_strategy.md",
+      "async-client/operations/update_snapshot_schedule.md",
+      "async-client/operations/update_vtl_device_type.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_tape_archives.md",
+      "async-client/paginators/iter_describe_tape_recovery_points.md",
+      "async-client/paginators/iter_describe_tapes.md",
+      "async-client/paginators/iter_describe_vtl_devices.md",
+      "async-client/paginators/iter_list_cache_reports.md",
+      "async-client/paginators/iter_list_file_shares.md",
+      "async-client/paginators/iter_list_file_system_associations.md",
+      "async-client/paginators/iter_list_gateways.md",
+      "async-client/paginators/iter_list_tags_for_resource.md",
+      "async-client/paginators/iter_list_tape_pools.md",
+      "async-client/paginators/iter_list_tapes.md",
+      "async-client/paginators/iter_list_volumes.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/DeserializationError.md",
+    "errors/InternalServerError.md",
+    "errors/InvalidGatewayRequestException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceUnavailableError.md",
+    "errors/StorageGatewayError.md",
+    "errors/UnknownServiceError.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_storage_gateway` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_storage_gateway.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

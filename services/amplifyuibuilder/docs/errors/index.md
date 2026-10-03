@@ -1,0 +1,16 @@
+# Errors
+
+- [AmplifyUIBuilderError](AmplifyUIBuilderError.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServerException](InternalServerException.md)
+- [InvalidParameterException](InvalidParameterException.md)
+- [ResourceConflictException](ResourceConflictException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
+- [ThrottlingException](ThrottlingException.md)
+- [UnauthorizedException](UnauthorizedException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

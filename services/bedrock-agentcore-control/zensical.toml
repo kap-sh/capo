@@ -1,0 +1,603 @@
+[project]
+site_name = "capo-bedrock-agentcore-control"
+site_description = "Python SDK for AWS Bedrock Agentcore Control."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "BedrockAgentCoreControlClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/add_dataset_examples.md",
+      "sync-client/operations/batch_put_gateway_rate_limits.md",
+      "sync-client/operations/create_agent_runtime.md",
+      "sync-client/operations/create_agent_runtime_endpoint.md",
+      "sync-client/operations/create_api_key_credential_provider.md",
+      "sync-client/operations/create_browser.md",
+      "sync-client/operations/create_browser_profile.md",
+      "sync-client/operations/create_capacity_provider.md",
+      "sync-client/operations/create_code_interpreter.md",
+      "sync-client/operations/create_configuration_bundle.md",
+      "sync-client/operations/create_consent_portal.md",
+      "sync-client/operations/create_dataset.md",
+      "sync-client/operations/create_dataset_version.md",
+      "sync-client/operations/create_evaluator.md",
+      "sync-client/operations/create_gateway.md",
+      "sync-client/operations/create_gateway_rate_limit.md",
+      "sync-client/operations/create_gateway_rule.md",
+      "sync-client/operations/create_gateway_target.md",
+      "sync-client/operations/create_harness.md",
+      "sync-client/operations/create_harness_endpoint.md",
+      "sync-client/operations/create_memory.md",
+      "sync-client/operations/create_oauth2_credential_provider.md",
+      "sync-client/operations/create_online_evaluation_config.md",
+      "sync-client/operations/create_payment_connector.md",
+      "sync-client/operations/create_payment_credential_provider.md",
+      "sync-client/operations/create_payment_manager.md",
+      "sync-client/operations/create_policy.md",
+      "sync-client/operations/create_policy_engine.md",
+      "sync-client/operations/create_registry.md",
+      "sync-client/operations/create_registry_record.md",
+      "sync-client/operations/create_workload_identity.md",
+      "sync-client/operations/delete_agent_runtime.md",
+      "sync-client/operations/delete_agent_runtime_endpoint.md",
+      "sync-client/operations/delete_api_key_credential_provider.md",
+      "sync-client/operations/delete_browser.md",
+      "sync-client/operations/delete_browser_profile.md",
+      "sync-client/operations/delete_capacity_provider.md",
+      "sync-client/operations/delete_code_interpreter.md",
+      "sync-client/operations/delete_configuration_bundle.md",
+      "sync-client/operations/delete_consent_portal.md",
+      "sync-client/operations/delete_dataset.md",
+      "sync-client/operations/delete_dataset_examples.md",
+      "sync-client/operations/delete_evaluator.md",
+      "sync-client/operations/delete_gateway.md",
+      "sync-client/operations/delete_gateway_rate_limit.md",
+      "sync-client/operations/delete_gateway_rule.md",
+      "sync-client/operations/delete_gateway_target.md",
+      "sync-client/operations/delete_harness.md",
+      "sync-client/operations/delete_harness_endpoint.md",
+      "sync-client/operations/delete_memory.md",
+      "sync-client/operations/delete_oauth2_credential_provider.md",
+      "sync-client/operations/delete_online_evaluation_config.md",
+      "sync-client/operations/delete_payment_connector.md",
+      "sync-client/operations/delete_payment_credential_provider.md",
+      "sync-client/operations/delete_payment_manager.md",
+      "sync-client/operations/delete_policy.md",
+      "sync-client/operations/delete_policy_engine.md",
+      "sync-client/operations/delete_registry.md",
+      "sync-client/operations/delete_registry_record.md",
+      "sync-client/operations/delete_resource_policy.md",
+      "sync-client/operations/delete_workload_identity.md",
+      "sync-client/operations/get_agent_runtime.md",
+      "sync-client/operations/get_agent_runtime_endpoint.md",
+      "sync-client/operations/get_api_key_credential_provider.md",
+      "sync-client/operations/get_browser.md",
+      "sync-client/operations/get_browser_profile.md",
+      "sync-client/operations/get_capacity_provider.md",
+      "sync-client/operations/get_code_interpreter.md",
+      "sync-client/operations/get_configuration_bundle.md",
+      "sync-client/operations/get_configuration_bundle_version.md",
+      "sync-client/operations/get_consent_portal.md",
+      "sync-client/operations/get_dataset.md",
+      "sync-client/operations/get_evaluator.md",
+      "sync-client/operations/get_gateway.md",
+      "sync-client/operations/get_gateway_rate_limit.md",
+      "sync-client/operations/get_gateway_rule.md",
+      "sync-client/operations/get_gateway_target.md",
+      "sync-client/operations/get_harness.md",
+      "sync-client/operations/get_harness_endpoint.md",
+      "sync-client/operations/get_memory.md",
+      "sync-client/operations/get_oauth2_credential_provider.md",
+      "sync-client/operations/get_online_evaluation_config.md",
+      "sync-client/operations/get_payment_connector.md",
+      "sync-client/operations/get_payment_credential_provider.md",
+      "sync-client/operations/get_payment_manager.md",
+      "sync-client/operations/get_policy.md",
+      "sync-client/operations/get_policy_engine.md",
+      "sync-client/operations/get_policy_engine_summary.md",
+      "sync-client/operations/get_policy_generation.md",
+      "sync-client/operations/get_policy_generation_summary.md",
+      "sync-client/operations/get_policy_summary.md",
+      "sync-client/operations/get_registry.md",
+      "sync-client/operations/get_registry_record.md",
+      "sync-client/operations/get_resource_policy.md",
+      "sync-client/operations/get_token_vault.md",
+      "sync-client/operations/get_workload_identity.md",
+      "sync-client/operations/list_agent_runtime_endpoints.md",
+      "sync-client/operations/list_agent_runtime_versions.md",
+      "sync-client/operations/list_agent_runtime_versions_by_capacity_provider.md",
+      "sync-client/operations/list_agent_runtimes.md",
+      "sync-client/operations/list_api_key_credential_providers.md",
+      "sync-client/operations/list_browser_profiles.md",
+      "sync-client/operations/list_browsers.md",
+      "sync-client/operations/list_capacity_providers.md",
+      "sync-client/operations/list_code_interpreters.md",
+      "sync-client/operations/list_configuration_bundle_versions.md",
+      "sync-client/operations/list_configuration_bundles.md",
+      "sync-client/operations/list_consent_portals.md",
+      "sync-client/operations/list_dataset_examples.md",
+      "sync-client/operations/list_dataset_versions.md",
+      "sync-client/operations/list_datasets.md",
+      "sync-client/operations/list_evaluators.md",
+      "sync-client/operations/list_gateway_rate_limits.md",
+      "sync-client/operations/list_gateway_rules.md",
+      "sync-client/operations/list_gateway_targets.md",
+      "sync-client/operations/list_gateways.md",
+      "sync-client/operations/list_harness_endpoints.md",
+      "sync-client/operations/list_harness_versions.md",
+      "sync-client/operations/list_harnesses.md",
+      "sync-client/operations/list_memories.md",
+      "sync-client/operations/list_oauth2_credential_providers.md",
+      "sync-client/operations/list_online_evaluation_configs.md",
+      "sync-client/operations/list_payment_connectors.md",
+      "sync-client/operations/list_payment_credential_providers.md",
+      "sync-client/operations/list_payment_managers.md",
+      "sync-client/operations/list_policies.md",
+      "sync-client/operations/list_policy_engine_summaries.md",
+      "sync-client/operations/list_policy_engines.md",
+      "sync-client/operations/list_policy_generation_assets.md",
+      "sync-client/operations/list_policy_generation_summaries.md",
+      "sync-client/operations/list_policy_generations.md",
+      "sync-client/operations/list_policy_summaries.md",
+      "sync-client/operations/list_registries.md",
+      "sync-client/operations/list_registry_records.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_workload_identities.md",
+      "sync-client/operations/put_resource_policy.md",
+      "sync-client/operations/rotate_payment_connector_credentials.md",
+      "sync-client/operations/set_token_vault_cmk.md",
+      "sync-client/operations/start_policy_generation.md",
+      "sync-client/operations/submit_registry_record_for_approval.md",
+      "sync-client/operations/synchronize_gateway_targets.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_agent_runtime.md",
+      "sync-client/operations/update_agent_runtime_endpoint.md",
+      "sync-client/operations/update_api_key_credential_provider.md",
+      "sync-client/operations/update_capacity_provider.md",
+      "sync-client/operations/update_configuration_bundle.md",
+      "sync-client/operations/update_consent_portal.md",
+      "sync-client/operations/update_dataset.md",
+      "sync-client/operations/update_dataset_examples.md",
+      "sync-client/operations/update_evaluator.md",
+      "sync-client/operations/update_gateway.md",
+      "sync-client/operations/update_gateway_rate_limit.md",
+      "sync-client/operations/update_gateway_rule.md",
+      "sync-client/operations/update_gateway_target.md",
+      "sync-client/operations/update_harness.md",
+      "sync-client/operations/update_harness_endpoint.md",
+      "sync-client/operations/update_memory.md",
+      "sync-client/operations/update_oauth2_credential_provider.md",
+      "sync-client/operations/update_online_evaluation_config.md",
+      "sync-client/operations/update_payment_connector.md",
+      "sync-client/operations/update_payment_credential_provider.md",
+      "sync-client/operations/update_payment_manager.md",
+      "sync-client/operations/update_policy.md",
+      "sync-client/operations/update_policy_engine.md",
+      "sync-client/operations/update_registry.md",
+      "sync-client/operations/update_registry_record.md",
+      "sync-client/operations/update_registry_record_status.md",
+      "sync-client/operations/update_workload_identity.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_agent_runtime_endpoints.md",
+      "sync-client/paginators/iter_list_agent_runtime_versions.md",
+      "sync-client/paginators/iter_list_agent_runtime_versions_by_capacity_provider.md",
+      "sync-client/paginators/iter_list_agent_runtimes.md",
+      "sync-client/paginators/iter_list_api_key_credential_providers.md",
+      "sync-client/paginators/iter_list_browser_profiles.md",
+      "sync-client/paginators/iter_list_browsers.md",
+      "sync-client/paginators/iter_list_capacity_providers.md",
+      "sync-client/paginators/iter_list_code_interpreters.md",
+      "sync-client/paginators/iter_list_configuration_bundle_versions.md",
+      "sync-client/paginators/iter_list_configuration_bundles.md",
+      "sync-client/paginators/iter_list_consent_portals.md",
+      "sync-client/paginators/iter_list_dataset_examples.md",
+      "sync-client/paginators/iter_list_dataset_versions.md",
+      "sync-client/paginators/iter_list_datasets.md",
+      "sync-client/paginators/iter_list_evaluators.md",
+      "sync-client/paginators/iter_list_gateway_rate_limits.md",
+      "sync-client/paginators/iter_list_gateway_rules.md",
+      "sync-client/paginators/iter_list_gateway_targets.md",
+      "sync-client/paginators/iter_list_gateways.md",
+      "sync-client/paginators/iter_list_harness_endpoints.md",
+      "sync-client/paginators/iter_list_harness_versions.md",
+      "sync-client/paginators/iter_list_harnesses.md",
+      "sync-client/paginators/iter_list_memories.md",
+      "sync-client/paginators/iter_list_oauth2_credential_providers.md",
+      "sync-client/paginators/iter_list_online_evaluation_configs.md",
+      "sync-client/paginators/iter_list_payment_connectors.md",
+      "sync-client/paginators/iter_list_payment_credential_providers.md",
+      "sync-client/paginators/iter_list_payment_managers.md",
+      "sync-client/paginators/iter_list_policies.md",
+      "sync-client/paginators/iter_list_policy_engine_summaries.md",
+      "sync-client/paginators/iter_list_policy_engines.md",
+      "sync-client/paginators/iter_list_policy_generation_assets.md",
+      "sync-client/paginators/iter_list_policy_generation_summaries.md",
+      "sync-client/paginators/iter_list_policy_generations.md",
+      "sync-client/paginators/iter_list_policy_summaries.md",
+      "sync-client/paginators/iter_list_registries.md",
+      "sync-client/paginators/iter_list_registry_records.md",
+      "sync-client/paginators/iter_list_workload_identities.md",
+    ] },
+  ] },
+  { "AsyncBedrockAgentCoreControlClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/add_dataset_examples.md",
+      "async-client/operations/batch_put_gateway_rate_limits.md",
+      "async-client/operations/create_agent_runtime.md",
+      "async-client/operations/create_agent_runtime_endpoint.md",
+      "async-client/operations/create_api_key_credential_provider.md",
+      "async-client/operations/create_browser.md",
+      "async-client/operations/create_browser_profile.md",
+      "async-client/operations/create_capacity_provider.md",
+      "async-client/operations/create_code_interpreter.md",
+      "async-client/operations/create_configuration_bundle.md",
+      "async-client/operations/create_consent_portal.md",
+      "async-client/operations/create_dataset.md",
+      "async-client/operations/create_dataset_version.md",
+      "async-client/operations/create_evaluator.md",
+      "async-client/operations/create_gateway.md",
+      "async-client/operations/create_gateway_rate_limit.md",
+      "async-client/operations/create_gateway_rule.md",
+      "async-client/operations/create_gateway_target.md",
+      "async-client/operations/create_harness.md",
+      "async-client/operations/create_harness_endpoint.md",
+      "async-client/operations/create_memory.md",
+      "async-client/operations/create_oauth2_credential_provider.md",
+      "async-client/operations/create_online_evaluation_config.md",
+      "async-client/operations/create_payment_connector.md",
+      "async-client/operations/create_payment_credential_provider.md",
+      "async-client/operations/create_payment_manager.md",
+      "async-client/operations/create_policy.md",
+      "async-client/operations/create_policy_engine.md",
+      "async-client/operations/create_registry.md",
+      "async-client/operations/create_registry_record.md",
+      "async-client/operations/create_workload_identity.md",
+      "async-client/operations/delete_agent_runtime.md",
+      "async-client/operations/delete_agent_runtime_endpoint.md",
+      "async-client/operations/delete_api_key_credential_provider.md",
+      "async-client/operations/delete_browser.md",
+      "async-client/operations/delete_browser_profile.md",
+      "async-client/operations/delete_capacity_provider.md",
+      "async-client/operations/delete_code_interpreter.md",
+      "async-client/operations/delete_configuration_bundle.md",
+      "async-client/operations/delete_consent_portal.md",
+      "async-client/operations/delete_dataset.md",
+      "async-client/operations/delete_dataset_examples.md",
+      "async-client/operations/delete_evaluator.md",
+      "async-client/operations/delete_gateway.md",
+      "async-client/operations/delete_gateway_rate_limit.md",
+      "async-client/operations/delete_gateway_rule.md",
+      "async-client/operations/delete_gateway_target.md",
+      "async-client/operations/delete_harness.md",
+      "async-client/operations/delete_harness_endpoint.md",
+      "async-client/operations/delete_memory.md",
+      "async-client/operations/delete_oauth2_credential_provider.md",
+      "async-client/operations/delete_online_evaluation_config.md",
+      "async-client/operations/delete_payment_connector.md",
+      "async-client/operations/delete_payment_credential_provider.md",
+      "async-client/operations/delete_payment_manager.md",
+      "async-client/operations/delete_policy.md",
+      "async-client/operations/delete_policy_engine.md",
+      "async-client/operations/delete_registry.md",
+      "async-client/operations/delete_registry_record.md",
+      "async-client/operations/delete_resource_policy.md",
+      "async-client/operations/delete_workload_identity.md",
+      "async-client/operations/get_agent_runtime.md",
+      "async-client/operations/get_agent_runtime_endpoint.md",
+      "async-client/operations/get_api_key_credential_provider.md",
+      "async-client/operations/get_browser.md",
+      "async-client/operations/get_browser_profile.md",
+      "async-client/operations/get_capacity_provider.md",
+      "async-client/operations/get_code_interpreter.md",
+      "async-client/operations/get_configuration_bundle.md",
+      "async-client/operations/get_configuration_bundle_version.md",
+      "async-client/operations/get_consent_portal.md",
+      "async-client/operations/get_dataset.md",
+      "async-client/operations/get_evaluator.md",
+      "async-client/operations/get_gateway.md",
+      "async-client/operations/get_gateway_rate_limit.md",
+      "async-client/operations/get_gateway_rule.md",
+      "async-client/operations/get_gateway_target.md",
+      "async-client/operations/get_harness.md",
+      "async-client/operations/get_harness_endpoint.md",
+      "async-client/operations/get_memory.md",
+      "async-client/operations/get_oauth2_credential_provider.md",
+      "async-client/operations/get_online_evaluation_config.md",
+      "async-client/operations/get_payment_connector.md",
+      "async-client/operations/get_payment_credential_provider.md",
+      "async-client/operations/get_payment_manager.md",
+      "async-client/operations/get_policy.md",
+      "async-client/operations/get_policy_engine.md",
+      "async-client/operations/get_policy_engine_summary.md",
+      "async-client/operations/get_policy_generation.md",
+      "async-client/operations/get_policy_generation_summary.md",
+      "async-client/operations/get_policy_summary.md",
+      "async-client/operations/get_registry.md",
+      "async-client/operations/get_registry_record.md",
+      "async-client/operations/get_resource_policy.md",
+      "async-client/operations/get_token_vault.md",
+      "async-client/operations/get_workload_identity.md",
+      "async-client/operations/list_agent_runtime_endpoints.md",
+      "async-client/operations/list_agent_runtime_versions.md",
+      "async-client/operations/list_agent_runtime_versions_by_capacity_provider.md",
+      "async-client/operations/list_agent_runtimes.md",
+      "async-client/operations/list_api_key_credential_providers.md",
+      "async-client/operations/list_browser_profiles.md",
+      "async-client/operations/list_browsers.md",
+      "async-client/operations/list_capacity_providers.md",
+      "async-client/operations/list_code_interpreters.md",
+      "async-client/operations/list_configuration_bundle_versions.md",
+      "async-client/operations/list_configuration_bundles.md",
+      "async-client/operations/list_consent_portals.md",
+      "async-client/operations/list_dataset_examples.md",
+      "async-client/operations/list_dataset_versions.md",
+      "async-client/operations/list_datasets.md",
+      "async-client/operations/list_evaluators.md",
+      "async-client/operations/list_gateway_rate_limits.md",
+      "async-client/operations/list_gateway_rules.md",
+      "async-client/operations/list_gateway_targets.md",
+      "async-client/operations/list_gateways.md",
+      "async-client/operations/list_harness_endpoints.md",
+      "async-client/operations/list_harness_versions.md",
+      "async-client/operations/list_harnesses.md",
+      "async-client/operations/list_memories.md",
+      "async-client/operations/list_oauth2_credential_providers.md",
+      "async-client/operations/list_online_evaluation_configs.md",
+      "async-client/operations/list_payment_connectors.md",
+      "async-client/operations/list_payment_credential_providers.md",
+      "async-client/operations/list_payment_managers.md",
+      "async-client/operations/list_policies.md",
+      "async-client/operations/list_policy_engine_summaries.md",
+      "async-client/operations/list_policy_engines.md",
+      "async-client/operations/list_policy_generation_assets.md",
+      "async-client/operations/list_policy_generation_summaries.md",
+      "async-client/operations/list_policy_generations.md",
+      "async-client/operations/list_policy_summaries.md",
+      "async-client/operations/list_registries.md",
+      "async-client/operations/list_registry_records.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_workload_identities.md",
+      "async-client/operations/put_resource_policy.md",
+      "async-client/operations/rotate_payment_connector_credentials.md",
+      "async-client/operations/set_token_vault_cmk.md",
+      "async-client/operations/start_policy_generation.md",
+      "async-client/operations/submit_registry_record_for_approval.md",
+      "async-client/operations/synchronize_gateway_targets.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_agent_runtime.md",
+      "async-client/operations/update_agent_runtime_endpoint.md",
+      "async-client/operations/update_api_key_credential_provider.md",
+      "async-client/operations/update_capacity_provider.md",
+      "async-client/operations/update_configuration_bundle.md",
+      "async-client/operations/update_consent_portal.md",
+      "async-client/operations/update_dataset.md",
+      "async-client/operations/update_dataset_examples.md",
+      "async-client/operations/update_evaluator.md",
+      "async-client/operations/update_gateway.md",
+      "async-client/operations/update_gateway_rate_limit.md",
+      "async-client/operations/update_gateway_rule.md",
+      "async-client/operations/update_gateway_target.md",
+      "async-client/operations/update_harness.md",
+      "async-client/operations/update_harness_endpoint.md",
+      "async-client/operations/update_memory.md",
+      "async-client/operations/update_oauth2_credential_provider.md",
+      "async-client/operations/update_online_evaluation_config.md",
+      "async-client/operations/update_payment_connector.md",
+      "async-client/operations/update_payment_credential_provider.md",
+      "async-client/operations/update_payment_manager.md",
+      "async-client/operations/update_policy.md",
+      "async-client/operations/update_policy_engine.md",
+      "async-client/operations/update_registry.md",
+      "async-client/operations/update_registry_record.md",
+      "async-client/operations/update_registry_record_status.md",
+      "async-client/operations/update_workload_identity.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_agent_runtime_endpoints.md",
+      "async-client/paginators/iter_list_agent_runtime_versions.md",
+      "async-client/paginators/iter_list_agent_runtime_versions_by_capacity_provider.md",
+      "async-client/paginators/iter_list_agent_runtimes.md",
+      "async-client/paginators/iter_list_api_key_credential_providers.md",
+      "async-client/paginators/iter_list_browser_profiles.md",
+      "async-client/paginators/iter_list_browsers.md",
+      "async-client/paginators/iter_list_capacity_providers.md",
+      "async-client/paginators/iter_list_code_interpreters.md",
+      "async-client/paginators/iter_list_configuration_bundle_versions.md",
+      "async-client/paginators/iter_list_configuration_bundles.md",
+      "async-client/paginators/iter_list_consent_portals.md",
+      "async-client/paginators/iter_list_dataset_examples.md",
+      "async-client/paginators/iter_list_dataset_versions.md",
+      "async-client/paginators/iter_list_datasets.md",
+      "async-client/paginators/iter_list_evaluators.md",
+      "async-client/paginators/iter_list_gateway_rate_limits.md",
+      "async-client/paginators/iter_list_gateway_rules.md",
+      "async-client/paginators/iter_list_gateway_targets.md",
+      "async-client/paginators/iter_list_gateways.md",
+      "async-client/paginators/iter_list_harness_endpoints.md",
+      "async-client/paginators/iter_list_harness_versions.md",
+      "async-client/paginators/iter_list_harnesses.md",
+      "async-client/paginators/iter_list_memories.md",
+      "async-client/paginators/iter_list_oauth2_credential_providers.md",
+      "async-client/paginators/iter_list_online_evaluation_configs.md",
+      "async-client/paginators/iter_list_payment_connectors.md",
+      "async-client/paginators/iter_list_payment_credential_providers.md",
+      "async-client/paginators/iter_list_payment_managers.md",
+      "async-client/paginators/iter_list_policies.md",
+      "async-client/paginators/iter_list_policy_engine_summaries.md",
+      "async-client/paginators/iter_list_policy_engines.md",
+      "async-client/paginators/iter_list_policy_generation_assets.md",
+      "async-client/paginators/iter_list_policy_generation_summaries.md",
+      "async-client/paginators/iter_list_policy_generations.md",
+      "async-client/paginators/iter_list_policy_summaries.md",
+      "async-client/paginators/iter_list_registries.md",
+      "async-client/paginators/iter_list_registry_records.md",
+      "async-client/paginators/iter_list_workload_identities.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/BedrockAgentCoreControlError.md",
+    "errors/ConcurrentModificationException.md",
+    "errors/ConflictException.md",
+    "errors/DecryptionFailure.md",
+    "errors/DeserializationError.md",
+    "errors/EncryptionFailure.md",
+    "errors/InternalServerException.md",
+    "errors/ResourceLimitExceededException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/RetryableConflictException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceException.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/SubscriptionRequiredException.md",
+    "errors/ThrottledException.md",
+    "errors/ThrottlingException.md",
+    "errors/UnauthorizedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_bedrock_agentcore_control` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_bedrock_agentcore_control.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

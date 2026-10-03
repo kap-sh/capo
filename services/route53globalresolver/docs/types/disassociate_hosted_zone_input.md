@@ -1,0 +1,8 @@
+---
+title: DisassociateHostedZoneInput
+---
+
+::: capo_route53globalresolver.types.disassociate_hosted_zone_input.DisassociateHostedZoneInput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: SessionSharingConfiguration
+---
+
+::: capo_qapps.types.session_sharing_configuration.SessionSharingConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

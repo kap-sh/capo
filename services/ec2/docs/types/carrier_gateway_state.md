@@ -1,0 +1,8 @@
+---
+title: CarrierGatewayState
+---
+
+::: capo_ec2.types.carrier_gateway_state.CarrierGatewayState
+    options:
+      show_source: true
+      merge_init_into_class: false

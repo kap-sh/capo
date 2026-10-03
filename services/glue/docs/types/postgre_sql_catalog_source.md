@@ -1,0 +1,8 @@
+---
+title: PostgreSQLCatalogSource
+---
+
+::: capo_glue.types.postgre_sql_catalog_source.PostgreSQLCatalogSource
+    options:
+      show_source: true
+      merge_init_into_class: false

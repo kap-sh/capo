@@ -1,0 +1,8 @@
+---
+title: ConsentPortalStatus
+---
+
+::: capo_bedrock_agentcore_control.types.consent_portal_status.ConsentPortalStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

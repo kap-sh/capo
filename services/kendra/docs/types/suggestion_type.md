@@ -1,0 +1,8 @@
+---
+title: SuggestionType
+---
+
+::: capo_kendra.types.suggestion_type.SuggestionType
+    options:
+      show_source: true
+      merge_init_into_class: false

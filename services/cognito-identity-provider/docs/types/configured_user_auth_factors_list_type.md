@@ -1,0 +1,8 @@
+---
+title: ConfiguredUserAuthFactorsListType
+---
+
+::: capo_cognito_identity_provider.types.configured_user_auth_factors_list_type.ConfiguredUserAuthFactorsListType
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: ImportJobSummary
+---
+
+::: capo_sesv2.types.import_job_summary.ImportJobSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

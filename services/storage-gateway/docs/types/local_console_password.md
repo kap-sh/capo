@@ -1,0 +1,8 @@
+---
+title: LocalConsolePassword
+---
+
+::: capo_storage_gateway.types.local_console_password.LocalConsolePassword
+    options:
+      show_source: true
+      merge_init_into_class: false

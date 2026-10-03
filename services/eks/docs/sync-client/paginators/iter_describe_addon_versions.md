@@ -1,0 +1,7 @@
+---
+title: iter_describe_addon_versions
+---
+
+::: capo_eks._services.eks.EKSClient.iter_describe_addon_versions
+    options:
+      show_source: true

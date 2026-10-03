@@ -1,0 +1,8 @@
+---
+title: BatchDeleteFirewallRuleError
+---
+
+::: capo_route53resolver.types.batch_delete_firewall_rule_error.BatchDeleteFirewallRuleError
+    options:
+      show_source: true
+      merge_init_into_class: false

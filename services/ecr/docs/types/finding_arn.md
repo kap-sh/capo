@@ -1,0 +1,8 @@
+---
+title: FindingArn
+---
+
+::: capo_ecr.types.finding_arn.FindingArn
+    options:
+      show_source: true
+      merge_init_into_class: false

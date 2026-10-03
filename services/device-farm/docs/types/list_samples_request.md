@@ -1,0 +1,8 @@
+---
+title: ListSamplesRequest
+---
+
+::: capo_device_farm.types.list_samples_request.ListSamplesRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

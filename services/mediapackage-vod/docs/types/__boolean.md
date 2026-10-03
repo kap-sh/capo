@@ -1,0 +1,8 @@
+---
+title: __boolean
+---
+
+::: capo_mediapackage_vod.types.__boolean.__boolean
+    options:
+      show_source: true
+      merge_init_into_class: false

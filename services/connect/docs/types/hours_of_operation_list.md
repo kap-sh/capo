@@ -1,0 +1,8 @@
+---
+title: HoursOfOperationList
+---
+
+::: capo_connect.types.hours_of_operation_list.HoursOfOperationList
+    options:
+      show_source: true
+      merge_init_into_class: false

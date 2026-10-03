@@ -1,0 +1,8 @@
+---
+title: TimeToLiveAttributeName
+---
+
+::: capo_dynamodb.types.time_to_live_attribute_name.TimeToLiveAttributeName
+    options:
+      show_source: true
+      merge_init_into_class: false

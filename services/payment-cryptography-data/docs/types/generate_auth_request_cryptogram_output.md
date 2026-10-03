@@ -1,0 +1,8 @@
+---
+title: GenerateAuthRequestCryptogramOutput
+---
+
+::: capo_payment_cryptography_data.types.generate_auth_request_cryptogram_output.GenerateAuthRequestCryptogramOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: OnFailureConfiguration
+---
+
+::: capo_eventbridgev2.types.on_failure_configuration.OnFailureConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

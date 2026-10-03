@@ -1,0 +1,8 @@
+---
+title: __stringMin1Max1024PatternSS
+---
+
+::: capo_macie2.types.__string_min1_max1024_pattern_ss.__stringMin1Max1024PatternSS
+    options:
+      show_source: true
+      merge_init_into_class: false

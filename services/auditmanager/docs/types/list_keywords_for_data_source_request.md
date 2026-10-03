@@ -1,0 +1,8 @@
+---
+title: ListKeywordsForDataSourceRequest
+---
+
+::: capo_auditmanager.types.list_keywords_for_data_source_request.ListKeywordsForDataSourceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

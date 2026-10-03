@@ -1,0 +1,8 @@
+---
+title: ElastiCacheCluster
+---
+
+::: capo_cost_optimization_hub.types.elasti_cache_cluster.ElastiCacheCluster
+    options:
+      show_source: true
+      merge_init_into_class: false

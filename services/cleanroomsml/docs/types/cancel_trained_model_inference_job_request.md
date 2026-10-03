@@ -1,0 +1,8 @@
+---
+title: CancelTrainedModelInferenceJobRequest
+---
+
+::: capo_cleanroomsml.types.cancel_trained_model_inference_job_request.CancelTrainedModelInferenceJobRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

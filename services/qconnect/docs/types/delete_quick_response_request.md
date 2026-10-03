@@ -1,0 +1,8 @@
+---
+title: DeleteQuickResponseRequest
+---
+
+::: capo_qconnect.types.delete_quick_response_request.DeleteQuickResponseRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

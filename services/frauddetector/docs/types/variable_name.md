@@ -1,0 +1,8 @@
+---
+title: variableName
+---
+
+::: capo_frauddetector.types.variable_name.variableName
+    options:
+      show_source: true
+      merge_init_into_class: false

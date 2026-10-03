@@ -1,0 +1,8 @@
+---
+title: GetFindingRecommendationResponse
+---
+
+::: capo_accessanalyzer.types.get_finding_recommendation_response.GetFindingRecommendationResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

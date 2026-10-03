@@ -1,0 +1,8 @@
+---
+title: RuleExpression
+---
+
+::: capo_guardduty.types.rule_expression.RuleExpression
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: StorageConfigRequest
+---
+
+::: capo_eks.types.storage_config_request.StorageConfigRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

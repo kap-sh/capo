@@ -1,0 +1,8 @@
+---
+title: ProcessingInstanceType
+---
+
+::: capo_sagemaker.types.processing_instance_type.ProcessingInstanceType
+    options:
+      show_source: true
+      merge_init_into_class: false

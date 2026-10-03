@@ -1,0 +1,8 @@
+---
+title: DeleteCostCategoryDefinitionRequest
+---
+
+::: capo_cost_explorer.types.delete_cost_category_definition_request.DeleteCostCategoryDefinitionRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

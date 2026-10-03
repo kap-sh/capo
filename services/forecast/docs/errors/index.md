@@ -1,0 +1,15 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [InvalidInputException](InvalidInputException.md)
+- [InvalidNextTokenException](InvalidNextTokenException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ResourceAlreadyExistsException](ResourceAlreadyExistsException.md)
+- [ResourceInUseException](ResourceInUseException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)
+- [forecastError](forecastError.md)

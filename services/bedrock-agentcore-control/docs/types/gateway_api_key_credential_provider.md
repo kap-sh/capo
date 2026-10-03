@@ -1,0 +1,8 @@
+---
+title: GatewayApiKeyCredentialProvider
+---
+
+::: capo_bedrock_agentcore_control.types.gateway_api_key_credential_provider.GatewayApiKeyCredentialProvider
+    options:
+      show_source: true
+      merge_init_into_class: false

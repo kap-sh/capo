@@ -1,0 +1,366 @@
+[project]
+site_name = "capo-mediaconnect"
+site_description = "Python SDK for AWS Mediaconnect."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "MediaConnectClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/add_bridge_outputs.md",
+      "sync-client/operations/add_bridge_sources.md",
+      "sync-client/operations/add_flow_media_streams.md",
+      "sync-client/operations/add_flow_outputs.md",
+      "sync-client/operations/add_flow_sources.md",
+      "sync-client/operations/add_flow_vpc_interfaces.md",
+      "sync-client/operations/batch_get_router_input.md",
+      "sync-client/operations/batch_get_router_network_interface.md",
+      "sync-client/operations/batch_get_router_output.md",
+      "sync-client/operations/create_bridge.md",
+      "sync-client/operations/create_flow.md",
+      "sync-client/operations/create_gateway.md",
+      "sync-client/operations/create_router_input.md",
+      "sync-client/operations/create_router_network_interface.md",
+      "sync-client/operations/create_router_output.md",
+      "sync-client/operations/delete_bridge.md",
+      "sync-client/operations/delete_flow.md",
+      "sync-client/operations/delete_gateway.md",
+      "sync-client/operations/delete_router_input.md",
+      "sync-client/operations/delete_router_network_interface.md",
+      "sync-client/operations/delete_router_output.md",
+      "sync-client/operations/deregister_gateway_instance.md",
+      "sync-client/operations/describe_bridge.md",
+      "sync-client/operations/describe_flow.md",
+      "sync-client/operations/describe_flow_source_metadata.md",
+      "sync-client/operations/describe_flow_source_thumbnail.md",
+      "sync-client/operations/describe_gateway.md",
+      "sync-client/operations/describe_gateway_instance.md",
+      "sync-client/operations/describe_offering.md",
+      "sync-client/operations/describe_reservation.md",
+      "sync-client/operations/get_router_input.md",
+      "sync-client/operations/get_router_input_source_metadata.md",
+      "sync-client/operations/get_router_input_thumbnail.md",
+      "sync-client/operations/get_router_network_interface.md",
+      "sync-client/operations/get_router_output.md",
+      "sync-client/operations/grant_flow_entitlements.md",
+      "sync-client/operations/list_bridges.md",
+      "sync-client/operations/list_entitlements.md",
+      "sync-client/operations/list_flows.md",
+      "sync-client/operations/list_gateway_instances.md",
+      "sync-client/operations/list_gateways.md",
+      "sync-client/operations/list_offerings.md",
+      "sync-client/operations/list_reservations.md",
+      "sync-client/operations/list_router_inputs.md",
+      "sync-client/operations/list_router_network_interfaces.md",
+      "sync-client/operations/list_router_outputs.md",
+      "sync-client/operations/list_tags_for_global_resource.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/purchase_offering.md",
+      "sync-client/operations/remove_bridge_output.md",
+      "sync-client/operations/remove_bridge_source.md",
+      "sync-client/operations/remove_flow_media_stream.md",
+      "sync-client/operations/remove_flow_output.md",
+      "sync-client/operations/remove_flow_source.md",
+      "sync-client/operations/remove_flow_vpc_interface.md",
+      "sync-client/operations/restart_router_input.md",
+      "sync-client/operations/restart_router_output.md",
+      "sync-client/operations/revoke_flow_entitlement.md",
+      "sync-client/operations/start_flow.md",
+      "sync-client/operations/start_router_input.md",
+      "sync-client/operations/start_router_output.md",
+      "sync-client/operations/stop_flow.md",
+      "sync-client/operations/stop_router_input.md",
+      "sync-client/operations/stop_router_output.md",
+      "sync-client/operations/tag_global_resource.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/take_router_input.md",
+      "sync-client/operations/untag_global_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_bridge.md",
+      "sync-client/operations/update_bridge_output.md",
+      "sync-client/operations/update_bridge_source.md",
+      "sync-client/operations/update_bridge_state.md",
+      "sync-client/operations/update_flow.md",
+      "sync-client/operations/update_flow_entitlement.md",
+      "sync-client/operations/update_flow_media_stream.md",
+      "sync-client/operations/update_flow_output.md",
+      "sync-client/operations/update_flow_source.md",
+      "sync-client/operations/update_gateway_instance.md",
+      "sync-client/operations/update_router_input.md",
+      "sync-client/operations/update_router_network_interface.md",
+      "sync-client/operations/update_router_output.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_bridges.md",
+      "sync-client/paginators/iter_list_entitlements.md",
+      "sync-client/paginators/iter_list_flows.md",
+      "sync-client/paginators/iter_list_gateway_instances.md",
+      "sync-client/paginators/iter_list_gateways.md",
+      "sync-client/paginators/iter_list_offerings.md",
+      "sync-client/paginators/iter_list_reservations.md",
+      "sync-client/paginators/iter_list_router_inputs.md",
+      "sync-client/paginators/iter_list_router_network_interfaces.md",
+      "sync-client/paginators/iter_list_router_outputs.md",
+    ] },
+  ] },
+  { "AsyncMediaConnectClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/add_bridge_outputs.md",
+      "async-client/operations/add_bridge_sources.md",
+      "async-client/operations/add_flow_media_streams.md",
+      "async-client/operations/add_flow_outputs.md",
+      "async-client/operations/add_flow_sources.md",
+      "async-client/operations/add_flow_vpc_interfaces.md",
+      "async-client/operations/batch_get_router_input.md",
+      "async-client/operations/batch_get_router_network_interface.md",
+      "async-client/operations/batch_get_router_output.md",
+      "async-client/operations/create_bridge.md",
+      "async-client/operations/create_flow.md",
+      "async-client/operations/create_gateway.md",
+      "async-client/operations/create_router_input.md",
+      "async-client/operations/create_router_network_interface.md",
+      "async-client/operations/create_router_output.md",
+      "async-client/operations/delete_bridge.md",
+      "async-client/operations/delete_flow.md",
+      "async-client/operations/delete_gateway.md",
+      "async-client/operations/delete_router_input.md",
+      "async-client/operations/delete_router_network_interface.md",
+      "async-client/operations/delete_router_output.md",
+      "async-client/operations/deregister_gateway_instance.md",
+      "async-client/operations/describe_bridge.md",
+      "async-client/operations/describe_flow.md",
+      "async-client/operations/describe_flow_source_metadata.md",
+      "async-client/operations/describe_flow_source_thumbnail.md",
+      "async-client/operations/describe_gateway.md",
+      "async-client/operations/describe_gateway_instance.md",
+      "async-client/operations/describe_offering.md",
+      "async-client/operations/describe_reservation.md",
+      "async-client/operations/get_router_input.md",
+      "async-client/operations/get_router_input_source_metadata.md",
+      "async-client/operations/get_router_input_thumbnail.md",
+      "async-client/operations/get_router_network_interface.md",
+      "async-client/operations/get_router_output.md",
+      "async-client/operations/grant_flow_entitlements.md",
+      "async-client/operations/list_bridges.md",
+      "async-client/operations/list_entitlements.md",
+      "async-client/operations/list_flows.md",
+      "async-client/operations/list_gateway_instances.md",
+      "async-client/operations/list_gateways.md",
+      "async-client/operations/list_offerings.md",
+      "async-client/operations/list_reservations.md",
+      "async-client/operations/list_router_inputs.md",
+      "async-client/operations/list_router_network_interfaces.md",
+      "async-client/operations/list_router_outputs.md",
+      "async-client/operations/list_tags_for_global_resource.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/purchase_offering.md",
+      "async-client/operations/remove_bridge_output.md",
+      "async-client/operations/remove_bridge_source.md",
+      "async-client/operations/remove_flow_media_stream.md",
+      "async-client/operations/remove_flow_output.md",
+      "async-client/operations/remove_flow_source.md",
+      "async-client/operations/remove_flow_vpc_interface.md",
+      "async-client/operations/restart_router_input.md",
+      "async-client/operations/restart_router_output.md",
+      "async-client/operations/revoke_flow_entitlement.md",
+      "async-client/operations/start_flow.md",
+      "async-client/operations/start_router_input.md",
+      "async-client/operations/start_router_output.md",
+      "async-client/operations/stop_flow.md",
+      "async-client/operations/stop_router_input.md",
+      "async-client/operations/stop_router_output.md",
+      "async-client/operations/tag_global_resource.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/take_router_input.md",
+      "async-client/operations/untag_global_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_bridge.md",
+      "async-client/operations/update_bridge_output.md",
+      "async-client/operations/update_bridge_source.md",
+      "async-client/operations/update_bridge_state.md",
+      "async-client/operations/update_flow.md",
+      "async-client/operations/update_flow_entitlement.md",
+      "async-client/operations/update_flow_media_stream.md",
+      "async-client/operations/update_flow_output.md",
+      "async-client/operations/update_flow_source.md",
+      "async-client/operations/update_gateway_instance.md",
+      "async-client/operations/update_router_input.md",
+      "async-client/operations/update_router_network_interface.md",
+      "async-client/operations/update_router_output.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_bridges.md",
+      "async-client/paginators/iter_list_entitlements.md",
+      "async-client/paginators/iter_list_flows.md",
+      "async-client/paginators/iter_list_gateway_instances.md",
+      "async-client/paginators/iter_list_gateways.md",
+      "async-client/paginators/iter_list_offerings.md",
+      "async-client/paginators/iter_list_reservations.md",
+      "async-client/paginators/iter_list_router_inputs.md",
+      "async-client/paginators/iter_list_router_network_interfaces.md",
+      "async-client/paginators/iter_list_router_outputs.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AddFlowOutputs420Exception.md",
+    "errors/BadRequestException.md",
+    "errors/ConflictException.md",
+    "errors/CreateBridge420Exception.md",
+    "errors/CreateFlow420Exception.md",
+    "errors/CreateGateway420Exception.md",
+    "errors/DeserializationError.md",
+    "errors/ForbiddenException.md",
+    "errors/GrantFlowEntitlements420Exception.md",
+    "errors/InternalServerErrorException.md",
+    "errors/MediaConnectError.md",
+    "errors/NotFoundException.md",
+    "errors/RouterInputServiceQuotaExceededException.md",
+    "errors/RouterNetworkInterfaceServiceQuotaExceededException.md",
+    "errors/RouterOutputServiceQuotaExceededException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceUnavailableException.md",
+    "errors/TooManyRequestsException.md",
+    "errors/UnknownServiceError.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_mediaconnect` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_mediaconnect.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

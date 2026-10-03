@@ -1,0 +1,8 @@
+---
+title: DescribeTableResponse
+---
+
+::: capo_redshift_data.types.describe_table_response.DescribeTableResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: CustomAuthenticationType
+---
+
+::: capo_appflow.types.custom_authentication_type.CustomAuthenticationType
+    options:
+      show_source: true
+      merge_init_into_class: false

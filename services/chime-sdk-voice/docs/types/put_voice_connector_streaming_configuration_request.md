@@ -1,0 +1,8 @@
+---
+title: PutVoiceConnectorStreamingConfigurationRequest
+---
+
+::: capo_chime_sdk_voice.types.put_voice_connector_streaming_configuration_request.PutVoiceConnectorStreamingConfigurationRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

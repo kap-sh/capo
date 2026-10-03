@@ -1,0 +1,8 @@
+---
+title: ImageSetWorkflowStatus
+---
+
+::: capo_medical_imaging.types.image_set_workflow_status.ImageSetWorkflowStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

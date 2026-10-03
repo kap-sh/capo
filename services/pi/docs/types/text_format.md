@@ -1,0 +1,8 @@
+---
+title: TextFormat
+---
+
+::: capo_pi.types.text_format.TextFormat
+    options:
+      show_source: true
+      merge_init_into_class: false

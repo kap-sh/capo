@@ -1,0 +1,8 @@
+---
+title: ConditionalBranches
+---
+
+::: capo_lex_models_v2.types.conditional_branches.ConditionalBranches
+    options:
+      show_source: true
+      merge_init_into_class: false

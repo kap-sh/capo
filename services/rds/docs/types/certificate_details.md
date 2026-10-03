@@ -1,0 +1,8 @@
+---
+title: CertificateDetails
+---
+
+::: capo_rds.types.certificate_details.CertificateDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

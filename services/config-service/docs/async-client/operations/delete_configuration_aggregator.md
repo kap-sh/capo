@@ -1,0 +1,7 @@
+---
+title: delete_configuration_aggregator
+---
+
+::: capo_config_service._services.async_config_service.AsyncConfigServiceClient.delete_configuration_aggregator
+    options:
+      show_source: true

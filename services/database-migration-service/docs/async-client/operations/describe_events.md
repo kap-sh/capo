@@ -1,0 +1,7 @@
+---
+title: describe_events
+---
+
+::: capo_database_migration_service._services.async_database_migration_service.AsyncDatabaseMigrationServiceClient.describe_events
+    options:
+      show_source: true

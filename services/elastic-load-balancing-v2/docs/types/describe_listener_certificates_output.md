@@ -1,0 +1,8 @@
+---
+title: DescribeListenerCertificatesOutput
+---
+
+::: capo_elastic_load_balancing_v2.types.describe_listener_certificates_output.DescribeListenerCertificatesOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

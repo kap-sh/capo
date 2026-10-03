@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ruff formats the signatures mkdocstrings renders (the `line_length` option).
+uvx --with mkdocstrings-python --with ruff zensical "${@:-serve}"

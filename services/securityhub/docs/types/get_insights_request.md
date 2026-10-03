@@ -1,0 +1,8 @@
+---
+title: GetInsightsRequest
+---
+
+::: capo_securityhub.types.get_insights_request.GetInsightsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: SuggesterStatus
+---
+
+::: capo_cloudsearch.types.suggester_status.SuggesterStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: DeletePortfolioShareInput
+---
+
+::: capo_service_catalog.types.delete_portfolio_share_input.DeletePortfolioShareInput
+    options:
+      show_source: true
+      merge_init_into_class: false

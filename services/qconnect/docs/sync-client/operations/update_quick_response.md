@@ -1,0 +1,7 @@
+---
+title: update_quick_response
+---
+
+::: capo_qconnect._services.q_connect.QConnectClient.update_quick_response
+    options:
+      show_source: true

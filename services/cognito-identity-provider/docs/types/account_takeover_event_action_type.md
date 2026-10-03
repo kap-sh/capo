@@ -1,0 +1,8 @@
+---
+title: AccountTakeoverEventActionType
+---
+
+::: capo_cognito_identity_provider.types.account_takeover_event_action_type.AccountTakeoverEventActionType
+    options:
+      show_source: true
+      merge_init_into_class: false

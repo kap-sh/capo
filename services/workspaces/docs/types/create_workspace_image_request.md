@@ -1,0 +1,8 @@
+---
+title: CreateWorkspaceImageRequest
+---
+
+::: capo_workspaces.types.create_workspace_image_request.CreateWorkspaceImageRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

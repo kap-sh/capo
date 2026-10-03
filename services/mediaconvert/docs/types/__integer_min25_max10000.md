@@ -1,0 +1,8 @@
+---
+title: __integerMin25Max10000
+---
+
+::: capo_mediaconvert.types.__integer_min25_max10000.__integerMin25Max10000
+    options:
+      show_source: true
+      merge_init_into_class: false

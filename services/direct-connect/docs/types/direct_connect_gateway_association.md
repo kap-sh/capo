@@ -1,0 +1,8 @@
+---
+title: DirectConnectGatewayAssociation
+---
+
+::: capo_direct_connect.types.direct_connect_gateway_association.DirectConnectGatewayAssociation
+    options:
+      show_source: true
+      merge_init_into_class: false

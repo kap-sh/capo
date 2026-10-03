@@ -1,0 +1,8 @@
+---
+title: ResourceViolations
+---
+
+::: capo_fms.types.resource_violations.ResourceViolations
+    options:
+      show_source: true
+      merge_init_into_class: false

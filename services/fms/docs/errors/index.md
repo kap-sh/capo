@@ -1,0 +1,15 @@
+# Errors
+
+- [DeserializationError](DeserializationError.md)
+- [FMSError](FMSError.md)
+- [InternalErrorException](InternalErrorException.md)
+- [InvalidInputException](InvalidInputException.md)
+- [InvalidOperationException](InvalidOperationException.md)
+- [InvalidTypeException](InvalidTypeException.md)
+- [LimitExceededException](LimitExceededException.md)
+- [ResourceNotFoundException](ResourceNotFoundException.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

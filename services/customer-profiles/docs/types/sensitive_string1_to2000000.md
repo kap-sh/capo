@@ -1,0 +1,8 @@
+---
+title: sensitiveString1To2000000
+---
+
+::: capo_customer_profiles.types.sensitive_string1_to2000000.sensitiveString1To2000000
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: HttpCodeMatcher
+---
+
+::: capo_vpc_lattice.types.http_code_matcher.HttpCodeMatcher
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: UsageAllocation
+---
+
+::: capo_marketplace_metering.types.usage_allocation.UsageAllocation
+    options:
+      show_source: true
+      merge_init_into_class: false

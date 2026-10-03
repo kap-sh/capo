@@ -1,0 +1,8 @@
+---
+title: CommunicationLimit
+---
+
+::: capo_connectcampaignsv2.types.communication_limit.CommunicationLimit
+    options:
+      show_source: true
+      merge_init_into_class: false

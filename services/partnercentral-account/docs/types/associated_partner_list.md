@@ -1,0 +1,8 @@
+---
+title: AssociatedPartnerList
+---
+
+::: capo_partnercentral_account.types.associated_partner_list.AssociatedPartnerList
+    options:
+      show_source: true
+      merge_init_into_class: false

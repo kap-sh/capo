@@ -1,0 +1,8 @@
+---
+title: TemplateParameter
+---
+
+::: capo_cloudformation.types.template_parameter.TemplateParameter
+    options:
+      show_source: true
+      merge_init_into_class: false

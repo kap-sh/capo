@@ -1,0 +1,8 @@
+---
+title: RepositoryCreationTemplateList
+---
+
+::: capo_ecr.types.repository_creation_template_list.RepositoryCreationTemplateList
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: PrincipalId
+---
+
+::: capo_cloudwatchomni.types.principal_id.PrincipalId
+    options:
+      show_source: true
+      merge_init_into_class: false

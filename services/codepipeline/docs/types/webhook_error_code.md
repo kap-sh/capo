@@ -1,0 +1,8 @@
+---
+title: WebhookErrorCode
+---
+
+::: capo_codepipeline.types.webhook_error_code.WebhookErrorCode
+    options:
+      show_source: true
+      merge_init_into_class: false

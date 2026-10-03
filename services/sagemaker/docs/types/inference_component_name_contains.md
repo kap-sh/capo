@@ -1,0 +1,8 @@
+---
+title: InferenceComponentNameContains
+---
+
+::: capo_sagemaker.types.inference_component_name_contains.InferenceComponentNameContains
+    options:
+      show_source: true
+      merge_init_into_class: false

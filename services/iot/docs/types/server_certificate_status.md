@@ -1,0 +1,8 @@
+---
+title: ServerCertificateStatus
+---
+
+::: capo_iot.types.server_certificate_status.ServerCertificateStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

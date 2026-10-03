@@ -1,0 +1,8 @@
+---
+title: LimitedString
+---
+
+::: capo_quicksight.types.limited_string.LimitedString
+    options:
+      show_source: true
+      merge_init_into_class: false

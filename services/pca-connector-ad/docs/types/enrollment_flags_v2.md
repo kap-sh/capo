@@ -1,0 +1,8 @@
+---
+title: EnrollmentFlagsV2
+---
+
+::: capo_pca_connector_ad.types.enrollment_flags_v2.EnrollmentFlagsV2
+    options:
+      show_source: true
+      merge_init_into_class: false

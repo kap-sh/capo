@@ -1,0 +1,8 @@
+---
+title: ListAssetsRequest
+---
+
+::: capo_mediapackage_vod.types.list_assets_request.ListAssetsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: FieldAggregationType
+---
+
+::: capo_resiliencehub.types.field_aggregation_type.FieldAggregationType
+    options:
+      show_source: true
+      merge_init_into_class: false

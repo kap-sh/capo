@@ -1,0 +1,334 @@
+[project]
+site_name = "capo-lakeformation"
+site_description = "Python SDK for AWS Lakeformation."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "LakeFormationClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/add_lf_tags_to_resource.md",
+      "sync-client/operations/assume_decorated_role_with_saml.md",
+      "sync-client/operations/batch_grant_permissions.md",
+      "sync-client/operations/batch_revoke_permissions.md",
+      "sync-client/operations/cancel_transaction.md",
+      "sync-client/operations/commit_transaction.md",
+      "sync-client/operations/create_data_cells_filter.md",
+      "sync-client/operations/create_lake_formation_identity_center_configuration.md",
+      "sync-client/operations/create_lake_formation_opt_in.md",
+      "sync-client/operations/create_lf_tag.md",
+      "sync-client/operations/create_lf_tag_expression.md",
+      "sync-client/operations/delete_data_cells_filter.md",
+      "sync-client/operations/delete_lake_formation_identity_center_configuration.md",
+      "sync-client/operations/delete_lake_formation_opt_in.md",
+      "sync-client/operations/delete_lf_tag.md",
+      "sync-client/operations/delete_lf_tag_expression.md",
+      "sync-client/operations/delete_objects_on_cancel.md",
+      "sync-client/operations/deregister_resource.md",
+      "sync-client/operations/describe_lake_formation_identity_center_configuration.md",
+      "sync-client/operations/describe_resource.md",
+      "sync-client/operations/describe_transaction.md",
+      "sync-client/operations/extend_transaction.md",
+      "sync-client/operations/get_data_cells_filter.md",
+      "sync-client/operations/get_data_lake_principal.md",
+      "sync-client/operations/get_data_lake_settings.md",
+      "sync-client/operations/get_effective_permissions_for_path.md",
+      "sync-client/operations/get_lf_tag.md",
+      "sync-client/operations/get_lf_tag_expression.md",
+      "sync-client/operations/get_query_state.md",
+      "sync-client/operations/get_query_statistics.md",
+      "sync-client/operations/get_resource_lf_tags.md",
+      "sync-client/operations/get_table_objects.md",
+      "sync-client/operations/get_temporary_data_location_credentials.md",
+      "sync-client/operations/get_temporary_glue_partition_credentials.md",
+      "sync-client/operations/get_temporary_glue_table_credentials.md",
+      "sync-client/operations/get_work_unit_results.md",
+      "sync-client/operations/get_work_units.md",
+      "sync-client/operations/grant_permissions.md",
+      "sync-client/operations/list_data_cells_filter.md",
+      "sync-client/operations/list_lake_formation_opt_ins.md",
+      "sync-client/operations/list_lf_tag_expressions.md",
+      "sync-client/operations/list_lf_tags.md",
+      "sync-client/operations/list_permissions.md",
+      "sync-client/operations/list_resources.md",
+      "sync-client/operations/list_table_storage_optimizers.md",
+      "sync-client/operations/list_transactions.md",
+      "sync-client/operations/put_data_lake_settings.md",
+      "sync-client/operations/register_resource.md",
+      "sync-client/operations/remove_lf_tags_from_resource.md",
+      "sync-client/operations/revoke_permissions.md",
+      "sync-client/operations/search_databases_by_lf_tags.md",
+      "sync-client/operations/search_tables_by_lf_tags.md",
+      "sync-client/operations/start_query_planning.md",
+      "sync-client/operations/start_transaction.md",
+      "sync-client/operations/update_data_cells_filter.md",
+      "sync-client/operations/update_lake_formation_identity_center_configuration.md",
+      "sync-client/operations/update_lf_tag.md",
+      "sync-client/operations/update_lf_tag_expression.md",
+      "sync-client/operations/update_resource.md",
+      "sync-client/operations/update_table_objects.md",
+      "sync-client/operations/update_table_storage_optimizer.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_get_effective_permissions_for_path.md",
+      "sync-client/paginators/iter_get_table_objects.md",
+      "sync-client/paginators/iter_get_work_units.md",
+      "sync-client/paginators/iter_list_data_cells_filter.md",
+      "sync-client/paginators/iter_list_lake_formation_opt_ins.md",
+      "sync-client/paginators/iter_list_lf_tag_expressions.md",
+      "sync-client/paginators/iter_list_lf_tags.md",
+      "sync-client/paginators/iter_list_permissions.md",
+      "sync-client/paginators/iter_list_resources.md",
+      "sync-client/paginators/iter_list_table_storage_optimizers.md",
+      "sync-client/paginators/iter_list_transactions.md",
+      "sync-client/paginators/iter_search_databases_by_lf_tags.md",
+      "sync-client/paginators/iter_search_tables_by_lf_tags.md",
+    ] },
+  ] },
+  { "AsyncLakeFormationClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/add_lf_tags_to_resource.md",
+      "async-client/operations/assume_decorated_role_with_saml.md",
+      "async-client/operations/batch_grant_permissions.md",
+      "async-client/operations/batch_revoke_permissions.md",
+      "async-client/operations/cancel_transaction.md",
+      "async-client/operations/commit_transaction.md",
+      "async-client/operations/create_data_cells_filter.md",
+      "async-client/operations/create_lake_formation_identity_center_configuration.md",
+      "async-client/operations/create_lake_formation_opt_in.md",
+      "async-client/operations/create_lf_tag.md",
+      "async-client/operations/create_lf_tag_expression.md",
+      "async-client/operations/delete_data_cells_filter.md",
+      "async-client/operations/delete_lake_formation_identity_center_configuration.md",
+      "async-client/operations/delete_lake_formation_opt_in.md",
+      "async-client/operations/delete_lf_tag.md",
+      "async-client/operations/delete_lf_tag_expression.md",
+      "async-client/operations/delete_objects_on_cancel.md",
+      "async-client/operations/deregister_resource.md",
+      "async-client/operations/describe_lake_formation_identity_center_configuration.md",
+      "async-client/operations/describe_resource.md",
+      "async-client/operations/describe_transaction.md",
+      "async-client/operations/extend_transaction.md",
+      "async-client/operations/get_data_cells_filter.md",
+      "async-client/operations/get_data_lake_principal.md",
+      "async-client/operations/get_data_lake_settings.md",
+      "async-client/operations/get_effective_permissions_for_path.md",
+      "async-client/operations/get_lf_tag.md",
+      "async-client/operations/get_lf_tag_expression.md",
+      "async-client/operations/get_query_state.md",
+      "async-client/operations/get_query_statistics.md",
+      "async-client/operations/get_resource_lf_tags.md",
+      "async-client/operations/get_table_objects.md",
+      "async-client/operations/get_temporary_data_location_credentials.md",
+      "async-client/operations/get_temporary_glue_partition_credentials.md",
+      "async-client/operations/get_temporary_glue_table_credentials.md",
+      "async-client/operations/get_work_unit_results.md",
+      "async-client/operations/get_work_units.md",
+      "async-client/operations/grant_permissions.md",
+      "async-client/operations/list_data_cells_filter.md",
+      "async-client/operations/list_lake_formation_opt_ins.md",
+      "async-client/operations/list_lf_tag_expressions.md",
+      "async-client/operations/list_lf_tags.md",
+      "async-client/operations/list_permissions.md",
+      "async-client/operations/list_resources.md",
+      "async-client/operations/list_table_storage_optimizers.md",
+      "async-client/operations/list_transactions.md",
+      "async-client/operations/put_data_lake_settings.md",
+      "async-client/operations/register_resource.md",
+      "async-client/operations/remove_lf_tags_from_resource.md",
+      "async-client/operations/revoke_permissions.md",
+      "async-client/operations/search_databases_by_lf_tags.md",
+      "async-client/operations/search_tables_by_lf_tags.md",
+      "async-client/operations/start_query_planning.md",
+      "async-client/operations/start_transaction.md",
+      "async-client/operations/update_data_cells_filter.md",
+      "async-client/operations/update_lake_formation_identity_center_configuration.md",
+      "async-client/operations/update_lf_tag.md",
+      "async-client/operations/update_lf_tag_expression.md",
+      "async-client/operations/update_resource.md",
+      "async-client/operations/update_table_objects.md",
+      "async-client/operations/update_table_storage_optimizer.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_get_effective_permissions_for_path.md",
+      "async-client/paginators/iter_get_table_objects.md",
+      "async-client/paginators/iter_get_work_units.md",
+      "async-client/paginators/iter_list_data_cells_filter.md",
+      "async-client/paginators/iter_list_lake_formation_opt_ins.md",
+      "async-client/paginators/iter_list_lf_tag_expressions.md",
+      "async-client/paginators/iter_list_lf_tags.md",
+      "async-client/paginators/iter_list_permissions.md",
+      "async-client/paginators/iter_list_resources.md",
+      "async-client/paginators/iter_list_table_storage_optimizers.md",
+      "async-client/paginators/iter_list_transactions.md",
+      "async-client/paginators/iter_search_databases_by_lf_tags.md",
+      "async-client/paginators/iter_search_tables_by_lf_tags.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/AlreadyExistsException.md",
+    "errors/ConcurrentModificationException.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/EntityNotFoundException.md",
+    "errors/ExpiredException.md",
+    "errors/GlueEncryptionException.md",
+    "errors/InternalServiceException.md",
+    "errors/InvalidInputException.md",
+    "errors/LakeFormationError.md",
+    "errors/OperationTimeoutException.md",
+    "errors/PermissionTypeMismatchException.md",
+    "errors/ResourceNotReadyException.md",
+    "errors/ResourceNumberLimitExceededException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/StatisticsNotReadyYetException.md",
+    "errors/ThrottledException.md",
+    "errors/TransactionCanceledException.md",
+    "errors/TransactionCommitInProgressException.md",
+    "errors/TransactionCommittedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+    "errors/WorkUnitsNotReadyYetException.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_lakeformation` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_lakeformation.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

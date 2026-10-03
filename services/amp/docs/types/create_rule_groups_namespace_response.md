@@ -1,0 +1,8 @@
+---
+title: CreateRuleGroupsNamespaceResponse
+---
+
+::: capo_amp.types.create_rule_groups_namespace_response.CreateRuleGroupsNamespaceResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

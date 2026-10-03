@@ -1,0 +1,8 @@
+---
+title: TimedMetadata
+---
+
+::: capo_mediaconvert.types.timed_metadata.TimedMetadata
+    options:
+      show_source: true
+      merge_init_into_class: false

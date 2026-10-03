@@ -1,0 +1,8 @@
+---
+title: ResultFormatString
+---
+
+::: capo_redshift_data.types.result_format_string.ResultFormatString
+    options:
+      show_source: true
+      merge_init_into_class: false

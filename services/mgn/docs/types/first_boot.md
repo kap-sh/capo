@@ -1,0 +1,8 @@
+---
+title: FirstBoot
+---
+
+::: capo_mgn.types.first_boot.FirstBoot
+    options:
+      show_source: true
+      merge_init_into_class: false

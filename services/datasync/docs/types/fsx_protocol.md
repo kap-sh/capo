@@ -1,0 +1,8 @@
+---
+title: FsxProtocol
+---
+
+::: capo_datasync.types.fsx_protocol.FsxProtocol
+    options:
+      show_source: true
+      merge_init_into_class: false

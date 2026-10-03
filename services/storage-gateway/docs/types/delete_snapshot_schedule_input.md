@@ -1,0 +1,8 @@
+---
+title: DeleteSnapshotScheduleInput
+---
+
+::: capo_storage_gateway.types.delete_snapshot_schedule_input.DeleteSnapshotScheduleInput
+    options:
+      show_source: true
+      merge_init_into_class: false

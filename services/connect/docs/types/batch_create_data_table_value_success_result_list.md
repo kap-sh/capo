@@ -1,0 +1,8 @@
+---
+title: BatchCreateDataTableValueSuccessResultList
+---
+
+::: capo_connect.types.batch_create_data_table_value_success_result_list.BatchCreateDataTableValueSuccessResultList
+    options:
+      show_source: true
+      merge_init_into_class: false

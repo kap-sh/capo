@@ -1,0 +1,8 @@
+---
+title: RetentionLockType
+---
+
+::: capo_storage_gateway.types.retention_lock_type.RetentionLockType
+    options:
+      show_source: true
+      merge_init_into_class: false

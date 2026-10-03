@@ -1,0 +1,8 @@
+---
+title: VersionControlInfo
+---
+
+::: capo_migrationhubstrategy.types.version_control_info.VersionControlInfo
+    options:
+      show_source: true
+      merge_init_into_class: false

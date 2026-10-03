@@ -1,0 +1,17 @@
+# Errors
+
+- [BadRequestException](BadRequestException.md)
+- [ConflictException](ConflictException.md)
+- [DeserializationError](DeserializationError.md)
+- [ForbiddenException](ForbiddenException.md)
+- [InternalServerErrorException](InternalServerErrorException.md)
+- [MethodNotAllowedException](MethodNotAllowedException.md)
+- [NotFoundException](NotFoundException.md)
+- [PayloadTooLargeException](PayloadTooLargeException.md)
+- [PinpointError](PinpointError.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [TooManyRequestsException](TooManyRequestsException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

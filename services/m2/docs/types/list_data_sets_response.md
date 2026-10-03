@@ -1,0 +1,8 @@
+---
+title: ListDataSetsResponse
+---
+
+::: capo_m2.types.list_data_sets_response.ListDataSetsResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

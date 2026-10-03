@@ -1,0 +1,8 @@
+---
+title: IdentityCenterDetails
+---
+
+::: capo_account_access.types.identity_center_details.IdentityCenterDetails
+    options:
+      show_source: true
+      merge_init_into_class: false

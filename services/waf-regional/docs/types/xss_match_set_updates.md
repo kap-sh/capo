@@ -1,0 +1,8 @@
+---
+title: XssMatchSetUpdates
+---
+
+::: capo_waf_regional.types.xss_match_set_updates.XssMatchSetUpdates
+    options:
+      show_source: true
+      merge_init_into_class: false

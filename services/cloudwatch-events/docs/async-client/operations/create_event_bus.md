@@ -1,0 +1,7 @@
+---
+title: create_event_bus
+---
+
+::: capo_cloudwatch_events._services.async_cloud_watch_events.AsyncCloudWatchEventsClient.create_event_bus
+    options:
+      show_source: true

@@ -1,0 +1,8 @@
+---
+title: UpdateVehicleResponse
+---
+
+::: capo_iotfleetwise.types.update_vehicle_response.UpdateVehicleResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

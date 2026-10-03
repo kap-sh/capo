@@ -1,0 +1,8 @@
+---
+title: EFSFileSystem
+---
+
+::: capo_sagemaker.types.efs_file_system.EFSFileSystem
+    options:
+      show_source: true
+      merge_init_into_class: false

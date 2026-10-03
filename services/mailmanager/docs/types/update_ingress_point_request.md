@@ -1,0 +1,8 @@
+---
+title: UpdateIngressPointRequest
+---
+
+::: capo_mailmanager.types.update_ingress_point_request.UpdateIngressPointRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

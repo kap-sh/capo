@@ -1,0 +1,7 @@
+---
+title: update_account_settings
+---
+
+::: capo_timestream_query._services.async_timestream_query.AsyncTimestreamQueryClient.update_account_settings
+    options:
+      show_source: true

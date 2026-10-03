@@ -1,0 +1,284 @@
+[project]
+site_name = "capo-sfn"
+site_description = "Python SDK for AWS SFN."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "SFNClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/create_activity.md",
+      "sync-client/operations/create_state_machine.md",
+      "sync-client/operations/create_state_machine_alias.md",
+      "sync-client/operations/delete_activity.md",
+      "sync-client/operations/delete_state_machine.md",
+      "sync-client/operations/delete_state_machine_alias.md",
+      "sync-client/operations/delete_state_machine_version.md",
+      "sync-client/operations/describe_activity.md",
+      "sync-client/operations/describe_execution.md",
+      "sync-client/operations/describe_map_run.md",
+      "sync-client/operations/describe_state_machine.md",
+      "sync-client/operations/describe_state_machine_alias.md",
+      "sync-client/operations/describe_state_machine_for_execution.md",
+      "sync-client/operations/get_activity_task.md",
+      "sync-client/operations/get_execution_history.md",
+      "sync-client/operations/list_activities.md",
+      "sync-client/operations/list_executions.md",
+      "sync-client/operations/list_map_runs.md",
+      "sync-client/operations/list_state_machine_aliases.md",
+      "sync-client/operations/list_state_machine_versions.md",
+      "sync-client/operations/list_state_machines.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/publish_state_machine_version.md",
+      "sync-client/operations/redrive_execution.md",
+      "sync-client/operations/send_task_failure.md",
+      "sync-client/operations/send_task_heartbeat.md",
+      "sync-client/operations/send_task_success.md",
+      "sync-client/operations/start_execution.md",
+      "sync-client/operations/start_sync_execution.md",
+      "sync-client/operations/stop_execution.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/test_state.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_map_run.md",
+      "sync-client/operations/update_state_machine.md",
+      "sync-client/operations/update_state_machine_alias.md",
+      "sync-client/operations/validate_state_machine_definition.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_get_execution_history.md",
+      "sync-client/paginators/iter_list_activities.md",
+      "sync-client/paginators/iter_list_executions.md",
+      "sync-client/paginators/iter_list_map_runs.md",
+      "sync-client/paginators/iter_list_state_machines.md",
+    ] },
+  ] },
+  { "AsyncSFNClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/create_activity.md",
+      "async-client/operations/create_state_machine.md",
+      "async-client/operations/create_state_machine_alias.md",
+      "async-client/operations/delete_activity.md",
+      "async-client/operations/delete_state_machine.md",
+      "async-client/operations/delete_state_machine_alias.md",
+      "async-client/operations/delete_state_machine_version.md",
+      "async-client/operations/describe_activity.md",
+      "async-client/operations/describe_execution.md",
+      "async-client/operations/describe_map_run.md",
+      "async-client/operations/describe_state_machine.md",
+      "async-client/operations/describe_state_machine_alias.md",
+      "async-client/operations/describe_state_machine_for_execution.md",
+      "async-client/operations/get_activity_task.md",
+      "async-client/operations/get_execution_history.md",
+      "async-client/operations/list_activities.md",
+      "async-client/operations/list_executions.md",
+      "async-client/operations/list_map_runs.md",
+      "async-client/operations/list_state_machine_aliases.md",
+      "async-client/operations/list_state_machine_versions.md",
+      "async-client/operations/list_state_machines.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/publish_state_machine_version.md",
+      "async-client/operations/redrive_execution.md",
+      "async-client/operations/send_task_failure.md",
+      "async-client/operations/send_task_heartbeat.md",
+      "async-client/operations/send_task_success.md",
+      "async-client/operations/start_execution.md",
+      "async-client/operations/start_sync_execution.md",
+      "async-client/operations/stop_execution.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/test_state.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_map_run.md",
+      "async-client/operations/update_state_machine.md",
+      "async-client/operations/update_state_machine_alias.md",
+      "async-client/operations/validate_state_machine_definition.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_get_execution_history.md",
+      "async-client/paginators/iter_list_activities.md",
+      "async-client/paginators/iter_list_executions.md",
+      "async-client/paginators/iter_list_map_runs.md",
+      "async-client/paginators/iter_list_state_machines.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/ActivityAlreadyExists.md",
+    "errors/ActivityDoesNotExist.md",
+    "errors/ActivityLimitExceeded.md",
+    "errors/ActivityWorkerLimitExceeded.md",
+    "errors/ConflictException.md",
+    "errors/DeserializationError.md",
+    "errors/ExecutionAlreadyExists.md",
+    "errors/ExecutionDoesNotExist.md",
+    "errors/ExecutionLimitExceeded.md",
+    "errors/ExecutionNotRedrivable.md",
+    "errors/InvalidArn.md",
+    "errors/InvalidDefinition.md",
+    "errors/InvalidEncryptionConfiguration.md",
+    "errors/InvalidExecutionInput.md",
+    "errors/InvalidLoggingConfiguration.md",
+    "errors/InvalidName.md",
+    "errors/InvalidOutput.md",
+    "errors/InvalidToken.md",
+    "errors/InvalidTracingConfiguration.md",
+    "errors/KmsAccessDeniedException.md",
+    "errors/KmsInvalidStateException.md",
+    "errors/KmsThrottlingException.md",
+    "errors/MissingRequiredParameter.md",
+    "errors/ResourceNotFound.md",
+    "errors/SFNError.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/StateMachineAlreadyExists.md",
+    "errors/StateMachineDeleting.md",
+    "errors/StateMachineDoesNotExist.md",
+    "errors/StateMachineLimitExceeded.md",
+    "errors/StateMachineTypeNotSupported.md",
+    "errors/TaskDoesNotExist.md",
+    "errors/TaskTimedOut.md",
+    "errors/TooManyTags.md",
+    "errors/UnknownServiceError.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_sfn` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_sfn.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

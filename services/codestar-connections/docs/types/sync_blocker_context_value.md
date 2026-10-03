@@ -1,0 +1,8 @@
+---
+title: SyncBlockerContextValue
+---
+
+::: capo_codestar_connections.types.sync_blocker_context_value.SyncBlockerContextValue
+    options:
+      show_source: true
+      merge_init_into_class: false

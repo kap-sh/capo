@@ -1,0 +1,471 @@
+[project]
+site_name = "capo-backup"
+site_description = "Python SDK for AWS Backup."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "BackupClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/associate_backup_vault_mpa_approval_team.md",
+      "sync-client/operations/cancel_legal_hold.md",
+      "sync-client/operations/create_backup_access_point.md",
+      "sync-client/operations/create_backup_plan.md",
+      "sync-client/operations/create_backup_selection.md",
+      "sync-client/operations/create_backup_vault.md",
+      "sync-client/operations/create_framework.md",
+      "sync-client/operations/create_legal_hold.md",
+      "sync-client/operations/create_logically_air_gapped_backup_vault.md",
+      "sync-client/operations/create_report_plan.md",
+      "sync-client/operations/create_restore_access_backup_vault.md",
+      "sync-client/operations/create_restore_testing_plan.md",
+      "sync-client/operations/create_restore_testing_selection.md",
+      "sync-client/operations/create_tiering_configuration.md",
+      "sync-client/operations/delete_backup_access_point.md",
+      "sync-client/operations/delete_backup_plan.md",
+      "sync-client/operations/delete_backup_selection.md",
+      "sync-client/operations/delete_backup_vault.md",
+      "sync-client/operations/delete_backup_vault_access_policy.md",
+      "sync-client/operations/delete_backup_vault_lock_configuration.md",
+      "sync-client/operations/delete_backup_vault_notifications.md",
+      "sync-client/operations/delete_framework.md",
+      "sync-client/operations/delete_recovery_point.md",
+      "sync-client/operations/delete_report_plan.md",
+      "sync-client/operations/delete_restore_testing_plan.md",
+      "sync-client/operations/delete_restore_testing_selection.md",
+      "sync-client/operations/delete_tiering_configuration.md",
+      "sync-client/operations/describe_backup_access_point.md",
+      "sync-client/operations/describe_backup_job.md",
+      "sync-client/operations/describe_backup_vault.md",
+      "sync-client/operations/describe_copy_job.md",
+      "sync-client/operations/describe_framework.md",
+      "sync-client/operations/describe_global_settings.md",
+      "sync-client/operations/describe_protected_resource.md",
+      "sync-client/operations/describe_recovery_point.md",
+      "sync-client/operations/describe_region_settings.md",
+      "sync-client/operations/describe_report_job.md",
+      "sync-client/operations/describe_report_plan.md",
+      "sync-client/operations/describe_restore_job.md",
+      "sync-client/operations/describe_scan_job.md",
+      "sync-client/operations/disassociate_backup_vault_mpa_approval_team.md",
+      "sync-client/operations/disassociate_recovery_point.md",
+      "sync-client/operations/disassociate_recovery_point_from_parent.md",
+      "sync-client/operations/export_backup_plan_template.md",
+      "sync-client/operations/get_backup_plan.md",
+      "sync-client/operations/get_backup_plan_from_json.md",
+      "sync-client/operations/get_backup_plan_from_template.md",
+      "sync-client/operations/get_backup_selection.md",
+      "sync-client/operations/get_backup_vault_access_policy.md",
+      "sync-client/operations/get_backup_vault_notifications.md",
+      "sync-client/operations/get_legal_hold.md",
+      "sync-client/operations/get_pitr_malware_scan_results.md",
+      "sync-client/operations/get_recovery_point_index_details.md",
+      "sync-client/operations/get_recovery_point_restore_metadata.md",
+      "sync-client/operations/get_restore_job_metadata.md",
+      "sync-client/operations/get_restore_testing_inferred_metadata.md",
+      "sync-client/operations/get_restore_testing_plan.md",
+      "sync-client/operations/get_restore_testing_selection.md",
+      "sync-client/operations/get_supported_resource_types.md",
+      "sync-client/operations/get_tiering_configuration.md",
+      "sync-client/operations/list_backup_access_points.md",
+      "sync-client/operations/list_backup_access_points_by_recovery_point.md",
+      "sync-client/operations/list_backup_access_points_by_resource.md",
+      "sync-client/operations/list_backup_job_summaries.md",
+      "sync-client/operations/list_backup_jobs.md",
+      "sync-client/operations/list_backup_plan_templates.md",
+      "sync-client/operations/list_backup_plan_versions.md",
+      "sync-client/operations/list_backup_plans.md",
+      "sync-client/operations/list_backup_selections.md",
+      "sync-client/operations/list_backup_vaults.md",
+      "sync-client/operations/list_copy_job_summaries.md",
+      "sync-client/operations/list_copy_jobs.md",
+      "sync-client/operations/list_frameworks.md",
+      "sync-client/operations/list_indexed_recovery_points.md",
+      "sync-client/operations/list_legal_holds.md",
+      "sync-client/operations/list_protected_resources.md",
+      "sync-client/operations/list_protected_resources_by_backup_vault.md",
+      "sync-client/operations/list_recovery_points_by_backup_vault.md",
+      "sync-client/operations/list_recovery_points_by_legal_hold.md",
+      "sync-client/operations/list_recovery_points_by_resource.md",
+      "sync-client/operations/list_report_jobs.md",
+      "sync-client/operations/list_report_plans.md",
+      "sync-client/operations/list_restore_access_backup_vaults.md",
+      "sync-client/operations/list_restore_job_summaries.md",
+      "sync-client/operations/list_restore_jobs.md",
+      "sync-client/operations/list_restore_jobs_by_protected_resource.md",
+      "sync-client/operations/list_restore_testing_plans.md",
+      "sync-client/operations/list_restore_testing_selections.md",
+      "sync-client/operations/list_scan_job_summaries.md",
+      "sync-client/operations/list_scan_jobs.md",
+      "sync-client/operations/list_tags.md",
+      "sync-client/operations/list_tiering_configurations.md",
+      "sync-client/operations/put_backup_vault_access_policy.md",
+      "sync-client/operations/put_backup_vault_lock_configuration.md",
+      "sync-client/operations/put_backup_vault_notifications.md",
+      "sync-client/operations/put_restore_validation_result.md",
+      "sync-client/operations/revoke_restore_access_backup_vault.md",
+      "sync-client/operations/start_backup_job.md",
+      "sync-client/operations/start_copy_job.md",
+      "sync-client/operations/start_report_job.md",
+      "sync-client/operations/start_restore_job.md",
+      "sync-client/operations/start_scan_job.md",
+      "sync-client/operations/stop_backup_job.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_backup_plan.md",
+      "sync-client/operations/update_framework.md",
+      "sync-client/operations/update_global_settings.md",
+      "sync-client/operations/update_recovery_point_index_settings.md",
+      "sync-client/operations/update_recovery_point_lifecycle.md",
+      "sync-client/operations/update_region_settings.md",
+      "sync-client/operations/update_report_plan.md",
+      "sync-client/operations/update_restore_testing_plan.md",
+      "sync-client/operations/update_restore_testing_selection.md",
+      "sync-client/operations/update_tiering_configuration.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_backup_access_points.md",
+      "sync-client/paginators/iter_list_backup_access_points_by_recovery_point.md",
+      "sync-client/paginators/iter_list_backup_access_points_by_resource.md",
+      "sync-client/paginators/iter_list_backup_job_summaries.md",
+      "sync-client/paginators/iter_list_backup_jobs.md",
+      "sync-client/paginators/iter_list_backup_plan_templates.md",
+      "sync-client/paginators/iter_list_backup_plan_versions.md",
+      "sync-client/paginators/iter_list_backup_plans.md",
+      "sync-client/paginators/iter_list_backup_selections.md",
+      "sync-client/paginators/iter_list_backup_vaults.md",
+      "sync-client/paginators/iter_list_copy_job_summaries.md",
+      "sync-client/paginators/iter_list_copy_jobs.md",
+      "sync-client/paginators/iter_list_frameworks.md",
+      "sync-client/paginators/iter_list_indexed_recovery_points.md",
+      "sync-client/paginators/iter_list_legal_holds.md",
+      "sync-client/paginators/iter_list_protected_resources.md",
+      "sync-client/paginators/iter_list_protected_resources_by_backup_vault.md",
+      "sync-client/paginators/iter_list_recovery_points_by_backup_vault.md",
+      "sync-client/paginators/iter_list_recovery_points_by_legal_hold.md",
+      "sync-client/paginators/iter_list_recovery_points_by_resource.md",
+      "sync-client/paginators/iter_list_report_jobs.md",
+      "sync-client/paginators/iter_list_report_plans.md",
+      "sync-client/paginators/iter_list_restore_access_backup_vaults.md",
+      "sync-client/paginators/iter_list_restore_job_summaries.md",
+      "sync-client/paginators/iter_list_restore_jobs.md",
+      "sync-client/paginators/iter_list_restore_jobs_by_protected_resource.md",
+      "sync-client/paginators/iter_list_restore_testing_plans.md",
+      "sync-client/paginators/iter_list_restore_testing_selections.md",
+      "sync-client/paginators/iter_list_scan_job_summaries.md",
+      "sync-client/paginators/iter_list_scan_jobs.md",
+      "sync-client/paginators/iter_list_tags.md",
+      "sync-client/paginators/iter_list_tiering_configurations.md",
+    ] },
+  ] },
+  { "AsyncBackupClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/associate_backup_vault_mpa_approval_team.md",
+      "async-client/operations/cancel_legal_hold.md",
+      "async-client/operations/create_backup_access_point.md",
+      "async-client/operations/create_backup_plan.md",
+      "async-client/operations/create_backup_selection.md",
+      "async-client/operations/create_backup_vault.md",
+      "async-client/operations/create_framework.md",
+      "async-client/operations/create_legal_hold.md",
+      "async-client/operations/create_logically_air_gapped_backup_vault.md",
+      "async-client/operations/create_report_plan.md",
+      "async-client/operations/create_restore_access_backup_vault.md",
+      "async-client/operations/create_restore_testing_plan.md",
+      "async-client/operations/create_restore_testing_selection.md",
+      "async-client/operations/create_tiering_configuration.md",
+      "async-client/operations/delete_backup_access_point.md",
+      "async-client/operations/delete_backup_plan.md",
+      "async-client/operations/delete_backup_selection.md",
+      "async-client/operations/delete_backup_vault.md",
+      "async-client/operations/delete_backup_vault_access_policy.md",
+      "async-client/operations/delete_backup_vault_lock_configuration.md",
+      "async-client/operations/delete_backup_vault_notifications.md",
+      "async-client/operations/delete_framework.md",
+      "async-client/operations/delete_recovery_point.md",
+      "async-client/operations/delete_report_plan.md",
+      "async-client/operations/delete_restore_testing_plan.md",
+      "async-client/operations/delete_restore_testing_selection.md",
+      "async-client/operations/delete_tiering_configuration.md",
+      "async-client/operations/describe_backup_access_point.md",
+      "async-client/operations/describe_backup_job.md",
+      "async-client/operations/describe_backup_vault.md",
+      "async-client/operations/describe_copy_job.md",
+      "async-client/operations/describe_framework.md",
+      "async-client/operations/describe_global_settings.md",
+      "async-client/operations/describe_protected_resource.md",
+      "async-client/operations/describe_recovery_point.md",
+      "async-client/operations/describe_region_settings.md",
+      "async-client/operations/describe_report_job.md",
+      "async-client/operations/describe_report_plan.md",
+      "async-client/operations/describe_restore_job.md",
+      "async-client/operations/describe_scan_job.md",
+      "async-client/operations/disassociate_backup_vault_mpa_approval_team.md",
+      "async-client/operations/disassociate_recovery_point.md",
+      "async-client/operations/disassociate_recovery_point_from_parent.md",
+      "async-client/operations/export_backup_plan_template.md",
+      "async-client/operations/get_backup_plan.md",
+      "async-client/operations/get_backup_plan_from_json.md",
+      "async-client/operations/get_backup_plan_from_template.md",
+      "async-client/operations/get_backup_selection.md",
+      "async-client/operations/get_backup_vault_access_policy.md",
+      "async-client/operations/get_backup_vault_notifications.md",
+      "async-client/operations/get_legal_hold.md",
+      "async-client/operations/get_pitr_malware_scan_results.md",
+      "async-client/operations/get_recovery_point_index_details.md",
+      "async-client/operations/get_recovery_point_restore_metadata.md",
+      "async-client/operations/get_restore_job_metadata.md",
+      "async-client/operations/get_restore_testing_inferred_metadata.md",
+      "async-client/operations/get_restore_testing_plan.md",
+      "async-client/operations/get_restore_testing_selection.md",
+      "async-client/operations/get_supported_resource_types.md",
+      "async-client/operations/get_tiering_configuration.md",
+      "async-client/operations/list_backup_access_points.md",
+      "async-client/operations/list_backup_access_points_by_recovery_point.md",
+      "async-client/operations/list_backup_access_points_by_resource.md",
+      "async-client/operations/list_backup_job_summaries.md",
+      "async-client/operations/list_backup_jobs.md",
+      "async-client/operations/list_backup_plan_templates.md",
+      "async-client/operations/list_backup_plan_versions.md",
+      "async-client/operations/list_backup_plans.md",
+      "async-client/operations/list_backup_selections.md",
+      "async-client/operations/list_backup_vaults.md",
+      "async-client/operations/list_copy_job_summaries.md",
+      "async-client/operations/list_copy_jobs.md",
+      "async-client/operations/list_frameworks.md",
+      "async-client/operations/list_indexed_recovery_points.md",
+      "async-client/operations/list_legal_holds.md",
+      "async-client/operations/list_protected_resources.md",
+      "async-client/operations/list_protected_resources_by_backup_vault.md",
+      "async-client/operations/list_recovery_points_by_backup_vault.md",
+      "async-client/operations/list_recovery_points_by_legal_hold.md",
+      "async-client/operations/list_recovery_points_by_resource.md",
+      "async-client/operations/list_report_jobs.md",
+      "async-client/operations/list_report_plans.md",
+      "async-client/operations/list_restore_access_backup_vaults.md",
+      "async-client/operations/list_restore_job_summaries.md",
+      "async-client/operations/list_restore_jobs.md",
+      "async-client/operations/list_restore_jobs_by_protected_resource.md",
+      "async-client/operations/list_restore_testing_plans.md",
+      "async-client/operations/list_restore_testing_selections.md",
+      "async-client/operations/list_scan_job_summaries.md",
+      "async-client/operations/list_scan_jobs.md",
+      "async-client/operations/list_tags.md",
+      "async-client/operations/list_tiering_configurations.md",
+      "async-client/operations/put_backup_vault_access_policy.md",
+      "async-client/operations/put_backup_vault_lock_configuration.md",
+      "async-client/operations/put_backup_vault_notifications.md",
+      "async-client/operations/put_restore_validation_result.md",
+      "async-client/operations/revoke_restore_access_backup_vault.md",
+      "async-client/operations/start_backup_job.md",
+      "async-client/operations/start_copy_job.md",
+      "async-client/operations/start_report_job.md",
+      "async-client/operations/start_restore_job.md",
+      "async-client/operations/start_scan_job.md",
+      "async-client/operations/stop_backup_job.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_backup_plan.md",
+      "async-client/operations/update_framework.md",
+      "async-client/operations/update_global_settings.md",
+      "async-client/operations/update_recovery_point_index_settings.md",
+      "async-client/operations/update_recovery_point_lifecycle.md",
+      "async-client/operations/update_region_settings.md",
+      "async-client/operations/update_report_plan.md",
+      "async-client/operations/update_restore_testing_plan.md",
+      "async-client/operations/update_restore_testing_selection.md",
+      "async-client/operations/update_tiering_configuration.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_backup_access_points.md",
+      "async-client/paginators/iter_list_backup_access_points_by_recovery_point.md",
+      "async-client/paginators/iter_list_backup_access_points_by_resource.md",
+      "async-client/paginators/iter_list_backup_job_summaries.md",
+      "async-client/paginators/iter_list_backup_jobs.md",
+      "async-client/paginators/iter_list_backup_plan_templates.md",
+      "async-client/paginators/iter_list_backup_plan_versions.md",
+      "async-client/paginators/iter_list_backup_plans.md",
+      "async-client/paginators/iter_list_backup_selections.md",
+      "async-client/paginators/iter_list_backup_vaults.md",
+      "async-client/paginators/iter_list_copy_job_summaries.md",
+      "async-client/paginators/iter_list_copy_jobs.md",
+      "async-client/paginators/iter_list_frameworks.md",
+      "async-client/paginators/iter_list_indexed_recovery_points.md",
+      "async-client/paginators/iter_list_legal_holds.md",
+      "async-client/paginators/iter_list_protected_resources.md",
+      "async-client/paginators/iter_list_protected_resources_by_backup_vault.md",
+      "async-client/paginators/iter_list_recovery_points_by_backup_vault.md",
+      "async-client/paginators/iter_list_recovery_points_by_legal_hold.md",
+      "async-client/paginators/iter_list_recovery_points_by_resource.md",
+      "async-client/paginators/iter_list_report_jobs.md",
+      "async-client/paginators/iter_list_report_plans.md",
+      "async-client/paginators/iter_list_restore_access_backup_vaults.md",
+      "async-client/paginators/iter_list_restore_job_summaries.md",
+      "async-client/paginators/iter_list_restore_jobs.md",
+      "async-client/paginators/iter_list_restore_jobs_by_protected_resource.md",
+      "async-client/paginators/iter_list_restore_testing_plans.md",
+      "async-client/paginators/iter_list_restore_testing_selections.md",
+      "async-client/paginators/iter_list_scan_job_summaries.md",
+      "async-client/paginators/iter_list_scan_jobs.md",
+      "async-client/paginators/iter_list_tags.md",
+      "async-client/paginators/iter_list_tiering_configurations.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AlreadyExistsException.md",
+    "errors/BackupError.md",
+    "errors/ConflictException.md",
+    "errors/DependencyFailureException.md",
+    "errors/DeserializationError.md",
+    "errors/InvalidParameterValueException.md",
+    "errors/InvalidRequestException.md",
+    "errors/InvalidResourceStateException.md",
+    "errors/LimitExceededException.md",
+    "errors/MissingParameterValueException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceUnavailableException.md",
+    "errors/UnknownServiceError.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_backup` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_backup.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

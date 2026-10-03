@@ -1,0 +1,8 @@
+---
+title: CreateMeshInput
+---
+
+::: capo_app_mesh.types.create_mesh_input.CreateMeshInput
+    options:
+      show_source: true
+      merge_init_into_class: false

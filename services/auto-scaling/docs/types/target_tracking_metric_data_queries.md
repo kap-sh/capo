@@ -1,0 +1,8 @@
+---
+title: TargetTrackingMetricDataQueries
+---
+
+::: capo_auto_scaling.types.target_tracking_metric_data_queries.TargetTrackingMetricDataQueries
+    options:
+      show_source: true
+      merge_init_into_class: false

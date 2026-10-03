@@ -1,0 +1,8 @@
+---
+title: PolicyAttachment
+---
+
+::: capo_clouddirectory.types.policy_attachment.PolicyAttachment
+    options:
+      show_source: true
+      merge_init_into_class: false

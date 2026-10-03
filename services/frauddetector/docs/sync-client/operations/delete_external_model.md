@@ -1,0 +1,7 @@
+---
+title: delete_external_model
+---
+
+::: capo_frauddetector._services.fraud_detector.FraudDetectorClient.delete_external_model
+    options:
+      show_source: true

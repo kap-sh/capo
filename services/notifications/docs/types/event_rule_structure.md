@@ -1,0 +1,8 @@
+---
+title: EventRuleStructure
+---
+
+::: capo_notifications.types.event_rule_structure.EventRuleStructure
+    options:
+      show_source: true
+      merge_init_into_class: false

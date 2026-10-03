@@ -1,0 +1,8 @@
+---
+title: ConnectedHomeSettingsForUpdate
+---
+
+::: capo_rekognition.types.connected_home_settings_for_update.ConnectedHomeSettingsForUpdate
+    options:
+      show_source: true
+      merge_init_into_class: false

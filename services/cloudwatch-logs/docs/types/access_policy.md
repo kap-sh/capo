@@ -1,0 +1,8 @@
+---
+title: AccessPolicy
+---
+
+::: capo_cloudwatch_logs.types.access_policy.AccessPolicy
+    options:
+      show_source: true
+      merge_init_into_class: false

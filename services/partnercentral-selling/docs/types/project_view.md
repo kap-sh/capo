@@ -1,0 +1,8 @@
+---
+title: ProjectView
+---
+
+::: capo_partnercentral_selling.types.project_view.ProjectView
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: DescribeIdentityInput
+---
+
+::: capo_cognito_identity.types.describe_identity_input.DescribeIdentityInput
+    options:
+      show_source: true
+      merge_init_into_class: false

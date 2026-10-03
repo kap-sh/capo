@@ -1,0 +1,8 @@
+---
+title: GetServiceRequest
+---
+
+::: capo_vpc_lattice.types.get_service_request.GetServiceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

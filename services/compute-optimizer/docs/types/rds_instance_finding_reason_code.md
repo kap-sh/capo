@@ -1,0 +1,8 @@
+---
+title: RDSInstanceFindingReasonCode
+---
+
+::: capo_compute_optimizer.types.rds_instance_finding_reason_code.RDSInstanceFindingReasonCode
+    options:
+      show_source: true
+      merge_init_into_class: false

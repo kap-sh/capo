@@ -1,0 +1,8 @@
+---
+title: FreeFormLayoutCanvasSizeOptions
+---
+
+::: capo_quicksight.types.free_form_layout_canvas_size_options.FreeFormLayoutCanvasSizeOptions
+    options:
+      show_source: true
+      merge_init_into_class: false

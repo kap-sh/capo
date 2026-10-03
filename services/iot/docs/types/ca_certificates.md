@@ -1,0 +1,8 @@
+---
+title: CACertificates
+---
+
+::: capo_iot.types.ca_certificates.CACertificates
+    options:
+      show_source: true
+      merge_init_into_class: false

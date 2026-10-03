@@ -1,0 +1,8 @@
+---
+title: GetActiveVpnTunnelStatusResult
+---
+
+::: capo_ec2.types.get_active_vpn_tunnel_status_result.GetActiveVpnTunnelStatusResult
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,633 @@
+[project]
+site_name = "capo-datazone"
+site_description = "Python SDK for AWS Datazone."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "DataZoneClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/accept_predictions.md",
+      "sync-client/operations/accept_subscription_request.md",
+      "sync-client/operations/add_entity_owner.md",
+      "sync-client/operations/add_policy_grant.md",
+      "sync-client/operations/associate_environment_role.md",
+      "sync-client/operations/associate_governed_terms.md",
+      "sync-client/operations/batch_get_attributes_metadata.md",
+      "sync-client/operations/batch_put_attributes_metadata.md",
+      "sync-client/operations/cancel_metadata_generation_run.md",
+      "sync-client/operations/cancel_subscription.md",
+      "sync-client/operations/create_account_pool.md",
+      "sync-client/operations/create_asset.md",
+      "sync-client/operations/create_asset_filter.md",
+      "sync-client/operations/create_asset_revision.md",
+      "sync-client/operations/create_asset_type.md",
+      "sync-client/operations/create_connection.md",
+      "sync-client/operations/create_data_product.md",
+      "sync-client/operations/create_data_product_revision.md",
+      "sync-client/operations/create_data_source.md",
+      "sync-client/operations/create_domain.md",
+      "sync-client/operations/create_domain_unit.md",
+      "sync-client/operations/create_environment.md",
+      "sync-client/operations/create_environment_action.md",
+      "sync-client/operations/create_environment_blueprint.md",
+      "sync-client/operations/create_environment_profile.md",
+      "sync-client/operations/create_form_type.md",
+      "sync-client/operations/create_glossary.md",
+      "sync-client/operations/create_glossary_term.md",
+      "sync-client/operations/create_group_profile.md",
+      "sync-client/operations/create_listing_change_set.md",
+      "sync-client/operations/create_notebook.md",
+      "sync-client/operations/create_project.md",
+      "sync-client/operations/create_project_membership.md",
+      "sync-client/operations/create_project_profile.md",
+      "sync-client/operations/create_rule.md",
+      "sync-client/operations/create_subscription_grant.md",
+      "sync-client/operations/create_subscription_request.md",
+      "sync-client/operations/create_subscription_target.md",
+      "sync-client/operations/create_user_profile.md",
+      "sync-client/operations/delete_account_pool.md",
+      "sync-client/operations/delete_asset.md",
+      "sync-client/operations/delete_asset_filter.md",
+      "sync-client/operations/delete_asset_type.md",
+      "sync-client/operations/delete_connection.md",
+      "sync-client/operations/delete_data_export_configuration.md",
+      "sync-client/operations/delete_data_product.md",
+      "sync-client/operations/delete_data_source.md",
+      "sync-client/operations/delete_domain.md",
+      "sync-client/operations/delete_domain_unit.md",
+      "sync-client/operations/delete_environment.md",
+      "sync-client/operations/delete_environment_action.md",
+      "sync-client/operations/delete_environment_blueprint.md",
+      "sync-client/operations/delete_environment_blueprint_configuration.md",
+      "sync-client/operations/delete_environment_profile.md",
+      "sync-client/operations/delete_form_type.md",
+      "sync-client/operations/delete_glossary.md",
+      "sync-client/operations/delete_glossary_term.md",
+      "sync-client/operations/delete_lineage_event.md",
+      "sync-client/operations/delete_listing.md",
+      "sync-client/operations/delete_notebook.md",
+      "sync-client/operations/delete_project.md",
+      "sync-client/operations/delete_project_membership.md",
+      "sync-client/operations/delete_project_profile.md",
+      "sync-client/operations/delete_rule.md",
+      "sync-client/operations/delete_subscription_grant.md",
+      "sync-client/operations/delete_subscription_request.md",
+      "sync-client/operations/delete_subscription_target.md",
+      "sync-client/operations/delete_time_series_data_points.md",
+      "sync-client/operations/disassociate_environment_role.md",
+      "sync-client/operations/disassociate_governed_terms.md",
+      "sync-client/operations/get_account_pool.md",
+      "sync-client/operations/get_asset.md",
+      "sync-client/operations/get_asset_filter.md",
+      "sync-client/operations/get_asset_type.md",
+      "sync-client/operations/get_connection.md",
+      "sync-client/operations/get_data_export_configuration.md",
+      "sync-client/operations/get_data_product.md",
+      "sync-client/operations/get_data_source.md",
+      "sync-client/operations/get_data_source_run.md",
+      "sync-client/operations/get_domain.md",
+      "sync-client/operations/get_domain_unit.md",
+      "sync-client/operations/get_environment.md",
+      "sync-client/operations/get_environment_action.md",
+      "sync-client/operations/get_environment_blueprint.md",
+      "sync-client/operations/get_environment_blueprint_configuration.md",
+      "sync-client/operations/get_environment_credentials.md",
+      "sync-client/operations/get_environment_profile.md",
+      "sync-client/operations/get_form_type.md",
+      "sync-client/operations/get_glossary.md",
+      "sync-client/operations/get_glossary_term.md",
+      "sync-client/operations/get_group_profile.md",
+      "sync-client/operations/get_iam_portal_login_url.md",
+      "sync-client/operations/get_job_run.md",
+      "sync-client/operations/get_lineage_event.md",
+      "sync-client/operations/get_lineage_node.md",
+      "sync-client/operations/get_listing.md",
+      "sync-client/operations/get_metadata_generation_run.md",
+      "sync-client/operations/get_notebook.md",
+      "sync-client/operations/get_notebook_export.md",
+      "sync-client/operations/get_notebook_run.md",
+      "sync-client/operations/get_project.md",
+      "sync-client/operations/get_project_profile.md",
+      "sync-client/operations/get_rule.md",
+      "sync-client/operations/get_subscription.md",
+      "sync-client/operations/get_subscription_grant.md",
+      "sync-client/operations/get_subscription_request_details.md",
+      "sync-client/operations/get_subscription_target.md",
+      "sync-client/operations/get_time_series_data_point.md",
+      "sync-client/operations/get_user_profile.md",
+      "sync-client/operations/list_account_pools.md",
+      "sync-client/operations/list_accounts_in_account_pool.md",
+      "sync-client/operations/list_asset_filters.md",
+      "sync-client/operations/list_asset_revisions.md",
+      "sync-client/operations/list_connections.md",
+      "sync-client/operations/list_data_product_revisions.md",
+      "sync-client/operations/list_data_source_run_activities.md",
+      "sync-client/operations/list_data_source_runs.md",
+      "sync-client/operations/list_data_sources.md",
+      "sync-client/operations/list_domain_units_for_parent.md",
+      "sync-client/operations/list_domains.md",
+      "sync-client/operations/list_entity_owners.md",
+      "sync-client/operations/list_environment_actions.md",
+      "sync-client/operations/list_environment_blueprint_configurations.md",
+      "sync-client/operations/list_environment_blueprints.md",
+      "sync-client/operations/list_environment_profiles.md",
+      "sync-client/operations/list_environments.md",
+      "sync-client/operations/list_job_runs.md",
+      "sync-client/operations/list_lineage_events.md",
+      "sync-client/operations/list_lineage_node_history.md",
+      "sync-client/operations/list_metadata_generation_runs.md",
+      "sync-client/operations/list_notebook_runs.md",
+      "sync-client/operations/list_notebooks.md",
+      "sync-client/operations/list_notifications.md",
+      "sync-client/operations/list_policy_grants.md",
+      "sync-client/operations/list_project_memberships.md",
+      "sync-client/operations/list_project_profiles.md",
+      "sync-client/operations/list_projects.md",
+      "sync-client/operations/list_rules.md",
+      "sync-client/operations/list_subscription_grants.md",
+      "sync-client/operations/list_subscription_requests.md",
+      "sync-client/operations/list_subscription_targets.md",
+      "sync-client/operations/list_subscriptions.md",
+      "sync-client/operations/list_tags_for_resource.md",
+      "sync-client/operations/list_time_series_data_points.md",
+      "sync-client/operations/post_lineage_event.md",
+      "sync-client/operations/post_time_series_data_points.md",
+      "sync-client/operations/put_data_export_configuration.md",
+      "sync-client/operations/put_environment_blueprint_configuration.md",
+      "sync-client/operations/query_graph.md",
+      "sync-client/operations/reject_predictions.md",
+      "sync-client/operations/reject_subscription_request.md",
+      "sync-client/operations/remove_entity_owner.md",
+      "sync-client/operations/remove_policy_grant.md",
+      "sync-client/operations/revoke_subscription.md",
+      "sync-client/operations/search.md",
+      "sync-client/operations/search_group_profiles.md",
+      "sync-client/operations/search_listings.md",
+      "sync-client/operations/search_types.md",
+      "sync-client/operations/search_user_profiles.md",
+      "sync-client/operations/start_data_source_run.md",
+      "sync-client/operations/start_metadata_generation_run.md",
+      "sync-client/operations/start_notebook_export.md",
+      "sync-client/operations/start_notebook_import.md",
+      "sync-client/operations/start_notebook_run.md",
+      "sync-client/operations/start_notebook_sync.md",
+      "sync-client/operations/stop_notebook_run.md",
+      "sync-client/operations/tag_resource.md",
+      "sync-client/operations/untag_resource.md",
+      "sync-client/operations/update_account_pool.md",
+      "sync-client/operations/update_asset_filter.md",
+      "sync-client/operations/update_connection.md",
+      "sync-client/operations/update_data_source.md",
+      "sync-client/operations/update_domain.md",
+      "sync-client/operations/update_domain_unit.md",
+      "sync-client/operations/update_environment.md",
+      "sync-client/operations/update_environment_action.md",
+      "sync-client/operations/update_environment_blueprint.md",
+      "sync-client/operations/update_environment_profile.md",
+      "sync-client/operations/update_glossary.md",
+      "sync-client/operations/update_glossary_term.md",
+      "sync-client/operations/update_group_profile.md",
+      "sync-client/operations/update_notebook.md",
+      "sync-client/operations/update_project.md",
+      "sync-client/operations/update_project_profile.md",
+      "sync-client/operations/update_root_domain_unit_owner.md",
+      "sync-client/operations/update_rule.md",
+      "sync-client/operations/update_subscription_grant_status.md",
+      "sync-client/operations/update_subscription_request.md",
+      "sync-client/operations/update_subscription_target.md",
+      "sync-client/operations/update_user_profile.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_list_account_pools.md",
+      "sync-client/paginators/iter_list_accounts_in_account_pool.md",
+      "sync-client/paginators/iter_list_asset_filters.md",
+      "sync-client/paginators/iter_list_connections.md",
+      "sync-client/paginators/iter_list_data_product_revisions.md",
+      "sync-client/paginators/iter_list_data_source_run_activities.md",
+      "sync-client/paginators/iter_list_data_source_runs.md",
+      "sync-client/paginators/iter_list_data_sources.md",
+      "sync-client/paginators/iter_list_domain_units_for_parent.md",
+      "sync-client/paginators/iter_list_domains.md",
+      "sync-client/paginators/iter_list_entity_owners.md",
+      "sync-client/paginators/iter_list_environment_actions.md",
+      "sync-client/paginators/iter_list_environment_blueprint_configurations.md",
+      "sync-client/paginators/iter_list_environment_blueprints.md",
+      "sync-client/paginators/iter_list_environment_profiles.md",
+      "sync-client/paginators/iter_list_environments.md",
+      "sync-client/paginators/iter_list_job_runs.md",
+      "sync-client/paginators/iter_list_lineage_events.md",
+      "sync-client/paginators/iter_list_lineage_node_history.md",
+      "sync-client/paginators/iter_list_metadata_generation_runs.md",
+      "sync-client/paginators/iter_list_notebook_runs.md",
+      "sync-client/paginators/iter_list_notebooks.md",
+      "sync-client/paginators/iter_list_notifications.md",
+      "sync-client/paginators/iter_list_policy_grants.md",
+      "sync-client/paginators/iter_list_project_memberships.md",
+      "sync-client/paginators/iter_list_project_profiles.md",
+      "sync-client/paginators/iter_list_projects.md",
+      "sync-client/paginators/iter_list_rules.md",
+      "sync-client/paginators/iter_list_subscription_grants.md",
+      "sync-client/paginators/iter_list_subscription_requests.md",
+      "sync-client/paginators/iter_list_subscription_targets.md",
+      "sync-client/paginators/iter_list_subscriptions.md",
+      "sync-client/paginators/iter_list_time_series_data_points.md",
+      "sync-client/paginators/iter_query_graph.md",
+      "sync-client/paginators/iter_search.md",
+      "sync-client/paginators/iter_search_group_profiles.md",
+      "sync-client/paginators/iter_search_listings.md",
+      "sync-client/paginators/iter_search_types.md",
+      "sync-client/paginators/iter_search_user_profiles.md",
+    ] },
+  ] },
+  { "AsyncDataZoneClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/accept_predictions.md",
+      "async-client/operations/accept_subscription_request.md",
+      "async-client/operations/add_entity_owner.md",
+      "async-client/operations/add_policy_grant.md",
+      "async-client/operations/associate_environment_role.md",
+      "async-client/operations/associate_governed_terms.md",
+      "async-client/operations/batch_get_attributes_metadata.md",
+      "async-client/operations/batch_put_attributes_metadata.md",
+      "async-client/operations/cancel_metadata_generation_run.md",
+      "async-client/operations/cancel_subscription.md",
+      "async-client/operations/create_account_pool.md",
+      "async-client/operations/create_asset.md",
+      "async-client/operations/create_asset_filter.md",
+      "async-client/operations/create_asset_revision.md",
+      "async-client/operations/create_asset_type.md",
+      "async-client/operations/create_connection.md",
+      "async-client/operations/create_data_product.md",
+      "async-client/operations/create_data_product_revision.md",
+      "async-client/operations/create_data_source.md",
+      "async-client/operations/create_domain.md",
+      "async-client/operations/create_domain_unit.md",
+      "async-client/operations/create_environment.md",
+      "async-client/operations/create_environment_action.md",
+      "async-client/operations/create_environment_blueprint.md",
+      "async-client/operations/create_environment_profile.md",
+      "async-client/operations/create_form_type.md",
+      "async-client/operations/create_glossary.md",
+      "async-client/operations/create_glossary_term.md",
+      "async-client/operations/create_group_profile.md",
+      "async-client/operations/create_listing_change_set.md",
+      "async-client/operations/create_notebook.md",
+      "async-client/operations/create_project.md",
+      "async-client/operations/create_project_membership.md",
+      "async-client/operations/create_project_profile.md",
+      "async-client/operations/create_rule.md",
+      "async-client/operations/create_subscription_grant.md",
+      "async-client/operations/create_subscription_request.md",
+      "async-client/operations/create_subscription_target.md",
+      "async-client/operations/create_user_profile.md",
+      "async-client/operations/delete_account_pool.md",
+      "async-client/operations/delete_asset.md",
+      "async-client/operations/delete_asset_filter.md",
+      "async-client/operations/delete_asset_type.md",
+      "async-client/operations/delete_connection.md",
+      "async-client/operations/delete_data_export_configuration.md",
+      "async-client/operations/delete_data_product.md",
+      "async-client/operations/delete_data_source.md",
+      "async-client/operations/delete_domain.md",
+      "async-client/operations/delete_domain_unit.md",
+      "async-client/operations/delete_environment.md",
+      "async-client/operations/delete_environment_action.md",
+      "async-client/operations/delete_environment_blueprint.md",
+      "async-client/operations/delete_environment_blueprint_configuration.md",
+      "async-client/operations/delete_environment_profile.md",
+      "async-client/operations/delete_form_type.md",
+      "async-client/operations/delete_glossary.md",
+      "async-client/operations/delete_glossary_term.md",
+      "async-client/operations/delete_lineage_event.md",
+      "async-client/operations/delete_listing.md",
+      "async-client/operations/delete_notebook.md",
+      "async-client/operations/delete_project.md",
+      "async-client/operations/delete_project_membership.md",
+      "async-client/operations/delete_project_profile.md",
+      "async-client/operations/delete_rule.md",
+      "async-client/operations/delete_subscription_grant.md",
+      "async-client/operations/delete_subscription_request.md",
+      "async-client/operations/delete_subscription_target.md",
+      "async-client/operations/delete_time_series_data_points.md",
+      "async-client/operations/disassociate_environment_role.md",
+      "async-client/operations/disassociate_governed_terms.md",
+      "async-client/operations/get_account_pool.md",
+      "async-client/operations/get_asset.md",
+      "async-client/operations/get_asset_filter.md",
+      "async-client/operations/get_asset_type.md",
+      "async-client/operations/get_connection.md",
+      "async-client/operations/get_data_export_configuration.md",
+      "async-client/operations/get_data_product.md",
+      "async-client/operations/get_data_source.md",
+      "async-client/operations/get_data_source_run.md",
+      "async-client/operations/get_domain.md",
+      "async-client/operations/get_domain_unit.md",
+      "async-client/operations/get_environment.md",
+      "async-client/operations/get_environment_action.md",
+      "async-client/operations/get_environment_blueprint.md",
+      "async-client/operations/get_environment_blueprint_configuration.md",
+      "async-client/operations/get_environment_credentials.md",
+      "async-client/operations/get_environment_profile.md",
+      "async-client/operations/get_form_type.md",
+      "async-client/operations/get_glossary.md",
+      "async-client/operations/get_glossary_term.md",
+      "async-client/operations/get_group_profile.md",
+      "async-client/operations/get_iam_portal_login_url.md",
+      "async-client/operations/get_job_run.md",
+      "async-client/operations/get_lineage_event.md",
+      "async-client/operations/get_lineage_node.md",
+      "async-client/operations/get_listing.md",
+      "async-client/operations/get_metadata_generation_run.md",
+      "async-client/operations/get_notebook.md",
+      "async-client/operations/get_notebook_export.md",
+      "async-client/operations/get_notebook_run.md",
+      "async-client/operations/get_project.md",
+      "async-client/operations/get_project_profile.md",
+      "async-client/operations/get_rule.md",
+      "async-client/operations/get_subscription.md",
+      "async-client/operations/get_subscription_grant.md",
+      "async-client/operations/get_subscription_request_details.md",
+      "async-client/operations/get_subscription_target.md",
+      "async-client/operations/get_time_series_data_point.md",
+      "async-client/operations/get_user_profile.md",
+      "async-client/operations/list_account_pools.md",
+      "async-client/operations/list_accounts_in_account_pool.md",
+      "async-client/operations/list_asset_filters.md",
+      "async-client/operations/list_asset_revisions.md",
+      "async-client/operations/list_connections.md",
+      "async-client/operations/list_data_product_revisions.md",
+      "async-client/operations/list_data_source_run_activities.md",
+      "async-client/operations/list_data_source_runs.md",
+      "async-client/operations/list_data_sources.md",
+      "async-client/operations/list_domain_units_for_parent.md",
+      "async-client/operations/list_domains.md",
+      "async-client/operations/list_entity_owners.md",
+      "async-client/operations/list_environment_actions.md",
+      "async-client/operations/list_environment_blueprint_configurations.md",
+      "async-client/operations/list_environment_blueprints.md",
+      "async-client/operations/list_environment_profiles.md",
+      "async-client/operations/list_environments.md",
+      "async-client/operations/list_job_runs.md",
+      "async-client/operations/list_lineage_events.md",
+      "async-client/operations/list_lineage_node_history.md",
+      "async-client/operations/list_metadata_generation_runs.md",
+      "async-client/operations/list_notebook_runs.md",
+      "async-client/operations/list_notebooks.md",
+      "async-client/operations/list_notifications.md",
+      "async-client/operations/list_policy_grants.md",
+      "async-client/operations/list_project_memberships.md",
+      "async-client/operations/list_project_profiles.md",
+      "async-client/operations/list_projects.md",
+      "async-client/operations/list_rules.md",
+      "async-client/operations/list_subscription_grants.md",
+      "async-client/operations/list_subscription_requests.md",
+      "async-client/operations/list_subscription_targets.md",
+      "async-client/operations/list_subscriptions.md",
+      "async-client/operations/list_tags_for_resource.md",
+      "async-client/operations/list_time_series_data_points.md",
+      "async-client/operations/post_lineage_event.md",
+      "async-client/operations/post_time_series_data_points.md",
+      "async-client/operations/put_data_export_configuration.md",
+      "async-client/operations/put_environment_blueprint_configuration.md",
+      "async-client/operations/query_graph.md",
+      "async-client/operations/reject_predictions.md",
+      "async-client/operations/reject_subscription_request.md",
+      "async-client/operations/remove_entity_owner.md",
+      "async-client/operations/remove_policy_grant.md",
+      "async-client/operations/revoke_subscription.md",
+      "async-client/operations/search.md",
+      "async-client/operations/search_group_profiles.md",
+      "async-client/operations/search_listings.md",
+      "async-client/operations/search_types.md",
+      "async-client/operations/search_user_profiles.md",
+      "async-client/operations/start_data_source_run.md",
+      "async-client/operations/start_metadata_generation_run.md",
+      "async-client/operations/start_notebook_export.md",
+      "async-client/operations/start_notebook_import.md",
+      "async-client/operations/start_notebook_run.md",
+      "async-client/operations/start_notebook_sync.md",
+      "async-client/operations/stop_notebook_run.md",
+      "async-client/operations/tag_resource.md",
+      "async-client/operations/untag_resource.md",
+      "async-client/operations/update_account_pool.md",
+      "async-client/operations/update_asset_filter.md",
+      "async-client/operations/update_connection.md",
+      "async-client/operations/update_data_source.md",
+      "async-client/operations/update_domain.md",
+      "async-client/operations/update_domain_unit.md",
+      "async-client/operations/update_environment.md",
+      "async-client/operations/update_environment_action.md",
+      "async-client/operations/update_environment_blueprint.md",
+      "async-client/operations/update_environment_profile.md",
+      "async-client/operations/update_glossary.md",
+      "async-client/operations/update_glossary_term.md",
+      "async-client/operations/update_group_profile.md",
+      "async-client/operations/update_notebook.md",
+      "async-client/operations/update_project.md",
+      "async-client/operations/update_project_profile.md",
+      "async-client/operations/update_root_domain_unit_owner.md",
+      "async-client/operations/update_rule.md",
+      "async-client/operations/update_subscription_grant_status.md",
+      "async-client/operations/update_subscription_request.md",
+      "async-client/operations/update_subscription_target.md",
+      "async-client/operations/update_user_profile.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_list_account_pools.md",
+      "async-client/paginators/iter_list_accounts_in_account_pool.md",
+      "async-client/paginators/iter_list_asset_filters.md",
+      "async-client/paginators/iter_list_connections.md",
+      "async-client/paginators/iter_list_data_product_revisions.md",
+      "async-client/paginators/iter_list_data_source_run_activities.md",
+      "async-client/paginators/iter_list_data_source_runs.md",
+      "async-client/paginators/iter_list_data_sources.md",
+      "async-client/paginators/iter_list_domain_units_for_parent.md",
+      "async-client/paginators/iter_list_domains.md",
+      "async-client/paginators/iter_list_entity_owners.md",
+      "async-client/paginators/iter_list_environment_actions.md",
+      "async-client/paginators/iter_list_environment_blueprint_configurations.md",
+      "async-client/paginators/iter_list_environment_blueprints.md",
+      "async-client/paginators/iter_list_environment_profiles.md",
+      "async-client/paginators/iter_list_environments.md",
+      "async-client/paginators/iter_list_job_runs.md",
+      "async-client/paginators/iter_list_lineage_events.md",
+      "async-client/paginators/iter_list_lineage_node_history.md",
+      "async-client/paginators/iter_list_metadata_generation_runs.md",
+      "async-client/paginators/iter_list_notebook_runs.md",
+      "async-client/paginators/iter_list_notebooks.md",
+      "async-client/paginators/iter_list_notifications.md",
+      "async-client/paginators/iter_list_policy_grants.md",
+      "async-client/paginators/iter_list_project_memberships.md",
+      "async-client/paginators/iter_list_project_profiles.md",
+      "async-client/paginators/iter_list_projects.md",
+      "async-client/paginators/iter_list_rules.md",
+      "async-client/paginators/iter_list_subscription_grants.md",
+      "async-client/paginators/iter_list_subscription_requests.md",
+      "async-client/paginators/iter_list_subscription_targets.md",
+      "async-client/paginators/iter_list_subscriptions.md",
+      "async-client/paginators/iter_list_time_series_data_points.md",
+      "async-client/paginators/iter_query_graph.md",
+      "async-client/paginators/iter_search.md",
+      "async-client/paginators/iter_search_group_profiles.md",
+      "async-client/paginators/iter_search_listings.md",
+      "async-client/paginators/iter_search_types.md",
+      "async-client/paginators/iter_search_user_profiles.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessDeniedException.md",
+    "errors/ConflictException.md",
+    "errors/DataZoneError.md",
+    "errors/DeserializationError.md",
+    "errors/InternalServerException.md",
+    "errors/ResourceNotFoundException.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/ServiceQuotaExceededException.md",
+    "errors/ThrottlingException.md",
+    "errors/UnauthorizedException.md",
+    "errors/UnknownServiceError.md",
+    "errors/ValidationException.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_datazone` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_datazone.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

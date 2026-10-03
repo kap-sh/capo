@@ -1,0 +1,8 @@
+---
+title: UpdateNsMetadata
+---
+
+::: capo_tnb.types.update_ns_metadata.UpdateNsMetadata
+    options:
+      show_source: true
+      merge_init_into_class: false

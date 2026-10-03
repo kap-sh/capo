@@ -1,0 +1,8 @@
+---
+title: UpdateContributorInsightsOutput
+---
+
+::: capo_dynamodb.types.update_contributor_insights_output.UpdateContributorInsightsOutput
+    options:
+      show_source: true
+      merge_init_into_class: false

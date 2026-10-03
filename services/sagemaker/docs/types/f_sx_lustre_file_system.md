@@ -1,0 +1,8 @@
+---
+title: FSxLustreFileSystem
+---
+
+::: capo_sagemaker.types.f_sx_lustre_file_system.FSxLustreFileSystem
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: Shard
+---
+
+::: capo_docdb_elastic.types.shard.Shard
+    options:
+      show_source: true
+      merge_init_into_class: false

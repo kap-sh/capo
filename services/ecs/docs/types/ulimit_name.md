@@ -1,0 +1,8 @@
+---
+title: UlimitName
+---
+
+::: capo_ecs.types.ulimit_name.UlimitName
+    options:
+      show_source: true
+      merge_init_into_class: false

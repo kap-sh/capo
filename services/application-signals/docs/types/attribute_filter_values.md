@@ -1,0 +1,8 @@
+---
+title: AttributeFilterValues
+---
+
+::: capo_application_signals.types.attribute_filter_values.AttributeFilterValues
+    options:
+      show_source: true
+      merge_init_into_class: false

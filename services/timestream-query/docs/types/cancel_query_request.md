@@ -1,0 +1,8 @@
+---
+title: CancelQueryRequest
+---
+
+::: capo_timestream_query.types.cancel_query_request.CancelQueryRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

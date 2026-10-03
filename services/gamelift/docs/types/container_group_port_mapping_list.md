@@ -1,0 +1,8 @@
+---
+title: ContainerGroupPortMappingList
+---
+
+::: capo_gamelift.types.container_group_port_mapping_list.ContainerGroupPortMappingList
+    options:
+      show_source: true
+      merge_init_into_class: false

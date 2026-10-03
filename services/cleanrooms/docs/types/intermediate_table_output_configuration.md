@@ -1,0 +1,8 @@
+---
+title: IntermediateTableOutputConfiguration
+---
+
+::: capo_cleanrooms.types.intermediate_table_output_configuration.IntermediateTableOutputConfiguration
+    options:
+      show_source: true
+      merge_init_into_class: false

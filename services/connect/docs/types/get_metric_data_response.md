@@ -1,0 +1,8 @@
+---
+title: GetMetricDataResponse
+---
+
+::: capo_connect.types.get_metric_data_response.GetMetricDataResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

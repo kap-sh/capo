@@ -1,0 +1,8 @@
+---
+title: PercentNumber
+---
+
+::: capo_quicksight.types.percent_number.PercentNumber
+    options:
+      show_source: true
+      merge_init_into_class: false

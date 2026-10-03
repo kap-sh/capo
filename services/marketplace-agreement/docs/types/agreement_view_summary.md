@@ -1,0 +1,8 @@
+---
+title: AgreementViewSummary
+---
+
+::: capo_marketplace_agreement.types.agreement_view_summary.AgreementViewSummary
+    options:
+      show_source: true
+      merge_init_into_class: false

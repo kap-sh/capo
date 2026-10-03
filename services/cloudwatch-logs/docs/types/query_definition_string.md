@@ -1,0 +1,8 @@
+---
+title: QueryDefinitionString
+---
+
+::: capo_cloudwatch_logs.types.query_definition_string.QueryDefinitionString
+    options:
+      show_source: true
+      merge_init_into_class: false

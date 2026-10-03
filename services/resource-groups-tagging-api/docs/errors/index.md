@@ -1,0 +1,15 @@
+# Errors
+
+- [ConcurrentModificationException](ConcurrentModificationException.md)
+- [ConstraintViolationException](ConstraintViolationException.md)
+- [DeserializationError](DeserializationError.md)
+- [InternalServiceException](InternalServiceException.md)
+- [InvalidParameterException](InvalidParameterException.md)
+- [PaginationTokenExpiredException](PaginationTokenExpiredException.md)
+- [ResourceGroupsTaggingAPIError](ResourceGroupsTaggingAPIError.md)
+- [SerializationError](SerializationError.md)
+- [ServiceError](ServiceError.md)
+- [ThrottledException](ThrottledException.md)
+- [UnknownServiceError](UnknownServiceError.md)
+- [WaiterFailedError](WaiterFailedError.md)
+- [WaiterTimeoutError](WaiterTimeoutError.md)

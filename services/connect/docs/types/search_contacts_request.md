@@ -1,0 +1,8 @@
+---
+title: SearchContactsRequest
+---
+
+::: capo_connect.types.search_contacts_request.SearchContactsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

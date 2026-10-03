@@ -1,0 +1,7 @@
+---
+title: iter_describe_db_instances
+---
+
+::: capo_docdb._services.doc_db.DocDBClient.iter_describe_db_instances
+    options:
+      show_source: true

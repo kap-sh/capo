@@ -1,0 +1,7 @@
+---
+title: set_risk_configuration
+---
+
+::: capo_cognito_identity_provider._services.cognito_identity_provider.CognitoIdentityProviderClient.set_risk_configuration
+    options:
+      show_source: true

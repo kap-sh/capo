@@ -1,0 +1,8 @@
+---
+title: ServiceId
+---
+
+::: capo_apprunner.types.service_id.ServiceId
+    options:
+      show_source: true
+      merge_init_into_class: false

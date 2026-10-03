@@ -1,0 +1,8 @@
+---
+title: StartSegmentDetectionResponse
+---
+
+::: capo_rekognition.types.start_segment_detection_response.StartSegmentDetectionResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

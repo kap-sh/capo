@@ -1,0 +1,678 @@
+[project]
+site_name = "capo-redshift"
+site_description = "Python SDK for AWS Redshift."
+repo_url = "https://github.com/kap-sh/capo"
+repo_name = "kap-sh/capo"
+copyright = "Copyright &copy; 2026 capo contributors"
+
+# Every client method has its own page under
+# `<client>/{operations,paginators,waiters}/` and is listed here. The pages
+# under `types/` are deliberately not in the nav: they are still built and
+# linked to, but a sidebar listing thousands of types on every page would make
+# each page over a megabyte.
+nav = [
+  { "Getting Started" = "index.md" },
+  { "RedshiftClient" = [
+    "sync-client/index.md",
+    { "Operations" = [
+      "sync-client/operations/accept_reserved_node_exchange.md",
+      "sync-client/operations/add_partner.md",
+      "sync-client/operations/associate_data_share_consumer.md",
+      "sync-client/operations/authorize_cluster_security_group_ingress.md",
+      "sync-client/operations/authorize_data_share.md",
+      "sync-client/operations/authorize_endpoint_access.md",
+      "sync-client/operations/authorize_snapshot_access.md",
+      "sync-client/operations/batch_delete_cluster_snapshots.md",
+      "sync-client/operations/batch_modify_cluster_snapshots.md",
+      "sync-client/operations/cancel_resize.md",
+      "sync-client/operations/copy_cluster_snapshot.md",
+      "sync-client/operations/create_authentication_profile.md",
+      "sync-client/operations/create_cluster.md",
+      "sync-client/operations/create_cluster_parameter_group.md",
+      "sync-client/operations/create_cluster_security_group.md",
+      "sync-client/operations/create_cluster_snapshot.md",
+      "sync-client/operations/create_cluster_subnet_group.md",
+      "sync-client/operations/create_custom_domain_association.md",
+      "sync-client/operations/create_endpoint_access.md",
+      "sync-client/operations/create_event_subscription.md",
+      "sync-client/operations/create_hsm_client_certificate.md",
+      "sync-client/operations/create_hsm_configuration.md",
+      "sync-client/operations/create_integration.md",
+      "sync-client/operations/create_qev2_idc_application.md",
+      "sync-client/operations/create_redshift_idc_application.md",
+      "sync-client/operations/create_scheduled_action.md",
+      "sync-client/operations/create_snapshot_copy_grant.md",
+      "sync-client/operations/create_snapshot_schedule.md",
+      "sync-client/operations/create_tags.md",
+      "sync-client/operations/create_usage_limit.md",
+      "sync-client/operations/deauthorize_data_share.md",
+      "sync-client/operations/delete_authentication_profile.md",
+      "sync-client/operations/delete_cluster.md",
+      "sync-client/operations/delete_cluster_parameter_group.md",
+      "sync-client/operations/delete_cluster_security_group.md",
+      "sync-client/operations/delete_cluster_snapshot.md",
+      "sync-client/operations/delete_cluster_subnet_group.md",
+      "sync-client/operations/delete_custom_domain_association.md",
+      "sync-client/operations/delete_endpoint_access.md",
+      "sync-client/operations/delete_event_subscription.md",
+      "sync-client/operations/delete_hsm_client_certificate.md",
+      "sync-client/operations/delete_hsm_configuration.md",
+      "sync-client/operations/delete_integration.md",
+      "sync-client/operations/delete_partner.md",
+      "sync-client/operations/delete_qev2_idc_application.md",
+      "sync-client/operations/delete_redshift_idc_application.md",
+      "sync-client/operations/delete_resource_policy.md",
+      "sync-client/operations/delete_scheduled_action.md",
+      "sync-client/operations/delete_snapshot_copy_grant.md",
+      "sync-client/operations/delete_snapshot_schedule.md",
+      "sync-client/operations/delete_tags.md",
+      "sync-client/operations/delete_usage_limit.md",
+      "sync-client/operations/deregister_namespace.md",
+      "sync-client/operations/describe_account_attributes.md",
+      "sync-client/operations/describe_authentication_profiles.md",
+      "sync-client/operations/describe_cluster_db_revisions.md",
+      "sync-client/operations/describe_cluster_parameter_groups.md",
+      "sync-client/operations/describe_cluster_parameters.md",
+      "sync-client/operations/describe_cluster_security_groups.md",
+      "sync-client/operations/describe_cluster_snapshots.md",
+      "sync-client/operations/describe_cluster_subnet_groups.md",
+      "sync-client/operations/describe_cluster_tracks.md",
+      "sync-client/operations/describe_cluster_versions.md",
+      "sync-client/operations/describe_clusters.md",
+      "sync-client/operations/describe_custom_domain_associations.md",
+      "sync-client/operations/describe_data_shares.md",
+      "sync-client/operations/describe_data_shares_for_consumer.md",
+      "sync-client/operations/describe_data_shares_for_producer.md",
+      "sync-client/operations/describe_default_cluster_parameters.md",
+      "sync-client/operations/describe_endpoint_access.md",
+      "sync-client/operations/describe_endpoint_authorization.md",
+      "sync-client/operations/describe_event_categories.md",
+      "sync-client/operations/describe_event_subscriptions.md",
+      "sync-client/operations/describe_events.md",
+      "sync-client/operations/describe_hsm_client_certificates.md",
+      "sync-client/operations/describe_hsm_configurations.md",
+      "sync-client/operations/describe_inbound_integrations.md",
+      "sync-client/operations/describe_integrations.md",
+      "sync-client/operations/describe_logging_status.md",
+      "sync-client/operations/describe_node_configuration_options.md",
+      "sync-client/operations/describe_orderable_cluster_options.md",
+      "sync-client/operations/describe_partners.md",
+      "sync-client/operations/describe_qev2_idc_applications.md",
+      "sync-client/operations/describe_redshift_idc_applications.md",
+      "sync-client/operations/describe_reserved_node_exchange_status.md",
+      "sync-client/operations/describe_reserved_node_offerings.md",
+      "sync-client/operations/describe_reserved_nodes.md",
+      "sync-client/operations/describe_resize.md",
+      "sync-client/operations/describe_scheduled_actions.md",
+      "sync-client/operations/describe_snapshot_copy_grants.md",
+      "sync-client/operations/describe_snapshot_schedules.md",
+      "sync-client/operations/describe_storage.md",
+      "sync-client/operations/describe_table_restore_status.md",
+      "sync-client/operations/describe_tags.md",
+      "sync-client/operations/describe_usage_limits.md",
+      "sync-client/operations/disable_logging.md",
+      "sync-client/operations/disable_snapshot_copy.md",
+      "sync-client/operations/disassociate_data_share_consumer.md",
+      "sync-client/operations/enable_logging.md",
+      "sync-client/operations/enable_snapshot_copy.md",
+      "sync-client/operations/failover_primary_compute.md",
+      "sync-client/operations/get_cluster_credentials.md",
+      "sync-client/operations/get_cluster_credentials_with_iam.md",
+      "sync-client/operations/get_identity_center_auth_token.md",
+      "sync-client/operations/get_reserved_node_exchange_configuration_options.md",
+      "sync-client/operations/get_reserved_node_exchange_offerings.md",
+      "sync-client/operations/get_resource_policy.md",
+      "sync-client/operations/list_recommendations.md",
+      "sync-client/operations/modify_aqua_configuration.md",
+      "sync-client/operations/modify_authentication_profile.md",
+      "sync-client/operations/modify_cluster.md",
+      "sync-client/operations/modify_cluster_db_revision.md",
+      "sync-client/operations/modify_cluster_iam_roles.md",
+      "sync-client/operations/modify_cluster_maintenance.md",
+      "sync-client/operations/modify_cluster_parameter_group.md",
+      "sync-client/operations/modify_cluster_snapshot.md",
+      "sync-client/operations/modify_cluster_snapshot_schedule.md",
+      "sync-client/operations/modify_cluster_subnet_group.md",
+      "sync-client/operations/modify_custom_domain_association.md",
+      "sync-client/operations/modify_endpoint_access.md",
+      "sync-client/operations/modify_event_subscription.md",
+      "sync-client/operations/modify_integration.md",
+      "sync-client/operations/modify_lakehouse_configuration.md",
+      "sync-client/operations/modify_qev2_idc_application.md",
+      "sync-client/operations/modify_redshift_idc_application.md",
+      "sync-client/operations/modify_scheduled_action.md",
+      "sync-client/operations/modify_snapshot_copy_retention_period.md",
+      "sync-client/operations/modify_snapshot_schedule.md",
+      "sync-client/operations/modify_usage_limit.md",
+      "sync-client/operations/pause_cluster.md",
+      "sync-client/operations/purchase_reserved_node_offering.md",
+      "sync-client/operations/put_resource_policy.md",
+      "sync-client/operations/reboot_cluster.md",
+      "sync-client/operations/register_namespace.md",
+      "sync-client/operations/reject_data_share.md",
+      "sync-client/operations/reset_cluster_parameter_group.md",
+      "sync-client/operations/resize_cluster.md",
+      "sync-client/operations/restore_from_cluster_snapshot.md",
+      "sync-client/operations/restore_table_from_cluster_snapshot.md",
+      "sync-client/operations/resume_cluster.md",
+      "sync-client/operations/revoke_cluster_security_group_ingress.md",
+      "sync-client/operations/revoke_endpoint_access.md",
+      "sync-client/operations/revoke_snapshot_access.md",
+      "sync-client/operations/rotate_encryption_key.md",
+      "sync-client/operations/update_partner_status.md",
+    ] },
+    { "Paginators" = [
+      "sync-client/paginators/iter_describe_cluster_db_revisions.md",
+      "sync-client/paginators/iter_describe_cluster_parameter_groups.md",
+      "sync-client/paginators/iter_describe_cluster_parameters.md",
+      "sync-client/paginators/iter_describe_cluster_security_groups.md",
+      "sync-client/paginators/iter_describe_cluster_snapshots.md",
+      "sync-client/paginators/iter_describe_cluster_subnet_groups.md",
+      "sync-client/paginators/iter_describe_cluster_tracks.md",
+      "sync-client/paginators/iter_describe_cluster_versions.md",
+      "sync-client/paginators/iter_describe_clusters.md",
+      "sync-client/paginators/iter_describe_custom_domain_associations.md",
+      "sync-client/paginators/iter_describe_data_shares.md",
+      "sync-client/paginators/iter_describe_data_shares_for_consumer.md",
+      "sync-client/paginators/iter_describe_data_shares_for_producer.md",
+      "sync-client/paginators/iter_describe_default_cluster_parameters.md",
+      "sync-client/paginators/iter_describe_endpoint_access.md",
+      "sync-client/paginators/iter_describe_endpoint_authorization.md",
+      "sync-client/paginators/iter_describe_event_subscriptions.md",
+      "sync-client/paginators/iter_describe_events.md",
+      "sync-client/paginators/iter_describe_hsm_client_certificates.md",
+      "sync-client/paginators/iter_describe_hsm_configurations.md",
+      "sync-client/paginators/iter_describe_inbound_integrations.md",
+      "sync-client/paginators/iter_describe_integrations.md",
+      "sync-client/paginators/iter_describe_node_configuration_options.md",
+      "sync-client/paginators/iter_describe_orderable_cluster_options.md",
+      "sync-client/paginators/iter_describe_qev2_idc_applications.md",
+      "sync-client/paginators/iter_describe_redshift_idc_applications.md",
+      "sync-client/paginators/iter_describe_reserved_node_exchange_status.md",
+      "sync-client/paginators/iter_describe_reserved_node_offerings.md",
+      "sync-client/paginators/iter_describe_reserved_nodes.md",
+      "sync-client/paginators/iter_describe_scheduled_actions.md",
+      "sync-client/paginators/iter_describe_snapshot_copy_grants.md",
+      "sync-client/paginators/iter_describe_snapshot_schedules.md",
+      "sync-client/paginators/iter_describe_table_restore_status.md",
+      "sync-client/paginators/iter_describe_tags.md",
+      "sync-client/paginators/iter_describe_usage_limits.md",
+      "sync-client/paginators/iter_get_reserved_node_exchange_configuration_options.md",
+      "sync-client/paginators/iter_get_reserved_node_exchange_offerings.md",
+      "sync-client/paginators/iter_list_recommendations.md",
+    ] },
+  ] },
+  { "AsyncRedshiftClient" = [
+    "async-client/index.md",
+    { "Operations" = [
+      "async-client/operations/accept_reserved_node_exchange.md",
+      "async-client/operations/add_partner.md",
+      "async-client/operations/associate_data_share_consumer.md",
+      "async-client/operations/authorize_cluster_security_group_ingress.md",
+      "async-client/operations/authorize_data_share.md",
+      "async-client/operations/authorize_endpoint_access.md",
+      "async-client/operations/authorize_snapshot_access.md",
+      "async-client/operations/batch_delete_cluster_snapshots.md",
+      "async-client/operations/batch_modify_cluster_snapshots.md",
+      "async-client/operations/cancel_resize.md",
+      "async-client/operations/copy_cluster_snapshot.md",
+      "async-client/operations/create_authentication_profile.md",
+      "async-client/operations/create_cluster.md",
+      "async-client/operations/create_cluster_parameter_group.md",
+      "async-client/operations/create_cluster_security_group.md",
+      "async-client/operations/create_cluster_snapshot.md",
+      "async-client/operations/create_cluster_subnet_group.md",
+      "async-client/operations/create_custom_domain_association.md",
+      "async-client/operations/create_endpoint_access.md",
+      "async-client/operations/create_event_subscription.md",
+      "async-client/operations/create_hsm_client_certificate.md",
+      "async-client/operations/create_hsm_configuration.md",
+      "async-client/operations/create_integration.md",
+      "async-client/operations/create_qev2_idc_application.md",
+      "async-client/operations/create_redshift_idc_application.md",
+      "async-client/operations/create_scheduled_action.md",
+      "async-client/operations/create_snapshot_copy_grant.md",
+      "async-client/operations/create_snapshot_schedule.md",
+      "async-client/operations/create_tags.md",
+      "async-client/operations/create_usage_limit.md",
+      "async-client/operations/deauthorize_data_share.md",
+      "async-client/operations/delete_authentication_profile.md",
+      "async-client/operations/delete_cluster.md",
+      "async-client/operations/delete_cluster_parameter_group.md",
+      "async-client/operations/delete_cluster_security_group.md",
+      "async-client/operations/delete_cluster_snapshot.md",
+      "async-client/operations/delete_cluster_subnet_group.md",
+      "async-client/operations/delete_custom_domain_association.md",
+      "async-client/operations/delete_endpoint_access.md",
+      "async-client/operations/delete_event_subscription.md",
+      "async-client/operations/delete_hsm_client_certificate.md",
+      "async-client/operations/delete_hsm_configuration.md",
+      "async-client/operations/delete_integration.md",
+      "async-client/operations/delete_partner.md",
+      "async-client/operations/delete_qev2_idc_application.md",
+      "async-client/operations/delete_redshift_idc_application.md",
+      "async-client/operations/delete_resource_policy.md",
+      "async-client/operations/delete_scheduled_action.md",
+      "async-client/operations/delete_snapshot_copy_grant.md",
+      "async-client/operations/delete_snapshot_schedule.md",
+      "async-client/operations/delete_tags.md",
+      "async-client/operations/delete_usage_limit.md",
+      "async-client/operations/deregister_namespace.md",
+      "async-client/operations/describe_account_attributes.md",
+      "async-client/operations/describe_authentication_profiles.md",
+      "async-client/operations/describe_cluster_db_revisions.md",
+      "async-client/operations/describe_cluster_parameter_groups.md",
+      "async-client/operations/describe_cluster_parameters.md",
+      "async-client/operations/describe_cluster_security_groups.md",
+      "async-client/operations/describe_cluster_snapshots.md",
+      "async-client/operations/describe_cluster_subnet_groups.md",
+      "async-client/operations/describe_cluster_tracks.md",
+      "async-client/operations/describe_cluster_versions.md",
+      "async-client/operations/describe_clusters.md",
+      "async-client/operations/describe_custom_domain_associations.md",
+      "async-client/operations/describe_data_shares.md",
+      "async-client/operations/describe_data_shares_for_consumer.md",
+      "async-client/operations/describe_data_shares_for_producer.md",
+      "async-client/operations/describe_default_cluster_parameters.md",
+      "async-client/operations/describe_endpoint_access.md",
+      "async-client/operations/describe_endpoint_authorization.md",
+      "async-client/operations/describe_event_categories.md",
+      "async-client/operations/describe_event_subscriptions.md",
+      "async-client/operations/describe_events.md",
+      "async-client/operations/describe_hsm_client_certificates.md",
+      "async-client/operations/describe_hsm_configurations.md",
+      "async-client/operations/describe_inbound_integrations.md",
+      "async-client/operations/describe_integrations.md",
+      "async-client/operations/describe_logging_status.md",
+      "async-client/operations/describe_node_configuration_options.md",
+      "async-client/operations/describe_orderable_cluster_options.md",
+      "async-client/operations/describe_partners.md",
+      "async-client/operations/describe_qev2_idc_applications.md",
+      "async-client/operations/describe_redshift_idc_applications.md",
+      "async-client/operations/describe_reserved_node_exchange_status.md",
+      "async-client/operations/describe_reserved_node_offerings.md",
+      "async-client/operations/describe_reserved_nodes.md",
+      "async-client/operations/describe_resize.md",
+      "async-client/operations/describe_scheduled_actions.md",
+      "async-client/operations/describe_snapshot_copy_grants.md",
+      "async-client/operations/describe_snapshot_schedules.md",
+      "async-client/operations/describe_storage.md",
+      "async-client/operations/describe_table_restore_status.md",
+      "async-client/operations/describe_tags.md",
+      "async-client/operations/describe_usage_limits.md",
+      "async-client/operations/disable_logging.md",
+      "async-client/operations/disable_snapshot_copy.md",
+      "async-client/operations/disassociate_data_share_consumer.md",
+      "async-client/operations/enable_logging.md",
+      "async-client/operations/enable_snapshot_copy.md",
+      "async-client/operations/failover_primary_compute.md",
+      "async-client/operations/get_cluster_credentials.md",
+      "async-client/operations/get_cluster_credentials_with_iam.md",
+      "async-client/operations/get_identity_center_auth_token.md",
+      "async-client/operations/get_reserved_node_exchange_configuration_options.md",
+      "async-client/operations/get_reserved_node_exchange_offerings.md",
+      "async-client/operations/get_resource_policy.md",
+      "async-client/operations/list_recommendations.md",
+      "async-client/operations/modify_aqua_configuration.md",
+      "async-client/operations/modify_authentication_profile.md",
+      "async-client/operations/modify_cluster.md",
+      "async-client/operations/modify_cluster_db_revision.md",
+      "async-client/operations/modify_cluster_iam_roles.md",
+      "async-client/operations/modify_cluster_maintenance.md",
+      "async-client/operations/modify_cluster_parameter_group.md",
+      "async-client/operations/modify_cluster_snapshot.md",
+      "async-client/operations/modify_cluster_snapshot_schedule.md",
+      "async-client/operations/modify_cluster_subnet_group.md",
+      "async-client/operations/modify_custom_domain_association.md",
+      "async-client/operations/modify_endpoint_access.md",
+      "async-client/operations/modify_event_subscription.md",
+      "async-client/operations/modify_integration.md",
+      "async-client/operations/modify_lakehouse_configuration.md",
+      "async-client/operations/modify_qev2_idc_application.md",
+      "async-client/operations/modify_redshift_idc_application.md",
+      "async-client/operations/modify_scheduled_action.md",
+      "async-client/operations/modify_snapshot_copy_retention_period.md",
+      "async-client/operations/modify_snapshot_schedule.md",
+      "async-client/operations/modify_usage_limit.md",
+      "async-client/operations/pause_cluster.md",
+      "async-client/operations/purchase_reserved_node_offering.md",
+      "async-client/operations/put_resource_policy.md",
+      "async-client/operations/reboot_cluster.md",
+      "async-client/operations/register_namespace.md",
+      "async-client/operations/reject_data_share.md",
+      "async-client/operations/reset_cluster_parameter_group.md",
+      "async-client/operations/resize_cluster.md",
+      "async-client/operations/restore_from_cluster_snapshot.md",
+      "async-client/operations/restore_table_from_cluster_snapshot.md",
+      "async-client/operations/resume_cluster.md",
+      "async-client/operations/revoke_cluster_security_group_ingress.md",
+      "async-client/operations/revoke_endpoint_access.md",
+      "async-client/operations/revoke_snapshot_access.md",
+      "async-client/operations/rotate_encryption_key.md",
+      "async-client/operations/update_partner_status.md",
+    ] },
+    { "Paginators" = [
+      "async-client/paginators/iter_describe_cluster_db_revisions.md",
+      "async-client/paginators/iter_describe_cluster_parameter_groups.md",
+      "async-client/paginators/iter_describe_cluster_parameters.md",
+      "async-client/paginators/iter_describe_cluster_security_groups.md",
+      "async-client/paginators/iter_describe_cluster_snapshots.md",
+      "async-client/paginators/iter_describe_cluster_subnet_groups.md",
+      "async-client/paginators/iter_describe_cluster_tracks.md",
+      "async-client/paginators/iter_describe_cluster_versions.md",
+      "async-client/paginators/iter_describe_clusters.md",
+      "async-client/paginators/iter_describe_custom_domain_associations.md",
+      "async-client/paginators/iter_describe_data_shares.md",
+      "async-client/paginators/iter_describe_data_shares_for_consumer.md",
+      "async-client/paginators/iter_describe_data_shares_for_producer.md",
+      "async-client/paginators/iter_describe_default_cluster_parameters.md",
+      "async-client/paginators/iter_describe_endpoint_access.md",
+      "async-client/paginators/iter_describe_endpoint_authorization.md",
+      "async-client/paginators/iter_describe_event_subscriptions.md",
+      "async-client/paginators/iter_describe_events.md",
+      "async-client/paginators/iter_describe_hsm_client_certificates.md",
+      "async-client/paginators/iter_describe_hsm_configurations.md",
+      "async-client/paginators/iter_describe_inbound_integrations.md",
+      "async-client/paginators/iter_describe_integrations.md",
+      "async-client/paginators/iter_describe_node_configuration_options.md",
+      "async-client/paginators/iter_describe_orderable_cluster_options.md",
+      "async-client/paginators/iter_describe_qev2_idc_applications.md",
+      "async-client/paginators/iter_describe_redshift_idc_applications.md",
+      "async-client/paginators/iter_describe_reserved_node_exchange_status.md",
+      "async-client/paginators/iter_describe_reserved_node_offerings.md",
+      "async-client/paginators/iter_describe_reserved_nodes.md",
+      "async-client/paginators/iter_describe_scheduled_actions.md",
+      "async-client/paginators/iter_describe_snapshot_copy_grants.md",
+      "async-client/paginators/iter_describe_snapshot_schedules.md",
+      "async-client/paginators/iter_describe_table_restore_status.md",
+      "async-client/paginators/iter_describe_tags.md",
+      "async-client/paginators/iter_describe_usage_limits.md",
+      "async-client/paginators/iter_get_reserved_node_exchange_configuration_options.md",
+      "async-client/paginators/iter_get_reserved_node_exchange_offerings.md",
+      "async-client/paginators/iter_list_recommendations.md",
+    ] },
+  ] },
+  { "Types" = "types/index.md" },
+  { "Errors" = [
+    "errors/index.md",
+    "errors/AccessToClusterDeniedFault.md",
+    "errors/AccessToSnapshotDeniedFault.md",
+    "errors/AuthenticationProfileAlreadyExistsFault.md",
+    "errors/AuthenticationProfileNotFoundFault.md",
+    "errors/AuthenticationProfileQuotaExceededFault.md",
+    "errors/AuthorizationAlreadyExistsFault.md",
+    "errors/AuthorizationNotFoundFault.md",
+    "errors/AuthorizationQuotaExceededFault.md",
+    "errors/BatchDeleteRequestSizeExceededFault.md",
+    "errors/BatchModifyClusterSnapshotsLimitExceededFault.md",
+    "errors/BucketNotFoundFault.md",
+    "errors/ClusterAlreadyExistsFault.md",
+    "errors/ClusterNotFoundFault.md",
+    "errors/ClusterOnLatestRevisionFault.md",
+    "errors/ClusterParameterGroupAlreadyExistsFault.md",
+    "errors/ClusterParameterGroupNotFoundFault.md",
+    "errors/ClusterParameterGroupQuotaExceededFault.md",
+    "errors/ClusterQuotaExceededFault.md",
+    "errors/ClusterSecurityGroupAlreadyExistsFault.md",
+    "errors/ClusterSecurityGroupNotFoundFault.md",
+    "errors/ClusterSecurityGroupQuotaExceededFault.md",
+    "errors/ClusterSnapshotAlreadyExistsFault.md",
+    "errors/ClusterSnapshotNotFoundFault.md",
+    "errors/ClusterSnapshotQuotaExceededFault.md",
+    "errors/ClusterSubnetGroupAlreadyExistsFault.md",
+    "errors/ClusterSubnetGroupNotFoundFault.md",
+    "errors/ClusterSubnetGroupQuotaExceededFault.md",
+    "errors/ClusterSubnetQuotaExceededFault.md",
+    "errors/ConflictPolicyUpdateFault.md",
+    "errors/CopyToRegionDisabledFault.md",
+    "errors/CustomCnameAssociationFault.md",
+    "errors/CustomDomainAssociationNotFoundFault.md",
+    "errors/DependentServiceAccessDeniedFault.md",
+    "errors/DependentServiceRequestThrottlingFault.md",
+    "errors/DependentServiceUnavailableFault.md",
+    "errors/DeserializationError.md",
+    "errors/EndpointAlreadyExistsFault.md",
+    "errors/EndpointAuthorizationAlreadyExistsFault.md",
+    "errors/EndpointAuthorizationNotFoundFault.md",
+    "errors/EndpointAuthorizationsPerClusterLimitExceededFault.md",
+    "errors/EndpointNotFoundFault.md",
+    "errors/EndpointsPerAuthorizationLimitExceededFault.md",
+    "errors/EndpointsPerClusterLimitExceededFault.md",
+    "errors/EventSubscriptionQuotaExceededFault.md",
+    "errors/HsmClientCertificateAlreadyExistsFault.md",
+    "errors/HsmClientCertificateNotFoundFault.md",
+    "errors/HsmClientCertificateQuotaExceededFault.md",
+    "errors/HsmConfigurationAlreadyExistsFault.md",
+    "errors/HsmConfigurationNotFoundFault.md",
+    "errors/HsmConfigurationQuotaExceededFault.md",
+    "errors/InProgressTableRestoreQuotaExceededFault.md",
+    "errors/IncompatibleOrderableOptions.md",
+    "errors/InsufficientClusterCapacityFault.md",
+    "errors/InsufficientS3BucketPolicyFault.md",
+    "errors/IntegrationAlreadyExistsFault.md",
+    "errors/IntegrationConflictOperationFault.md",
+    "errors/IntegrationConflictStateFault.md",
+    "errors/IntegrationNotFoundFault.md",
+    "errors/IntegrationQuotaExceededFault.md",
+    "errors/IntegrationSourceNotFoundFault.md",
+    "errors/IntegrationTargetNotFoundFault.md",
+    "errors/InvalidAuthenticationProfileRequestFault.md",
+    "errors/InvalidAuthorizationStateFault.md",
+    "errors/InvalidClusterParameterGroupStateFault.md",
+    "errors/InvalidClusterSecurityGroupStateFault.md",
+    "errors/InvalidClusterSnapshotScheduleStateFault.md",
+    "errors/InvalidClusterSnapshotStateFault.md",
+    "errors/InvalidClusterStateFault.md",
+    "errors/InvalidClusterSubnetGroupStateFault.md",
+    "errors/InvalidClusterSubnetStateFault.md",
+    "errors/InvalidClusterTrackFault.md",
+    "errors/InvalidDataShareFault.md",
+    "errors/InvalidElasticIpFault.md",
+    "errors/InvalidEndpointStateFault.md",
+    "errors/InvalidHsmClientCertificateStateFault.md",
+    "errors/InvalidHsmConfigurationStateFault.md",
+    "errors/InvalidNamespaceFault.md",
+    "errors/InvalidPolicyFault.md",
+    "errors/InvalidReservedNodeStateFault.md",
+    "errors/InvalidRestoreFault.md",
+    "errors/InvalidRetentionPeriodFault.md",
+    "errors/InvalidS3BucketNameFault.md",
+    "errors/InvalidS3KeyPrefixFault.md",
+    "errors/InvalidScheduleFault.md",
+    "errors/InvalidScheduledActionFault.md",
+    "errors/InvalidSnapshotCopyGrantStateFault.md",
+    "errors/InvalidSubnet.md",
+    "errors/InvalidSubscriptionStateFault.md",
+    "errors/InvalidTableRestoreArgumentFault.md",
+    "errors/InvalidTagFault.md",
+    "errors/InvalidUsageLimitFault.md",
+    "errors/InvalidVPCNetworkStateFault.md",
+    "errors/Ipv6CidrBlockNotFoundFault.md",
+    "errors/LimitExceededFault.md",
+    "errors/NumberOfNodesPerClusterLimitExceededFault.md",
+    "errors/NumberOfNodesQuotaExceededFault.md",
+    "errors/PartnerNotFoundFault.md",
+    "errors/Qev2IdcApplicationAlreadyExistsFault.md",
+    "errors/Qev2IdcApplicationNotExistsFault.md",
+    "errors/RedshiftError.md",
+    "errors/RedshiftIdcApplicationAlreadyExistsFault.md",
+    "errors/RedshiftIdcApplicationNotExistsFault.md",
+    "errors/RedshiftIdcApplicationQuotaExceededFault.md",
+    "errors/RedshiftInvalidParameterFault.md",
+    "errors/ReservedNodeAlreadyExistsFault.md",
+    "errors/ReservedNodeAlreadyMigratedFault.md",
+    "errors/ReservedNodeExchangeNotFoundFault.md",
+    "errors/ReservedNodeNotFoundFault.md",
+    "errors/ReservedNodeOfferingNotFoundFault.md",
+    "errors/ReservedNodeQuotaExceededFault.md",
+    "errors/ResizeNotFoundFault.md",
+    "errors/ResourceNotFoundFault.md",
+    "errors/SNSInvalidTopicFault.md",
+    "errors/SNSNoAuthorizationFault.md",
+    "errors/SNSTopicArnNotFoundFault.md",
+    "errors/ScheduleDefinitionTypeUnsupportedFault.md",
+    "errors/ScheduledActionAlreadyExistsFault.md",
+    "errors/ScheduledActionNotFoundFault.md",
+    "errors/ScheduledActionQuotaExceededFault.md",
+    "errors/ScheduledActionTypeUnsupportedFault.md",
+    "errors/SerializationError.md",
+    "errors/ServiceError.md",
+    "errors/SnapshotCopyAlreadyDisabledFault.md",
+    "errors/SnapshotCopyAlreadyEnabledFault.md",
+    "errors/SnapshotCopyDisabledFault.md",
+    "errors/SnapshotCopyGrantAlreadyExistsFault.md",
+    "errors/SnapshotCopyGrantNotFoundFault.md",
+    "errors/SnapshotCopyGrantQuotaExceededFault.md",
+    "errors/SnapshotScheduleAlreadyExistsFault.md",
+    "errors/SnapshotScheduleNotFoundFault.md",
+    "errors/SnapshotScheduleQuotaExceededFault.md",
+    "errors/SnapshotScheduleUpdateInProgressFault.md",
+    "errors/SourceNotFoundFault.md",
+    "errors/SubnetAlreadyInUse.md",
+    "errors/SubscriptionAlreadyExistFault.md",
+    "errors/SubscriptionCategoryNotFoundFault.md",
+    "errors/SubscriptionEventIdNotFoundFault.md",
+    "errors/SubscriptionNotFoundFault.md",
+    "errors/SubscriptionSeverityNotFoundFault.md",
+    "errors/TableLimitExceededFault.md",
+    "errors/TableRestoreNotFoundFault.md",
+    "errors/TagLimitExceededFault.md",
+    "errors/UnauthorizedOperation.md",
+    "errors/UnauthorizedPartnerIntegrationFault.md",
+    "errors/UnknownServiceError.md",
+    "errors/UnknownSnapshotCopyRegionFault.md",
+    "errors/UnsupportedOperationFault.md",
+    "errors/UnsupportedOptionFault.md",
+    "errors/UsageLimitAlreadyExistsFault.md",
+    "errors/UsageLimitNotFoundFault.md",
+    "errors/WaiterFailedError.md",
+    "errors/WaiterTimeoutError.md",
+  ] },
+]
+# `src` is deliberately not watched: it holds thousands of generated files and
+# watching it adds well over a minute to every build.
+watch = ["README.md"]
+
+[project.theme]
+language = "en"
+features = [
+    "content.code.annotate",
+    "content.code.copy",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.prune",
+    "navigation.tabs",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/kap-sh/capo"
+
+# The API reference is rendered from the docstrings in src/ by mkdocstrings.
+# `_services` and `types` have no `__init__.py`, and griffe does not descend
+# into namespace packages nested in a regular package. `docs_src/capo_redshift` is a
+# namespace package that symlinks to them, so griffe loads both under their
+# real `capo_redshift.*` paths.
+# `docs_src/templates` overrides the backlinks template: no "Returned by"
+# section, and "Used by" is collapsed.
+[project.plugins.mkdocstrings]
+custom_templates = "docs_src/templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["docs_src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+# The recommended mkdocstrings-python settings, see
+# https://mkdocstrings.github.io/python/usage/#recommended-settings
+docstring_section_style = "list"
+relative_crossrefs = true
+scoped_crossrefs = true
+signature_crossrefs = true
+unwrap_annotated = true
+filters = "public"
+inherited_members = true
+heading_level = 1
+type_parameter_headings = true
+show_root_heading = true
+show_root_full_path = false
+show_symbol_type_heading = true
+show_symbol_type_toc = true
+line_length = 88
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_signature_type_parameters = true
+backlinks = "tree"
+show_bases = false
+# Deviation from the recommended settings: parameter headings would list every
+# parameter of every method in the table of contents.
+parameter_headings = false
+# The summary would list a TypedDict's attributes a second time, above their
+# own entries, and the inheritance diagram is a single box for every class here.
+summary = false
+show_inheritance_diagram = false
+# On top of the recommended settings: the client modules are tens of thousands
+# of lines long, and paginators (`iter_*`) and waiters (`wait_until_*`) carry
+# no docstring.
+show_source = false
+show_if_no_docstring = true
+
+[project.plugins.mkdocstrings.handlers.python.options.docstring_options]
+ignore_init_summary = true
+
+# Defining `markdown_extensions` replaces Zensical's defaults entirely, so the
+# default set is repeated here, with `pymdownx.snippets` added on top.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

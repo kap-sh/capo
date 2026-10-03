@@ -1,0 +1,8 @@
+---
+title: ApprovalRuleOverriddenEventMetadata
+---
+
+::: capo_codecommit.types.approval_rule_overridden_event_metadata.ApprovalRuleOverriddenEventMetadata
+    options:
+      show_source: true
+      merge_init_into_class: false

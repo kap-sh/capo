@@ -1,0 +1,8 @@
+---
+title: MicrovmIdentifier
+---
+
+::: capo_lambda_microvms.types.microvm_identifier.MicrovmIdentifier
+    options:
+      show_source: true
+      merge_init_into_class: false

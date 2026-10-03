@@ -1,0 +1,8 @@
+---
+title: DeleteRouteSettingsRequest
+---
+
+::: capo_apigatewayv2.types.delete_route_settings_request.DeleteRouteSettingsRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

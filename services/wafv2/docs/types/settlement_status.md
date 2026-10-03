@@ -1,0 +1,8 @@
+---
+title: SettlementStatus
+---
+
+::: capo_wafv2.types.settlement_status.SettlementStatus
+    options:
+      show_source: true
+      merge_init_into_class: false

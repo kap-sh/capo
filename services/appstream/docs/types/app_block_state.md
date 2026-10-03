@@ -1,0 +1,8 @@
+---
+title: AppBlockState
+---
+
+::: capo_appstream.types.app_block_state.AppBlockState
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: AutomationParameterMap
+---
+
+::: capo_ssm.types.automation_parameter_map.AutomationParameterMap
+    options:
+      show_source: true
+      merge_init_into_class: false

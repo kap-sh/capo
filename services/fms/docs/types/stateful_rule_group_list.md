@@ -1,0 +1,8 @@
+---
+title: StatefulRuleGroupList
+---
+
+::: capo_fms.types.stateful_rule_group_list.StatefulRuleGroupList
+    options:
+      show_source: true
+      merge_init_into_class: false

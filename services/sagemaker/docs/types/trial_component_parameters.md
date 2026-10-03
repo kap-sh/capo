@@ -1,0 +1,8 @@
+---
+title: TrialComponentParameters
+---
+
+::: capo_sagemaker.types.trial_component_parameters.TrialComponentParameters
+    options:
+      show_source: true
+      merge_init_into_class: false

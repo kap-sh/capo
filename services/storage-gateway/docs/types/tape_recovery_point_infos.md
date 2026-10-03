@@ -1,0 +1,8 @@
+---
+title: TapeRecoveryPointInfos
+---
+
+::: capo_storage_gateway.types.tape_recovery_point_infos.TapeRecoveryPointInfos
+    options:
+      show_source: true
+      merge_init_into_class: false

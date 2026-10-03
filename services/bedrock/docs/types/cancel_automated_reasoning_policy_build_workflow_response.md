@@ -1,0 +1,8 @@
+---
+title: CancelAutomatedReasoningPolicyBuildWorkflowResponse
+---
+
+::: capo_bedrock.types.cancel_automated_reasoning_policy_build_workflow_response.CancelAutomatedReasoningPolicyBuildWorkflowResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

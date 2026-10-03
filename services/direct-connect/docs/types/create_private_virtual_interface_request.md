@@ -1,0 +1,8 @@
+---
+title: CreatePrivateVirtualInterfaceRequest
+---
+
+::: capo_direct_connect.types.create_private_virtual_interface_request.CreatePrivateVirtualInterfaceRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

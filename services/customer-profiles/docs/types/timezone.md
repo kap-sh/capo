@@ -1,0 +1,8 @@
+---
+title: Timezone
+---
+
+::: capo_customer_profiles.types.timezone.Timezone
+    options:
+      show_source: true
+      merge_init_into_class: false

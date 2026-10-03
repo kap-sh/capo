@@ -1,0 +1,8 @@
+---
+title: InferenceProfileModels
+---
+
+::: capo_bedrock.types.inference_profile_models.InferenceProfileModels
+    options:
+      show_source: true
+      merge_init_into_class: false

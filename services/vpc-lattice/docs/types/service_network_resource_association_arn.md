@@ -1,0 +1,8 @@
+---
+title: ServiceNetworkResourceAssociationArn
+---
+
+::: capo_vpc_lattice.types.service_network_resource_association_arn.ServiceNetworkResourceAssociationArn
+    options:
+      show_source: true
+      merge_init_into_class: false

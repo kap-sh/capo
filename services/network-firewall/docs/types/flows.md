@@ -1,0 +1,8 @@
+---
+title: Flows
+---
+
+::: capo_network_firewall.types.flows.Flows
+    options:
+      show_source: true
+      merge_init_into_class: false

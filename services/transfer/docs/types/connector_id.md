@@ -1,0 +1,8 @@
+---
+title: ConnectorId
+---
+
+::: capo_transfer.types.connector_id.ConnectorId
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,8 @@
+---
+title: Citation
+---
+
+::: capo_iotsitewise.types.citation.Citation
+    options:
+      show_source: true
+      merge_init_into_class: false
