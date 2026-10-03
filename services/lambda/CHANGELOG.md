@@ -1,5 +1,11 @@
 # aws-sdk-lambda
 
+## 0.18.0
+
+### Minor Changes
+
+- f3c2061: fix: links in operation and type docs rendering as relative URLs because of escaped quotes in docstrings
+
 ## 0.17.0
 
 ### Minor Changes

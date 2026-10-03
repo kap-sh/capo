@@ -1,5 +1,11 @@
 # aws-sdk-bcm-pricing-calculator
 
+## 0.6.0
+
+### Minor Changes
+
+- f3c2061: fix: links in operation and type docs rendering as relative URLs because of escaped quotes in docstrings
+
 ## 0.5.0
 
 ### Minor Changes
