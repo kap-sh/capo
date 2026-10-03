@@ -1,7 +1,7 @@
 [project]
 site_name = "capo"
 site_description = "Community-driven AWS SDK for Python. Manage AWS services like a capo."
-site_url = "https://kap-sh.github.io/capo/"
+site_url = "https://capo-sdk.dev/"
 repo_url = "https://github.com/kap-sh/capo"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

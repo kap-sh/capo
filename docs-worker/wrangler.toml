@@ -1,12 +1,16 @@
-# Serves every per-service documentation site (`<service>.capo-sdk.dev`) from
-# one R2 bucket, where each site lives under the `<service>/` prefix.
+# Serves the main documentation site (`capo-sdk.dev`) and every per-service
+# one (`<service>.capo-sdk.dev`) from one R2 bucket, where the main site lives
+# under the `_root/` prefix and each service site under `<service>/`.
 # Deployed by hand with `npx wrangler deploy`; the sites themselves are
-# uploaded by .github/workflows/service-docs.yml.
+# uploaded by .github/workflows/docs.yml and .github/workflows/service-docs.yml.
 name = "capo-docs"
 main = "index.js"
 compatibility_date = "2026-10-01"
 workers_dev = false
-routes = [{ pattern = "*.capo-sdk.dev/*", zone_name = "capo-sdk.dev" }]
+routes = [
+  { pattern = "capo-sdk.dev/*", zone_name = "capo-sdk.dev" },
+  { pattern = "*.capo-sdk.dev/*", zone_name = "capo-sdk.dev" },
+]
 
 [[r2_buckets]]
 binding = "DOCS"

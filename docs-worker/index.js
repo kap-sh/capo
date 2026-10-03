@@ -1,6 +1,9 @@
 // Maps `<service>.capo-sdk.dev/<path>` to the R2 object `<service>/<path>`,
 // which is all that static hosting needs on top of what R2 does by itself:
 // the subdomain picks the site, and a directory URL resolves to its index.html.
+// The apex `capo-sdk.dev` is the main site, kept under the `_root/` prefix.
+const APEX = "capo-sdk.dev";
+
 export default {
   async fetch(request, env) {
     if (request.method !== "GET" && request.method !== "HEAD") {
@@ -8,7 +11,7 @@ export default {
     }
 
     const url = new URL(request.url);
-    const service = url.hostname.split(".")[0];
+    const service = url.hostname === APEX ? "_root" : url.hostname.split(".")[0];
     let key = service + decodeURIComponent(url.pathname);
     if (key.endsWith("/")) key += "index.html";
 
