@@ -68,6 +68,15 @@ jobs:
           set -euo pipefail
           for service in $BATCH; do
             echo "::group::$service"
+            # Builds are not byte-reproducible, so rebuilding a version that is
+            # already on PyPI fails the --check-url hash comparison. Skip it.
+            read -r name version < <(python3 -c 'import sys, tomllib; p = tomllib.load(open(sys.argv[1], "rb"))["project"]; print(p["name"], p["version"])' "services/$service/pyproject.toml")
+            files=$(curl -s --retry 3 "https://pypi.org/pypi/$name/$version/json" | jq '.urls | length' || true)
+            if [ "$files" = "2" ]; then
+              echo "$name $version is already on PyPI, skipping"
+              echo "::endgroup::"
+              continue
+            fi
             (cd "services/$service" \
               && uv build \
               && uv publish --trusted-publishing always --check-url https://pypi.org/simple/)
