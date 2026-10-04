@@ -199,6 +199,7 @@ errors.
 | AWS EMR | `capo-emr` | [capo-sdk.dev/services/emr](https://capo-sdk.dev/services/emr/) |
 | AWS EMR Containers | `capo-emr-containers` | [capo-sdk.dev/services/emr-containers](https://capo-sdk.dev/services/emr-containers/) |
 | AWS EMR Serverless | `capo-emr-serverless` | [capo-sdk.dev/services/emr-serverless](https://capo-sdk.dev/services/emr-serverless/) |
+| AWS End User Messaging | `capo-endusermessaging` | [capo-sdk.dev/services/endusermessaging](https://capo-sdk.dev/services/endusermessaging/) |
 | AWS Entityresolution | `capo-entityresolution` | [capo-sdk.dev/services/entityresolution](https://capo-sdk.dev/services/entityresolution/) |
 | AWS Eventbridge | `capo-eventbridge` | [capo-sdk.dev/services/eventbridge](https://capo-sdk.dev/services/eventbridge/) |
 | AWS Eventbridgev2 | `capo-eventbridgev2` | [capo-sdk.dev/services/eventbridgev2](https://capo-sdk.dev/services/eventbridgev2/) |
@@ -273,6 +274,7 @@ errors.
 | AWS Lambda | `capo-lambda` | [capo-sdk.dev/services/lambda](https://capo-sdk.dev/services/lambda/) |
 | AWS Lambda Core | `capo-lambda-core` | [capo-sdk.dev/services/lambda-core](https://capo-sdk.dev/services/lambda-core/) |
 | AWS Lambda MicroVMs | `capo-lambda-microvms` | [capo-sdk.dev/services/lambda-microvms](https://capo-sdk.dev/services/lambda-microvms/) |
+| AWS Lambda Web | `capo-lambda-web` | [capo-sdk.dev/services/lambda-web](https://capo-sdk.dev/services/lambda-web/) |
 | AWS Launch Wizard | `capo-launch-wizard` | [capo-sdk.dev/services/launch-wizard](https://capo-sdk.dev/services/launch-wizard/) |
 | AWS Lex Model Building Service | `capo-lex-model-building-service` | [capo-sdk.dev/services/lex-model-building-service](https://capo-sdk.dev/services/lex-model-building-service/) |
 | AWS Lex Models V2 | `capo-lex-models-v2` | [capo-sdk.dev/services/lex-models-v2](https://capo-sdk.dev/services/lex-models-v2/) |
