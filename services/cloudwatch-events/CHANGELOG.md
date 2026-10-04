@@ -1,5 +1,11 @@
 # aws-sdk-cloudwatch-events
 
+## 0.3.0
+
+### Minor Changes
+
+- f3c2061: fix: links in operation and type docs rendering as relative URLs because of escaped quotes in docstrings
+
 ## 0.2.0
 
 ### Minor Changes
