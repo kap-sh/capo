@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class CreateComputeQuotaRequest(TypedDict, closed=True):
     name: NotRequired["capo_sagemaker.types.entity_name.EntityName"]
-    """<p>Name to the compute allocation definition.</p>"""
+    """<p>The name of the compute allocation definition. The name must be unique within the SageMaker AI HyperPod cluster specified by <code>ClusterArn</code>. You can use the same name in other clusters within a Region or across Regions.</p>"""
     description: NotRequired[
         "capo_sagemaker.types.entity_description.EntityDescription"
     ]

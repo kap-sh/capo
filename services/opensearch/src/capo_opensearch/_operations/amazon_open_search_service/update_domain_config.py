@@ -18,6 +18,7 @@ import capo_opensearch.errors.invalid_type_exception
 import capo_opensearch.errors.limit_exceeded_exception
 import capo_opensearch.errors.resource_not_found_exception
 import capo_opensearch.errors.validation_exception
+import capo_opensearch.types.accepted_warnings_list
 import capo_opensearch.types.advanced_options
 import capo_opensearch.types.advanced_security_options_input
 import capo_opensearch.types.aiml_options_input

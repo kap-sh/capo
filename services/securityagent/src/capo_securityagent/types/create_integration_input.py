@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class CreateIntegrationInput(TypedDict, closed=True):
     provider: "capo_securityagent.types.provider.Provider"
-    """<p>The integration provider. Currently, only GITHUB is supported.</p>"""
+    """<p>The integration provider.</p>"""
     input: "capo_securityagent.types.provider_input.ProviderInput"
     """<p>The provider-specific input required to create the integration.</p>"""
     integration_display_name: "str"

@@ -105,6 +105,9 @@ if TYPE_CHECKING:
     import capo_securityagent.types.batch_update_security_requirements_input
     import capo_securityagent.types.batch_update_security_requirements_output
     import capo_securityagent.types.certificate_chain
+    import capo_securityagent.types.ci_cd_configuration
+    import capo_securityagent.types.client_id
+    import capo_securityagent.types.client_secret
     import capo_securityagent.types.cloud_watch_log
     import capo_securityagent.types.code_remediation_strategy
     import capo_securityagent.types.code_review_id_list
@@ -256,6 +259,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.risk_level
     import capo_securityagent.types.risk_type_list
     import capo_securityagent.types.role_arn
+    import capo_securityagent.types.scope_change_list
     import capo_securityagent.types.security_requirement_name_list
     import capo_securityagent.types.security_requirement_pack_id
     import capo_securityagent.types.security_requirement_pack_name
@@ -288,6 +292,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.target_domain_id
     import capo_securityagent.types.target_domain_id_list
     import capo_securityagent.types.target_domain_summary
+    import capo_securityagent.types.target_url
     import capo_securityagent.types.task_id_list
     import capo_securityagent.types.task_summary
     import capo_securityagent.types.threat_anchor_shape
@@ -313,6 +318,8 @@ if TYPE_CHECKING:
     import capo_securityagent.types.update_finding_output
     import capo_securityagent.types.update_integrated_resources_input
     import capo_securityagent.types.update_integrated_resources_output
+    import capo_securityagent.types.update_integration_input
+    import capo_securityagent.types.update_integration_output
     import capo_securityagent.types.update_pentest_input
     import capo_securityagent.types.update_pentest_output
     import capo_securityagent.types.update_private_connection_certificate_input
@@ -330,6 +337,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.verify_target_domain_input
     import capo_securityagent.types.verify_target_domain_output
     import capo_securityagent.types.vpc_config
+    import capo_securityagent.types.webhook_action
 
 
 class AsyncSecurityAgentClientConfig(TypedDict, total=False, closed=True):
@@ -1568,6 +1576,9 @@ class AsyncSecurityAgentClient:
         report_filters: Optional[
             "capo_securityagent.types.report_filters.ReportFilters"
         ] = None,
+        cicd_configuration: Optional[
+            "capo_securityagent.types.ci_cd_configuration.CiCdConfiguration"
+        ] = None,
     ) -> "capo_securityagent.types.create_pentest_output.CreatePentestOutput":
         """<p>Creates a new pentest configuration in an agent space. A pentest defines the security test parameters, including target assets, risk type exclusions, and logging configuration.</p>
 
@@ -1585,6 +1596,7 @@ class AsyncSecurityAgentClient:
             max_task_hours: <p>The maximum number of billable task hours allowed for jobs started from this pentest. Must be a positive number. If not set, jobs run to completion with no budget cap.</p>
             report_destination: <p>The destination for publishing scan reports to an integrated document provider.</p>
             report_filters: <p>The report-generation filters applied when the report is exported.</p>
+            cicd_configuration: <p>The CI/CD pentesting configuration to apply to the pentest.</p>
 
         Raises:
             capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -1632,6 +1644,8 @@ class AsyncSecurityAgentClient:
             input_["report_destination"] = report_destination
         if report_filters is not None:
             input_["report_filters"] = report_filters
+        if cicd_configuration is not None:
+            input_["cicd_configuration"] = cicd_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2045,11 +2059,21 @@ class AsyncSecurityAgentClient:
         provider: "capo_securityagent.types.provider.Provider",
         *,
         config_overrides: Optional[AsyncSecurityAgentClientConfig] = None,
+        target_url: Optional["capo_securityagent.types.target_url.TargetUrl"] = None,
+        organization_name: Optional[str] = None,
+        client_id: Optional["capo_securityagent.types.client_id.ClientId"] = None,
+        client_secret: Optional[
+            "capo_securityagent.types.client_secret.ClientSecret"
+        ] = None,
     ) -> "capo_securityagent.types.initiate_provider_registration_output.InitiateProviderRegistrationOutput":
         """<p>Initiates the OAuth registration flow with a third-party provider. Returns a redirect URL and CSRF state token for completing the authorization.</p>
 
         Args:
-            provider: <p>The provider to initiate registration with. Currently, only GITHUB is supported.</p>
+            provider: <p>The provider to initiate registration with.</p>
+            target_url: <p>The HTTPS URL of a self-managed provider instance. Omit for SaaS providers.</p>
+            organization_name: <p>The name of the organization to connect.</p>
+            client_id: <p>The client ID of the OAuth application registered on your self-managed provider instance.</p>
+            client_secret: <p>The client secret of the OAuth application registered on your self-managed provider instance.</p>
 
         Raises:
             capo_securityagent.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -2080,6 +2104,14 @@ class AsyncSecurityAgentClient:
         input_: capo_securityagent.types.initiate_provider_registration_input.InitiateProviderRegistrationInput = {
             "provider": provider
         }
+        if target_url is not None:
+            input_["target_url"] = target_url
+        if organization_name is not None:
+            input_["organization_name"] = organization_name
+        if client_id is not None:
+            input_["client_id"] = client_id
+        if client_secret is not None:
+            input_["client_secret"] = client_secret
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2906,6 +2938,7 @@ class AsyncSecurityAgentClient:
         config_overrides: Optional[AsyncSecurityAgentClientConfig] = None,
         max_results: Optional["capo_securityagent.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_securityagent.types.next_token.NextToken"] = None,
+        job_type: Optional["capo_securityagent.types.job_type.JobType"] = None,
     ) -> "capo_securityagent.types.list_pentest_jobs_for_pentest_output.ListPentestJobsForPentestOutput":
         """<p>Returns a paginated list of pentest job summaries for the specified pentest configuration.</p>
 
@@ -2914,6 +2947,7 @@ class AsyncSecurityAgentClient:
             pentest_id: <p>The unique identifier of the pentest to list jobs for.</p>
             agent_space_id: <p>The unique identifier of the agent space.</p>
             next_token: <p>A token to use for paginating results that are returned in the response. Set the value of this parameter to null for the first request. For subsequent calls, use the nextToken value returned from the previous request.</p>
+            job_type: <p>Filters the returned pentest jobs to only those of the specified job type.</p>
 
         Raises:
             capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -2943,6 +2977,8 @@ class AsyncSecurityAgentClient:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if job_type is not None:
+            input_["job_type"] = job_type
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2960,6 +2996,7 @@ class AsyncSecurityAgentClient:
         config_overrides: Optional[AsyncSecurityAgentClientConfig] = None,
         max_results: Optional["capo_securityagent.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_securityagent.types.next_token.NextToken"] = None,
+        job_type: Optional["capo_securityagent.types.job_type.JobType"] = None,
     ) -> (
         "AsyncIterator[capo_securityagent.types.pentest_job_summary.PentestJobSummary]"
     ):
@@ -2971,6 +3008,7 @@ class AsyncSecurityAgentClient:
                 config_overrides=config_overrides,
                 max_results=max_results,
                 next_token=_token,
+                job_type=job_type,
             )
             _page = _resolve_path(_response, ("pentest_job_summaries",))
             for _item in _page or []:
@@ -3694,14 +3732,18 @@ class AsyncSecurityAgentClient:
         selected_finding_ids: Optional[
             "capo_securityagent.types.string_list.StringList"
         ] = None,
+        scope_changes: Optional[
+            "capo_securityagent.types.scope_change_list.ScopeChangeList"
+        ] = None,
     ) -> "capo_securityagent.types.start_pentest_job_output.StartPentestJobOutput":
         """<p>Starts a new pentest job for a pentest configuration. The job executes the security tests defined in the pentest.</p>
 
         Args:
             agent_space_id: <p>The unique identifier of the agent space.</p>
             pentest_id: <p>The unique identifier of the pentest to start a job for.</p>
-            job_type: <p>The type of pentest job to start. Valid values are FULL and REVALIDATION. When set to REVALIDATION, the selectedFindingIds parameter is required.</p>
+            job_type: <p>The type of pentest job to start. Valid values are FULL, REVALIDATION, and CICD. When set to REVALIDATION, the selectedFindingIds parameter is required. When set to CICD, the scopeChanges parameter defines the code changes to test.</p>
             selected_finding_ids: <p>The list of finding identifiers to revalidate. Required when jobType is REVALIDATION. Each finding must belong to the same agent space and pentest.</p>
+            scope_changes: <p>The code changes that define the scope of a CI/CD pentest job. Provide this when starting a job with jobType CICD to test only the changes in the current pipeline run.</p>
 
         Raises:
             capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -3731,6 +3773,8 @@ class AsyncSecurityAgentClient:
             input_["job_type"] = job_type
         if selected_finding_ids is not None:
             input_["selected_finding_ids"] = selected_finding_ids
+        if scope_changes is not None:
+            input_["scope_changes"] = scope_changes
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -4285,6 +4329,9 @@ class AsyncSecurityAgentClient:
         report_filters: Optional[
             "capo_securityagent.types.report_filters.ReportFilters"
         ] = None,
+        cicd_configuration: Optional[
+            "capo_securityagent.types.ci_cd_configuration.CiCdConfiguration"
+        ] = None,
     ) -> "capo_securityagent.types.update_pentest_output.UpdatePentestOutput":
         """<p>Updates an existing pentest configuration.</p>
 
@@ -4303,6 +4350,7 @@ class AsyncSecurityAgentClient:
             max_task_hours: <p>The updated maximum number of billable task hours allowed for jobs started from this pentest.</p>
             report_destination: <p>The destination for publishing scan reports to an integrated document provider.</p>
             report_filters: <p>The report-generation filters applied when the report is exported.</p>
+            cicd_configuration: <p>The updated CI/CD pentesting configuration to apply to the pentest.</p>
 
         Raises:
             capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -4352,6 +4400,8 @@ class AsyncSecurityAgentClient:
             input_["report_destination"] = report_destination
         if report_filters is not None:
             input_["report_filters"] = report_filters
+        if cicd_configuration is not None:
+            input_["cicd_configuration"] = cicd_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -5184,7 +5234,7 @@ class AsyncSecurityAgentClient:
         """<p>Creates a new integration with a third-party provider, such as GitHub, for code review and remediation.</p>
 
         Args:
-            provider: <p>The integration provider. Currently, only GITHUB is supported.</p>
+            provider: <p>The integration provider.</p>
             input: <p>The provider-specific input required to create the integration.</p>
             integration_display_name: <p>The display name for the integration.</p>
             kms_key_id: <p>The identifier of the AWS KMS key to use for encrypting data associated with the integration.</p>
@@ -5275,6 +5325,58 @@ class AsyncSecurityAgentClient:
         interceptors_, options_ = self.operation_options(config_overrides)
         input_: capo_securityagent.types.get_integration_input.GetIntegrationInput = {
             "integration_id": integration_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_integration(
+        self,
+        integration_id: "capo_securityagent.types.integration_id.IntegrationId",
+        webhook_action: "capo_securityagent.types.webhook_action.WebhookAction",
+        *,
+        config_overrides: Optional[AsyncSecurityAgentClientConfig] = None,
+    ) -> "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput":
+        """<p>Creates an integration's webhook, or rotates the HMAC signing secret of an existing one. The secret is returned only once, in this response, and cannot be retrieved again.</p>
+
+        Args:
+            integration_id: <p>The ID of the integration whose webhook you want to create or rotate.</p>
+            webhook_action: <p>The action to perform on the integration's webhook.</p>
+
+        Raises:
+            capo_securityagent.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_securityagent.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the resource.</p>
+            capo_securityagent.errors.internal_server_exception.InternalServerException: <p>An unexpected error occurred during the processing of your request.</p>
+            capo_securityagent.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify that the resource identifier is correct and that the resource exists in the specified agent space or account.</p>
+            capo_securityagent.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_securityagent.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityagent.types.update_integration_input.UpdateIntegrationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput"
+        ]:
+            import capo_securityagent._operations.security_agent.update_integration
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityagent._operations.security_agent.update_integration.async_update_integration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_securityagent.types.update_integration_input.UpdateIntegrationInput = {
+            "integration_id": integration_id,
+            "webhook_action": webhook_action,
         }
 
         response = await aexecute_pipeline(

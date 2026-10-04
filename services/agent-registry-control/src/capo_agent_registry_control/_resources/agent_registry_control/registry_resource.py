@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.client_token
     import capo_agent_registry_control.types.create_registry_request
     import capo_agent_registry_control.types.create_registry_response
+    import capo_agent_registry_control.types.custom_metadata_schema_configuration
     import capo_agent_registry_control.types.delete_registry_request
     import capo_agent_registry_control.types.delete_registry_response
     import capo_agent_registry_control.types.description
@@ -40,6 +41,7 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.update_registry_response
     import capo_agent_registry_control.types.updated_approval_configuration
     import capo_agent_registry_control.types.updated_auto_detection_configuration
+    import capo_agent_registry_control.types.updated_custom_metadata_schema_configuration
     import capo_agent_registry_control.types.updated_description
     import capo_agent_registry_control.types.updated_discovery_configuration
     from capo_agent_registry_control._services.agent_registry_control import (
@@ -77,6 +79,9 @@ class RegistryResource:
         approval_configuration: Optional[
             "capo_agent_registry_control.types.approval_configuration.ApprovalConfiguration"
         ] = None,
+        custom_metadata_schema_configuration: Optional[
+            "capo_agent_registry_control.types.custom_metadata_schema_configuration.CustomMetadataSchemaConfiguration"
+        ] = None,
         auto_detection_configuration: Optional[
             "capo_agent_registry_control.types.auto_detection_configuration.AutoDetectionConfiguration"
         ] = None,
@@ -91,6 +96,7 @@ class RegistryResource:
             client_token: <p>A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
             tags: <p>Tags to associate with the registry</p>
             approval_configuration: <p>Approval configuration for registry records</p>
+            custom_metadata_schema_configuration: <p>The optional custom metadata schema configuration for the registry. When provided, registry records can carry structured metadata validated against this schema.</p>
             auto_detection_configuration: <p>The optional auto-detection configuration for the registry. When provided, the registry is automatically populated with resources discovered according to the configuration. Omit this field for registries whose records are managed exclusively through the Agent Registry Control API.</p>
 
         Raises:
@@ -134,6 +140,10 @@ class RegistryResource:
             input_["tags"] = tags
         if approval_configuration is not None:
             input_["approval_configuration"] = approval_configuration
+        if custom_metadata_schema_configuration is not None:
+            input_["custom_metadata_schema_configuration"] = (
+                custom_metadata_schema_configuration
+            )
         if auto_detection_configuration is not None:
             input_["auto_detection_configuration"] = auto_detection_configuration
 
@@ -209,6 +219,9 @@ class RegistryResource:
         approval_configuration: Optional[
             "capo_agent_registry_control.types.updated_approval_configuration.UpdatedApprovalConfiguration"
         ] = None,
+        custom_metadata_schema_configuration: Optional[
+            "capo_agent_registry_control.types.updated_custom_metadata_schema_configuration.UpdatedCustomMetadataSchemaConfiguration"
+        ] = None,
         auto_detection_configuration: Optional[
             "capo_agent_registry_control.types.updated_auto_detection_configuration.UpdatedAutoDetectionConfiguration"
         ] = None,
@@ -221,6 +234,7 @@ class RegistryResource:
             description: <p>The updated description of the registry</p>
             discovery_configuration: <p>The updated discovery configuration. Changing the discovery authorization can break existing consumers that rely on the previous authorization type.</p>
             approval_configuration: <p>The updated approval configuration. The change applies only to records that move to PENDING_APPROVAL after the update; records already in PENDING_APPROVAL are unaffected.</p>
+            custom_metadata_schema_configuration: <p>Updated custom metadata schema configuration for the registry. Omit to leave the existing schema unchanged. Schema evolution is additive only: you can add properties and enum values, but you cannot remove properties, change property types or formats, add or remove enum constraints, or remove record type overrides.</p>
             auto_detection_configuration: <p>The updated auto-detection configuration for the registry, with PATCH semantics. Omit this field to leave the current configuration unchanged. Supply an empty wrapper to unset it. Supply <code>optionalValue</code> to replace it.</p>
 
         Raises:
@@ -260,6 +274,10 @@ class RegistryResource:
             input_["discovery_configuration"] = discovery_configuration
         if approval_configuration is not None:
             input_["approval_configuration"] = approval_configuration
+        if custom_metadata_schema_configuration is not None:
+            input_["custom_metadata_schema_configuration"] = (
+                custom_metadata_schema_configuration
+            )
         if auto_detection_configuration is not None:
             input_["auto_detection_configuration"] = auto_detection_configuration
 
@@ -405,6 +423,9 @@ class AsyncRegistryResource:
         approval_configuration: Optional[
             "capo_agent_registry_control.types.approval_configuration.ApprovalConfiguration"
         ] = None,
+        custom_metadata_schema_configuration: Optional[
+            "capo_agent_registry_control.types.custom_metadata_schema_configuration.CustomMetadataSchemaConfiguration"
+        ] = None,
         auto_detection_configuration: Optional[
             "capo_agent_registry_control.types.auto_detection_configuration.AutoDetectionConfiguration"
         ] = None,
@@ -419,6 +440,7 @@ class AsyncRegistryResource:
             client_token: <p>A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
             tags: <p>Tags to associate with the registry</p>
             approval_configuration: <p>Approval configuration for registry records</p>
+            custom_metadata_schema_configuration: <p>The optional custom metadata schema configuration for the registry. When provided, registry records can carry structured metadata validated against this schema.</p>
             auto_detection_configuration: <p>The optional auto-detection configuration for the registry. When provided, the registry is automatically populated with resources discovered according to the configuration. Omit this field for registries whose records are managed exclusively through the Agent Registry Control API.</p>
 
         Raises:
@@ -463,6 +485,10 @@ class AsyncRegistryResource:
             input_["tags"] = tags
         if approval_configuration is not None:
             input_["approval_configuration"] = approval_configuration
+        if custom_metadata_schema_configuration is not None:
+            input_["custom_metadata_schema_configuration"] = (
+                custom_metadata_schema_configuration
+            )
         if auto_detection_configuration is not None:
             input_["auto_detection_configuration"] = auto_detection_configuration
 
@@ -539,6 +565,9 @@ class AsyncRegistryResource:
         approval_configuration: Optional[
             "capo_agent_registry_control.types.updated_approval_configuration.UpdatedApprovalConfiguration"
         ] = None,
+        custom_metadata_schema_configuration: Optional[
+            "capo_agent_registry_control.types.updated_custom_metadata_schema_configuration.UpdatedCustomMetadataSchemaConfiguration"
+        ] = None,
         auto_detection_configuration: Optional[
             "capo_agent_registry_control.types.updated_auto_detection_configuration.UpdatedAutoDetectionConfiguration"
         ] = None,
@@ -551,6 +580,7 @@ class AsyncRegistryResource:
             description: <p>The updated description of the registry</p>
             discovery_configuration: <p>The updated discovery configuration. Changing the discovery authorization can break existing consumers that rely on the previous authorization type.</p>
             approval_configuration: <p>The updated approval configuration. The change applies only to records that move to PENDING_APPROVAL after the update; records already in PENDING_APPROVAL are unaffected.</p>
+            custom_metadata_schema_configuration: <p>Updated custom metadata schema configuration for the registry. Omit to leave the existing schema unchanged. Schema evolution is additive only: you can add properties and enum values, but you cannot remove properties, change property types or formats, add or remove enum constraints, or remove record type overrides.</p>
             auto_detection_configuration: <p>The updated auto-detection configuration for the registry, with PATCH semantics. Omit this field to leave the current configuration unchanged. Supply an empty wrapper to unset it. Supply <code>optionalValue</code> to replace it.</p>
 
         Raises:
@@ -591,6 +621,10 @@ class AsyncRegistryResource:
             input_["discovery_configuration"] = discovery_configuration
         if approval_configuration is not None:
             input_["approval_configuration"] = approval_configuration
+        if custom_metadata_schema_configuration is not None:
+            input_["custom_metadata_schema_configuration"] = (
+                custom_metadata_schema_configuration
+            )
         if auto_detection_configuration is not None:
             input_["auto_detection_configuration"] = auto_detection_configuration
 

@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.registry_name
     import capo_agent_registry_control.types.updated_approval_configuration
     import capo_agent_registry_control.types.updated_auto_detection_configuration
+    import capo_agent_registry_control.types.updated_custom_metadata_schema_configuration
     import capo_agent_registry_control.types.updated_description
     import capo_agent_registry_control.types.updated_discovery_configuration
 
@@ -32,6 +33,10 @@ class UpdateRegistryRequest(TypedDict, closed=True):
         "capo_agent_registry_control.types.updated_approval_configuration.UpdatedApprovalConfiguration"
     ]
     """<p>The updated approval configuration. The change applies only to records that move to PENDING_APPROVAL after the update; records already in PENDING_APPROVAL are unaffected.</p>"""
+    custom_metadata_schema_configuration: NotRequired[
+        "capo_agent_registry_control.types.updated_custom_metadata_schema_configuration.UpdatedCustomMetadataSchemaConfiguration"
+    ]
+    """<p>Updated custom metadata schema configuration for the registry. Omit to leave the existing schema unchanged. Schema evolution is additive only: you can add properties and enum values, but you cannot remove properties, change property types or formats, add or remove enum constraints, or remove record type overrides.</p>"""
     auto_detection_configuration: NotRequired[
         "capo_agent_registry_control.types.updated_auto_detection_configuration.UpdatedAutoDetectionConfiguration"
     ]
@@ -65,6 +70,14 @@ def serialize_json(value: UpdateRegistryRequest) -> dict:
         out["approvalConfiguration"] = (
             capo_agent_registry_control.types.updated_approval_configuration.serialize_json(
                 value["approval_configuration"]
+            )
+        )
+    if "custom_metadata_schema_configuration" in value:
+        import capo_agent_registry_control.types.updated_custom_metadata_schema_configuration
+
+        out["customMetadataSchemaConfiguration"] = (
+            capo_agent_registry_control.types.updated_custom_metadata_schema_configuration.serialize_json(
+                value["custom_metadata_schema_configuration"]
             )
         )
     if "auto_detection_configuration" in value:
@@ -104,6 +117,14 @@ def deserialize_json(data: dict) -> UpdateRegistryRequest:
         out["approval_configuration"] = (
             capo_agent_registry_control.types.updated_approval_configuration.deserialize_json(
                 data["approvalConfiguration"]
+            )
+        )
+    if data.get("customMetadataSchemaConfiguration") is not None:
+        import capo_agent_registry_control.types.updated_custom_metadata_schema_configuration
+
+        out["custom_metadata_schema_configuration"] = (
+            capo_agent_registry_control.types.updated_custom_metadata_schema_configuration.deserialize_json(
+                data["customMetadataSchemaConfiguration"]
             )
         )
     if data.get("autoDetectionConfiguration") is not None:

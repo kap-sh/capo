@@ -96,6 +96,7 @@ if TYPE_CHECKING:
     import capo_batch.types.ecs_properties_override
     import capo_batch.types.ecs_settings
     import capo_batch.types.eks_configuration
+    import capo_batch.types.eks_configuration_update
     import capo_batch.types.eks_properties
     import capo_batch.types.eks_properties_override
     import capo_batch.types.fairshare_policy
@@ -346,7 +347,7 @@ class BatchClient:
         jobs: Optional["capo_batch.types.string_list.StringList"] = None,
         reason: Optional["capo_batch.types.string.String"] = None,
     ) -> "capo_batch.types.cancel_jobs_response.CancelJobsResponse":
-        """<p>Cancels up to 50 jobs in an Batch job queue. This is a bulk version of <a>CancelJob</a>. Jobs that are in a <code>SUBMITTED</code>, <code>PENDING</code>, or <code>RUNNABLE</code> state are cancelled and the job status is updated to <code>FAILED</code>.</p> <note> <p>A <code>PENDING</code> job is cancelled after all dependency jobs are completed. Therefore, it might take longer than expected to cancel a job in <code>PENDING</code> status.</p> <p>When you try to cancel an array parent job in <code>PENDING</code>, Batch attempts to cancel all child jobs. The array parent job is cancelled when all child jobs are completed.</p> </note> <p>Jobs that progressed to the <code>STARTING</code> or <code>RUNNING</code> state aren't cancelled. These jobs must be terminated with the <a>TerminateJob</a> or <a>TerminateJobs</a> operation.</p> <p>Batch reports the result for each job individually in the response. Jobs that were processed successfully are reported in the <code>successful</code> list. Jobs that encountered errors are reported in the <code>errors</code> list. The response returns an HTTP status code of <code>200</code> even when some jobs encountered errors, so check the <code>errors</code> list. Jobs that can't be found are treated as successfully processed.</p>
+        """<p>Cancels up to 50 jobs in an Batch job queue. This is a bulk version of <a>CancelJob</a>. Jobs that are in a <code>SUBMITTED</code>, <code>PENDING</code>, or <code>RUNNABLE</code> state are cancelled and the job status is updated to <code>FAILED</code>.</p> <note> <p>A <code>PENDING</code> job is cancelled after all dependency jobs are completed. Therefore, it might take longer than expected to cancel a job in <code>PENDING</code> status.</p> <p>When you try to cancel an array parent job in <code>PENDING</code>, Batch attempts to cancel all child jobs. The array parent job is cancelled when all child jobs are completed.</p> </note> <p>Jobs that progressed to the <code>STARTING</code> or <code>RUNNING</code> state aren't cancelled. These jobs must be terminated with the <a>TerminateJob</a> or <a>TerminateJobs</a> operation.</p> <p>Batch reports the result for each job individually in the response. Jobs that were processed successfully are reported in the <code>successful</code> list. Jobs that encountered errors are reported in the <code>errors</code> list. The response returns an HTTP status code of <code>200</code> even when some jobs encountered errors, so check the <code>errors</code> list. Jobs that can't be found are treated as successfully processed.</p> <important> <p>This operation requires <code>batch:CancelJob</code> permission for each job in the request. There is no separate <code>batch:CancelJobs</code> IAM action. If a caller's IAM policy grants <code>batch:CancelJob</code>, they can use both the singular <a>CancelJob</a> and bulk <code>CancelJobs</code> operations.</p> </important>
 
         Args:
             jobs: <p>An array of up to 50 Batch job IDs of the jobs to cancel.</p>
@@ -422,7 +423,7 @@ class BatchClient:
             compute_resources: <p>Details about the compute resources managed by the compute environment. This parameter is required for managed compute environments. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in the <i>Batch User Guide</i>.</p>
             service_role: <p>The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services services on your behalf. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the <i>Batch User Guide</i>.</p> <important> <p>If your account already created the Batch service-linked role, that role is used by default for your compute environment unless you specify a different role here. If the Batch service-linked role doesn't exist in your account, and no role is specified here, the service attempts to create the Batch service-linked role in your account.</p> <p>This automatic service-linked role creation only applies to <code>MANAGED</code> compute environments. For <code>UNMANAGED</code> compute environments, you must explicitly specify a <code>serviceRole</code>.</p> </important> <p>If your specified role has a path other than <code>/</code>, then you must specify either the full role ARN (recommended) or prefix the role name with the path. For example, if a role with the name <code>bar</code> has a path of <code>/foo/</code>, specify <code>/foo/bar</code> as the role name. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names">Friendly names and paths</a> in the <i>IAM User Guide</i>.</p> <note> <p>Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your service role when you create compute environments.</p> </note>
             tags: <p>The tags that you apply to the compute environment to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a> in <i>Amazon Web Services General Reference</i>.</p> <p>These tags can be updated or removed using the <a href="https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html">TagResource</a> and <a href="https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html">UntagResource</a> API operations. These tags don't propagate to the underlying compute resources.</p>
-            eks_configuration: <p>The details for the Amazon EKS cluster that supports the compute environment.</p> <note> <p>To create a compute environment that uses EKS resources, the caller must have permissions to call <code>eks:DescribeCluster</code>.</p> </note>
+            eks_configuration: <p>The details for the Amazon EKS cluster that supports the compute environment.</p> <note> <p>To create a compute environment that uses EKS resources, the caller must have permissions to call <code>eks:DescribeCluster</code>. Additional Amazon EKS permissions are required for Batch to manage an access entry on the cluster; see <a href="https://docs.aws.amazon.com/batch/latest/userguide/eks-access-entries.html">Amazon EKS access entry authentication</a> in the <i>Batch User Guide</i>.</p> </note>
             context: <p>Reserved.</p>
             ecs_settings: <p>The Amazon ECS settings for the compute environment. These settings control CloudWatch Container Insights collection for the compute environment.</p>
 
@@ -2867,7 +2868,7 @@ class BatchClient:
         jobs: Optional["capo_batch.types.string_list.StringList"] = None,
         reason: Optional["capo_batch.types.string.String"] = None,
     ) -> "capo_batch.types.terminate_jobs_response.TerminateJobsResponse":
-        """<p>Terminates up to 50 jobs in a job queue. This is a bulk version of <a>TerminateJob</a>. Jobs that are in the <code>STARTING</code> or <code>RUNNING</code> state are terminated, which causes them to transition to <code>FAILED</code>. Jobs that have not progressed to the <code>STARTING</code> state are cancelled.</p> <p>Batch reports the result for each job individually in the response. Jobs that were processed successfully are reported in the <code>successful</code> list. Jobs that encountered errors are reported in the <code>errors</code> list. The response returns an HTTP status code of <code>200</code> even when some jobs encountered errors, so check the <code>errors</code> list. Jobs that can't be found are treated as successfully processed.</p>
+        """<p>Terminates up to 50 jobs in a job queue. This is a bulk version of <a>TerminateJob</a>. Jobs that are in the <code>STARTING</code> or <code>RUNNING</code> state are terminated, which causes them to transition to <code>FAILED</code>. Jobs that have not progressed to the <code>STARTING</code> state are cancelled.</p> <p>Batch reports the result for each job individually in the response. Jobs that were processed successfully are reported in the <code>successful</code> list. Jobs that encountered errors are reported in the <code>errors</code> list. The response returns an HTTP status code of <code>200</code> even when some jobs encountered errors, so check the <code>errors</code> list. Jobs that can't be found are treated as successfully processed.</p> <important> <p>This operation requires <code>batch:TerminateJob</code> permission for each job in the request. There is no separate <code>batch:TerminateJobs</code> IAM action. If a caller's IAM policy grants <code>batch:TerminateJob</code>, they can use both the singular <a>TerminateJob</a> and bulk <code>TerminateJobs</code> operations.</p> </important>
 
         Args:
             jobs: <p>An array of up to 50 Batch job IDs of the jobs to terminate.</p>
@@ -2971,7 +2972,7 @@ class BatchClient:
     ) -> (
         "capo_batch.types.terminate_service_jobs_response.TerminateServiceJobsResponse"
     ):
-        """<p>Terminates up to 50 service jobs in a job queue. This is a bulk version of <a>TerminateServiceJob</a>.</p> <p>Batch reports the result for each service job individually in the response. Service jobs that were processed successfully are reported in the <code>successful</code> list. Service jobs that encountered errors are reported in the <code>errors</code> list. The response returns an HTTP status code of <code>200</code> even when some service jobs encountered errors, so check the <code>errors</code> list. Service jobs that can't be found are treated as successfully processed.</p>
+        """<p>Terminates up to 50 service jobs in a job queue. This is a bulk version of <a>TerminateServiceJob</a>.</p> <p>Batch reports the result for each service job individually in the response. Service jobs that were processed successfully are reported in the <code>successful</code> list. Service jobs that encountered errors are reported in the <code>errors</code> list. The response returns an HTTP status code of <code>200</code> even when some service jobs encountered errors, so check the <code>errors</code> list. Service jobs that can't be found are treated as successfully processed.</p> <important> <p>This operation requires <code>batch:TerminateServiceJob</code> permission for each service job in the request. There is no separate <code>batch:TerminateServiceJobs</code> IAM action. If a caller's IAM policy grants <code>batch:TerminateServiceJob</code>, they can use both the singular <code>TerminateServiceJob</code> and bulk <code>TerminateServiceJobs</code> operations.</p> </important>
 
         Args:
             jobs: <p>An array of up to 50 service job IDs of the service jobs to terminate.</p>
@@ -3086,6 +3087,9 @@ class BatchClient:
         update_policy: Optional["capo_batch.types.update_policy.UpdatePolicy"] = None,
         context: Optional["capo_batch.types.string.String"] = None,
         ecs_settings: Optional["capo_batch.types.ecs_settings.EcsSettings"] = None,
+        eks_configuration: Optional[
+            "capo_batch.types.eks_configuration_update.EksConfigurationUpdate"
+        ] = None,
     ) -> "capo_batch.types.update_compute_environment_response.UpdateComputeEnvironmentResponse":
         """<p>Updates an Batch compute environment.</p>
 
@@ -3098,6 +3102,7 @@ class BatchClient:
             update_policy: <p>Specifies the updated infrastructure update policy for the compute environment. For more information about infrastructure updates, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute environments</a> in the <i>Batch User Guide</i>.</p>
             context: <p>Reserved.</p>
             ecs_settings: <p>The Amazon ECS settings for the compute environment. These settings control CloudWatch Container Insights collection for the compute environment.</p>
+            eks_configuration: <p>Updates the Amazon EKS configuration for the compute environment. Only specify this parameter if the compute environment's <code>containerOrchestrationType</code> is <code>EKS</code>. Currently, the <code>accessEntry</code> setting is the only Amazon EKS configuration that you can change after the compute environment is created. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/eks-access-entries.html">Amazon EKS access entry authentication</a> in the <i>Batch User Guide</i>.</p>
 
         Raises:
             capo_batch.errors.client_exception.ClientException: <p>These errors are usually caused by a client action. One example cause is using an action or resource on behalf of a user that doesn't have permissions to use the action or resource. Another cause is specifying an identifier that's not valid.</p>
@@ -3143,6 +3148,8 @@ class BatchClient:
             input_["context"] = context
         if ecs_settings is not None:
             input_["ecs_settings"] = ecs_settings
+        if eks_configuration is not None:
+            input_["eks_configuration"] = eks_configuration
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

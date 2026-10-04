@@ -62,6 +62,7 @@ if TYPE_CHECKING:
     import capo_elasticache.types.cluster_mode
     import capo_elasticache.types.complete_migration_message
     import capo_elasticache.types.complete_migration_response
+    import capo_elasticache.types.connection_type
     import capo_elasticache.types.copy_serverless_cache_snapshot_request
     import capo_elasticache.types.copy_serverless_cache_snapshot_response
     import capo_elasticache.types.copy_snapshot_message
@@ -1592,6 +1593,9 @@ class AsyncElastiCacheClient:
         network_type: Optional[
             "capo_elasticache.types.network_type.NetworkType"
         ] = None,
+        connection_type: Optional[
+            "capo_elasticache.types.connection_type.ConnectionType"
+        ] = None,
     ) -> "capo_elasticache.types.create_serverless_cache_response.CreateServerlessCacheResponse":
         """<p>Creates a serverless cache.</p>
 
@@ -1610,6 +1614,7 @@ class AsyncElastiCacheClient:
             snapshot_retention_limit: <p>The number of days for which ElastiCache retains automatic snapshots before deleting them. Available for Valkey, Redis OSS and Serverless Memcached only. The maximum value allowed is 35 days.</p>
             daily_snapshot_time: <p>The daily time that snapshots will be created from the new serverless cache. By default this number is populated with 0, i.e. no snapshots will be created on an automatic daily basis. Available for Valkey, Redis OSS and Serverless Memcached only.</p>
             network_type: <p>The IP protocol version used by the serverless cache. Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. <code>ipv6</code> is only supported with IPv6-only subnets. If not specified, defaults to <code>ipv4</code>, unless all provided subnets are IPv6-only, in which case it defaults to <code>ipv6</code>. </p>
+            connection_type: <p>The connection type for the serverless cache. Must be either <code>vpc</code> | <code>public</code>. Use <code>vpc</code> to access the cache through a VPC endpoint, or <code>public</code> to access the cache over the internet. If not specified, defaults to <code>vpc</code>. This value cannot be changed after the serverless cache is created. Setting this to <code>public</code> requires Valkey 9 or above.</p>
 
         Raises:
             capo_elasticache.errors.invalid_credentials_exception.InvalidCredentialsException: <p>You must enter valid credentials.</p>
@@ -1671,6 +1676,8 @@ class AsyncElastiCacheClient:
             input_["daily_snapshot_time"] = daily_snapshot_time
         if network_type is not None:
             input_["network_type"] = network_type
+        if connection_type is not None:
+            input_["connection_type"] = connection_type
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

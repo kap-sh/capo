@@ -29,7 +29,7 @@ class VpcEndpoint(TypedDict, closed=True):
     vpc_endpoint_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the endpoint.</p>"""
     vpc_endpoint_type: NotRequired["capo_ec2.types.vpc_endpoint_type.VpcEndpointType"]
-    """<p>The type of endpoint.</p>"""
+    """<p>The type of endpoint.</p> <p>For more information about the types of VPC endpoints, see <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html#concepts-vpc-endpoints">VPC endpoints</a> in the <i>Amazon Web Services PrivateLink User Guide</i>.</p>"""
     vpc_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the VPC to which the endpoint is associated.</p>"""
     service_name: NotRequired["capo_ec2.types.string.String"]
@@ -41,9 +41,9 @@ class VpcEndpoint(TypedDict, closed=True):
     route_table_ids: NotRequired["capo_ec2.types.value_string_list.ValueStringList"]
     """<p>(Gateway endpoint) The IDs of the route tables associated with the endpoint.</p>"""
     subnet_ids: NotRequired["capo_ec2.types.value_string_list.ValueStringList"]
-    """<p>(Interface endpoint) The subnets for the endpoint.</p>"""
+    """<p>(Interface, Gateway Load Balancer endpoints, Resource, ServiceNetwork, and Tunnel endpoints only) The subnets for the endpoint.</p>"""
     groups: NotRequired["capo_ec2.types.group_identifier_set.GroupIdentifierSet"]
-    """<p>(Interface endpoint) Information about the security groups that are associated with the network interface.</p>"""
+    """<p>(Interface, Resource, ServiceNetwork, and Tunnel endpoints only) Information about the security groups that are associated with the network interface.</p>"""
     ip_address_type: NotRequired["capo_ec2.types.ip_address_type.IpAddressType"]
     """<p>The IP address type for the endpoint.</p>"""
     dns_options: NotRequired["capo_ec2.types.dns_options.DnsOptions"]
@@ -55,7 +55,7 @@ class VpcEndpoint(TypedDict, closed=True):
     network_interface_ids: NotRequired[
         "capo_ec2.types.value_string_list.ValueStringList"
     ]
-    """<p>(Interface endpoint) The network interfaces for the endpoint.</p>"""
+    """<p>(Interface, Gateway Load Balancer endpoints, Resource, ServiceNetwork, and Tunnel endpoints only) The network interfaces for the endpoint.</p>"""
     dns_entries: NotRequired["capo_ec2.types.dns_entry_set.DnsEntrySet"]
     """<p>(Interface endpoint) The DNS entries for the endpoint.</p>"""
     creation_timestamp: NotRequired[

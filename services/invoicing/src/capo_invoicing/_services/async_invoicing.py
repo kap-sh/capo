@@ -76,6 +76,7 @@ if TYPE_CHECKING:
     import capo_invoicing.types.list_procurement_portals_response
     import capo_invoicing.types.list_tags_for_resource_request
     import capo_invoicing.types.list_tags_for_resource_response
+    import capo_invoicing.types.marketplace_punch_out_preference
     import capo_invoicing.types.max_results
     import capo_invoicing.types.max_results_integer
     import capo_invoicing.types.next_token_string
@@ -360,6 +361,10 @@ class AsyncInvoicingClient:
         einvoice_delivery_preference: Optional[
             "capo_invoicing.types.einvoice_delivery_preference.EinvoiceDeliveryPreference"
         ] = None,
+        marketplace_punch_out_enabled: Optional[bool] = None,
+        marketplace_punch_out_preference: Optional[
+            "capo_invoicing.types.marketplace_punch_out_preference.MarketplacePunchOutPreference"
+        ] = None,
         resource_tags: Optional[
             "capo_invoicing.types.resource_tag_list.ResourceTagList"
         ] = None,
@@ -381,6 +386,8 @@ class AsyncInvoicingClient:
             einvoice_delivery_enabled: <p>Indicates whether e-invoice delivery is enabled for this procurement portal preference. Set to true to enable e-invoice delivery, false to disable.</p>
             einvoice_delivery_preference: <p>Specifies the e-invoice delivery configuration including document types, attachment types, and customization settings for the portal.</p>
             purchase_order_retrieval_enabled: <p>Indicates whether purchase order retrieval is enabled for this procurement portal preference. Set to true to enable PO retrieval, false to disable.</p>
+            marketplace_punch_out_enabled: Defaults to false if not provided.
+            marketplace_punch_out_preference: Required for Coupa when MarketplacePunchOutEnabled is true.
             contacts: <p>List of contact information for portal administrators and technical contacts responsible for the e-invoice integration.</p>
             resource_tags: <p>The tags to apply to this procurement portal preference resource. Each tag consists of a key and an optional value.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure idempotency of the request.</p>
@@ -397,7 +404,7 @@ class AsyncInvoicingClient:
         Examples:
             CreateProcurementPortalPreference for Coupa
 
-            >>> await client.create_procurement_portal_preference(procurement_portal_name='COUPA', buyer_domain='NetworkID', buyer_identifier='BuyerId_1', supplier_domain='NetworkID', supplier_identifier='SupplierId_1', selector={'InvoiceUnitArns': ['arn:aws:invoicing::111111111111:invoice-unit/12345678', 'arn:aws:invoicing::111111111111:invoice-unit/12345679'], 'SellerOfRecords': ['AWS_INC', 'AWS_EUROPE']}, procurement_portal_shared_secret='Coupa_Secret', procurement_portal_instance_endpoint='https://www.placeholder-domain.test', test_env_preference={'BuyerDomain': 'NetworkID', 'BuyerIdentifier': 'BuyerId_1_Test', 'SupplierDomain': 'NetworkID', 'SupplierIdentifier': 'SupplierId_1_Test', 'ProcurementPortalSharedSecret': 'Coupa_Secret_test', 'ProcurementPortalInstanceEndpoint': 'https://www.placeholder-domain.test'}, einvoice_delivery_enabled=True, einvoice_delivery_preference={'EinvoiceDeliveryDocumentTypes': ['AWS_CLOUD_INVOICE'], 'EinvoiceDeliveryAttachmentTypes': ['INVOICE_PDF'], 'Protocol': 'CXML', 'PurchaseOrderDataSources': [{'EinvoiceDeliveryDocumentType': 'AWS_CLOUD_INVOICE', 'PurchaseOrderDataSourceType': 'ASSOCIATED_PURCHASE_ORDER_REQUIRED'}], 'ConnectionTestingMethod': 'PROD_ENV_DOLLAR_TEST', 'EinvoiceDeliveryActivationDate': 1750279280.091}, purchase_order_retrieval_enabled=True, contacts=[{'Name': 'John Doe', 'Email': 'example-placeholder@amazon.com'}], resource_tags=[{'Key': 'testKey', 'Value': 'testValue'}], client_token='e362c68e-4e74-48d7-9228-0bc5aa447b42')
+            >>> await client.create_procurement_portal_preference(procurement_portal_name='COUPA', buyer_domain='NetworkID', buyer_identifier='BuyerId_1', supplier_domain='NetworkID', supplier_identifier='SupplierId_1', selector={'InvoiceUnitArns': ['arn:aws:invoicing::111111111111:invoice-unit/12345678', 'arn:aws:invoicing::111111111111:invoice-unit/12345679'], 'SellerOfRecords': ['AWS_INC', 'AWS_EUROPE']}, procurement_portal_shared_secret='Coupa_Secret', procurement_portal_instance_endpoint='https://www.placeholder-domain.test', test_env_preference={'BuyerDomain': 'NetworkID', 'BuyerIdentifier': 'BuyerId_1_Test', 'SupplierDomain': 'NetworkID', 'SupplierIdentifier': 'SupplierId_1_Test', 'ProcurementPortalSharedSecret': 'Coupa_Secret_test', 'ProcurementPortalInstanceEndpoint': 'https://www.placeholder-domain.test'}, einvoice_delivery_enabled=True, einvoice_delivery_preference={'EinvoiceDeliveryDocumentTypes': ['AWS_CLOUD_INVOICE'], 'EinvoiceDeliveryAttachmentTypes': ['INVOICE_PDF'], 'Protocol': 'CXML', 'PurchaseOrderDataSources': [{'EinvoiceDeliveryDocumentType': 'AWS_CLOUD_INVOICE', 'PurchaseOrderDataSourceType': 'ASSOCIATED_PURCHASE_ORDER_REQUIRED'}], 'ConnectionTestingMethod': 'PROD_ENV_DOLLAR_TEST', 'EinvoiceDeliveryActivationDate': 1750279280.091}, purchase_order_retrieval_enabled=True, marketplace_punch_out_enabled=True, marketplace_punch_out_preference={'ApprovalRequestRedirectUrl': 'https://www.placeholder-domain.test/approvals'}, contacts=[{'Name': 'John Doe', 'Email': 'example-placeholder@amazon.com'}], resource_tags=[{'Key': 'testKey', 'Value': 'testValue'}], client_token='e362c68e-4e74-48d7-9228-0bc5aa447b42')
         """
 
         async def _handler(
@@ -440,6 +447,12 @@ class AsyncInvoicingClient:
             input_["test_env_preference"] = test_env_preference
         if einvoice_delivery_preference is not None:
             input_["einvoice_delivery_preference"] = einvoice_delivery_preference
+        if marketplace_punch_out_enabled is not None:
+            input_["marketplace_punch_out_enabled"] = marketplace_punch_out_enabled
+        if marketplace_punch_out_preference is not None:
+            input_["marketplace_punch_out_preference"] = (
+                marketplace_punch_out_preference
+            )
         if resource_tags is not None:
             input_["resource_tags"] = resource_tags
         if client_token is None:
@@ -531,6 +544,7 @@ class AsyncInvoicingClient:
 
         Raises:
             capo_invoicing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_invoicing.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. This exception occurs when a concurrent modification is detected during an update operation, or when attempting to create a resource that already exists.</p>
             capo_invoicing.errors.internal_server_exception.InternalServerException: <p>The processing request failed because of an unknown error, exception, or failure. </p>
             capo_invoicing.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found. </p>
             capo_invoicing.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request was rejected because it attempted to create resources beyond the current Amazon Web Services account limits. The error message describes the limit exceeded. </p>
@@ -1300,6 +1314,10 @@ class AsyncInvoicingClient:
         einvoice_delivery_preference: Optional[
             "capo_invoicing.types.einvoice_delivery_preference.EinvoiceDeliveryPreference"
         ] = None,
+        marketplace_punch_out_enabled: Optional[bool] = None,
+        marketplace_punch_out_preference: Optional[
+            "capo_invoicing.types.marketplace_punch_out_preference.MarketplacePunchOutPreference"
+        ] = None,
         client_token: Optional[
             "capo_invoicing.types.basic_string_without_space.BasicStringWithoutSpace"
         ] = None,
@@ -1314,6 +1332,8 @@ class AsyncInvoicingClient:
             einvoice_delivery_enabled: <p>Updated flag indicating whether e-invoice delivery is enabled for this procurement portal preference.</p>
             einvoice_delivery_preference: <p>Updated e-invoice delivery configuration including document types, attachment types, and customization settings for the portal.</p>
             purchase_order_retrieval_enabled: <p>Updated flag indicating whether purchase order retrieval is enabled for this procurement portal preference.</p>
+            marketplace_punch_out_enabled: Whether Marketplace PunchOut is enabled for this connection. Defaults to false if not provided.
+            marketplace_punch_out_preference: Configuration for Marketplace PunchOut. Required when MarketplacePunchOutEnabled is true.
             contacts: <p>Updated list of contact information for portal administrators and technical contacts.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure idempotency of the request.</p>
 
@@ -1330,7 +1350,7 @@ class AsyncInvoicingClient:
         Examples:
             PutProcurementPortalPreference for Coupa pref
 
-            >>> await client.put_procurement_portal_preference(procurement_portal_preference_arn='arn:aws:invoicing::111111111111:procurement-portal-preference/f71dd02e-f855-4b13-b793-0fd25c0b3ecd', procurement_portal_shared_secret='Coupa_Secret_2', procurement_portal_instance_endpoint='https://www.placeholder-domain.test', selector={'InvoiceUnitArns': ['arn:aws:invoicing::111111111111:invoice-unit/12345679'], 'SellerOfRecords': ['AWS_INC']}, test_env_preference={'BuyerDomain': 'NetworkID', 'BuyerIdentifier': 'BuyerId_1_Test', 'SupplierDomain': 'NetworkID', 'SupplierIdentifier': 'SupplierId_1_Test', 'ProcurementPortalSharedSecret': 'Coupa_Secret_test_2', 'ProcurementPortalInstanceEndpoint': 'https://www.placeholder-domain.test'}, einvoice_delivery_enabled=True, einvoice_delivery_preference={'EinvoiceDeliveryDocumentTypes': ['AWS_CLOUD_INVOICE'], 'EinvoiceDeliveryAttachmentTypes': ['INVOICE_PDF'], 'Protocol': 'CXML', 'PurchaseOrderDataSources': [{'EinvoiceDeliveryDocumentType': 'AWS_CLOUD_INVOICE', 'PurchaseOrderDataSourceType': 'ASSOCIATED_PURCHASE_ORDER_REQUIRED'}], 'ConnectionTestingMethod': 'PROD_ENV_DOLLAR_TEST', 'EinvoiceDeliveryActivationDate': 1750279280.091}, purchase_order_retrieval_enabled=True, contacts=[{'Name': 'John Doe2', 'Email': 'example-placeholder2@amazon.com'}], client_token='e362c68e-4e74-48d7-9228-0bc5aa447b45')
+            >>> await client.put_procurement_portal_preference(procurement_portal_preference_arn='arn:aws:invoicing::111111111111:procurement-portal-preference/f71dd02e-f855-4b13-b793-0fd25c0b3ecd', procurement_portal_shared_secret='Coupa_Secret_2', procurement_portal_instance_endpoint='https://www.placeholder-domain.test', selector={'InvoiceUnitArns': ['arn:aws:invoicing::111111111111:invoice-unit/12345679'], 'SellerOfRecords': ['AWS_INC']}, test_env_preference={'BuyerDomain': 'NetworkID', 'BuyerIdentifier': 'BuyerId_1_Test', 'SupplierDomain': 'NetworkID', 'SupplierIdentifier': 'SupplierId_1_Test', 'ProcurementPortalSharedSecret': 'Coupa_Secret_test_2', 'ProcurementPortalInstanceEndpoint': 'https://www.placeholder-domain.test'}, einvoice_delivery_enabled=True, einvoice_delivery_preference={'EinvoiceDeliveryDocumentTypes': ['AWS_CLOUD_INVOICE'], 'EinvoiceDeliveryAttachmentTypes': ['INVOICE_PDF'], 'Protocol': 'CXML', 'PurchaseOrderDataSources': [{'EinvoiceDeliveryDocumentType': 'AWS_CLOUD_INVOICE', 'PurchaseOrderDataSourceType': 'ASSOCIATED_PURCHASE_ORDER_REQUIRED'}], 'ConnectionTestingMethod': 'PROD_ENV_DOLLAR_TEST', 'EinvoiceDeliveryActivationDate': 1750279280.091}, purchase_order_retrieval_enabled=True, marketplace_punch_out_enabled=True, contacts=[{'Name': 'John Doe2', 'Email': 'example-placeholder2@amazon.com'}], client_token='e362c68e-4e74-48d7-9228-0bc5aa447b45')
         """
 
         async def _handler(
@@ -1369,6 +1389,12 @@ class AsyncInvoicingClient:
             input_["test_env_preference"] = test_env_preference
         if einvoice_delivery_preference is not None:
             input_["einvoice_delivery_preference"] = einvoice_delivery_preference
+        if marketplace_punch_out_enabled is not None:
+            input_["marketplace_punch_out_enabled"] = marketplace_punch_out_enabled
+        if marketplace_punch_out_preference is not None:
+            input_["marketplace_punch_out_preference"] = (
+                marketplace_punch_out_preference
+            )
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token

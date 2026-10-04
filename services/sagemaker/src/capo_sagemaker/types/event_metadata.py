@@ -8,9 +8,11 @@ from capo_sagemaker.errors import DeserializationError, SerializationError
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_metadata
+    import capo_sagemaker.types.database_configuration_metadata
     import capo_sagemaker.types.instance_group_metadata
     import capo_sagemaker.types.instance_group_scaling_metadata
     import capo_sagemaker.types.instance_metadata
+    import capo_sagemaker.types.slurm_health_metadata
 
 
 class _EventMetadata_Cluster(TypedDict, closed=True):
@@ -29,11 +31,21 @@ class _EventMetadata_Instance(TypedDict, closed=True):
     Instance: "capo_sagemaker.types.instance_metadata.InstanceMetadata"
 
 
+class _EventMetadata_DatabaseConfiguration(TypedDict, closed=True):
+    DatabaseConfiguration: "capo_sagemaker.types.database_configuration_metadata.DatabaseConfigurationMetadata"
+
+
+class _EventMetadata_SlurmHealth(TypedDict, closed=True):
+    SlurmHealth: "capo_sagemaker.types.slurm_health_metadata.SlurmHealthMetadata"
+
+
 EventMetadata: TypeAlias = (
     _EventMetadata_Cluster
     | _EventMetadata_InstanceGroup
     | _EventMetadata_InstanceGroupScaling
     | _EventMetadata_Instance
+    | _EventMetadata_DatabaseConfiguration
+    | _EventMetadata_SlurmHealth
 )
 
 
@@ -71,6 +83,22 @@ def serialize_aws_json_1_1(value: EventMetadata) -> dict:
                 value["Instance"]
             )
         }
+    elif "DatabaseConfiguration" in value:
+        import capo_sagemaker.types.database_configuration_metadata
+
+        return {
+            "DatabaseConfiguration": capo_sagemaker.types.database_configuration_metadata.serialize_aws_json_1_1(
+                value["DatabaseConfiguration"]
+            )
+        }
+    elif "SlurmHealth" in value:
+        import capo_sagemaker.types.slurm_health_metadata
+
+        return {
+            "SlurmHealth": capo_sagemaker.types.slurm_health_metadata.serialize_aws_json_1_1(
+                value["SlurmHealth"]
+            )
+        }
     else:
         raise SerializationError("EventMetadata: no variant present")
 
@@ -106,6 +134,22 @@ def deserialize_aws_json_1_1(data: dict) -> EventMetadata:
         return {
             "Instance": capo_sagemaker.types.instance_metadata.deserialize_aws_json_1_1(
                 data["Instance"]
+            )
+        }
+    elif data.get("DatabaseConfiguration") is not None:
+        import capo_sagemaker.types.database_configuration_metadata
+
+        return {
+            "DatabaseConfiguration": capo_sagemaker.types.database_configuration_metadata.deserialize_aws_json_1_1(
+                data["DatabaseConfiguration"]
+            )
+        }
+    elif data.get("SlurmHealth") is not None:
+        import capo_sagemaker.types.slurm_health_metadata
+
+        return {
+            "SlurmHealth": capo_sagemaker.types.slurm_health_metadata.deserialize_aws_json_1_1(
+                data["SlurmHealth"]
             )
         }
     else:

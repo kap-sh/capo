@@ -30,6 +30,8 @@ class DeliveryDestination(TypedDict, closed=True):
         "capo_cloudwatch_logs.types.delivery_destination_configuration.DeliveryDestinationConfiguration"
     ]
     """<p>A structure that contains the ARN of the Amazon Web Services resource that will receive the logs.</p>"""
+    role_arn: NotRequired["capo_cloudwatch_logs.types.arn.Arn"]
+    """<p>The ARN of the IAM role that CloudWatch Logs assumes to deliver to this delivery destination. This field is present only for X-Ray trace delivery destinations that were created with a role.</p>"""
     tags: NotRequired["capo_cloudwatch_logs.types.tags.Tags"]
     """<p>The tags that have been assigned to this delivery destination.</p>"""
 
@@ -65,6 +67,8 @@ def serialize_aws_json_1_1(value: DeliveryDestination) -> dict:
                 value["delivery_destination_configuration"]
             )
         )
+    if "role_arn" in value:
+        out["roleArn"] = value["role_arn"]
     if "tags" in value:
         import capo_cloudwatch_logs.types.tags
 
@@ -104,6 +108,8 @@ def deserialize_aws_json_1_1(data: dict) -> DeliveryDestination:
                 data["deliveryDestinationConfiguration"]
             )
         )
+    if data.get("roleArn") is not None:
+        out["role_arn"] = data["roleArn"]
     if data.get("tags") is not None:
         import capo_cloudwatch_logs.types.tags
 

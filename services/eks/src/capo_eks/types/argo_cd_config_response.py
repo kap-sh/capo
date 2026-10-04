@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_eks.types.argo_cd_aws_idc_config_response
+    import capo_eks.types.argo_cd_endpoint_prefix
     import capo_eks.types.argo_cd_network_access_config_response
     import capo_eks.types.argo_cd_role_mapping_list
     import capo_eks.types.string
@@ -28,6 +29,10 @@ class ArgoCdConfigResponse(TypedDict, closed=True):
     """<p>The network access configuration for the Argo CD capability's managed API server endpoint. If VPC endpoint IDs are specified, public access is blocked and the Argo CD server is only accessible through the specified VPC endpoints.</p>"""
     server_url: NotRequired["capo_eks.types.string.String"]
     """<p>The URL of the Argo CD server. Use this URL to access the Argo CD web interface and API.</p>"""
+    endpoint_prefix: NotRequired[
+        "capo_eks.types.argo_cd_endpoint_prefix.ArgoCdEndpointPrefix"
+    ]
+    """<p>The prefix that was configured for the hostname of the Argo CD server endpoint when the capability was created.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -59,6 +64,8 @@ def serialize_json(value: ArgoCdConfigResponse) -> dict:
         )
     if "server_url" in value:
         out["serverUrl"] = value["server_url"]
+    if "endpoint_prefix" in value:
+        out["endpointPrefix"] = value["endpoint_prefix"]
     return out
 
 
@@ -92,4 +99,6 @@ def deserialize_json(data: dict) -> ArgoCdConfigResponse:
         )
     if data.get("serverUrl") is not None:
         out["server_url"] = data["serverUrl"]
+    if data.get("endpointPrefix") is not None:
+        out["endpoint_prefix"] = data["endpointPrefix"]
     return out

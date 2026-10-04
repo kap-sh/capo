@@ -2,7 +2,6 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""The server protocol used by an AgentCore Runtime."""
 AgentCoreRuntimeServerProtocol: TypeAlias = Literal[
     "HTTP",
     "A2A",

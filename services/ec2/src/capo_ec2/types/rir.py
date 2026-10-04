@@ -10,6 +10,7 @@ Rir: TypeAlias = Literal[
     "apnic",
     "arin",
     "lacnic",
+    "nicbr",
 ]
 
 

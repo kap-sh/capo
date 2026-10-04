@@ -12,6 +12,7 @@ import capo_invoicing._auth._signers
 import capo_invoicing._auth._sigv4
 import capo_invoicing._protocol.eventstream
 import capo_invoicing.errors.access_denied_exception
+import capo_invoicing.errors.conflict_exception
 import capo_invoicing.errors.internal_server_exception
 import capo_invoicing.errors.resource_not_found_exception
 import capo_invoicing.errors.service_quota_exceeded_exception
@@ -35,6 +36,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_invoicing.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_0(
+                data, message
+            )
+        case "ConflictException":
+            raise capo_invoicing.errors.conflict_exception.ConflictException.from_aws_json_1_0(
                 data, message
             )
         case "InternalServerException":

@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_deadline.types.custom_fleet_amount_capabilities
     import capo_deadline.types.custom_fleet_attribute_capabilities
     import capo_deadline.types.ec2_ebs_volume
+    import capo_deadline.types.fleet_software_add_ons
     import capo_deadline.types.instance_types
     import capo_deadline.types.memory_mi_b_range
     import capo_deadline.types.service_managed_fleet_operating_system_family
@@ -51,6 +52,10 @@ class ServiceManagedEc2InstanceCapabilities(TypedDict, closed=True):
         "capo_deadline.types.custom_fleet_attribute_capabilities.CustomFleetAttributeCapabilities"
     ]
     """<p>The custom capability attributes to require for instances in this fleet.</p>"""
+    software_add_ons: NotRequired[
+        "capo_deadline.types.fleet_software_add_ons.FleetSoftwareAddOns"
+    ]
+    """<p>The software add-ons that the service installs on worker hosts when they launch.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -122,6 +127,14 @@ def serialize_json(value: ServiceManagedEc2InstanceCapabilities) -> dict:
         out["customAttributes"] = (
             capo_deadline.types.custom_fleet_attribute_capabilities.serialize_json(
                 value["custom_attributes"]
+            )
+        )
+    if "software_add_ons" in value:
+        import capo_deadline.types.fleet_software_add_ons
+
+        out["softwareAddOns"] = (
+            capo_deadline.types.fleet_software_add_ons.serialize_json(
+                value["software_add_ons"]
             )
         )
     return out
@@ -217,6 +230,14 @@ def deserialize_json(data: dict) -> ServiceManagedEc2InstanceCapabilities:
         out["custom_attributes"] = (
             capo_deadline.types.custom_fleet_attribute_capabilities.deserialize_json(
                 data["customAttributes"]
+            )
+        )
+    if data.get("softwareAddOns") is not None:
+        import capo_deadline.types.fleet_software_add_ons
+
+        out["software_add_ons"] = (
+            capo_deadline.types.fleet_software_add_ons.deserialize_json(
+                data["softwareAddOns"]
             )
         )
     return out

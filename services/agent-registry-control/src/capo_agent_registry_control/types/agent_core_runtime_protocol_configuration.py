@@ -12,6 +12,7 @@ class AgentCoreRuntimeProtocolConfiguration(TypedDict, closed=True):
     server_protocol: NotRequired[
         "capo_agent_registry_control.types.agent_core_runtime_server_protocol.AgentCoreRuntimeServerProtocol"
     ]
+    """<p>The server protocol used by the AgentCore Runtime, such as <code>MCP</code>, <code>HTTP</code>, <code>A2A</code>, or <code>AGUI</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

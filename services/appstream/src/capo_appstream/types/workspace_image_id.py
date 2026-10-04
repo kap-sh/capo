@@ -2,4 +2,5 @@
 
 from typing import TypeAlias
 
+"""<p>WorkspaceImageId type with validation pattern</p>"""
 WorkspaceImageId: TypeAlias = str

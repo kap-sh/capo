@@ -6,6 +6,7 @@ OAuth2GrantType: TypeAlias = Literal[
     "AUTHORIZATION_CODE",
     "CLIENT_CREDENTIALS",
     "JWT_BEARER",
+    "REFRESH_TOKEN",
 ]
 
 

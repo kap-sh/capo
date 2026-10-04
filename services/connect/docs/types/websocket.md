@@ -1,0 +1,8 @@
+---
+title: Websocket
+---
+
+::: capo_connect.types.websocket.Websocket
+    options:
+      show_source: true
+      merge_init_into_class: false

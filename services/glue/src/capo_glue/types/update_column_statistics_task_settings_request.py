@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_glue.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_glue.types.catalog_id_string
     import capo_glue.types.column_name_list
     import capo_glue.types.cron_expression
     import capo_glue.types.name_string
@@ -26,7 +27,7 @@ class UpdateColumnStatisticsTaskSettingsRequest(TypedDict, closed=True):
     """<p>A list of column names for which to run statistics.</p>"""
     sample_size: "capo_glue.types.sample_size_percentage.SampleSizePercentage"
     """<p>The percentage of data to sample.</p>"""
-    catalog_id: NotRequired["capo_glue.types.name_string.NameString"]
+    catalog_id: NotRequired["capo_glue.types.catalog_id_string.CatalogIdString"]
     """<p>The ID of the Data Catalog in which the database resides.</p>"""
     security_configuration: NotRequired["capo_glue.types.name_string.NameString"]
     """<p>Name of the security configuration that is used to encrypt CloudWatch logs.</p>"""

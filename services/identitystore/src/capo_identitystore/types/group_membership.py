@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_identitystore.types.date_type
     import capo_identitystore.types.identity_store_id
     import capo_identitystore.types.member_id
+    import capo_identitystore.types.resource_arn
     import capo_identitystore.types.resource_id
     import capo_identitystore.types.string_type
 
@@ -17,8 +18,10 @@ if TYPE_CHECKING:
 class GroupMembership(TypedDict, closed=True):
     identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId"
     """<p>The globally unique identifier for the identity store.</p>"""
-    membership_id: NotRequired["capo_identitystore.types.resource_id.ResourceId"]
+    membership_id: "capo_identitystore.types.resource_id.ResourceId"
     """<p>The identifier for a <code>GroupMembership</code> object in an identity store.</p>"""
+    membership_arn: "capo_identitystore.types.resource_arn.ResourceArn"
+    """<p>The Amazon Resource Name (ARN) of the group membership in the identity store. For example, <code>arn:aws:identitystore:::membership/a1b2c3d4-5678-90ab-cdef-EXAMPLE33333</code>.</p>"""
     group_id: NotRequired["capo_identitystore.types.resource_id.ResourceId"]
     """<p>The identifier for a group in the identity store.</p>"""
     member_id: NotRequired["capo_identitystore.types.member_id.MemberId"]
@@ -37,8 +40,8 @@ class GroupMembership(TypedDict, closed=True):
 def serialize_aws_json_1_1(value: GroupMembership) -> dict:
     out: dict = {}
     out["IdentityStoreId"] = value["identity_store_id"]
-    if "membership_id" in value:
-        out["MembershipId"] = value["membership_id"]
+    out["MembershipId"] = value["membership_id"]
+    out["MembershipArn"] = value["membership_arn"]
     if "group_id" in value:
         out["GroupId"] = value["group_id"]
     if "member_id" in value:
@@ -74,6 +77,12 @@ def deserialize_aws_json_1_1(data: dict) -> GroupMembership:
         raise DeserializationError("GroupMembership.identity_store_id required")
     if data.get("MembershipId") is not None:
         out["membership_id"] = data["MembershipId"]
+    else:
+        raise DeserializationError("GroupMembership.membership_id required")
+    if data.get("MembershipArn") is not None:
+        out["membership_arn"] = data["MembershipArn"]
+    else:
+        raise DeserializationError("GroupMembership.membership_arn required")
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     if data.get("MemberId") is not None:

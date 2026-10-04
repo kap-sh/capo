@@ -13,6 +13,7 @@ import capo_sesv2._auth._sigv4
 import capo_sesv2._protocol.eventstream
 import capo_sesv2.errors.bad_request_exception
 import capo_sesv2.errors.too_many_requests_exception
+import capo_sesv2.types.list_tenants_filter
 import capo_sesv2.types.list_tenants_request
 import capo_sesv2.types.list_tenants_response
 import capo_sesv2.types.tenant_info_list

@@ -28,6 +28,7 @@ import capo_datazone.types.metadata
 import capo_datazone.types.network_config
 import capo_datazone.types.notebook_run_error
 import capo_datazone.types.notebook_run_status
+import capo_datazone.types.notification_config
 import capo_datazone.types.parameters
 import capo_datazone.types.start_notebook_run_input
 import capo_datazone.types.start_notebook_run_output

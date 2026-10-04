@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_global_accelerator.types.generic_string
+    import capo_global_accelerator.types.ip_address_details
     import capo_global_accelerator.types.ip_address_family
     import capo_global_accelerator.types.ip_addresses
 
@@ -19,6 +20,10 @@ class IpSet(TypedDict, closed=True):
         "capo_global_accelerator.types.ip_address_family.IpAddressFamily"
     ]
     """<p>The types of IP addresses included in this IP set. </p>"""
+    ip_address_details: NotRequired[
+        "capo_global_accelerator.types.ip_address_details.IpAddressDetails"
+    ]
+    """<p>The array of IP addresses in the IP address set, with detailed information about the IP addresses. An IP address set can have a maximum of two IP addresses.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -42,6 +47,14 @@ def serialize_aws_json_1_1(value: IpSet) -> dict:
                 value["ip_address_family"]
             )
         )
+    if "ip_address_details" in value:
+        import capo_global_accelerator.types.ip_address_details
+
+        out["IpAddressDetails"] = (
+            capo_global_accelerator.types.ip_address_details.serialize_aws_json_1_1(
+                value["ip_address_details"]
+            )
+        )
     return out
 
 
@@ -63,6 +76,14 @@ def deserialize_aws_json_1_1(data: dict) -> IpSet:
         out["ip_address_family"] = (
             capo_global_accelerator.types.ip_address_family.deserialize_aws_json_1_1(
                 data["IpAddressFamily"]
+            )
+        )
+    if data.get("IpAddressDetails") is not None:
+        import capo_global_accelerator.types.ip_address_details
+
+        out["ip_address_details"] = (
+            capo_global_accelerator.types.ip_address_details.deserialize_aws_json_1_1(
+                data["IpAddressDetails"]
             )
         )
     return out

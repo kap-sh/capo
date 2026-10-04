@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_quicksight.types.category_filter
+    import capo_quicksight.types.hierarchy_filter
     import capo_quicksight.types.nested_filter
     import capo_quicksight.types.numeric_equality_filter
     import capo_quicksight.types.numeric_range_filter
@@ -44,6 +45,10 @@ class Filter(TypedDict, closed=True):
     """<p>A <code>TopBottomFilter</code> filters data to the top or bottom values for a given column.</p>"""
     nested_filter: NotRequired["capo_quicksight.types.nested_filter.NestedFilter"]
     """<p>A <code>NestedFilter</code> filters data with a subset of data that is defined by the nested inner filter.</p>"""
+    hierarchy_filter: NotRequired[
+        "capo_quicksight.types.hierarchy_filter.HierarchyFilter"
+    ]
+    """<p>A <code>HierarchyFilter</code> filters data by drilling down through an ordered list of columns. Each level in the list narrows the data by one column, and the selected values at each level determine which values are available at the next.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -104,6 +109,12 @@ def serialize_json(value: Filter) -> dict:
 
         out["NestedFilter"] = capo_quicksight.types.nested_filter.serialize_json(
             value["nested_filter"]
+        )
+    if "hierarchy_filter" in value:
+        import capo_quicksight.types.hierarchy_filter
+
+        out["HierarchyFilter"] = capo_quicksight.types.hierarchy_filter.serialize_json(
+            value["hierarchy_filter"]
         )
     return out
 
@@ -169,5 +180,13 @@ def deserialize_json(data: dict) -> Filter:
 
         out["nested_filter"] = capo_quicksight.types.nested_filter.deserialize_json(
             data["NestedFilter"]
+        )
+    if data.get("HierarchyFilter") is not None:
+        import capo_quicksight.types.hierarchy_filter
+
+        out["hierarchy_filter"] = (
+            capo_quicksight.types.hierarchy_filter.deserialize_json(
+                data["HierarchyFilter"]
+            )
         )
     return out

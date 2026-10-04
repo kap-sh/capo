@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.capacity_reservation_commitment_info
     import capo_ec2.types.capacity_reservation_delivery_preference
     import capo_ec2.types.capacity_reservation_instance_platform
+    import capo_ec2.types.capacity_reservation_launch_status
     import capo_ec2.types.capacity_reservation_state
     import capo_ec2.types.capacity_reservation_tenancy
     import capo_ec2.types.capacity_reservation_type
@@ -135,6 +136,10 @@ class CapacityReservation(TypedDict, closed=True):
         "capo_ec2.types.zero_size_preference.ZeroSizePreference"
     ]
     """<p> The zero-size preference configured for the interruptible Capacity Reservation. A value of <code>retain</code> keeps the interruptible Capacity Reservation active at zero capacity when you reduce its allocation to zero. A value of <code>default</code> cancels the interruptible Capacity Reservation when you reduce its allocation to zero. </p>"""
+    launch_status: NotRequired[
+        "capo_ec2.types.capacity_reservation_launch_status.CapacityReservationLaunchStatus"
+    ]
+    """<note> <p>Only supported for UltraServers.</p> </note> <p>Indicates whether you can launch instances into the Capacity Reservation. A Capacity Reservation can have the following launch statuses:</p> <ul> <li> <p> <code>launchable</code> - You can launch instances into the Capacity Reservation.</p> </li> <li> <p> <code>unlaunchable</code> - You can't launch instances into the Capacity Reservation. For example, the Capacity Reservation is not active.</p> </li> </ul>"""
 
 
 # --- ec2Query ser/de ---
@@ -334,6 +339,12 @@ def serialize_ec2_query(
 
         capo_ec2.types.zero_size_preference.serialize_ec2_query(
             value["zero_size_preference"], pairs, f"{key_prefix}ZeroSizePreference"
+        )
+    if "launch_status" in value:
+        import capo_ec2.types.capacity_reservation_launch_status
+
+        capo_ec2.types.capacity_reservation_launch_status.serialize_ec2_query(
+            value["launch_status"], pairs, f"{key_prefix}LaunchStatus"
         )
 
 
@@ -548,6 +559,15 @@ def deserialize_ec2_query(el: Element) -> CapacityReservation:
         out["zero_size_preference"] = (
             capo_ec2.types.zero_size_preference.deserialize_ec2_query(
                 child_zero_size_preference
+            )
+        )
+    child_launch_status = el.find("launchStatus")
+    if child_launch_status is not None:
+        import capo_ec2.types.capacity_reservation_launch_status
+
+        out["launch_status"] = (
+            capo_ec2.types.capacity_reservation_launch_status.deserialize_ec2_query(
+                child_launch_status
             )
         )
     return out

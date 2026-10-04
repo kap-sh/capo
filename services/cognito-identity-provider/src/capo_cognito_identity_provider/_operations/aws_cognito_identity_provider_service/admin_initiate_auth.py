@@ -11,6 +11,7 @@ from typing_extensions import Never
 import capo_cognito_identity_provider._auth._signers
 import capo_cognito_identity_provider._auth._sigv4
 import capo_cognito_identity_provider._protocol.eventstream
+import capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception
 import capo_cognito_identity_provider.errors.internal_error_exception
 import capo_cognito_identity_provider.errors.invalid_email_role_access_policy_exception
 import capo_cognito_identity_provider.errors.invalid_lambda_response_exception
@@ -57,6 +58,10 @@ def handle_error(response: zapros.Response) -> Never:
     data = json.loads(response.read())
     code, message = parse_error_metadata_json(response, data)
     match code:
+        case "FeatureUnavailableInTierException":
+            raise capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception.FeatureUnavailableInTierException.from_aws_json_1_1(
+                data, message
+            )
         case "InternalErrorException":
             raise capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException.from_aws_json_1_1(
                 data, message

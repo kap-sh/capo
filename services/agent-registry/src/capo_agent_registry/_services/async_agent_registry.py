@@ -281,7 +281,7 @@ class AsyncAgentRegistryClient:
             search_query: <p> The natural language query to search for matching registry records.</p>
             registry_ids: <p> The registry identifiers to search within. Currently, you must specify exactly one registry identifier. You can provide either the full Amazon Web Services Resource Name (ARN) or the registry ID.</p>
             max_results: <p> The maximum number of results to return. Valid values are 1 through 20. The default value is 10.</p>
-            filters: <p> An optional structured JSON metadata filter that narrows the search results. Supports the field-level operators <code>$eq</code>, <code>$ne</code>, and <code>$in</code>, and the logical operators <code>$and</code> and <code>$or</code> on filterable fields.</p>
+            filters: <p> An optional structured JSON metadata filter that narrows the search results. Supports the field-level operators <code>$eq</code>, <code>$ne</code>, and <code>$in</code>, and the logical operators <code>$and</code> and <code>$or</code> on filterable fields.</p> <p> Specifies additional filtering on custom metadata fields using the <code>customMetadata.{key}</code> prefix. For example, to filter by a custom metadata field: <code>{"customMetadata.environment": {"$eq": "production"}}</code>. For a Boolean field, you can also use a native JSON boolean value, for example: <code>{"customMetadata.requiresApproval": {"$eq": true}}</code>.</p>
 
         Raises:
             capo_agent_registry.errors.access_denied_exception.AccessDeniedException: <p>The caller is not authorized to perform the requested action.</p>

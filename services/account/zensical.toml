@@ -30,7 +30,9 @@ nav = [
       "sync-client/operations/put_account_name.md",
       "sync-client/operations/put_alternate_contact.md",
       "sync-client/operations/put_contact_information.md",
+      "sync-client/operations/send_phone_number_verification.md",
       "sync-client/operations/start_primary_email_update.md",
+      "sync-client/operations/verify_phone_number.md",
     ] },
     { "Paginators" = [
       "sync-client/paginators/iter_list_regions.md",
@@ -54,7 +56,9 @@ nav = [
       "async-client/operations/put_account_name.md",
       "async-client/operations/put_alternate_contact.md",
       "async-client/operations/put_contact_information.md",
+      "async-client/operations/send_phone_number_verification.md",
       "async-client/operations/start_primary_email_update.md",
+      "async-client/operations/verify_phone_number.md",
     ] },
     { "Paginators" = [
       "async-client/paginators/iter_list_regions.md",

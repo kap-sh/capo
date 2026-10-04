@@ -37,7 +37,7 @@ class UpdateDocumentRequest(TypedDict, closed=True):
     document_version: NotRequired["capo_ssm.types.document_version.DocumentVersion"]
     """<p>The version of the document that you want to update. Currently, Systems Manager supports updating only the latest version of the document. You can specify the version number of the latest version or use the <code>$LATEST</code> variable.</p> <note> <p>If you change a document version for a State Manager association, Systems Manager immediately runs the association unless you previously specifed the <code>apply-only-at-cron-interval</code> parameter.</p> </note>"""
     document_format: NotRequired["capo_ssm.types.document_format.DocumentFormat"]
-    """<p>Specify the document format for the new document version. Systems Manager supports JSON and YAML documents. JSON is the default format.</p>"""
+    """<p>Specify the document format for the new document version. The document format can be JSON, YAML, or TEXT. JSON is the default format.</p>"""
     target_type: NotRequired["capo_ssm.types.target_type.TargetType"]
     """<p>Specify a new target type for the document.</p>"""
 

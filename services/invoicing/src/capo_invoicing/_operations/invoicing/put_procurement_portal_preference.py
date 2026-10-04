@@ -20,6 +20,7 @@ import capo_invoicing.errors.throttling_exception
 import capo_invoicing.errors.validation_exception
 import capo_invoicing.types.contacts
 import capo_invoicing.types.einvoice_delivery_preference
+import capo_invoicing.types.marketplace_punch_out_preference
 import capo_invoicing.types.procurement_portal_preference_selector
 import capo_invoicing.types.put_procurement_portal_preference_request
 import capo_invoicing.types.put_procurement_portal_preference_response

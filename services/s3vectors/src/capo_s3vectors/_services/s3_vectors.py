@@ -59,6 +59,7 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.get_vectors_input_list
     import capo_s3vectors.types.get_vectors_output
     import capo_s3vectors.types.index_arn
+    import capo_s3vectors.types.index_mode
     import capo_s3vectors.types.index_name
     import capo_s3vectors.types.index_summary
     import capo_s3vectors.types.list_indexes_input
@@ -81,6 +82,8 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.list_vectors_segment_count
     import capo_s3vectors.types.list_vectors_segment_index
     import capo_s3vectors.types.metadata_configuration
+    import capo_s3vectors.types.put_vector_bucket_default_index_mode_input
+    import capo_s3vectors.types.put_vector_bucket_default_index_mode_output
     import capo_s3vectors.types.put_vector_bucket_policy_input
     import capo_s3vectors.types.put_vector_bucket_policy_output
     import capo_s3vectors.types.put_vectors_input
@@ -98,6 +101,8 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.top_k
     import capo_s3vectors.types.untag_resource_input
     import capo_s3vectors.types.untag_resource_output
+    import capo_s3vectors.types.update_index_mode_input
+    import capo_s3vectors.types.update_index_mode_output
     import capo_s3vectors.types.vector_bucket_arn
     import capo_s3vectors.types.vector_bucket_name
     import capo_s3vectors.types.vector_bucket_policy
@@ -729,6 +734,67 @@ class S3VectorsClient:
             if not _token:
                 break
 
+    def put_vector_bucket_default_index_mode(
+        self,
+        default_index_mode: "capo_s3vectors.types.index_mode.IndexMode",
+        *,
+        config_overrides: Optional[S3VectorsClientConfig] = None,
+        vector_bucket_name: Optional[
+            "capo_s3vectors.types.vector_bucket_name.VectorBucketName"
+        ] = None,
+        vector_bucket_arn: Optional[
+            "capo_s3vectors.types.vector_bucket_arn.VectorBucketArn"
+        ] = None,
+    ) -> "capo_s3vectors.types.put_vector_bucket_default_index_mode_output.PutVectorBucketDefaultIndexModeOutput":
+        """<p>Updates the default index mode for a vector bucket. The updated default applies to vector indexes that you create after the request succeeds. The operation doesn't change existing vector indexes. To specify the vector bucket, you must use either the vector bucket name or the vector bucket Amazon Resource Name (ARN).</p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3vectors:PutVectorBucketDefaultIndexMode</code> permission to use this operation.</p> </dd> </dl>
+
+        Args:
+            vector_bucket_name: <p>The name of the vector bucket to update.</p>
+            vector_bucket_arn: <p>The Amazon Resource Name (ARN) of the vector bucket to update.</p>
+            default_index_mode: <p>The default mode to assign to new vector indexes in the vector bucket. This change doesn't affect existing vector indexes.</p>
+
+        Raises:
+            capo_s3vectors.errors.access_denied_exception.AccessDeniedException: <p>Access denied.</p>
+            capo_s3vectors.errors.internal_server_exception.InternalServerException: <p>The request failed due to an internal server error.</p>
+            capo_s3vectors.errors.request_timeout_exception.RequestTimeoutException: <p>The request timed out. Retry your request.</p>
+            capo_s3vectors.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling.</p>
+            capo_s3vectors.errors.validation_exception.ValidationException: <p>The requested action isn't valid.</p>
+            capo_s3vectors.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource can't be found.</p>
+            capo_s3vectors.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is unavailable. Wait briefly and retry your request. If it continues to fail, increase your waiting time between retries.</p>
+            capo_s3vectors.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3vectors.types.put_vector_bucket_default_index_mode_input.PutVectorBucketDefaultIndexModeInput]",
+        ) -> OperationResponse[
+            "capo_s3vectors.types.put_vector_bucket_default_index_mode_output.PutVectorBucketDefaultIndexModeOutput"
+        ]:
+            import capo_s3vectors._operations.s3_vectors.put_vector_bucket_default_index_mode
+
+            output, http_response = (
+                capo_s3vectors._operations.s3_vectors.put_vector_bucket_default_index_mode.put_vector_bucket_default_index_mode(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_s3vectors.types.put_vector_bucket_default_index_mode_input.PutVectorBucketDefaultIndexModeInput = {
+            "default_index_mode": default_index_mode
+        }
+        if vector_bucket_name is not None:
+            input_["vector_bucket_name"] = vector_bucket_name
+        if vector_bucket_arn is not None:
+            input_["vector_bucket_arn"] = vector_bucket_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def put_vector_bucket_policy(
         self,
         policy: "capo_s3vectors.types.vector_bucket_policy.VectorBucketPolicy",
@@ -1106,6 +1172,69 @@ class S3VectorsClient:
             if not _token:
                 break
 
+    def update_index_mode(
+        self,
+        index_mode: "capo_s3vectors.types.index_mode.IndexMode",
+        *,
+        config_overrides: Optional[S3VectorsClientConfig] = None,
+        vector_bucket_name: Optional[
+            "capo_s3vectors.types.vector_bucket_name.VectorBucketName"
+        ] = None,
+        index_name: Optional["capo_s3vectors.types.index_name.IndexName"] = None,
+        index_arn: Optional["capo_s3vectors.types.index_arn.IndexArn"] = None,
+    ) -> "capo_s3vectors.types.update_index_mode_output.UpdateIndexModeOutput":
+        """<p>Updates the mode for an existing vector index. You can set the mode to <code>ENHANCED</code> for any vector index. You can set the mode to <code>CLASSIC</code> only for a vector index in a vector bucket created before September 30, 2026. This operation doesn't change the default index mode of the vector bucket or the mode of other vector indexes. Specify the vector index by using its Amazon Resource Name (ARN) or both the vector bucket name and vector index name.</p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3vectors:UpdateIndexMode</code> permission to use this operation.</p> </dd> </dl>
+
+        Args:
+            vector_bucket_name: <p>The name of the vector bucket that contains the vector index.</p>
+            index_name: <p>The name of the vector index to update.</p>
+            index_arn: <p>The Amazon Resource Name (ARN) of the vector index to update.</p>
+            index_mode: <p>The new mode for the vector index.</p> <p>Valid values:</p> <ul> <li> <p> <code>CLASSIC</code> - Applies metadata filters during the vector search. You can specify <code>CLASSIC</code> only for a vector index in a vector bucket created before September 30, 2026.</p> </li> <li> <p> <code>ENHANCED</code> - Applies metadata filters before the vector search.</p> </li> </ul>
+
+        Raises:
+            capo_s3vectors.errors.access_denied_exception.AccessDeniedException: <p>Access denied.</p>
+            capo_s3vectors.errors.internal_server_exception.InternalServerException: <p>The request failed due to an internal server error.</p>
+            capo_s3vectors.errors.request_timeout_exception.RequestTimeoutException: <p>The request timed out. Retry your request.</p>
+            capo_s3vectors.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling.</p>
+            capo_s3vectors.errors.validation_exception.ValidationException: <p>The requested action isn't valid.</p>
+            capo_s3vectors.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource can't be found.</p>
+            capo_s3vectors.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is unavailable. Wait briefly and retry your request. If it continues to fail, increase your waiting time between retries.</p>
+            capo_s3vectors.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3vectors.types.update_index_mode_input.UpdateIndexModeInput]",
+        ) -> OperationResponse[
+            "capo_s3vectors.types.update_index_mode_output.UpdateIndexModeOutput"
+        ]:
+            import capo_s3vectors._operations.s3_vectors.update_index_mode
+
+            output, http_response = (
+                capo_s3vectors._operations.s3_vectors.update_index_mode.update_index_mode(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_s3vectors.types.update_index_mode_input.UpdateIndexModeInput = {
+            "index_mode": index_mode
+        }
+        if vector_bucket_name is not None:
+            input_["vector_bucket_name"] = vector_bucket_name
+        if index_name is not None:
+            input_["index_name"] = index_name
+        if index_arn is not None:
+            input_["index_arn"] = index_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_vectors(
         self,
         keys: "capo_s3vectors.types.delete_vectors_input_list.DeleteVectorsInputList",
@@ -1462,6 +1591,7 @@ class S3VectorsClient:
         index_name: Optional["capo_s3vectors.types.index_name.IndexName"] = None,
         index_arn: Optional["capo_s3vectors.types.index_arn.IndexArn"] = None,
         filter: Optional[object] = None,
+        query_mode: Optional["capo_s3vectors.types.index_mode.IndexMode"] = None,
         return_metadata: Optional[bool] = None,
         return_distance: Optional[bool] = None,
         next_token: Optional[
@@ -1477,6 +1607,7 @@ class S3VectorsClient:
             top_k: <p>The number of results to return for each query.</p>
             query_vector: <p>The query vector. Ensure that the query vector has the same dimension as the dimension of the vector index that's being queried. For example, if your vector index contains vectors with 384 dimensions, your query vector must also have 384 dimensions. </p>
             filter: <p>Metadata filter to apply during the query. For more information about metadata keys, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-metadata-filtering.html">Metadata filtering</a> in the <i>Amazon S3 User Guide</i>. </p>
+            query_mode: <p>The mode to use to process the query. If you don't specify a query mode, the operation uses the mode that's currently configured for the vector index.</p> <p>Valid values:</p> <ul> <li> <p> <code>CLASSIC</code> - Applies metadata filters during the vector search. You can't specify <code>CLASSIC</code> for an <code>ENHANCED</code> index.</p> </li> <li> <p> <code>ENHANCED</code> - Applies metadata filters before the vector search.</p> </li> </ul>
             return_metadata: <p>Indicates whether to include metadata in the response. The default value is <code>false</code>.</p>
             return_distance: <p>Indicates whether to include the computed distance in the response. The default value is <code>false</code>.</p>
             next_token: <p>Pagination token from a previous request. The value of this field is empty for an initial request.</p>
@@ -1523,6 +1654,8 @@ class S3VectorsClient:
             input_["index_arn"] = index_arn
         if filter is not None:
             input_["filter"] = filter
+        if query_mode is not None:
+            input_["query_mode"] = query_mode
         if return_metadata is not None:
             input_["return_metadata"] = return_metadata
         if return_distance is not None:
@@ -1550,6 +1683,7 @@ class S3VectorsClient:
         index_name: Optional["capo_s3vectors.types.index_name.IndexName"] = None,
         index_arn: Optional["capo_s3vectors.types.index_arn.IndexArn"] = None,
         filter: Optional[object] = None,
+        query_mode: Optional["capo_s3vectors.types.index_mode.IndexMode"] = None,
         return_metadata: Optional[bool] = None,
         return_distance: Optional[bool] = None,
         next_token: Optional[
@@ -1566,6 +1700,7 @@ class S3VectorsClient:
                 index_name=index_name,
                 index_arn=index_arn,
                 filter=filter,
+                query_mode=query_mode,
                 return_metadata=return_metadata,
                 return_distance=return_distance,
                 next_token=_token,

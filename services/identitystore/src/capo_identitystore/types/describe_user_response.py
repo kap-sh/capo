@@ -16,7 +16,9 @@ if TYPE_CHECKING:
     import capo_identitystore.types.name
     import capo_identitystore.types.phone_numbers
     import capo_identitystore.types.photos
+    import capo_identitystore.types.resource_arn
     import capo_identitystore.types.resource_id
+    import capo_identitystore.types.resource_revision
     import capo_identitystore.types.roles
     import capo_identitystore.types.sensitive_string_type
     import capo_identitystore.types.string_type
@@ -29,6 +31,10 @@ class DescribeUserResponse(TypedDict, closed=True):
     """<p>The globally unique identifier for the identity store.</p>"""
     user_id: "capo_identitystore.types.resource_id.ResourceId"
     """<p>The identifier for a user in the identity store.</p>"""
+    user_arn: "capo_identitystore.types.resource_arn.ResourceArn"
+    """<p>The Amazon Resource Name (ARN) of the user in the identity store. For example, <code>arn:aws:identitystore:::user/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.</p>"""
+    revision: "capo_identitystore.types.resource_revision.ResourceRevision"
+    """<p>The current revision of the user in the identity store. This value changes each time the user is modified.</p>"""
     user_name: NotRequired["capo_identitystore.types.user_name.UserName"]
     """<p>A unique string used to identify the user. The length limit is 128 characters. This value can consist of letters, accented characters, symbols, numbers, and punctuation. This value is specified at the time the user is created and stored as an attribute of the user object in the identity store.</p>"""
     external_ids: NotRequired["capo_identitystore.types.external_ids.ExternalIds"]
@@ -104,6 +110,8 @@ def serialize_aws_json_1_1(value: DescribeUserResponse) -> dict:
     out: dict = {}
     out["IdentityStoreId"] = value["identity_store_id"]
     out["UserId"] = value["user_id"]
+    out["UserArn"] = value["user_arn"]
+    out["Revision"] = value["revision"]
     if "user_name" in value:
         out["UserName"] = value["user_name"]
     if "external_ids" in value:
@@ -213,6 +221,14 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUserResponse:
         out["user_id"] = data["UserId"]
     else:
         raise DeserializationError("DescribeUserResponse.user_id required")
+    if data.get("UserArn") is not None:
+        out["user_arn"] = data["UserArn"]
+    else:
+        raise DeserializationError("DescribeUserResponse.user_arn required")
+    if data.get("Revision") is not None:
+        out["revision"] = data["Revision"]
+    else:
+        raise DeserializationError("DescribeUserResponse.revision required")
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     if data.get("ExternalIds") is not None:

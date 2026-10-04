@@ -246,6 +246,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.client_login_banner_options
     import capo_ec2.types.client_route_enforcement_options
     import capo_ec2.types.client_vpn_authentication_request_list
+    import capo_ec2.types.client_vpn_authorization_policy_shadow_mode
     import capo_ec2.types.client_vpn_connection
     import capo_ec2.types.client_vpn_endpoint
     import capo_ec2.types.client_vpn_endpoint_id
@@ -528,6 +529,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.delete_capacity_manager_data_export_result
     import capo_ec2.types.delete_carrier_gateway_request
     import capo_ec2.types.delete_carrier_gateway_result
+    import capo_ec2.types.delete_client_vpn_endpoint_authorization_policy_request
+    import capo_ec2.types.delete_client_vpn_endpoint_authorization_policy_result
     import capo_ec2.types.delete_client_vpn_endpoint_request
     import capo_ec2.types.delete_client_vpn_endpoint_result
     import capo_ec2.types.delete_client_vpn_route_request
@@ -1197,6 +1200,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.detach_verified_access_trust_provider_result
     import capo_ec2.types.detach_volume_request
     import capo_ec2.types.detach_vpn_gateway_request
+    import capo_ec2.types.device_posture_options
     import capo_ec2.types.device_trust_provider_type
     import capo_ec2.types.dhcp_options
     import capo_ec2.types.dhcp_options_id
@@ -1419,6 +1423,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.get_capacity_reservation_usage_request
     import capo_ec2.types.get_capacity_reservation_usage_request_max_results
     import capo_ec2.types.get_capacity_reservation_usage_result
+    import capo_ec2.types.get_client_vpn_endpoint_authorization_policy_request
+    import capo_ec2.types.get_client_vpn_endpoint_authorization_policy_result
     import capo_ec2.types.get_coip_pool_usage_request
     import capo_ec2.types.get_coip_pool_usage_result
     import capo_ec2.types.get_console_output_request
@@ -1826,6 +1832,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.modify_capacity_reservation_fleet_result
     import capo_ec2.types.modify_capacity_reservation_request
     import capo_ec2.types.modify_capacity_reservation_result
+    import capo_ec2.types.modify_client_vpn_endpoint_authorization_policy_request
+    import capo_ec2.types.modify_client_vpn_endpoint_authorization_policy_result
     import capo_ec2.types.modify_client_vpn_endpoint_request
     import capo_ec2.types.modify_client_vpn_endpoint_result
     import capo_ec2.types.modify_default_credit_specification_request
@@ -6449,7 +6457,7 @@ class AsyncEC2Client:
             source_image_id: <p>The ID of the AMI to copy.</p>
             source_region: <p>The name of the Region that contains the AMI to copy.</p>
             destination_outpost_arn: <p>The Amazon Resource Name (ARN) of the Outpost for the new AMI.</p> <p>Only specify this parameter when copying an AMI from an Amazon Web Services Region to an Outpost. The AMI must be in the Region of the destination Outpost. You can't copy an AMI from an Outpost to a Region, from one Outpost to another, or within the same Outpost.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-amis">Copy AMIs from an Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.</p> <p>Only one of <code>DestinationAvailabilityZone</code>, <code>DestinationAvailabilityZoneId</code>, or <code>DestinationOutpostArn</code> can be specified.</p>
-            copy_image_tags: <p>Specifies whether to copy your user-defined AMI tags to the new AMI.</p> <p>The following tags are not be copied:</p> <ul> <li> <p>System tags (prefixed with <code>aws:</code>)</p> </li> <li> <p>For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts</p> </li> </ul> <p>Default: Your user-defined AMI tags are not copied.</p>
+            copy_image_tags: <p>Specifies whether to copy your user-defined AMI tags to the new AMI.</p> <p>The following tags are not be copied:</p> <ul> <li> <p>System tags (prefixed with <code>aws:</code>)</p> </li> <li> <p>For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts, except tags with the <code>ec2:SharedTag/</code> prefix. For more information about tag sharing, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#sharing-tags">Sharing tags</a> in the <i>Amazon EC2 User Guide</i>.</p> </li> </ul> <p>Default: Your user-defined AMI tags are not copied.</p>
             tag_specifications: <p>The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.</p> <ul> <li> <p>To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.</p> </li> <li> <p>To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is applied to all the new snapshots.</p> </li> </ul> <p>If you specify other values for <code>ResourceType</code>, the request fails.</p> <p>To tag an AMI or snapshot after it has been created, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.</p>
             snapshot_copy_completion_duration_minutes: <p>Specify a completion duration, in 15 minute increments, to initiate a time-based AMI copy. The specified completion duration applies to each of the snapshots associated with the AMI. Each snapshot associated with the AMI will be completed within the specified completion duration, with copy throughput automatically adjusted for each snapshot based on its size to meet the timing target.</p> <p>If you do not specify a value, the AMI copy operation is completed on a best-effort basis.</p> <note> <p>This parameter is not supported when copying an AMI to or from a Local Zone, or to an Outpost.</p> </note> <p>For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/time-based-copies.html">Time-based copies for Amazon EBS snapshots and EBS-backed AMIs</a>.</p>
             destination_availability_zone: <p>The Local Zone for the new AMI (for example, <code>cn-north-1-pkx-1a</code>).</p> <p>Only one of <code>DestinationAvailabilityZone</code>, <code>DestinationAvailabilityZoneId</code>, or <code>DestinationOutpostArn</code> can be specified.</p>
@@ -7428,6 +7436,9 @@ class AsyncEC2Client:
         transit_gateway_configuration: Optional[
             "capo_ec2.types.transit_gateway_configuration_input_structure.TransitGatewayConfigurationInputStructure"
         ] = None,
+        device_posture_options: Optional[
+            "capo_ec2.types.device_posture_options.DevicePostureOptions"
+        ] = None,
     ) -> (
         "capo_ec2.types.create_client_vpn_endpoint_result.CreateClientVpnEndpointResult"
     ):
@@ -7457,6 +7468,7 @@ class AsyncEC2Client:
             endpoint_ip_address_type: <p>The IP address type for the Client VPN endpoint. Valid values are <code>ipv4</code> (default) for IPv4 addressing only, <code>ipv6</code> for IPv6 addressing only, or <code>dual-stack</code> for both IPv4 and IPv6 addressing. When set to <code>dual-stack,</code> clients can connect to the endpoint using either IPv4 or IPv6 addresses..</p>
             traffic_ip_address_type: <p>The IP address type for traffic within the Client VPN tunnel. Valid values are <code>ipv4</code> (default) for IPv4 traffic only, <code>ipv6</code> for IPv6 addressing only, or <code>dual-stack</code> for both IPv4 and IPv6 traffic. When set to <code>dual-stack</code>, clients can access both IPv4 and IPv6 resources through the VPN .</p>
             transit_gateway_configuration: <p>The Transit Gateway configuration for the Client VPN endpoint. Use this parameter to associate the endpoint with a Transit Gateway instead of a VPC. You cannot specify both <code>TransitGatewayConfiguration</code> and <code>VpcId</code>/<code>SecurityGroupIds</code>.</p>
+            device_posture_options: <p>The device posture options for the Client VPN endpoint. Use this parameter to specify the device trust providers that the endpoint uses to evaluate the security posture of connecting devices.</p>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -7528,6 +7540,8 @@ class AsyncEC2Client:
             input_["traffic_ip_address_type"] = traffic_ip_address_type
         if transit_gateway_configuration is not None:
             input_["transit_gateway_configuration"] = transit_gateway_configuration
+        if device_posture_options is not None:
+            input_["device_posture_options"] = device_posture_options
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -14512,13 +14526,13 @@ class AsyncEC2Client:
 
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
-            vpc_endpoint_type: <p>The type of endpoint.</p> <p>Default: Gateway</p>
+            vpc_endpoint_type: <p>The type of endpoint.</p> <p>For more information about the types of VPC endpoints, see <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html#concepts-vpc-endpoints">VPC endpoints</a> in the <i>Amazon Web Services PrivateLink User Guide</i>.</p> <p>Default: Gateway</p>
             vpc_id: <p>The ID of the VPC.</p>
             service_name: <p>The name of the endpoint service.</p>
             policy_document: <p>(Interface and gateway endpoints) A policy to attach to the endpoint that controls access to the service. The policy must be in valid JSON format. If this parameter is not specified, we attach a default policy that allows full access to the service.</p>
             route_table_ids: <p>(Gateway endpoint) The route table IDs.</p>
-            subnet_ids: <p>(Interface and Gateway Load Balancer endpoints) The IDs of the subnets in which to create endpoint network interfaces. For a Gateway Load Balancer endpoint, you can specify only one subnet.</p>
-            security_group_ids: <p>(Interface endpoint) The IDs of the security groups to associate with the endpoint network interfaces. If this parameter is not specified, we use the default security group for the VPC.</p>
+            subnet_ids: <p>(Interface, Gateway Load Balancer endpoints, Resource, ServiceNetwork, and Tunnel endpoints only) The IDs of the subnets in which to create endpoint network interfaces. For a Gateway Load Balancer endpoint, you can specify only one subnet. For a <code>Tunnel</code> endpoint, the subnets must be in the Availability Zones of the resource gateway associated with the shared resource configuration. An endpoint network interface is created only in an Availability Zone that the resource gateway is also in.</p>
+            security_group_ids: <p>(Interface, Resource, ServiceNetwork, and Tunnel endpoints only) The IDs of the security groups to associate with the endpoint network interfaces. If this parameter is not specified, we use the default security group for the VPC.</p>
             ip_address_type: <p>The IP address type for the endpoint.</p>
             dns_options: <p>The DNS options for the endpoint.</p>
             client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure idempotency</a>.</p>
@@ -14526,7 +14540,7 @@ class AsyncEC2Client:
             tag_specifications: <p>The tags to associate with the endpoint.</p>
             subnet_configurations: <p>The subnet configurations for the endpoint.</p>
             service_network_arn: <p>The Amazon Resource Name (ARN) of a service network that will be associated with the VPC endpoint of type service-network.</p>
-            resource_configuration_arn: <p>The Amazon Resource Name (ARN) of a resource configuration that will be associated with the VPC endpoint of type resource.</p>
+            resource_configuration_arn: <p>(Resource and Tunnel endpoints only) The Amazon Resource Name (ARN) of a resource configuration associated with the VPC endpoint. The type of resource configuration depends on the endpoint type:</p> <ul> <li> <p>For a Resource endpoint, you can specify a resource configuration that is of type <code>SINGLE</code>, <code>GROUP</code>, or <code>ARN</code>. To reach a resource that belongs to a group, specify the parent <code>GROUP</code> resource configuration.</p> </li> <li> <p>For a Tunnel endpoint, you can specify a resource configuration that is of type <code>CIDR</code>.</p> </li> </ul> <p>For more information about the types of resource configurations, see <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/resource-configuration.html">Types of resource configurations</a> in the <i>Amazon Web Services PrivateLink User Guide</i>.</p> <p>This request fails if a VPC endpoint owned by a different Amazon Web Services account already exists on a resource gateway that is enabled for <code>ResourceGatewayCharges</code> payer responsibility.</p>
             service_region: <p>The Region where the service is hosted. The default is the current Region.</p>
 
         Raises:
@@ -15262,6 +15276,55 @@ class AsyncEC2Client:
 
         interceptors_, options_ = self.operation_options(config_overrides)
         input_: capo_ec2.types.delete_client_vpn_endpoint_request.DeleteClientVpnEndpointRequest = {}
+        if client_vpn_endpoint_id is not None:
+            input_["client_vpn_endpoint_id"] = client_vpn_endpoint_id
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_client_vpn_endpoint_authorization_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        client_vpn_endpoint_id: Optional[
+            "capo_ec2.types.client_vpn_endpoint_id.ClientVpnEndpointId"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.delete_client_vpn_endpoint_authorization_policy_result.DeleteClientVpnEndpointAuthorizationPolicyResult":
+        """<p>Deletes the authorization policy for a Client VPN endpoint.</p>
+
+        Args:
+            client_vpn_endpoint_id: <p>The ID of the Client VPN endpoint.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.delete_client_vpn_endpoint_authorization_policy_request.DeleteClientVpnEndpointAuthorizationPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.delete_client_vpn_endpoint_authorization_policy_result.DeleteClientVpnEndpointAuthorizationPolicyResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.delete_client_vpn_endpoint_authorization_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.delete_client_vpn_endpoint_authorization_policy.async_delete_client_vpn_endpoint_authorization_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_ec2.types.delete_client_vpn_endpoint_authorization_policy_request.DeleteClientVpnEndpointAuthorizationPolicyRequest = {}
         if client_vpn_endpoint_id is not None:
             input_["client_vpn_endpoint_id"] = client_vpn_endpoint_id
         if dry_run is not None:
@@ -36483,7 +36546,7 @@ class AsyncEC2Client:
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
             vpc_endpoint_ids: <p>The IDs of the VPC endpoints.</p>
-            filters: <p>The filters.</p> <ul> <li> <p> <code>ip-address-type</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).</p> </li> <li> <p> <code>service-name</code> - The name of the service.</p> </li> <li> <p> <code>service-region</code> - The Region of the service.</p> </li> <li> <p> <code>tag</code>:<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> <li> <p> <code>vpc-id</code> - The ID of the VPC in which the endpoint resides.</p> </li> <li> <p> <code>vpc-endpoint-id</code> - The ID of the endpoint.</p> </li> <li> <p> <code>vpc-endpoint-state</code> - The state of the endpoint (<code>pendingAcceptance</code> | <code>pending</code> | <code>available</code> | <code>deleting</code> | <code>deleted</code> | <code>rejected</code> | <code>failed</code>).</p> </li> <li> <p> <code>vpc-endpoint-type</code> - The type of VPC endpoint (<code>Interface</code> | <code>Gateway</code> | <code>GatewayLoadBalancer</code> | <code>Resource</code> | <code>ServiceNetwork</code>).</p> </li> </ul>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>ip-address-type</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).</p> </li> <li> <p> <code>service-name</code> - The name of the service.</p> </li> <li> <p> <code>service-region</code> - The Region of the service.</p> </li> <li> <p> <code>tag</code>:<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> <li> <p> <code>vpc-id</code> - The ID of the VPC in which the endpoint resides.</p> </li> <li> <p> <code>vpc-endpoint-id</code> - The ID of the endpoint.</p> </li> <li> <p> <code>vpc-endpoint-state</code> - The state of the endpoint (<code>pendingAcceptance</code> | <code>pending</code> | <code>available</code> | <code>deleting</code> | <code>deleted</code> | <code>rejected</code> | <code>failed</code>).</p> </li> <li> <p> <code>vpc-endpoint-type</code> - The type of VPC endpoint (<code>Interface</code> | <code>Gateway</code> | <code>GatewayLoadBalancer</code> | <code>Resource</code> | <code>ServiceNetwork</code> | <code>Tunnel</code>).</p> </li> </ul>
             max_results: <p>The maximum number of items to return for this request. The request returns a token that you can specify in a subsequent call to get the next set of results.</p> <p>Constraint: If the value is greater than 1,000, we return only 1,000 items.</p>
             next_token: <p>The token for the next set of items to return. (You received this token from a prior call.)</p>
 
@@ -42163,6 +42226,55 @@ class AsyncEC2Client:
             input_["next_token"] = next_token
         if max_results is not None:
             input_["max_results"] = max_results
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_client_vpn_endpoint_authorization_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        client_vpn_endpoint_id: Optional[
+            "capo_ec2.types.client_vpn_endpoint_id.ClientVpnEndpointId"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.get_client_vpn_endpoint_authorization_policy_result.GetClientVpnEndpointAuthorizationPolicyResult":
+        """<p>Describes the authorization policy for a Client VPN endpoint.</p>
+
+        Args:
+            client_vpn_endpoint_id: <p>The ID of the Client VPN endpoint.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.get_client_vpn_endpoint_authorization_policy_request.GetClientVpnEndpointAuthorizationPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.get_client_vpn_endpoint_authorization_policy_result.GetClientVpnEndpointAuthorizationPolicyResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.get_client_vpn_endpoint_authorization_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.get_client_vpn_endpoint_authorization_policy.async_get_client_vpn_endpoint_authorization_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_ec2.types.get_client_vpn_endpoint_authorization_policy_request.GetClientVpnEndpointAuthorizationPolicyRequest = {}
+        if client_vpn_endpoint_id is not None:
+            input_["client_vpn_endpoint_id"] = client_vpn_endpoint_id
         if dry_run is not None:
             input_["dry_run"] = dry_run
 
@@ -48111,6 +48223,9 @@ class AsyncEC2Client:
         transit_gateway_configuration: Optional[
             "capo_ec2.types.transit_gateway_configuration_input_structure.TransitGatewayConfigurationInputStructure"
         ] = None,
+        device_posture_options: Optional[
+            "capo_ec2.types.device_posture_options.DevicePostureOptions"
+        ] = None,
     ) -> (
         "capo_ec2.types.modify_client_vpn_endpoint_result.ModifyClientVpnEndpointResult"
     ):
@@ -48134,6 +48249,7 @@ class AsyncEC2Client:
             client_route_enforcement_options: <p>Client route enforcement is a feature of the Client VPN service that helps enforce administrator defined routes on devices connected through the VPN. T his feature helps improve your security posture by ensuring that network traffic originating from a connected client is not inadvertently sent outside the VPN tunnel.</p> <p>Client route enforcement works by monitoring the route table of a connected device for routing policy changes to the VPN connection. If the feature detects any VPN routing policy modifications, it will automatically force an update to the route table, reverting it back to the expected route configurations.</p>
             disconnect_on_session_timeout: <p>Indicates whether the client VPN session is disconnected after the maximum timeout specified in <code>sessionTimeoutHours</code> is reached. If <code>true</code>, users are prompted to reconnect client VPN. If <code>false</code>, client VPN attempts to reconnect automatically. The default value is <code>true</code>.</p>
             transit_gateway_configuration: <p>The Transit Gateway configuration for the Client VPN endpoint. This option is currently not supported.</p>
+            device_posture_options: <p>The device posture options for the Client VPN endpoint. Specifying this parameter replaces the entire device posture configuration for the endpoint. To remove all device trust providers, specify an empty list.</p>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -48192,6 +48308,76 @@ class AsyncEC2Client:
             input_["disconnect_on_session_timeout"] = disconnect_on_session_timeout
         if transit_gateway_configuration is not None:
             input_["transit_gateway_configuration"] = transit_gateway_configuration
+        if device_posture_options is not None:
+            input_["device_posture_options"] = device_posture_options
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def modify_client_vpn_endpoint_authorization_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        client_vpn_endpoint_id: Optional[
+            "capo_ec2.types.client_vpn_endpoint_id.ClientVpnEndpointId"
+        ] = None,
+        policy_document: Optional["capo_ec2.types.string.String"] = None,
+        description: Optional["capo_ec2.types.string.String"] = None,
+        shadow_mode: Optional[
+            "capo_ec2.types.client_vpn_authorization_policy_shadow_mode.ClientVpnAuthorizationPolicyShadowMode"
+        ] = None,
+        client_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.modify_client_vpn_endpoint_authorization_policy_result.ModifyClientVpnEndpointAuthorizationPolicyResult":
+        """<p>Creates or updates the authorization policy for a Client VPN endpoint. A Client VPN endpoint can have one authorization policy. If a policy already exists for the endpoint, the values that you specify replace the corresponding values in the existing policy, and values that you do not specify remain unchanged.</p>
+
+        Args:
+            client_vpn_endpoint_id: <p>The ID of the Client VPN endpoint.</p>
+            policy_document: <p>The authorization policy document, written in the Cedar policy language. This parameter is required when you create the authorization policy for a Client VPN endpoint that does not already have one.</p>
+            description: <p>A brief description of the authorization policy.</p>
+            shadow_mode: <p>Specifies whether the authorization policy is evaluated in shadow mode. Possible values include:</p> <ul> <li> <p> <code>enabled</code> - The authorization policy is evaluated and the results are logged, but access is not enforced.</p> </li> <li> <p> <code>disabled</code> - The authorization policy is enforced.</p> </li> </ul> <p>The default value is <code>disabled</code>.</p>
+            client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.modify_client_vpn_endpoint_authorization_policy_request.ModifyClientVpnEndpointAuthorizationPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.modify_client_vpn_endpoint_authorization_policy_result.ModifyClientVpnEndpointAuthorizationPolicyResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.modify_client_vpn_endpoint_authorization_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.modify_client_vpn_endpoint_authorization_policy.async_modify_client_vpn_endpoint_authorization_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_ec2.types.modify_client_vpn_endpoint_authorization_policy_request.ModifyClientVpnEndpointAuthorizationPolicyRequest = {}
+        if client_vpn_endpoint_id is not None:
+            input_["client_vpn_endpoint_id"] = client_vpn_endpoint_id
+        if policy_document is not None:
+            input_["policy_document"] = policy_document
+        if description is not None:
+            input_["description"] = description
+        if shadow_mode is not None:
+            input_["shadow_mode"] = shadow_mode
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

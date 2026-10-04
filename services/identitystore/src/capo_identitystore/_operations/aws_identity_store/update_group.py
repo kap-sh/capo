@@ -70,14 +70,22 @@ def handle_error(response: zapros.Response) -> Never:
 def handle_response(
     response: zapros.Response,
 ) -> capo_identitystore.types.update_group_response.UpdateGroupResponse:
-    out: capo_identitystore.types.update_group_response.UpdateGroupResponse = {}  # type: ignore[typeddict-item]
+    out: capo_identitystore.types.update_group_response.UpdateGroupResponse = (
+        capo_identitystore.types.update_group_response.deserialize_aws_json_1_1(
+            json.loads(response.read())
+        )
+    )
     return out
 
 
 async def async_handle_response(
     response: zapros.Response,
 ) -> capo_identitystore.types.update_group_response.UpdateGroupResponse:
-    out: capo_identitystore.types.update_group_response.UpdateGroupResponse = {}  # type: ignore[typeddict-item]
+    out: capo_identitystore.types.update_group_response.UpdateGroupResponse = (
+        capo_identitystore.types.update_group_response.deserialize_aws_json_1_1(
+            json.loads(await response.aread())
+        )
+    )
     return out
 
 

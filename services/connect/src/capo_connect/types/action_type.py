@@ -13,6 +13,7 @@ ActionType: TypeAlias = Literal[
     "END_ASSOCIATED_TASKS",
     "SUBMIT_AUTO_EVALUATION",
     "EXTRACT_INFORMATION",
+    "SEND_IN_APP_NOTIFICATION",
 ]
 
 

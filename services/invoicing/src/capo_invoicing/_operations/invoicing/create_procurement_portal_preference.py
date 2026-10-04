@@ -22,6 +22,7 @@ import capo_invoicing.types.contacts
 import capo_invoicing.types.create_procurement_portal_preference_request
 import capo_invoicing.types.create_procurement_portal_preference_response
 import capo_invoicing.types.einvoice_delivery_preference
+import capo_invoicing.types.marketplace_punch_out_preference
 import capo_invoicing.types.procurement_portal_name
 import capo_invoicing.types.procurement_portal_preference_selector
 import capo_invoicing.types.resource_tag_list

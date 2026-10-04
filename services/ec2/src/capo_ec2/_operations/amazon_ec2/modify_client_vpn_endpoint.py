@@ -16,6 +16,7 @@ import capo_ec2.types.client_login_banner_options
 import capo_ec2.types.client_route_enforcement_options
 import capo_ec2.types.client_vpn_security_group_id_set
 import capo_ec2.types.connection_log_options
+import capo_ec2.types.device_posture_options
 import capo_ec2.types.dns_servers_options_modify_structure
 import capo_ec2.types.modify_client_vpn_endpoint_request
 import capo_ec2.types.modify_client_vpn_endpoint_result

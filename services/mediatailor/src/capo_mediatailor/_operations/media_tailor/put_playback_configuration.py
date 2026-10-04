@@ -17,6 +17,7 @@ import capo_mediatailor.types.ad_decision_server_configuration
 import capo_mediatailor.types.ads_personalization_concurrency
 import capo_mediatailor.types.ads_personalization_timeouts
 import capo_mediatailor.types.avail_suppression
+import capo_mediatailor.types.beaconing_configuration
 import capo_mediatailor.types.bumper
 import capo_mediatailor.types.cdn_configuration
 import capo_mediatailor.types.configuration_aliases_request

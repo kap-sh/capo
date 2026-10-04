@@ -8,6 +8,7 @@ from capo_bedrock_agentcore_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorization_data
+    import capo_bedrock_agentcore_control.types.certificate_configuration_list
     import capo_bedrock_agentcore_control.types.credential_provider_configurations
     import capo_bedrock_agentcore_control.types.date_timestamp
     import capo_bedrock_agentcore_control.types.gateway_arn
@@ -72,6 +73,10 @@ class GatewayTarget(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.target_protocol_type.TargetProtocolType"
     ]
     """<p>The protocol type of the gateway target.</p>"""
+    certificate_configurations: NotRequired[
+        "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+    ]
+    """<p>The private certificate authority (CA) configurations for the gateway target.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -169,6 +174,14 @@ def serialize_json(value: GatewayTarget) -> dict:
         out["protocolType"] = (
             capo_bedrock_agentcore_control.types.target_protocol_type.serialize_json(
                 value["protocol_type"]
+            )
+        )
+    if "certificate_configurations" in value:
+        import capo_bedrock_agentcore_control.types.certificate_configuration_list
+
+        out["certificateConfigurations"] = (
+            capo_bedrock_agentcore_control.types.certificate_configuration_list.serialize_json(
+                value["certificate_configurations"]
             )
         )
     return out
@@ -296,6 +309,14 @@ def deserialize_json(data: dict) -> GatewayTarget:
         out["protocol_type"] = (
             capo_bedrock_agentcore_control.types.target_protocol_type.deserialize_json(
                 data["protocolType"]
+            )
+        )
+    if data.get("certificateConfigurations") is not None:
+        import capo_bedrock_agentcore_control.types.certificate_configuration_list
+
+        out["certificate_configurations"] = (
+            capo_bedrock_agentcore_control.types.certificate_configuration_list.deserialize_json(
+                data["certificateConfigurations"]
             )
         )
     return out

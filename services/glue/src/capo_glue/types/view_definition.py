@@ -21,6 +21,8 @@ if TYPE_CHECKING:
 class ViewDefinition(TypedDict, closed=True):
     is_protected: NotRequired["capo_glue.types.nullable_boolean.NullableBoolean"]
     """<p>You can set this flag as true to instruct the engine not to push user-provided operations into the logical plan of the view during query planning. However, setting this flag does not guarantee that the engine will comply. Refer to the engine's documentation to understand the guarantees provided, if any.</p>"""
+    is_managed: NotRequired["capo_glue.types.nullable_boolean.NullableBoolean"]
+    """<p>Specifies whether the materialized view is managed by Glue.</p>"""
     definer: NotRequired["capo_glue.types.arn_string.ArnString"]
     """<p>The definer of a view in SQL.</p>"""
     view_version_id: "capo_glue.types.table_version_id.TableVersionId"
@@ -56,6 +58,8 @@ def serialize_aws_json_1_1(value: ViewDefinition) -> dict:
     out: dict = {}
     if "is_protected" in value:
         out["IsProtected"] = value["is_protected"]
+    if "is_managed" in value:
+        out["IsManaged"] = value["is_managed"]
     if "definer" in value:
         out["Definer"] = value["definer"]
     out["ViewVersionId"] = value.get("view_version_id", 0)
@@ -118,6 +122,8 @@ def deserialize_aws_json_1_1(data: dict) -> ViewDefinition:
     out: ViewDefinition = {}  # type: ignore[typeddict-item]
     if data.get("IsProtected") is not None:
         out["is_protected"] = data["IsProtected"]
+    if data.get("IsManaged") is not None:
+        out["is_managed"] = data["IsManaged"]
     if data.get("Definer") is not None:
         out["definer"] = data["Definer"]
     if data.get("ViewVersionId") is not None:

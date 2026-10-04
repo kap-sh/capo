@@ -118,6 +118,7 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.expression_attribute_name_map
     import capo_dynamodb.types.expression_attribute_value_map
     import capo_dynamodb.types.filter_condition_map
+    import capo_dynamodb.types.filter_specification
     import capo_dynamodb.types.get_item_input
     import capo_dynamodb.types.get_item_output
     import capo_dynamodb.types.get_resource_policy_input
@@ -1985,6 +1986,9 @@ class AsyncDynamoDBClient:
         incremental_export_specification: Optional[
             "capo_dynamodb.types.incremental_export_specification.IncrementalExportSpecification"
         ] = None,
+        filter_specification: Optional[
+            "capo_dynamodb.types.filter_specification.FilterSpecification"
+        ] = None,
     ) -> "capo_dynamodb.types.export_table_to_point_in_time_output.ExportTableToPointInTimeOutput":
         """<p>Exports table data to an S3 bucket. The table must have point in time recovery enabled, and you can export data from any time within the point in time recovery window.</p>
 
@@ -2000,6 +2004,7 @@ class AsyncDynamoDBClient:
             export_format: <p>The format for the exported data. Valid values for <code>ExportFormat</code> are <code>DYNAMODB_JSON</code> or <code>ION</code>.</p>
             export_type: <p>Choice of whether to execute as a full export or incremental export. Valid values are FULL_EXPORT or INCREMENTAL_EXPORT. The default value is FULL_EXPORT. If INCREMENTAL_EXPORT is provided, the IncrementalExportSpecification must also be used.</p>
             incremental_export_specification: <p>Optional object containing the parameters specific to an incremental export.</p>
+            filter_specification: <p>The criteria used to filter which items are included in the point-in-time export. When you specify this parameter, only items that match the key conditions and filter expressions are exported.</p>
 
         Raises:
             capo_dynamodb.errors.export_conflict_exception.ExportConflictException: <p>There was a conflict when writing to the specified S3 bucket.</p>
@@ -2052,6 +2057,8 @@ class AsyncDynamoDBClient:
             input_["incremental_export_specification"] = (
                 incremental_export_specification
             )
+        if filter_specification is not None:
+            input_["filter_specification"] = filter_specification
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

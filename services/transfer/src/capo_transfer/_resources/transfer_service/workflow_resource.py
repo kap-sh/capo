@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     import capo_transfer.types.listed_workflow
     import capo_transfer.types.max_results
     import capo_transfer.types.next_token
+    import capo_transfer.types.structured_log_destinations
     import capo_transfer.types.tags
     import capo_transfer.types.workflow_description
     import capo_transfer.types.workflow_id
@@ -49,6 +50,9 @@ class WorkflowResource:
             "capo_transfer.types.workflow_steps.WorkflowSteps"
         ] = None,
         tags: Optional["capo_transfer.types.tags.Tags"] = None,
+        structured_log_destinations: Optional[
+            "capo_transfer.types.structured_log_destinations.StructuredLogDestinations"
+        ] = None,
     ) -> "capo_transfer.types.create_workflow_response.CreateWorkflowResponse":
         """<p> Allows you to create a workflow with specified steps and step details the workflow invokes after file transfer completes. After creating a workflow, you can associate the workflow created with any transfer servers by specifying the <code>workflow-details</code> field in <code>CreateServer</code> and <code>UpdateServer</code> operations. </p>
 
@@ -57,6 +61,7 @@ class WorkflowResource:
             steps: <p>Specifies the details for the steps that are in the specified workflow.</p> <p> The <code>TYPE</code> specifies which of the following actions is being taken for this step. </p> <ul> <li> <p> <b> <code>COPY</code> </b> - Copy the file to another location.</p> </li> <li> <p> <b> <code>CUSTOM</code> </b> - Perform a custom step with an Lambda function target.</p> </li> <li> <p> <b> <code>DECRYPT</code> </b> - Decrypt a file that was encrypted before it was uploaded.</p> </li> <li> <p> <b> <code>DELETE</code> </b> - Delete the file.</p> </li> <li> <p> <b> <code>TAG</code> </b> - Add a tag to the file.</p> </li> </ul> <note> <p> Currently, copying and tagging are supported only on S3. </p> </note> <p> For file location, you specify either the Amazon S3 bucket and key, or the Amazon EFS file system ID and path. </p>
             on_exception_steps: <p>Specifies the steps (actions) to take if errors are encountered during execution of the workflow.</p> <note> <p>For custom steps, the Lambda function needs to send <code>FAILURE</code> to the call back API to kick off the exception steps. Additionally, if the Lambda does not send <code>SUCCESS</code> before it times out, the exception steps are executed.</p> </note>
             tags: <p>Key-value pairs that can be used to group and search for workflows. Tags are metadata attached to workflows for any purpose.</p>
+            structured_log_destinations: <p>Specifies the log groups to which your workflow logs are sent.</p> <p>To specify a log group, you must provide the ARN for an existing log group. In this case, the format of the log group is as follows:</p> <p> <code>arn:partition:logs:region-name:amazon-account-id:log-group:log-group-name:*</code> </p> <p>For example, <code>arn:aws:logs:us-east-1:111122223333:log-group:mytestgroup:*</code> </p>
 
         Raises:
             capo_transfer.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -92,6 +97,8 @@ class WorkflowResource:
             input_["on_exception_steps"] = on_exception_steps
         if tags is not None:
             input_["tags"] = tags
+        if structured_log_destinations is not None:
+            input_["structured_log_destinations"] = structured_log_destinations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -259,6 +266,9 @@ class AsyncWorkflowResource:
             "capo_transfer.types.workflow_steps.WorkflowSteps"
         ] = None,
         tags: Optional["capo_transfer.types.tags.Tags"] = None,
+        structured_log_destinations: Optional[
+            "capo_transfer.types.structured_log_destinations.StructuredLogDestinations"
+        ] = None,
     ) -> "capo_transfer.types.create_workflow_response.CreateWorkflowResponse":
         """<p> Allows you to create a workflow with specified steps and step details the workflow invokes after file transfer completes. After creating a workflow, you can associate the workflow created with any transfer servers by specifying the <code>workflow-details</code> field in <code>CreateServer</code> and <code>UpdateServer</code> operations. </p>
 
@@ -267,6 +277,7 @@ class AsyncWorkflowResource:
             steps: <p>Specifies the details for the steps that are in the specified workflow.</p> <p> The <code>TYPE</code> specifies which of the following actions is being taken for this step. </p> <ul> <li> <p> <b> <code>COPY</code> </b> - Copy the file to another location.</p> </li> <li> <p> <b> <code>CUSTOM</code> </b> - Perform a custom step with an Lambda function target.</p> </li> <li> <p> <b> <code>DECRYPT</code> </b> - Decrypt a file that was encrypted before it was uploaded.</p> </li> <li> <p> <b> <code>DELETE</code> </b> - Delete the file.</p> </li> <li> <p> <b> <code>TAG</code> </b> - Add a tag to the file.</p> </li> </ul> <note> <p> Currently, copying and tagging are supported only on S3. </p> </note> <p> For file location, you specify either the Amazon S3 bucket and key, or the Amazon EFS file system ID and path. </p>
             on_exception_steps: <p>Specifies the steps (actions) to take if errors are encountered during execution of the workflow.</p> <note> <p>For custom steps, the Lambda function needs to send <code>FAILURE</code> to the call back API to kick off the exception steps. Additionally, if the Lambda does not send <code>SUCCESS</code> before it times out, the exception steps are executed.</p> </note>
             tags: <p>Key-value pairs that can be used to group and search for workflows. Tags are metadata attached to workflows for any purpose.</p>
+            structured_log_destinations: <p>Specifies the log groups to which your workflow logs are sent.</p> <p>To specify a log group, you must provide the ARN for an existing log group. In this case, the format of the log group is as follows:</p> <p> <code>arn:partition:logs:region-name:amazon-account-id:log-group:log-group-name:*</code> </p> <p>For example, <code>arn:aws:logs:us-east-1:111122223333:log-group:mytestgroup:*</code> </p>
 
         Raises:
             capo_transfer.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -303,6 +314,8 @@ class AsyncWorkflowResource:
             input_["on_exception_steps"] = on_exception_steps
         if tags is not None:
             input_["tags"] = tags
+        if structured_log_destinations is not None:
+            input_["structured_log_destinations"] = structured_log_destinations
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

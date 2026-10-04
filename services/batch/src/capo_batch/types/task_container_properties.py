@@ -61,7 +61,7 @@ class TaskContainerProperties(TypedDict, closed=True):
     resource_requirements: NotRequired[
         "capo_batch.types.resource_requirements.ResourceRequirements"
     ]
-    """<p>The type and amount of a resource to assign to a container. The only supported resource is a GPU.</p>"""
+    """<p>The type and amount of a resource to assign to a container. The supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.</p>"""
     secrets: NotRequired["capo_batch.types.secret_list.SecretList"]
     """<p>The secrets to pass to the container. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html">Specifying Sensitive Data</a> in the Amazon Elastic Container Service Developer Guide.</p>"""
     ulimits: NotRequired["capo_batch.types.ulimits.Ulimits"]

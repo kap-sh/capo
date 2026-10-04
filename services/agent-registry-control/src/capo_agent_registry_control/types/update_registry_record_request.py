@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.registry_identifier
     import capo_agent_registry_control.types.registry_record_name
     import capo_agent_registry_control.types.registry_record_version
+    import capo_agent_registry_control.types.updated_custom_metadata_map
     import capo_agent_registry_control.types.updated_description
     import capo_agent_registry_control.types.updated_descriptors
     import capo_agent_registry_control.types.updated_display_name
@@ -45,11 +46,16 @@ class UpdateRegistryRecordRequest(TypedDict, closed=True):
         "capo_agent_registry_control.types.registry_record_version.RegistryRecordVersion"
     ]
     """<p>The updated version of the registry record. Omit to leave the version unchanged.</p>"""
+    custom_metadata: NotRequired[
+        "capo_agent_registry_control.types.updated_custom_metadata_map.UpdatedCustomMetadataMap"
+    ]
+    """<p>The updated custom metadata for the registry record. Values can be strings (maximum 128 characters) or native JSON booleans (<code>true</code> or <code>false</code>). Omit to leave the existing metadata unchanged. Supply the wrapper with a full replacement set to update, or with a null value to clear all metadata.</p>"""
     trigger_synchronization: NotRequired["bool"]
     """<p>Whether to trigger synchronization of the record's descriptor content from its source</p>"""
     provenance: NotRequired[
         "capo_agent_registry_control.types.provenance_list.ProvenanceList"
     ]
+    """<p>The provenance lineage re-assertion for the registry record. This field is reserved for the Amazon Web Services Agent Registry auto-detection service principal. Requests that include this field from other callers are rejected. The source identity of an existing lineage is immutable; a re-assertion may only refresh the source details.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -91,6 +97,14 @@ def serialize_json(value: UpdateRegistryRecordRequest) -> dict:
         )
     if "record_version" in value:
         out["recordVersion"] = value["record_version"]
+    if "custom_metadata" in value:
+        import capo_agent_registry_control.types.updated_custom_metadata_map
+
+        out["customMetadata"] = (
+            capo_agent_registry_control.types.updated_custom_metadata_map.serialize_json(
+                value["custom_metadata"]
+            )
+        )
     if "trigger_synchronization" in value:
         out["triggerSynchronization"] = value["trigger_synchronization"]
     if "provenance" in value:
@@ -142,6 +156,14 @@ def deserialize_json(data: dict) -> UpdateRegistryRecordRequest:
         )
     if data.get("recordVersion") is not None:
         out["record_version"] = data["recordVersion"]
+    if data.get("customMetadata") is not None:
+        import capo_agent_registry_control.types.updated_custom_metadata_map
+
+        out["custom_metadata"] = (
+            capo_agent_registry_control.types.updated_custom_metadata_map.deserialize_json(
+                data["customMetadata"]
+            )
+        )
     if data.get("triggerSynchronization") is not None:
         out["trigger_synchronization"] = data["triggerSynchronization"]
     if data.get("provenance") is not None:

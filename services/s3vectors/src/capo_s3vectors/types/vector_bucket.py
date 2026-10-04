@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import datetime
 
     import capo_s3vectors.types.encryption_configuration
+    import capo_s3vectors.types.index_mode
     import capo_s3vectors.types.vector_bucket_arn
     import capo_s3vectors.types.vector_bucket_name
 
@@ -25,6 +26,8 @@ class VectorBucket(TypedDict, closed=True):
         "capo_s3vectors.types.encryption_configuration.EncryptionConfiguration"
     ]
     """<p>The encryption configuration for the vector bucket.</p>"""
+    default_index_mode: NotRequired["capo_s3vectors.types.index_mode.IndexMode"]
+    """<p>The mode that is automatically assigned to new vector indexes in the vector bucket. Changing the default index mode doesn't affect existing vector indexes.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -44,6 +47,12 @@ def serialize_json(value: VectorBucket) -> dict:
             capo_s3vectors.types.encryption_configuration.serialize_json(
                 value["encryption_configuration"]
             )
+        )
+    if "default_index_mode" in value:
+        import capo_s3vectors.types.index_mode
+
+        out["defaultIndexMode"] = capo_s3vectors.types.index_mode.serialize_json(
+            value["default_index_mode"]
         )
     return out
 
@@ -73,5 +82,11 @@ def deserialize_json(data: dict) -> VectorBucket:
             capo_s3vectors.types.encryption_configuration.deserialize_json(
                 data["encryptionConfiguration"]
             )
+        )
+    if data.get("defaultIndexMode") is not None:
+        import capo_s3vectors.types.index_mode
+
+        out["default_index_mode"] = capo_s3vectors.types.index_mode.deserialize_json(
+            data["defaultIndexMode"]
         )
     return out

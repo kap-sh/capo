@@ -181,6 +181,7 @@ if TYPE_CHECKING:
     import capo_securityhub.types.enable_security_hub_v2_request
     import capo_securityhub.types.enable_security_hub_v2_response
     import capo_securityhub.types.enablement_status
+    import capo_securityhub.types.exposure_finding
     import capo_securityhub.types.feature_name
     import capo_securityhub.types.field_map
     import capo_securityhub.types.finding_aggregator
@@ -231,6 +232,8 @@ if TYPE_CHECKING:
     import capo_securityhub.types.get_members_response
     import capo_securityhub.types.get_recommended_policy_v2_request
     import capo_securityhub.types.get_recommended_policy_v2_response
+    import capo_securityhub.types.get_remediations_v2_request
+    import capo_securityhub.types.get_remediations_v2_response
     import capo_securityhub.types.get_resources_statistics_v2_request
     import capo_securityhub.types.get_resources_statistics_v2_response
     import capo_securityhub.types.get_resources_trends_v2_request
@@ -240,6 +243,7 @@ if TYPE_CHECKING:
     import capo_securityhub.types.get_security_control_definition_request
     import capo_securityhub.types.get_security_control_definition_response
     import capo_securityhub.types.group_by_rules
+    import capo_securityhub.types.guidance_format
     import capo_securityhub.types.insight
     import capo_securityhub.types.integer
     import capo_securityhub.types.invitation
@@ -261,6 +265,8 @@ if TYPE_CHECKING:
     import capo_securityhub.types.list_connectors_v2_response
     import capo_securityhub.types.list_enabled_products_for_import_request
     import capo_securityhub.types.list_enabled_products_for_import_response
+    import capo_securityhub.types.list_exposures_by_remediation_v2_request
+    import capo_securityhub.types.list_exposures_by_remediation_v2_response
     import capo_securityhub.types.list_finding_aggregators_request
     import capo_securityhub.types.list_finding_aggregators_response
     import capo_securityhub.types.list_free_trial_statuses_v2_request
@@ -300,6 +306,9 @@ if TYPE_CHECKING:
     import capo_securityhub.types.register_connector_v2_request
     import capo_securityhub.types.register_connector_v2_response
     import capo_securityhub.types.related_finding_list
+    import capo_securityhub.types.remediation_filters
+    import capo_securityhub.types.remediation_string_uid
+    import capo_securityhub.types.remediation_v2_item
     import capo_securityhub.types.resource_arn
     import capo_securityhub.types.resource_group_by_rules
     import capo_securityhub.types.resource_result
@@ -5221,6 +5230,126 @@ class SecurityHubClient:
             if not _token:
                 break
 
+    def get_remediations_v2(
+        self,
+        *,
+        config_overrides: Optional[SecurityHubClientConfig] = None,
+        target_uid: Optional[
+            "capo_securityhub.types.remediation_string_uid.RemediationStringUid"
+        ] = None,
+        metadata_uid: Optional[
+            "capo_securityhub.types.remediation_string_uid.RemediationStringUid"
+        ] = None,
+        filters: Optional[
+            "capo_securityhub.types.remediation_filters.RemediationFilters"
+        ] = None,
+        show_guidance: Optional["capo_securityhub.types.boolean.Boolean"] = None,
+        guidance_format: Optional[
+            "capo_securityhub.types.guidance_format.GuidanceFormat"
+        ] = None,
+        max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+    ) -> (
+        "capo_securityhub.types.get_remediations_v2_response.GetRemediationsV2Response"
+    ):
+        """<p>Retrieves remediation targets for the account, or for all member accounts if the caller is the delegated administrator. Results are sorted by priority, highest first, and are paginated. Use <code>TargetUid</code> or <code>MetadataUid</code> to scope the request to a single target or finding.</p>
+
+        Args:
+            target_uid: <p>The unique identifier (ID) of an existing remediation target to return. Returns the single matching target. You can't use <code>TargetUid</code> together with <code>MetadataUid</code> or <code>Filters</code>.</p>
+            metadata_uid: <p>The unique identifier (ID) of the Security Hub exposure finding, found under the <code>metadata.uid</code> field of the finding. Returns the remediation targets associated with that finding. You can't use <code>MetadataUid</code> together with <code>TargetUid</code> or <code>Filters</code>.</p>
+            filters: <p>Filters remediation targets based on a set of criteria. You can't use <code>Filters</code> together with <code>TargetUid</code> or <code>MetadataUid</code>.</p>
+            show_guidance: <p>Specifies whether to show remediation target guidance.</p>
+            guidance_format: <p>The format of the remediation guidance examples to return. Valid values are <code>All</code>, <code>AwsCli</code>, <code>Cli</code>, <code>Python</code>, <code>Terraform</code>, <code>Cdk</code>, <code>CloudFormation</code>, <code>IaC</code>, and <code>Template</code>. If you don't specify a value, all formats are returned. Applies only when <code>ShowGuidance</code> is <code>true</code>.</p>
+            max_results: <p>The maximum number of results to return. Valid range is 1-100. If you don't specify a value, the operation returns up to 25 results.</p>
+            next_token: <p>The token used to paginate the remediations target list returned. On your first call to <code>GetRemediationsV2</code>, omit this parameter or set it to <code>NULL</code>. For subsequent calls, use the <code>NextToken</code> value returned in the previous response to retrieve the next page of results.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because we can't find the specified resource.</p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_securityhub.types.get_remediations_v2_request.GetRemediationsV2Request]",
+        ) -> OperationResponse[
+            "capo_securityhub.types.get_remediations_v2_response.GetRemediationsV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.get_remediations_v2
+
+            output, http_response = (
+                capo_securityhub._operations.security_hub_api_service.get_remediations_v2.get_remediations_v2(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_securityhub.types.get_remediations_v2_request.GetRemediationsV2Request = {}
+        if target_uid is not None:
+            input_["target_uid"] = target_uid
+        if metadata_uid is not None:
+            input_["metadata_uid"] = metadata_uid
+        if filters is not None:
+            input_["filters"] = filters
+        if show_guidance is not None:
+            input_["show_guidance"] = show_guidance
+        if guidance_format is not None:
+            input_["guidance_format"] = guidance_format
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_get_remediations_v2(
+        self,
+        *,
+        config_overrides: Optional[SecurityHubClientConfig] = None,
+        target_uid: Optional[
+            "capo_securityhub.types.remediation_string_uid.RemediationStringUid"
+        ] = None,
+        metadata_uid: Optional[
+            "capo_securityhub.types.remediation_string_uid.RemediationStringUid"
+        ] = None,
+        filters: Optional[
+            "capo_securityhub.types.remediation_filters.RemediationFilters"
+        ] = None,
+        show_guidance: Optional["capo_securityhub.types.boolean.Boolean"] = None,
+        guidance_format: Optional[
+            "capo_securityhub.types.guidance_format.GuidanceFormat"
+        ] = None,
+        max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_securityhub.types.remediation_v2_item.RemediationV2Item]":
+        _token = next_token
+        while True:
+            _response = self.get_remediations_v2(
+                config_overrides=config_overrides,
+                target_uid=target_uid,
+                metadata_uid=metadata_uid,
+                filters=filters,
+                show_guidance=show_guidance,
+                guidance_format=guidance_format,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def get_resources_statistics_v2(
         self,
         *,
@@ -6165,6 +6294,88 @@ class SecurityHubClient:
                 max_results=max_results,
             )
             _page = _resolve_path(_response, ("product_subscriptions",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_exposures_by_remediation_v2(
+        self,
+        *,
+        config_overrides: Optional[SecurityHubClientConfig] = None,
+        target_uid: Optional[
+            "capo_securityhub.types.remediation_string_uid.RemediationStringUid"
+        ] = None,
+        max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+    ) -> "capo_securityhub.types.list_exposures_by_remediation_v2_response.ListExposuresByRemediationV2Response":
+        """<p>Retrieves the exposure findings tied to a specific remediation target. Results are sorted by previous severity, highest first, and are paginated.</p>
+
+        Args:
+            target_uid: <p>The unique identifier (ID) of an existing remediation target to list exposure findings for.</p>
+            max_results: <p>The maximum number of results to return. Valid range is 1-100. If you don't specify a value, the operation returns up to 25 results.</p>
+            next_token: <p>The token used to paginate the exposures list returned. On your first call to <code>ListExposuresByRemediationV2</code>, omit this parameter or set it to <code>NULL</code>. For subsequent calls, use the <code>NextToken</code> value returned in the previous response to retrieve the next page of results.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because we can't find the specified resource.</p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_securityhub.types.list_exposures_by_remediation_v2_request.ListExposuresByRemediationV2Request]",
+        ) -> OperationResponse[
+            "capo_securityhub.types.list_exposures_by_remediation_v2_response.ListExposuresByRemediationV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.list_exposures_by_remediation_v2
+
+            output, http_response = (
+                capo_securityhub._operations.security_hub_api_service.list_exposures_by_remediation_v2.list_exposures_by_remediation_v2(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_securityhub.types.list_exposures_by_remediation_v2_request.ListExposuresByRemediationV2Request = {}
+        if target_uid is not None:
+            input_["target_uid"] = target_uid
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_exposures_by_remediation_v2(
+        self,
+        *,
+        config_overrides: Optional[SecurityHubClientConfig] = None,
+        target_uid: Optional[
+            "capo_securityhub.types.remediation_string_uid.RemediationStringUid"
+        ] = None,
+        max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_securityhub.types.exposure_finding.ExposureFinding]":
+        _token = next_token
+        while True:
+            _response = self.list_exposures_by_remediation_v2(
+                config_overrides=config_overrides,
+                target_uid=target_uid,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("items",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))

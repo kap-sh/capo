@@ -48,6 +48,7 @@ if TYPE_CHECKING:
     import capo_sesv2.types.cancel_export_job_response
     import capo_sesv2.types.certificate_arn
     import capo_sesv2.types.configuration_overrides
+    import capo_sesv2.types.configuration_set_filter
     import capo_sesv2.types.configuration_set_name
     import capo_sesv2.types.contact_language
     import capo_sesv2.types.contact_list_name
@@ -188,6 +189,7 @@ if TYPE_CHECKING:
     import capo_sesv2.types.https_policy
     import capo_sesv2.types.identity
     import capo_sesv2.types.identity_certificate
+    import capo_sesv2.types.identity_filter
     import capo_sesv2.types.import_data_source
     import capo_sesv2.types.import_destination
     import capo_sesv2.types.import_destination_type
@@ -236,6 +238,7 @@ if TYPE_CHECKING:
     import capo_sesv2.types.list_tenant_resources_filter
     import capo_sesv2.types.list_tenant_resources_request
     import capo_sesv2.types.list_tenant_resources_response
+    import capo_sesv2.types.list_tenants_filter
     import capo_sesv2.types.list_tenants_request
     import capo_sesv2.types.list_tenants_response
     import capo_sesv2.types.mail_from_domain_name
@@ -3371,12 +3374,16 @@ class AsyncSESv2Client:
         self,
         *,
         config_overrides: Optional[AsyncSESv2ClientConfig] = None,
+        filter: Optional[
+            "capo_sesv2.types.configuration_set_filter.ConfigurationSetFilter"
+        ] = None,
         next_token: Optional["capo_sesv2.types.next_token.NextToken"] = None,
         page_size: Optional["capo_sesv2.types.max_items.MaxItems"] = None,
     ) -> "capo_sesv2.types.list_configuration_sets_response.ListConfigurationSetsResponse":
         """<p>List all of the configuration sets associated with your account in the current region.</p> <p> <i>Configuration sets</i> are groups of rules that you can apply to the emails you send. You apply a configuration set to an email by including a reference to the configuration set in the headers of the email. When you apply a configuration set to an email, all of the rules in that configuration set are applied to the email.</p>
 
         Args:
+            filter: <p>An object that contains filters to apply when listing configuration sets. You can filter by configuration set name.</p>
             next_token: <p>A token returned from a previous call to <code>ListConfigurationSets</code> to indicate the position in the list of configuration sets.</p>
             page_size: <p>The number of results to show in a single call to <code>ListConfigurationSets</code>. If the number of results is larger than the number you specified in this parameter, then the response includes a <code>NextToken</code> element, which you can use to obtain additional results.</p>
 
@@ -3403,6 +3410,8 @@ class AsyncSESv2Client:
 
         interceptors_, options_ = self.operation_options(config_overrides)
         input_: capo_sesv2.types.list_configuration_sets_request.ListConfigurationSetsRequest = {}
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if page_size is not None:
@@ -3420,6 +3429,9 @@ class AsyncSESv2Client:
         self,
         *,
         config_overrides: Optional[AsyncSESv2ClientConfig] = None,
+        filter: Optional[
+            "capo_sesv2.types.configuration_set_filter.ConfigurationSetFilter"
+        ] = None,
         next_token: Optional["capo_sesv2.types.next_token.NextToken"] = None,
         page_size: Optional["capo_sesv2.types.max_items.MaxItems"] = None,
     ) -> "AsyncIterator[capo_sesv2.types.list_configuration_sets_response.ListConfigurationSetsResponse]":
@@ -3427,6 +3439,7 @@ class AsyncSESv2Client:
         while True:
             _response = await self.list_configuration_sets(
                 config_overrides=config_overrides,
+                filter=filter,
                 next_token=_token,
                 page_size=page_size,
             )
@@ -3884,12 +3897,14 @@ class AsyncSESv2Client:
         self,
         *,
         config_overrides: Optional[AsyncSESv2ClientConfig] = None,
+        filter: Optional["capo_sesv2.types.identity_filter.IdentityFilter"] = None,
         next_token: Optional["capo_sesv2.types.next_token.NextToken"] = None,
         page_size: Optional["capo_sesv2.types.max_items.MaxItems"] = None,
     ) -> "capo_sesv2.types.list_email_identities_response.ListEmailIdentitiesResponse":
         """<p>Returns a list of all of the email identities that are associated with your Amazon Web Services account. An identity can be either an email address or a domain. This operation returns identities that are verified as well as those that aren't. This operation returns identities that are associated with Amazon SES and Amazon Pinpoint.</p>
 
         Args:
+            filter: <p>An object that contains filters to apply when listing email identities. You can filter by identity name, identity type, or verification status.</p>
             next_token: <p>A token returned from a previous call to <code>ListEmailIdentities</code> to indicate the position in the list of identities.</p>
             page_size: <p>The number of results to show in a single call to <code>ListEmailIdentities</code>. If the number of results is larger than the number you specified in this parameter, then the response includes a <code>NextToken</code> element, which you can use to obtain additional results.</p> <p>The value you specify has to be at least 0, and can be no more than 1000.</p>
 
@@ -3916,6 +3931,8 @@ class AsyncSESv2Client:
 
         interceptors_, options_ = self.operation_options(config_overrides)
         input_: capo_sesv2.types.list_email_identities_request.ListEmailIdentitiesRequest = {}
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if page_size is not None:
@@ -3933,6 +3950,7 @@ class AsyncSESv2Client:
         self,
         *,
         config_overrides: Optional[AsyncSESv2ClientConfig] = None,
+        filter: Optional["capo_sesv2.types.identity_filter.IdentityFilter"] = None,
         next_token: Optional["capo_sesv2.types.next_token.NextToken"] = None,
         page_size: Optional["capo_sesv2.types.max_items.MaxItems"] = None,
     ) -> "AsyncIterator[capo_sesv2.types.list_email_identities_response.ListEmailIdentitiesResponse]":
@@ -3940,6 +3958,7 @@ class AsyncSESv2Client:
         while True:
             _response = await self.list_email_identities(
                 config_overrides=config_overrides,
+                filter=filter,
                 next_token=_token,
                 page_size=page_size,
             )
@@ -4796,12 +4815,16 @@ class AsyncSESv2Client:
         self,
         *,
         config_overrides: Optional[AsyncSESv2ClientConfig] = None,
+        filter: Optional[
+            "capo_sesv2.types.list_tenants_filter.ListTenantsFilter"
+        ] = None,
         next_token: Optional["capo_sesv2.types.next_token.NextToken"] = None,
         page_size: Optional["capo_sesv2.types.max_items.MaxItems"] = None,
     ) -> "capo_sesv2.types.list_tenants_response.ListTenantsResponse":
         """<p>List all tenants associated with your account in the current Amazon Web Services Region.</p> <p>This operation returns basic information about each tenant, such as tenant name, ID, ARN, and creation timestamp.</p>
 
         Args:
+            filter: <p>An object that contains filters to apply when listing tenants. You can filter by tenant name or sending status.</p>
             next_token: <p>A token returned from a previous call to <code>ListTenants</code> to indicate the position in the list of tenants.</p>
             page_size: <p>The number of results to show in a single call to <code>ListTenants</code>. If the number of results is larger than the number you specified in this parameter, then the response includes a <code>NextToken</code> element, which you can use to obtain additional results.</p>
 
@@ -4828,6 +4851,8 @@ class AsyncSESv2Client:
 
         interceptors_, options_ = self.operation_options(config_overrides)
         input_: capo_sesv2.types.list_tenants_request.ListTenantsRequest = {}
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if page_size is not None:
@@ -4845,6 +4870,9 @@ class AsyncSESv2Client:
         self,
         *,
         config_overrides: Optional[AsyncSESv2ClientConfig] = None,
+        filter: Optional[
+            "capo_sesv2.types.list_tenants_filter.ListTenantsFilter"
+        ] = None,
         next_token: Optional["capo_sesv2.types.next_token.NextToken"] = None,
         page_size: Optional["capo_sesv2.types.max_items.MaxItems"] = None,
     ) -> "AsyncIterator[capo_sesv2.types.tenant_info.TenantInfo]":
@@ -4852,6 +4880,7 @@ class AsyncSESv2Client:
         while True:
             _response = await self.list_tenants(
                 config_overrides=config_overrides,
+                filter=filter,
                 next_token=_token,
                 page_size=page_size,
             )

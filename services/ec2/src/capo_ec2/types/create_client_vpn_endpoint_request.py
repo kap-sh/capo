@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.client_vpn_authentication_request_list
     import capo_ec2.types.client_vpn_security_group_id_set
     import capo_ec2.types.connection_log_options
+    import capo_ec2.types.device_posture_options
     import capo_ec2.types.endpoint_ip_address_type
     import capo_ec2.types.integer
     import capo_ec2.types.self_service_portal
@@ -97,6 +98,10 @@ class CreateClientVpnEndpointRequest(TypedDict, closed=True):
         "capo_ec2.types.transit_gateway_configuration_input_structure.TransitGatewayConfigurationInputStructure"
     ]
     """<p>The Transit Gateway configuration for the Client VPN endpoint. Use this parameter to associate the endpoint with a Transit Gateway instead of a VPC. You cannot specify both <code>TransitGatewayConfiguration</code> and <code>VpcId</code>/<code>SecurityGroupIds</code>.</p>"""
+    device_posture_options: NotRequired[
+        "capo_ec2.types.device_posture_options.DevicePostureOptions"
+    ]
+    """<p>The device posture options for the Client VPN endpoint. Use this parameter to specify the device trust providers that the endpoint uses to evaluate the security posture of connecting devices.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -220,6 +225,12 @@ def serialize_ec2_query(
             value["transit_gateway_configuration"],
             pairs,
             f"{key_prefix}TransitGatewayConfiguration",
+        )
+    if "device_posture_options" in value:
+        import capo_ec2.types.device_posture_options
+
+        capo_ec2.types.device_posture_options.serialize_ec2_query(
+            value["device_posture_options"], pairs, f"{key_prefix}DevicePostureOptions"
         )
 
 
@@ -370,6 +381,15 @@ def deserialize_ec2_query(el: Element) -> CreateClientVpnEndpointRequest:
         out["transit_gateway_configuration"] = (
             capo_ec2.types.transit_gateway_configuration_input_structure.deserialize_ec2_query(
                 child_transit_gateway_configuration
+            )
+        )
+    child_device_posture_options = el.find("DevicePostureOptions")
+    if child_device_posture_options is not None:
+        import capo_ec2.types.device_posture_options
+
+        out["device_posture_options"] = (
+            capo_ec2.types.device_posture_options.deserialize_ec2_query(
+                child_device_posture_options
             )
         )
     return out

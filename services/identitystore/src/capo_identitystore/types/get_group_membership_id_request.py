@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 
 class GetGroupMembershipIdRequest(TypedDict, closed=True):
     identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId"
-    """<p>The globally unique identifier for the identity store.</p>"""
+    """<p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>"""
     group_id: "capo_identitystore.types.resource_id.ResourceId"
-    """<p>The identifier for a group in the identity store.</p>"""
+    """<p>The identifier for a group in the identity store.</p> <p>You can specify the group by ID or by Amazon Resource Name (ARN). For example, group ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code> or group ARN <code>arn:aws:identitystore:::group/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code>.</p>"""
     member_id: "capo_identitystore.types.member_id.MemberId"
     """<p>An object that contains the identifier of a group member. Setting the <code>UserID</code> field to the specific identifier for a user indicates that the user is a member of the group.</p>"""
 

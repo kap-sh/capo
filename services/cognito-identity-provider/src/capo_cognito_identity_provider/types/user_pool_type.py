@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.account_recovery_setting_type
+    import capo_cognito_identity_provider.types.acr_configuration_type
     import capo_cognito_identity_provider.types.admin_create_user_config_type
     import capo_cognito_identity_provider.types.alias_attributes_list_type
     import capo_cognito_identity_provider.types.arn_type
@@ -178,6 +179,10 @@ class UserPoolType(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.issuer_configuration_type.IssuerConfigurationType"
     ]
     """<p>The issuer configuration for the user pool, including token issuing settings.</p>"""
+    acr_configuration: NotRequired[
+        "capo_cognito_identity_provider.types.acr_configuration_type.AcrConfigurationType"
+    ]
+    """<p>The names of the authentication context class reference (ACR) levels for the user pool. Amazon Cognito always returns the effective configuration, with default names merged in for any level that you haven't customized.</p> <p>Configuring custom ACR level names requires the Essentials or Plus feature plan. To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -396,6 +401,14 @@ def serialize_aws_json_1_1(value: UserPoolType) -> dict:
         out["IssuerConfiguration"] = (
             capo_cognito_identity_provider.types.issuer_configuration_type.serialize_aws_json_1_1(
                 value["issuer_configuration"]
+            )
+        )
+    if "acr_configuration" in value:
+        import capo_cognito_identity_provider.types.acr_configuration_type
+
+        out["AcrConfiguration"] = (
+            capo_cognito_identity_provider.types.acr_configuration_type.serialize_aws_json_1_1(
+                value["acr_configuration"]
             )
         )
     return out
@@ -619,6 +632,14 @@ def deserialize_aws_json_1_1(data: dict) -> UserPoolType:
         out["issuer_configuration"] = (
             capo_cognito_identity_provider.types.issuer_configuration_type.deserialize_aws_json_1_1(
                 data["IssuerConfiguration"]
+            )
+        )
+    if data.get("AcrConfiguration") is not None:
+        import capo_cognito_identity_provider.types.acr_configuration_type
+
+        out["acr_configuration"] = (
+            capo_cognito_identity_provider.types.acr_configuration_type.deserialize_aws_json_1_1(
+                data["AcrConfiguration"]
             )
         )
     return out

@@ -8,6 +8,8 @@ from capo_agent_registry_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.creator_account_id
+    import capo_agent_registry_control.types.custom_metadata_document
+    import capo_agent_registry_control.types.custom_metadata_schema_compliance_status
     import capo_agent_registry_control.types.date_timestamp
     import capo_agent_registry_control.types.description
     import capo_agent_registry_control.types.descriptors
@@ -64,12 +66,21 @@ class GetRegistryRecordResponse(TypedDict, closed=True):
     provenance: NotRequired[
         "capo_agent_registry_control.types.provenance_list.ProvenanceList"
     ]
+    """<p>The provenance lineage entries for the registry record. Populated for records created by auto-detection; each entry identifies the upstream source that the record was detected from.</p>"""
     created_by_auto_detection: NotRequired["bool"]
     """<p>Specifies whether the registry record was created by auto-detection. <code>true</code> indicates the record was automatically created by the service based on the registry's auto-detection configuration; <code>false</code> indicates the record was created through a control-plane API call.</p>"""
     created_by: NotRequired[
         "capo_agent_registry_control.types.creator_account_id.CreatorAccountId"
     ]
     """<p>The ID of the Amazon Web Services account that created the registry record.</p>"""
+    custom_metadata: NotRequired[
+        "capo_agent_registry_control.types.custom_metadata_document.CustomMetadataDocument"
+    ]
+    """<p>The custom metadata attached to this registry record. Values are strings (maximum 128 characters) or booleans.</p>"""
+    custom_metadata_schema_compliance_status: NotRequired[
+        "capo_agent_registry_control.types.custom_metadata_schema_compliance_status.CustomMetadataSchemaComplianceStatus"
+    ]
+    """<p>Indicates whether this record's custom metadata conforms to the registry's current schema. This status is computed at read time against the latest schema.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -129,6 +140,16 @@ def serialize_json(value: GetRegistryRecordResponse) -> dict:
         out["createdByAutoDetection"] = value["created_by_auto_detection"]
     if "created_by" in value:
         out["createdBy"] = value["created_by"]
+    if "custom_metadata" in value:
+        out["customMetadata"] = value["custom_metadata"]
+    if "custom_metadata_schema_compliance_status" in value:
+        import capo_agent_registry_control.types.custom_metadata_schema_compliance_status
+
+        out["customMetadataSchemaComplianceStatus"] = (
+            capo_agent_registry_control.types.custom_metadata_schema_compliance_status.serialize_json(
+                value["custom_metadata_schema_compliance_status"]
+            )
+        )
     return out
 
 
@@ -218,4 +239,14 @@ def deserialize_json(data: dict) -> GetRegistryRecordResponse:
         out["created_by_auto_detection"] = data["createdByAutoDetection"]
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
+    if data.get("customMetadata") is not None:
+        out["custom_metadata"] = data["customMetadata"]
+    if data.get("customMetadataSchemaComplianceStatus") is not None:
+        import capo_agent_registry_control.types.custom_metadata_schema_compliance_status
+
+        out["custom_metadata_schema_compliance_status"] = (
+            capo_agent_registry_control.types.custom_metadata_schema_compliance_status.deserialize_json(
+                data["customMetadataSchemaComplianceStatus"]
+            )
+        )
     return out

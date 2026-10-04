@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.distance_metric
     import capo_s3vectors.types.encryption_configuration
     import capo_s3vectors.types.index_arn
+    import capo_s3vectors.types.index_mode
     import capo_s3vectors.types.index_name
     import capo_s3vectors.types.metadata_configuration
     import capo_s3vectors.types.vector_bucket_name
@@ -42,6 +43,8 @@ class Index(TypedDict, closed=True):
         "capo_s3vectors.types.encryption_configuration.EncryptionConfiguration"
     ]
     """<p>The encryption configuration for a vector index. By default, if you don't specify, all new vectors in the vector index will use the encryption configuration of the vector bucket.</p>"""
+    index_mode: NotRequired["capo_s3vectors.types.index_mode.IndexMode"]
+    """<p>The mode that determines how the vector index processes queries.</p> <p>Valid values:</p> <ul> <li> <p> <code>CLASSIC</code> - Applies metadata filters during the vector search.</p> </li> <li> <p> <code>ENHANCED</code> - Applies metadata filters before the vector search.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---
@@ -79,6 +82,12 @@ def serialize_json(value: Index) -> dict:
             capo_s3vectors.types.encryption_configuration.serialize_json(
                 value["encryption_configuration"]
             )
+        )
+    if "index_mode" in value:
+        import capo_s3vectors.types.index_mode
+
+        out["indexMode"] = capo_s3vectors.types.index_mode.serialize_json(
+            value["index_mode"]
         )
     return out
 
@@ -140,5 +149,11 @@ def deserialize_json(data: dict) -> Index:
             capo_s3vectors.types.encryption_configuration.deserialize_json(
                 data["encryptionConfiguration"]
             )
+        )
+    if data.get("indexMode") is not None:
+        import capo_s3vectors.types.index_mode
+
+        out["index_mode"] = capo_s3vectors.types.index_mode.deserialize_json(
+            data["indexMode"]
         )
     return out

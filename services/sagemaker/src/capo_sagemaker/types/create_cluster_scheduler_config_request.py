@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class CreateClusterSchedulerConfigRequest(TypedDict, closed=True):
     name: NotRequired["capo_sagemaker.types.entity_name.EntityName"]
-    """<p>Name for the cluster policy.</p>"""
+    """<p>The name for the cluster policy. The name must be unique within the SageMaker AI HyperPod cluster specified by <code>ClusterArn</code>. You can use the same name in other clusters within a Region or across Regions.</p>"""
     cluster_arn: NotRequired["capo_sagemaker.types.cluster_arn.ClusterArn"]
     """<p>ARN of the cluster.</p>"""
     scheduler_config: NotRequired[

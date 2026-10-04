@@ -34,7 +34,7 @@ class ListAvailablePhoneNumbersRequest(TypedDict, closed=True):
     number_preference: NotRequired[
         "capo_pinpoint_sms_voice_v2.types.number_preference_list.NumberPreferenceList"
     ]
-    """Optional. If omitted, returns unfiltered available numbers. Max 1 element for List API."""
+    """<p>An optional selection preference used to return only phone numbers that match a specific digit pattern, such as numbers that start with, end with, or contain a particular sequence. You can specify at most one preference. Number preferences apply only to <code>TEN_DLC</code> numbers in the <code>US</code>.</p>"""
     next_token: NotRequired["capo_pinpoint_sms_voice_v2.types.next_token.NextToken"]
     """<p>The token returned from a previous request to retrieve the next page of results.</p>"""
     max_results: NotRequired[

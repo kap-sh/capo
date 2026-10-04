@@ -48,6 +48,8 @@ class ProcurementPortalPreferenceSummary(TypedDict, closed=True):
     """<p>Indicates whether e-invoice delivery is enabled for this procurement portal preference.</p>"""
     purchase_order_retrieval_enabled: "bool"
     """<p>Indicates whether purchase order retrieval is enabled for this procurement portal preference.</p>"""
+    marketplace_punch_out_enabled: NotRequired["bool"]
+    """<p>Indicates whether Marketplace PunchOut is enabled for this procurement portal preference. Defaults to <code>false</code>.</p>"""
     einvoice_delivery_preference_status: NotRequired[
         "capo_invoicing.types.procurement_portal_preference_status.ProcurementPortalPreferenceStatus"
     ]
@@ -106,6 +108,8 @@ def serialize_aws_json_1_0(value: ProcurementPortalPreferenceSummary) -> dict:
         )
     out["EinvoiceDeliveryEnabled"] = value["einvoice_delivery_enabled"]
     out["PurchaseOrderRetrievalEnabled"] = value["purchase_order_retrieval_enabled"]
+    if "marketplace_punch_out_enabled" in value:
+        out["MarketplacePunchOutEnabled"] = value["marketplace_punch_out_enabled"]
     if "einvoice_delivery_preference_status" in value:
         import capo_invoicing.types.procurement_portal_preference_status
 
@@ -230,6 +234,8 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
         raise DeserializationError(
             "ProcurementPortalPreferenceSummary.purchase_order_retrieval_enabled required"
         )
+    if data.get("MarketplacePunchOutEnabled") is not None:
+        out["marketplace_punch_out_enabled"] = data["MarketplacePunchOutEnabled"]
     if data.get("EinvoiceDeliveryPreferenceStatus") is not None:
         import capo_invoicing.types.procurement_portal_preference_status
 

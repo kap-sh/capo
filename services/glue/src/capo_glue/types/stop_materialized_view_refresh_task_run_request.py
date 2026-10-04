@@ -7,11 +7,12 @@ from typing_extensions import TypedDict
 from capo_glue.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_glue.types.catalog_id_string
     import capo_glue.types.name_string
 
 
 class StopMaterializedViewRefreshTaskRunRequest(TypedDict, closed=True):
-    catalog_id: "capo_glue.types.name_string.NameString"
+    catalog_id: "capo_glue.types.catalog_id_string.CatalogIdString"
     """<p>The ID of the Data Catalog where the table reside. If none is supplied, the account ID is used by default.</p>"""
     database_name: "capo_glue.types.name_string.NameString"
     """<p>The name of the database where the table resides.</p>"""

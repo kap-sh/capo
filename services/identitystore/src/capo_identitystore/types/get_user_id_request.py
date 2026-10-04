@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class GetUserIdRequest(TypedDict, closed=True):
     identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId"
-    """<p>The globally unique identifier for the identity store.</p>"""
+    """<p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>"""
     alternate_identifier: (
         "capo_identitystore.types.alternate_identifier.AlternateIdentifier"
     )

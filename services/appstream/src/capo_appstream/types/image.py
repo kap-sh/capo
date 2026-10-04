@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_appstream.types.dynamic_app_providers_enabled
     import capo_appstream.types.image_permissions
     import capo_appstream.types.image_shared_with_others
+    import capo_appstream.types.image_software_metadata
     import capo_appstream.types.image_state
     import capo_appstream.types.image_state_change_reason
     import capo_appstream.types.image_type
@@ -87,6 +88,10 @@ class Image(TypedDict, closed=True):
     """<p>Indicates whether the image includes license-included applications.</p>"""
     image_type: NotRequired["capo_appstream.types.image_type.ImageType"]
     """<p>The type of the image. Images created through AMI import have type "custom", while WorkSpaces Applications provided images have type "native". Custom images support additional instance types including GeneralPurpose, MemoryOptimized, ComputeOptimized, and Accelerated instance families.</p>"""
+    image_software_metadata: NotRequired[
+        "capo_appstream.types.image_software_metadata.ImageSoftwareMetadata"
+    ]
+    """<p>The software metadata associated with the image.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -209,6 +214,14 @@ def serialize_aws_json_1_1(value: Image) -> dict:
 
         out["ImageType"] = capo_appstream.types.image_type.serialize_aws_json_1_1(
             value["image_type"]
+        )
+    if "image_software_metadata" in value:
+        import capo_appstream.types.image_software_metadata
+
+        out["ImageSoftwareMetadata"] = (
+            capo_appstream.types.image_software_metadata.serialize_aws_json_1_1(
+                value["image_software_metadata"]
+            )
         )
     return out
 
@@ -336,5 +349,13 @@ def deserialize_aws_json_1_1(data: dict) -> Image:
 
         out["image_type"] = capo_appstream.types.image_type.deserialize_aws_json_1_1(
             data["ImageType"]
+        )
+    if data.get("ImageSoftwareMetadata") is not None:
+        import capo_appstream.types.image_software_metadata
+
+        out["image_software_metadata"] = (
+            capo_appstream.types.image_software_metadata.deserialize_aws_json_1_1(
+                data["ImageSoftwareMetadata"]
+            )
         )
     return out

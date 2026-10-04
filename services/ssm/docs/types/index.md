@@ -260,6 +260,7 @@
 - [DeleteResourceDataSyncResult](delete_resource_data_sync_result.md)
 - [DeleteResourcePolicyRequest](delete_resource_policy_request.md)
 - [DeleteResourcePolicyResponse](delete_resource_policy_response.md)
+- [DeletionMode](deletion_mode.md)
 - [DeliveryTimedOutCount](delivery_timed_out_count.md)
 - [DeregisterManagedInstanceRequest](deregister_managed_instance_request.md)
 - [DeregisterManagedInstanceResult](deregister_managed_instance_result.md)

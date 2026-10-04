@@ -136,6 +136,7 @@
 - [ManifestName](manifest_name.md)
 - [MssManifestLayout](mss_manifest_layout.md)
 - [MultiviewConfiguration](multiview_configuration.md)
+- [MultiviewFilterConfiguration](multiview_filter_configuration.md)
 - [MultiviewLayoutList](multiview_layout_list.md)
 - [MultiviewLayoutType](multiview_layout_type.md)
 - [MultiviewSourceList](multiview_source_list.md)

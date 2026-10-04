@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_connect.types.end_associated_tasks_action_definition
     import capo_connect.types.event_bridge_action_definition
     import capo_connect.types.extract_information_action_definition
+    import capo_connect.types.send_in_app_notification_action_definition
     import capo_connect.types.send_notification_action_definition
     import capo_connect.types.submit_auto_evaluation_action_definition
     import capo_connect.types.task_action_definition
@@ -63,6 +64,10 @@ class RuleAction(TypedDict, closed=True):
         "capo_connect.types.extract_information_action_definition.ExtractInformationActionDefinition"
     ]
     """<p>Information about the extract information action.</p>"""
+    send_in_app_notification_action: NotRequired[
+        "capo_connect.types.send_in_app_notification_action_definition.SendInAppNotificationActionDefinition"
+    ]
+    """<p>Information about the send in-app notification action.</p> <p>Supported only for <code>TriggerEventSource</code> values: <code>OnPostCallAnalysisAvailable</code> | <code>OnRealTimeCallAnalysisAvailable</code> | <code>OnRealTimeChatAnalysisAvailable</code> | <code>OnPostChatAnalysisAvailable</code> | <code>OnAfterCallWorkAvailable</code> | <code>OnAfterChatWorkAvailable</code> | <code>OnEmailAnalysisAvailable</code> | <code>OnContactEvaluationSubmit</code> | <code>OnCaseCreate</code> | <code>OnCaseUpdate</code> | <code>OnSlaBreach</code> | <code>OnSchedulePublish</code> | <code>OnScheduleUpdate</code> | <code>OnScheduleTimeOffRequestActivity</code> </p>"""
 
 
 # --- restJson1 ser/de ---
@@ -149,6 +154,14 @@ def serialize_json(value: RuleAction) -> dict:
         out["ExtractInformationAction"] = (
             capo_connect.types.extract_information_action_definition.serialize_json(
                 value["extract_information_action"]
+            )
+        )
+    if "send_in_app_notification_action" in value:
+        import capo_connect.types.send_in_app_notification_action_definition
+
+        out["SendInAppNotificationAction"] = (
+            capo_connect.types.send_in_app_notification_action_definition.serialize_json(
+                value["send_in_app_notification_action"]
             )
         )
     return out
@@ -240,6 +253,14 @@ def deserialize_json(data: dict) -> RuleAction:
         out["extract_information_action"] = (
             capo_connect.types.extract_information_action_definition.deserialize_json(
                 data["ExtractInformationAction"]
+            )
+        )
+    if data.get("SendInAppNotificationAction") is not None:
+        import capo_connect.types.send_in_app_notification_action_definition
+
+        out["send_in_app_notification_action"] = (
+            capo_connect.types.send_in_app_notification_action_definition.deserialize_json(
+                data["SendInAppNotificationAction"]
             )
         )
     return out

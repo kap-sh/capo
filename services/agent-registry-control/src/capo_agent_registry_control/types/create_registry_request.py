@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.approval_configuration
     import capo_agent_registry_control.types.auto_detection_configuration
     import capo_agent_registry_control.types.client_token
+    import capo_agent_registry_control.types.custom_metadata_schema_configuration
     import capo_agent_registry_control.types.description
     import capo_agent_registry_control.types.discovery_configuration
     import capo_agent_registry_control.types.encryption_configuration
@@ -42,6 +43,10 @@ class CreateRegistryRequest(TypedDict, closed=True):
         "capo_agent_registry_control.types.approval_configuration.ApprovalConfiguration"
     ]
     """<p>Approval configuration for registry records</p>"""
+    custom_metadata_schema_configuration: NotRequired[
+        "capo_agent_registry_control.types.custom_metadata_schema_configuration.CustomMetadataSchemaConfiguration"
+    ]
+    """<p>The optional custom metadata schema configuration for the registry. When provided, registry records can carry structured metadata validated against this schema.</p>"""
     auto_detection_configuration: NotRequired[
         "capo_agent_registry_control.types.auto_detection_configuration.AutoDetectionConfiguration"
     ]
@@ -84,6 +89,14 @@ def serialize_json(value: CreateRegistryRequest) -> dict:
         out["approvalConfiguration"] = (
             capo_agent_registry_control.types.approval_configuration.serialize_json(
                 value["approval_configuration"]
+            )
+        )
+    if "custom_metadata_schema_configuration" in value:
+        import capo_agent_registry_control.types.custom_metadata_schema_configuration
+
+        out["customMetadataSchemaConfiguration"] = (
+            capo_agent_registry_control.types.custom_metadata_schema_configuration.serialize_json(
+                value["custom_metadata_schema_configuration"]
             )
         )
     if "auto_detection_configuration" in value:
@@ -135,6 +148,14 @@ def deserialize_json(data: dict) -> CreateRegistryRequest:
         out["approval_configuration"] = (
             capo_agent_registry_control.types.approval_configuration.deserialize_json(
                 data["approvalConfiguration"]
+            )
+        )
+    if data.get("customMetadataSchemaConfiguration") is not None:
+        import capo_agent_registry_control.types.custom_metadata_schema_configuration
+
+        out["custom_metadata_schema_configuration"] = (
+            capo_agent_registry_control.types.custom_metadata_schema_configuration.deserialize_json(
+                data["customMetadataSchemaConfiguration"]
             )
         )
     if data.get("autoDetectionConfiguration") is not None:

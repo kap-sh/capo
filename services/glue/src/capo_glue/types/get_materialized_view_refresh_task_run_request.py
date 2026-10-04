@@ -7,12 +7,12 @@ from typing_extensions import TypedDict
 from capo_glue.errors import DeserializationError
 
 if TYPE_CHECKING:
-    import capo_glue.types.name_string
+    import capo_glue.types.catalog_id_string
     import capo_glue.types.uui_dv4
 
 
 class GetMaterializedViewRefreshTaskRunRequest(TypedDict, closed=True):
-    catalog_id: "capo_glue.types.name_string.NameString"
+    catalog_id: "capo_glue.types.catalog_id_string.CatalogIdString"
     """<p>The ID of the Data Catalog where the table resides. If none is supplied, the account ID is used by default.</p>"""
     materialized_view_refresh_task_run_id: "capo_glue.types.uui_dv4.UUIDv4"
     """<p>The identifier for the particular materialized view refresh task run.</p>"""

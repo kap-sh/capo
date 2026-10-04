@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_cloudwatch_logs.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_cloudwatch_logs.types.arn
     import capo_cloudwatch_logs.types.delivery_destination_configuration
     import capo_cloudwatch_logs.types.delivery_destination_name
     import capo_cloudwatch_logs.types.delivery_destination_type
@@ -27,6 +28,8 @@ class PutDeliveryDestinationRequest(TypedDict, closed=True):
         "capo_cloudwatch_logs.types.delivery_destination_type.DeliveryDestinationType"
     ]
     """<p>The type of delivery destination. This parameter specifies the target service where log data will be delivered. Valid values include:</p> <ul> <li> <p> <code>S3</code> - Amazon S3 for long-term storage and analytics</p> </li> <li> <p> <code>CWL</code> - CloudWatch Logs for centralized log management</p> </li> <li> <p> <code>FH</code> - Amazon Kinesis Data Firehose for real-time data streaming</p> </li> <li> <p> <code>XRAY</code> - Amazon Web Services X-Ray for distributed tracing and application monitoring</p> </li> </ul> <p>The delivery destination type determines the format and configuration options available for log delivery.</p>"""
+    role_arn: NotRequired["capo_cloudwatch_logs.types.arn.Arn"]
+    """<p>The ARN of an IAM role in your account that CloudWatch Logs assumes to deliver to this delivery destination. The trust policy of the role must allow CloudWatch Logs to assume it. This parameter is supported only for X-Ray trace delivery destinations.</p>"""
     tags: NotRequired["capo_cloudwatch_logs.types.tags.Tags"]
     """<p>An optional list of key-value pairs to associate with the resource.</p> <p>For more information about tagging, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a> </p>"""
 
@@ -59,6 +62,8 @@ def serialize_aws_json_1_1(value: PutDeliveryDestinationRequest) -> dict:
                 value["delivery_destination_type"]
             )
         )
+    if "role_arn" in value:
+        out["roleArn"] = value["role_arn"]
     if "tags" in value:
         import capo_cloudwatch_logs.types.tags
 
@@ -98,6 +103,8 @@ def deserialize_aws_json_1_1(data: dict) -> PutDeliveryDestinationRequest:
                 data["deliveryDestinationType"]
             )
         )
+    if data.get("roleArn") is not None:
+        out["role_arn"] = data["roleArn"]
     if data.get("tags") is not None:
         import capo_cloudwatch_logs.types.tags
 

@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     import capo_rds.types.target_db_instance_class
     import capo_rds.types.target_db_parameter_group_name
     import capo_rds.types.target_engine_version
+    import capo_rds.types.target_resource_configuration_list
     import capo_rds.types.target_storage_type
 
 
@@ -62,6 +63,10 @@ class CreateBlueGreenDeploymentRequest(TypedDict, closed=True):
         "capo_rds.types.integer_optional.IntegerOptional"
     ]
     """<p>The storage throughput value for the green DB instance.</p> <p>This setting applies only to the <code>gp3</code> storage type.</p> <p>This setting doesn't apply to Amazon Aurora blue/green deployments.</p>"""
+    target_resource_configurations: NotRequired[
+        "capo_rds.types.target_resource_configuration_list.TargetResourceConfigurationList"
+    ]
+    """<p>Specifies resource-level configuration overrides for the green environment.</p> <p>Each entry identifies a resource in the blue environment by its Amazon Resource Name (ARN). It defines the desired configuration for the corresponding resource in the green environment. Any resource that you don't include in this parameter retains the same configuration as its counterpart in the blue environment.</p> <p>Use this parameter when one or more resources in the green environment require a different configuration than what they have in the blue environment.</p> <p>Constraints:</p> <ul> <li> <p>You can't specify the same <code>SourceArn</code> in more than one entry.</p> </li> </ul>"""
 
 
 # --- awsQuery ser/de ---
@@ -136,6 +141,14 @@ def serialize_query(
                 str(value["target_storage_throughput"]),
             )
         )
+    if "target_resource_configurations" in value:
+        import capo_rds.types.target_resource_configuration_list
+
+        capo_rds.types.target_resource_configuration_list.serialize_query(
+            value["target_resource_configurations"],
+            pairs,
+            f"{key_prefix}TargetResourceConfigurations",
+        )
 
 
 def deserialize_query(el: Element) -> CreateBlueGreenDeploymentRequest:
@@ -189,5 +202,14 @@ def deserialize_query(el: Element) -> CreateBlueGreenDeploymentRequest:
     if child_target_storage_throughput is not None:
         out["target_storage_throughput"] = int(
             child_target_storage_throughput.text or ""
+        )
+    child_target_resource_configurations = el.find("TargetResourceConfigurations")
+    if child_target_resource_configurations is not None:
+        import capo_rds.types.target_resource_configuration_list
+
+        out["target_resource_configurations"] = (
+            capo_rds.types.target_resource_configuration_list.deserialize_query(
+                child_target_resource_configurations
+            )
         )
     return out

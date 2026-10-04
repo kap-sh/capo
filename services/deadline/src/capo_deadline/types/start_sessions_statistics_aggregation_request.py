@@ -28,7 +28,7 @@ class StartSessionsStatisticsAggregationRequest(TypedDict, closed=True):
     end_time: "capo_deadline.types.timestamp.Timestamp"
     """<p>The Linux timestamp of the date and time that the statistics end.</p>"""
     timezone: NotRequired["capo_deadline.types.timezone.Timezone"]
-    """<p>The timezone to use for the statistics. Use UTC notation such as "UTC+8."</p>"""
+    """<p>The time zone to use for the statistics. Use UTC notation such as "UTC+8."</p>"""
     period: NotRequired["capo_deadline.types.period.Period"]
     """<p>The period to aggregate the statistics.</p>"""
     group_by: "capo_deadline.types.usage_group_by.UsageGroupBy"

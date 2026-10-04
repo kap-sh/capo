@@ -46,7 +46,7 @@ class TelemetryDestinationConfiguration(TypedDict, closed=True):
     log_delivery_parameters: NotRequired[
         "capo_observabilityadmin.types.log_delivery_parameters.LogDeliveryParameters"
     ]
-    """<p>The configuration parameters for log delivery when the resource type supports configurable log types, such as Amazon Bedrock Knowledge Bases or Elastic Load Balancing Application Load Balancers.</p>"""
+    """<p>The configuration parameters for log delivery when the resource type supports configurable log types, such as Amazon Bedrock Knowledge Bases, Amazon Bedrock AgentCore payment managers, or Elastic Load Balancing Application Load Balancers.</p>"""
     msk_monitoring_parameters: NotRequired[
         "capo_observabilityadmin.types.msk_monitoring_parameters.MskMonitoringParameters"
     ]

@@ -1964,7 +1964,7 @@ class AsyncdeadlineClient:
             resource_ids: <p>A list of fleet IDs or queue IDs to gather statistics for.</p>
             start_time: <p>The Linux timestamp of the date and time that the statistics start.</p>
             end_time: <p>The Linux timestamp of the date and time that the statistics end.</p>
-            timezone: <p>The timezone to use for the statistics. Use UTC notation such as "UTC+8."</p>
+            timezone: <p>The time zone to use for the statistics. Use UTC notation such as "UTC+8."</p>
             period: <p>The period to aggregate the statistics.</p>
             group_by: <p>The field to use to group the statistics.</p>
             statistics: <p>One to four statistics to return.</p>
@@ -3891,7 +3891,7 @@ class AsyncdeadlineClient:
             "capo_deadline.types.host_configuration.HostConfiguration"
         ] = None,
     ) -> "capo_deadline.types.update_fleet_response.UpdateFleetResponse":
-        """<p>Updates a fleet.</p>
+        """<p>Updates a fleet.</p> <note> <p>Workers that are running when you call <code>UpdateFleet</code> keep the instance type and capabilities that they launched with until they scale in. Deadline Cloud can schedule jobs that you submit after the update on these existing workers, so the new configuration might not take effect immediately. To make sure that all workers use the new configuration, set <code>maxWorkerCount</code> to 0, use the <code>ListWorkers</code> operation to confirm that the fleet has no workers, and then restore <code>maxWorkerCount</code>.</p> </note>
 
         Args:
             farm_id: <p>The farm ID to update.</p>

@@ -1,0 +1,8 @@
+---
+title: AcrLevelConfigType
+---
+
+::: capo_cognito_identity_provider.types.acr_level_config_type.AcrLevelConfigType
+    options:
+      show_source: true
+      merge_init_into_class: false

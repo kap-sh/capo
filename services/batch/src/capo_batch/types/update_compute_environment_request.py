@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_batch.types.ce_state
     import capo_batch.types.compute_resource_update
     import capo_batch.types.ecs_settings
+    import capo_batch.types.eks_configuration_update
     import capo_batch.types.integer
     import capo_batch.types.string
     import capo_batch.types.update_policy
@@ -32,6 +33,10 @@ class UpdateComputeEnvironmentRequest(TypedDict, closed=True):
     """<p>Reserved.</p>"""
     ecs_settings: NotRequired["capo_batch.types.ecs_settings.EcsSettings"]
     """<p>The Amazon ECS settings for the compute environment. These settings control CloudWatch Container Insights collection for the compute environment.</p>"""
+    eks_configuration: NotRequired[
+        "capo_batch.types.eks_configuration_update.EksConfigurationUpdate"
+    ]
+    """<p>Updates the Amazon EKS configuration for the compute environment. Only specify this parameter if the compute environment's <code>containerOrchestrationType</code> is <code>EKS</code>. Currently, the <code>accessEntry</code> setting is the only Amazon EKS configuration that you can change after the compute environment is created. For more information, see <a href="https://docs.aws.amazon.com/batch/latest/userguide/eks-access-entries.html">Amazon EKS access entry authentication</a> in the <i>Batch User Guide</i>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -69,6 +74,14 @@ def serialize_json(value: UpdateComputeEnvironmentRequest) -> dict:
         out["ecsSettings"] = capo_batch.types.ecs_settings.serialize_json(
             value["ecs_settings"]
         )
+    if "eks_configuration" in value:
+        import capo_batch.types.eks_configuration_update
+
+        out["eksConfiguration"] = (
+            capo_batch.types.eks_configuration_update.serialize_json(
+                value["eks_configuration"]
+            )
+        )
     return out
 
 
@@ -105,5 +118,13 @@ def deserialize_json(data: dict) -> UpdateComputeEnvironmentRequest:
 
         out["ecs_settings"] = capo_batch.types.ecs_settings.deserialize_json(
             data["ecsSettings"]
+        )
+    if data.get("eksConfiguration") is not None:
+        import capo_batch.types.eks_configuration_update
+
+        out["eks_configuration"] = (
+            capo_batch.types.eks_configuration_update.deserialize_json(
+                data["eksConfiguration"]
+            )
         )
     return out

@@ -597,11 +597,13 @@ class PinpointSMSVoiceV2Client:
         phone_number: "capo_pinpoint_sms_voice_v2.types.carrier_lookup_input_phone_number_type.CarrierLookupInputPhoneNumberType",
         *,
         config_overrides: Optional[PinpointSMSVoiceV2ClientConfig] = None,
+        enable_cleansing: Optional[bool] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.carrier_lookup_result.CarrierLookupResult":
         """<p>Returns information about a destination phone number, including whether the number type and whether it is valid, the carrier, and more.</p>
 
         Args:
             phone_number: <p>The phone number that you want to retrieve information about. You can provide the phone number in various formats including special characters such as parentheses, brackets, spaces, hyphens, periods, and commas. The service automatically converts the input to E164 format for processing.</p>
+            enable_cleansing: <p>Specifies whether the service cleanses the phone number that you provide. When set to <code>true</code>, the service normalizes the phone number according to the destination country's national numbering plan and dialing rules. The service returns the cleansed number in E.164 format in the <code>E164PhoneNumber</code> field and returns the number that you provided in the <code>OriginalPhoneNumber</code> field.</p>
 
         Raises:
             capo_pinpoint_sms_voice_v2.errors.access_denied_exception.AccessDeniedException: <p>The request was denied because you don't have sufficient permissions to access the resource.</p>
@@ -636,6 +638,8 @@ class PinpointSMSVoiceV2Client:
         input_: capo_pinpoint_sms_voice_v2.types.carrier_lookup_request.CarrierLookupRequest = {
             "phone_number": phone_number
         }
+        if enable_cleansing is not None:
+            input_["enable_cleansing"] = enable_cleansing
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -4337,14 +4341,14 @@ class PinpointSMSVoiceV2Client:
             "capo_pinpoint_sms_voice_v2.types.list_available_phone_numbers_max_results.ListAvailablePhoneNumbersMaxResults"
         ] = None,
     ) -> "capo_pinpoint_sms_voice_v2.types.list_available_phone_numbers_result.ListAvailablePhoneNumbersResult":
-        """Search available phone numbers from aggregator inventory, optionally filtered by pattern. If NumberPreference is omitted, returns unfiltered available numbers. Returns empty list (not an exception) when no numbers match. ResourceNotFoundException is thrown only for invalid RegistrationId (campaign not found).
+        """<p>Retrieves a list of phone numbers that are available to request, based on the country, capabilities, and number type that you specify. You can optionally provide a number preference to return only numbers that match a specific digit pattern.</p> <p>If no numbers match your search, this operation returns an empty list rather than an error. This operation currently supports only <code>TEN_DLC</code> number types in the <code>US</code>.</p>
 
         Args:
             iso_country_code: <p>The two-character code, in ISO 3166-1 alpha-2 format, for the country or region in which to search for available phone numbers. This operation currently supports only <code>US</code>.</p>
             number_capabilities: <p>The capabilities to filter by, such as SMS. Only phone numbers that support all of the specified capabilities are returned.</p>
             number_type: <p>The type of phone number to search for.</p>
             registration_id: <p>The registration associated with the request. A registration is required for regulated number types. You can specify either:</p> <ul> <li> <p>The unique identifier of the registration.</p> </li> <li> <p>The Amazon Resource Name (ARN) of the registration.</p> </li> </ul>
-            number_preference: Optional. If omitted, returns unfiltered available numbers. Max 1 element for List API.
+            number_preference: <p>An optional selection preference used to return only phone numbers that match a specific digit pattern, such as numbers that start with, end with, or contain a particular sequence. You can specify at most one preference. Number preferences apply only to <code>TEN_DLC</code> numbers in the <code>US</code>.</p>
             next_token: <p>The token returned from a previous request to retrieve the next page of results.</p>
             max_results: <p>The maximum number of results to return per page. If you don't specify a value, the default is 10.</p>
 

@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_glue.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_glue.types.catalog_id_string
     import capo_glue.types.classifier_name_list
     import capo_glue.types.crawler_configuration
     import capo_glue.types.crawler_security_configuration
@@ -64,6 +65,8 @@ class UpdateCrawlerRequest(TypedDict, closed=True):
         "capo_glue.types.crawler_security_configuration.CrawlerSecurityConfiguration"
     ]
     """<p>The name of the <code>SecurityConfiguration</code> structure to be used by this crawler.</p>"""
+    catalog_id: NotRequired["capo_glue.types.catalog_id_string.CatalogIdString"]
+    """<p>The ID of the Data Catalog in which to store the crawler's output. If you omit this value, the existing value on the crawler is preserved.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -128,6 +131,8 @@ def serialize_aws_json_1_1(value: UpdateCrawlerRequest) -> dict:
         out["Configuration"] = value["configuration"]
     if "crawler_security_configuration" in value:
         out["CrawlerSecurityConfiguration"] = value["crawler_security_configuration"]
+    if "catalog_id" in value:
+        out["CatalogId"] = value["catalog_id"]
     return out
 
 
@@ -195,4 +200,6 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCrawlerRequest:
         out["configuration"] = data["Configuration"]
     if data.get("CrawlerSecurityConfiguration") is not None:
         out["crawler_security_configuration"] = data["CrawlerSecurityConfiguration"]
+    if data.get("CatalogId") is not None:
+        out["catalog_id"] = data["CatalogId"]
     return out

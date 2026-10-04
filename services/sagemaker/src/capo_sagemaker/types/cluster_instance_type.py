@@ -210,6 +210,8 @@ ClusterInstanceType: TypeAlias = Literal[
     "ml.g7.12xlarge",
     "ml.g7.24xlarge",
     "ml.g7.48xlarge",
+    "ml.c8a.16xlarge",
+    "ml.m8a.16xlarge",
 ]
 
 

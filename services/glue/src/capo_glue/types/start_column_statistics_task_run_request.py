@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_glue.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_glue.types.catalog_id_string
     import capo_glue.types.column_name_list
     import capo_glue.types.name_string
     import capo_glue.types.sample_size_percentage
@@ -23,7 +24,7 @@ class StartColumnStatisticsTaskRunRequest(TypedDict, closed=True):
     """<p>The IAM role that the service assumes to generate statistics.</p>"""
     sample_size: "capo_glue.types.sample_size_percentage.SampleSizePercentage"
     """<p>The percentage of rows used to generate statistics. If none is supplied, the entire table will be used to generate stats.</p>"""
-    catalog_id: NotRequired["capo_glue.types.name_string.NameString"]
+    catalog_id: NotRequired["capo_glue.types.catalog_id_string.CatalogIdString"]
     """<p>The ID of the Data Catalog where the table reside. If none is supplied, the Amazon Web Services account ID is used by default.</p>"""
     security_configuration: NotRequired["capo_glue.types.name_string.NameString"]
     """<p>Name of the security configuration that is used to encrypt CloudWatch logs for the column stats task run.</p>"""

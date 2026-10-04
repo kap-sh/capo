@@ -8,6 +8,7 @@ OriginAccessControlSigningBehaviors: TypeAlias = Literal[
     "never",
     "always",
     "no-override",
+    "always-amz-auth",
 ]
 
 

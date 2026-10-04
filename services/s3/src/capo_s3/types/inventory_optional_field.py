@@ -23,6 +23,7 @@ InventoryOptionalField: TypeAlias = Literal[
     "ObjectAccessControlList",
     "ObjectOwner",
     "LifecycleExpirationDate",
+    "IntelligentTieringReferenceDate",
 ]
 
 

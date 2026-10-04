@@ -8,6 +8,7 @@ from capo_elasticache._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_elasticache.types.cache_usage_limits
+    import capo_elasticache.types.connection_type
     import capo_elasticache.types.endpoint
     import capo_elasticache.types.integer_optional
     import capo_elasticache.types.network_type
@@ -63,6 +64,10 @@ class ServerlessCache(TypedDict, closed=True):
     """<p>The daily time that a cache snapshot will be created. Default is NULL, i.e. snapshots will not be created at a specific time on a daily basis. Available for Valkey, Redis OSS and Serverless Memcached only.</p>"""
     network_type: NotRequired["capo_elasticache.types.network_type.NetworkType"]
     """<p>The type of IP address protocol used by the serverless cache. Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. <code>ipv6</code> is only supported with IPv6-only subnets. If not specified, defaults to <code>ipv4</code>, unless all provided subnets are IPv6-only, in which case it defaults to <code>ipv6</code>.</p>"""
+    connection_type: NotRequired[
+        "capo_elasticache.types.connection_type.ConnectionType"
+    ]
+    """<p>The connection type for the serverless cache. Must be either <code>vpc</code> | <code>public</code>. If not specified, defaults to <code>vpc</code>.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -154,6 +159,12 @@ def serialize_query(
 
         capo_elasticache.types.network_type.serialize_query(
             value["network_type"], pairs, f"{key_prefix}NetworkType"
+        )
+    if "connection_type" in value:
+        import capo_elasticache.types.connection_type
+
+        capo_elasticache.types.connection_type.serialize_query(
+            value["connection_type"], pairs, f"{key_prefix}ConnectionType"
         )
 
 
@@ -253,5 +264,14 @@ def deserialize_query(el: Element) -> ServerlessCache:
 
         out["network_type"] = capo_elasticache.types.network_type.deserialize_query(
             child_network_type
+        )
+    child_connection_type = el.find("ConnectionType")
+    if child_connection_type is not None:
+        import capo_elasticache.types.connection_type
+
+        out["connection_type"] = (
+            capo_elasticache.types.connection_type.deserialize_query(
+                child_connection_type
+            )
         )
     return out

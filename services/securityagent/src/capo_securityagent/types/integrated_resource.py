@@ -7,6 +7,7 @@ from typing_extensions import TypedDict
 from capo_securityagent.errors import DeserializationError, SerializationError
 
 if TYPE_CHECKING:
+    import capo_securityagent.types.azure_dev_ops_repository_resource
     import capo_securityagent.types.bitbucket_repository_resource
     import capo_securityagent.types.confluence_document_resource
     import capo_securityagent.types.git_hub_repository_resource
@@ -33,11 +34,16 @@ class _IntegratedResource_confluenceDocument(TypedDict, closed=True):
     confluenceDocument: "capo_securityagent.types.confluence_document_resource.ConfluenceDocumentResource"
 
 
+class _IntegratedResource_azureDevOpsRepository(TypedDict, closed=True):
+    azureDevOpsRepository: "capo_securityagent.types.azure_dev_ops_repository_resource.AzureDevOpsRepositoryResource"
+
+
 IntegratedResource: TypeAlias = (
     _IntegratedResource_githubRepository
     | _IntegratedResource_gitlabRepository
     | _IntegratedResource_bitbucketRepository
     | _IntegratedResource_confluenceDocument
+    | _IntegratedResource_azureDevOpsRepository
 )
 
 
@@ -75,6 +81,14 @@ def serialize_json(value: IntegratedResource) -> dict:
                 value["confluenceDocument"]
             )
         }
+    elif "azureDevOpsRepository" in value:
+        import capo_securityagent.types.azure_dev_ops_repository_resource
+
+        return {
+            "azureDevOpsRepository": capo_securityagent.types.azure_dev_ops_repository_resource.serialize_json(
+                value["azureDevOpsRepository"]
+            )
+        }
     else:
         raise SerializationError("IntegratedResource: no variant present")
 
@@ -110,6 +124,14 @@ def deserialize_json(data: dict) -> IntegratedResource:
         return {
             "confluenceDocument": capo_securityagent.types.confluence_document_resource.deserialize_json(
                 data["confluenceDocument"]
+            )
+        }
+    elif data.get("azureDevOpsRepository") is not None:
+        import capo_securityagent.types.azure_dev_ops_repository_resource
+
+        return {
+            "azureDevOpsRepository": capo_securityagent.types.azure_dev_ops_repository_resource.deserialize_json(
+                data["azureDevOpsRepository"]
             )
         }
     else:

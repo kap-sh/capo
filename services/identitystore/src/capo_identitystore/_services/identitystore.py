@@ -24,6 +24,9 @@ from capo_identitystore._resources.aws_identity_store.group_membership_resource 
 from capo_identitystore._resources.aws_identity_store.group_resource import (
     GroupResource,
 )
+from capo_identitystore._resources.aws_identity_store.identity_store_resource import (
+    IdentityStoreResource,
+)
 from capo_identitystore._resources.aws_identity_store.user_resource import UserResource
 from capo_identitystore._services._aws_config import aws_config
 from capo_identitystore._services._pipeline import (
@@ -55,6 +58,8 @@ if TYPE_CHECKING:
     import capo_identitystore.types.describe_group_membership_response
     import capo_identitystore.types.describe_group_request
     import capo_identitystore.types.describe_group_response
+    import capo_identitystore.types.describe_identity_store_request
+    import capo_identitystore.types.describe_identity_store_response
     import capo_identitystore.types.describe_user_request
     import capo_identitystore.types.describe_user_response
     import capo_identitystore.types.emails
@@ -71,6 +76,7 @@ if TYPE_CHECKING:
     import capo_identitystore.types.group_display_name
     import capo_identitystore.types.group_ids
     import capo_identitystore.types.group_membership
+    import capo_identitystore.types.identity_store
     import capo_identitystore.types.identity_store_id
     import capo_identitystore.types.is_member_in_groups_request
     import capo_identitystore.types.is_member_in_groups_response
@@ -80,19 +86,25 @@ if TYPE_CHECKING:
     import capo_identitystore.types.list_group_memberships_response
     import capo_identitystore.types.list_groups_request
     import capo_identitystore.types.list_groups_response
+    import capo_identitystore.types.list_identity_stores_request
+    import capo_identitystore.types.list_identity_stores_response
     import capo_identitystore.types.list_users_request
     import capo_identitystore.types.list_users_response
     import capo_identitystore.types.max_results
     import capo_identitystore.types.member_id
     import capo_identitystore.types.name
+    import capo_identitystore.types.network_configuration
     import capo_identitystore.types.next_token
     import capo_identitystore.types.phone_numbers
     import capo_identitystore.types.photos
     import capo_identitystore.types.resource_id
+    import capo_identitystore.types.resource_revision
     import capo_identitystore.types.roles
     import capo_identitystore.types.sensitive_string_type
     import capo_identitystore.types.update_group_request
     import capo_identitystore.types.update_group_response
+    import capo_identitystore.types.update_identity_store_request
+    import capo_identitystore.types.update_identity_store_response
     import capo_identitystore.types.update_user_request
     import capo_identitystore.types.update_user_response
     import capo_identitystore.types.user
@@ -167,6 +179,7 @@ class identitystoreClient:
         # resources
         self.group_membership_resource = GroupMembershipResource(self)
         self.group_resource = GroupResource(self)
+        self.identity_store_resource = IdentityStoreResource(self)
         self.user_resource = UserResource(self)
 
     def operation_options(
@@ -197,297 +210,6 @@ class identitystoreClient:
         )
         return interceptors_, options_
 
-    def get_group_id(
-        self,
-        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
-        alternate_identifier: "capo_identitystore.types.alternate_identifier.AlternateIdentifier",
-        *,
-        config_overrides: Optional[identitystoreClientConfig] = None,
-    ) -> "capo_identitystore.types.get_group_id_response.GetGroupIdResponse":
-        """<p>Retrieves <code>GroupId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
-
-        Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            alternate_identifier: <p>A unique identifier for a user or group that is not the primary identifier. This value can be an identifier from an external identity provider (IdP) that is associated with the user, the group, or a unique attribute. For the unique attribute, the only valid path is <code> displayName</code>.</p>
-
-        Raises:
-            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
-            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
-            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
-            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
-            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        def _handler(
-            req: "OperationRequest[capo_identitystore.types.get_group_id_request.GetGroupIdRequest]",
-        ) -> OperationResponse[
-            "capo_identitystore.types.get_group_id_response.GetGroupIdResponse"
-        ]:
-            import capo_identitystore._operations.aws_identity_store.get_group_id
-
-            output, http_response = (
-                capo_identitystore._operations.aws_identity_store.get_group_id.get_group_id(
-                    req.options, req.input
-                )
-            )
-            return OperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(config_overrides)
-        input_: capo_identitystore.types.get_group_id_request.GetGroupIdRequest = {
-            "identity_store_id": identity_store_id,
-            "alternate_identifier": alternate_identifier,
-        }
-
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
-
-    def get_group_membership_id(
-        self,
-        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
-        group_id: "capo_identitystore.types.resource_id.ResourceId",
-        member_id: "capo_identitystore.types.member_id.MemberId",
-        *,
-        config_overrides: Optional[identitystoreClientConfig] = None,
-    ) -> "capo_identitystore.types.get_group_membership_id_response.GetGroupMembershipIdResponse":
-        """<p>Retrieves the <code>MembershipId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
-
-        Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            group_id: <p>The identifier for a group in the identity store.</p>
-            member_id: <p>An object that contains the identifier of a group member. Setting the <code>UserID</code> field to the specific identifier for a user indicates that the user is a member of the group.</p>
-
-        Raises:
-            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
-            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
-            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
-            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
-            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        def _handler(
-            req: "OperationRequest[capo_identitystore.types.get_group_membership_id_request.GetGroupMembershipIdRequest]",
-        ) -> OperationResponse[
-            "capo_identitystore.types.get_group_membership_id_response.GetGroupMembershipIdResponse"
-        ]:
-            import capo_identitystore._operations.aws_identity_store.get_group_membership_id
-
-            output, http_response = (
-                capo_identitystore._operations.aws_identity_store.get_group_membership_id.get_group_membership_id(
-                    req.options, req.input
-                )
-            )
-            return OperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(config_overrides)
-        input_: capo_identitystore.types.get_group_membership_id_request.GetGroupMembershipIdRequest = {
-            "identity_store_id": identity_store_id,
-            "group_id": group_id,
-            "member_id": member_id,
-        }
-
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
-
-    def get_user_id(
-        self,
-        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
-        alternate_identifier: "capo_identitystore.types.alternate_identifier.AlternateIdentifier",
-        *,
-        config_overrides: Optional[identitystoreClientConfig] = None,
-    ) -> "capo_identitystore.types.get_user_id_response.GetUserIdResponse":
-        """<p>Retrieves the <code>UserId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
-
-        Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            alternate_identifier: <p>A unique identifier for a user or group that is not the primary identifier. This value can be an identifier from an external identity provider (IdP) that is associated with the user, the group, or a unique attribute. For the unique attribute, the only valid paths are <code> userName</code> and <code>emails.value</code>.</p>
-
-        Raises:
-            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
-            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
-            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
-            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
-            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        def _handler(
-            req: "OperationRequest[capo_identitystore.types.get_user_id_request.GetUserIdRequest]",
-        ) -> OperationResponse[
-            "capo_identitystore.types.get_user_id_response.GetUserIdResponse"
-        ]:
-            import capo_identitystore._operations.aws_identity_store.get_user_id
-
-            output, http_response = (
-                capo_identitystore._operations.aws_identity_store.get_user_id.get_user_id(
-                    req.options, req.input
-                )
-            )
-            return OperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(config_overrides)
-        input_: capo_identitystore.types.get_user_id_request.GetUserIdRequest = {
-            "identity_store_id": identity_store_id,
-            "alternate_identifier": alternate_identifier,
-        }
-
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
-
-    def is_member_in_groups(
-        self,
-        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
-        member_id: "capo_identitystore.types.member_id.MemberId",
-        group_ids: "capo_identitystore.types.group_ids.GroupIds",
-        *,
-        config_overrides: Optional[identitystoreClientConfig] = None,
-    ) -> (
-        "capo_identitystore.types.is_member_in_groups_response.IsMemberInGroupsResponse"
-    ):
-        """<p>Checks the user's membership in all requested groups and returns if the member exists in all queried groups.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
-
-        Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            member_id: <p>An object containing the identifier of a group member.</p>
-            group_ids: <p>A list of identifiers for groups in the identity store.</p>
-
-        Raises:
-            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
-            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
-            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
-            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
-            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        def _handler(
-            req: "OperationRequest[capo_identitystore.types.is_member_in_groups_request.IsMemberInGroupsRequest]",
-        ) -> OperationResponse[
-            "capo_identitystore.types.is_member_in_groups_response.IsMemberInGroupsResponse"
-        ]:
-            import capo_identitystore._operations.aws_identity_store.is_member_in_groups
-
-            output, http_response = (
-                capo_identitystore._operations.aws_identity_store.is_member_in_groups.is_member_in_groups(
-                    req.options, req.input
-                )
-            )
-            return OperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(config_overrides)
-        input_: capo_identitystore.types.is_member_in_groups_request.IsMemberInGroupsRequest = {
-            "identity_store_id": identity_store_id,
-            "member_id": member_id,
-            "group_ids": group_ids,
-        }
-
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
-
-    def list_group_memberships_for_member(
-        self,
-        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
-        member_id: "capo_identitystore.types.member_id.MemberId",
-        *,
-        config_overrides: Optional[identitystoreClientConfig] = None,
-        max_results: Optional["capo_identitystore.types.max_results.MaxResults"] = None,
-        next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
-    ) -> "capo_identitystore.types.list_group_memberships_for_member_response.ListGroupMembershipsForMemberResponse":
-        """<p>For the specified member in the specified identity store, returns the list of all <code> GroupMembership</code> objects and returns results in paginated form.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
-
-        Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            member_id: <p>An object that contains the identifier of a group member. Setting the <code>UserID</code> field to the specific identifier for a user indicates that the user is a member of the group.</p>
-            max_results: <p>The maximum number of results to be returned per request. This parameter is used in the <code> ListUsers</code> and <code>ListGroups</code> requests to specify how many results to return in one page. The length limit is 50 characters.</p>
-            next_token: <p>The pagination token used for the <code>ListUsers</code>, <code>ListGroups</code>, and <code> ListGroupMemberships</code> API operations. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to search for the next page.</p>
-
-        Raises:
-            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
-            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
-            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
-            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
-            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
-            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        def _handler(
-            req: "OperationRequest[capo_identitystore.types.list_group_memberships_for_member_request.ListGroupMembershipsForMemberRequest]",
-        ) -> OperationResponse[
-            "capo_identitystore.types.list_group_memberships_for_member_response.ListGroupMembershipsForMemberResponse"
-        ]:
-            import capo_identitystore._operations.aws_identity_store.list_group_memberships_for_member
-
-            output, http_response = (
-                capo_identitystore._operations.aws_identity_store.list_group_memberships_for_member.list_group_memberships_for_member(
-                    req.options, req.input
-                )
-            )
-            return OperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(config_overrides)
-        input_: capo_identitystore.types.list_group_memberships_for_member_request.ListGroupMembershipsForMemberRequest = {
-            "identity_store_id": identity_store_id,
-            "member_id": member_id,
-        }
-        if max_results is not None:
-            input_["max_results"] = max_results
-        if next_token is not None:
-            input_["next_token"] = next_token
-
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
-
-    def iter_list_group_memberships_for_member(
-        self,
-        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
-        member_id: "capo_identitystore.types.member_id.MemberId",
-        *,
-        config_overrides: Optional[identitystoreClientConfig] = None,
-        max_results: Optional["capo_identitystore.types.max_results.MaxResults"] = None,
-        next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
-    ) -> "Iterator[capo_identitystore.types.group_membership.GroupMembership]":
-        _token = next_token
-        while True:
-            _response = self.list_group_memberships_for_member(
-                identity_store_id,
-                member_id,
-                config_overrides=config_overrides,
-                max_results=max_results,
-                next_token=_token,
-            )
-            _page = _resolve_path(_response, ("group_memberships",))
-            for _item in _page or []:
-                yield _item
-            _token = _resolve_path(_response, ("next_token",))
-            if not _token:
-                break
-
     def create_group_membership(
         self,
         identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
@@ -499,8 +221,8 @@ class identitystoreClient:
         """<p>Creates a relationship between a member and a group. The following identifiers must be specified: <code>GroupId</code>, <code>IdentityStoreId</code>, and <code>MemberId</code>.</p>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            group_id: <p>The identifier for a group in the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            group_id: <p>The identifier for a group in the identity store.</p> <p>You can specify the group by ID or by Amazon Resource Name (ARN). For example, group ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code> or group ARN <code>arn:aws:identitystore:::group/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code>.</p>
             member_id: <p>An object that contains the identifier of a group member. Setting the <code>UserID</code> field to the specific identifier for a user indicates that the user is a member of the group.</p>
 
         Raises:
@@ -553,8 +275,8 @@ class identitystoreClient:
         """<p>Retrieves membership metadata and attributes from <code>MembershipId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            membership_id: <p>The identifier for a <code>GroupMembership</code> in an identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            membership_id: <p>The identifier for a <code>GroupMembership</code> in an identity store.</p> <p>You can specify the group membership by ID or by Amazon Resource Name (ARN). For example, membership ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE33333</code> or membership ARN <code>arn:aws:identitystore:::membership/a1b2c3d4-5678-90ab-cdef-EXAMPLE33333</code>.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -603,8 +325,8 @@ class identitystoreClient:
         """<p>Delete a membership within a group given <code>MembershipId</code>.</p>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            membership_id: <p>The identifier for a <code>GroupMembership</code> in an identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            membership_id: <p>The identifier for a <code>GroupMembership</code> in an identity store.</p> <p>You can specify the group membership by ID or by Amazon Resource Name (ARN). For example, membership ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE33333</code> or membership ARN <code>arn:aws:identitystore:::membership/a1b2c3d4-5678-90ab-cdef-EXAMPLE33333</code>.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -656,10 +378,10 @@ class identitystoreClient:
         """<p>For the specified group in the specified identity store, returns the list of all <code> GroupMembership</code> objects and returns results in paginated form.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            group_id: <p>The identifier for a group in the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            group_id: <p>The identifier for a group in the identity store.</p> <p>You can specify the group by ID or by Amazon Resource Name (ARN). For example, group ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code> or group ARN <code>arn:aws:identitystore:::group/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code>.</p>
             max_results: <p>The maximum number of results to be returned per request. This parameter is used in all <code> List</code> requests to specify how many results to return in one page.</p>
-            next_token: <p>The pagination token used for the <code>ListUsers</code>, <code>ListGroups</code> and <code> ListGroupMemberships</code> API operations. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to search for the next page.</p>
+            next_token: <p>The pagination token used for the <code>ListUsers</code>, <code>ListGroups</code> and <code> ListGroupMemberships</code> API operations. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to retrieve the next page of results.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -727,6 +449,197 @@ class identitystoreClient:
             if not _token:
                 break
 
+    def get_group_membership_id(
+        self,
+        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
+        group_id: "capo_identitystore.types.resource_id.ResourceId",
+        member_id: "capo_identitystore.types.member_id.MemberId",
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+    ) -> "capo_identitystore.types.get_group_membership_id_response.GetGroupMembershipIdResponse":
+        """<p>Retrieves the <code>MembershipId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+
+        Args:
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            group_id: <p>The identifier for a group in the identity store.</p> <p>You can specify the group by ID or by Amazon Resource Name (ARN). For example, group ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code> or group ARN <code>arn:aws:identitystore:::group/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code>.</p>
+            member_id: <p>An object that contains the identifier of a group member. Setting the <code>UserID</code> field to the specific identifier for a user indicates that the user is a member of the group.</p>
+
+        Raises:
+            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
+            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
+            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
+            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
+            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_identitystore.types.get_group_membership_id_request.GetGroupMembershipIdRequest]",
+        ) -> OperationResponse[
+            "capo_identitystore.types.get_group_membership_id_response.GetGroupMembershipIdResponse"
+        ]:
+            import capo_identitystore._operations.aws_identity_store.get_group_membership_id
+
+            output, http_response = (
+                capo_identitystore._operations.aws_identity_store.get_group_membership_id.get_group_membership_id(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_identitystore.types.get_group_membership_id_request.GetGroupMembershipIdRequest = {
+            "identity_store_id": identity_store_id,
+            "group_id": group_id,
+            "member_id": member_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def is_member_in_groups(
+        self,
+        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
+        member_id: "capo_identitystore.types.member_id.MemberId",
+        group_ids: "capo_identitystore.types.group_ids.GroupIds",
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+    ) -> (
+        "capo_identitystore.types.is_member_in_groups_response.IsMemberInGroupsResponse"
+    ):
+        """<p>Checks the user's membership in all requested groups and returns if the member exists in all queried groups.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+
+        Args:
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            member_id: <p>An object containing the identifier of a group member.</p>
+            group_ids: <p>A list of identifiers for groups in the identity store.</p> <p>You can specify each group by ID or by Amazon Resource Name (ARN). For example, group ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code> or group ARN <code>arn:aws:identitystore:::group/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code>.</p>
+
+        Raises:
+            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
+            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
+            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
+            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
+            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_identitystore.types.is_member_in_groups_request.IsMemberInGroupsRequest]",
+        ) -> OperationResponse[
+            "capo_identitystore.types.is_member_in_groups_response.IsMemberInGroupsResponse"
+        ]:
+            import capo_identitystore._operations.aws_identity_store.is_member_in_groups
+
+            output, http_response = (
+                capo_identitystore._operations.aws_identity_store.is_member_in_groups.is_member_in_groups(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_identitystore.types.is_member_in_groups_request.IsMemberInGroupsRequest = {
+            "identity_store_id": identity_store_id,
+            "member_id": member_id,
+            "group_ids": group_ids,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_group_memberships_for_member(
+        self,
+        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
+        member_id: "capo_identitystore.types.member_id.MemberId",
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+        max_results: Optional["capo_identitystore.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
+    ) -> "capo_identitystore.types.list_group_memberships_for_member_response.ListGroupMembershipsForMemberResponse":
+        """<p>For the specified member in the specified identity store, returns the list of all <code> GroupMembership</code> objects and returns results in paginated form.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+
+        Args:
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            member_id: <p>An object that contains the identifier of a group member. Setting the <code>UserID</code> field to the specific identifier for a user indicates that the user is a member of the group.</p>
+            max_results: <p>The maximum number of results to be returned per request. This parameter is used in all <code>List</code> requests to specify how many results to return in one page.</p>
+            next_token: <p>The pagination token used for the <code>ListUsers</code>, <code>ListGroups</code>, and <code> ListGroupMemberships</code> API operations. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to retrieve the next page of results.</p>
+
+        Raises:
+            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
+            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
+            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
+            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
+            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_identitystore.types.list_group_memberships_for_member_request.ListGroupMembershipsForMemberRequest]",
+        ) -> OperationResponse[
+            "capo_identitystore.types.list_group_memberships_for_member_response.ListGroupMembershipsForMemberResponse"
+        ]:
+            import capo_identitystore._operations.aws_identity_store.list_group_memberships_for_member
+
+            output, http_response = (
+                capo_identitystore._operations.aws_identity_store.list_group_memberships_for_member.list_group_memberships_for_member(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_identitystore.types.list_group_memberships_for_member_request.ListGroupMembershipsForMemberRequest = {
+            "identity_store_id": identity_store_id,
+            "member_id": member_id,
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_group_memberships_for_member(
+        self,
+        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
+        member_id: "capo_identitystore.types.member_id.MemberId",
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+        max_results: Optional["capo_identitystore.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_identitystore.types.group_membership.GroupMembership]":
+        _token = next_token
+        while True:
+            _response = self.list_group_memberships_for_member(
+                identity_store_id,
+                member_id,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("group_memberships",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def create_group(
         self,
         identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
@@ -742,7 +655,7 @@ class identitystoreClient:
         """<p>Creates a group within the specified identity store.</p>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
             display_name: <p>A string containing the name of the group. This value is commonly displayed when the group is referenced. <code>Administrator</code> and <code>AWSAdministrators</code> are reserved names and can't be used for users or groups.</p>
             description: <p>A string containing the description of the group.</p>
 
@@ -798,8 +711,8 @@ class identitystoreClient:
         """<p>Retrieves the group metadata and attributes from <code>GroupId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p>
-            group_id: <p>The identifier for a group in the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            group_id: <p>The identifier for a group in the identity store.</p> <p>You can specify the group by ID or by Amazon Resource Name (ARN). For example, group ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code> or group ARN <code>arn:aws:identitystore:::group/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code>.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -845,13 +758,17 @@ class identitystoreClient:
         operations: "capo_identitystore.types.attribute_operations.AttributeOperations",
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
+        revision: Optional[
+            "capo_identitystore.types.resource_revision.ResourceRevision"
+        ] = None,
     ) -> "capo_identitystore.types.update_group_response.UpdateGroupResponse":
         """<p>Updates the specified group metadata and attributes in the specified identity store.</p>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            group_id: <p>The identifier for a group in the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            group_id: <p>The identifier for a group in the identity store.</p> <p>You can specify the group by ID or by Amazon Resource Name (ARN). For example, group ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code> or group ARN <code>arn:aws:identitystore:::group/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code>.</p>
             operations: <p>A list of <code>AttributeOperation</code> objects to apply to the requested group. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href="https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html">Group</a>.</p>
+            revision: <p>The expected current revision of the group. When you provide this value, the update is applied only if it matches the current revision of the group in the identity store, which prevents you from overwriting concurrent changes. If the value doesn't match, the operation fails with a <code>ConflictException</code>. If you don't provide this value, the update is applied unconditionally.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -884,6 +801,8 @@ class identitystoreClient:
             "group_id": group_id,
             "operations": operations,
         }
+        if revision is not None:
+            input_["revision"] = revision
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -899,12 +818,16 @@ class identitystoreClient:
         group_id: "capo_identitystore.types.resource_id.ResourceId",
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
+        revision: Optional[
+            "capo_identitystore.types.resource_revision.ResourceRevision"
+        ] = None,
     ) -> "capo_identitystore.types.delete_group_response.DeleteGroupResponse":
         """<p>Delete a group within an identity store given <code>GroupId</code>.</p>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            group_id: <p>The identifier for a group in the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            group_id: <p>The identifier for a group in the identity store.</p> <p>You can specify the group by ID or by Amazon Resource Name (ARN). For example, group ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code> or group ARN <code>arn:aws:identitystore:::group/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222</code>.</p>
+            revision: <p>The expected current revision of the group. When you provide this value, the group is deleted only if it matches the current revision of the group in the identity store. If the value doesn't match, the operation fails with a <code>ConflictException</code>. If you don't provide this value, the group is deleted regardless of its current revision.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -935,6 +858,8 @@ class identitystoreClient:
             "identity_store_id": identity_store_id,
             "group_id": group_id,
         }
+        if revision is not None:
+            input_["revision"] = revision
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -956,9 +881,9 @@ class identitystoreClient:
         """<p>Lists all groups in the identity store. Returns a paginated list of complete <code>Group</code> objects. Filtering for a <code>Group</code> by the <code>DisplayName</code> attribute is deprecated. Instead, use the <code>GetGroupId</code> API action.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p>
-            max_results: <p>The maximum number of results to be returned per request. This parameter is used in the <code> ListUsers</code> and <code>ListGroups</code> requests to specify how many results to return in one page. The length limit is 50 characters.</p>
-            next_token: <p>The pagination token used for the <code>ListUsers</code> and <code>ListGroups</code> API operations. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to search for the next page.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            max_results: <p>The maximum number of results to be returned per request. This parameter is used in all <code>List</code> requests to specify how many results to return in one page.</p>
+            next_token: <p>The pagination token used for the <code>ListUsers</code> and <code>ListGroups</code> API operations. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to retrieve the next page of results.</p>
             filters: <p>A list of <code>Filter</code> objects, which is used in the <code>ListUsers</code> and <code> ListGroups</code> requests.</p>
 
         Raises:
@@ -1028,6 +953,228 @@ class identitystoreClient:
             if not _token:
                 break
 
+    def get_group_id(
+        self,
+        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
+        alternate_identifier: "capo_identitystore.types.alternate_identifier.AlternateIdentifier",
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+    ) -> "capo_identitystore.types.get_group_id_response.GetGroupIdResponse":
+        """<p>Retrieves <code>GroupId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+
+        Args:
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            alternate_identifier: <p>A unique identifier for a user or group that is not the primary identifier. This value can be an identifier from an external identity provider (IdP) that is associated with the user, the group, or a unique attribute. For the unique attribute, the only valid path is <code> displayName</code>.</p>
+
+        Raises:
+            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
+            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
+            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
+            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
+            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_identitystore.types.get_group_id_request.GetGroupIdRequest]",
+        ) -> OperationResponse[
+            "capo_identitystore.types.get_group_id_response.GetGroupIdResponse"
+        ]:
+            import capo_identitystore._operations.aws_identity_store.get_group_id
+
+            output, http_response = (
+                capo_identitystore._operations.aws_identity_store.get_group_id.get_group_id(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_identitystore.types.get_group_id_request.GetGroupIdRequest = {
+            "identity_store_id": identity_store_id,
+            "alternate_identifier": alternate_identifier,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_identity_store(
+        self,
+        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+    ) -> "capo_identitystore.types.describe_identity_store_response.DescribeIdentityStoreResponse":
+        """<p>Retrieves details about the specified identity store, including its Amazon Resource Name (ARN) and network configuration.</p>
+
+        Args:
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+
+        Raises:
+            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
+            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
+            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
+            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
+            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_identitystore.types.describe_identity_store_request.DescribeIdentityStoreRequest]",
+        ) -> OperationResponse[
+            "capo_identitystore.types.describe_identity_store_response.DescribeIdentityStoreResponse"
+        ]:
+            import capo_identitystore._operations.aws_identity_store.describe_identity_store
+
+            output, http_response = (
+                capo_identitystore._operations.aws_identity_store.describe_identity_store.describe_identity_store(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_identitystore.types.describe_identity_store_request.DescribeIdentityStoreRequest = {
+            "identity_store_id": identity_store_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_identity_store(
+        self,
+        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+        network_configuration: Optional[
+            "capo_identitystore.types.network_configuration.NetworkConfiguration"
+        ] = None,
+    ) -> "capo_identitystore.types.update_identity_store_response.UpdateIdentityStoreResponse":
+        """<p>Updates the configuration of the specified identity store, including its network configuration.</p>
+
+        Args:
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            network_configuration: <p>The network configuration to apply to the identity store. This controls whether access through a virtual private cloud (VPC) endpoint is required and the source VPCs and IP addresses that are allowed to access the identity store.</p> <p>When you provide <code>NetworkConfiguration</code> in a request, the service performs a full replacement of the identity store's current network configuration with the values you specify. Any values that you omit are cleared. To preserve or change the allowed source VPCs or IP address ranges, include the complete set of values that you want in the request. To clear a list, omit it; an empty list is not accepted.</p>
+
+        Raises:
+            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
+            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
+            capo_identitystore.errors.conflict_exception.ConflictException: <p>This request cannot be completed for one of the following reasons:</p> <ul> <li> <p>Performing the requested operation would violate an existing uniqueness claim in the identity store. Resolve the conflict before retrying this request.</p> </li> <li> <p>The requested resource was being concurrently modified by another request.</p> </li> </ul>
+            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
+            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
+            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_identitystore.types.update_identity_store_request.UpdateIdentityStoreRequest]",
+        ) -> OperationResponse[
+            "capo_identitystore.types.update_identity_store_response.UpdateIdentityStoreResponse"
+        ]:
+            import capo_identitystore._operations.aws_identity_store.update_identity_store
+
+            output, http_response = (
+                capo_identitystore._operations.aws_identity_store.update_identity_store.update_identity_store(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_identitystore.types.update_identity_store_request.UpdateIdentityStoreRequest = {
+            "identity_store_id": identity_store_id
+        }
+        if network_configuration is not None:
+            input_["network_configuration"] = network_configuration
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_identity_stores(
+        self,
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+        max_results: Optional["capo_identitystore.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
+    ) -> "capo_identitystore.types.list_identity_stores_response.ListIdentityStoresResponse":
+        """<p>Lists the identity stores that you have access to. This operation returns only the identity store ID and Amazon Resource Name (ARN) of each identity store. To obtain additional information about an identity store, call <code>DescribeIdentityStore</code>.</p> <p>This operation returns results in paginated form. Use the <code>NextToken</code> parameter to retrieve additional pages of results.</p>
+
+        Args:
+            max_results: <p>The maximum number of results to return per request. This parameter is used in all <code> List</code> operations to specify how many results to return on one page. If you don't specify a value, the operation uses a default page size.</p>
+            next_token: <p>The pagination token used for the <code>ListIdentityStores</code> API operation. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to retrieve the next page of results.</p>
+
+        Raises:
+            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
+            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
+            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
+            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_identitystore.types.list_identity_stores_request.ListIdentityStoresRequest]",
+        ) -> OperationResponse[
+            "capo_identitystore.types.list_identity_stores_response.ListIdentityStoresResponse"
+        ]:
+            import capo_identitystore._operations.aws_identity_store.list_identity_stores
+
+            output, http_response = (
+                capo_identitystore._operations.aws_identity_store.list_identity_stores.list_identity_stores(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_identitystore.types.list_identity_stores_request.ListIdentityStoresRequest = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_identity_stores(
+        self,
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+        max_results: Optional["capo_identitystore.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_identitystore.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_identitystore.types.identity_store.IdentityStore]":
+        _token = next_token
+        while True:
+            _response = self.list_identity_stores(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("identity_stores",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def create_user(
         self,
         identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
@@ -1077,7 +1224,7 @@ class identitystoreClient:
         """<p>Creates a user within the specified identity store.</p>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
             user_name: <p>A unique string used to identify the user. The length limit is 128 characters. This value can consist of letters, accented characters, symbols, numbers, and punctuation. This value is specified at the time the user is created and stored as an attribute of the user object in the identity store. <code>Administrator</code> and <code>AWSAdministrators</code> are reserved names and can't be used for users or groups.</p>
             name: <p>An object containing the name of the user. When used in IAM Identity Center, this parameter is required.</p>
             display_name: <p>A string containing the name of the user. This value is typically formatted for display when the user is referenced. For example, "John Doe." When used in IAM Identity Center, this parameter is required.</p>
@@ -1184,8 +1331,8 @@ class identitystoreClient:
         """<p>Retrieves the user metadata and attributes from the <code>UserId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p>
-            user_id: <p>The identifier for a user in the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            user_id: <p>The identifier for a user in the identity store.</p> <p>You can specify the user by ID or by Amazon Resource Name (ARN). For example, user ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code> or user ARN <code>arn:aws:identitystore:::user/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.</p>
             extensions: <p>A collection of extension names indicating what extensions the service should retrieve alongside other user attributes. <code>aws:identitystore:enterprise</code> is the only supported extension name.</p>
 
         Raises:
@@ -1234,13 +1381,17 @@ class identitystoreClient:
         operations: "capo_identitystore.types.attribute_operations.AttributeOperations",
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
+        revision: Optional[
+            "capo_identitystore.types.resource_revision.ResourceRevision"
+        ] = None,
     ) -> "capo_identitystore.types.update_user_response.UpdateUserResponse":
         """<p>Updates the specified user metadata and attributes in the specified identity store.</p>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            user_id: <p>The identifier for a user in the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            user_id: <p>The identifier for a user in the identity store.</p> <p>You can specify the user by ID or by Amazon Resource Name (ARN). For example, user ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code> or user ARN <code>arn:aws:identitystore:::user/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.</p>
             operations: <p>A list of <code>AttributeOperation</code> objects to apply to the requested user. These operations might add, replace, or remove an attribute. For more information on the attributes that can be added, replaced, or removed, see <a href="https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html">User</a>.</p>
+            revision: <p>The expected current revision of the user. When you provide this value, the update is applied only if it matches the current revision of the user in the identity store, which prevents you from overwriting concurrent changes. If the value doesn't match, the operation fails with a <code>ConflictException</code>. If you don't provide this value, the update is applied unconditionally.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1273,6 +1424,8 @@ class identitystoreClient:
             "user_id": user_id,
             "operations": operations,
         }
+        if revision is not None:
+            input_["revision"] = revision
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1288,12 +1441,16 @@ class identitystoreClient:
         user_id: "capo_identitystore.types.resource_id.ResourceId",
         *,
         config_overrides: Optional[identitystoreClientConfig] = None,
+        revision: Optional[
+            "capo_identitystore.types.resource_revision.ResourceRevision"
+        ] = None,
     ) -> "capo_identitystore.types.delete_user_response.DeleteUserResponse":
         """<p>Deletes a user within an identity store given <code>UserId</code>.</p>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store.</p>
-            user_id: <p>The identifier for a user in the identity store.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            user_id: <p>The identifier for a user in the identity store.</p> <p>You can specify the user by ID or by Amazon Resource Name (ARN). For example, user ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code> or user ARN <code>arn:aws:identitystore:::user/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.</p>
+            revision: <p>The expected current revision of the user. When you provide this value, the user is deleted only if it matches the current revision of the user in the identity store. If the value doesn't match, the operation fails with a <code>ConflictException</code>. If you don't provide this value, the user is deleted regardless of its current revision.</p>
 
         Raises:
             capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1324,6 +1481,8 @@ class identitystoreClient:
             "identity_store_id": identity_store_id,
             "user_id": user_id,
         }
+        if revision is not None:
+            input_["revision"] = revision
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1348,10 +1507,10 @@ class identitystoreClient:
         """<p>Lists all users in the identity store. Returns a paginated list of complete <code>User</code> objects. Filtering for a <code>User</code> by the <code>UserName</code> attribute is deprecated. Instead, use the <code>GetUserId</code> API action.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
 
         Args:
-            identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p>
+            identity_store_id: <p>The globally unique identifier for the identity store, such as <code>d-1234567890</code>. In this example, <code>d-</code> is a fixed prefix, and <code>1234567890</code> is a randomly generated string that contains numbers and lower case letters. This value is generated at the time that a new identity store is created.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
             extensions: <p>A collection of extension names indicating what extensions the service should retrieve alongside other user attributes. <code>aws:identitystore:enterprise</code> is the only supported extension name.</p>
-            max_results: <p>The maximum number of results to be returned per request. This parameter is used in the <code> ListUsers</code> and <code>ListGroups</code> requests to specify how many results to return in one page. The length limit is 50 characters.</p>
-            next_token: <p>The pagination token used for the <code>ListUsers</code> and <code>ListGroups</code> API operations. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to search for the next page.</p>
+            max_results: <p>The maximum number of results to be returned per request. This parameter is used in all <code>List</code> requests to specify how many results to return in one page.</p>
+            next_token: <p>The pagination token used for the <code>ListUsers</code> and <code>ListGroups</code> API operations. This value is generated by the identity store service. It is returned in the API response if the total results are more than the size of one page. This token is also returned when it is used in the API request to retrieve the next page of results.</p>
             filters: <p>A list of <code>Filter</code> objects, which is used in the <code>ListUsers</code> and <code> ListGroups</code> requests. </p>
 
         Raises:
@@ -1426,6 +1585,56 @@ class identitystoreClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    def get_user_id(
+        self,
+        identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId",
+        alternate_identifier: "capo_identitystore.types.alternate_identifier.AlternateIdentifier",
+        *,
+        config_overrides: Optional[identitystoreClientConfig] = None,
+    ) -> "capo_identitystore.types.get_user_id_response.GetUserIdResponse":
+        """<p>Retrieves the <code>UserId</code> in an identity store.</p> <note> <p>If you have access to a member account, you can use this API operation from the member account. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-accounts.html#limiting-access-from-member-accounts">Limiting access to the identity store from member accounts</a> in the <i> IAM Identity Center User Guide</i>.</p> </note>
+
+        Args:
+            identity_store_id: <p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>
+            alternate_identifier: <p>A unique identifier for a user or group that is not the primary identifier. This value can be an identifier from an external identity provider (IdP) that is associated with the user, the group, or a unique attribute. For the unique attribute, the only valid paths are <code> userName</code> and <code>emails.value</code>.</p>
+
+        Raises:
+            capo_identitystore.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_identitystore.errors.internal_server_exception.InternalServerException: <p>The request processing has failed because of an unknown error, exception or failure with an internal server.</p>
+            capo_identitystore.errors.throttling_exception.ThrottlingException: <p>Indicates that the principal has crossed the throttling limits of the API operations.</p>
+            capo_identitystore.errors.resource_not_found_exception.ResourceNotFoundException: <p>Indicates that a requested resource is not found.</p>
+            capo_identitystore.errors.validation_exception.ValidationException: <p>The request failed because it contains a syntax error.</p>
+            capo_identitystore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_identitystore.types.get_user_id_request.GetUserIdRequest]",
+        ) -> OperationResponse[
+            "capo_identitystore.types.get_user_id_response.GetUserIdResponse"
+        ]:
+            import capo_identitystore._operations.aws_identity_store.get_user_id
+
+            output, http_response = (
+                capo_identitystore._operations.aws_identity_store.get_user_id.get_user_id(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_identitystore.types.get_user_id_request.GetUserIdRequest = {
+            "identity_store_id": identity_store_id,
+            "alternate_identifier": alternate_identifier,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def __enter__(self) -> Self:
         return self

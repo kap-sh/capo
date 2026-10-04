@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class DescribeGroupMembershipRequest(TypedDict, closed=True):
     identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId"
-    """<p>The globally unique identifier for the identity store.</p>"""
+    """<p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>"""
     membership_id: "capo_identitystore.types.resource_id.ResourceId"
-    """<p>The identifier for a <code>GroupMembership</code> in an identity store.</p>"""
+    """<p>The identifier for a <code>GroupMembership</code> in an identity store.</p> <p>You can specify the group membership by ID or by Amazon Resource Name (ARN). For example, membership ID <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE33333</code> or membership ARN <code>arn:aws:identitystore:::membership/a1b2c3d4-5678-90ab-cdef-EXAMPLE33333</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

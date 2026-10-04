@@ -32,6 +32,7 @@ from capo_opensearch._services._pipeline import (
 if TYPE_CHECKING:
     import capo_opensearch.types.accept_inbound_connection_request
     import capo_opensearch.types.accept_inbound_connection_response
+    import capo_opensearch.types.accepted_warnings_list
     import capo_opensearch.types.action_type
     import capo_opensearch.types.add_data_source_request
     import capo_opensearch.types.add_data_source_response
@@ -5775,6 +5776,9 @@ class AsyncOpenSearchClient:
             "capo_opensearch.types.domain_use_case.DomainUseCase"
         ] = None,
         engine_mode: Optional["capo_opensearch.types.engine_mode.EngineMode"] = None,
+        accepted_warnings: Optional[
+            "capo_opensearch.types.accepted_warnings_list.AcceptedWarningsList"
+        ] = None,
     ) -> (
         "capo_opensearch.types.update_domain_config_response.UpdateDomainConfigResponse"
     ):
@@ -5805,6 +5809,7 @@ class AsyncOpenSearchClient:
             automated_snapshot_pause_options: <p>Specifies the automated snapshot pause options for the domain.</p> <important> <p>Suspending snapshots reduces data protection. You cannot restore your domain to points in time when snapshots are suspended. Use this feature only for short-term operational needs such as migrations or maintenance windows.</p> </important> <p>Maximum suspension duration: 3 days.</p>
             use_case: <p>The primary use case for the domain. For valid values, see <code>DomainUseCase</code>.</p>
             engine_mode: <p>The engine mode for the domain. The engine mode can't be changed after the domain is created. For valid values, see <code>EngineMode</code>.</p>
+            accepted_warnings: <p>A list of advisory warning codes to accept for this configuration change. By default, any advisory warning blocks the change. Include the code of each warning you want to accept so the change can proceed. You can find warning codes in the<code>ValidationFailures</code> list returned by <code>DescribeDomainChangeProgress</code>and <code>DescribeDryRunProgress</code>. Critical validation failures cannot be accepted and always block the change. If you omit this parameter or pass an empty list, all warnings block the change. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-configuration-changes#validation-check">Validating a domain update</a>.</p>
 
         Raises:
             capo_opensearch.errors.base_exception.BaseException: <p>An error occurred while processing the request.</p>
@@ -5885,6 +5890,8 @@ class AsyncOpenSearchClient:
             input_["use_case"] = use_case
         if engine_mode is not None:
             input_["engine_mode"] = engine_mode
+        if accepted_warnings is not None:
+            input_["accepted_warnings"] = accepted_warnings
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

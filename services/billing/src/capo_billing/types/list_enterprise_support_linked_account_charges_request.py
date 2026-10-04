@@ -16,9 +16,9 @@ class ListEnterpriseSupportLinkedAccountChargesRequest(TypedDict, closed=True):
     billing_month: "capo_billing.types.enterprise_support_billing_month.EnterpriseSupportBillingMonth"
     """<p>The billing month in YYYY-MM format. This must be a month in the past.</p>"""
     account_id: NotRequired["capo_billing.types.account_id.AccountId"]
-    """<p>An optional linked account ID to filter results to a specific account.</p>"""
+    """<p>The linked account ID to filter results to a specific account. If you don't specify a value, the response includes charges for all linked accounts.</p>"""
     max_results: NotRequired["int"]
-    """<p>The maximum number of results to return per page.</p>"""
+    """<p>The maximum number of results to return per page. Default is 100.</p>"""
     next_token: NotRequired["capo_billing.types.page_token.PageToken"]
     """<p>The pagination token for the next page of results.</p>"""
 

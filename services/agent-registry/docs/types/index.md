@@ -11,6 +11,7 @@
 - [BatchGetDiscoverableRegistryRecordRequest](batch_get_discoverable_registry_record_request.md)
 - [BatchGetDiscoverableRegistryRecordResponse](batch_get_discoverable_registry_record_response.md)
 - [CustomDescriptor](custom_descriptor.md)
+- [CustomMetadataDocument](custom_metadata_document.md)
 - [DataSchemaVersion](data_schema_version.md)
 - [DateTimestamp](date_timestamp.md)
 - [Description](description.md)

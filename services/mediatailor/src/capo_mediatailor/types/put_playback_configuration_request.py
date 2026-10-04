@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_mediatailor.types.ads_personalization_concurrency
     import capo_mediatailor.types.ads_personalization_timeouts
     import capo_mediatailor.types.avail_suppression
+    import capo_mediatailor.types.beaconing_configuration
     import capo_mediatailor.types.bumper
     import capo_mediatailor.types.cdn_configuration
     import capo_mediatailor.types.configuration_aliases_request
@@ -95,6 +96,10 @@ class PutPlaybackConfigurationRequest(TypedDict, closed=True):
         "capo_mediatailor.types.ads_personalization_concurrency.AdsPersonalizationConcurrency"
     ]
     """<p>The concurrency settings for ad decision server interactions. These settings control how many simultaneous ADS requests MediaTailor makes per manifest request.</p>"""
+    beaconing_configuration: NotRequired[
+        "capo_mediatailor.types.beaconing_configuration.BeaconingConfiguration"
+    ]
+    """<p>The beaconing configuration for this playback configuration, which controls whether MediaTailor includes beacons of its own in the ad tracking response. If you omit this setting, MediaTailor uses <code>INSIGHTS</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -220,6 +225,14 @@ def serialize_json(value: PutPlaybackConfigurationRequest) -> dict:
         out["AdsPersonalizationConcurrency"] = (
             capo_mediatailor.types.ads_personalization_concurrency.serialize_json(
                 value["ads_personalization_concurrency"]
+            )
+        )
+    if "beaconing_configuration" in value:
+        import capo_mediatailor.types.beaconing_configuration
+
+        out["BeaconingConfiguration"] = (
+            capo_mediatailor.types.beaconing_configuration.serialize_json(
+                value["beaconing_configuration"]
             )
         )
     return out
@@ -355,6 +368,14 @@ def deserialize_json(data: dict) -> PutPlaybackConfigurationRequest:
         out["ads_personalization_concurrency"] = (
             capo_mediatailor.types.ads_personalization_concurrency.deserialize_json(
                 data["AdsPersonalizationConcurrency"]
+            )
+        )
+    if data.get("BeaconingConfiguration") is not None:
+        import capo_mediatailor.types.beaconing_configuration
+
+        out["beaconing_configuration"] = (
+            capo_mediatailor.types.beaconing_configuration.deserialize_json(
+                data["BeaconingConfiguration"]
             )
         )
     return out

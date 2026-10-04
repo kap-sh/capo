@@ -43,7 +43,7 @@ class UpdateConfigurationBundleRequest(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.branch_name.BranchName"
     ]
     """<p>The branch name for this version. If not specified, inherits the parent's branch or defaults to <code>mainline</code>.</p>"""
-    commit_message: NotRequired["str"]
+    commit_message: "str"
     """<p>A commit message describing the changes in this version.</p>"""
     created_by: NotRequired[
         "capo_bedrock_agentcore_control.types.version_created_by_source.VersionCreatedBySource"
@@ -81,8 +81,7 @@ def serialize_json(value: UpdateConfigurationBundleRequest) -> dict:
     )
     if "branch_name" in value:
         out["branchName"] = value["branch_name"]
-    if "commit_message" in value:
-        out["commitMessage"] = value["commit_message"]
+    out["commitMessage"] = value["commit_message"]
     if "created_by" in value:
         import capo_bedrock_agentcore_control.types.version_created_by_source
 
@@ -128,6 +127,10 @@ def deserialize_json(data: dict) -> UpdateConfigurationBundleRequest:
         out["branch_name"] = data["branchName"]
     if data.get("commitMessage") is not None:
         out["commit_message"] = data["commitMessage"]
+    else:
+        raise DeserializationError(
+            "UpdateConfigurationBundleRequest.commit_message required"
+        )
     if data.get("createdBy") is not None:
         import capo_bedrock_agentcore_control.types.version_created_by_source
 

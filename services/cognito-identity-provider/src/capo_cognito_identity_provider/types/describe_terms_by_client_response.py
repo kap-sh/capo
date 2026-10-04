@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class DescribeTermsByClientResponse(TypedDict, closed=True):
     terms: NotRequired["capo_cognito_identity_provider.types.terms_type.TermsType"]
-    """<p>A summary of the requested terms documents. Includes a unique identifier for later changes to the terms documents.</p>"""
+    """<p>A summary of the requested terms documents, including a unique identifier for later changes to the terms documents.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

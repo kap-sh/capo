@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_sesv2.types.amazon_resource_name
+    import capo_sesv2.types.sending_status
     import capo_sesv2.types.tenant_id
     import capo_sesv2.types.tenant_name
     import capo_sesv2.types.timestamp
@@ -20,6 +21,7 @@ class TenantInfo(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the tenant.</p>"""
     created_timestamp: NotRequired["capo_sesv2.types.timestamp.Timestamp"]
     """<p>The date and time when the tenant was created.</p>"""
+    sending_status: NotRequired["capo_sesv2.types.sending_status.SendingStatus"]
 
 
 # --- restJson1 ser/de ---
@@ -37,6 +39,12 @@ def serialize_json(value: TenantInfo) -> dict:
         out["CreatedTimestamp"] = capo_sesv2.types.timestamp.serialize_json(
             value["created_timestamp"]
         )
+    if "sending_status" in value:
+        import capo_sesv2.types.sending_status
+
+        out["SendingStatus"] = capo_sesv2.types.sending_status.serialize_json(
+            value["sending_status"]
+        )
     return out
 
 
@@ -53,5 +61,11 @@ def deserialize_json(data: dict) -> TenantInfo:
 
         out["created_timestamp"] = capo_sesv2.types.timestamp.deserialize_json(
             data["CreatedTimestamp"]
+        )
+    if data.get("SendingStatus") is not None:
+        import capo_sesv2.types.sending_status
+
+        out["sending_status"] = capo_sesv2.types.sending_status.deserialize_json(
+            data["SendingStatus"]
         )
     return out

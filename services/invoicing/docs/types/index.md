@@ -83,6 +83,7 @@
 - [ListProcurementPortalsResponse](list_procurement_portals_response.md)
 - [ListTagsForResourceRequest](list_tags_for_resource_request.md)
 - [ListTagsForResourceResponse](list_tags_for_resource_response.md)
+- [MarketplacePunchOutPreference](marketplace_punch_out_preference.md)
 - [MaxResults](max_results.md)
 - [MaxResultsInteger](max_results_integer.md)
 - [Month](month.md)

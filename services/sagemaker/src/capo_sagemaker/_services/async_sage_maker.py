@@ -1327,6 +1327,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.training_plan_extension_offering_id
     import capo_sagemaker.types.training_plan_filters
     import capo_sagemaker.types.training_plan_name
+    import capo_sagemaker.types.training_plan_name_or_arn
     import capo_sagemaker.types.training_plan_offering_id
     import capo_sagemaker.types.training_plan_sort_by
     import capo_sagemaker.types.training_plan_sort_order
@@ -3041,7 +3042,7 @@ class AsyncSageMakerClient:
         """<p>Create cluster policy configuration. This policy is used for task prioritization and fair-share allocation of idle compute. This helps prioritize critical workloads and distributes idle compute across entities.</p>
 
         Args:
-            name: <p>Name for the cluster policy.</p>
+            name: <p>The name for the cluster policy. The name must be unique within the SageMaker AI HyperPod cluster specified by <code>ClusterArn</code>. You can use the same name in other clusters within a Region or across Regions.</p>
             cluster_arn: <p>ARN of the cluster.</p>
             scheduler_config: <p>Configuration about the monitoring schedule.</p>
             description: <p>Description of the cluster policy.</p>
@@ -3250,7 +3251,7 @@ class AsyncSageMakerClient:
         """<p>Create compute allocation definition. This defines how compute is allocated, shared, and borrowed for specified entities. Specifically, how to lend and borrow idle compute and assign a fair-share weight to the specified entities.</p>
 
         Args:
-            name: <p>Name to the compute allocation definition.</p>
+            name: <p>The name of the compute allocation definition. The name must be unique within the SageMaker AI HyperPod cluster specified by <code>ClusterArn</code>. You can use the same name in other clusters within a Region or across Regions.</p>
             description: <p>Description of the compute allocation definition.</p>
             cluster_arn: <p>ARN of the cluster.</p>
             compute_quota_config: <p>Configuration of the compute allocation definition. This includes the resource sharing option, and the setting to preempt low priority tasks.</p>
@@ -14270,7 +14271,7 @@ class AsyncSageMakerClient:
         *,
         config_overrides: Optional[AsyncSageMakerClientConfig] = None,
         training_plan_name: Optional[
-            "capo_sagemaker.types.training_plan_name.TrainingPlanName"
+            "capo_sagemaker.types.training_plan_name_or_arn.TrainingPlanNameOrArn"
         ] = None,
     ) -> "capo_sagemaker.types.describe_training_plan_response.DescribeTrainingPlanResponse":
         """<p>Retrieves detailed information about a specific training plan.</p>

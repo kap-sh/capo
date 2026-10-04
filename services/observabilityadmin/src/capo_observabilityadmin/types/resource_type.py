@@ -17,6 +17,7 @@ ResourceType: TypeAlias = Literal[
     "AWS::BedrockAgentCore::Gateway",
     "AWS::BedrockAgentCore::Memory",
     "AWS::BedrockAgentCore::WorkloadIdentity",
+    "AWS::BedrockAgentCore::PaymentManager",
     "AWS::SecurityHub::Hub",
     "AWS::CloudFront::Distribution",
     "AWS::SecurityHub::HubV2",

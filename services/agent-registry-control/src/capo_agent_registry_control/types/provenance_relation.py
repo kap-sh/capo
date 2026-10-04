@@ -2,7 +2,6 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""The relationship between the registry record and its provenance source."""
 ProvenanceRelation: TypeAlias = Literal["DETECTED_FROM",]
 
 

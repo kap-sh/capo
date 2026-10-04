@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.client_vpn_endpoint_id
     import capo_ec2.types.client_vpn_security_group_id_set
     import capo_ec2.types.connection_log_options
+    import capo_ec2.types.device_posture_options
     import capo_ec2.types.dns_servers_options_modify_structure
     import capo_ec2.types.integer
     import capo_ec2.types.self_service_portal
@@ -75,6 +76,10 @@ class ModifyClientVpnEndpointRequest(TypedDict, closed=True):
         "capo_ec2.types.transit_gateway_configuration_input_structure.TransitGatewayConfigurationInputStructure"
     ]
     """<p>The Transit Gateway configuration for the Client VPN endpoint. This option is currently not supported.</p>"""
+    device_posture_options: NotRequired[
+        "capo_ec2.types.device_posture_options.DevicePostureOptions"
+    ]
+    """<p>The device posture options for the Client VPN endpoint. Specifying this parameter replaces the entire device posture configuration for the endpoint. To remove all device trust providers, specify an empty list.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -166,6 +171,12 @@ def serialize_ec2_query(
             value["transit_gateway_configuration"],
             pairs,
             f"{key_prefix}TransitGatewayConfiguration",
+        )
+    if "device_posture_options" in value:
+        import capo_ec2.types.device_posture_options
+
+        capo_ec2.types.device_posture_options.serialize_ec2_query(
+            value["device_posture_options"], pairs, f"{key_prefix}DevicePostureOptions"
         )
 
 
@@ -270,6 +281,15 @@ def deserialize_ec2_query(el: Element) -> ModifyClientVpnEndpointRequest:
         out["transit_gateway_configuration"] = (
             capo_ec2.types.transit_gateway_configuration_input_structure.deserialize_ec2_query(
                 child_transit_gateway_configuration
+            )
+        )
+    child_device_posture_options = el.find("DevicePostureOptions")
+    if child_device_posture_options is not None:
+        import capo_ec2.types.device_posture_options
+
+        out["device_posture_options"] = (
+            capo_ec2.types.device_posture_options.deserialize_ec2_query(
+                child_device_posture_options
             )
         )
     return out

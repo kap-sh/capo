@@ -1,0 +1,8 @@
+---
+title: ClusterAccountingDatabaseSecretArn
+---
+
+::: capo_sagemaker.types.cluster_accounting_database_secret_arn.ClusterAccountingDatabaseSecretArn
+    options:
+      show_source: true
+      merge_init_into_class: false

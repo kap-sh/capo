@@ -35,6 +35,7 @@
 - [ArgoCdAwsIdcConfigResponse](argo_cd_aws_idc_config_response.md)
 - [ArgoCdConfigRequest](argo_cd_config_request.md)
 - [ArgoCdConfigResponse](argo_cd_config_response.md)
+- [ArgoCdEndpointPrefix](argo_cd_endpoint_prefix.md)
 - [ArgoCdNetworkAccessConfigRequest](argo_cd_network_access_config_request.md)
 - [ArgoCdNetworkAccessConfigResponse](argo_cd_network_access_config_response.md)
 - [ArgoCdRole](argo_cd_role.md)

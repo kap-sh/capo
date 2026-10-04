@@ -8,6 +8,7 @@ from capo_cognito_identity_provider.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.account_recovery_setting_type
+    import capo_cognito_identity_provider.types.acr_configuration_type
     import capo_cognito_identity_provider.types.admin_create_user_config_type
     import capo_cognito_identity_provider.types.deletion_protection_type
     import capo_cognito_identity_provider.types.device_configuration_type
@@ -124,6 +125,10 @@ class UpdateUserPoolRequest(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.issuer_configuration_type.IssuerConfigurationType"
     ]
     """<p>The issuer configuration for the user pool. In secondary regions, this parameter must match the existing configuration and cannot be modified.</p>"""
+    acr_configuration: NotRequired[
+        "capo_cognito_identity_provider.types.acr_configuration_type.AcrConfigurationType"
+    ]
+    """<p>The custom names for the authentication context class reference (ACR) levels in your user pool. This configuration has the same behavior as it does when you create a user pool: you customize only the URI name that Amazon Cognito reports for each of the four fixed ACR levels, and any level that you don't specify keeps its default name. Each name must be unique across all four levels, including default names.</p> <p>Configuring custom ACR level names requires the Essentials or Plus feature plan. To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -274,6 +279,14 @@ def serialize_aws_json_1_1(value: UpdateUserPoolRequest) -> dict:
         out["IssuerConfiguration"] = (
             capo_cognito_identity_provider.types.issuer_configuration_type.serialize_aws_json_1_1(
                 value["issuer_configuration"]
+            )
+        )
+    if "acr_configuration" in value:
+        import capo_cognito_identity_provider.types.acr_configuration_type
+
+        out["AcrConfiguration"] = (
+            capo_cognito_identity_provider.types.acr_configuration_type.serialize_aws_json_1_1(
+                value["acr_configuration"]
             )
         )
     return out
@@ -429,6 +442,14 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateUserPoolRequest:
         out["issuer_configuration"] = (
             capo_cognito_identity_provider.types.issuer_configuration_type.deserialize_aws_json_1_1(
                 data["IssuerConfiguration"]
+            )
+        )
+    if data.get("AcrConfiguration") is not None:
+        import capo_cognito_identity_provider.types.acr_configuration_type
+
+        out["acr_configuration"] = (
+            capo_cognito_identity_provider.types.acr_configuration_type.deserialize_aws_json_1_1(
+                data["AcrConfiguration"]
             )
         )
     return out

@@ -23,6 +23,7 @@ import capo_dynamodb.types.export_table_to_point_in_time_input
 import capo_dynamodb.types.export_table_to_point_in_time_output
 import capo_dynamodb.types.export_time
 import capo_dynamodb.types.export_type
+import capo_dynamodb.types.filter_specification
 import capo_dynamodb.types.incremental_export_specification
 import capo_dynamodb.types.s3_sse_algorithm
 from capo_dynamodb._protocol.errors import parse_error_metadata_json

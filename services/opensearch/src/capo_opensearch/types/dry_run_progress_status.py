@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_opensearch.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_opensearch.types.accepted_warnings_list
     import capo_opensearch.types.guid
     import capo_opensearch.types.string
     import capo_opensearch.types.validation_failures
@@ -24,7 +25,11 @@ class DryRunProgressStatus(TypedDict, closed=True):
     validation_failures: NotRequired[
         "capo_opensearch.types.validation_failures.ValidationFailures"
     ]
-    """<p>Any validation failures that occurred as a result of the dry run.</p>"""
+    """<p>The validation failures that occurred as a result of the dry run.</p>"""
+    accepted_warnings: NotRequired[
+        "capo_opensearch.types.accepted_warnings_list.AcceptedWarningsList"
+    ]
+    """<p>The list of advisory warning codes that were accepted for the configuration change.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -40,6 +45,14 @@ def serialize_json(value: DryRunProgressStatus) -> dict:
         out["ValidationFailures"] = (
             capo_opensearch.types.validation_failures.serialize_json(
                 value["validation_failures"]
+            )
+        )
+    if "accepted_warnings" in value:
+        import capo_opensearch.types.accepted_warnings_list
+
+        out["AcceptedWarnings"] = (
+            capo_opensearch.types.accepted_warnings_list.serialize_json(
+                value["accepted_warnings"]
             )
         )
     return out
@@ -69,6 +82,14 @@ def deserialize_json(data: dict) -> DryRunProgressStatus:
         out["validation_failures"] = (
             capo_opensearch.types.validation_failures.deserialize_json(
                 data["ValidationFailures"]
+            )
+        )
+    if data.get("AcceptedWarnings") is not None:
+        import capo_opensearch.types.accepted_warnings_list
+
+        out["accepted_warnings"] = (
+            capo_opensearch.types.accepted_warnings_list.deserialize_json(
+                data["AcceptedWarnings"]
             )
         )
     return out

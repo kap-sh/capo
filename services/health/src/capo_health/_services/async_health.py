@@ -54,6 +54,8 @@ if TYPE_CHECKING:
     import capo_health.types.describe_events_request
     import capo_health.types.describe_events_response
     import capo_health.types.describe_health_service_status_for_organization_response
+    import capo_health.types.describe_service_lifecycle_request
+    import capo_health.types.describe_service_lifecycle_response
     import capo_health.types.entity_filter
     import capo_health.types.event
     import capo_health.types.event_aggregate
@@ -64,6 +66,7 @@ if TYPE_CHECKING:
     import capo_health.types.event_filter
     import capo_health.types.event_type
     import capo_health.types.event_type_filter
+    import capo_health.types.lifecycle_max_results
     import capo_health.types.locale
     import capo_health.types.max_results
     import capo_health.types.max_results_lower_range
@@ -75,6 +78,8 @@ if TYPE_CHECKING:
     import capo_health.types.organization_event_arns_list
     import capo_health.types.organization_event_detail_filters_list
     import capo_health.types.organization_event_filter
+    import capo_health.types.service_lifecycle
+    import capo_health.types.service_lifecycle_filter
 
 
 class AsyncHealthClientConfig(TypedDict, total=False, closed=True):
@@ -995,6 +1000,95 @@ class AsyncHealthClient:
         )
         await response.response.aclose()
         return response.output
+
+    async def describe_service_lifecycle(
+        self,
+        *,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+        filter: Optional[
+            "capo_health.types.service_lifecycle_filter.ServiceLifecycleFilter"
+        ] = None,
+        next_token: Optional["capo_health.types.next_token.nextToken"] = None,
+        max_results: Optional[
+            "capo_health.types.lifecycle_max_results.LifecycleMaxResults"
+        ] = None,
+    ) -> "capo_health.types.describe_service_lifecycle_response.DescribeServiceLifecycleResponse":
+        """<p>Returns lifecycle information for Amazon Web Services services, including end-of-life dates, version recommendations, and lifecycle events.</p>
+
+        Args:
+            filter: <p>Values to narrow the results returned.</p>
+            next_token: <p>If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.</p>
+            max_results: <p>The maximum number of items to return in one batch, between 1 and 20, inclusive.</p>
+
+        Raises:
+            capo_health.errors.invalid_pagination_token.InvalidPaginationToken: <p>The specified pagination token (<code>nextToken</code>) is not valid.</p>
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To retrieve service lifecycle information
+            The following example returns service lifecycle information, including support milestones and lifecycle events for each service version.
+
+            >>> await client.describe_service_lifecycle(max_results=5)
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_health.types.describe_service_lifecycle_request.DescribeServiceLifecycleRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.describe_service_lifecycle_response.DescribeServiceLifecycleResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.describe_service_lifecycle
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.describe_service_lifecycle.async_describe_service_lifecycle(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_health.types.describe_service_lifecycle_request.DescribeServiceLifecycleRequest = {}
+        if filter is not None:
+            input_["filter"] = filter
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_describe_service_lifecycle(
+        self,
+        *,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+        filter: Optional[
+            "capo_health.types.service_lifecycle_filter.ServiceLifecycleFilter"
+        ] = None,
+        next_token: Optional["capo_health.types.next_token.nextToken"] = None,
+        max_results: Optional[
+            "capo_health.types.lifecycle_max_results.LifecycleMaxResults"
+        ] = None,
+    ) -> "AsyncIterator[capo_health.types.service_lifecycle.ServiceLifecycle]":
+        _token = next_token
+        while True:
+            _response = await self.describe_service_lifecycle(
+                config_overrides=config_overrides,
+                filter=filter,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("service_lifecycles",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     async def disable_health_service_access_for_organization(
         self, *, config_overrides: Optional[AsyncHealthClientConfig] = None

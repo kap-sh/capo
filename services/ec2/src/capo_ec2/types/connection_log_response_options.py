@@ -18,6 +18,8 @@ class ConnectionLogResponseOptions(TypedDict, closed=True):
     """<p>The name of the Amazon CloudWatch Logs log group to which connection logging data is published.</p>"""
     cloudwatch_log_stream: NotRequired["capo_ec2.types.string.String"]
     """<p>The name of the Amazon CloudWatch Logs log stream to which connection logging data is published.</p>"""
+    include_authorization_policy_context: NotRequired["capo_ec2.types.boolean.Boolean"]
+    """<p>Specifies whether the authorization policy evaluation context is included in the connection logs for the Client VPN endpoint.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -35,6 +37,13 @@ def serialize_ec2_query(
         pairs.append(
             (f"{key_prefix}CloudwatchLogStream", str(value["cloudwatch_log_stream"]))
         )
+    if "include_authorization_policy_context" in value:
+        pairs.append(
+            (
+                f"{key_prefix}IncludeAuthorizationPolicyContext",
+                "true" if value["include_authorization_policy_context"] else "false",
+            )
+        )
 
 
 def deserialize_ec2_query(el: Element) -> ConnectionLogResponseOptions:
@@ -48,4 +57,11 @@ def deserialize_ec2_query(el: Element) -> ConnectionLogResponseOptions:
     child_cloudwatch_log_stream = el.find("CloudwatchLogStream")
     if child_cloudwatch_log_stream is not None:
         out["cloudwatch_log_stream"] = str(child_cloudwatch_log_stream.text or "")
+    child_include_authorization_policy_context = el.find(
+        "IncludeAuthorizationPolicyContext"
+    )
+    if child_include_authorization_policy_context is not None:
+        out["include_authorization_policy_context"] = (
+            child_include_authorization_policy_context.text or ""
+        ).lower() == "true"
     return out

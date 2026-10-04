@@ -33,6 +33,8 @@ class MCPGatewayConfiguration(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.streaming_configuration.StreamingConfiguration"
     ]
     """<p>The streaming configuration for the MCP gateway. This configuration controls whether response streaming is enabled for the gateway.</p>"""
+    disable_mcp_list_tools_pagination: NotRequired["bool"]
+    """<p>Specifies whether pagination is disabled for the Model Context Protocol (MCP) <code>tools/list</code> operation. When set to <code>true</code>, the gateway returns the complete list of tools in a single response without a pagination cursor. When set to <code>false</code> or omitted, the gateway returns tools in paginated responses.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -72,6 +74,10 @@ def serialize_json(value: MCPGatewayConfiguration) -> dict:
                 value["streaming_configuration"]
             )
         )
+    if "disable_mcp_list_tools_pagination" in value:
+        out["disableMcpListToolsPagination"] = value[
+            "disable_mcp_list_tools_pagination"
+        ]
     return out
 
 
@@ -111,4 +117,6 @@ def deserialize_json(data: dict) -> MCPGatewayConfiguration:
                 data["streamingConfiguration"]
             )
         )
+    if data.get("disableMcpListToolsPagination") is not None:
+        out["disable_mcp_list_tools_pagination"] = data["disableMcpListToolsPagination"]
     return out

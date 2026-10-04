@@ -13,6 +13,7 @@ import capo_sesv2._auth._sigv4
 import capo_sesv2._protocol.eventstream
 import capo_sesv2.errors.bad_request_exception
 import capo_sesv2.errors.too_many_requests_exception
+import capo_sesv2.types.configuration_set_filter
 import capo_sesv2.types.configuration_set_name_list
 import capo_sesv2.types.list_configuration_sets_request
 import capo_sesv2.types.list_configuration_sets_response
@@ -101,20 +102,20 @@ def build_request(
             EndpointId=options.endpoint_id,
         )
     )  # noqa: F841
-    url = endpoint.url.rstrip("/") + "/v2/email/configuration-sets"
+    url = endpoint.url.rstrip("/") + "/v2/email/list-configuration-sets"
     params: list[tuple[str, str]] = []
-    if "next_token" in input_:
-        params.append(("NextToken", input_["next_token"]))
-    if "page_size" in input_:
-        params.append(("PageSize", str(input_["page_size"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
-    body: bytes | None = b""
+    body: bytes | None = json.dumps(
+        capo_sesv2.types.list_configuration_sets_request.serialize_json(input_),
+        allow_nan=False,
+    ).encode()
+    headers["content-type"] = "application/json"
     signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)
     return zapros.Request(
-        normalized_url, "GET", headers=headers, body=body, context={"signer": signer}
+        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
     )
 
 

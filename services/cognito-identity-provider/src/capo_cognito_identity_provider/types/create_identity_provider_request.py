@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_cognito_identity_provider.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_cognito_identity_provider.types.acr_mapping_type
     import capo_cognito_identity_provider.types.attribute_mapping_type
     import capo_cognito_identity_provider.types.identity_provider_type_type
     import capo_cognito_identity_provider.types.idp_identifiers_list_type
@@ -38,6 +39,10 @@ class CreateIdentityProviderRequest(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.idp_identifiers_list_type.IdpIdentifiersListType"
     ]
     """<p>An array of IdP identifiers, for example <code>"IdPIdentifiers": [ "MyIdP", "MyIdP2" ]</code>. Identifiers are friendly names that you can pass in the <code>idp_identifier</code> query parameter of requests to the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html">Authorize endpoint</a> to silently redirect to sign-in with the associated IdP. Identifiers in a domain format also enable the use of <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managing-saml-idp-naming.html">email-address matching with SAML providers</a>. </p>"""
+    acr_mapping: NotRequired[
+        "capo_cognito_identity_provider.types.acr_mapping_type.AcrMappingType"
+    ]
+    """<p>A mapping between the authentication context class reference (ACR) levels of your user pool and the ACR values of the external OpenID Connect (OIDC) identity provider (IdP). The map is keyed by level, from <code>Level1</code> through <code>Level4</code>, and each value is the ACR value that the IdP uses for the corresponding level. Amazon Cognito uses this mapping to translate a requested user pool ACR level to the value that the IdP expects, and to map an ACR value that the IdP returns back to a user pool level. When the IdP returns an ACR value that isn't mapped, Amazon Cognito resolves it to the lowest level. Only OIDC IdPs support ACR mapping.</p> <p>Setting <code>AcrMapping</code> is available in all feature plans. It isn't restricted to the Essentials or Plus feature plan.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -73,6 +78,14 @@ def serialize_aws_json_1_1(value: CreateIdentityProviderRequest) -> dict:
         out["IdpIdentifiers"] = (
             capo_cognito_identity_provider.types.idp_identifiers_list_type.serialize_aws_json_1_1(
                 value["idp_identifiers"]
+            )
+        )
+    if "acr_mapping" in value:
+        import capo_cognito_identity_provider.types.acr_mapping_type
+
+        out["AcrMapping"] = (
+            capo_cognito_identity_provider.types.acr_mapping_type.serialize_aws_json_1_1(
+                value["acr_mapping"]
             )
         )
     return out
@@ -130,6 +143,14 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIdentityProviderRequest:
         out["idp_identifiers"] = (
             capo_cognito_identity_provider.types.idp_identifiers_list_type.deserialize_aws_json_1_1(
                 data["IdpIdentifiers"]
+            )
+        )
+    if data.get("AcrMapping") is not None:
+        import capo_cognito_identity_provider.types.acr_mapping_type
+
+        out["acr_mapping"] = (
+            capo_cognito_identity_provider.types.acr_mapping_type.deserialize_aws_json_1_1(
+                data["AcrMapping"]
             )
         )
     return out

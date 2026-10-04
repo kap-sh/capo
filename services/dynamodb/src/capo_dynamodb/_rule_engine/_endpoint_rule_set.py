@@ -158,8 +158,8 @@ def resolve(p: EndpointParams) -> Endpoint:  # type: ignore
                         "authSchemes": [
                             {
                                 "signingRegion": interpolate("us-east-1", p, _locals),
-                                "name": interpolate("sigv4", p, _locals),
                                 "signingName": interpolate("dynamodb", p, _locals),
+                                "name": interpolate("sigv4", p, _locals),
                             }
                         ]
                     },

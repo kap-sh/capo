@@ -5,11 +5,14 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_sesv2.types.list_tenants_filter
     import capo_sesv2.types.max_items
     import capo_sesv2.types.next_token
 
 
 class ListTenantsRequest(TypedDict, closed=True):
+    filter: NotRequired["capo_sesv2.types.list_tenants_filter.ListTenantsFilter"]
+    """<p>An object that contains filters to apply when listing tenants. You can filter by tenant name or sending status.</p>"""
     next_token: NotRequired["capo_sesv2.types.next_token.NextToken"]
     """<p>A token returned from a previous call to <code>ListTenants</code> to indicate the position in the list of tenants.</p>"""
     page_size: NotRequired["capo_sesv2.types.max_items.MaxItems"]
@@ -19,6 +22,12 @@ class ListTenantsRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: ListTenantsRequest) -> dict:
     out: dict = {}
+    if "filter" in value:
+        import capo_sesv2.types.list_tenants_filter
+
+        out["Filter"] = capo_sesv2.types.list_tenants_filter.serialize_json(
+            value["filter"]
+        )
     if "next_token" in value:
         out["NextToken"] = value["next_token"]
     if "page_size" in value:
@@ -28,6 +37,12 @@ def serialize_json(value: ListTenantsRequest) -> dict:
 
 def deserialize_json(data: dict) -> ListTenantsRequest:
     out: ListTenantsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Filter") is not None:
+        import capo_sesv2.types.list_tenants_filter
+
+        out["filter"] = capo_sesv2.types.list_tenants_filter.deserialize_json(
+            data["Filter"]
+        )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("PageSize") is not None:

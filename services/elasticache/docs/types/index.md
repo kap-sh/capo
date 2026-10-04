@@ -59,6 +59,7 @@
 - [CompleteMigrationMessage](complete_migration_message.md)
 - [CompleteMigrationResponse](complete_migration_response.md)
 - [ConfigureShard](configure_shard.md)
+- [ConnectionType](connection_type.md)
 - [CopyServerlessCacheSnapshotRequest](copy_serverless_cache_snapshot_request.md)
 - [CopyServerlessCacheSnapshotResponse](copy_serverless_cache_snapshot_response.md)
 - [CopySnapshotMessage](copy_snapshot_message.md)

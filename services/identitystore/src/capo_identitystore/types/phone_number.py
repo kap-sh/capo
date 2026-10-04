@@ -13,7 +13,7 @@ class PhoneNumber(TypedDict, closed=True):
     value: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]
-    """<p>A string containing a phone number. For example, "8675309" or "+1 (800) 123-4567". </p>"""
+    """<p>A string containing a phone number. For example, "8675309" or "+1 (800) 123-4567".</p>"""
     type: NotRequired[
         "capo_identitystore.types.sensitive_string_type.SensitiveStringType"
     ]

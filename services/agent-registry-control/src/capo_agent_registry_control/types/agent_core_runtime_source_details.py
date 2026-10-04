@@ -14,12 +14,14 @@ class AgentCoreRuntimeSourceDetails(TypedDict, closed=True):
     protocol_configuration: NotRequired[
         "capo_agent_registry_control.types.agent_core_runtime_protocol_configuration.AgentCoreRuntimeProtocolConfiguration"
     ]
+    """<p>The protocol configuration of the AgentCore Runtime resource that the registry record was detected from.</p>"""
     authorizer_configuration: NotRequired[
         "capo_agent_registry_control.types.authorizer_configuration.AuthorizerConfiguration"
     ]
     workload_identity_details: NotRequired[
         "capo_agent_registry_control.types.workload_identity_details.WorkloadIdentityDetails"
     ]
+    """<p>The workload identity details for the AgentCore Runtime resource. Present when the runtime has a workload identity configured.</p>"""
 
 
 # --- restJson1 ser/de ---

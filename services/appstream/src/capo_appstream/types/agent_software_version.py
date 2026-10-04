@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""The image type is the type of AppStream image resource."""
+"""<p>The image type is the type of AppStream image resource.</p>"""
 AgentSoftwareVersion: TypeAlias = Literal[
     "CURRENT_LATEST",
     "ALWAYS_LATEST",

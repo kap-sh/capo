@@ -47,6 +47,10 @@ class ClientVpnConnection(TypedDict, closed=True):
         "capo_ec2.types.value_string_list.ValueStringList"
     ]
     """<p>The statuses returned by the client connect handler for posture compliance, if applicable.</p>"""
+    authorization_policy_last_evaluated_time: NotRequired[
+        "capo_ec2.types.string.String"
+    ]
+    """<p>The date and time the authorization policy was last evaluated for the client connection, if applicable.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -104,6 +108,13 @@ def serialize_ec2_query(
             value["posture_compliance_statuses"],
             pairs,
             f"{key_prefix}PostureComplianceStatusSet",
+        )
+    if "authorization_policy_last_evaluated_time" in value:
+        pairs.append(
+            (
+                f"{key_prefix}AuthorizationPolicyLastEvaluatedTime",
+                str(value["authorization_policy_last_evaluated_time"]),
+            )
         )
 
 
@@ -167,5 +178,12 @@ def deserialize_ec2_query(el: Element) -> ClientVpnConnection:
             capo_ec2.types.value_string_list.deserialize_ec2_query(
                 child_posture_compliance_statuses
             )
+        )
+    child_authorization_policy_last_evaluated_time = el.find(
+        "authorizationPolicyLastEvaluatedTime"
+    )
+    if child_authorization_policy_last_evaluated_time is not None:
+        out["authorization_policy_last_evaluated_time"] = str(
+            child_authorization_policy_last_evaluated_time.text or ""
         )
     return out

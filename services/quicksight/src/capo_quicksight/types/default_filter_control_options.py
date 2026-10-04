@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     import capo_quicksight.types.default_date_time_picker_control_options
     import capo_quicksight.types.default_filter_drop_down_control_options
     import capo_quicksight.types.default_filter_list_control_options
+    import capo_quicksight.types.default_hierarchy_filter_drop_down_control_options
+    import capo_quicksight.types.default_hierarchy_filter_list_control_options
     import capo_quicksight.types.default_relative_date_time_control_options
     import capo_quicksight.types.default_slider_control_options
     import capo_quicksight.types.default_text_area_control_options
@@ -43,6 +45,14 @@ class DefaultFilterControlOptions(TypedDict, closed=True):
         "capo_quicksight.types.default_relative_date_time_control_options.DefaultRelativeDateTimeControlOptions"
     ]
     """<p>The default options that correspond to the <code>RelativeDateTime</code> filter control type.</p>"""
+    default_hierarchy_list: NotRequired[
+        "capo_quicksight.types.default_hierarchy_filter_list_control_options.DefaultHierarchyFilterListControlOptions"
+    ]
+    """<p>The default options that correspond to the <code>HierarchyList</code> filter control type.</p>"""
+    default_hierarchy_dropdown: NotRequired[
+        "capo_quicksight.types.default_hierarchy_filter_drop_down_control_options.DefaultHierarchyFilterDropDownControlOptions"
+    ]
+    """<p>The default options that correspond to the <code>HierarchyDropdown</code> filter control type.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -104,6 +114,22 @@ def serialize_json(value: DefaultFilterControlOptions) -> dict:
                 value["default_relative_date_time_options"]
             )
         )
+    if "default_hierarchy_list" in value:
+        import capo_quicksight.types.default_hierarchy_filter_list_control_options
+
+        out["DefaultHierarchyList"] = (
+            capo_quicksight.types.default_hierarchy_filter_list_control_options.serialize_json(
+                value["default_hierarchy_list"]
+            )
+        )
+    if "default_hierarchy_dropdown" in value:
+        import capo_quicksight.types.default_hierarchy_filter_drop_down_control_options
+
+        out["DefaultHierarchyDropdown"] = (
+            capo_quicksight.types.default_hierarchy_filter_drop_down_control_options.serialize_json(
+                value["default_hierarchy_dropdown"]
+            )
+        )
     return out
 
 
@@ -163,6 +189,22 @@ def deserialize_json(data: dict) -> DefaultFilterControlOptions:
         out["default_relative_date_time_options"] = (
             capo_quicksight.types.default_relative_date_time_control_options.deserialize_json(
                 data["DefaultRelativeDateTimeOptions"]
+            )
+        )
+    if data.get("DefaultHierarchyList") is not None:
+        import capo_quicksight.types.default_hierarchy_filter_list_control_options
+
+        out["default_hierarchy_list"] = (
+            capo_quicksight.types.default_hierarchy_filter_list_control_options.deserialize_json(
+                data["DefaultHierarchyList"]
+            )
+        )
+    if data.get("DefaultHierarchyDropdown") is not None:
+        import capo_quicksight.types.default_hierarchy_filter_drop_down_control_options
+
+        out["default_hierarchy_dropdown"] = (
+            capo_quicksight.types.default_hierarchy_filter_drop_down_control_options.deserialize_json(
+                data["DefaultHierarchyDropdown"]
             )
         )
     return out

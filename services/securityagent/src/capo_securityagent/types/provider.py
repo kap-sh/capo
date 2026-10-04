@@ -8,6 +8,7 @@ Provider: TypeAlias = Literal[
     "GITLAB",
     "BITBUCKET",
     "CONFLUENCE",
+    "AZURE_DEVOPS",
 ]
 
 

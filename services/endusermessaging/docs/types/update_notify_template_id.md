@@ -1,0 +1,8 @@
+---
+title: UpdateNotifyTemplateId
+---
+
+::: capo_endusermessaging.types.update_notify_template_id.UpdateNotifyTemplateId
+    options:
+      show_source: true
+      merge_init_into_class: false

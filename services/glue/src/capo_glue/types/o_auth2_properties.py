@@ -15,7 +15,7 @@ class OAuth2Properties(TypedDict, closed=True):
     o_auth2_grant_type: NotRequired[
         "capo_glue.types.o_auth2_grant_type.OAuth2GrantType"
     ]
-    """<p>The OAuth2 grant type. For example, <code>AUTHORIZATION_CODE</code>, <code>JWT_BEARER</code>, or <code>CLIENT_CREDENTIALS</code>.</p>"""
+    """<p>The OAuth2 grant type. For example, <code>AUTHORIZATION_CODE</code>, <code>JWT_BEARER</code>, <code>REFRESH_TOKEN</code>, or <code>CLIENT_CREDENTIALS</code>.</p>"""
     o_auth2_client_application: NotRequired[
         "capo_glue.types.o_auth2_client_application.OAuth2ClientApplication"
     ]

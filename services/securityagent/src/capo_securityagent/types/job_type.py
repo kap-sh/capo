@@ -6,6 +6,7 @@ from typing import Literal, TypeAlias, cast
 JobType: TypeAlias = Literal[
     "FULL",
     "REVALIDATION",
+    "CICD",
 ]
 
 

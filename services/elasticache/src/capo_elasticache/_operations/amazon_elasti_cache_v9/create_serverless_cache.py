@@ -23,6 +23,7 @@ import capo_elasticache.errors.service_linked_role_not_found_fault
 import capo_elasticache.errors.tag_quota_per_resource_exceeded
 import capo_elasticache.errors.user_group_not_found_fault
 import capo_elasticache.types.cache_usage_limits
+import capo_elasticache.types.connection_type
 import capo_elasticache.types.create_serverless_cache_request
 import capo_elasticache.types.create_serverless_cache_response
 import capo_elasticache.types.network_type

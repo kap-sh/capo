@@ -18,7 +18,7 @@ class UpdateNotificationContentRequest(TypedDict, closed=True):
     notification_id: "capo_connect.types.notification_id.NotificationId"
     """<p>The unique identifier for the notification to update.</p>"""
     content: "capo_connect.types.notification_content.NotificationContent"
-    """<p>The updated localized content of the notification. A map of locale codes and values. Maximum 500 characters per locale.</p>"""
+    """<p>The updated localized content of the notification. A map of locale codes and values. Maximum 500 visible characters per locale.</p>"""
 
 
 # --- restJson1 ser/de ---

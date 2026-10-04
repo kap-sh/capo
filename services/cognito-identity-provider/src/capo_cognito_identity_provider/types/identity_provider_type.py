@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_cognito_identity_provider.types.acr_mapping_type
     import capo_cognito_identity_provider.types.attribute_mapping_type
     import capo_cognito_identity_provider.types.date_type
     import capo_cognito_identity_provider.types.identity_provider_type_type
@@ -39,6 +40,10 @@ class IdentityProviderType(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.idp_identifiers_list_type.IdpIdentifiersListType"
     ]
     """<p>A list of IdP identifiers. IdP identifiers are strings that represent friendly names or domain names of IdPs, for example <code>MyIdP</code> or <code>auth.example.com</code>. You can choose to route user authorization requests to the right IdP with either IdP identifiers or IdP names. For more information, see <code>identity_provider</code> and <code>idp_identifier</code> at <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html#get-authorize-request-parameters">Authorize endpoint</a>.</p>"""
+    acr_mapping: NotRequired[
+        "capo_cognito_identity_provider.types.acr_mapping_type.AcrMappingType"
+    ]
+    """<p>A mapping between the authentication context class reference (ACR) levels of your user pool and the ACR values of the external OpenID Connect (OIDC) identity provider (IdP), so that your application gets a consistent step-up experience regardless of which IdP authenticated the user. The map is keyed by level, from <code>Level1</code> through <code>Level4</code>.</p>"""
     last_modified_date: NotRequired[
         "capo_cognito_identity_provider.types.date_type.DateType"
     ]
@@ -86,6 +91,14 @@ def serialize_aws_json_1_1(value: IdentityProviderType) -> dict:
         out["IdpIdentifiers"] = (
             capo_cognito_identity_provider.types.idp_identifiers_list_type.serialize_aws_json_1_1(
                 value["idp_identifiers"]
+            )
+        )
+    if "acr_mapping" in value:
+        import capo_cognito_identity_provider.types.acr_mapping_type
+
+        out["AcrMapping"] = (
+            capo_cognito_identity_provider.types.acr_mapping_type.serialize_aws_json_1_1(
+                value["acr_mapping"]
             )
         )
     if "last_modified_date" in value:
@@ -143,6 +156,14 @@ def deserialize_aws_json_1_1(data: dict) -> IdentityProviderType:
         out["idp_identifiers"] = (
             capo_cognito_identity_provider.types.idp_identifiers_list_type.deserialize_aws_json_1_1(
                 data["IdpIdentifiers"]
+            )
+        )
+    if data.get("AcrMapping") is not None:
+        import capo_cognito_identity_provider.types.acr_mapping_type
+
+        out["acr_mapping"] = (
+            capo_cognito_identity_provider.types.acr_mapping_type.deserialize_aws_json_1_1(
+                data["AcrMapping"]
             )
         )
     if data.get("LastModifiedDate") is not None:

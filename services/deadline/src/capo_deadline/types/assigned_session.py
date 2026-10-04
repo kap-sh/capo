@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_deadline.errors import DeserializationError
 
@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_deadline.types.job_id
     import capo_deadline.types.log_configuration
     import capo_deadline.types.queue_id
+    import capo_deadline.types.session_metadata
 
 
 class AssignedSession(TypedDict, closed=True):
@@ -24,6 +25,8 @@ class AssignedSession(TypedDict, closed=True):
     """<p>The session actions to apply to the assigned session.</p>"""
     log_configuration: "capo_deadline.types.log_configuration.LogConfiguration"
     """<p>The log configuration for the worker's assigned session.</p>"""
+    metadata: NotRequired["capo_deadline.types.session_metadata.SessionMetadata"]
+    """<p>Key-value hints that the service provides to guide how the session runs. This value is used by the worker agent.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -41,6 +44,12 @@ def serialize_json(value: AssignedSession) -> dict:
     out["logConfiguration"] = capo_deadline.types.log_configuration.serialize_json(
         value["log_configuration"]
     )
+    if "metadata" in value:
+        import capo_deadline.types.session_metadata
+
+        out["metadata"] = capo_deadline.types.session_metadata.serialize_json(
+            value["metadata"]
+        )
     return out
 
 
@@ -74,4 +83,10 @@ def deserialize_json(data: dict) -> AssignedSession:
         )
     else:
         raise DeserializationError("AssignedSession.log_configuration required")
+    if data.get("metadata") is not None:
+        import capo_deadline.types.session_metadata
+
+        out["metadata"] = capo_deadline.types.session_metadata.deserialize_json(
+            data["metadata"]
+        )
     return out

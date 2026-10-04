@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_deadline.types.job_id
     import capo_deadline.types.job_parameters
     import capo_deadline.types.job_run_as_user
+    import capo_deadline.types.openjd_extension_name_list
     import capo_deadline.types.path_mapping_rules
     import capo_deadline.types.string
 
@@ -33,6 +34,10 @@ class JobDetailsEntity(TypedDict, closed=True):
     """<p>The parameters.</p>"""
     schema_version: "capo_deadline.types.string.String"
     """<p>The schema version.</p>"""
+    extensions: NotRequired[
+        "capo_deadline.types.openjd_extension_name_list.OpenjdExtensionNameList"
+    ]
+    """<p>The Open Job Description extensions that the job template uses. This value is used by the worker agent.</p>"""
     path_mapping_rules: NotRequired[
         "capo_deadline.types.path_mapping_rules.PathMappingRules"
     ]
@@ -67,6 +72,14 @@ def serialize_json(value: JobDetailsEntity) -> dict:
             value["parameters"]
         )
     out["schemaVersion"] = value["schema_version"]
+    if "extensions" in value:
+        import capo_deadline.types.openjd_extension_name_list
+
+        out["extensions"] = (
+            capo_deadline.types.openjd_extension_name_list.serialize_json(
+                value["extensions"]
+            )
+        )
     if "path_mapping_rules" in value:
         import capo_deadline.types.path_mapping_rules
 
@@ -112,6 +125,14 @@ def deserialize_json(data: dict) -> JobDetailsEntity:
         out["schema_version"] = data["schemaVersion"]
     else:
         raise DeserializationError("JobDetailsEntity.schema_version required")
+    if data.get("extensions") is not None:
+        import capo_deadline.types.openjd_extension_name_list
+
+        out["extensions"] = (
+            capo_deadline.types.openjd_extension_name_list.deserialize_json(
+                data["extensions"]
+            )
+        )
     if data.get("pathMappingRules") is not None:
         import capo_deadline.types.path_mapping_rules
 

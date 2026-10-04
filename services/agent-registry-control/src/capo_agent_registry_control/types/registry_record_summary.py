@@ -8,6 +8,7 @@ from capo_agent_registry_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.creator_account_id
+    import capo_agent_registry_control.types.custom_metadata_schema_compliance_status
     import capo_agent_registry_control.types.date_timestamp
     import capo_agent_registry_control.types.description
     import capo_agent_registry_control.types.provenance_summary_list
@@ -61,6 +62,11 @@ class RegistryRecordSummary(TypedDict, closed=True):
     provenance_summary_list: NotRequired[
         "capo_agent_registry_control.types.provenance_summary_list.ProvenanceSummaryList"
     ]
+    """<p>The condensed provenance lineage for the registry record. Each entry contains the source relation, source identifier, and source type of an auto-detection lineage entry. Populated for records created by auto-detection.</p>"""
+    custom_metadata_schema_compliance_status: NotRequired[
+        "capo_agent_registry_control.types.custom_metadata_schema_compliance_status.CustomMetadataSchemaComplianceStatus"
+    ]
+    """<p>Indicates whether this record's custom metadata conforms to the registry's current schema.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -107,6 +113,14 @@ def serialize_json(value: RegistryRecordSummary) -> dict:
         out["provenanceSummaryList"] = (
             capo_agent_registry_control.types.provenance_summary_list.serialize_json(
                 value["provenance_summary_list"]
+            )
+        )
+    if "custom_metadata_schema_compliance_status" in value:
+        import capo_agent_registry_control.types.custom_metadata_schema_compliance_status
+
+        out["customMetadataSchemaComplianceStatus"] = (
+            capo_agent_registry_control.types.custom_metadata_schema_compliance_status.serialize_json(
+                value["custom_metadata_schema_compliance_status"]
             )
         )
     return out
@@ -188,6 +202,14 @@ def deserialize_json(data: dict) -> RegistryRecordSummary:
         out["provenance_summary_list"] = (
             capo_agent_registry_control.types.provenance_summary_list.deserialize_json(
                 data["provenanceSummaryList"]
+            )
+        )
+    if data.get("customMetadataSchemaComplianceStatus") is not None:
+        import capo_agent_registry_control.types.custom_metadata_schema_compliance_status
+
+        out["custom_metadata_schema_compliance_status"] = (
+            capo_agent_registry_control.types.custom_metadata_schema_compliance_status.deserialize_json(
+                data["customMetadataSchemaComplianceStatus"]
             )
         )
     return out

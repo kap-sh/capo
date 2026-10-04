@@ -12,6 +12,7 @@ import capo_glue._auth._signers
 import capo_glue._auth._sigv4
 import capo_glue._protocol.eventstream
 import capo_glue.errors.already_exists_exception
+import capo_glue.errors.concurrent_modification_exception
 import capo_glue.errors.entity_not_found_exception
 import capo_glue.errors.glue_encryption_exception
 import capo_glue.errors.internal_service_exception
@@ -38,6 +39,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AlreadyExistsException":
             raise capo_glue.errors.already_exists_exception.AlreadyExistsException.from_aws_json_1_1(
+                data, message
+            )
+        case "ConcurrentModificationException":
+            raise capo_glue.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
                 data, message
             )
         case "EntityNotFoundException":

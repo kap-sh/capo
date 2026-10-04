@@ -5,12 +5,12 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
-    import capo_sagemaker.types.training_plan_name
+    import capo_sagemaker.types.training_plan_name_or_arn
 
 
 class DescribeTrainingPlanRequest(TypedDict, closed=True):
     training_plan_name: NotRequired[
-        "capo_sagemaker.types.training_plan_name.TrainingPlanName"
+        "capo_sagemaker.types.training_plan_name_or_arn.TrainingPlanNameOrArn"
     ]
     """<p>The name of the training plan to describe.</p>"""
 

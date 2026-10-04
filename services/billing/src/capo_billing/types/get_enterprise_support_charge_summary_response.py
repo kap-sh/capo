@@ -24,7 +24,7 @@ class GetEnterpriseSupportChargeSummaryResponse(TypedDict, closed=True):
     billing_period_end_date: "datetime.datetime"
     """<p>The end date of the billing period.</p>"""
     is_estimated: "bool"
-    """<p>When true, the Support charge amount is estimated. When false, the Support charge amount is finalized.</p>"""
+    """<p>Specifies whether the Support charge amount is estimated. When false, the charge amount is finalized.</p>"""
     bill_date: "datetime.datetime"
     """<p>The date the bill was generated.</p>"""
     support_charge: "str"

@@ -7,6 +7,7 @@ from typing_extensions import TypedDict
 from capo_securityagent.errors import DeserializationError, SerializationError
 
 if TYPE_CHECKING:
+    import capo_securityagent.types.azure_dev_ops_repository_metadata
     import capo_securityagent.types.bitbucket_repository_metadata
     import capo_securityagent.types.confluence_document_metadata
     import capo_securityagent.types.git_hub_repository_metadata
@@ -33,11 +34,16 @@ class _IntegratedResourceMetadata_confluenceDocument(TypedDict, closed=True):
     confluenceDocument: "capo_securityagent.types.confluence_document_metadata.ConfluenceDocumentMetadata"
 
 
+class _IntegratedResourceMetadata_azureDevOpsRepository(TypedDict, closed=True):
+    azureDevOpsRepository: "capo_securityagent.types.azure_dev_ops_repository_metadata.AzureDevOpsRepositoryMetadata"
+
+
 IntegratedResourceMetadata: TypeAlias = (
     _IntegratedResourceMetadata_githubRepository
     | _IntegratedResourceMetadata_gitlabRepository
     | _IntegratedResourceMetadata_bitbucketRepository
     | _IntegratedResourceMetadata_confluenceDocument
+    | _IntegratedResourceMetadata_azureDevOpsRepository
 )
 
 
@@ -75,6 +81,14 @@ def serialize_json(value: IntegratedResourceMetadata) -> dict:
                 value["confluenceDocument"]
             )
         }
+    elif "azureDevOpsRepository" in value:
+        import capo_securityagent.types.azure_dev_ops_repository_metadata
+
+        return {
+            "azureDevOpsRepository": capo_securityagent.types.azure_dev_ops_repository_metadata.serialize_json(
+                value["azureDevOpsRepository"]
+            )
+        }
     else:
         raise SerializationError("IntegratedResourceMetadata: no variant present")
 
@@ -110,6 +124,14 @@ def deserialize_json(data: dict) -> IntegratedResourceMetadata:
         return {
             "confluenceDocument": capo_securityagent.types.confluence_document_metadata.deserialize_json(
                 data["confluenceDocument"]
+            )
+        }
+    elif data.get("azureDevOpsRepository") is not None:
+        import capo_securityagent.types.azure_dev_ops_repository_metadata
+
+        return {
+            "azureDevOpsRepository": capo_securityagent.types.azure_dev_ops_repository_metadata.deserialize_json(
+                data["azureDevOpsRepository"]
             )
         }
     else:

@@ -20,6 +20,7 @@ import capo_ec2.types.client_vpn_security_group_id_set
 import capo_ec2.types.connection_log_options
 import capo_ec2.types.create_client_vpn_endpoint_request
 import capo_ec2.types.create_client_vpn_endpoint_result
+import capo_ec2.types.device_posture_options
 import capo_ec2.types.endpoint_ip_address_type
 import capo_ec2.types.self_service_portal
 import capo_ec2.types.tag_specification_list

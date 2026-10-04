@@ -470,6 +470,7 @@
 - [MalwareScan](malware_scan.md)
 - [MalwareScanDetails](malware_scan_details.md)
 - [MalwareScans](malware_scans.md)
+- [ManagedBy](managed_by.md)
 - [ManagementType](management_type.md)
 - [MapEquals](map_equals.md)
 - [Master](master.md)

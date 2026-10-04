@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_glue.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_glue.types.catalog_id_string
     import capo_glue.types.classifier_name_list
     import capo_glue.types.crawler_configuration
     import capo_glue.types.crawler_security_configuration
@@ -65,6 +66,8 @@ class CreateCrawlerRequest(TypedDict, closed=True):
     """<p>The name of the <code>SecurityConfiguration</code> structure to be used by this crawler.</p>"""
     tags: NotRequired["capo_glue.types.tags_map.TagsMap"]
     """<p>The tags to use with this crawler request. You may use tags to limit access to the crawler. For more information about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a> in the developer guide.</p>"""
+    catalog_id: NotRequired["capo_glue.types.catalog_id_string.CatalogIdString"]
+    """<p>The ID of the Data Catalog in which to store the crawler's output. If none is supplied, the Amazon Web Services account ID is used by default.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -131,6 +134,8 @@ def serialize_aws_json_1_1(value: CreateCrawlerRequest) -> dict:
         import capo_glue.types.tags_map
 
         out["Tags"] = capo_glue.types.tags_map.serialize_aws_json_1_1(value["tags"])
+    if "catalog_id" in value:
+        out["CatalogId"] = value["catalog_id"]
     return out
 
 
@@ -206,4 +211,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCrawlerRequest:
         import capo_glue.types.tags_map
 
         out["tags"] = capo_glue.types.tags_map.deserialize_aws_json_1_1(data["Tags"])
+    if data.get("CatalogId") is not None:
+        out["catalog_id"] = data["CatalogId"]
     return out

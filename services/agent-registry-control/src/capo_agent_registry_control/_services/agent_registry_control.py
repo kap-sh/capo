@@ -43,6 +43,8 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.create_registry_record_response
     import capo_agent_registry_control.types.create_registry_request
     import capo_agent_registry_control.types.create_registry_response
+    import capo_agent_registry_control.types.custom_metadata_document
+    import capo_agent_registry_control.types.custom_metadata_schema_configuration
     import capo_agent_registry_control.types.delete_registry_record_request
     import capo_agent_registry_control.types.delete_registry_record_response
     import capo_agent_registry_control.types.delete_registry_request
@@ -93,6 +95,8 @@ if TYPE_CHECKING:
     import capo_agent_registry_control.types.update_registry_response
     import capo_agent_registry_control.types.updated_approval_configuration
     import capo_agent_registry_control.types.updated_auto_detection_configuration
+    import capo_agent_registry_control.types.updated_custom_metadata_map
+    import capo_agent_registry_control.types.updated_custom_metadata_schema_configuration
     import capo_agent_registry_control.types.updated_description
     import capo_agent_registry_control.types.updated_descriptors
     import capo_agent_registry_control.types.updated_discovery_configuration
@@ -355,6 +359,9 @@ class AgentRegistryControlClient:
         provenance: Optional[
             "capo_agent_registry_control.types.provenance_list.ProvenanceList"
         ] = None,
+        custom_metadata: Optional[
+            "capo_agent_registry_control.types.custom_metadata_document.CustomMetadataDocument"
+        ] = None,
         tags: Optional["capo_agent_registry_control.types.tags_map.TagsMap"] = None,
     ) -> "capo_agent_registry_control.types.create_registry_record_response.CreateRegistryRecordResponse":
         """<p>Creates a registry record within a registry. A registry record describes a discoverable resource, such as an MCP server, an agent, an agent skill, or a custom resource. Creation is asynchronous: the record is returned with the CREATING status while it is processed.</p>
@@ -368,6 +375,8 @@ class AgentRegistryControlClient:
             descriptors: <p>The typed descriptor content for the registry record</p>
             record_version: <p>The version of the registry record</p>
             client_token: <p>Client token for idempotency</p>
+            provenance: <p>The provenance lineage entries for the registry record. This field is reserved for the Amazon Web Services Agent Registry auto-detection service principal. Requests that include this field from other callers are rejected.</p>
+            custom_metadata: <p>The custom metadata to attach to the registry record. Each key must match a property defined in the registry's custom metadata schema. Values can be strings (maximum 128 characters) or native JSON booleans (<code>true</code> or <code>false</code>). Values are validated against the schema at creation time.</p>
             tags: <p>Tags to associate with the registry record</p>
 
         Raises:
@@ -413,6 +422,8 @@ class AgentRegistryControlClient:
         input_["client_token"] = client_token
         if provenance is not None:
             input_["provenance"] = provenance
+        if custom_metadata is not None:
+            input_["custom_metadata"] = custom_metadata
         if tags is not None:
             input_["tags"] = tags
 
@@ -499,6 +510,9 @@ class AgentRegistryControlClient:
         record_version: Optional[
             "capo_agent_registry_control.types.registry_record_version.RegistryRecordVersion"
         ] = None,
+        custom_metadata: Optional[
+            "capo_agent_registry_control.types.updated_custom_metadata_map.UpdatedCustomMetadataMap"
+        ] = None,
         trigger_synchronization: Optional[bool] = None,
         provenance: Optional[
             "capo_agent_registry_control.types.provenance_list.ProvenanceList"
@@ -515,7 +529,9 @@ class AgentRegistryControlClient:
             record_type: <p>The updated type of the registry record. Omit to leave the record type unchanged.</p>
             descriptors: <p>The updated typed descriptor content for the registry record. Omit to leave the descriptors unchanged.</p>
             record_version: <p>The updated version of the registry record. Omit to leave the version unchanged.</p>
+            custom_metadata: <p>The updated custom metadata for the registry record. Values can be strings (maximum 128 characters) or native JSON booleans (<code>true</code> or <code>false</code>). Omit to leave the existing metadata unchanged. Supply the wrapper with a full replacement set to update, or with a null value to clear all metadata.</p>
             trigger_synchronization: <p>Whether to trigger synchronization of the record's descriptor content from its source</p>
+            provenance: <p>The provenance lineage re-assertion for the registry record. This field is reserved for the Amazon Web Services Agent Registry auto-detection service principal. Requests that include this field from other callers are rejected. The source identity of an existing lineage is immutable; a re-assertion may only refresh the source details.</p>
 
         Raises:
             capo_agent_registry_control.errors.access_denied_exception.AccessDeniedException: <p>The caller is not authorized to perform the requested action.</p>
@@ -558,6 +574,8 @@ class AgentRegistryControlClient:
             input_["descriptors"] = descriptors
         if record_version is not None:
             input_["record_version"] = record_version
+        if custom_metadata is not None:
+            input_["custom_metadata"] = custom_metadata
         if trigger_synchronization is not None:
             input_["trigger_synchronization"] = trigger_synchronization
         if provenance is not None:
@@ -848,6 +866,9 @@ class AgentRegistryControlClient:
         approval_configuration: Optional[
             "capo_agent_registry_control.types.approval_configuration.ApprovalConfiguration"
         ] = None,
+        custom_metadata_schema_configuration: Optional[
+            "capo_agent_registry_control.types.custom_metadata_schema_configuration.CustomMetadataSchemaConfiguration"
+        ] = None,
         auto_detection_configuration: Optional[
             "capo_agent_registry_control.types.auto_detection_configuration.AutoDetectionConfiguration"
         ] = None,
@@ -862,6 +883,7 @@ class AgentRegistryControlClient:
             client_token: <p>A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
             tags: <p>Tags to associate with the registry</p>
             approval_configuration: <p>Approval configuration for registry records</p>
+            custom_metadata_schema_configuration: <p>The optional custom metadata schema configuration for the registry. When provided, registry records can carry structured metadata validated against this schema.</p>
             auto_detection_configuration: <p>The optional auto-detection configuration for the registry. When provided, the registry is automatically populated with resources discovered according to the configuration. Omit this field for registries whose records are managed exclusively through the Agent Registry Control API.</p>
 
         Raises:
@@ -905,6 +927,10 @@ class AgentRegistryControlClient:
             input_["tags"] = tags
         if approval_configuration is not None:
             input_["approval_configuration"] = approval_configuration
+        if custom_metadata_schema_configuration is not None:
+            input_["custom_metadata_schema_configuration"] = (
+                custom_metadata_schema_configuration
+            )
         if auto_detection_configuration is not None:
             input_["auto_detection_configuration"] = auto_detection_configuration
 
@@ -980,6 +1006,9 @@ class AgentRegistryControlClient:
         approval_configuration: Optional[
             "capo_agent_registry_control.types.updated_approval_configuration.UpdatedApprovalConfiguration"
         ] = None,
+        custom_metadata_schema_configuration: Optional[
+            "capo_agent_registry_control.types.updated_custom_metadata_schema_configuration.UpdatedCustomMetadataSchemaConfiguration"
+        ] = None,
         auto_detection_configuration: Optional[
             "capo_agent_registry_control.types.updated_auto_detection_configuration.UpdatedAutoDetectionConfiguration"
         ] = None,
@@ -992,6 +1021,7 @@ class AgentRegistryControlClient:
             description: <p>The updated description of the registry</p>
             discovery_configuration: <p>The updated discovery configuration. Changing the discovery authorization can break existing consumers that rely on the previous authorization type.</p>
             approval_configuration: <p>The updated approval configuration. The change applies only to records that move to PENDING_APPROVAL after the update; records already in PENDING_APPROVAL are unaffected.</p>
+            custom_metadata_schema_configuration: <p>Updated custom metadata schema configuration for the registry. Omit to leave the existing schema unchanged. Schema evolution is additive only: you can add properties and enum values, but you cannot remove properties, change property types or formats, add or remove enum constraints, or remove record type overrides.</p>
             auto_detection_configuration: <p>The updated auto-detection configuration for the registry, with PATCH semantics. Omit this field to leave the current configuration unchanged. Supply an empty wrapper to unset it. Supply <code>optionalValue</code> to replace it.</p>
 
         Raises:
@@ -1031,6 +1061,10 @@ class AgentRegistryControlClient:
             input_["discovery_configuration"] = discovery_configuration
         if approval_configuration is not None:
             input_["approval_configuration"] = approval_configuration
+        if custom_metadata_schema_configuration is not None:
+            input_["custom_metadata_schema_configuration"] = (
+                custom_metadata_schema_configuration
+            )
         if auto_detection_configuration is not None:
             input_["auto_detection_configuration"] = auto_detection_configuration
 

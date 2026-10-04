@@ -8,6 +8,7 @@ from capo_cognito_identity_provider.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.account_recovery_setting_type
+    import capo_cognito_identity_provider.types.acr_configuration_type
     import capo_cognito_identity_provider.types.admin_create_user_config_type
     import capo_cognito_identity_provider.types.alias_attributes_list_type
     import capo_cognito_identity_provider.types.deletion_protection_type
@@ -139,6 +140,10 @@ class CreateUserPoolRequest(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.issuer_configuration_type.IssuerConfigurationType"
     ]
     """<p>The issuer configuration for the user pool. Specifies the issuer type for token generation.</p>"""
+    acr_configuration: NotRequired[
+        "capo_cognito_identity_provider.types.acr_configuration_type.AcrConfigurationType"
+    ]
+    """<p>The custom names for the authentication context class reference (ACR) levels in your user pool. Amazon Cognito defines four fixed ACR levels that represent increasing authentication assurance. The combination of authentication factors that satisfies each level is fixed and you can't change it. With this configuration, you customize only the URI name that Amazon Cognito reports for each level in the <code>acr</code> token claim.</p> <p>You can override a subset of the levels. By default, the levels are named <code>urn:cognito:loa:1</code> through <code>urn:cognito:loa:4</code>, and Amazon Cognito applies the default name to any level that you don't specify. Each name must be unique across all four levels, including any default names that apply to levels you don't override. A name can contain any character that is valid in a URL or a URN.</p> <p>Configuring custom ACR level names requires the Essentials or Plus feature plan. To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -319,6 +324,14 @@ def serialize_aws_json_1_1(value: CreateUserPoolRequest) -> dict:
         out["IssuerConfiguration"] = (
             capo_cognito_identity_provider.types.issuer_configuration_type.serialize_aws_json_1_1(
                 value["issuer_configuration"]
+            )
+        )
+    if "acr_configuration" in value:
+        import capo_cognito_identity_provider.types.acr_configuration_type
+
+        out["AcrConfiguration"] = (
+            capo_cognito_identity_provider.types.acr_configuration_type.serialize_aws_json_1_1(
+                value["acr_configuration"]
             )
         )
     return out
@@ -504,6 +517,14 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserPoolRequest:
         out["issuer_configuration"] = (
             capo_cognito_identity_provider.types.issuer_configuration_type.deserialize_aws_json_1_1(
                 data["IssuerConfiguration"]
+            )
+        )
+    if data.get("AcrConfiguration") is not None:
+        import capo_cognito_identity_provider.types.acr_configuration_type
+
+        out["acr_configuration"] = (
+            capo_cognito_identity_provider.types.acr_configuration_type.deserialize_aws_json_1_1(
+                data["AcrConfiguration"]
             )
         )
     return out

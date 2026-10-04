@@ -8,6 +8,7 @@ from capo_elasticache._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_elasticache.types.cache_usage_limits
+    import capo_elasticache.types.connection_type
     import capo_elasticache.types.integer_optional
     import capo_elasticache.types.network_type
     import capo_elasticache.types.security_group_ids_list
@@ -54,6 +55,10 @@ class CreateServerlessCacheRequest(TypedDict, closed=True):
     """<p>The daily time that snapshots will be created from the new serverless cache. By default this number is populated with 0, i.e. no snapshots will be created on an automatic daily basis. Available for Valkey, Redis OSS and Serverless Memcached only.</p>"""
     network_type: NotRequired["capo_elasticache.types.network_type.NetworkType"]
     """<p>The IP protocol version used by the serverless cache. Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. <code>ipv6</code> is only supported with IPv6-only subnets. If not specified, defaults to <code>ipv4</code>, unless all provided subnets are IPv6-only, in which case it defaults to <code>ipv6</code>. </p>"""
+    connection_type: NotRequired[
+        "capo_elasticache.types.connection_type.ConnectionType"
+    ]
+    """<p>The connection type for the serverless cache. Must be either <code>vpc</code> | <code>public</code>. Use <code>vpc</code> to access the cache through a VPC endpoint, or <code>public</code> to access the cache over the internet. If not specified, defaults to <code>vpc</code>. This value cannot be changed after the serverless cache is created. Setting this to <code>public</code> requires Valkey 9 or above.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -125,6 +130,12 @@ def serialize_query(
 
         capo_elasticache.types.network_type.serialize_query(
             value["network_type"], pairs, f"{key_prefix}NetworkType"
+        )
+    if "connection_type" in value:
+        import capo_elasticache.types.connection_type
+
+        capo_elasticache.types.connection_type.serialize_query(
+            value["connection_type"], pairs, f"{key_prefix}ConnectionType"
         )
 
 
@@ -199,5 +210,14 @@ def deserialize_query(el: Element) -> CreateServerlessCacheRequest:
 
         out["network_type"] = capo_elasticache.types.network_type.deserialize_query(
             child_network_type
+        )
+    child_connection_type = el.find("ConnectionType")
+    if child_connection_type is not None:
+        import capo_elasticache.types.connection_type
+
+        out["connection_type"] = (
+            capo_elasticache.types.connection_type.deserialize_query(
+                child_connection_type
+            )
         )
     return out

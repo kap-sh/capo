@@ -16,6 +16,7 @@ PolicyType: TypeAlias = Literal[
     "BEDROCK_POLICY",
     "S3_POLICY",
     "NETWORK_SECURITY_DIRECTOR_POLICY",
+    "GUARDDUTY_POLICY",
 ]
 
 

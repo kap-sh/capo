@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_agent_registry.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_agent_registry.types.custom_metadata_document
     import capo_agent_registry.types.date_timestamp
     import capo_agent_registry.types.description
     import capo_agent_registry.types.descriptors
@@ -49,6 +50,10 @@ class RegistryRecordSummary(TypedDict, closed=True):
     """<p> The timestamp when the registry record was created.</p>"""
     updated_at: "capo_agent_registry.types.date_timestamp.DateTimestamp"
     """<p> The timestamp when the registry record was last updated.</p>"""
+    custom_metadata: NotRequired[
+        "capo_agent_registry.types.custom_metadata_document.CustomMetadataDocument"
+    ]
+    """<p> The custom metadata attached to this registry record. Values are strings (maximum 128 characters) or booleans. This field is only present if the registry has a custom metadata schema configured.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -88,6 +93,8 @@ def serialize_json(value: RegistryRecordSummary) -> dict:
     out["updatedAt"] = capo_agent_registry.types.date_timestamp.serialize_json(
         value["updated_at"]
     )
+    if "custom_metadata" in value:
+        out["customMetadata"] = value["custom_metadata"]
     return out
 
 
@@ -159,4 +166,6 @@ def deserialize_json(data: dict) -> RegistryRecordSummary:
         )
     else:
         raise DeserializationError("RegistryRecordSummary.updated_at required")
+    if data.get("customMetadata") is not None:
+        out["custom_metadata"] = data["customMetadata"]
     return out

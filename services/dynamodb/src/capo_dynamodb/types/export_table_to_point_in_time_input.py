@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_dynamodb.types.export_format
     import capo_dynamodb.types.export_time
     import capo_dynamodb.types.export_type
+    import capo_dynamodb.types.filter_specification
     import capo_dynamodb.types.incremental_export_specification
     import capo_dynamodb.types.s3_bucket
     import capo_dynamodb.types.s3_bucket_owner
@@ -47,6 +48,10 @@ class ExportTableToPointInTimeInput(TypedDict, closed=True):
         "capo_dynamodb.types.incremental_export_specification.IncrementalExportSpecification"
     ]
     """<p>Optional object containing the parameters specific to an incremental export.</p>"""
+    filter_specification: NotRequired[
+        "capo_dynamodb.types.filter_specification.FilterSpecification"
+    ]
+    """<p>The criteria used to filter which items are included in the point-in-time export. When you specify this parameter, only items that match the key conditions and filter expressions are exported.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -94,6 +99,14 @@ def serialize_aws_json_1_0(value: ExportTableToPointInTimeInput) -> dict:
         out["IncrementalExportSpecification"] = (
             capo_dynamodb.types.incremental_export_specification.serialize_aws_json_1_0(
                 value["incremental_export_specification"]
+            )
+        )
+    if "filter_specification" in value:
+        import capo_dynamodb.types.filter_specification
+
+        out["FilterSpecification"] = (
+            capo_dynamodb.types.filter_specification.serialize_aws_json_1_0(
+                value["filter_specification"]
             )
         )
     return out
@@ -151,6 +164,14 @@ def deserialize_aws_json_1_0(data: dict) -> ExportTableToPointInTimeInput:
         out["incremental_export_specification"] = (
             capo_dynamodb.types.incremental_export_specification.deserialize_aws_json_1_0(
                 data["IncrementalExportSpecification"]
+            )
+        )
+    if data.get("FilterSpecification") is not None:
+        import capo_dynamodb.types.filter_specification
+
+        out["filter_specification"] = (
+            capo_dynamodb.types.filter_specification.deserialize_aws_json_1_0(
+                data["FilterSpecification"]
             )
         )
     return out

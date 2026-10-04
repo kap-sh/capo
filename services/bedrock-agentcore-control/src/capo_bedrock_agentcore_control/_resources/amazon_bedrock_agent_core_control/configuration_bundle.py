@@ -204,6 +204,7 @@ class ConfigurationBundle:
         self,
         bundle_id: "capo_bedrock_agentcore_control.types.configuration_bundle_id.ConfigurationBundleId",
         parent_version_ids: "capo_bedrock_agentcore_control.types.configuration_bundle_version_list.ConfigurationBundleVersionList",
+        commit_message: str,
         *,
         config_overrides: Optional[BedrockAgentCoreControlClientConfig] = None,
         client_token: Optional[
@@ -221,7 +222,6 @@ class ConfigurationBundle:
         branch_name: Optional[
             "capo_bedrock_agentcore_control.types.branch_name.BranchName"
         ] = None,
-        commit_message: Optional[str] = None,
         created_by: Optional[
             "capo_bedrock_agentcore_control.types.version_created_by_source.VersionCreatedBySource"
         ] = None,
@@ -271,6 +271,7 @@ class ConfigurationBundle:
         input_: capo_bedrock_agentcore_control.types.update_configuration_bundle_request.UpdateConfigurationBundleRequest = {
             "bundle_id": bundle_id,
             "parent_version_ids": parent_version_ids,
+            "commit_message": commit_message,
         }
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -283,8 +284,6 @@ class ConfigurationBundle:
             input_["components"] = components
         if branch_name is not None:
             input_["branch_name"] = branch_name
-        if commit_message is not None:
-            input_["commit_message"] = commit_message
         if created_by is not None:
             input_["created_by"] = created_by
         if kms_key_arn is not None:
@@ -661,6 +660,7 @@ class AsyncConfigurationBundle:
         self,
         bundle_id: "capo_bedrock_agentcore_control.types.configuration_bundle_id.ConfigurationBundleId",
         parent_version_ids: "capo_bedrock_agentcore_control.types.configuration_bundle_version_list.ConfigurationBundleVersionList",
+        commit_message: str,
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
         client_token: Optional[
@@ -678,7 +678,6 @@ class AsyncConfigurationBundle:
         branch_name: Optional[
             "capo_bedrock_agentcore_control.types.branch_name.BranchName"
         ] = None,
-        commit_message: Optional[str] = None,
         created_by: Optional[
             "capo_bedrock_agentcore_control.types.version_created_by_source.VersionCreatedBySource"
         ] = None,
@@ -729,6 +728,7 @@ class AsyncConfigurationBundle:
         input_: capo_bedrock_agentcore_control.types.update_configuration_bundle_request.UpdateConfigurationBundleRequest = {
             "bundle_id": bundle_id,
             "parent_version_ids": parent_version_ids,
+            "commit_message": commit_message,
         }
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -741,8 +741,6 @@ class AsyncConfigurationBundle:
             input_["components"] = components
         if branch_name is not None:
             input_["branch_name"] = branch_name
-        if commit_message is not None:
-            input_["commit_message"] = commit_message
         if created_by is not None:
             input_["created_by"] = created_by
         if kms_key_arn is not None:

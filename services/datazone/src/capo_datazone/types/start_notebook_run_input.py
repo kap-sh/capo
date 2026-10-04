@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_datazone.types.metadata
     import capo_datazone.types.network_config
     import capo_datazone.types.notebook_id
+    import capo_datazone.types.notification_config
     import capo_datazone.types.parameters
     import capo_datazone.types.project_id
     import capo_datazone.types.schedule_id
@@ -41,6 +42,10 @@ class StartNotebookRunInput(TypedDict, closed=True):
         "capo_datazone.types.timeout_config.TimeoutConfig"
     ]
     """<p>The timeout configuration for the notebook run. The default timeout is 720 minutes (12 hours) and the maximum is 1440 minutes (24 hours).</p>"""
+    notification_configuration: NotRequired[
+        "capo_datazone.types.notification_config.NotificationConfig"
+    ]
+    """<p>The notification configuration for the notebook run. Use this to specify the notebook run states that trigger notifications.</p>"""
     trigger_source: NotRequired["capo_datazone.types.trigger_source.TriggerSource"]
     """<p>The source that triggered the notebook run.</p>"""
     metadata: NotRequired["capo_datazone.types.metadata.Metadata"]
@@ -75,6 +80,14 @@ def serialize_json(value: StartNotebookRunInput) -> dict:
 
         out["timeoutConfiguration"] = capo_datazone.types.timeout_config.serialize_json(
             value["timeout_configuration"]
+        )
+    if "notification_configuration" in value:
+        import capo_datazone.types.notification_config
+
+        out["notificationConfiguration"] = (
+            capo_datazone.types.notification_config.serialize_json(
+                value["notification_configuration"]
+            )
         )
     if "trigger_source" in value:
         import capo_datazone.types.trigger_source
@@ -133,6 +146,14 @@ def deserialize_json(data: dict) -> StartNotebookRunInput:
         out["timeout_configuration"] = (
             capo_datazone.types.timeout_config.deserialize_json(
                 data["timeoutConfiguration"]
+            )
+        )
+    if data.get("notificationConfiguration") is not None:
+        import capo_datazone.types.notification_config
+
+        out["notification_configuration"] = (
+            capo_datazone.types.notification_config.deserialize_json(
+                data["notificationConfiguration"]
             )
         )
     if data.get("triggerSource") is not None:

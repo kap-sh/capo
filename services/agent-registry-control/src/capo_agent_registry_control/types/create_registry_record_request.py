@@ -8,6 +8,7 @@ from capo_agent_registry_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.client_token
+    import capo_agent_registry_control.types.custom_metadata_document
     import capo_agent_registry_control.types.description
     import capo_agent_registry_control.types.descriptors
     import capo_agent_registry_control.types.provenance_list
@@ -49,6 +50,11 @@ class CreateRegistryRecordRequest(TypedDict, closed=True):
     provenance: NotRequired[
         "capo_agent_registry_control.types.provenance_list.ProvenanceList"
     ]
+    """<p>The provenance lineage entries for the registry record. This field is reserved for the Amazon Web Services Agent Registry auto-detection service principal. Requests that include this field from other callers are rejected.</p>"""
+    custom_metadata: NotRequired[
+        "capo_agent_registry_control.types.custom_metadata_document.CustomMetadataDocument"
+    ]
+    """<p>The custom metadata to attach to the registry record. Each key must match a property defined in the registry's custom metadata schema. Values can be strings (maximum 128 characters) or native JSON booleans (<code>true</code> or <code>false</code>). Values are validated against the schema at creation time.</p>"""
     tags: NotRequired["capo_agent_registry_control.types.tags_map.TagsMap"]
     """<p>Tags to associate with the registry record</p>"""
 
@@ -83,6 +89,8 @@ def serialize_json(value: CreateRegistryRecordRequest) -> dict:
                 value["provenance"]
             )
         )
+    if "custom_metadata" in value:
+        out["customMetadata"] = value["custom_metadata"]
     if "tags" in value:
         import capo_agent_registry_control.types.tags_map
 
@@ -134,6 +142,8 @@ def deserialize_json(data: dict) -> CreateRegistryRecordRequest:
                 data["provenance"]
             )
         )
+    if data.get("customMetadata") is not None:
+        out["custom_metadata"] = data["customMetadata"]
     if data.get("tags") is not None:
         import capo_agent_registry_control.types.tags_map
 

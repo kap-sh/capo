@@ -2,6 +2,7 @@
 
 - [AcceptInboundConnectionRequest](accept_inbound_connection_request.md)
 - [AcceptInboundConnectionResponse](accept_inbound_connection_response.md)
+- [AcceptedWarningsList](accepted_warnings_list.md)
 - [AccessPoliciesStatus](access_policies_status.md)
 - [ActionSeverity](action_severity.md)
 - [ActionStatus](action_status.md)
@@ -601,6 +602,7 @@
 - [UserPoolId](user_pool_id.md)
 - [Username](username.md)
 - [ValidationFailure](validation_failure.md)
+- [ValidationFailureSeverity](validation_failure_severity.md)
 - [ValidationFailures](validation_failures.md)
 - [ValueStringList](value_string_list.md)
 - [VersionList](version_list.md)

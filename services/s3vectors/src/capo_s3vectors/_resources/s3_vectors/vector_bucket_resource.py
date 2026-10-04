@@ -25,11 +25,14 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.get_vector_bucket_output
     import capo_s3vectors.types.get_vector_bucket_policy_input
     import capo_s3vectors.types.get_vector_bucket_policy_output
+    import capo_s3vectors.types.index_mode
     import capo_s3vectors.types.list_vector_buckets_input
     import capo_s3vectors.types.list_vector_buckets_max_results
     import capo_s3vectors.types.list_vector_buckets_next_token
     import capo_s3vectors.types.list_vector_buckets_output
     import capo_s3vectors.types.list_vector_buckets_prefix
+    import capo_s3vectors.types.put_vector_bucket_default_index_mode_input
+    import capo_s3vectors.types.put_vector_bucket_default_index_mode_output
     import capo_s3vectors.types.put_vector_bucket_policy_input
     import capo_s3vectors.types.put_vector_bucket_policy_output
     import capo_s3vectors.types.tags_map
@@ -393,6 +396,67 @@ class VectorBucketResource:
             input_["next_token"] = next_token
         if prefix is not None:
             input_["prefix"] = prefix
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def put_vector_bucket_default_index_mode(
+        self,
+        default_index_mode: "capo_s3vectors.types.index_mode.IndexMode",
+        *,
+        config_overrides: Optional[S3VectorsClientConfig] = None,
+        vector_bucket_name: Optional[
+            "capo_s3vectors.types.vector_bucket_name.VectorBucketName"
+        ] = None,
+        vector_bucket_arn: Optional[
+            "capo_s3vectors.types.vector_bucket_arn.VectorBucketArn"
+        ] = None,
+    ) -> "capo_s3vectors.types.put_vector_bucket_default_index_mode_output.PutVectorBucketDefaultIndexModeOutput":
+        """<p>Updates the default index mode for a vector bucket. The updated default applies to vector indexes that you create after the request succeeds. The operation doesn't change existing vector indexes. To specify the vector bucket, you must use either the vector bucket name or the vector bucket Amazon Resource Name (ARN).</p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3vectors:PutVectorBucketDefaultIndexMode</code> permission to use this operation.</p> </dd> </dl>
+
+        Args:
+            vector_bucket_name: <p>The name of the vector bucket to update.</p>
+            vector_bucket_arn: <p>The Amazon Resource Name (ARN) of the vector bucket to update.</p>
+            default_index_mode: <p>The default mode to assign to new vector indexes in the vector bucket. This change doesn't affect existing vector indexes.</p>
+
+        Raises:
+            capo_s3vectors.errors.access_denied_exception.AccessDeniedException: <p>Access denied.</p>
+            capo_s3vectors.errors.internal_server_exception.InternalServerException: <p>The request failed due to an internal server error.</p>
+            capo_s3vectors.errors.request_timeout_exception.RequestTimeoutException: <p>The request timed out. Retry your request.</p>
+            capo_s3vectors.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling.</p>
+            capo_s3vectors.errors.validation_exception.ValidationException: <p>The requested action isn't valid.</p>
+            capo_s3vectors.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource can't be found.</p>
+            capo_s3vectors.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is unavailable. Wait briefly and retry your request. If it continues to fail, increase your waiting time between retries.</p>
+            capo_s3vectors.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3vectors.types.put_vector_bucket_default_index_mode_input.PutVectorBucketDefaultIndexModeInput]",
+        ) -> OperationResponse[
+            "capo_s3vectors.types.put_vector_bucket_default_index_mode_output.PutVectorBucketDefaultIndexModeOutput"
+        ]:
+            import capo_s3vectors._operations.s3_vectors.put_vector_bucket_default_index_mode
+
+            output, http_response = (
+                capo_s3vectors._operations.s3_vectors.put_vector_bucket_default_index_mode.put_vector_bucket_default_index_mode(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(config_overrides)
+        input_: capo_s3vectors.types.put_vector_bucket_default_index_mode_input.PutVectorBucketDefaultIndexModeInput = {
+            "default_index_mode": default_index_mode
+        }
+        if vector_bucket_name is not None:
+            input_["vector_bucket_name"] = vector_bucket_name
+        if vector_bucket_arn is not None:
+            input_["vector_bucket_arn"] = vector_bucket_arn
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -816,6 +880,68 @@ class AsyncVectorBucketResource:
             input_["next_token"] = next_token
         if prefix is not None:
             input_["prefix"] = prefix
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def put_vector_bucket_default_index_mode(
+        self,
+        default_index_mode: "capo_s3vectors.types.index_mode.IndexMode",
+        *,
+        config_overrides: Optional[AsyncS3VectorsClientConfig] = None,
+        vector_bucket_name: Optional[
+            "capo_s3vectors.types.vector_bucket_name.VectorBucketName"
+        ] = None,
+        vector_bucket_arn: Optional[
+            "capo_s3vectors.types.vector_bucket_arn.VectorBucketArn"
+        ] = None,
+    ) -> "capo_s3vectors.types.put_vector_bucket_default_index_mode_output.PutVectorBucketDefaultIndexModeOutput":
+        """<p>Updates the default index mode for a vector bucket. The updated default applies to vector indexes that you create after the request succeeds. The operation doesn't change existing vector indexes. To specify the vector bucket, you must use either the vector bucket name or the vector bucket Amazon Resource Name (ARN).</p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3vectors:PutVectorBucketDefaultIndexMode</code> permission to use this operation.</p> </dd> </dl>
+
+        Args:
+            vector_bucket_name: <p>The name of the vector bucket to update.</p>
+            vector_bucket_arn: <p>The Amazon Resource Name (ARN) of the vector bucket to update.</p>
+            default_index_mode: <p>The default mode to assign to new vector indexes in the vector bucket. This change doesn't affect existing vector indexes.</p>
+
+        Raises:
+            capo_s3vectors.errors.access_denied_exception.AccessDeniedException: <p>Access denied.</p>
+            capo_s3vectors.errors.internal_server_exception.InternalServerException: <p>The request failed due to an internal server error.</p>
+            capo_s3vectors.errors.request_timeout_exception.RequestTimeoutException: <p>The request timed out. Retry your request.</p>
+            capo_s3vectors.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling.</p>
+            capo_s3vectors.errors.validation_exception.ValidationException: <p>The requested action isn't valid.</p>
+            capo_s3vectors.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource can't be found.</p>
+            capo_s3vectors.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is unavailable. Wait briefly and retry your request. If it continues to fail, increase your waiting time between retries.</p>
+            capo_s3vectors.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_s3vectors.types.put_vector_bucket_default_index_mode_input.PutVectorBucketDefaultIndexModeInput]",
+        ) -> AsyncOperationResponse[
+            "capo_s3vectors.types.put_vector_bucket_default_index_mode_output.PutVectorBucketDefaultIndexModeOutput"
+        ]:
+            import capo_s3vectors._operations.s3_vectors.put_vector_bucket_default_index_mode
+
+            (
+                output,
+                http_response,
+            ) = await capo_s3vectors._operations.s3_vectors.put_vector_bucket_default_index_mode.async_put_vector_bucket_default_index_mode(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(config_overrides)
+        input_: capo_s3vectors.types.put_vector_bucket_default_index_mode_input.PutVectorBucketDefaultIndexModeInput = {
+            "default_index_mode": default_index_mode
+        }
+        if vector_bucket_name is not None:
+            input_["vector_bucket_name"] = vector_bucket_name
+        if vector_bucket_arn is not None:
+            input_["vector_bucket_arn"] = vector_bucket_arn
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

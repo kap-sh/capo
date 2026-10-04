@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_invoicing.types.buyer_domain
     import capo_invoicing.types.contacts
     import capo_invoicing.types.einvoice_delivery_preference
+    import capo_invoicing.types.marketplace_punch_out_preference
     import capo_invoicing.types.procurement_portal_name
     import capo_invoicing.types.procurement_portal_preference_arn_string
     import capo_invoicing.types.procurement_portal_preference_selector
@@ -68,9 +69,15 @@ class ProcurementPortalPreference(TypedDict, closed=True):
     einvoice_delivery_preference: NotRequired[
         "capo_invoicing.types.einvoice_delivery_preference.EinvoiceDeliveryPreference"
     ]
-    """<p>The configuration settings that specify how e-invoices are delivered to the procurement portal.</p>"""
+    """<p>The e-invoice delivery configuration including document types, attachment types, and customization settings.</p>"""
     purchase_order_retrieval_enabled: "bool"
     """<p>Indicates whether purchase order retrieval is enabled for this procurement portal preference.</p>"""
+    marketplace_punch_out_enabled: NotRequired["bool"]
+    """<p>Indicates whether Marketplace PunchOut is enabled for this procurement portal preference. Defaults to <code>false</code>.</p>"""
+    marketplace_punch_out_preference: NotRequired[
+        "capo_invoicing.types.marketplace_punch_out_preference.MarketplacePunchOutPreference"
+    ]
+    """<p>The Marketplace PunchOut configuration for this procurement portal preference. This is present when <code>MarketplacePunchOutEnabled</code> is <code>true</code>.</p>"""
     contacts: NotRequired["capo_invoicing.types.contacts.Contacts"]
     """<p>List of contact information for portal administrators and technical contacts.</p>"""
     einvoice_delivery_preference_status: NotRequired[
@@ -157,6 +164,16 @@ def serialize_aws_json_1_0(value: ProcurementPortalPreference) -> dict:
             )
         )
     out["PurchaseOrderRetrievalEnabled"] = value["purchase_order_retrieval_enabled"]
+    if "marketplace_punch_out_enabled" in value:
+        out["MarketplacePunchOutEnabled"] = value["marketplace_punch_out_enabled"]
+    if "marketplace_punch_out_preference" in value:
+        import capo_invoicing.types.marketplace_punch_out_preference
+
+        out["MarketplacePunchOutPreference"] = (
+            capo_invoicing.types.marketplace_punch_out_preference.serialize_aws_json_1_0(
+                value["marketplace_punch_out_preference"]
+            )
+        )
     if "contacts" in value:
         import capo_invoicing.types.contacts
 
@@ -310,6 +327,16 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreference:
     else:
         raise DeserializationError(
             "ProcurementPortalPreference.purchase_order_retrieval_enabled required"
+        )
+    if data.get("MarketplacePunchOutEnabled") is not None:
+        out["marketplace_punch_out_enabled"] = data["MarketplacePunchOutEnabled"]
+    if data.get("MarketplacePunchOutPreference") is not None:
+        import capo_invoicing.types.marketplace_punch_out_preference
+
+        out["marketplace_punch_out_preference"] = (
+            capo_invoicing.types.marketplace_punch_out_preference.deserialize_aws_json_1_0(
+                data["MarketplacePunchOutPreference"]
+            )
         )
     if data.get("Contacts") is not None:
         import capo_invoicing.types.contacts

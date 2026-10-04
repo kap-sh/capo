@@ -1,0 +1,8 @@
+---
+title: TriggerFilterMatchMode
+---
+
+::: capo_securityagent.types.trigger_filter_match_mode.TriggerFilterMatchMode
+    options:
+      show_source: true
+      merge_init_into_class: false

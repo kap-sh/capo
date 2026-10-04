@@ -3,7 +3,10 @@
 from typing import Literal, TypeAlias, cast
 
 """<p>The type of foundation model configuration.</p>"""
-FoundationModelConfigurationType: TypeAlias = Literal["BEDROCK_FOUNDATION_MODEL",]
+FoundationModelConfigurationType: TypeAlias = Literal[
+    "BEDROCK_FOUNDATION_MODEL",
+    "MANTLE_FOUNDATION_MODEL",
+]
 
 
 # --- restJson1 ser/de ---

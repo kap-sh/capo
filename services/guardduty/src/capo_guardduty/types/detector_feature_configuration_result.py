@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_guardduty.types.detector_additional_configuration_results
     import capo_guardduty.types.detector_feature_result
     import capo_guardduty.types.feature_status
+    import capo_guardduty.types.managed_by
     import capo_guardduty.types.timestamp
 
 
@@ -24,6 +25,8 @@ class DetectorFeatureConfigurationResult(TypedDict, closed=True):
         "capo_guardduty.types.detector_additional_configuration_results.DetectorAdditionalConfigurationResults"
     ]
     """<p>Additional configuration for a resource.</p>"""
+    managed_by: NotRequired["capo_guardduty.types.managed_by.ManagedBy"]
+    """<p>Indicates what manages the feature. A value of <code>GUARDDUTY_POLICY</code> means a GuardDuty policy manages the feature.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -55,6 +58,12 @@ def serialize_json(value: DetectorFeatureConfigurationResult) -> dict:
                 value["additional_configuration"]
             )
         )
+    if "managed_by" in value:
+        import capo_guardduty.types.managed_by
+
+        out["managedBy"] = capo_guardduty.types.managed_by.serialize_json(
+            value["managed_by"]
+        )
     return out
 
 
@@ -85,5 +94,11 @@ def deserialize_json(data: dict) -> DetectorFeatureConfigurationResult:
             capo_guardduty.types.detector_additional_configuration_results.deserialize_json(
                 data["additionalConfiguration"]
             )
+        )
+    if data.get("managedBy") is not None:
+        import capo_guardduty.types.managed_by
+
+        out["managed_by"] = capo_guardduty.types.managed_by.deserialize_json(
+            data["managedBy"]
         )
     return out

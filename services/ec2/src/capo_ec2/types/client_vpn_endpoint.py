@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.client_vpn_endpoint_status
     import capo_ec2.types.client_vpn_security_group_id_set
     import capo_ec2.types.connection_log_response_options
+    import capo_ec2.types.device_posture_response_options
     import capo_ec2.types.endpoint_ip_address_type
     import capo_ec2.types.integer
     import capo_ec2.types.string
@@ -109,6 +110,10 @@ class ClientVpnEndpoint(TypedDict, closed=True):
         "capo_ec2.types.transit_gateway_configuration_describe_endpoint_structure.TransitGatewayConfigurationDescribeEndpointStructure"
     ]
     """<p>The Transit Gateway configuration for the Client VPN endpoint.</p>"""
+    device_posture_options: NotRequired[
+        "capo_ec2.types.device_posture_response_options.DevicePostureResponseOptions"
+    ]
+    """<p>The device trust providers configured for the Client VPN endpoint, if applicable.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -256,6 +261,12 @@ def serialize_ec2_query(
             value["transit_gateway_configuration"],
             pairs,
             f"{key_prefix}TransitGatewayConfiguration",
+        )
+    if "device_posture_options" in value:
+        import capo_ec2.types.device_posture_response_options
+
+        capo_ec2.types.device_posture_response_options.serialize_ec2_query(
+            value["device_posture_options"], pairs, f"{key_prefix}DevicePostureOptions"
         )
 
 
@@ -425,6 +436,15 @@ def deserialize_ec2_query(el: Element) -> ClientVpnEndpoint:
         out["transit_gateway_configuration"] = (
             capo_ec2.types.transit_gateway_configuration_describe_endpoint_structure.deserialize_ec2_query(
                 child_transit_gateway_configuration
+            )
+        )
+    child_device_posture_options = el.find("devicePostureOptions")
+    if child_device_posture_options is not None:
+        import capo_ec2.types.device_posture_response_options
+
+        out["device_posture_options"] = (
+            capo_ec2.types.device_posture_response_options.deserialize_ec2_query(
+                child_device_posture_options
             )
         )
     return out

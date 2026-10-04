@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 class CreateUserRequest(TypedDict, closed=True):
     identity_store_id: "capo_identitystore.types.identity_store_id.IdentityStoreId"
-    """<p>The globally unique identifier for the identity store.</p>"""
+    """<p>The globally unique identifier for the identity store.</p> <p>You can specify the identity store by ID or by Amazon Resource Name (ARN). For example, identity store ID <code>d-1234567890</code> or identity store ARN <code>arn:aws:identitystore::111122223333:identitystore/d-1234567890</code>.</p>"""
     user_name: NotRequired["capo_identitystore.types.user_name.UserName"]
     """<p>A unique string used to identify the user. The length limit is 128 characters. This value can consist of letters, accented characters, symbols, numbers, and punctuation. This value is specified at the time the user is created and stored as an attribute of the user object in the identity store. <code>Administrator</code> and <code>AWSAdministrators</code> are reserved names and can't be used for users or groups.</p>"""
     name: NotRequired["capo_identitystore.types.name.Name"]

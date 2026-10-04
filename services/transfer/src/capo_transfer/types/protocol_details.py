@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_transfer.types.passive_ip
     import capo_transfer.types.proxy_config
     import capo_transfer.types.set_stat_option
+    import capo_transfer.types.sftp_ports
     import capo_transfer.types.tls_session_resumption_mode
 
 
@@ -21,6 +22,8 @@ class ProtocolDetails(TypedDict, closed=True):
     """<p>A property used with Transfer Family servers that use the FTPS protocol. TLS Session Resumption provides a mechanism to resume or share a negotiated secret key between the control and data connection for an FTPS session. <code>TlsSessionResumptionMode</code> determines whether or not the server resumes recent, negotiated sessions through a unique session ID. This property is available during <code>CreateServer</code> and <code>UpdateServer</code> calls. If a <code>TlsSessionResumptionMode</code> value is not specified during <code>CreateServer</code>, it is set to <code>ENFORCED</code> by default.</p> <ul> <li> <p> <code>DISABLED</code>: the server does not process TLS session resumption client requests and creates a new TLS session for each request. </p> </li> <li> <p> <code>ENABLED</code>: the server processes and accepts clients that are performing TLS session resumption. The server doesn't reject client data connections that do not perform the TLS session resumption client processing.</p> </li> <li> <p> <code>ENFORCED</code>: the server processes and accepts clients that are performing TLS session resumption. The server rejects client data connections that do not perform the TLS session resumption client processing. Before you set the value to <code>ENFORCED</code>, test your clients.</p> <note> <p>Not all FTPS clients perform TLS session resumption. So, if you choose to enforce TLS session resumption, you prevent any connections from FTPS clients that don't perform the protocol negotiation. To determine whether or not you can use the <code>ENFORCED</code> value, you need to test your clients.</p> </note> </li> </ul>"""
     set_stat_option: NotRequired["capo_transfer.types.set_stat_option.SetStatOption"]
     """<p>Use the <code>SetStatOption</code> to ignore the error that is generated when the client attempts to use <code>SETSTAT</code> on a file you are uploading to an S3 bucket.</p> <p>Some SFTP file transfer clients can attempt to change the attributes of remote files, including timestamp and permissions, using commands, such as <code>SETSTAT</code> when uploading the file. However, these commands are not compatible with object storage systems, such as Amazon S3. Due to this incompatibility, file uploads from these clients can result in errors even when the file is otherwise successfully uploaded.</p> <p>Set the value to <code>ENABLE_NO_OP</code> to have the Transfer Family server ignore the <code>SETSTAT</code> command, and upload files without needing to make any changes to your SFTP client. While the <code>SetStatOption</code> <code>ENABLE_NO_OP</code> setting ignores the error, it does generate a log entry in Amazon CloudWatch Logs, so you can determine when the client is making a <code>SETSTAT</code> call.</p> <note> <p>If you want to preserve the original timestamp for your file, and modify other file attributes using <code>SETSTAT</code>, you can use Amazon EFS as backend storage with Transfer Family.</p> </note>"""
+    sftp_ports: NotRequired["capo_transfer.types.sftp_ports.SftpPorts"]
+    """<p>A property used with Transfer Family servers that use the SFTP protocol and have <code>PUBLIC</code> endpoints. This property accepts a list of up to three port configurations that the service opens on the server endpoint.</p> <p>Each entry in the list consists of two parameters, the <code>SftpPort</code> and the <code>CommunicationMode</code>. The <code>SftpPort</code> takes any integer from 2000 to 65535, or 22. <code>CommunicationMode</code> can be one of the following options:</p> <ul> <li> <p> <code>SERVER_TALK_FIRST</code>: The server responds to initial TCP connections first. Many older clients expect that an SFTP server responds with its server string before starting SSH negotiations.</p> </li> <li> <p> <code>CLIENT_TALK_FIRST</code>: The server responds to the initial TCP connection only after receiving a data packet. Most modern clients support this behavior and send their client string along with the initial data packets for SSH negotiation. Additionally, this mode is more resilient to TCP retransmissions that can occur during the initial TCP connection.</p> </li> </ul> <p>The following is an <code>SftpPorts</code> example for port 2222 with <code>CLIENT_TALK_FIRST</code>.</p> <p> <code>[ { "SftpPort": 2222, "CommunicationMode": "CLIENT_TALK_FIRST" } ]</code> </p> <p>If you don't specify any configurations during <code>CreateServer</code>, the service uses port 22 with <code>SERVER_TALK_FIRST</code> by default.</p>"""
     as2_transports: NotRequired["capo_transfer.types.as2_transports.As2Transports"]
     """<p>Indicates the transport method for the AS2 messages. Currently, only HTTP is supported.</p>"""
     proxy_config: NotRequired["capo_transfer.types.proxy_config.ProxyConfig"]
@@ -47,6 +50,12 @@ def serialize_aws_json_1_1(value: ProtocolDetails) -> dict:
             capo_transfer.types.set_stat_option.serialize_aws_json_1_1(
                 value["set_stat_option"]
             )
+        )
+    if "sftp_ports" in value:
+        import capo_transfer.types.sftp_ports
+
+        out["SftpPorts"] = capo_transfer.types.sftp_ports.serialize_aws_json_1_1(
+            value["sftp_ports"]
         )
     if "as2_transports" in value:
         import capo_transfer.types.as2_transports
@@ -84,6 +93,12 @@ def deserialize_aws_json_1_1(data: dict) -> ProtocolDetails:
             capo_transfer.types.set_stat_option.deserialize_aws_json_1_1(
                 data["SetStatOption"]
             )
+        )
+    if data.get("SftpPorts") is not None:
+        import capo_transfer.types.sftp_ports
+
+        out["sftp_ports"] = capo_transfer.types.sftp_ports.deserialize_aws_json_1_1(
+            data["SftpPorts"]
         )
     if data.get("As2Transports") is not None:
         import capo_transfer.types.as2_transports

@@ -7,6 +7,8 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import datetime
 
+    import capo_mediapackagev2.types.multiview_filter_configuration
+
 
 class FilterConfiguration(TypedDict, closed=True):
     manifest_filter: NotRequired["str"]
@@ -21,6 +23,10 @@ class FilterConfiguration(TypedDict, closed=True):
     """<p>Optionally specify the time delay for all of your manifest egress requests. Enter a value that is smaller than your endpoint's startover window. When you include time delay, note that you cannot use time delay query parameters for this manifest's endpoint URL.</p>"""
     clip_start_time: NotRequired["datetime.datetime"]
     """<p>Optionally specify the clip start time for all of your manifest egress requests. When you include clip start time, note that you cannot use clip start time query parameters for this manifest's endpoint URL.</p>"""
+    multiview: NotRequired[
+        "capo_mediapackagev2.types.multiview_filter_configuration.MultiviewFilterConfiguration"
+    ]
+    """<p>Optionally pin this manifest to a single multiview combination, so that players request it without an <code>aws.multiview</code> query parameter. When you pin a combination, note that you cannot use the <code>aws.multiview</code> query parameter for this manifest's endpoint URL, even when that parameter requests the same combination.</p> <p>This setting is valid only on an origin endpoint whose channel has an <code>InputType</code> of <code>MULTIVIEW</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -52,6 +58,14 @@ def serialize_json(value: FilterConfiguration) -> dict:
                 value["clip_start_time"]
             )
         )
+    if "multiview" in value:
+        import capo_mediapackagev2.types.multiview_filter_configuration
+
+        out["Multiview"] = (
+            capo_mediapackagev2.types.multiview_filter_configuration.serialize_json(
+                value["multiview"]
+            )
+        )
     return out
 
 
@@ -81,6 +95,14 @@ def deserialize_json(data: dict) -> FilterConfiguration:
         out["clip_start_time"] = (
             capo_mediapackagev2.types._prelude.timestamp.deserialize_json(
                 data["ClipStartTime"]
+            )
+        )
+    if data.get("Multiview") is not None:
+        import capo_mediapackagev2.types.multiview_filter_configuration
+
+        out["multiview"] = (
+            capo_mediapackagev2.types.multiview_filter_configuration.deserialize_json(
+                data["Multiview"]
             )
         )
     return out

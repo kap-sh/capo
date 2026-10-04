@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.authentication_result_type
+    import capo_cognito_identity_provider.types.available_challenge_list_type
     import capo_cognito_identity_provider.types.challenge_name_type
     import capo_cognito_identity_provider.types.challenge_parameters_type
     import capo_cognito_identity_provider.types.session_type
@@ -28,6 +29,10 @@ class AdminRespondToAuthChallengeResponse(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.authentication_result_type.AuthenticationResultType"
     ]
     """<p>The outcome of a successful authentication process. After your application has passed all challenges, Amazon Cognito returns an <code>AuthenticationResult</code> with the JSON web tokens (JWTs) that indicate successful sign-in.</p>"""
+    available_challenges: NotRequired[
+        "capo_cognito_identity_provider.types.available_challenge_list_type.AvailableChallengeListType"
+    ]
+    """<p>This response parameter lists the available authentication challenges that users can select from in <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-selection-sdk.html#authentication-flows-selection-choice">choice-based authentication</a>. For example, they might be able to choose between passkey authentication, a one-time password from an SMS message, and a traditional password.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -59,6 +64,14 @@ def serialize_aws_json_1_1(value: AdminRespondToAuthChallengeResponse) -> dict:
                 value["authentication_result"]
             )
         )
+    if "available_challenges" in value:
+        import capo_cognito_identity_provider.types.available_challenge_list_type
+
+        out["AvailableChallenges"] = (
+            capo_cognito_identity_provider.types.available_challenge_list_type.serialize_aws_json_1_1(
+                value["available_challenges"]
+            )
+        )
     return out
 
 
@@ -88,6 +101,14 @@ def deserialize_aws_json_1_1(data: dict) -> AdminRespondToAuthChallengeResponse:
         out["authentication_result"] = (
             capo_cognito_identity_provider.types.authentication_result_type.deserialize_aws_json_1_1(
                 data["AuthenticationResult"]
+            )
+        )
+    if data.get("AvailableChallenges") is not None:
+        import capo_cognito_identity_provider.types.available_challenge_list_type
+
+        out["available_challenges"] = (
+            capo_cognito_identity_provider.types.available_challenge_list_type.deserialize_aws_json_1_1(
+                data["AvailableChallenges"]
             )
         )
     return out

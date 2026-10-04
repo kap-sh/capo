@@ -150,6 +150,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.capacity_provider_id
     import capo_bedrock_agentcore_control.types.capacity_provider_name
     import capo_bedrock_agentcore_control.types.capacity_provider_summary
+    import capo_bedrock_agentcore_control.types.certificate_configuration_list
     import capo_bedrock_agentcore_control.types.certificates
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.clustering_config
@@ -3785,6 +3786,7 @@ class BedrockAgentCoreControlClient:
         self,
         bundle_id: "capo_bedrock_agentcore_control.types.configuration_bundle_id.ConfigurationBundleId",
         parent_version_ids: "capo_bedrock_agentcore_control.types.configuration_bundle_version_list.ConfigurationBundleVersionList",
+        commit_message: str,
         *,
         config_overrides: Optional[BedrockAgentCoreControlClientConfig] = None,
         client_token: Optional[
@@ -3802,7 +3804,6 @@ class BedrockAgentCoreControlClient:
         branch_name: Optional[
             "capo_bedrock_agentcore_control.types.branch_name.BranchName"
         ] = None,
-        commit_message: Optional[str] = None,
         created_by: Optional[
             "capo_bedrock_agentcore_control.types.version_created_by_source.VersionCreatedBySource"
         ] = None,
@@ -3852,6 +3853,7 @@ class BedrockAgentCoreControlClient:
         input_: capo_bedrock_agentcore_control.types.update_configuration_bundle_request.UpdateConfigurationBundleRequest = {
             "bundle_id": bundle_id,
             "parent_version_ids": parent_version_ids,
+            "commit_message": commit_message,
         }
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -3864,8 +3866,6 @@ class BedrockAgentCoreControlClient:
             input_["components"] = components
         if branch_name is not None:
             input_["branch_name"] = branch_name
-        if commit_message is not None:
-            input_["commit_message"] = commit_message
         if created_by is not None:
             input_["created_by"] = created_by
         if kms_key_arn is not None:
@@ -6630,6 +6630,9 @@ class BedrockAgentCoreControlClient:
         private_endpoint: Optional[
             "capo_bedrock_agentcore_control.types.private_endpoint.PrivateEndpoint"
         ] = None,
+        certificate_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_gateway_target_response.CreateGatewayTargetResponse":
         """<p>Creates a target for a gateway. A target defines an endpoint that the gateway can connect to.</p>
 
@@ -6642,6 +6645,7 @@ class BedrockAgentCoreControlClient:
             credential_provider_configurations: <p>The credential provider configurations for the target. These configurations specify how the gateway authenticates with the target endpoint.</p>
             metadata_configuration: <p>Optional configuration for HTTP header and query parameter propagation to and from the gateway target.</p>
             private_endpoint: <p>The private endpoint configuration for the gateway target. Use this to connect the gateway to private resources in your VPC.</p>
+            certificate_configurations: <p>The private certificate authority (CA) configurations for the gateway target. Use this to have the gateway trust a private CA when it establishes TLS connections to the target endpoint. Provide each certificate by reference to an Amazon S3 object or an Amazon Web Services Secrets Manager secret. You can specify only one certificate authority configuration in this list.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -6688,6 +6692,8 @@ class BedrockAgentCoreControlClient:
             input_["metadata_configuration"] = metadata_configuration
         if private_endpoint is not None:
             input_["private_endpoint"] = private_endpoint
+        if certificate_configurations is not None:
+            input_["certificate_configurations"] = certificate_configurations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -6958,6 +6964,9 @@ class BedrockAgentCoreControlClient:
         private_endpoint: Optional[
             "capo_bedrock_agentcore_control.types.private_endpoint.PrivateEndpoint"
         ] = None,
+        certificate_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_gateway_target_response.UpdateGatewayTargetResponse":
         """<p>Updates an existing gateway target.</p> <p>You cannot update a target that is in a pending authorization state (<code>CREATE_PENDING_AUTH</code>, <code>UPDATE_PENDING_AUTH</code>, or <code>SYNCHRONIZE_PENDING_AUTH</code>). Wait for the authorization to complete or fail before updating the target.</p>
 
@@ -6969,6 +6978,7 @@ class BedrockAgentCoreControlClient:
             credential_provider_configurations: <p>The updated credential provider configurations for the gateway target.</p>
             metadata_configuration: <p>Configuration for HTTP header and query parameter propagation to the gateway target.</p>
             private_endpoint: <p>The private endpoint configuration for the gateway target. Use this to connect the gateway to private resources in your VPC.</p>
+            certificate_configurations: <p>The private certificate authority (CA) configurations for the gateway target. Use this to have the gateway trust a private CA when it establishes TLS connections to the target endpoint. Provide each certificate by reference to an Amazon S3 object or an Amazon Web Services Secrets Manager secret. You can specify only one certificate authority configuration in this list. To remove a previously configured certificate authority, omit this field on update.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -7013,6 +7023,8 @@ class BedrockAgentCoreControlClient:
             input_["metadata_configuration"] = metadata_configuration
         if private_endpoint is not None:
             input_["private_endpoint"] = private_endpoint
+        if certificate_configurations is not None:
+            input_["certificate_configurations"] = certificate_configurations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

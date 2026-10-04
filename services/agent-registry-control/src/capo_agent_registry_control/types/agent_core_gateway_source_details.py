@@ -14,6 +14,7 @@ class AgentCoreGatewaySourceDetails(TypedDict, closed=True):
     protocol_type: NotRequired[
         "capo_agent_registry_control.types.agent_core_gateway_protocol_type.AgentCoreGatewayProtocolType"
     ]
+    """<p>The protocol type of the AgentCore Gateway resource that the registry record was detected from, for example <code>MCP</code>.</p>"""
     authorizer_type: NotRequired["str"]
     """<p>The type of authorizer configured on the AgentCore Gateway resource that the registry record was detected from.</p>"""
     authorizer_configuration: NotRequired[
@@ -22,6 +23,7 @@ class AgentCoreGatewaySourceDetails(TypedDict, closed=True):
     workload_identity_details: NotRequired[
         "capo_agent_registry_control.types.workload_identity_details.WorkloadIdentityDetails"
     ]
+    """<p>The workload identity details for the AgentCore Gateway resource. Present when the gateway has a workload identity configured.</p>"""
 
 
 # --- restJson1 ser/de ---

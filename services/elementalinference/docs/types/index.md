@@ -33,6 +33,7 @@
 - [DisassociateFeedResponse](disassociate_feed_response.md)
 - [ExportDictionaryEntriesRequest](export_dictionary_entries_request.md)
 - [ExportDictionaryEntriesResponse](export_dictionary_entries_response.md)
+- [ExtendedAnalysisMode](extended_analysis_mode.md)
 - [FeedArn](feed_arn.md)
 - [FeedAssociation](feed_association.md)
 - [FeedId](feed_id.md)

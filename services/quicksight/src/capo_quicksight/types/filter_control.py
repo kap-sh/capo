@@ -13,6 +13,8 @@ if TYPE_CHECKING:
     import capo_quicksight.types.filter_slider_control
     import capo_quicksight.types.filter_text_area_control
     import capo_quicksight.types.filter_text_field_control
+    import capo_quicksight.types.hierarchy_filter_drop_down_control
+    import capo_quicksight.types.hierarchy_filter_list_control
 
 
 class FilterControl(TypedDict, closed=True):
@@ -46,6 +48,14 @@ class FilterControl(TypedDict, closed=True):
         "capo_quicksight.types.filter_cross_sheet_control.FilterCrossSheetControl"
     ]
     """<p>A control from a filter that is scoped across more than one sheet. This represents your filter control on a sheet</p>"""
+    hierarchy_list: NotRequired[
+        "capo_quicksight.types.hierarchy_filter_list_control.HierarchyFilterListControl"
+    ]
+    """<p>A control from a hierarchy filter that displays the hierarchy as a list. You can expand a value to see and select the values beneath it, and select either a single value or multiple values.</p>"""
+    hierarchy_dropdown: NotRequired[
+        "capo_quicksight.types.hierarchy_filter_drop_down_control.HierarchyFilterDropDownControl"
+    ]
+    """<p>A control from a hierarchy filter that displays the hierarchy as a dropdown list. You can expand a value to see and select the values beneath it, and select either a single value or multiple values.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -105,6 +115,22 @@ def serialize_json(value: FilterControl) -> dict:
         out["CrossSheet"] = (
             capo_quicksight.types.filter_cross_sheet_control.serialize_json(
                 value["cross_sheet"]
+            )
+        )
+    if "hierarchy_list" in value:
+        import capo_quicksight.types.hierarchy_filter_list_control
+
+        out["HierarchyList"] = (
+            capo_quicksight.types.hierarchy_filter_list_control.serialize_json(
+                value["hierarchy_list"]
+            )
+        )
+    if "hierarchy_dropdown" in value:
+        import capo_quicksight.types.hierarchy_filter_drop_down_control
+
+        out["HierarchyDropdown"] = (
+            capo_quicksight.types.hierarchy_filter_drop_down_control.serialize_json(
+                value["hierarchy_dropdown"]
             )
         )
     return out
@@ -170,6 +196,22 @@ def deserialize_json(data: dict) -> FilterControl:
         out["cross_sheet"] = (
             capo_quicksight.types.filter_cross_sheet_control.deserialize_json(
                 data["CrossSheet"]
+            )
+        )
+    if data.get("HierarchyList") is not None:
+        import capo_quicksight.types.hierarchy_filter_list_control
+
+        out["hierarchy_list"] = (
+            capo_quicksight.types.hierarchy_filter_list_control.deserialize_json(
+                data["HierarchyList"]
+            )
+        )
+    if data.get("HierarchyDropdown") is not None:
+        import capo_quicksight.types.hierarchy_filter_drop_down_control
+
+        out["hierarchy_dropdown"] = (
+            capo_quicksight.types.hierarchy_filter_drop_down_control.deserialize_json(
+                data["HierarchyDropdown"]
             )
         )
     return out

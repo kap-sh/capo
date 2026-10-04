@@ -18,6 +18,9 @@ import capo_connect.errors.limit_exceeded_exception
 import capo_connect.errors.resource_not_found_exception
 import capo_connect.types.attributes
 import capo_connect.types.chat_message
+import capo_connect.types.chat_streaming_configuration
+import capo_connect.types.connection_credentials
+import capo_connect.types.connection_type_list
 import capo_connect.types.disconnect_on_customer_exit
 import capo_connect.types.participant_configuration
 import capo_connect.types.participant_details
@@ -26,6 +29,7 @@ import capo_connect.types.segment_attributes
 import capo_connect.types.start_chat_contact_request
 import capo_connect.types.start_chat_contact_response
 import capo_connect.types.supported_messaging_content_types
+import capo_connect.types.websocket
 from capo_connect._protocol.errors import parse_error_metadata_json
 from capo_connect._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_connect._services._pipeline import (

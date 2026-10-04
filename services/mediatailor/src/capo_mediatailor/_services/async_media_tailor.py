@@ -70,6 +70,7 @@ if TYPE_CHECKING:
     import capo_mediatailor.types.audiences
     import capo_mediatailor.types.avail_suppression
     import capo_mediatailor.types.aws_service_request_configuration
+    import capo_mediatailor.types.beaconing_configuration
     import capo_mediatailor.types.bumper
     import capo_mediatailor.types.cdn_configuration
     import capo_mediatailor.types.channel
@@ -2038,6 +2039,9 @@ class AsyncMediaTailorClient:
         ads_personalization_concurrency: Optional[
             "capo_mediatailor.types.ads_personalization_concurrency.AdsPersonalizationConcurrency"
         ] = None,
+        beaconing_configuration: Optional[
+            "capo_mediatailor.types.beaconing_configuration.BeaconingConfiguration"
+        ] = None,
     ) -> "capo_mediatailor.types.put_playback_configuration_response.PutPlaybackConfigurationResponse":
         """<p>Creates a playback configuration. For information about MediaTailor configurations, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html">Working with configurations in AWS Elemental MediaTailor</a>.</p>
 
@@ -2063,6 +2067,7 @@ class AsyncMediaTailorClient:
             function_mapping: <p>A map of lifecycle hook event names to function identifiers. The function mapping specifies which function MediaTailor executes at each lifecycle hook during ad insertion. Valid keys are <code>PRE_SESSION_INITIALIZATION</code>, <code>PRE_ADS_REQUEST</code>, <code>POST_ADS_RESPONSE</code>, and <code>PRE_MANIFEST_INSERTION</code>. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-hooks.html">Functions lifecycle hooks</a> in the <i>MediaTailor User Guide</i>.</p>
             ads_personalization_timeouts: <p>The timeout settings for ad decision server interactions. These settings control how long MediaTailor waits for ADS responses and the total time budget for ad personalization across live, VOD, and prefetch workflows.</p>
             ads_personalization_concurrency: <p>The concurrency settings for ad decision server interactions. These settings control how many simultaneous ADS requests MediaTailor makes per manifest request.</p>
+            beaconing_configuration: <p>The beaconing configuration for this playback configuration, which controls whether MediaTailor includes beacons of its own in the ad tracking response. If you omit this setting, MediaTailor uses <code>INSIGHTS</code>.</p>
 
         Raises:
             capo_mediatailor.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -2133,6 +2138,8 @@ class AsyncMediaTailorClient:
             input_["ads_personalization_timeouts"] = ads_personalization_timeouts
         if ads_personalization_concurrency is not None:
             input_["ads_personalization_concurrency"] = ads_personalization_concurrency
+        if beaconing_configuration is not None:
+            input_["beaconing_configuration"] = beaconing_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

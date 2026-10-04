@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_opensearch.types.accepted_warnings_list
     import capo_opensearch.types.change_progress_stage_list
     import capo_opensearch.types.config_change_status
     import capo_opensearch.types.guid
@@ -13,6 +14,7 @@ if TYPE_CHECKING:
     import capo_opensearch.types.string_list
     import capo_opensearch.types.total_number_of_stages
     import capo_opensearch.types.update_timestamp
+    import capo_opensearch.types.validation_failures
 
 
 class ChangeProgressStatusDetails(TypedDict, closed=True):
@@ -46,6 +48,14 @@ class ChangeProgressStatusDetails(TypedDict, closed=True):
     """<p>The current status of the configuration change.</p>"""
     initiated_by: NotRequired["capo_opensearch.types.initiated_by.InitiatedBy"]
     """<p>The IAM principal who initiated the configuration change.</p>"""
+    validation_failures: NotRequired[
+        "capo_opensearch.types.validation_failures.ValidationFailures"
+    ]
+    """<p>The validation failures that occurred as a result of the configuration change.</p>"""
+    accepted_warnings: NotRequired[
+        "capo_opensearch.types.accepted_warnings_list.AcceptedWarningsList"
+    ]
+    """<p>The list of advisory warning codes that were accepted for the configuration change.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -105,6 +115,22 @@ def serialize_json(value: ChangeProgressStatusDetails) -> dict:
 
         out["InitiatedBy"] = capo_opensearch.types.initiated_by.serialize_json(
             value["initiated_by"]
+        )
+    if "validation_failures" in value:
+        import capo_opensearch.types.validation_failures
+
+        out["ValidationFailures"] = (
+            capo_opensearch.types.validation_failures.serialize_json(
+                value["validation_failures"]
+            )
+        )
+    if "accepted_warnings" in value:
+        import capo_opensearch.types.accepted_warnings_list
+
+        out["AcceptedWarnings"] = (
+            capo_opensearch.types.accepted_warnings_list.serialize_json(
+                value["accepted_warnings"]
+            )
         )
     return out
 
@@ -172,5 +198,21 @@ def deserialize_json(data: dict) -> ChangeProgressStatusDetails:
 
         out["initiated_by"] = capo_opensearch.types.initiated_by.deserialize_json(
             data["InitiatedBy"]
+        )
+    if data.get("ValidationFailures") is not None:
+        import capo_opensearch.types.validation_failures
+
+        out["validation_failures"] = (
+            capo_opensearch.types.validation_failures.deserialize_json(
+                data["ValidationFailures"]
+            )
+        )
+    if data.get("AcceptedWarnings") is not None:
+        import capo_opensearch.types.accepted_warnings_list
+
+        out["accepted_warnings"] = (
+            capo_opensearch.types.accepted_warnings_list.deserialize_json(
+                data["AcceptedWarnings"]
+            )
         )
     return out

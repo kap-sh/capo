@@ -15,6 +15,7 @@ from capo_bedrock_agentcore_control._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_bedrock_agentcore_control.types.certificate_configuration_list
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.create_gateway_target_request
     import capo_bedrock_agentcore_control.types.create_gateway_target_response
@@ -78,6 +79,9 @@ class GatewayTargetResource:
         private_endpoint: Optional[
             "capo_bedrock_agentcore_control.types.private_endpoint.PrivateEndpoint"
         ] = None,
+        certificate_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_gateway_target_response.CreateGatewayTargetResponse":
         """<p>Creates a target for a gateway. A target defines an endpoint that the gateway can connect to.</p>
 
@@ -90,6 +94,7 @@ class GatewayTargetResource:
             credential_provider_configurations: <p>The credential provider configurations for the target. These configurations specify how the gateway authenticates with the target endpoint.</p>
             metadata_configuration: <p>Optional configuration for HTTP header and query parameter propagation to and from the gateway target.</p>
             private_endpoint: <p>The private endpoint configuration for the gateway target. Use this to connect the gateway to private resources in your VPC.</p>
+            certificate_configurations: <p>The private certificate authority (CA) configurations for the gateway target. Use this to have the gateway trust a private CA when it establishes TLS connections to the target endpoint. Provide each certificate by reference to an Amazon S3 object or an Amazon Web Services Secrets Manager secret. You can specify only one certificate authority configuration in this list.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -136,6 +141,8 @@ class GatewayTargetResource:
             input_["metadata_configuration"] = metadata_configuration
         if private_endpoint is not None:
             input_["private_endpoint"] = private_endpoint
+        if certificate_configurations is not None:
+            input_["certificate_configurations"] = certificate_configurations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -379,6 +386,9 @@ class GatewayTargetResource:
         private_endpoint: Optional[
             "capo_bedrock_agentcore_control.types.private_endpoint.PrivateEndpoint"
         ] = None,
+        certificate_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_gateway_target_response.UpdateGatewayTargetResponse":
         """<p>Updates an existing gateway target.</p> <p>You cannot update a target that is in a pending authorization state (<code>CREATE_PENDING_AUTH</code>, <code>UPDATE_PENDING_AUTH</code>, or <code>SYNCHRONIZE_PENDING_AUTH</code>). Wait for the authorization to complete or fail before updating the target.</p>
 
@@ -390,6 +400,7 @@ class GatewayTargetResource:
             credential_provider_configurations: <p>The updated credential provider configurations for the gateway target.</p>
             metadata_configuration: <p>Configuration for HTTP header and query parameter propagation to the gateway target.</p>
             private_endpoint: <p>The private endpoint configuration for the gateway target. Use this to connect the gateway to private resources in your VPC.</p>
+            certificate_configurations: <p>The private certificate authority (CA) configurations for the gateway target. Use this to have the gateway trust a private CA when it establishes TLS connections to the target endpoint. Provide each certificate by reference to an Amazon S3 object or an Amazon Web Services Secrets Manager secret. You can specify only one certificate authority configuration in this list. To remove a previously configured certificate authority, omit this field on update.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -434,6 +445,8 @@ class GatewayTargetResource:
             input_["metadata_configuration"] = metadata_configuration
         if private_endpoint is not None:
             input_["private_endpoint"] = private_endpoint
+        if certificate_configurations is not None:
+            input_["certificate_configurations"] = certificate_configurations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -472,6 +485,9 @@ class AsyncGatewayTargetResource:
         private_endpoint: Optional[
             "capo_bedrock_agentcore_control.types.private_endpoint.PrivateEndpoint"
         ] = None,
+        certificate_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.create_gateway_target_response.CreateGatewayTargetResponse":
         """<p>Creates a target for a gateway. A target defines an endpoint that the gateway can connect to.</p>
 
@@ -484,6 +500,7 @@ class AsyncGatewayTargetResource:
             credential_provider_configurations: <p>The credential provider configurations for the target. These configurations specify how the gateway authenticates with the target endpoint.</p>
             metadata_configuration: <p>Optional configuration for HTTP header and query parameter propagation to and from the gateway target.</p>
             private_endpoint: <p>The private endpoint configuration for the gateway target. Use this to connect the gateway to private resources in your VPC.</p>
+            certificate_configurations: <p>The private certificate authority (CA) configurations for the gateway target. Use this to have the gateway trust a private CA when it establishes TLS connections to the target endpoint. Provide each certificate by reference to an Amazon S3 object or an Amazon Web Services Secrets Manager secret. You can specify only one certificate authority configuration in this list.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -531,6 +548,8 @@ class AsyncGatewayTargetResource:
             input_["metadata_configuration"] = metadata_configuration
         if private_endpoint is not None:
             input_["private_endpoint"] = private_endpoint
+        if certificate_configurations is not None:
+            input_["certificate_configurations"] = certificate_configurations
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -778,6 +797,9 @@ class AsyncGatewayTargetResource:
         private_endpoint: Optional[
             "capo_bedrock_agentcore_control.types.private_endpoint.PrivateEndpoint"
         ] = None,
+        certificate_configurations: Optional[
+            "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+        ] = None,
     ) -> "capo_bedrock_agentcore_control.types.update_gateway_target_response.UpdateGatewayTargetResponse":
         """<p>Updates an existing gateway target.</p> <p>You cannot update a target that is in a pending authorization state (<code>CREATE_PENDING_AUTH</code>, <code>UPDATE_PENDING_AUTH</code>, or <code>SYNCHRONIZE_PENDING_AUTH</code>). Wait for the authorization to complete or fail before updating the target.</p>
 
@@ -789,6 +811,7 @@ class AsyncGatewayTargetResource:
             credential_provider_configurations: <p>The updated credential provider configurations for the gateway target.</p>
             metadata_configuration: <p>Configuration for HTTP header and query parameter propagation to the gateway target.</p>
             private_endpoint: <p>The private endpoint configuration for the gateway target. Use this to connect the gateway to private resources in your VPC.</p>
+            certificate_configurations: <p>The private certificate authority (CA) configurations for the gateway target. Use this to have the gateway trust a private CA when it establishes TLS connections to the target endpoint. Provide each certificate by reference to an Amazon S3 object or an Amazon Web Services Secrets Manager secret. You can specify only one certificate authority configuration in this list. To remove a previously configured certificate authority, omit this field on update.</p>
 
         Raises:
             capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
@@ -834,6 +857,8 @@ class AsyncGatewayTargetResource:
             input_["metadata_configuration"] = metadata_configuration
         if private_endpoint is not None:
             input_["private_endpoint"] = private_endpoint
+        if certificate_configurations is not None:
+            input_["certificate_configurations"] = certificate_configurations
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

@@ -29,6 +29,8 @@ class IngestionJobSummary(TypedDict, closed=True):
     """<p>The time the data ingestion job started.</p>"""
     updated_at: "capo_bedrock_agent.types.date_timestamp.DateTimestamp"
     """<p>The time the data ingestion job was last updated.</p>"""
+    text_ready_at: NotRequired["capo_bedrock_agent.types.date_timestamp.DateTimestamp"]
+    """<p>The time at which all text content in the data ingestion job finished extraction and became available to query.</p> <p>This time isn't returned until text extraction is complete for all the documents in the job.</p>"""
     statistics: NotRequired[
         "capo_bedrock_agent.types.ingestion_job_statistics.IngestionJobStatistics"
     ]
@@ -58,6 +60,12 @@ def serialize_json(value: IngestionJobSummary) -> dict:
     out["updatedAt"] = capo_bedrock_agent.types.date_timestamp.serialize_json(
         value["updated_at"]
     )
+    if "text_ready_at" in value:
+        import capo_bedrock_agent.types.date_timestamp
+
+        out["textReadyAt"] = capo_bedrock_agent.types.date_timestamp.serialize_json(
+            value["text_ready_at"]
+        )
     if "statistics" in value:
         import capo_bedrock_agent.types.ingestion_job_statistics
 
@@ -109,6 +117,12 @@ def deserialize_json(data: dict) -> IngestionJobSummary:
         )
     else:
         raise DeserializationError("IngestionJobSummary.updated_at required")
+    if data.get("textReadyAt") is not None:
+        import capo_bedrock_agent.types.date_timestamp
+
+        out["text_ready_at"] = capo_bedrock_agent.types.date_timestamp.deserialize_json(
+            data["textReadyAt"]
+        )
     if data.get("statistics") is not None:
         import capo_bedrock_agent.types.ingestion_job_statistics
 

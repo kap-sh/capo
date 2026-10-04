@@ -7,6 +7,8 @@ from typing_extensions import TypedDict
 from capo_securityagent.errors import DeserializationError, SerializationError
 
 if TYPE_CHECKING:
+    import capo_securityagent.types.azure_dev_ops_integration_input
+    import capo_securityagent.types.bitbucket_data_center_integration_input
     import capo_securityagent.types.bitbucket_integration_input
     import capo_securityagent.types.confluence_integration_input
     import capo_securityagent.types.git_hub_integration_input
@@ -31,11 +33,21 @@ class _ProviderInput_confluence(TypedDict, closed=True):
     confluence: "capo_securityagent.types.confluence_integration_input.ConfluenceIntegrationInput"
 
 
+class _ProviderInput_azureDevOps(TypedDict, closed=True):
+    azureDevOps: "capo_securityagent.types.azure_dev_ops_integration_input.AzureDevOpsIntegrationInput"
+
+
+class _ProviderInput_bitbucketDataCenter(TypedDict, closed=True):
+    bitbucketDataCenter: "capo_securityagent.types.bitbucket_data_center_integration_input.BitbucketDataCenterIntegrationInput"
+
+
 ProviderInput: TypeAlias = (
     _ProviderInput_github
     | _ProviderInput_gitlab
     | _ProviderInput_bitbucket
     | _ProviderInput_confluence
+    | _ProviderInput_azureDevOps
+    | _ProviderInput_bitbucketDataCenter
 )
 
 
@@ -73,6 +85,22 @@ def serialize_json(value: ProviderInput) -> dict:
                 value["confluence"]
             )
         }
+    elif "azureDevOps" in value:
+        import capo_securityagent.types.azure_dev_ops_integration_input
+
+        return {
+            "azureDevOps": capo_securityagent.types.azure_dev_ops_integration_input.serialize_json(
+                value["azureDevOps"]
+            )
+        }
+    elif "bitbucketDataCenter" in value:
+        import capo_securityagent.types.bitbucket_data_center_integration_input
+
+        return {
+            "bitbucketDataCenter": capo_securityagent.types.bitbucket_data_center_integration_input.serialize_json(
+                value["bitbucketDataCenter"]
+            )
+        }
     else:
         raise SerializationError("ProviderInput: no variant present")
 
@@ -108,6 +136,22 @@ def deserialize_json(data: dict) -> ProviderInput:
         return {
             "confluence": capo_securityagent.types.confluence_integration_input.deserialize_json(
                 data["confluence"]
+            )
+        }
+    elif data.get("azureDevOps") is not None:
+        import capo_securityagent.types.azure_dev_ops_integration_input
+
+        return {
+            "azureDevOps": capo_securityagent.types.azure_dev_ops_integration_input.deserialize_json(
+                data["azureDevOps"]
+            )
+        }
+    elif data.get("bitbucketDataCenter") is not None:
+        import capo_securityagent.types.bitbucket_data_center_integration_input
+
+        return {
+            "bitbucketDataCenter": capo_securityagent.types.bitbucket_data_center_integration_input.deserialize_json(
+                data["bitbucketDataCenter"]
             )
         }
     else:

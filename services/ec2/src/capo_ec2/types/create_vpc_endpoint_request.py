@@ -26,7 +26,7 @@ class CreateVpcEndpointRequest(TypedDict, closed=True):
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
     vpc_endpoint_type: NotRequired["capo_ec2.types.vpc_endpoint_type.VpcEndpointType"]
-    """<p>The type of endpoint.</p> <p>Default: Gateway</p>"""
+    """<p>The type of endpoint.</p> <p>For more information about the types of VPC endpoints, see <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html#concepts-vpc-endpoints">VPC endpoints</a> in the <i>Amazon Web Services PrivateLink User Guide</i>.</p> <p>Default: Gateway</p>"""
     vpc_id: NotRequired["capo_ec2.types.vpc_id.VpcId"]
     """<p>The ID of the VPC.</p>"""
     service_name: NotRequired["capo_ec2.types.string.String"]
@@ -40,11 +40,11 @@ class CreateVpcEndpointRequest(TypedDict, closed=True):
     subnet_ids: NotRequired[
         "capo_ec2.types.vpc_endpoint_subnet_id_list.VpcEndpointSubnetIdList"
     ]
-    """<p>(Interface and Gateway Load Balancer endpoints) The IDs of the subnets in which to create endpoint network interfaces. For a Gateway Load Balancer endpoint, you can specify only one subnet.</p>"""
+    """<p>(Interface, Gateway Load Balancer endpoints, Resource, ServiceNetwork, and Tunnel endpoints only) The IDs of the subnets in which to create endpoint network interfaces. For a Gateway Load Balancer endpoint, you can specify only one subnet. For a <code>Tunnel</code> endpoint, the subnets must be in the Availability Zones of the resource gateway associated with the shared resource configuration. An endpoint network interface is created only in an Availability Zone that the resource gateway is also in.</p>"""
     security_group_ids: NotRequired[
         "capo_ec2.types.vpc_endpoint_security_group_id_list.VpcEndpointSecurityGroupIdList"
     ]
-    """<p>(Interface endpoint) The IDs of the security groups to associate with the endpoint network interfaces. If this parameter is not specified, we use the default security group for the VPC.</p>"""
+    """<p>(Interface, Resource, ServiceNetwork, and Tunnel endpoints only) The IDs of the security groups to associate with the endpoint network interfaces. If this parameter is not specified, we use the default security group for the VPC.</p>"""
     ip_address_type: NotRequired["capo_ec2.types.ip_address_type.IpAddressType"]
     """<p>The IP address type for the endpoint.</p>"""
     dns_options: NotRequired[
@@ -70,7 +70,7 @@ class CreateVpcEndpointRequest(TypedDict, closed=True):
     resource_configuration_arn: NotRequired[
         "capo_ec2.types.resource_configuration_arn.ResourceConfigurationArn"
     ]
-    """<p>The Amazon Resource Name (ARN) of a resource configuration that will be associated with the VPC endpoint of type resource.</p>"""
+    """<p>(Resource and Tunnel endpoints only) The Amazon Resource Name (ARN) of a resource configuration associated with the VPC endpoint. The type of resource configuration depends on the endpoint type:</p> <ul> <li> <p>For a Resource endpoint, you can specify a resource configuration that is of type <code>SINGLE</code>, <code>GROUP</code>, or <code>ARN</code>. To reach a resource that belongs to a group, specify the parent <code>GROUP</code> resource configuration.</p> </li> <li> <p>For a Tunnel endpoint, you can specify a resource configuration that is of type <code>CIDR</code>.</p> </li> </ul> <p>For more information about the types of resource configurations, see <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/resource-configuration.html">Types of resource configurations</a> in the <i>Amazon Web Services PrivateLink User Guide</i>.</p> <p>This request fails if a VPC endpoint owned by a different Amazon Web Services account already exists on a resource gateway that is enabled for <code>ResourceGatewayCharges</code> payer responsibility.</p>"""
     service_region: NotRequired["capo_ec2.types.string.String"]
     """<p>The Region where the service is hosted. The default is the current Region.</p>"""
 

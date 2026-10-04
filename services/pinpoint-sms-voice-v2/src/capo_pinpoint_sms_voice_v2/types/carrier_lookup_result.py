@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_pinpoint_sms_voice_v2.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_pinpoint_sms_voice_v2.types.carrier_lookup_input_phone_number_type
     import capo_pinpoint_sms_voice_v2.types.dialing_country_code_type
     import capo_pinpoint_sms_voice_v2.types.e164_phone_number_type
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
@@ -39,7 +40,11 @@ class CarrierLookupResult(TypedDict, closed=True):
     phone_number_type: (
         "capo_pinpoint_sms_voice_v2.types.phone_number_type.PhoneNumberType"
     )
-    """<p>Describes the type of phone number. Valid values are: MOBILE, LANDLINE, OTHER, and INVALID. Avoid sending SMS or voice messages to INVALID phone numbers, as these numbers are unlikely to belong to actual recipients.</p>"""
+    """<p>Describes the type of phone number. Valid values are: MOBILE, LANDLINE, VOIP, PREPAID, OTHER, and INVALID. Avoid sending SMS or voice messages to INVALID phone numbers, as these numbers are unlikely to belong to actual recipients.</p>"""
+    original_phone_number: NotRequired[
+        "capo_pinpoint_sms_voice_v2.types.carrier_lookup_input_phone_number_type.CarrierLookupInputPhoneNumberType"
+    ]
+    """<p>The phone number exactly as you supplied it in the request. This field is returned only when you set <code>EnableCleansing</code> to <code>true</code>, the phone number was cleansed, and a normalized E.164 phone number was returned in the <code>E164PhoneNumber</code> field.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -59,6 +64,8 @@ def serialize_aws_json_1_0(value: CarrierLookupResult) -> dict:
     if "carrier" in value:
         out["Carrier"] = value["carrier"]
     out["PhoneNumberType"] = value["phone_number_type"]
+    if "original_phone_number" in value:
+        out["OriginalPhoneNumber"] = value["original_phone_number"]
     return out
 
 
@@ -84,4 +91,6 @@ def deserialize_aws_json_1_0(data: dict) -> CarrierLookupResult:
         out["phone_number_type"] = data["PhoneNumberType"]
     else:
         raise DeserializationError("CarrierLookupResult.phone_number_type required")
+    if data.get("OriginalPhoneNumber") is not None:
+        out["original_phone_number"] = data["OriginalPhoneNumber"]
     return out

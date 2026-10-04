@@ -19,6 +19,7 @@ import capo_ssm.errors.resource_policy_invalid_parameter_exception
 import capo_ssm.errors.resource_policy_not_found_exception
 import capo_ssm.types.delete_resource_policy_request
 import capo_ssm.types.delete_resource_policy_response
+import capo_ssm.types.deletion_mode
 from capo_ssm._protocol.errors import parse_error_metadata_json
 from capo_ssm._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_ssm._services._pipeline import (

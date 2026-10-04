@@ -497,6 +497,7 @@ if TYPE_CHECKING:
     import capo_datazone.types.notebook_status
     import capo_datazone.types.notebook_summary
     import capo_datazone.types.notebook_type
+    import capo_datazone.types.notification_config
     import capo_datazone.types.notification_output
     import capo_datazone.types.notification_subjects
     import capo_datazone.types.notification_type
@@ -14032,6 +14033,9 @@ class DataZoneClient:
         timeout_configuration: Optional[
             "capo_datazone.types.timeout_config.TimeoutConfig"
         ] = None,
+        notification_configuration: Optional[
+            "capo_datazone.types.notification_config.NotificationConfig"
+        ] = None,
         trigger_source: Optional[
             "capo_datazone.types.trigger_source.TriggerSource"
         ] = None,
@@ -14049,6 +14053,7 @@ class DataZoneClient:
             compute_configuration: <p>The compute configuration for the notebook run, including instance type and environment version.</p>
             network_configuration: <p>The network configuration for the notebook run, including network access type and optional VPC settings.</p>
             timeout_configuration: <p>The timeout configuration for the notebook run. The default timeout is 720 minutes (12 hours) and the maximum is 1440 minutes (24 hours).</p>
+            notification_configuration: <p>The notification configuration for the notebook run. Use this to specify the notebook run states that trigger notifications.</p>
             trigger_source: <p>The source that triggered the notebook run.</p>
             metadata: <p>The metadata for the notebook run, specified as key-value pairs. You can specify up to 50 entries, with keys up to 128 characters and values up to 1024 characters.</p>
             parameters: <p>The sensitive parameters for the notebook run, specified as key-value pairs. You can specify up to 50 entries, with keys up to 128 characters and values up to 1024 characters.</p>
@@ -14094,6 +14099,8 @@ class DataZoneClient:
             input_["network_configuration"] = network_configuration
         if timeout_configuration is not None:
             input_["timeout_configuration"] = timeout_configuration
+        if notification_configuration is not None:
+            input_["notification_configuration"] = notification_configuration
         if trigger_source is not None:
             input_["trigger_source"] = trigger_source
         if metadata is not None:

@@ -27,6 +27,7 @@ import capo_rds.types.blue_green_deployment
 import capo_rds.types.create_blue_green_deployment_request
 import capo_rds.types.create_blue_green_deployment_response
 import capo_rds.types.tag_list
+import capo_rds.types.target_resource_configuration_list
 from capo_rds._protocol.errors import find_error_element, parse_error_metadata
 from capo_rds._protocol.xml import fromstring
 from capo_rds._rule_engine._endpoint_rule_set import EndpointParams, resolve

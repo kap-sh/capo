@@ -2,7 +2,6 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""The protocol type of an AgentCore Gateway."""
 AgentCoreGatewayProtocolType: TypeAlias = Literal["MCP",]
 
 

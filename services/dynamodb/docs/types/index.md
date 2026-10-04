@@ -180,6 +180,7 @@
 - [FailureException](failure_exception.md)
 - [FailureMessage](failure_message.md)
 - [FilterConditionMap](filter_condition_map.md)
+- [FilterSpecification](filter_specification.md)
 - [Get](get.md)
 - [GetItemInput](get_item_input.md)
 - [GetItemOutput](get_item_output.md)

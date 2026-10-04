@@ -49,6 +49,9 @@ if TYPE_CHECKING:
     import capo_billing.types.billing_view_source_views_list
     import capo_billing.types.billing_view_type_list
     import capo_billing.types.billing_views_max_results
+    import capo_billing.types.business_support_account_charge
+    import capo_billing.types.business_support_billing_month
+    import capo_billing.types.business_support_subscription_contract
     import capo_billing.types.client_token
     import capo_billing.types.create_billing_view_request
     import capo_billing.types.create_billing_view_response
@@ -78,6 +81,10 @@ if TYPE_CHECKING:
     import capo_billing.types.list_billing_view_segments_response
     import capo_billing.types.list_billing_views_request
     import capo_billing.types.list_billing_views_response
+    import capo_billing.types.list_business_support_account_charges_request
+    import capo_billing.types.list_business_support_account_charges_response
+    import capo_billing.types.list_business_support_subscription_history_request
+    import capo_billing.types.list_business_support_subscription_history_response
     import capo_billing.types.list_enterprise_support_linked_account_charges_request
     import capo_billing.types.list_enterprise_support_linked_account_charges_response
     import capo_billing.types.list_source_views_for_billing_view_request
@@ -1089,6 +1096,190 @@ class BillingClient:
             if not _token:
                 break
 
+    def list_business_support_account_charges(
+        self,
+        billing_month: "capo_billing.types.business_support_billing_month.BusinessSupportBillingMonth",
+        *,
+        config_overrides: Optional[BillingClientConfig] = None,
+        account_id: Optional["capo_billing.types.account_id.AccountId"] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+    ) -> "capo_billing.types.list_business_support_account_charges_response.ListBusinessSupportAccountChargesResponse":
+        """<p>Returns Business Support charges broken down at the linked account level for a given billing month.</p>
+
+        Args:
+            billing_month: <p>The billing month to retrieve Business Support charges for, in YYYY-MM format. You can request the current month (charges will be estimated) or a past month (charges will be finalized).</p>
+            account_id: <p>The linked account ID to filter results to a specific account. If you don't specify a value, the response includes charges for all linked accounts.</p>
+            max_results: <p>The maximum number of results to return per page. Default is 100.</p>
+            next_token: <p>The pagination token for the next page of results.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_billing.types.list_business_support_account_charges_request.ListBusinessSupportAccountChargesRequest]",
+        ) -> OperationResponse[
+            "capo_billing.types.list_business_support_account_charges_response.ListBusinessSupportAccountChargesResponse"
+        ]:
+            import capo_billing._operations.aws_billing.list_business_support_account_charges
+
+            output, http_response = (
+                capo_billing._operations.aws_billing.list_business_support_account_charges.list_business_support_account_charges(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_billing.types.list_business_support_account_charges_request.ListBusinessSupportAccountChargesRequest = {
+            "billing_month": billing_month
+        }
+        if account_id is not None:
+            input_["account_id"] = account_id
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_business_support_account_charges(
+        self,
+        billing_month: "capo_billing.types.business_support_billing_month.BusinessSupportBillingMonth",
+        *,
+        config_overrides: Optional[BillingClientConfig] = None,
+        account_id: Optional["capo_billing.types.account_id.AccountId"] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+    ) -> "Iterator[capo_billing.types.business_support_account_charge.BusinessSupportAccountCharge]":
+        _token = next_token
+        while True:
+            _response = self.list_business_support_account_charges(
+                billing_month,
+                config_overrides=config_overrides,
+                account_id=account_id,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("account_charges",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_business_support_subscription_history(
+        self,
+        *,
+        config_overrides: Optional[BillingClientConfig] = None,
+        billing_month: Optional[
+            "capo_billing.types.business_support_billing_month.BusinessSupportBillingMonth"
+        ] = None,
+        account_id: Optional["capo_billing.types.account_id.AccountId"] = None,
+        start_date: Optional[datetime.datetime] = None,
+        end_date: Optional[datetime.datetime] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+    ) -> "capo_billing.types.list_business_support_subscription_history_response.ListBusinessSupportSubscriptionHistoryResponse":
+        """<p>Returns the history of Business Support subscription contracts across accounts.</p>
+
+        Args:
+            billing_month: <p>The billing month to retrieve subscription contracts for, in YYYY-MM format. If you don't specify a value, defaults to the current month.</p>
+            account_id: <p>The account ID to filter results to a specific account. If you don't specify a value, the response includes subscription history for all accounts.</p>
+            start_date: <p>The start date to filter subscription contracts from.</p>
+            end_date: <p>The end date to filter subscription contracts to.</p>
+            max_results: <p>The maximum number of results to return per page. Default is 100.</p>
+            next_token: <p>The pagination token for the next page of results.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_billing.types.list_business_support_subscription_history_request.ListBusinessSupportSubscriptionHistoryRequest]",
+        ) -> OperationResponse[
+            "capo_billing.types.list_business_support_subscription_history_response.ListBusinessSupportSubscriptionHistoryResponse"
+        ]:
+            import capo_billing._operations.aws_billing.list_business_support_subscription_history
+
+            output, http_response = (
+                capo_billing._operations.aws_billing.list_business_support_subscription_history.list_business_support_subscription_history(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_billing.types.list_business_support_subscription_history_request.ListBusinessSupportSubscriptionHistoryRequest = {}
+        if billing_month is not None:
+            input_["billing_month"] = billing_month
+        if account_id is not None:
+            input_["account_id"] = account_id
+        if start_date is not None:
+            input_["start_date"] = start_date
+        if end_date is not None:
+            input_["end_date"] = end_date
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_business_support_subscription_history(
+        self,
+        *,
+        config_overrides: Optional[BillingClientConfig] = None,
+        billing_month: Optional[
+            "capo_billing.types.business_support_billing_month.BusinessSupportBillingMonth"
+        ] = None,
+        account_id: Optional["capo_billing.types.account_id.AccountId"] = None,
+        start_date: Optional[datetime.datetime] = None,
+        end_date: Optional[datetime.datetime] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional["capo_billing.types.page_token.PageToken"] = None,
+    ) -> "Iterator[capo_billing.types.business_support_subscription_contract.BusinessSupportSubscriptionContract]":
+        _token = next_token
+        while True:
+            _response = self.list_business_support_subscription_history(
+                config_overrides=config_overrides,
+                billing_month=billing_month,
+                account_id=account_id,
+                start_date=start_date,
+                end_date=end_date,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("subscription_contracts",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def list_enterprise_support_linked_account_charges(
         self,
         billing_month: "capo_billing.types.enterprise_support_billing_month.EnterpriseSupportBillingMonth",
@@ -1102,8 +1293,8 @@ class BillingClient:
 
         Args:
             billing_month: <p>The billing month in YYYY-MM format. This must be a month in the past.</p>
-            account_id: <p>An optional linked account ID to filter results to a specific account.</p>
-            max_results: <p>The maximum number of results to return per page.</p>
+            account_id: <p>The linked account ID to filter results to a specific account. If you don't specify a value, the response includes charges for all linked accounts.</p>
+            max_results: <p>The maximum number of results to return per page. Default is 100.</p>
             next_token: <p>The pagination token for the next page of results.</p>
 
         Raises:

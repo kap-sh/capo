@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_glue.types.catalog_id_string
     import capo_glue.types.classifier_name_list
     import capo_glue.types.crawler_configuration
     import capo_glue.types.crawler_security_configuration
@@ -77,6 +78,8 @@ class Crawler(TypedDict, closed=True):
         "capo_glue.types.lake_formation_configuration.LakeFormationConfiguration"
     ]
     """<p>Specifies whether the crawler should use Lake Formation credentials for the crawler instead of the IAM role credentials.</p>"""
+    catalog_id: NotRequired["capo_glue.types.catalog_id_string.CatalogIdString"]
+    """<p>The ID of the Data Catalog in which the crawler's output is stored.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -172,6 +175,8 @@ def serialize_aws_json_1_1(value: Crawler) -> dict:
                 value["lake_formation_configuration"]
             )
         )
+    if "catalog_id" in value:
+        out["CatalogId"] = value["catalog_id"]
     return out
 
 
@@ -273,4 +278,6 @@ def deserialize_aws_json_1_1(data: dict) -> Crawler:
                 data["LakeFormationConfiguration"]
             )
         )
+    if data.get("CatalogId") is not None:
+        out["catalog_id"] = data["CatalogId"]
     return out

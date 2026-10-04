@@ -19,6 +19,7 @@ import capo_transfer.errors.service_unavailable_exception
 import capo_transfer.errors.throttling_exception
 import capo_transfer.types.create_workflow_request
 import capo_transfer.types.create_workflow_response
+import capo_transfer.types.structured_log_destinations
 import capo_transfer.types.tags
 import capo_transfer.types.workflow_steps
 from capo_transfer._protocol.errors import parse_error_metadata_json

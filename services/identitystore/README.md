@@ -14,9 +14,9 @@ from capo_identitystore import AsyncidentitystoreClient
 
 async def main():
     async with AsyncidentitystoreClient() as identitystore:
-        # Example: call the get_group_id operation
-        response = await identitystore.get_group_id()
-        print(response["group_id"])
+        # Example: call the create_group_membership operation
+        response = await identitystore.create_group_membership()
+        print(response["identity_store_id"])
 ```
 
 ## Pagination
@@ -29,8 +29,8 @@ from capo_identitystore import AsyncidentitystoreClient
 
 async def main():
     async with AsyncidentitystoreClient() as identitystore:
-        # Example: paginate over list_group_memberships_for_member
-        async for item in identitystore.iter_list_group_memberships_for_member():
+        # Example: paginate over list_group_memberships
+        async for item in identitystore.iter_list_group_memberships():
             print(item)
 ```
 
@@ -46,7 +46,7 @@ from capo_identitystore.error import AccessDeniedException
 async def main():
     async with AsyncidentitystoreClient() as identitystore:
         try:
-            await identitystore.get_group_id()
+            await identitystore.create_group_membership()
         except AccessDeniedException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -65,11 +65,11 @@ from capo_identitystore import AsyncidentitystoreClient
 async def main():
     async with AsyncidentitystoreClient() as identitystore:
         # Default: 3 attempts for every operation
-        response = await identitystore.get_group_id()
+        response = await identitystore.create_group_membership()
 
         # Override per operation
-        response = await identitystore.get_group_id(config_overrides={"retry_max_attempts": 5})
+        response = await identitystore.create_group_membership(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await identitystore.get_group_id(config_overrides={"retry_max_attempts": 1})
+        response = await identitystore.create_group_membership(config_overrides={"retry_max_attempts": 1})
 ```

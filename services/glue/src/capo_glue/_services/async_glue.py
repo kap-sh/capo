@@ -1109,6 +1109,7 @@ class AsyncGlueClient:
 
         Raises:
             capo_glue.errors.already_exists_exception.AlreadyExistsException: <p>A resource to be created or added already exists.</p>
+            capo_glue.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
             capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
             capo_glue.errors.glue_encryption_exception.GlueEncryptionException: <p>An encryption operation failed.</p>
             capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
@@ -1223,6 +1224,7 @@ class AsyncGlueClient:
             partitions_to_delete: <p>A list of <code>PartitionInput</code> structures that define the partitions to be deleted.</p>
 
         Raises:
+            capo_glue.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
             capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
             capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
             capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
@@ -1284,6 +1286,7 @@ class AsyncGlueClient:
             transaction_id: <p>The transaction ID at which to delete the table contents.</p>
 
         Raises:
+            capo_glue.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
             capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
             capo_glue.errors.glue_encryption_exception.GlueEncryptionException: <p>An encryption operation failed.</p>
             capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
@@ -2112,6 +2115,7 @@ class AsyncGlueClient:
             entries: <p>A list of up to 100 <code>BatchUpdatePartitionRequestEntry</code> objects to update.</p>
 
         Raises:
+            capo_glue.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
             capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
             capo_glue.errors.glue_encryption_exception.GlueEncryptionException: <p>An encryption operation failed.</p>
             capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
@@ -2605,7 +2609,9 @@ class AsyncGlueClient:
         sample_size: Optional[
             "capo_glue.types.sample_size_percentage.SampleSizePercentage"
         ] = None,
-        catalog_id: Optional["capo_glue.types.name_string.NameString"] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
         security_configuration: Optional[
             "capo_glue.types.name_string.NameString"
         ] = None,
@@ -2768,6 +2774,9 @@ class AsyncGlueClient:
             "capo_glue.types.crawler_security_configuration.CrawlerSecurityConfiguration"
         ] = None,
         tags: Optional["capo_glue.types.tags_map.TagsMap"] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "capo_glue.types.create_crawler_response.CreateCrawlerResponse":
         """<p>Creates a new crawler with specified targets, role, configuration, and optional schedule. At least one crawl target must be specified, in the <code>s3Targets</code> field, the <code>jdbcTargets</code> field, or the <code>DynamoDBTargets</code> field.</p>
 
@@ -2787,6 +2796,7 @@ class AsyncGlueClient:
             configuration: <p>Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration options</a>.</p>
             crawler_security_configuration: <p>The name of the <code>SecurityConfiguration</code> structure to be used by this crawler.</p>
             tags: <p>The tags to use with this crawler request. You may use tags to limit access to the crawler. For more information about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a> in the developer guide.</p>
+            catalog_id: <p>The ID of the Data Catalog in which to store the crawler's output. If none is supplied, the Amazon Web Services account ID is used by default.</p>
 
         Raises:
             capo_glue.errors.already_exists_exception.AlreadyExistsException: <p>A resource to be created or added already exists.</p>
@@ -2841,6 +2851,8 @@ class AsyncGlueClient:
             input_["crawler_security_configuration"] = crawler_security_configuration
         if tags is not None:
             input_["tags"] = tags
+        if catalog_id is not None:
+            input_["catalog_id"] = catalog_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -5217,12 +5229,16 @@ class AsyncGlueClient:
         table_name: "capo_glue.types.name_string.NameString",
         *,
         config_overrides: Optional[AsyncGlueClientConfig] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "capo_glue.types.delete_column_statistics_task_settings_response.DeleteColumnStatisticsTaskSettingsResponse":
         """<p>Deletes settings for a column statistics task.</p>
 
         Args:
             database_name: <p>The name of the database where the table resides.</p>
             table_name: <p>The name of the table for which to delete column statistics.</p>
+            catalog_id: <p>The ID of the Data Catalog where the table resides. If none is supplied, the Amazon Web Services account ID is used by default.</p>
 
         Raises:
             capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
@@ -5251,6 +5267,8 @@ class AsyncGlueClient:
             "database_name": database_name,
             "table_name": table_name,
         }
+        if catalog_id is not None:
+            input_["catalog_id"] = catalog_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -7933,6 +7951,9 @@ class AsyncGlueClient:
         config_overrides: Optional[AsyncGlueClientConfig] = None,
         max_results: Optional["capo_glue.types.page_size.PageSize"] = None,
         next_token: Optional["capo_glue.types.token.Token"] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "capo_glue.types.get_column_statistics_task_runs_response.GetColumnStatisticsTaskRunsResponse":
         """<p>Retrieves information about all runs associated with the specified table.</p>
 
@@ -7941,6 +7962,7 @@ class AsyncGlueClient:
             table_name: <p>The name of the table.</p>
             max_results: <p>The maximum size of the response.</p>
             next_token: <p>A continuation token, if this is a continuation call.</p>
+            catalog_id: <p>The ID of the Data Catalog where the table resides. If none is supplied, the Amazon Web Services account ID is used by default.</p>
 
         Raises:
             capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
@@ -7971,6 +7993,8 @@ class AsyncGlueClient:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if catalog_id is not None:
+            input_["catalog_id"] = catalog_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -7988,6 +8012,9 @@ class AsyncGlueClient:
         config_overrides: Optional[AsyncGlueClientConfig] = None,
         max_results: Optional["capo_glue.types.page_size.PageSize"] = None,
         next_token: Optional["capo_glue.types.token.Token"] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "AsyncIterator[capo_glue.types.get_column_statistics_task_runs_response.GetColumnStatisticsTaskRunsResponse]":
         _token = next_token
         while True:
@@ -7997,6 +8024,7 @@ class AsyncGlueClient:
                 config_overrides=config_overrides,
                 max_results=max_results,
                 next_token=_token,
+                catalog_id=catalog_id,
             )
             yield _response
             _token = _resolve_path(_response, ("next_token",))
@@ -8009,12 +8037,16 @@ class AsyncGlueClient:
         table_name: "capo_glue.types.name_string.NameString",
         *,
         config_overrides: Optional[AsyncGlueClientConfig] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "capo_glue.types.get_column_statistics_task_settings_response.GetColumnStatisticsTaskSettingsResponse":
         """<p>Gets settings for a column statistics task.</p>
 
         Args:
             database_name: <p>The name of the database where the table resides.</p>
             table_name: <p>The name of the table for which to retrieve column statistics.</p>
+            catalog_id: <p>The ID of the Data Catalog where the table resides. If none is supplied, the Amazon Web Services account ID is used by default.</p>
 
         Raises:
             capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
@@ -8043,6 +8075,8 @@ class AsyncGlueClient:
             "database_name": database_name,
             "table_name": table_name,
         }
+        if catalog_id is not None:
+            input_["catalog_id"] = catalog_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -9952,7 +9986,7 @@ class AsyncGlueClient:
 
     async def get_materialized_view_refresh_task_run(
         self,
-        catalog_id: "capo_glue.types.name_string.NameString",
+        catalog_id: "capo_glue.types.catalog_id_string.CatalogIdString",
         materialized_view_refresh_task_run_id: "capo_glue.types.uui_dv4.UUIDv4",
         *,
         config_overrides: Optional[AsyncGlueClientConfig] = None,
@@ -14373,7 +14407,7 @@ class AsyncGlueClient:
 
     async def list_materialized_view_refresh_task_runs(
         self,
-        catalog_id: "capo_glue.types.name_string.NameString",
+        catalog_id: "capo_glue.types.catalog_id_string.CatalogIdString",
         *,
         config_overrides: Optional[AsyncGlueClientConfig] = None,
         database_name: Optional["capo_glue.types.name_string.NameString"] = None,
@@ -14435,7 +14469,7 @@ class AsyncGlueClient:
 
     async def iter_list_materialized_view_refresh_task_runs(
         self,
-        catalog_id: "capo_glue.types.name_string.NameString",
+        catalog_id: "capo_glue.types.catalog_id_string.CatalogIdString",
         *,
         config_overrides: Optional[AsyncGlueClientConfig] = None,
         database_name: Optional["capo_glue.types.name_string.NameString"] = None,
@@ -16712,7 +16746,9 @@ class AsyncGlueClient:
         sample_size: Optional[
             "capo_glue.types.sample_size_percentage.SampleSizePercentage"
         ] = None,
-        catalog_id: Optional["capo_glue.types.name_string.NameString"] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
         security_configuration: Optional[
             "capo_glue.types.name_string.NameString"
         ] = None,
@@ -16782,12 +16818,16 @@ class AsyncGlueClient:
         table_name: "capo_glue.types.name_string.NameString",
         *,
         config_overrides: Optional[AsyncGlueClientConfig] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "capo_glue.types.start_column_statistics_task_run_schedule_response.StartColumnStatisticsTaskRunScheduleResponse":
         """<p>Starts a column statistics task run schedule.</p>
 
         Args:
             database_name: <p>The name of the database where the table resides.</p>
             table_name: <p>The name of the table for which to start a column statistic task run schedule.</p>
+            catalog_id: <p>The ID of the Data Catalog where the table resides. If none is supplied, the Amazon Web Services account ID is used by default.</p>
 
         Raises:
             capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
@@ -16817,6 +16857,8 @@ class AsyncGlueClient:
             "database_name": database_name,
             "table_name": table_name,
         }
+        if catalog_id is not None:
+            input_["catalog_id"] = catalog_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -17308,7 +17350,7 @@ class AsyncGlueClient:
 
     async def start_materialized_view_refresh_task_run(
         self,
-        catalog_id: "capo_glue.types.name_string.NameString",
+        catalog_id: "capo_glue.types.catalog_id_string.CatalogIdString",
         database_name: "capo_glue.types.name_string.NameString",
         table_name: "capo_glue.types.name_string.NameString",
         *,
@@ -17577,12 +17619,16 @@ class AsyncGlueClient:
         table_name: "capo_glue.types.name_string.NameString",
         *,
         config_overrides: Optional[AsyncGlueClientConfig] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "capo_glue.types.stop_column_statistics_task_run_response.StopColumnStatisticsTaskRunResponse":
         """<p>Stops a task run for the specified table.</p>
 
         Args:
             database_name: <p>The name of the database where the table resides.</p>
             table_name: <p>The name of the table.</p>
+            catalog_id: <p>The ID of the Data Catalog where the table resides. If none is supplied, the Amazon Web Services account ID is used by default.</p>
 
         Raises:
             capo_glue.errors.column_statistics_task_not_running_exception.ColumnStatisticsTaskNotRunningException: <p>An exception thrown when you try to stop a task run when there is no task running.</p>
@@ -17612,6 +17658,8 @@ class AsyncGlueClient:
             "database_name": database_name,
             "table_name": table_name,
         }
+        if catalog_id is not None:
+            input_["catalog_id"] = catalog_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -17627,12 +17675,16 @@ class AsyncGlueClient:
         table_name: "capo_glue.types.name_string.NameString",
         *,
         config_overrides: Optional[AsyncGlueClientConfig] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "capo_glue.types.stop_column_statistics_task_run_schedule_response.StopColumnStatisticsTaskRunScheduleResponse":
         """<p>Stops a column statistics task run schedule.</p>
 
         Args:
             database_name: <p>The name of the database where the table resides.</p>
             table_name: <p>The name of the table for which to stop a column statistic task run schedule.</p>
+            catalog_id: <p>The ID of the Data Catalog where the table resides. If none is supplied, the Amazon Web Services account ID is used by default.</p>
 
         Raises:
             capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
@@ -17661,6 +17713,8 @@ class AsyncGlueClient:
             "database_name": database_name,
             "table_name": table_name,
         }
+        if catalog_id is not None:
+            input_["catalog_id"] = catalog_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -17764,7 +17818,7 @@ class AsyncGlueClient:
 
     async def stop_materialized_view_refresh_task_run(
         self,
-        catalog_id: "capo_glue.types.name_string.NameString",
+        catalog_id: "capo_glue.types.catalog_id_string.CatalogIdString",
         database_name: "capo_glue.types.name_string.NameString",
         table_name: "capo_glue.types.name_string.NameString",
         *,
@@ -18510,7 +18564,9 @@ class AsyncGlueClient:
         sample_size: Optional[
             "capo_glue.types.sample_size_percentage.SampleSizePercentage"
         ] = None,
-        catalog_id: Optional["capo_glue.types.name_string.NameString"] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
         security_configuration: Optional[
             "capo_glue.types.name_string.NameString"
         ] = None,
@@ -18665,6 +18721,9 @@ class AsyncGlueClient:
         crawler_security_configuration: Optional[
             "capo_glue.types.crawler_security_configuration.CrawlerSecurityConfiguration"
         ] = None,
+        catalog_id: Optional[
+            "capo_glue.types.catalog_id_string.CatalogIdString"
+        ] = None,
     ) -> "capo_glue.types.update_crawler_response.UpdateCrawlerResponse":
         """<p>Updates a crawler. If a crawler is running, you must stop it using <code>StopCrawler</code> before updating it.</p>
 
@@ -18683,6 +18742,7 @@ class AsyncGlueClient:
             lake_formation_configuration: <p>Specifies Lake Formation configuration settings for the crawler.</p>
             configuration: <p>Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration options</a>.</p>
             crawler_security_configuration: <p>The name of the <code>SecurityConfiguration</code> structure to be used by this crawler.</p>
+            catalog_id: <p>The ID of the Data Catalog in which to store the crawler's output. If you omit this value, the existing value on the crawler is preserved.</p>
 
         Raises:
             capo_glue.errors.crawler_running_exception.CrawlerRunningException: <p>The operation cannot be performed because the crawler is already running.</p>
@@ -18738,6 +18798,8 @@ class AsyncGlueClient:
             input_["configuration"] = configuration
         if crawler_security_configuration is not None:
             input_["crawler_security_configuration"] = crawler_security_configuration
+        if catalog_id is not None:
+            input_["catalog_id"] = catalog_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

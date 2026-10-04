@@ -449,6 +449,7 @@ if TYPE_CHECKING:
     import capo_rds.types.target_db_instance_class
     import capo_rds.types.target_db_parameter_group_name
     import capo_rds.types.target_engine_version
+    import capo_rds.types.target_resource_configuration_list
     import capo_rds.types.target_storage_type
     import capo_rds.types.tenant_database
     import capo_rds.types.tenant_databases_message
@@ -1446,6 +1447,9 @@ class RDSClient:
         target_storage_throughput: Optional[
             "capo_rds.types.integer_optional.IntegerOptional"
         ] = None,
+        target_resource_configurations: Optional[
+            "capo_rds.types.target_resource_configuration_list.TargetResourceConfigurationList"
+        ] = None,
     ) -> "capo_rds.types.create_blue_green_deployment_response.CreateBlueGreenDeploymentResponse":
         """<p>Creates a blue/green deployment.</p> <p>A blue/green deployment creates a staging environment that copies the production environment. In a blue/green deployment, the blue environment is the current production environment. The green environment is the staging environment, and it stays in sync with the current production environment.</p> <p>You can make changes to the databases in the green environment without affecting production workloads. For example, you can upgrade the major or minor DB engine version, change database parameters, or make schema changes in the staging environment. You can thoroughly test changes in the green environment. When ready, you can switch over the environments to promote the green environment to be the new production environment. The switchover typically takes under a minute.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html"> Using Amazon RDS Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.</p>
 
@@ -1462,6 +1466,7 @@ class RDSClient:
             target_storage_type: <p>The storage type to associate with the green DB instance.</p> <p>Valid Values: <code>gp2 | gp3 | io1 | io2</code> </p> <p>This setting doesn't apply to Amazon Aurora blue/green deployments.</p>
             target_allocated_storage: <p>The amount of storage in gibibytes (GiB) to allocate for the green DB instance. You can choose to increase or decrease the allocated storage on the green DB instance.</p> <p>This setting doesn't apply to Amazon Aurora blue/green deployments.</p>
             target_storage_throughput: <p>The storage throughput value for the green DB instance.</p> <p>This setting applies only to the <code>gp3</code> storage type.</p> <p>This setting doesn't apply to Amazon Aurora blue/green deployments.</p>
+            target_resource_configurations: <p>Specifies resource-level configuration overrides for the green environment.</p> <p>Each entry identifies a resource in the blue environment by its Amazon Resource Name (ARN). It defines the desired configuration for the corresponding resource in the green environment. Any resource that you don't include in this parameter retains the same configuration as its counterpart in the blue environment.</p> <p>Use this parameter when one or more resources in the green environment require a different configuration than what they have in the blue environment.</p> <p>Constraints:</p> <ul> <li> <p>You can't specify the same <code>SourceArn</code> in more than one entry.</p> </li> </ul>
 
         Raises:
             capo_rds.errors.blue_green_deployment_already_exists_fault.BlueGreenDeploymentAlreadyExistsFault: <p>A blue/green deployment with the specified name already exists.</p>
@@ -1531,6 +1536,8 @@ class RDSClient:
             input_["target_allocated_storage"] = target_allocated_storage
         if target_storage_throughput is not None:
             input_["target_storage_throughput"] = target_storage_throughput
+        if target_resource_configurations is not None:
+            input_["target_resource_configurations"] = target_resource_configurations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

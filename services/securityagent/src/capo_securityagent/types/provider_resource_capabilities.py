@@ -7,6 +7,7 @@ from typing_extensions import TypedDict
 from capo_securityagent.errors import DeserializationError, SerializationError
 
 if TYPE_CHECKING:
+    import capo_securityagent.types.azure_dev_ops_resource_capabilities
     import capo_securityagent.types.bitbucket_resource_capabilities
     import capo_securityagent.types.confluence_resource_capabilities
     import capo_securityagent.types.git_hub_resource_capabilities
@@ -29,11 +30,16 @@ class _ProviderResourceCapabilities_confluence(TypedDict, closed=True):
     confluence: "capo_securityagent.types.confluence_resource_capabilities.ConfluenceResourceCapabilities"
 
 
+class _ProviderResourceCapabilities_azureDevOps(TypedDict, closed=True):
+    azureDevOps: "capo_securityagent.types.azure_dev_ops_resource_capabilities.AzureDevOpsResourceCapabilities"
+
+
 ProviderResourceCapabilities: TypeAlias = (
     _ProviderResourceCapabilities_github
     | _ProviderResourceCapabilities_gitlab
     | _ProviderResourceCapabilities_bitbucket
     | _ProviderResourceCapabilities_confluence
+    | _ProviderResourceCapabilities_azureDevOps
 )
 
 
@@ -71,6 +77,14 @@ def serialize_json(value: ProviderResourceCapabilities) -> dict:
                 value["confluence"]
             )
         }
+    elif "azureDevOps" in value:
+        import capo_securityagent.types.azure_dev_ops_resource_capabilities
+
+        return {
+            "azureDevOps": capo_securityagent.types.azure_dev_ops_resource_capabilities.serialize_json(
+                value["azureDevOps"]
+            )
+        }
     else:
         raise SerializationError("ProviderResourceCapabilities: no variant present")
 
@@ -106,6 +120,14 @@ def deserialize_json(data: dict) -> ProviderResourceCapabilities:
         return {
             "confluence": capo_securityagent.types.confluence_resource_capabilities.deserialize_json(
                 data["confluence"]
+            )
+        }
+    elif data.get("azureDevOps") is not None:
+        import capo_securityagent.types.azure_dev_ops_resource_capabilities
+
+        return {
+            "azureDevOps": capo_securityagent.types.azure_dev_ops_resource_capabilities.deserialize_json(
+                data["azureDevOps"]
             )
         }
     else:

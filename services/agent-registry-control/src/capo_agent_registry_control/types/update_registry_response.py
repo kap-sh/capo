@@ -9,6 +9,7 @@ from capo_agent_registry_control.errors import DeserializationError
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.approval_configuration
     import capo_agent_registry_control.types.auto_detection
+    import capo_agent_registry_control.types.custom_metadata_schema_configuration
     import capo_agent_registry_control.types.date_timestamp
     import capo_agent_registry_control.types.description
     import capo_agent_registry_control.types.discovery_configuration
@@ -42,6 +43,10 @@ class UpdateRegistryResponse(TypedDict, closed=True):
         "capo_agent_registry_control.types.approval_configuration.ApprovalConfiguration"
     ]
     """<p>Approval configuration for registry records</p>"""
+    custom_metadata_schema_configuration: NotRequired[
+        "capo_agent_registry_control.types.custom_metadata_schema_configuration.CustomMetadataSchemaConfiguration"
+    ]
+    """<p>The custom metadata schema configuration for this registry, if one has been defined.</p>"""
     status: "capo_agent_registry_control.types.registry_status.RegistryStatus"
     """<p>Current status of the registry</p>"""
     status_reason: NotRequired["str"]
@@ -86,6 +91,14 @@ def serialize_json(value: UpdateRegistryResponse) -> dict:
         out["approvalConfiguration"] = (
             capo_agent_registry_control.types.approval_configuration.serialize_json(
                 value["approval_configuration"]
+            )
+        )
+    if "custom_metadata_schema_configuration" in value:
+        import capo_agent_registry_control.types.custom_metadata_schema_configuration
+
+        out["customMetadataSchemaConfiguration"] = (
+            capo_agent_registry_control.types.custom_metadata_schema_configuration.serialize_json(
+                value["custom_metadata_schema_configuration"]
             )
         )
     import capo_agent_registry_control.types.registry_status
@@ -154,6 +167,14 @@ def deserialize_json(data: dict) -> UpdateRegistryResponse:
         out["approval_configuration"] = (
             capo_agent_registry_control.types.approval_configuration.deserialize_json(
                 data["approvalConfiguration"]
+            )
+        )
+    if data.get("customMetadataSchemaConfiguration") is not None:
+        import capo_agent_registry_control.types.custom_metadata_schema_configuration
+
+        out["custom_metadata_schema_configuration"] = (
+            capo_agent_registry_control.types.custom_metadata_schema_configuration.deserialize_json(
+                data["customMetadataSchemaConfiguration"]
             )
         )
     if data.get("status") is not None:

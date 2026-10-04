@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 
 class ProvenanceSummary(TypedDict, closed=True):
     relation: "capo_agent_registry_control.types.provenance_relation.ProvenanceRelation"
+    """<p>The relationship between the registry record and its upstream source. <code>DETECTED_FROM</code> indicates that the record was auto-detected from the source resource.</p>"""
     source_id: "capo_agent_registry_control.types.source_id.SourceId"
     """<p>The identifier of the upstream source that the registry record was detected from.</p>"""
     source_type: NotRequired["capo_agent_registry_control.types.source_type.SourceType"]

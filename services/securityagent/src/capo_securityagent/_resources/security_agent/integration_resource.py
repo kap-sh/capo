@@ -32,6 +32,9 @@ if TYPE_CHECKING:
     import capo_securityagent.types.provider
     import capo_securityagent.types.provider_input
     import capo_securityagent.types.tag_map
+    import capo_securityagent.types.update_integration_input
+    import capo_securityagent.types.update_integration_output
+    import capo_securityagent.types.webhook_action
     from capo_securityagent._services.async_security_agent import (
         AsyncSecurityAgentClient,
         AsyncSecurityAgentClientConfig,
@@ -62,7 +65,7 @@ class IntegrationResource:
         """<p>Creates a new integration with a third-party provider, such as GitHub, for code review and remediation.</p>
 
         Args:
-            provider: <p>The integration provider. Currently, only GITHUB is supported.</p>
+            provider: <p>The integration provider.</p>
             input: <p>The provider-specific input required to create the integration.</p>
             integration_display_name: <p>The display name for the integration.</p>
             kms_key_id: <p>The identifier of the AWS KMS key to use for encrypting data associated with the integration.</p>
@@ -151,6 +154,57 @@ class IntegrationResource:
         interceptors_, options_ = self._service.operation_options(config_overrides)
         input_: capo_securityagent.types.get_integration_input.GetIntegrationInput = {
             "integration_id": integration_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update(
+        self,
+        integration_id: "capo_securityagent.types.integration_id.IntegrationId",
+        webhook_action: "capo_securityagent.types.webhook_action.WebhookAction",
+        *,
+        config_overrides: Optional[SecurityAgentClientConfig] = None,
+    ) -> "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput":
+        """<p>Creates an integration's webhook, or rotates the HMAC signing secret of an existing one. The secret is returned only once, in this response, and cannot be retrieved again.</p>
+
+        Args:
+            integration_id: <p>The ID of the integration whose webhook you want to create or rotate.</p>
+            webhook_action: <p>The action to perform on the integration's webhook.</p>
+
+        Raises:
+            capo_securityagent.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_securityagent.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the resource.</p>
+            capo_securityagent.errors.internal_server_exception.InternalServerException: <p>An unexpected error occurred during the processing of your request.</p>
+            capo_securityagent.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify that the resource identifier is correct and that the resource exists in the specified agent space or account.</p>
+            capo_securityagent.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_securityagent.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_securityagent.types.update_integration_input.UpdateIntegrationInput]",
+        ) -> OperationResponse[
+            "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput"
+        ]:
+            import capo_securityagent._operations.security_agent.update_integration
+
+            output, http_response = (
+                capo_securityagent._operations.security_agent.update_integration.update_integration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(config_overrides)
+        input_: capo_securityagent.types.update_integration_input.UpdateIntegrationInput = {
+            "integration_id": integration_id,
+            "webhook_action": webhook_action,
         }
 
         response = execute_pipeline(
@@ -287,7 +341,7 @@ class AsyncIntegrationResource:
         """<p>Creates a new integration with a third-party provider, such as GitHub, for code review and remediation.</p>
 
         Args:
-            provider: <p>The integration provider. Currently, only GITHUB is supported.</p>
+            provider: <p>The integration provider.</p>
             input: <p>The provider-specific input required to create the integration.</p>
             integration_display_name: <p>The display name for the integration.</p>
             kms_key_id: <p>The identifier of the AWS KMS key to use for encrypting data associated with the integration.</p>
@@ -378,6 +432,58 @@ class AsyncIntegrationResource:
         interceptors_, options_ = self._service.operation_options(config_overrides)
         input_: capo_securityagent.types.get_integration_input.GetIntegrationInput = {
             "integration_id": integration_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update(
+        self,
+        integration_id: "capo_securityagent.types.integration_id.IntegrationId",
+        webhook_action: "capo_securityagent.types.webhook_action.WebhookAction",
+        *,
+        config_overrides: Optional[AsyncSecurityAgentClientConfig] = None,
+    ) -> "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput":
+        """<p>Creates an integration's webhook, or rotates the HMAC signing secret of an existing one. The secret is returned only once, in this response, and cannot be retrieved again.</p>
+
+        Args:
+            integration_id: <p>The ID of the integration whose webhook you want to create or rotate.</p>
+            webhook_action: <p>The action to perform on the integration's webhook.</p>
+
+        Raises:
+            capo_securityagent.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_securityagent.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the resource.</p>
+            capo_securityagent.errors.internal_server_exception.InternalServerException: <p>An unexpected error occurred during the processing of your request.</p>
+            capo_securityagent.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify that the resource identifier is correct and that the resource exists in the specified agent space or account.</p>
+            capo_securityagent.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_securityagent.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityagent.types.update_integration_input.UpdateIntegrationInput]",
+        ) -> AsyncOperationResponse[
+            "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput"
+        ]:
+            import capo_securityagent._operations.security_agent.update_integration
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityagent._operations.security_agent.update_integration.async_update_integration(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(config_overrides)
+        input_: capo_securityagent.types.update_integration_input.UpdateIntegrationInput = {
+            "integration_id": integration_id,
+            "webhook_action": webhook_action,
         }
 
         response = await aexecute_pipeline(
