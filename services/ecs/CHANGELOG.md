@@ -1,5 +1,12 @@
 # aws-sdk-ecs
 
+## 0.19.0
+
+### Minor Changes
+
+- f3c2061: fix: links in operation and type docs rendering as relative URLs because of escaped quotes in docstrings
+- 5f29843: feat: add two more services, update smithy for 44 services
+
 ## 0.18.0
 
 ### Minor Changes
