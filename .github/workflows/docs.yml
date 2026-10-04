@@ -52,15 +52,3 @@ jobs:
           AWS_REQUEST_CHECKSUM_CALCULATION: when_required
           AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
         run: aws s3 sync site "s3://$BUCKET/_root" --delete --no-progress
-
-      # Without this the cache keeps serving the previous build for hours.
-      - name: Purge cache
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-        run: |
-          curl --fail-with-body -sS -X POST \
-            "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            -H "Content-Type: application/json" \
-            --data '{"purge_everything":true}'
