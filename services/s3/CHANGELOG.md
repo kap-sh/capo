@@ -1,5 +1,11 @@
 # aws-sdk-s3
 
+## 0.21.0
+
+### Minor Changes
+
+- 06bc1c4: feat(s3): add support for TransferManager
+
 ## 0.20.0
 
 ### Minor Changes
