@@ -63,6 +63,13 @@ packages:
       - id: astream
         match: '\bastream\b'
         replace: 'stream'
+      # tests/test_s3_transfer.py
+      - id: async-transfer-manager
+        match: '\bAsyncTransferManager\b'
+        replace: 'TransferManager'
+      - id: async-transfer-manager-fixture
+        match: '\basync_transfer_manager\b'
+        replace: 'transfer_manager'
       # tests/test_body.py
       - id: faulty-async-s3-fixture
         match: '\bfaulty_async_s3\b'

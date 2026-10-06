@@ -69,3 +69,10 @@ from ._services._pipeline import (
 )
 from ._services.async_s3 import AsyncS3Client as AsyncS3Client
 from ._services.s3 import S3Client as S3Client
+from ._transfer import AsyncTransferManager as AsyncTransferManager
+from ._transfer import AsyncUpload as AsyncUpload
+from ._transfer import Downloaded as Downloaded
+from ._transfer import TransferConfig as TransferConfig
+from ._transfer import TransferManager as TransferManager
+from ._transfer import Transferred as Transferred
+from ._transfer import Upload as Upload
