@@ -1,0 +1,109 @@
+/* Shared with every generated service's docs: `template/docs/stylesheets/extra.css`
+   is a symlink to this file, and scaffolding copies it into the package. */
+
+/* Text: 16px body on every screen width, medium-weight headings. */
+@media screen {
+  html {
+    font-size: 125%;
+  }
+
+  .md-typeset {
+    font-size: 0.8rem;
+    line-height: 1.75;
+    letter-spacing: normal;
+  }
+
+  .md-typeset h1,
+  .md-typeset h2,
+  .md-typeset h3 {
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: normal;
+  }
+
+  /* Not the API reference headings (`.doc-heading`): those are code, and long. */
+  .md-typeset h1:not(.doc-heading) {
+    font-size: 2.1rem;
+  }
+
+  .md-typeset h2:not(.doc-heading) {
+    font-size: 1.75rem;
+  }
+
+  .md-typeset h3:not(.doc-heading) {
+    font-size: 1.45rem;
+  }
+}
+
+/* Layout: a wider content column between the navigation and the table of contents. */
+.md-grid {
+  max-width: 64rem;
+}
+
+/* Header: search box, then the GitHub icon, then the theme switch. */
+.md-search {
+  order: 1;
+}
+
+.md-header__source {
+  order: 2;
+}
+
+.md-header__option {
+  order: 3;
+}
+
+@media screen and (min-width: 45em) {
+  .md-search__button,
+  .md-search__button:focus,
+  .md-search__button:hover {
+    width: 11.2rem;
+    color: var(--md-default-fg-color--light);
+    background-color: var(--md-default-bg-color);
+    border: 1px solid color-mix(in srgb, var(--md-default-fg-color) 20%, transparent);
+  }
+
+  .md-search__button:focus,
+  .md-search__button:hover {
+    border-color: var(--md-default-fg-color--lighter);
+  }
+
+  .md-search__button::before {
+    background-color: currentcolor;
+  }
+
+  /* The theme places the icon and the shortcut hint at fixed offsets, which the
+     border throws off. */
+  .md-search__button::before,
+  .md-search__button::after {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/* The repository link is just the icon: no name, stars or forks next to it. */
+.md-header .md-header__source {
+  width: auto;
+  margin-left: 0.4rem;
+}
+
+.md-header .md-source__repository {
+  display: none;
+}
+
+.md-header .md-source__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.md-header .md-source__icon svg {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+}
+
+.md-header .md-source,
+.md-header__option {
+  color: var(--md-default-fg-color--light);
+}
