@@ -1,9 +1,11 @@
 [project]
 site_name = "capo-mediaconvert"
 site_description = "Python SDK for AWS Mediaconvert."
-repo_url = "https://github.com/kap-sh/capo"
+repo_url = "https://github.com/kap-sh/capo/tree/main/services/mediaconvert"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"
+# Copied from the template; the same stylesheet styles the codegen's own docs.
+extra_css = ["stylesheets/extra.css"]
 
 # Every client method has its own page under
 # `<client>/{operations,paginators,waiters}/` and is listed here. The pages
@@ -148,15 +150,25 @@ features = [
     "toc.follow",
 ]
 
+[project.theme.font]
+text = "Geist"
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+
 [[project.theme.palette]]
 scheme = "default"
-toggle.icon = "lucide/sun"
+toggle.icon = "lucide/sun-moon"
 toggle.name = "Switch to dark mode"
 
 [[project.theme.palette]]
 scheme = "slate"
-toggle.icon = "lucide/moon"
+toggle.icon = "lucide/sun-moon"
 toggle.name = "Switch to light mode"
+
+[project.extra]
+# No "Made with Zensical" notice in the footer.
+generator = false
 
 [[project.extra.social]]
 icon = "fontawesome/brands/github"

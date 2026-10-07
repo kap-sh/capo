@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /Users/karenpetrosyan/aws-sdk-python && grep -rn \"upload_iter\\\\|UploadEvent\" --include=\"*.py\" --include=\"*.md\" --include=\"*.jinja*\" --include=\"*.j2\" . 2>/dev/null | grep -v \"/.venv/\" | head -50; echo ---; grep -rn \"upload_iter\\\\|UploadEvent\" ~/oss/new_capo --include=\"*\" -I 2>/dev/null | grep -v \"/.venv/\\\\|/node_modules/\\\\|/.git/\" | head -50)",
+      "Read(//Users/karenpetrosyan/aws-sdk-python/**)",
+      "Read(//Users/karenpetrosyan/oss/new_capo/**)",
+      "Bash(PYTHONPATH=src uv run python /private/tmp/claude-501/-Users-karenpetrosyan-aws-sdk-python-services-s3/544d605a-4053-4704-a7db-ad9012f59e08/scratchpad/check.py)",
+      "Bash(ls ~/oss 2>/dev/null | grep -i -E \"swift|transfer\" ; gh api repos/awslabs/aws-sdk-swift-s3-transfer-manager --jq '.full_name, .default_branch, .description' 2>&1 | head -5)",
+      "Read(//Users/karenpetrosyan/oss/**)",
+      "Bash(gh search *)",
+      "Bash(grep -v -E \"^$|SPDX|Copyright|All Rights\")"
+    ]
+  }
+}
