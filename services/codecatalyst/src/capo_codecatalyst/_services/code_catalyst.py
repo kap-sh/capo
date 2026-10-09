@@ -145,6 +145,7 @@ class CodeCatalystClientConfig(TypedDict, total=False, closed=True):
     region: str | None
     endpoint: str | None
     bearer_provider: BearerTokenProvider | None
+    anonymous: bool | None
 
 
 class CodeCatalystClient:
@@ -159,6 +160,7 @@ class CodeCatalystClient:
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
         bearer: Bearer token for authentication.
         bearer_provider: Provider that resolves bearer tokens. Takes precedence over ``bearer``.
+        anonymous: Send requests unsigned, without resolving credentials, even for operations that require authentication.
     """
 
     def __init__(
@@ -171,6 +173,7 @@ class CodeCatalystClient:
         endpoint: str | None = None,
         bearer: str | None = None,
         bearer_provider: BearerTokenProvider | None = None,
+        anonymous: bool | None = None,
     ):
         self._client = Client(http_handler).wrap_with_middleware(
             lambda next: AuthMiddleware(next)
@@ -189,6 +192,7 @@ class CodeCatalystClient:
                 "region": region,
                 "endpoint": endpoint,
                 "bearer_provider": bearer_provider,
+                "anonymous": anonymous,
             }
         )
 
@@ -218,6 +222,7 @@ class CodeCatalystClient:
             bearer_provider=overrides.get(
                 "bearer_provider", self._config.get("bearer_provider")
             ),
+            anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
 

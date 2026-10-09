@@ -178,7 +178,11 @@ def build_request(
     )
 
     headers["content-type"] = "application/vnd.amazon-eventstream"
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)
@@ -210,7 +214,11 @@ def async_build_request(
     )
 
     headers["content-type"] = "application/vnd.amazon-eventstream"
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

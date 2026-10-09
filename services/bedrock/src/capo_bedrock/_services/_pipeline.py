@@ -41,6 +41,7 @@ class OperationOptions:
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
     bearer_provider: BearerTokenProvider | None = None
+    anonymous: bool | None = None
 
 
 @dataclass
@@ -53,6 +54,7 @@ class AsyncOperationOptions:
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
     bearer_provider: BearerTokenProvider | None = None
+    anonymous: bool | None = None
 
 
 @dataclass

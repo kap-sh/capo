@@ -40,6 +40,7 @@ class OperationOptions:
     use_control_plane_endpoint: bool | None = None
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
+    anonymous: bool | None = None
 
 
 @dataclass
@@ -51,6 +52,7 @@ class AsyncOperationOptions:
     use_control_plane_endpoint: bool | None = None
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
+    anonymous: bool | None = None
 
 
 @dataclass

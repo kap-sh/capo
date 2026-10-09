@@ -40,6 +40,7 @@ class OperationOptions:
     endpoint: str | None = None
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
+    anonymous: bool | None = None
 
 
 @dataclass
@@ -51,6 +52,7 @@ class AsyncOperationOptions:
     endpoint: str | None = None
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
+    anonymous: bool | None = None
 
 
 @dataclass

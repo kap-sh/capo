@@ -109,7 +109,11 @@ def build_request(
         params.append(("versionIdentifier", input_["version_identifier"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

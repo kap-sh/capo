@@ -133,7 +133,11 @@ def build_request(
     if "e_tag" in input_:
         headers["x-amzn-update-if-match"] = input_["e_tag"]
     body: bytes | None = b""
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

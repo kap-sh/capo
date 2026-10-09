@@ -168,6 +168,7 @@ class AsyncKinesisClientConfig(TypedDict, total=False, closed=True):
     account_id: str | None
     account_id_endpoint_mode: str | None
     credentials_provider: IdentityProvider[Credentials] | None
+    anonymous: bool | None
 
 
 class AsyncKinesisClient:
@@ -185,6 +186,7 @@ class AsyncKinesisClient:
         account_id_endpoint_mode: The value of the ``AWS::Auth::AccountIdEndpointMode`` endpoint parameter.
         credentials: AWS credentials for request signing.
         credentials_provider: Provider that resolves AWS credentials. Takes precedence over ``credentials``.
+        anonymous: Send requests unsigned, without resolving credentials, even for operations that require authentication.
     """
 
     def __init__(
@@ -200,6 +202,7 @@ class AsyncKinesisClient:
         account_id_endpoint_mode: str | None = None,
         credentials: Credentials | None = None,
         credentials_provider: CredentialsProvider | None = None,
+        anonymous: bool | None = None,
     ):
         self._client = AsyncClient(http_handler).wrap_with_middleware(
             lambda next: AuthMiddleware(next)
@@ -228,6 +231,7 @@ class AsyncKinesisClient:
                 "account_id": account_id,
                 "account_id_endpoint_mode": account_id_endpoint_mode,
                 "credentials_provider": resolved_credentials_provider,
+                "anonymous": anonymous,
             }
         )
 
@@ -260,6 +264,7 @@ class AsyncKinesisClient:
             credentials_provider=overrides.get(
                 "credentials_provider", self._config.get("credentials_provider")
             ),
+            anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
 

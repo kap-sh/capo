@@ -148,7 +148,11 @@ def build_request(
         SubElement(root, "WebACLArn").text = input_["web_acl_arn"]
     body: bytes | None = tostring(root)
     headers["content-type"] = "application/xml"
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

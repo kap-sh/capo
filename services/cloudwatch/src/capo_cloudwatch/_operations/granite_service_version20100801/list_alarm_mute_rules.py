@@ -116,7 +116,11 @@ def build_request(
     capo_cloudwatch.types.list_alarm_mute_rules_input.serialize_query(input_, pairs, "")
     body: bytes | None = urlencode(pairs).encode()
     headers["content-type"] = "application/x-www-form-urlencoded"
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

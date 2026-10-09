@@ -118,7 +118,11 @@ def build_request(
     if "expected_bucket_owner" in input_:
         headers["x-amz-expected-bucket-owner"] = input_["expected_bucket_owner"]
     body: bytes | None = b""
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

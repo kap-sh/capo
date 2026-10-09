@@ -45,6 +45,7 @@ class OperationOptions:
     is_search_operation: bool | None = None
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
+    anonymous: bool | None = None
 
 
 @dataclass
@@ -61,6 +62,7 @@ class AsyncOperationOptions:
     is_search_operation: bool | None = None
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
+    anonymous: bool | None = None
 
 
 @dataclass

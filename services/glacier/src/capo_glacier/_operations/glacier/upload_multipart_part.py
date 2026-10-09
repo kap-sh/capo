@@ -154,7 +154,11 @@ def build_request(
         header.lower() for header in headers
     ]:
         raise ValueError("Content-Length is required for streaming input")
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)
@@ -206,7 +210,11 @@ async def async_build_request(
         header.lower() for header in headers
     ]:
         raise ValueError("Content-Length is required for streaming input")
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

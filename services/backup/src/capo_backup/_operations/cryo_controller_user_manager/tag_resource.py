@@ -105,7 +105,11 @@ def build_request(
         capo_backup.types.tag_resource_input.serialize_json(input_), allow_nan=False
     ).encode()
     headers["content-type"] = "application/json"
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)
