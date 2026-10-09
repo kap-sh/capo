@@ -1,5 +1,12 @@
 # aws-sdk-acm-pca
 
+## 0.7.0
+
+### Minor Changes
+
+- 64d5d1a: fix: fail waiters on unmatched errors and add jitter to polling delay
+- 3f69a13: feat add anonymous option to send unsigned requests
+
 ## 0.6.0
 
 ### Minor Changes

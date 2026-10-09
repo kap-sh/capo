@@ -1,5 +1,13 @@
 # aws-sdk-cloudformation
 
+## 0.7.0
+
+### Minor Changes
+
+- 64d5d1a: fix: fail waiters on unmatched errors and add jitter to polling delay
+- 3f69a13: feat add anonymous option to send unsigned requests
+- 998a58e: feat: sync smithy models for 25 services with upstream (2026-10-08) and regenerate the 18 with API changes
+
 ## 0.6.0
 
 ### Minor Changes

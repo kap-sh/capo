@@ -1,5 +1,11 @@
 # aws-sdk-connectcampaignsv2
 
+## 0.6.0
+
+### Minor Changes
+
+- 3f69a13: feat add anonymous option to send unsigned requests
+
 ## 0.5.0
 
 ### Minor Changes
