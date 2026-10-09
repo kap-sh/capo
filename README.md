@@ -37,10 +37,6 @@ uv add capo-cloudfront                 # Amazon CloudFront
 ```
 
 Note that Amazon VPC has no separate package — its API is part of EC2, so `capo-ec2` covers it.
-
-### Services not yet on PyPI
-
-Not every service is on PyPI yet. We publish incrementally because of PyPI's limits on new projects and total upload size. If the service you need isn't published, please [open an issue](https://github.com/kap-sh/capo/issues) so we can prioritize publishing it.
 <!-- --8<-- [end:intro] -->
 
 <!-- --8<-- [start:usage] -->
