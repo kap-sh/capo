@@ -1,5 +1,12 @@
 # aws-sdk-glacier
 
+## 0.5.0
+
+### Minor Changes
+
+- 64d5d1a: fix: fail waiters on unmatched errors and add jitter to polling delay
+- 3f69a13: feat add anonymous option to send unsigned requests
+
 ## 0.4.0
 
 ### Minor Changes

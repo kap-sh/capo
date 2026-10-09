@@ -1,5 +1,11 @@
 # aws-sdk-bedrock
 
+## 0.10.0
+
+### Minor Changes
+
+- 3f69a13: feat add anonymous option to send unsigned requests
+
 ## 0.9.0
 
 ### Minor Changes
