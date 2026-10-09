@@ -248,6 +248,7 @@
 - [EBSOptionsStatus](ebs_options_status.md)
 - [EncryptionAtRestOptions](encryption_at_rest_options.md)
 - [EncryptionAtRestOptionsStatus](encryption_at_rest_options_status.md)
+- [EncryptionMode](encryption_mode.md)
 - [Endpoint](endpoint.md)
 - [EndpointsMap](endpoints_map.md)
 - [EngineMode](engine_mode.md)

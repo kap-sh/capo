@@ -79,7 +79,7 @@ class JobRun(TypedDict, closed=True):
     execution_timeout_minutes: NotRequired[
         "capo_emr_serverless.types.duration.Duration"
     ]
-    """<p>Returns the job run timeout value from the <code>StartJobRun</code> call. If no timeout was specified, then it returns the default timeout of 720 minutes.</p>"""
+    """<p>Returns the job run timeout value from the <code>StartJobRun</code> call. If you didn't specify a timeout, this value defaults to 720 minutes.</p> <p>For BATCH mode job runs, the maximum value is 10080 minutes (7 days) starting with Amazon EMR release 7.11.</p>"""
     billed_resource_utilization: NotRequired[
         "capo_emr_serverless.types.resource_utilization.ResourceUtilization"
     ]

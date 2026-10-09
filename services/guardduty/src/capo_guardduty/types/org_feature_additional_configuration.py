@@ -6,6 +6,7 @@ OrgFeatureAdditionalConfiguration: TypeAlias = Literal[
     "EKS_ADDON_MANAGEMENT",
     "ECS_FARGATE_AGENT_MANAGEMENT",
     "EC2_AGENT_MANAGEMENT",
+    "RDS_DATA_RISK",
 ]
 
 

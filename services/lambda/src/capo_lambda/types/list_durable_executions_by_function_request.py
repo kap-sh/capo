@@ -21,7 +21,7 @@ class ListDurableExecutionsByFunctionRequest(TypedDict, closed=True):
     qualifier: NotRequired[
         "capo_lambda.types.numeric_latest_published_or_alias_qualifier.NumericLatestPublishedOrAliasQualifier"
     ]
-    """<p>The function version or alias. If not specified, lists executions for the $LATEST version.</p>"""
+    """<p>The function version to filter executions by. If you don't specify a qualifier, this operation returns executions across all versions of the Lambda function.</p>"""
     durable_execution_name: NotRequired[
         "capo_lambda.types.durable_execution_name.DurableExecutionName"
     ]

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListTenantsRequest(TypedDict, closed=True):
     filter: NotRequired["capo_sesv2.types.list_tenants_filter.ListTenantsFilter"]
-    """<p>An object that contains filters to apply when listing tenants. You can filter by tenant name or sending status.</p>"""
+    """<p>An object that contains filters to apply when listing tenants. You can filter by a substring of the tenant name or by sending status.</p>"""
     next_token: NotRequired["capo_sesv2.types.next_token.NextToken"]
     """<p>A token returned from a previous call to <code>ListTenants</code> to indicate the position in the list of tenants.</p>"""
     page_size: NotRequired["capo_sesv2.types.max_items.MaxItems"]

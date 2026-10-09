@@ -184,6 +184,7 @@
 - [FailedStackInstancesCount](failed_stack_instances_count.md)
 - [FailureToleranceCount](failure_tolerance_count.md)
 - [FailureTolerancePercentage](failure_tolerance_percentage.md)
+- [ForceRollback](force_rollback.md)
 - [GeneratedTemplateDeletionPolicy](generated_template_deletion_policy.md)
 - [GeneratedTemplateId](generated_template_id.md)
 - [GeneratedTemplateName](generated_template_name.md)

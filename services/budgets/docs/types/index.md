@@ -112,6 +112,8 @@
 - [PlannedBudgetLimits](planned_budget_limits.md)
 - [PolicyArn](policy_arn.md)
 - [PolicyId](policy_id.md)
+- [ProductAttributeName](product_attribute_name.md)
+- [ProductAttributeValues](product_attribute_values.md)
 - [Region](region.md)
 - [ResourceTag](resource_tag.md)
 - [ResourceTagKey](resource_tag_key.md)

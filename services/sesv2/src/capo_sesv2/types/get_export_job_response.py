@@ -27,7 +27,7 @@ class GetExportJobResponse(TypedDict, closed=True):
     export_destination: NotRequired[
         "capo_sesv2.types.export_destination.ExportDestination"
     ]
-    """<p>The destination of the export job.</p>"""
+    """<p>The destination of the export job. When <code>JobStatus</code> is <code>COMPLETED</code>, this object includes <code>S3Url</code>, a pre-signed URL that you use to download the export file.</p>"""
     export_data_source: NotRequired[
         "capo_sesv2.types.export_data_source.ExportDataSource"
     ]

@@ -79,6 +79,8 @@ if TYPE_CHECKING:
     import capo_securityhub.types.batch_update_standards_control_associations_request
     import capo_securityhub.types.batch_update_standards_control_associations_response
     import capo_securityhub.types.boolean
+    import capo_securityhub.types.cancel_export_job_v2_request
+    import capo_securityhub.types.cancel_export_job_v2_response
     import capo_securityhub.types.client_token
     import capo_securityhub.types.configuration_policy_association_summary
     import capo_securityhub.types.configuration_policy_associations_list
@@ -181,6 +183,15 @@ if TYPE_CHECKING:
     import capo_securityhub.types.enable_security_hub_v2_request
     import capo_securityhub.types.enable_security_hub_v2_response
     import capo_securityhub.types.enablement_status
+    import capo_securityhub.types.export_data_type
+    import capo_securityhub.types.export_destination
+    import capo_securityhub.types.export_job_id
+    import capo_securityhub.types.export_max_results
+    import capo_securityhub.types.export_name
+    import capo_securityhub.types.export_output
+    import capo_securityhub.types.export_scopes
+    import capo_securityhub.types.export_status
+    import capo_securityhub.types.export_summary
     import capo_securityhub.types.exposure_finding
     import capo_securityhub.types.feature_name
     import capo_securityhub.types.field_map
@@ -208,6 +219,8 @@ if TYPE_CHECKING:
     import capo_securityhub.types.get_connector_v2_response
     import capo_securityhub.types.get_enabled_standards_request
     import capo_securityhub.types.get_enabled_standards_response
+    import capo_securityhub.types.get_export_job_v2_request
+    import capo_securityhub.types.get_export_job_v2_response
     import capo_securityhub.types.get_finding_aggregator_request
     import capo_securityhub.types.get_finding_aggregator_response
     import capo_securityhub.types.get_finding_history_request
@@ -265,6 +278,8 @@ if TYPE_CHECKING:
     import capo_securityhub.types.list_connectors_v2_response
     import capo_securityhub.types.list_enabled_products_for_import_request
     import capo_securityhub.types.list_enabled_products_for_import_response
+    import capo_securityhub.types.list_export_jobs_v2_request
+    import capo_securityhub.types.list_export_jobs_v2_response
     import capo_securityhub.types.list_exposures_by_remediation_v2_request
     import capo_securityhub.types.list_exposures_by_remediation_v2_response
     import capo_securityhub.types.list_finding_aggregators_request
@@ -339,6 +354,8 @@ if TYPE_CHECKING:
     import capo_securityhub.types.start_configuration_policy_association_response
     import capo_securityhub.types.start_configuration_policy_disassociation_request
     import capo_securityhub.types.start_configuration_policy_disassociation_response
+    import capo_securityhub.types.start_export_job_v2_request
+    import capo_securityhub.types.start_export_job_v2_response
     import capo_securityhub.types.string_list
     import capo_securityhub.types.tag_key_list
     import capo_securityhub.types.tag_map
@@ -1315,6 +1332,63 @@ class AsyncSecurityHubClient:
             input_["standards_control_association_updates"] = (
                 standards_control_association_updates
             )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def cancel_export_job_v2(
+        self,
+        export_job_id: "capo_securityhub.types.export_job_id.ExportJobId",
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+    ) -> (
+        "capo_securityhub.types.cancel_export_job_v2_response.CancelExportJobV2Response"
+    ):
+        """<p>Cancels a findings export job that is in progress. Security Hub transitions a running job to the <code>CANCELLED</code> state and returns the <code>ExportJobId</code> and its new <code>Status</code>. Canceling a job that is already in the <code>CANCELLED</code> state succeeds and returns the same result, so you can safely retry a cancel request.</p> <p>You can't cancel an export job that has already reached a terminal <code>SUCCEEDED</code> or <code>FAILED</code> state; in that case, this operation returns a <code>ConflictException</code>. If no export job matches the <code>ExportJobId</code> that you provide, this operation returns a <code>ResourceNotFoundException</code>.</p> <p>The <code>Status</code> value returned by this operation reflects the cancellation immediately, even though the job can take a short time to stop completely.</p>
+
+        Args:
+            export_job_id: <p>The unique identifier of the export job to cancel. This is the value returned by <code>StartExportJobV2</code>.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.conflict_exception.ConflictException: <p>The request causes conflict with the current state of the service resource.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because we can't find the specified resource.</p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example – Canceling a running export job
+            The following example cancels an export job that is in progress. Security Hub transitions the job to the CANCELLED state and returns its new status.
+
+            >>> await client.cancel_export_job_v2(export_job_id='a1b2c3d4e5f6')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityhub.types.cancel_export_job_v2_request.CancelExportJobV2Request]",
+        ) -> AsyncOperationResponse[
+            "capo_securityhub.types.cancel_export_job_v2_response.CancelExportJobV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.cancel_export_job_v2
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityhub._operations.security_hub_api_service.cancel_export_job_v2.async_cancel_export_job_v2(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_securityhub.types.cancel_export_job_v2_request.CancelExportJobV2Request = {
+            "export_job_id": export_job_id
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -4439,6 +4513,64 @@ class AsyncSecurityHubClient:
             if not _token:
                 break
 
+    async def get_export_job_v2(
+        self,
+        export_job_id: "capo_securityhub.types.export_job_id.ExportJobId",
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+    ) -> "capo_securityhub.types.get_export_job_v2_response.GetExportJobV2Response":
+        """<p>Returns the details of a single findings export job, including its current <code>Status</code>, the <code>Destination</code> it writes to, the <code>OutputConfiguration</code> it was started with, and its <code>StartedAt</code> and <code>EndedAt</code> timestamps. Use this operation to poll an export job that you started with <code>StartExportJobV2</code> until it reaches a terminal state (<code>SUCCEEDED</code>, <code>FAILED</code>, or <code>CANCELLED</code>).</p> <p>If the job failed, the response includes a <code>FailureCode</code> and <code>FailureMessage</code> that describe the reason. Input values such as <code>Scopes</code> and <code>Filters</code> are echoed back as they were submitted, with relative date ranges returned unresolved. If no export job matches the <code>ExportJobId</code> that you provide, this operation returns a <code>ResourceNotFoundException</code>.</p>
+
+        Args:
+            export_job_id: <p>The unique identifier of the export job to retrieve. This is the value returned by <code>StartExportJobV2</code>.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request was rejected because we can't find the specified resource.</p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example – Getting the details of a failed export job
+            The following example retrieves an export job that failed because Security Hub couldn't write to the destination. The FailureCode and FailureMessage explain the cause.
+
+            >>> await client.get_export_job_v2(export_job_id='f6e5d4c3b2a1')
+            Example – Getting the details of a completed export job
+            The following example retrieves an export job that has finished successfully. The output is available in the destination bucket.
+
+            >>> await client.get_export_job_v2(export_job_id='a1b2c3d4e5f6')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityhub.types.get_export_job_v2_request.GetExportJobV2Request]",
+        ) -> AsyncOperationResponse[
+            "capo_securityhub.types.get_export_job_v2_response.GetExportJobV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.get_export_job_v2
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityhub._operations.security_hub_api_service.get_export_job_v2.async_get_export_job_v2(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_securityhub.types.get_export_job_v2_request.GetExportJobV2Request = {
+            "export_job_id": export_job_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_finding_aggregator(
         self,
         finding_aggregator_arn: "capo_securityhub.types.non_empty_string.NonEmptyString",
@@ -6392,6 +6524,104 @@ class AsyncSecurityHubClient:
             if not _token:
                 break
 
+    async def list_export_jobs_v2(
+        self,
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+        status: Optional["capo_securityhub.types.export_status.ExportStatus"] = None,
+        data_type: Optional[
+            "capo_securityhub.types.export_data_type.ExportDataType"
+        ] = None,
+        max_results: Optional[
+            "capo_securityhub.types.export_max_results.ExportMaxResults"
+        ] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+    ) -> "capo_securityhub.types.list_export_jobs_v2_response.ListExportJobsV2Response":
+        """<p>Returns the findings export jobs in your account as a paginated list of <code>ExportSummary</code> objects. You can filter the results by job <code>Status</code> or <code>DataType</code>.</p> <p>To page through the results, use the <code>MaxResults</code> and <code>NextToken</code> parameters. If the response includes a <code>NextToken</code> value, pass it in a subsequent request to retrieve the next page of results.</p> <p>Each <code>ExportSummary</code> reports the output <code>Format</code> of the job but not its full <code>OutputConfiguration</code>. To retrieve the filters and selected fields that a job was started with, call <code>GetExportJobV2</code>.</p>
+
+        Args:
+            status: <p>Filters the results to export jobs that have the specified status.</p>
+            data_type: <p>Filters the results to export jobs that produce the specified data type.</p>
+            max_results: <p>The maximum number of results to return in a single call. Valid range is 1–20.</p>
+            next_token: <p>The token required for pagination. On your first call, set the value of this parameter to <code>NULL</code>. For subsequent calls, to continue listing data, set the value of this parameter to the value returned in the previous response.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example – Listing successful findings export jobs
+            The following example lists the findings export jobs in the account that have succeeded, returning up to 10 results per page.
+
+            >>> await client.list_export_jobs_v2(status='SUCCEEDED', data_type='FINDINGS', max_results=10)
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityhub.types.list_export_jobs_v2_request.ListExportJobsV2Request]",
+        ) -> AsyncOperationResponse[
+            "capo_securityhub.types.list_export_jobs_v2_response.ListExportJobsV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.list_export_jobs_v2
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityhub._operations.security_hub_api_service.list_export_jobs_v2.async_list_export_jobs_v2(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_securityhub.types.list_export_jobs_v2_request.ListExportJobsV2Request = {}
+        if status is not None:
+            input_["status"] = status
+        if data_type is not None:
+            input_["data_type"] = data_type
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_export_jobs_v2(
+        self,
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+        status: Optional["capo_securityhub.types.export_status.ExportStatus"] = None,
+        data_type: Optional[
+            "capo_securityhub.types.export_data_type.ExportDataType"
+        ] = None,
+        max_results: Optional[
+            "capo_securityhub.types.export_max_results.ExportMaxResults"
+        ] = None,
+        next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
+    ) -> "AsyncIterator[capo_securityhub.types.export_summary.ExportSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_export_jobs_v2(
+                config_overrides=config_overrides,
+                status=status,
+                data_type=data_type,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def list_exposures_by_remediation_v2(
         self,
         *,
@@ -7305,6 +7535,90 @@ class AsyncSecurityHubClient:
             input_["target"] = target
         if configuration_policy_identifier is not None:
             input_["configuration_policy_identifier"] = configuration_policy_identifier
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def start_export_job_v2(
+        self,
+        *,
+        config_overrides: Optional[AsyncSecurityHubClientConfig] = None,
+        name: Optional["capo_securityhub.types.export_name.ExportName"] = None,
+        destination: Optional[
+            "capo_securityhub.types.export_destination.ExportDestination"
+        ] = None,
+        output_configuration: Optional[
+            "capo_securityhub.types.export_output.ExportOutput"
+        ] = None,
+        scopes: Optional["capo_securityhub.types.export_scopes.ExportScopes"] = None,
+        client_token: Optional[
+            "capo_securityhub.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_securityhub.types.start_export_job_v2_response.StartExportJobV2Response":
+        """<p>Starts an ad hoc export job that writes Security Hub findings to an Amazon Simple Storage Service (Amazon S3) bucket that you own. Because the export runs asynchronously, this operation returns only the <code>ExportJobId</code> of the new job; it doesn't wait for the export to finish. Use <code>GetExportJobV2</code> to poll the job, and <code>ListExportJobsV2</code> to view the export jobs in your account.</p> <p>Security Hub allows only one export job in the <code>RUNNING</code> state per account at a time. If an export job is already running, this operation returns a <code>ServiceQuotaExceededException</code>. Wait for the running job to finish, or cancel it with <code>CancelExportJobV2</code>, before you start a new one.</p> <p>Specify the destination bucket and Amazon Web Services Key Management Service (Amazon Web Services KMS) key in the <code>Destination</code> parameter, and the output format (<code>CSV</code> or <code>OCSF_JSON</code>), optional filters, and field selection in the <code>OutputConfiguration</code> parameter. Before you call this operation, you must grant Security Hub permission to write to your bucket and use your Amazon Web Services KMS key by adding the bucket policy and key policy statements shown in the Examples section.</p> <p>Two identities use your Amazon Web Services KMS key, and each needs its own permission. Security Hub uses the key when it writes the export objects to your bucket. The IAM principal that calls <code>StartExportJobV2</code> must also have <code>kms:GenerateDataKey</code> and <code>kms:Decrypt</code> permissions on the key. The Examples section shows both grants.</p> <p>A delegated administrator can use the optional <code>Scopes</code> parameter to export findings for specific organizations or organizational units (OUs).</p> <p>To make the request idempotent, provide a <code>ClientToken</code>. If you retry a <code>StartExportJobV2</code> request with the same <code>ClientToken</code> and the same request parameters, Security Hub returns the <code>ExportJobId</code> of the original job instead of starting a new one. If you reuse a <code>ClientToken</code> with different request parameters, this operation returns a <code>ConflictException</code>.</p>
+
+        Args:
+            name: <p>An optional, user-provided name for the export job that helps you identify it in <code>ListExportJobsV2</code> results. The value can be 1–256 characters. Alphanumeric characters, spaces, and the following ASCII characters are permitted: <code>. _ , : ( ) / + -</code>.</p>
+            destination: <p>The destination that Security Hub writes the export to. You must specify exactly one destination type. Currently, the only supported type is Amazon S3.</p>
+            output_configuration: <p>Specifies what data to export and how to format it. You must specify exactly one output type. Currently, the only supported type is <code>Findings</code>.</p>
+            scopes: <p>Limits the export to findings from specific organizational units (OUs) or from the delegated administrator's organization. Only the delegated administrator account can use this parameter; other accounts that specify it receive an <code>AccessDeniedException</code>.</p> <p>This parameter is optional. If you omit it, the delegated administrator exports findings from all accounts across the entire organization, and other accounts export only their own findings.</p> <p>You can specify up to 10 entries in <code>Scopes.AwsOrganizations</code>. If you specify multiple entries, Security Hub combines them using OR logic.</p>
+            client_token: <p>A unique identifier used to ensure idempotency.</p>
+
+        Raises:
+            capo_securityhub.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action specified in the request.</p>
+            capo_securityhub.errors.conflict_exception.ConflictException: <p>The request causes conflict with the current state of the service resource.</p>
+            capo_securityhub.errors.internal_server_exception.InternalServerException: <p> The request has failed due to an internal failure of the service. </p>
+            capo_securityhub.errors.organizational_unit_not_found_exception.OrganizationalUnitNotFoundException: <p>The request failed because one or more organizational units specified in the request don't exist within the caller's organization.</p>
+            capo_securityhub.errors.organization_not_found_exception.OrganizationNotFoundException: <p>The request failed because one or more organizations specified in the request don't exist or don't belong to the caller's organization.</p>
+            capo_securityhub.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request was rejected because it would exceed the service quota limit.</p>
+            capo_securityhub.errors.throttling_exception.ThrottlingException: <p> The limit on the number of requests per second was exceeded. </p>
+            capo_securityhub.errors.validation_exception.ValidationException: <p>The request has failed validation because it's missing required fields or has invalid inputs.</p>
+            capo_securityhub.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example – Starting a CSV export of critical findings
+            The following example starts an export that writes selected fields of new, critical findings to an Amazon S3 bucket in CSV format.
+
+            >>> await client.start_export_job_v2(name='quarterly-critical-findings', destination={'S3': {'BucketArn': 'arn:aws:s3:::amzn-s3-demo-bucket', 'KmsKeyArn': 'arn:aws:kms:aa-example-1:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab', 'ObjectPrefix': 'security-hub-exports/2026-Q1'}}, output_configuration={'Findings': {'Format': 'CSV', 'SelectedFields': ['finding_info.title', 'severity', 'status', 'cloud.account.uid', 'resources.uid'], 'Filters': {'CompositeOperator': 'AND', 'CompositeFilters': [{'Operator': 'AND', 'StringFilters': [{'FieldName': 'severity', 'Filter': {'Value': 'Critical', 'Comparison': 'EQUALS'}}, {'FieldName': 'status', 'Filter': {'Value': 'New', 'Comparison': 'EQUALS'}}]}]}}}, client_token='b3d1f9a2-1c4e-4b9a-9f2e-EXAMPLE11111')
+            Example – Starting an OCSF JSON export scoped to an organizational unit
+            The following example, run by a delegated administrator, starts an export of the last 30 days of findings for a specific organizational unit (OU) in OCSF JSON format.
+
+            >>> await client.start_export_job_v2(destination={'S3': {'BucketArn': 'arn:aws:s3:::amzn-s3-demo-bucket', 'KmsKeyArn': 'arn:aws:kms:aa-example-1:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'}}, output_configuration={'Findings': {'Format': 'OCSF_JSON', 'Filters': {'CompositeOperator': 'AND', 'CompositeFilters': [{'Operator': 'AND', 'DateFilters': [{'FieldName': 'finding_info.last_seen_time_dt', 'Filter': {'DateRange': {'Value': 30, 'Unit': 'DAYS', 'Comparison': 'WITHIN'}}}]}]}}}, scopes={'AwsOrganizations': [{'OrganizationalUnitId': 'ou-1234-a1b2c3d4'}]})
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_securityhub.types.start_export_job_v2_request.StartExportJobV2Request]",
+        ) -> AsyncOperationResponse[
+            "capo_securityhub.types.start_export_job_v2_response.StartExportJobV2Response"
+        ]:
+            import capo_securityhub._operations.security_hub_api_service.start_export_job_v2
+
+            (
+                output,
+                http_response,
+            ) = await capo_securityhub._operations.security_hub_api_service.start_export_job_v2.async_start_export_job_v2(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_securityhub.types.start_export_job_v2_request.StartExportJobV2Request = {}
+        if name is not None:
+            input_["name"] = name
+        if destination is not None:
+            input_["destination"] = destination
+        if output_configuration is not None:
+            input_["output_configuration"] = output_configuration
+        if scopes is not None:
+            input_["scopes"] = scopes
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

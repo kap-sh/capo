@@ -19,7 +19,6 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "jmespath>=1.0",
     "zapros>=0.13.0",
 ]
 

@@ -67,6 +67,8 @@ if TYPE_CHECKING:
     import capo_security_ir.types.get_case_attachment_upload_url_response
     import capo_security_ir.types.get_case_request
     import capo_security_ir.types.get_case_response
+    import capo_security_ir.types.get_finding_metrics_request
+    import capo_security_ir.types.get_finding_metrics_response
     import capo_security_ir.types.get_membership_request
     import capo_security_ir.types.get_membership_response
     import capo_security_ir.types.impacted_accounts
@@ -1967,6 +1969,71 @@ class AsyncSecurityIRClient:
         interceptors_, options_ = self.operation_options(config_overrides)
         input_: capo_security_ir.types.cancel_membership_request.CancelMembershipRequest = {
             "membership_id": membership_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_finding_metrics(
+        self,
+        membership_id: "capo_security_ir.types.membership_id.MembershipId",
+        start_date: datetime.datetime,
+        end_date: datetime.datetime,
+        *,
+        config_overrides: Optional[AsyncSecurityIRClientConfig] = None,
+    ) -> (
+        "capo_security_ir.types.get_finding_metrics_response.GetFindingMetricsResponse"
+    ):
+        """Returns finding-lifecycle metrics for a membership over a date range.
+
+        Args:
+            membership_id: The membership ID to retrieve metrics for.
+            start_date: The start of the day-aligned UTC window, inclusive.
+            end_date: The end of the day-aligned UTC window, inclusive.
+
+        Raises:
+            capo_security_ir.errors.access_denied_exception.AccessDeniedException: <p/>
+            capo_security_ir.errors.conflict_exception.ConflictException: <p/>
+            capo_security_ir.errors.internal_server_exception.InternalServerException: <p/>
+            capo_security_ir.errors.invalid_token_exception.InvalidTokenException: <p/>
+            capo_security_ir.errors.resource_not_found_exception.ResourceNotFoundException: <p/>
+            capo_security_ir.errors.security_incident_response_not_active_exception.SecurityIncidentResponseNotActiveException: <p/>
+            capo_security_ir.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p/>
+            capo_security_ir.errors.throttling_exception.ThrottlingException: <p/>
+            capo_security_ir.errors.validation_exception.ValidationException: <p/>
+            capo_security_ir.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Retrieve finding-lifecycle metrics for a membership
+
+            >>> await client.get_finding_metrics(membership_id='m-a1b2c3d4e5f', start_date='2026-08-01T00:00:00Z', end_date='2026-08-18T00:00:00Z')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_security_ir.types.get_finding_metrics_request.GetFindingMetricsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_security_ir.types.get_finding_metrics_response.GetFindingMetricsResponse"
+        ]:
+            import capo_security_ir._operations.security_incident_response.get_finding_metrics
+
+            (
+                output,
+                http_response,
+            ) = await capo_security_ir._operations.security_incident_response.get_finding_metrics.async_get_finding_metrics(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_security_ir.types.get_finding_metrics_request.GetFindingMetricsRequest = {
+            "membership_id": membership_id,
+            "start_date": start_date,
+            "end_date": end_date,
         }
 
         response = await aexecute_pipeline(

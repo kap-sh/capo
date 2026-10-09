@@ -1,0 +1,8 @@
+---
+title: ProductAttributeValues
+---
+
+::: capo_budgets.types.product_attribute_values.ProductAttributeValues
+    options:
+      show_source: true
+      merge_init_into_class: false

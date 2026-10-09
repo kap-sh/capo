@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListEmailIdentitiesRequest(TypedDict, closed=True):
     filter: NotRequired["capo_sesv2.types.identity_filter.IdentityFilter"]
-    """<p>An object that contains filters to apply when listing email identities. You can filter by identity name, identity type, or verification status.</p>"""
+    """<p>An object that contains filters to apply when listing email identities. You can filter by a substring of the identity name, by identity type, or by verification status.</p>"""
     next_token: NotRequired["capo_sesv2.types.next_token.NextToken"]
     """<p>A token returned from a previous call to <code>ListEmailIdentities</code> to indicate the position in the list of identities.</p>"""
     page_size: NotRequired["capo_sesv2.types.max_items.MaxItems"]

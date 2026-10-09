@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CreateScriptOutput(TypedDict, closed=True):
     script: NotRequired["capo_gamelift.types.script.Script"]
-    """<p>The newly created script record with a unique script ID and ARN. The new script's storage location reflects an Amazon S3 location: (1) If the script was uploaded from an S3 bucket under your account, the storage location reflects the information that was provided in the <i>CreateScript</i> request; (2) If the script file was uploaded from a local zip file, the storage location reflects an S3 location controls by the Amazon GameLift Servers service.</p>"""
+    """<p>The newly created script record with a unique script ID and ARN. The new script's storage location reflects an Amazon S3 location: (1) If the script was uploaded from an S3 bucket under your account, the storage location reflects the information that was provided in the <i>CreateScript</i> request; (2) If the script file was uploaded from a local zip file, the storage location reflects an S3 location controlled by the Amazon GameLift Servers service.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

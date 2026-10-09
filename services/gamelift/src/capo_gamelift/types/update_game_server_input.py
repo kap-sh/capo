@@ -24,7 +24,7 @@ class UpdateGameServerInput(TypedDict, closed=True):
     utilization_status: NotRequired[
         "capo_gamelift.types.game_server_utilization_status.GameServerUtilizationStatus"
     ]
-    """<p>Indicates if the game server is available or is currently hosting gameplay. You can update a game server status from <code>AVAILABLE</code> to <code>UTILIZED</code>, but you can't change a the status from <code>UTILIZED</code> to <code>AVAILABLE</code>.</p>"""
+    """<p>Indicates if the game server is available or is currently hosting gameplay. You can update a game server status from <code>AVAILABLE</code> to <code>UTILIZED</code>, but you can't change the status from <code>UTILIZED</code> to <code>AVAILABLE</code>.</p>"""
     health_check: NotRequired[
         "capo_gamelift.types.game_server_health_check.GameServerHealthCheck"
     ]

@@ -45,7 +45,7 @@ class MatchmakingTicket(TypedDict, closed=True):
     game_session_connection_info: NotRequired[
         "capo_gamelift.types.game_session_connection_info.GameSessionConnectionInfo"
     ]
-    """<p>Connection information for a new game session. Once a match is made, the FlexMatch engine creates a new game session for it. This information is added to the matchmaking ticket, which you can be retrieve by calling <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeMatchmaking.html">DescribeMatchmaking</a> .</p>"""
+    """<p>Connection information for a new game session. Once a match is made, the FlexMatch engine creates a new game session for it. This information is added to the matchmaking ticket, which you can retrieve by calling <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeMatchmaking.html">DescribeMatchmaking</a> .</p>"""
     estimated_wait_time: NotRequired["capo_gamelift.types.whole_number.WholeNumber"]
     """<p>Average amount of time (in seconds) that players are currently waiting for a match. If there is not enough recent data, this property may be empty.</p>"""
 

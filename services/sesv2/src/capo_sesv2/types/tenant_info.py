@@ -22,6 +22,7 @@ class TenantInfo(TypedDict, closed=True):
     created_timestamp: NotRequired["capo_sesv2.types.timestamp.Timestamp"]
     """<p>The date and time when the tenant was created.</p>"""
     sending_status: NotRequired["capo_sesv2.types.sending_status.SendingStatus"]
+    """<p>The status of sending capability for the tenant:</p> <ul> <li> <p> <code>ENABLED</code> – Sending is allowed for the tenant.</p> </li> <li> <p> <code>DISABLED</code> – Sending is prevented for the tenant.</p> </li> <li> <p> <code>REINSTATED</code> – Sending is allowed even if there are active reputation findings.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

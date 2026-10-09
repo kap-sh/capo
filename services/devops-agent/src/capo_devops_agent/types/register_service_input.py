@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.post_register_service_supported_service
     import capo_devops_agent.types.private_connection_name
     import capo_devops_agent.types.service_details
-    import capo_devops_agent.types.service_name
+    import capo_devops_agent.types.service_name_input
     import capo_devops_agent.types.tags
 
 
@@ -33,7 +33,7 @@ class RegisterServiceInput(TypedDict, closed=True):
         "capo_devops_agent.types.private_connection_name.PrivateConnectionName"
     ]
     """<p>The name of the private connection to use for OAuth token exchange requests only. Cannot be specified when privateConnectionName is provided.</p>"""
-    name: NotRequired["capo_devops_agent.types.service_name.ServiceName"]
+    name: NotRequired["capo_devops_agent.types.service_name_input.ServiceNameInput"]
     """<p>The display name for the service registration.</p>"""
     tags: NotRequired["capo_devops_agent.types.tags.Tags"]
     """<p>Tags to add to the Service at registration time.</p>"""

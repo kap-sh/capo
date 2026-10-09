@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_devops_agent.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_devops_agent.types.association_id
     import capo_devops_agent.types.role_arn
 
 
@@ -19,6 +20,10 @@ class GitLabConfiguration(TypedDict, closed=True):
     """<p>GitLab instance identifier (e.g., gitlab.com or e2e.gamma.dev.us-east-1.gitlab.falco.ai.aws.dev)</p>"""
     runtime_role_arn: NotRequired["capo_devops_agent.types.role_arn.RoleArn"]
     """<p>Optional role ARN that AIDevOps assumes at runtime for automatic verification testing and VPC connectivity on this association.</p>"""
+    release_management_association_id: NotRequired[
+        "capo_devops_agent.types.association_id.AssociationId"
+    ]
+    """<p>The identifier of the release management association that this project maps to for automatic verification testing.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -30,6 +35,10 @@ def serialize_json(value: GitLabConfiguration) -> dict:
         out["instanceIdentifier"] = value["instance_identifier"]
     if "runtime_role_arn" in value:
         out["runtimeRoleArn"] = value["runtime_role_arn"]
+    if "release_management_association_id" in value:
+        out["releaseManagementAssociationId"] = value[
+            "release_management_association_id"
+        ]
     return out
 
 
@@ -47,4 +56,8 @@ def deserialize_json(data: dict) -> GitLabConfiguration:
         out["instance_identifier"] = data["instanceIdentifier"]
     if data.get("runtimeRoleArn") is not None:
         out["runtime_role_arn"] = data["runtimeRoleArn"]
+    if data.get("releaseManagementAssociationId") is not None:
+        out["release_management_association_id"] = data[
+            "releaseManagementAssociationId"
+        ]
     return out

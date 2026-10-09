@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.mcp_server_sig_v4_configuration
     import capo_devops_agent.types.mcp_server_splunk_configuration
     import capo_devops_agent.types.pager_duty_configuration
+    import capo_devops_agent.types.release_management_configuration
     import capo_devops_agent.types.remote_agent_configuration
     import capo_devops_agent.types.remote_agent_sig_v4_configuration
     import capo_devops_agent.types.service_now_configuration
@@ -112,6 +113,10 @@ class _ServiceConfiguration_remoteagentsigv4(TypedDict, closed=True):
     remoteagentsigv4: "capo_devops_agent.types.remote_agent_sig_v4_configuration.RemoteAgentSigV4Configuration"
 
 
+class _ServiceConfiguration_releaseManagement(TypedDict, closed=True):
+    releaseManagement: "capo_devops_agent.types.release_management_configuration.ReleaseManagementConfiguration"
+
+
 ServiceConfiguration: TypeAlias = (
     _ServiceConfiguration_sourceAws
     | _ServiceConfiguration_aws
@@ -132,6 +137,7 @@ ServiceConfiguration: TypeAlias = (
     | _ServiceConfiguration_mcpserversigv4
     | _ServiceConfiguration_remoteagent
     | _ServiceConfiguration_remoteagentsigv4
+    | _ServiceConfiguration_releaseManagement
 )
 
 
@@ -289,6 +295,14 @@ def serialize_json(value: ServiceConfiguration) -> dict:
                 value["remoteagentsigv4"]
             )
         }
+    elif "releaseManagement" in value:
+        import capo_devops_agent.types.release_management_configuration
+
+        return {
+            "releaseManagement": capo_devops_agent.types.release_management_configuration.serialize_json(
+                value["releaseManagement"]
+            )
+        }
     else:
         raise SerializationError("ServiceConfiguration: no variant present")
 
@@ -444,6 +458,14 @@ def deserialize_json(data: dict) -> ServiceConfiguration:
         return {
             "remoteagentsigv4": capo_devops_agent.types.remote_agent_sig_v4_configuration.deserialize_json(
                 data["remoteagentsigv4"]
+            )
+        }
+    elif data.get("releaseManagement") is not None:
+        import capo_devops_agent.types.release_management_configuration
+
+        return {
+            "releaseManagement": capo_devops_agent.types.release_management_configuration.deserialize_json(
+                data["releaseManagement"]
             )
         }
     else:

@@ -48,6 +48,8 @@ UpdateParamType: TypeAlias = Literal[
     "VendedLogs",
     "UpdatedTier",
     "PreviousTier",
+    "EnableCrossNamespace",
+    "DisabledServices",
     "WarmPoolEnabled",
     "WarmPoolMaxGroupPreparedCapacity",
     "WarmPoolMinSize",

@@ -1252,11 +1252,11 @@ class SESv2Client:
         *,
         config_overrides: Optional[SESv2ClientConfig] = None,
     ) -> "capo_sesv2.types.create_export_job_response.CreateExportJobResponse":
-        """<p>Creates an export job for a data source and destination.</p> <p>You can execute this operation no more than once per second.</p>
+        """<p>Creates an export job for a data source and destination.</p> <p>Export jobs run asynchronously. This operation returns a <code>JobId</code>. Call <code>GetExportJob</code> with that ID until <code>JobStatus</code> is <code>COMPLETED</code>, <code>FAILED</code>, or <code>CANCELLED</code>. When the status is <code>COMPLETED</code>, download the export file from the pre-signed URL in <code>ExportDestination.S3Url</code>. When the status is <code>FAILED</code>, see <code>FailureInfo</code>. To store a copy in your own bucket, upload the downloaded file to your bucket. Do not include <code>S3Url</code> in the request.</p> <p>You can execute this operation no more than once per second.</p>
 
         Args:
             export_data_source: <p>The data source for the export job.</p>
-            export_destination: <p>The destination for the export job.</p>
+            export_destination: <p>The destination for the export job. Specify only <code>DataFormat</code>. Do not include <code>S3Url</code> in this request. SES writes the export file to a location that it manages and returns the download URL in <code>GetExportJob</code>.</p>
 
         Raises:
             capo_sesv2.errors.bad_request_exception.BadRequestException: <p>The input you provided is invalid.</p>
@@ -2999,7 +2999,7 @@ class SESv2Client:
         *,
         config_overrides: Optional[SESv2ClientConfig] = None,
     ) -> "capo_sesv2.types.get_export_job_response.GetExportJobResponse":
-        """<p>Provides information about an export job.</p>
+        """<p>Provides information about an export job.</p> <p>When the job status is <code>COMPLETED</code>, the response includes a pre-signed URL in <code>ExportDestination.S3Url</code> that you use to download the export file.</p>
 
         Args:
             job_id: <p>The export job ID.</p>
@@ -3328,7 +3328,7 @@ class SESv2Client:
         """<p>List all of the configuration sets associated with your account in the current region.</p> <p> <i>Configuration sets</i> are groups of rules that you can apply to the emails you send. You apply a configuration set to an email by including a reference to the configuration set in the headers of the email. When you apply a configuration set to an email, all of the rules in that configuration set are applied to the email.</p>
 
         Args:
-            filter: <p>An object that contains filters to apply when listing configuration sets. You can filter by configuration set name.</p>
+            filter: <p>An object that contains filters to apply when listing configuration sets. You can filter by a substring of the configuration set name.</p>
             next_token: <p>A token returned from a previous call to <code>ListConfigurationSets</code> to indicate the position in the list of configuration sets.</p>
             page_size: <p>The number of results to show in a single call to <code>ListConfigurationSets</code>. If the number of results is larger than the number you specified in this parameter, then the response includes a <code>NextToken</code> element, which you can use to obtain additional results.</p>
 
@@ -3842,7 +3842,7 @@ class SESv2Client:
         """<p>Returns a list of all of the email identities that are associated with your Amazon Web Services account. An identity can be either an email address or a domain. This operation returns identities that are verified as well as those that aren't. This operation returns identities that are associated with Amazon SES and Amazon Pinpoint.</p>
 
         Args:
-            filter: <p>An object that contains filters to apply when listing email identities. You can filter by identity name, identity type, or verification status.</p>
+            filter: <p>An object that contains filters to apply when listing email identities. You can filter by a substring of the identity name, by identity type, or by verification status.</p>
             next_token: <p>A token returned from a previous call to <code>ListEmailIdentities</code> to indicate the position in the list of identities.</p>
             page_size: <p>The number of results to show in a single call to <code>ListEmailIdentities</code>. If the number of results is larger than the number you specified in this parameter, then the response includes a <code>NextToken</code> element, which you can use to obtain additional results.</p> <p>The value you specify has to be at least 0, and can be no more than 1000.</p>
 
@@ -4750,7 +4750,7 @@ class SESv2Client:
         """<p>List all tenants associated with your account in the current Amazon Web Services Region.</p> <p>This operation returns basic information about each tenant, such as tenant name, ID, ARN, and creation timestamp.</p>
 
         Args:
-            filter: <p>An object that contains filters to apply when listing tenants. You can filter by tenant name or sending status.</p>
+            filter: <p>An object that contains filters to apply when listing tenants. You can filter by a substring of the tenant name or by sending status.</p>
             next_token: <p>A token returned from a previous call to <code>ListTenants</code> to indicate the position in the list of tenants.</p>
             page_size: <p>The number of results to show in a single call to <code>ListTenants</code>. If the number of results is larger than the number you specified in this parameter, then the response includes a <code>NextToken</code> element, which you can use to obtain additional results.</p>
 

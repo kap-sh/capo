@@ -64,11 +64,11 @@ class ContainerFleet(TypedDict, closed=True):
     maximum_game_server_container_groups_per_instance: NotRequired[
         "capo_gamelift.types.maximum_game_server_container_groups_per_instance.MaximumGameServerContainerGroupsPerInstance"
     ]
-    """<p>The calculated maximum number of game server container group that can be deployed on each fleet instance. The calculation depends on the resource needs of the container group and the CPU and memory resources of the fleet's instance type.</p>"""
+    """<p>The calculated maximum number of game server container groups that can be deployed on each fleet instance. The calculation depends on the resource needs of the container group and the CPU and memory resources of the fleet's instance type.</p>"""
     instance_type: NotRequired[
         "capo_gamelift.types.non_zero_and_max_string.NonZeroAndMaxString"
     ]
-    """<p>The Amazon EC2 instance type to use for all instances in the fleet. Instance type determines the computing resources and processing power that's available to host your game servers. This includes including CPU, memory, storage, and networking capacity. You can't update this fleet property.</p>"""
+    """<p>The Amazon EC2 instance type to use for all instances in the fleet. Instance type determines the computing resources and processing power that's available to host your game servers. This includes CPU, memory, storage, and networking capacity. You can't update this fleet property.</p>"""
     billing_type: NotRequired[
         "capo_gamelift.types.container_fleet_billing_type.ContainerFleetBillingType"
     ]
@@ -92,7 +92,7 @@ class ContainerFleet(TypedDict, closed=True):
     status: NotRequired[
         "capo_gamelift.types.container_fleet_status.ContainerFleetStatus"
     ]
-    """<p>The current status of the container fleet.</p> <ul> <li> <p> <code>PENDING</code> -- A new container fleet has been requested.</p> </li> <li> <p> <code>CREATING</code> -- A new container fleet resource is being created. </p> </li> <li> <p> <code>CREATED</code> -- A new container fleet resource has been created. No fleet instances have been deployed.</p> </li> <li> <p> <code>ACTIVATING</code> -- New container fleet instances are being deployed.</p> </li> <li> <p> <code>ACTIVE</code> -- The container fleet has been deployed and is ready to host game sessions.</p> </li> <li> <p> <code>UPDATING</code> -- Updates to the container fleet is being updated. A deployment is in progress.</p> </li> <li> <p> <code>EXPIRED</code> -- The container fleet has been expired. The fleet is scaled down to zero instances and cannot host new game sessions.</p> </li> </ul>"""
+    """<p>The current status of the container fleet.</p> <ul> <li> <p> <code>PENDING</code> -- A new container fleet has been requested.</p> </li> <li> <p> <code>CREATING</code> -- A new container fleet resource is being created. </p> </li> <li> <p> <code>CREATED</code> -- A new container fleet resource has been created. No fleet instances have been deployed.</p> </li> <li> <p> <code>ACTIVATING</code> -- New container fleet instances are being deployed.</p> </li> <li> <p> <code>ACTIVE</code> -- The container fleet has been deployed and is ready to host game sessions.</p> </li> <li> <p> <code>UPDATING</code> -- The container fleet is being updated. A deployment is in progress.</p> </li> <li> <p> <code>EXPIRED</code> -- The container fleet has been expired. The fleet is scaled down to zero instances and cannot host new game sessions.</p> </li> </ul>"""
     deployment_details: NotRequired[
         "capo_gamelift.types.deployment_details.DeploymentDetails"
     ]

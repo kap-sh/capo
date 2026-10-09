@@ -60,6 +60,8 @@
 - [ContainerGroupDefinitionList](container_group_definition_list.md)
 - [ContainerGroupDefinitionName](container_group_definition_name.md)
 - [ContainerGroupDefinitionNameOrArn](container_group_definition_name_or_arn.md)
+- [ContainerGroupDefinitionRemoveAttribute](container_group_definition_remove_attribute.md)
+- [ContainerGroupDefinitionRemoveAttributeList](container_group_definition_remove_attribute_list.md)
 - [ContainerGroupDefinitionStatus](container_group_definition_status.md)
 - [ContainerGroupPortMapping](container_group_port_mapping.md)
 - [ContainerGroupPortMappingList](container_group_port_mapping_list.md)

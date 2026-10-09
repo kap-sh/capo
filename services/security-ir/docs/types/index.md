@@ -51,6 +51,8 @@
 - [GetCaseAttachmentUploadUrlResponse](get_case_attachment_upload_url_response.md)
 - [GetCaseRequest](get_case_request.md)
 - [GetCaseResponse](get_case_response.md)
+- [GetFindingMetricsRequest](get_finding_metrics_request.md)
+- [GetFindingMetricsResponse](get_finding_metrics_response.md)
 - [GetMembershipAccountDetailError](get_membership_account_detail_error.md)
 - [GetMembershipAccountDetailErrors](get_membership_account_detail_errors.md)
 - [GetMembershipAccountDetailItem](get_membership_account_detail_item.md)

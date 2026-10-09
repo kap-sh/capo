@@ -40,7 +40,7 @@ class GameServerGroup(TypedDict, closed=True):
     game_server_protection_policy: NotRequired[
         "capo_gamelift.types.game_server_protection_policy.GameServerProtectionPolicy"
     ]
-    """<p>A flag that indicates whether instances in the game server group are protected from early termination. Unprotected instances that have active game servers running might be terminated during a scale-down event, causing players to be dropped from the game. Protected instances cannot be terminated while there are active game servers running except in the event of a forced game server group deletion (see ). An exception to this is with Spot Instances, which can be terminated by Amazon Web Services regardless of protection status. </p>"""
+    """<p>A flag that indicates whether instances in the game server group are protected from early termination. Unprotected instances that have active game servers running might be terminated during a scale-down event, causing players to be dropped from the game. Protected instances cannot be terminated while there are active game servers running except in the event of a forced game server group deletion. An exception to this is with Spot Instances, which can be terminated by Amazon Web Services regardless of protection status. </p>"""
     auto_scaling_group_arn: NotRequired[
         "capo_gamelift.types.auto_scaling_group_arn.AutoScalingGroupArn"
     ]

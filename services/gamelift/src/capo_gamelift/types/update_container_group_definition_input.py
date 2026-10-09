@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_gamelift.types.container_group_definition_name_or_arn
+    import capo_gamelift.types.container_group_definition_remove_attribute_list
     import capo_gamelift.types.container_operating_system
     import capo_gamelift.types.container_total_memory_limit
     import capo_gamelift.types.container_total_vcpu_limit
@@ -35,7 +36,7 @@ class UpdateContainerGroupDefinitionInput(TypedDict, closed=True):
     total_vcpu_limit: NotRequired[
         "capo_gamelift.types.container_total_vcpu_limit.ContainerTotalVcpuLimit"
     ]
-    """<p>The maximum amount of vCPU units to allocate to the container group (1 vCPU is equal to 1024 CPU units). All containers in the group share this memory. If you specify vCPU limits for individual containers, the total value must be equal to or greater than the sum of the CPU limits for all containers in the group.</p>"""
+    """<p>The maximum amount of vCPU units to allocate to the container group (1 vCPU is equal to 1024 CPU units). All containers in the group share these resources. If you set vCPU reservations for individual containers, the total value must be equal to or greater than the sum of the <code>Vcpu</code> values for all containers in the group.</p> <p>For a game server container group, Amazon GameLift Servers requires either a total vCPU limit or a <code>Vcpu</code> value for the game server container. If the container group has a total vCPU limit, Amazon GameLift Servers uses this value to calculate how many game server container groups fit on an instance. If the container group doesn't have a total vCPU limit, its containers can use up to the instance's available vCPU, and Amazon GameLift Servers uses the sum of the containers' <code>Vcpu</code> values to calculate how many game server container groups fit on an instance. To remove the total vCPU limit, omit this parameter and set <code>RemoveAttributes</code> to <code>TOTAL_VCPU_LIMIT</code>.</p>"""
     version_description: NotRequired[
         "capo_gamelift.types.non_zero_and_max_string.NonZeroAndMaxString"
     ]
@@ -48,6 +49,10 @@ class UpdateContainerGroupDefinitionInput(TypedDict, closed=True):
         "capo_gamelift.types.container_operating_system.ContainerOperatingSystem"
     ]
     """<p>The platform that all containers in the group use. Containers in a group must run on the same operating system.</p> <note> <p>Amazon Linux 2 (AL2) will reach end of support on 6/30/2026. See more details in the <a href="http://aws.amazon.com/amazon-linux-2/faqs/">Amazon Linux 2 FAQs</a>. For game servers that are hosted on AL2 and use server SDK version 4.x for Amazon GameLift Servers, first update the game server build to server SDK 5.x, and then deploy to AL2023 instances. See <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-serversdk5-migration.html"> Migrate to server SDK version 5.</a> </p> </note>"""
+    remove_attributes: NotRequired[
+        "capo_gamelift.types.container_group_definition_remove_attribute_list.ContainerGroupDefinitionRemoveAttributeList"
+    ]
+    """<p>If set, this update removes the container group's total vCPU limit, and the group's containers can use up to the instance's available vCPU. You can't remove the total vCPU limit from a per-instance container group. A game server container group needs either a total vCPU limit or a <code>Vcpu</code> value for the game server container. You can't set <code>TotalVcpuLimit</code> in the same request.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -95,6 +100,14 @@ def serialize_aws_json_1_1(value: UpdateContainerGroupDefinitionInput) -> dict:
                 value["operating_system"]
             )
         )
+    if "remove_attributes" in value:
+        import capo_gamelift.types.container_group_definition_remove_attribute_list
+
+        out["RemoveAttributes"] = (
+            capo_gamelift.types.container_group_definition_remove_attribute_list.serialize_aws_json_1_1(
+                value["remove_attributes"]
+            )
+        )
     return out
 
 
@@ -132,6 +145,14 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContainerGroupDefinitionInput:
         out["operating_system"] = (
             capo_gamelift.types.container_operating_system.deserialize_aws_json_1_1(
                 data["OperatingSystem"]
+            )
+        )
+    if data.get("RemoveAttributes") is not None:
+        import capo_gamelift.types.container_group_definition_remove_attribute_list
+
+        out["remove_attributes"] = (
+            capo_gamelift.types.container_group_definition_remove_attribute_list.deserialize_aws_json_1_1(
+                data["RemoveAttributes"]
             )
         )
     return out

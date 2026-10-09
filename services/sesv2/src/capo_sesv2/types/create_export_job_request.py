@@ -15,7 +15,7 @@ class CreateExportJobRequest(TypedDict, closed=True):
     export_data_source: "capo_sesv2.types.export_data_source.ExportDataSource"
     """<p>The data source for the export job.</p>"""
     export_destination: "capo_sesv2.types.export_destination.ExportDestination"
-    """<p>The destination for the export job.</p>"""
+    """<p>The destination for the export job. Specify only <code>DataFormat</code>. Do not include <code>S3Url</code> in this request. SES writes the export file to a location that it manages and returns the download URL in <code>GetExportJob</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

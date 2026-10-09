@@ -522,6 +522,7 @@ class ApplicationResource:
         resource_type: "capo_emr_serverless.types.resource_type.ResourceType",
         *,
         config_overrides: Optional[EMRServerlessClientConfig] = None,
+        access_system_profile_logs: Optional[bool] = None,
     ) -> "capo_emr_serverless.types.get_resource_dashboard_response.GetResourceDashboardResponse":
         """<p>Returns a URL that you can use to access the application UIs for a specified resource, such as a session.</p> <p>For resources in a running state, the application UI is a live user interface such as the Spark web UI. For terminated resources, the application UI is a persistent application user interface such as the Spark History Server.</p> <note> <p>The URL is valid for one hour after you generate it. To access the application UI after that hour elapses, you must invoke the API again to generate a new URL.</p> </note>
 
@@ -529,6 +530,7 @@ class ApplicationResource:
             application_id: <p>The ID of the application that the resource belongs to.</p>
             resource_id: <p>The ID of the resource.</p>
             resource_type: <p>The type of resource to access the dashboard for. Currently, only <code>Session</code> is supported.</p>
+            access_system_profile_logs: <p>Allows access to system profile logs for Lake Formation-enabled sessions. Default is false.</p>
 
         Raises:
             capo_emr_serverless.errors.internal_server_exception.InternalServerException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -557,6 +559,8 @@ class ApplicationResource:
             "resource_id": resource_id,
             "resource_type": resource_type,
         }
+        if access_system_profile_logs is not None:
+            input_["access_system_profile_logs"] = access_system_profile_logs
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1121,6 +1125,7 @@ class AsyncApplicationResource:
         resource_type: "capo_emr_serverless.types.resource_type.ResourceType",
         *,
         config_overrides: Optional[AsyncEMRServerlessClientConfig] = None,
+        access_system_profile_logs: Optional[bool] = None,
     ) -> "capo_emr_serverless.types.get_resource_dashboard_response.GetResourceDashboardResponse":
         """<p>Returns a URL that you can use to access the application UIs for a specified resource, such as a session.</p> <p>For resources in a running state, the application UI is a live user interface such as the Spark web UI. For terminated resources, the application UI is a persistent application user interface such as the Spark History Server.</p> <note> <p>The URL is valid for one hour after you generate it. To access the application UI after that hour elapses, you must invoke the API again to generate a new URL.</p> </note>
 
@@ -1128,6 +1133,7 @@ class AsyncApplicationResource:
             application_id: <p>The ID of the application that the resource belongs to.</p>
             resource_id: <p>The ID of the resource.</p>
             resource_type: <p>The type of resource to access the dashboard for. Currently, only <code>Session</code> is supported.</p>
+            access_system_profile_logs: <p>Allows access to system profile logs for Lake Formation-enabled sessions. Default is false.</p>
 
         Raises:
             capo_emr_serverless.errors.internal_server_exception.InternalServerException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -1157,6 +1163,8 @@ class AsyncApplicationResource:
             "resource_id": resource_id,
             "resource_type": resource_type,
         }
+        if access_system_profile_logs is not None:
+            input_["access_system_profile_logs"] = access_system_profile_logs
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

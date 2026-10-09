@@ -12,6 +12,9 @@ from typing_extensions import Never
 import capo_lambda._auth._signers
 import capo_lambda._auth._sigv4
 import capo_lambda._protocol.eventstream
+import capo_lambda.errors.code_artifact_user_deleted_exception
+import capo_lambda.errors.code_artifact_user_failed_exception
+import capo_lambda.errors.code_artifact_user_pending_exception
 import capo_lambda.errors.ec2_access_denied_exception
 import capo_lambda.errors.ec2_throttled_exception
 import capo_lambda.errors.ec2_unexpected_exception
@@ -74,6 +77,18 @@ def handle_error(response: zapros.Response) -> Never:
     data = json.loads(response.read())
     code, message = parse_error_metadata_json(response, data)
     match code:
+        case "CodeArtifactUserDeletedException":
+            raise capo_lambda.errors.code_artifact_user_deleted_exception.CodeArtifactUserDeletedException.from_json(
+                data, message
+            )
+        case "CodeArtifactUserFailedException":
+            raise capo_lambda.errors.code_artifact_user_failed_exception.CodeArtifactUserFailedException.from_json(
+                data, message
+            )
+        case "CodeArtifactUserPendingException":
+            raise capo_lambda.errors.code_artifact_user_pending_exception.CodeArtifactUserPendingException.from_json(
+                data, message
+            )
         case "EC2AccessDeniedException":
             raise capo_lambda.errors.ec2_access_denied_exception.EC2AccessDeniedException.from_json(
                 data, message

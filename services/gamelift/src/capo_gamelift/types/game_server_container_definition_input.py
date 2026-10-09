@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_gamelift.types.container_environment_list
     import capo_gamelift.types.container_mount_point_list
     import capo_gamelift.types.container_port_configuration
+    import capo_gamelift.types.container_vcpu
     import capo_gamelift.types.image_uri_string
     import capo_gamelift.types.linux_capabilities
     import capo_gamelift.types.non_zero_and128_max_ascii_string
@@ -37,7 +38,7 @@ class GameServerContainerDefinitionInput(TypedDict, closed=True):
     port_configuration: NotRequired[
         "capo_gamelift.types.container_port_configuration.ContainerPortConfiguration"
     ]
-    """<p>A set of ports that Amazon GameLift Servers can assign to processes in a container. The container port configuration must have enough ports for each container process that accepts inbound traffic connections. For example, a game server process requires a container port to allow game clients to connect to it. A container port configuration can have can have one or more container port ranges. Each range specifies starting and ending values as well as the supported network protocol.</p> <p>Container ports aren't directly accessed by inbound traffic. Amazon GameLift Servers maps each container port to an externally accessible connection port (see the container fleet property <code>ConnectionPortRange</code>). </p>"""
+    """<p>A set of ports that Amazon GameLift Servers can assign to processes in a container. The container port configuration must have enough ports for each container process that accepts inbound traffic connections. For example, a game server process requires a container port to allow game clients to connect to it. A container port configuration can have one or more container port ranges. Each range specifies starting and ending values as well as the supported network protocol.</p> <p>Container ports aren't directly accessed by inbound traffic. Amazon GameLift Servers maps each container port to an externally accessible connection port (see the container fleet property <code>ConnectionPortRange</code>). </p>"""
     server_sdk_version: NotRequired[
         "capo_gamelift.types.server_sdk_version.ServerSdkVersion"
     ]
@@ -46,6 +47,8 @@ class GameServerContainerDefinitionInput(TypedDict, closed=True):
         "capo_gamelift.types.linux_capabilities.LinuxCapabilities"
     ]
     """<p>Linux-specific modifications that are applied to the default Docker container configuration, such as Linux capabilities. For more information see <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_LinuxCapabilities.html">LinuxCapabilities</a>.</p>"""
+    vcpu: NotRequired["capo_gamelift.types.container_vcpu.ContainerVcpu"]
+    """<p>The number of vCPU units reserved for the game server container. The container can use more vCPU when it's available, up to the container group's total vCPU limit if one is set. If the container group has a total vCPU limit and the request doesn't set this value, Amazon GameLift Servers calculates the game server container's vCPU as the total vCPU limit minus the sum of the vCPU units reserved for the group's support containers.</p> <p>A game server container group needs either a total vCPU limit or this value. If the container group doesn't have a total vCPU limit, the group's containers can use up to the instance's available vCPU, and Amazon GameLift Servers uses the sum of the group's container <code>Vcpu</code> values to calculate how many game server container groups fit on an instance.</p> <p> <b>Related data type: </b> <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ContainerGroupDefinition.html">ContainerGroupDefinition</a> <code>TotalVcpuLimit</code> </p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -96,6 +99,16 @@ def serialize_aws_json_1_1(value: GameServerContainerDefinitionInput) -> dict:
             capo_gamelift.types.linux_capabilities.serialize_aws_json_1_1(
                 value["linux_capabilities"]
             )
+        )
+    if "vcpu" in value:
+        out["Vcpu"] = (
+            "NaN"
+            if value["vcpu"] != value["vcpu"]
+            else "Infinity"
+            if value["vcpu"] == float("inf")
+            else "-Infinity"
+            if value["vcpu"] == float("-inf")
+            else value["vcpu"]
         )
     return out
 
@@ -148,4 +161,6 @@ def deserialize_aws_json_1_1(data: dict) -> GameServerContainerDefinitionInput:
                 data["LinuxCapabilities"]
             )
         )
+    if data.get("Vcpu") is not None:
+        out["vcpu"] = float(data["Vcpu"])
     return out

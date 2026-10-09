@@ -479,6 +479,10 @@ if TYPE_CHECKING:
     import capo_glue.types.get_session_response
     import capo_glue.types.get_statement_request
     import capo_glue.types.get_statement_response
+    import capo_glue.types.get_system_logs_for_job_run_request
+    import capo_glue.types.get_system_logs_for_job_run_response
+    import capo_glue.types.get_system_logs_for_session_request
+    import capo_glue.types.get_system_logs_for_session_response
     import capo_glue.types.get_table_optimizer_request
     import capo_glue.types.get_table_optimizer_response
     import capo_glue.types.get_table_request
@@ -11328,6 +11332,104 @@ class AsyncGlueClient:
         }
         if request_origin is not None:
             input_["request_origin"] = request_origin
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_system_logs_for_job_run(
+        self,
+        job_name: "capo_glue.types.name_string.NameString",
+        run_id: "capo_glue.types.id_string.IdString",
+        *,
+        config_overrides: Optional[AsyncGlueClientConfig] = None,
+    ) -> "capo_glue.types.get_system_logs_for_job_run_response.GetSystemLogsForJobRunResponse":
+        """<p>Retrieves the system logs for a job run.</p>
+
+        Args:
+            job_name: <p>The name of the job.</p>
+            run_id: <p>The ID of the job run.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_glue.types.get_system_logs_for_job_run_request.GetSystemLogsForJobRunRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_glue.types.get_system_logs_for_job_run_response.GetSystemLogsForJobRunResponse"
+        ]:
+            import capo_glue._operations.aws_glue.get_system_logs_for_job_run
+
+            (
+                output,
+                http_response,
+            ) = await capo_glue._operations.aws_glue.get_system_logs_for_job_run.async_get_system_logs_for_job_run(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_glue.types.get_system_logs_for_job_run_request.GetSystemLogsForJobRunRequest = {
+            "job_name": job_name,
+            "run_id": run_id,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_system_logs_for_session(
+        self,
+        id: "capo_glue.types.name_string.NameString",
+        *,
+        config_overrides: Optional[AsyncGlueClientConfig] = None,
+    ) -> "capo_glue.types.get_system_logs_for_session_response.GetSystemLogsForSessionResponse":
+        """<p>Retrieves the system logs for an interactive session.</p>
+
+        Args:
+            id: <p>The ID of the session.</p>
+
+        Raises:
+            capo_glue.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
+            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
+            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
+            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
+            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_glue.types.get_system_logs_for_session_request.GetSystemLogsForSessionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_glue.types.get_system_logs_for_session_response.GetSystemLogsForSessionResponse"
+        ]:
+            import capo_glue._operations.aws_glue.get_system_logs_for_session
+
+            (
+                output,
+                http_response,
+            ) = await capo_glue._operations.aws_glue.get_system_logs_for_session.async_get_system_logs_for_session(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(config_overrides)
+        input_: capo_glue.types.get_system_logs_for_session_request.GetSystemLogsForSessionRequest = {
+            "id": id
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

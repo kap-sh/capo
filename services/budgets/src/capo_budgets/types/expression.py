@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_budgets.types.expression
     import capo_budgets.types.expression_dimension_values
     import capo_budgets.types.expressions
+    import capo_budgets.types.product_attribute_values
     import capo_budgets.types.tag_values
 
 Expression = TypedDict(
@@ -23,6 +24,9 @@ Expression = TypedDict(
         "tags": NotRequired["capo_budgets.types.tag_values.TagValues"],
         "cost_categories": NotRequired[
             "capo_budgets.types.cost_category_values.CostCategoryValues"
+        ],
+        "product_attributes": NotRequired[
+            "capo_budgets.types.product_attribute_values.ProductAttributeValues"
         ],
     },
     closed=True,
@@ -66,6 +70,14 @@ def serialize_aws_json_1_1(value: Expression) -> dict:
                 value["cost_categories"]
             )
         )
+    if "product_attributes" in value:
+        import capo_budgets.types.product_attribute_values
+
+        out["ProductAttributes"] = (
+            capo_budgets.types.product_attribute_values.serialize_aws_json_1_1(
+                value["product_attributes"]
+            )
+        )
     return out
 
 
@@ -105,6 +117,14 @@ def deserialize_aws_json_1_1(data: dict) -> Expression:
         out["cost_categories"] = (
             capo_budgets.types.cost_category_values.deserialize_aws_json_1_1(
                 data["CostCategories"]
+            )
+        )
+    if data.get("ProductAttributes") is not None:
+        import capo_budgets.types.product_attribute_values
+
+        out["product_attributes"] = (
+            capo_budgets.types.product_attribute_values.deserialize_aws_json_1_1(
+                data["ProductAttributes"]
             )
         )
     return out

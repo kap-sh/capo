@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_datazone.types.description
     import capo_datazone.types.domain_id
     import capo_datazone.types.notebook_name
+    import capo_datazone.types.notebook_type
     import capo_datazone.types.project_id
     import capo_datazone.types.source_location
 
@@ -21,11 +22,13 @@ class StartNotebookImportInput(TypedDict, closed=True):
     owning_project_identifier: "capo_datazone.types.project_id.ProjectId"
     """<p>The identifier of the project that will own the imported notebook.</p>"""
     source_location: "capo_datazone.types.source_location.SourceLocation"
-    """<p>The source location of the notebook to import. This specifies the Amazon Simple Storage Service URI of the notebook file.</p>"""
+    """<p>The source location of the notebook to import. Specify either a single Amazon Simple Storage Service URI, or a list of objects to import as the notebook's cells.</p>"""
     name: "capo_datazone.types.notebook_name.NotebookName"
     """<p>The name of the imported notebook. The name must be between 1 and 256 characters.</p>"""
     description: NotRequired["capo_datazone.types.description.Description"]
     """<p>The description of the imported notebook.</p>"""
+    type: NotRequired["capo_datazone.types.notebook_type.NotebookType"]
+    """<p>The type of the notebook to import. If not specified, defaults to <code>DATA</code>.</p>"""
     client_token: NotRequired["capo_datazone.types.client_token.ClientToken"]
     """<p>A unique, case-sensitive identifier to ensure idempotency of the request. This field is automatically populated if not provided.</p>"""
 
@@ -42,6 +45,10 @@ def serialize_json(value: StartNotebookImportInput) -> dict:
     out["name"] = value["name"]
     if "description" in value:
         out["description"] = value["description"]
+    if "type" in value:
+        import capo_datazone.types.notebook_type
+
+        out["type"] = capo_datazone.types.notebook_type.serialize_json(value["type"])
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     return out
@@ -69,6 +76,10 @@ def deserialize_json(data: dict) -> StartNotebookImportInput:
         raise DeserializationError("StartNotebookImportInput.name required")
     if data.get("description") is not None:
         out["description"] = data["description"]
+    if data.get("type") is not None:
+        import capo_datazone.types.notebook_type
+
+        out["type"] = capo_datazone.types.notebook_type.deserialize_json(data["type"])
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

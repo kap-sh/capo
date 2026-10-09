@@ -93,7 +93,7 @@ class JobRunResource:
             job_driver: <p>The job driver for the job run.</p>
             configuration_overrides: <p>The configuration overrides for the job run.</p>
             tags: <p>The tags assigned to the job run.</p>
-            execution_timeout_minutes: <p>The maximum duration for the job run to run. If the job run runs beyond this duration, it will be automatically cancelled.</p>
+            execution_timeout_minutes: <p>The maximum duration, in minutes, for the job run. If the job run exceeds this duration, Amazon EMR Serverless cancels it automatically.</p> <p>For BATCH mode job runs, the maximum value is 10080 minutes (7 days) starting with Amazon EMR release 7.11. Setting a value of 0 to disable the timeout is no longer supported for BATCH mode job runs.</p>
             name: <p>The optional job run name. This doesn't have to be unique.</p>
             mode: <p>The mode of the job run when it starts.</p>
             retry_policy: <p>The retry policy when job run starts.</p>
@@ -484,7 +484,7 @@ class AsyncJobRunResource:
             job_driver: <p>The job driver for the job run.</p>
             configuration_overrides: <p>The configuration overrides for the job run.</p>
             tags: <p>The tags assigned to the job run.</p>
-            execution_timeout_minutes: <p>The maximum duration for the job run to run. If the job run runs beyond this duration, it will be automatically cancelled.</p>
+            execution_timeout_minutes: <p>The maximum duration, in minutes, for the job run. If the job run exceeds this duration, Amazon EMR Serverless cancels it automatically.</p> <p>For BATCH mode job runs, the maximum value is 10080 minutes (7 days) starting with Amazon EMR release 7.11. Setting a value of 0 to disable the timeout is no longer supported for BATCH mode job runs.</p>
             name: <p>The optional job run name. This doesn't have to be unique.</p>
             mode: <p>The mode of the job run when it starts.</p>
             retry_policy: <p>The retry policy when job run starts.</p>

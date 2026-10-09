@@ -12,7 +12,7 @@ class StartMatchmakingOutput(TypedDict, closed=True):
     matchmaking_ticket: NotRequired[
         "capo_gamelift.types.matchmaking_ticket.MatchmakingTicket"
     ]
-    """<p>Ticket representing the matchmaking request. This object include the information included in the request, ticket status, and match results as generated during the matchmaking process.</p>"""
+    """<p>Ticket representing the matchmaking request. This object includes the information included in the request, ticket status, and match results as generated during the matchmaking process.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

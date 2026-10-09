@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_datazone.types.notebook_id
     import capo_datazone.types.notebook_name
     import capo_datazone.types.notebook_status
+    import capo_datazone.types.notebook_type
     import capo_datazone.types.project_id
     import capo_datazone.types.source_location
 
@@ -29,6 +30,8 @@ class StartNotebookImportOutput(TypedDict, closed=True):
     """<p>The name of the imported notebook.</p>"""
     description: NotRequired["capo_datazone.types.description.Description"]
     """<p>The description of the imported notebook.</p>"""
+    type: NotRequired["capo_datazone.types.notebook_type.NotebookType"]
+    """<p>The type of the imported notebook.</p>"""
     source_location: NotRequired["capo_datazone.types.source_location.SourceLocation"]
     """<p>The source location from which the notebook was imported.</p>"""
     created_at: NotRequired["capo_datazone.types.created_at.CreatedAt"]
@@ -56,6 +59,10 @@ def serialize_json(value: StartNotebookImportOutput) -> dict:
         out["name"] = value["name"]
     if "description" in value:
         out["description"] = value["description"]
+    if "type" in value:
+        import capo_datazone.types.notebook_type
+
+        out["type"] = capo_datazone.types.notebook_type.serialize_json(value["type"])
     if "source_location" in value:
         import capo_datazone.types.source_location
 
@@ -91,6 +98,10 @@ def deserialize_json(data: dict) -> StartNotebookImportOutput:
         out["name"] = data["name"]
     if data.get("description") is not None:
         out["description"] = data["description"]
+    if data.get("type") is not None:
+        import capo_datazone.types.notebook_type
+
+        out["type"] = capo_datazone.types.notebook_type.deserialize_json(data["type"])
     if data.get("sourceLocation") is not None:
         import capo_datazone.types.source_location
 

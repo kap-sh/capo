@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class CreateBuildOutput(TypedDict, closed=True):
     build: NotRequired["capo_gamelift.types.build.Build"]
-    """<p>The newly created build resource, including a unique build IDs and status. </p>"""
+    """<p>The newly created build resource, including a unique build ID and status. </p>"""
     upload_credentials: NotRequired[
         "capo_gamelift.types.aws_credentials.AwsCredentials"
     ]

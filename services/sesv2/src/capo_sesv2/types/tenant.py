@@ -26,7 +26,7 @@ class Tenant(TypedDict, closed=True):
     tags: NotRequired["capo_sesv2.types.tag_list.TagList"]
     """<p>An array of objects that define the tags (keys and values) associated with the tenant.</p>"""
     sending_status: NotRequired["capo_sesv2.types.sending_status.SendingStatus"]
-    """<p>The status of sending capability for the tenant.</p>"""
+    """<p>The status of sending capability for the tenant:</p> <ul> <li> <p> <code>ENABLED</code> – Sending is allowed for the tenant.</p> </li> <li> <p> <code>DISABLED</code> – Sending is prevented for the tenant.</p> </li> <li> <p> <code>REINSTATED</code> – Sending is allowed even if there are active reputation findings.</p> </li> </ul>"""
     suppression_attributes: NotRequired[
         "capo_sesv2.types.tenant_suppression_attributes.TenantSuppressionAttributes"
     ]

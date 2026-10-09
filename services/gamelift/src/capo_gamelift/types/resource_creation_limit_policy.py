@@ -12,7 +12,7 @@ class ResourceCreationLimitPolicy(TypedDict, closed=True):
     new_game_sessions_per_creator: NotRequired[
         "capo_gamelift.types.whole_number.WholeNumber"
     ]
-    """<p>A policy that puts limits on the number of game sessions that a player can create within a specified span of time. With this policy, you can control players' ability to consume available resources.</p> <p>The policy is evaluated when a player tries to create a new game session. On receiving a <code>CreateGameSession</code> request, Amazon GameLift Servers checks that the player (identified by <code>CreatorId</code>) has created fewer than game session limit in the specified time period.</p>"""
+    """<p>A policy that puts limits on the number of game sessions that a player can create within a specified span of time. With this policy, you can control players' ability to consume available resources.</p> <p>The policy is evaluated when a player tries to create a new game session. On receiving a <code>CreateGameSession</code> request, Amazon GameLift Servers checks that the player (identified by <code>CreatorId</code>) has created fewer than the game session limit in the specified time period.</p>"""
     policy_period_in_minutes: NotRequired[
         "capo_gamelift.types.whole_number.WholeNumber"
     ]

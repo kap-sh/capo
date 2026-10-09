@@ -52,7 +52,7 @@ class GameSession(TypedDict, closed=True):
     status_reason: NotRequired[
         "capo_gamelift.types.game_session_status_reason.GameSessionStatusReason"
     ]
-    """<p>Provides additional information about game session status. </p> <ul> <li> <p> <code>INTERRUPTED</code> -- The game session was hosted on an EC2 Spot instance that was reclaimed, causing the active game session to be stopped.</p> </li> <li> <p> <code>TRIGGERED_ON_PROCESS_TERMINATE</code> – The game session was stopped by calling <code>TerminateGameSession</code> with the termination mode <code>TRIGGER_ON_PROCESS_TERMINATE</code>. </p> </li> <li> <p> <code>FORCE_TERMINATED</code> – The game session was stopped by calling <code>TerminateGameSession</code> with the termination mode <code>FORCE_TERMINATE</code>. </p> </li> </ul> <p></p>"""
+    """<p>Provides additional information about game session status. </p> <ul> <li> <p> <code>INTERRUPTED</code> -- The game session was hosted on an EC2 Spot instance that was reclaimed, causing the active game session to be stopped.</p> </li> <li> <p> <code>TRIGGERED_ON_PROCESS_TERMINATE</code> – The game session was stopped by calling <code>TerminateGameSession</code> with the termination mode <code>TRIGGER_ON_PROCESS_TERMINATE</code>. </p> </li> <li> <p> <code>FORCE_TERMINATED</code> – The game session was stopped by calling <code>TerminateGameSession</code> with the termination mode <code>FORCE_TERMINATE</code>. </p> </li> </ul>"""
     game_properties: NotRequired[
         "capo_gamelift.types.game_property_list.GamePropertyList"
     ]

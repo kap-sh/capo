@@ -22,6 +22,7 @@ import capo_datazone.errors.unauthorized_exception
 import capo_datazone.errors.validation_exception
 import capo_datazone.types.created_at
 import capo_datazone.types.notebook_status
+import capo_datazone.types.notebook_type
 import capo_datazone.types.source_location
 import capo_datazone.types.start_notebook_import_input
 import capo_datazone.types.start_notebook_import_output

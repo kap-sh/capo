@@ -112,6 +112,13 @@ def build_request(
         params.append(("resourceId", input_["resource_id"]))
     if "resource_type" in input_:
         params.append(("resourceType", input_["resource_type"]))
+    if "access_system_profile_logs" in input_:
+        params.append(
+            (
+                "accessSystemProfileLogs",
+                "true" if input_["access_system_profile_logs"] else "false",
+            )
+        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))

@@ -15,7 +15,7 @@ class ExportDestination(TypedDict, closed=True):
     data_format: "capo_sesv2.types.data_format.DataFormat"
     """<p>The data format of the final export job file, can be one of the following:</p> <ul> <li> <p> <code>CSV</code> - A comma-separated values file.</p> </li> <li> <p> <code>JSON</code> - A Json file.</p> </li> </ul>"""
     s3_url: NotRequired["capo_sesv2.types.s3_url.S3Url"]
-    """<p>An Amazon S3 pre-signed URL that points to the generated export file.</p>"""
+    """<p>An Amazon S3 pre-signed URL that points to the generated export file.</p> <p>SES sets this value. It's returned only in the <code>GetExportJob</code> response, after the export job status is <code>COMPLETED</code>. The URL expires five minutes after <code>GetExportJob</code> returns it. Call <code>GetExportJob</code> again to get a new URL. If you include this field in a <code>CreateExportJob</code> request, the request fails with a <code>BadRequestException</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

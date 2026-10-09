@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class RemediationGuidanceExamples(TypedDict, closed=True):
     aws_cli: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
-    """<p>An AWS CLI snippet version of the example.</p>"""
+    """<p>An CLI snippet version of the example.</p>"""
     cli: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]
     """<p>A CLI snippet version of the example.</p>"""
     python: NotRequired["capo_securityhub.types.non_empty_string.NonEmptyString"]

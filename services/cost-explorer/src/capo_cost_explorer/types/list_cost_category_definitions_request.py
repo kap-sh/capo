@@ -23,7 +23,7 @@ class ListCostCategoryDefinitionsRequest(TypedDict, closed=True):
     supported_resource_types: NotRequired[
         "capo_cost_explorer.types.resource_types_filter_input.ResourceTypesFilterInput"
     ]
-    """<p> Filter cost category definitions that are supported by given resource types based on the latest version. If the filter is present, the result only includes Cost Categories that supports input resource type. If the filter isn't provided, no filtering is applied. The valid values are <code>billing:rispgroupsharing</code> and <code>billing:billingview</code>. </p>"""
+    """<p> Filter cost category definitions that are supported by given resource types based on the latest version. If the filter is present, the result only includes Cost Categories that supports input resource type. If the filter isn't provided, no filtering is applied. The valid values are <code>billing:rispgroupsharing</code>, <code>billing:billingview</code>, and <code>billing:creditsharing</code>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

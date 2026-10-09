@@ -42,7 +42,7 @@ class StartJobRunRequest(TypedDict, closed=True):
     execution_timeout_minutes: NotRequired[
         "capo_emr_serverless.types.duration.Duration"
     ]
-    """<p>The maximum duration for the job run to run. If the job run runs beyond this duration, it will be automatically cancelled.</p>"""
+    """<p>The maximum duration, in minutes, for the job run. If the job run exceeds this duration, Amazon EMR Serverless cancels it automatically.</p> <p>For BATCH mode job runs, the maximum value is 10080 minutes (7 days) starting with Amazon EMR release 7.11. Setting a value of 0 to disable the timeout is no longer supported for BATCH mode job runs.</p>"""
     name: NotRequired["capo_emr_serverless.types.string256.String256"]
     """<p>The optional job run name. This doesn't have to be unique.</p>"""
     mode: NotRequired["capo_emr_serverless.types.job_run_mode.JobRunMode"]

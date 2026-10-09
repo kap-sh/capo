@@ -6,6 +6,7 @@ GroupDefinitionType: TypeAlias = Literal[
     "DIMENSION",
     "TAG",
     "COST_CATEGORY",
+    "PRODUCT_ATTRIBUTE",
 ]
 
 

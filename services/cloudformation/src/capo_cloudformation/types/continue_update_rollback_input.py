@@ -8,6 +8,7 @@ from capo_cloudformation._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_cloudformation.types.client_request_token
+    import capo_cloudformation.types.force_rollback
     import capo_cloudformation.types.resources_to_skip
     import capo_cloudformation.types.role_arn
     import capo_cloudformation.types.stack_name_or_id
@@ -26,6 +27,10 @@ class ContinueUpdateRollbackInput(TypedDict, closed=True):
         "capo_cloudformation.types.client_request_token.ClientRequestToken"
     ]
     """<p>A unique identifier for this <code>ContinueUpdateRollback</code> request. Specify this token if you plan to retry requests so that CloudFormation knows that you're not attempting to continue the rollback to a stack with the same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that CloudFormation successfully received them.</p>"""
+    force_rollback: NotRequired[
+        "capo_cloudformation.types.force_rollback.ForceRollback"
+    ]
+    """<p>Specifies whether CloudFormation forces the rollback to continue by skipping resources currently in the <code>UPDATE_FAILED</code> state. Use this instead of listing each resource individually in <code>ResourcesToSkip</code>. Only resources that entered the <code>UPDATE_FAILED</code> state because a rollback failed are skipped. If you don't specify a value, the default is <code>false</code> and CloudFormation doesn't skip any resources.</p> <p> <code>ForceRollback</code> and <code>ResourcesToSkip</code> are mutually exclusive. Specifying both in the same request returns a validation error.</p> <important> <p>We recommend that you <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed">troubleshoot</a> resources before skipping them. CloudFormation sets the status of the skipped resources to <code>UPDATE_COMPLETE</code> and continues to roll back the stack, including resources in nested stacks. After the rollback completes, the skipped resources no longer match the resources in the stack template. Before performing another stack update, you must update the stack or resources to be consistent with each other. If you don't, subsequent stack updates might fail, and the stack will become unrecoverable.</p> <p>Drift detection reports skipped resources as <code>NOT_CHECKED</code>. For guidance, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html">Continue rolling back an update</a> in the <i>CloudFormation User Guide</i>.</p> </important>"""
 
 
 # --- awsQuery ser/de ---
@@ -46,6 +51,13 @@ def serialize_query(
     if "client_request_token" in value:
         pairs.append(
             (f"{key_prefix}ClientRequestToken", str(value["client_request_token"]))
+        )
+    if "force_rollback" in value:
+        pairs.append(
+            (
+                f"{key_prefix}ForceRollback",
+                "true" if value["force_rollback"] else "false",
+            )
         )
 
 
@@ -69,4 +81,7 @@ def deserialize_query(el: Element) -> ContinueUpdateRollbackInput:
     child_client_request_token = el.find("ClientRequestToken")
     if child_client_request_token is not None:
         out["client_request_token"] = str(child_client_request_token.text or "")
+    child_force_rollback = el.find("ForceRollback")
+    if child_force_rollback is not None:
+        out["force_rollback"] = (child_force_rollback.text or "").lower() == "true"
     return out

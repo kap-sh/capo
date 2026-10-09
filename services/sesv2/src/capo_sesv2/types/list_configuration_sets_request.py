@@ -14,7 +14,7 @@ class ListConfigurationSetsRequest(TypedDict, closed=True):
     filter: NotRequired[
         "capo_sesv2.types.configuration_set_filter.ConfigurationSetFilter"
     ]
-    """<p>An object that contains filters to apply when listing configuration sets. You can filter by configuration set name.</p>"""
+    """<p>An object that contains filters to apply when listing configuration sets. You can filter by a substring of the configuration set name.</p>"""
     next_token: NotRequired["capo_sesv2.types.next_token.NextToken"]
     """<p>A token returned from a previous call to <code>ListConfigurationSets</code> to indicate the position in the list of configuration sets.</p>"""
     page_size: NotRequired["capo_sesv2.types.max_items.MaxItems"]

@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.service
     import capo_devops_agent.types.service_details
     import capo_devops_agent.types.service_id
-    import capo_devops_agent.types.service_name
+    import capo_devops_agent.types.service_name_input
     import capo_devops_agent.types.tags
     from capo_devops_agent._services.async_dev_ops_agent import (
         AsyncDevOpsAgentClient,
@@ -62,7 +62,9 @@ class ServiceResource:
         exchange_url_private_connection_name: Optional[
             "capo_devops_agent.types.private_connection_name.PrivateConnectionName"
         ] = None,
-        name: Optional["capo_devops_agent.types.service_name.ServiceName"] = None,
+        name: Optional[
+            "capo_devops_agent.types.service_name_input.ServiceNameInput"
+        ] = None,
         tags: Optional["capo_devops_agent.types.tags.Tags"] = None,
     ) -> "capo_devops_agent.types.register_service_output.RegisterServiceOutput":
         """<p>This operation registers the specified service</p>
@@ -315,7 +317,9 @@ class AsyncServiceResource:
         exchange_url_private_connection_name: Optional[
             "capo_devops_agent.types.private_connection_name.PrivateConnectionName"
         ] = None,
-        name: Optional["capo_devops_agent.types.service_name.ServiceName"] = None,
+        name: Optional[
+            "capo_devops_agent.types.service_name_input.ServiceNameInput"
+        ] = None,
         tags: Optional["capo_devops_agent.types.tags.Tags"] = None,
     ) -> "capo_devops_agent.types.register_service_output.RegisterServiceOutput":
         """<p>This operation registers the specified service</p>

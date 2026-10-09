@@ -56,6 +56,8 @@ class Finding(TypedDict, closed=True):
     """<p>The simulated validation status of the finding. Valid values are NOT_VALIDATED, VALIDATING, CONFIRMED, NOT_REPRODUCED, and VALIDATION_FAILED.</p>"""
     attack_script: NotRequired["str"]
     """<p>The attack script used to reproduce the finding.</p>"""
+    remediation_code: NotRequired["str"]
+    """<p>The suggested fix for the finding, describing the changes recommended to remediate the vulnerability, with example code or configuration.</p>"""
     code_remediation_task: NotRequired[
         "capo_securityagent.types.code_remediation_task.CodeRemediationTask"
     ]
@@ -137,6 +139,8 @@ def serialize_json(value: Finding) -> dict:
         )
     if "attack_script" in value:
         out["attackScript"] = value["attack_script"]
+    if "remediation_code" in value:
+        out["remediationCode"] = value["remediation_code"]
     if "code_remediation_task" in value:
         import capo_securityagent.types.code_remediation_task
 
@@ -248,6 +252,8 @@ def deserialize_json(data: dict) -> Finding:
         )
     if data.get("attackScript") is not None:
         out["attack_script"] = data["attackScript"]
+    if data.get("remediationCode") is not None:
+        out["remediation_code"] = data["remediationCode"]
     if data.get("codeRemediationTask") is not None:
         import capo_securityagent.types.code_remediation_task
 

@@ -26,7 +26,7 @@ class SupportContainerDefinitionInput(TypedDict, closed=True):
     depends_on: NotRequired[
         "capo_gamelift.types.container_dependency_list.ContainerDependencyList"
     ]
-    """<p>Establishes dependencies between this container and the status of other containers in the same container group. A container can have dependencies on multiple different containers. </p> <p>.</p> <p>You can use dependencies to establish a startup/shutdown sequence across the container group. For example, you might specify that <i>ContainerB</i> has a <code>START</code> dependency on <i>ContainerA</i>. This dependency means that <i>ContainerB</i> can't start until after <i>ContainerA</i> has started. This dependency is reversed on shutdown, which means that <i>ContainerB</i> must shut down before <i>ContainerA</i> can shut down. </p>"""
+    """<p>Establishes dependencies between this container and the status of other containers in the same container group. A container can have dependencies on multiple different containers. </p> <p>You can use dependencies to establish a startup/shutdown sequence across the container group. For example, you might specify that <i>ContainerB</i> has a <code>START</code> dependency on <i>ContainerA</i>. This dependency means that <i>ContainerB</i> can't start until after <i>ContainerA</i> has started. This dependency is reversed on shutdown, which means that <i>ContainerB</i> must shut down before <i>ContainerA</i> can shut down. </p>"""
     mount_points: NotRequired[
         "capo_gamelift.types.container_mount_point_list.ContainerMountPointList"
     ]
@@ -46,13 +46,13 @@ class SupportContainerDefinitionInput(TypedDict, closed=True):
     memory_hard_limit_mebibytes: NotRequired[
         "capo_gamelift.types.container_memory_limit.ContainerMemoryLimit"
     ]
-    """<p>A specified amount of memory (in MiB) to reserve for this container. If you don't specify a container-specific memory limit, the container shares the container group's total memory allocation. </p> <p> <b>Related data type: </b> <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ContainerGroupDefinition.html">ContainerGroupDefinition</a>TotalMemoryLimitMebibytes<code></code> </p>"""
+    """<p>A specified amount of memory (in MiB) to reserve for this container. If you don't specify a container-specific memory limit, the container shares the container group's total memory allocation. </p> <p> <b>Related data type: </b> <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ContainerGroupDefinition.html">ContainerGroupDefinition</a> <code>TotalMemoryLimitMebibytes</code> </p>"""
     port_configuration: NotRequired[
         "capo_gamelift.types.container_port_configuration.ContainerPortConfiguration"
     ]
-    """<p>A set of ports that Amazon GameLift Servers can assign to processes in a container. The container port configuration must have enough ports for each container process that accepts inbound traffic connections. A container port configuration can have can have one or more container port ranges. Each range specifies starting and ending values as well as the supported network protocol.</p> <p>Container ports aren't directly accessed by inbound traffic. Amazon GameLift Servers maps each container port to an externally accessible connection port (see the container fleet property <code>ConnectionPortRange</code>). </p>"""
+    """<p>A set of ports that Amazon GameLift Servers can assign to processes in a container. The container port configuration must have enough ports for each container process that accepts inbound traffic connections. A container port configuration can have one or more container port ranges. Each range specifies starting and ending values as well as the supported network protocol.</p> <p>Container ports aren't directly accessed by inbound traffic. Amazon GameLift Servers maps each container port to an externally accessible connection port (see the container fleet property <code>ConnectionPortRange</code>). </p>"""
     vcpu: NotRequired["capo_gamelift.types.container_vcpu.ContainerVcpu"]
-    """<p>The number of vCPU units to reserve for this container. The container can use more resources when needed, if available. If you don't reserve CPU units for this container, it shares the container group's total vCPU limit. </p> <p> <b>Related data type: </b> <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ContainerGroupDefinition.html">ContainerGroupDefinition</a> TotalCpuLimit </p>"""
+    """<p>The number of vCPU units to reserve for this container. The container can use more resources when needed, if available. If you don't reserve vCPU units for this container, it shares the container group's total vCPU limit.</p> <p> <b>Related data type: </b> <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ContainerGroupDefinition.html">ContainerGroupDefinition</a> TotalVcpuLimit </p>"""
     linux_capabilities: NotRequired[
         "capo_gamelift.types.linux_capabilities.LinuxCapabilities"
     ]

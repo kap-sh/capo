@@ -120,3 +120,9 @@ title: ServiceConfiguration
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_devops_agent.types.service_configuration._ServiceConfiguration_releaseManagement
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

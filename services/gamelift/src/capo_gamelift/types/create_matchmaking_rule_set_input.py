@@ -18,7 +18,7 @@ class CreateMatchmakingRuleSetInput(TypedDict, closed=True):
     rule_set_body: NotRequired["capo_gamelift.types.rule_set_body.RuleSetBody"]
     """<p>A collection of matchmaking rules, formatted as a JSON string. Comments are not allowed in JSON, but most elements support a description field.</p>"""
     tags: NotRequired["capo_gamelift.types.tag_list.TagList"]
-    """<p>A list of labels to assign to the new matchmaking rule set resource. Tags are developer-defined key-value pairs. Tagging Amazon Web Services resources are useful for resource management, access management and cost allocation. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
+    """<p>A list of labels to assign to the new matchmaking rule set resource. Tags are developer-defined key-value pairs. Tagging Amazon Web Services resources is useful for resource management, access management and cost allocation. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

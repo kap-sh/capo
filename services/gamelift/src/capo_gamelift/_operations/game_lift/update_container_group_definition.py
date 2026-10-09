@@ -18,6 +18,7 @@ import capo_gamelift.errors.not_found_exception
 import capo_gamelift.errors.unauthorized_exception
 import capo_gamelift.errors.unsupported_region_exception
 import capo_gamelift.types.container_group_definition
+import capo_gamelift.types.container_group_definition_remove_attribute_list
 import capo_gamelift.types.container_operating_system
 import capo_gamelift.types.game_server_container_definition_input
 import capo_gamelift.types.support_container_definition_input_list

@@ -1,0 +1,8 @@
+---
+title: AckConfigRequest
+---
+
+::: capo_eks.types.ack_config_request.AckConfigRequest
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -32,7 +32,7 @@ class CreateContainerGroupDefinitionInput(TypedDict, closed=True):
     total_vcpu_limit: NotRequired[
         "capo_gamelift.types.container_total_vcpu_limit.ContainerTotalVcpuLimit"
     ]
-    """<p>The maximum amount of vCPU units to allocate to the container group (1 vCPU is equal to 1024 CPU units). All containers in the group share this memory. If you specify vCPU limits for individual containers, the total value must be equal to or greater than the sum of the CPU limits for all containers in the group.</p> <p>Default value: 1</p>"""
+    """<p>The maximum amount of vCPU units to allocate to the container group (1 vCPU is equal to 1024 CPU units). All containers in the group share these resources. If you set vCPU reservations for individual containers, the total value must be equal to or greater than the sum of the <code>Vcpu</code> values for all containers in the group.</p> <p>This property is required for a per-instance container group.</p> <p>For a game server container group, Amazon GameLift Servers requires either a total vCPU limit or a <code>Vcpu</code> value for the game server container. If you set a total vCPU limit for a game server container group, Amazon GameLift Servers uses this value to calculate how many game server container groups fit on an instance. If you don't set a total vCPU limit, the group's containers can use up to the instance's available vCPU, and Amazon GameLift Servers uses the sum of the containers' <code>Vcpu</code> values to calculate how many game server container groups fit on an instance.</p>"""
     game_server_container_definition: NotRequired[
         "capo_gamelift.types.game_server_container_definition_input.GameServerContainerDefinitionInput"
     ]
@@ -50,7 +50,7 @@ class CreateContainerGroupDefinitionInput(TypedDict, closed=True):
     ]
     """<p>A description for the initial version of this container group definition. </p>"""
     tags: NotRequired["capo_gamelift.types.tag_list.TagList"]
-    """<p>A list of labels to assign to the container group definition resource. Tags are developer-defined key-value pairs. Tagging Amazon Web Services resources are useful for resource management, access management and cost allocation. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. </p>"""
+    """<p>A list of labels to assign to the container group definition resource. Tags are developer-defined key-value pairs. Tagging Amazon Web Services resources is useful for resource management, access management and cost allocation. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

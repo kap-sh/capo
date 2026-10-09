@@ -847,6 +847,7 @@ class EMRServerlessClient:
         resource_type: "capo_emr_serverless.types.resource_type.ResourceType",
         *,
         config_overrides: Optional[EMRServerlessClientConfig] = None,
+        access_system_profile_logs: Optional[bool] = None,
     ) -> "capo_emr_serverless.types.get_resource_dashboard_response.GetResourceDashboardResponse":
         """<p>Returns a URL that you can use to access the application UIs for a specified resource, such as a session.</p> <p>For resources in a running state, the application UI is a live user interface such as the Spark web UI. For terminated resources, the application UI is a persistent application user interface such as the Spark History Server.</p> <note> <p>The URL is valid for one hour after you generate it. To access the application UI after that hour elapses, you must invoke the API again to generate a new URL.</p> </note>
 
@@ -854,6 +855,7 @@ class EMRServerlessClient:
             application_id: <p>The ID of the application that the resource belongs to.</p>
             resource_id: <p>The ID of the resource.</p>
             resource_type: <p>The type of resource to access the dashboard for. Currently, only <code>Session</code> is supported.</p>
+            access_system_profile_logs: <p>Allows access to system profile logs for Lake Formation-enabled sessions. Default is false.</p>
 
         Raises:
             capo_emr_serverless.errors.internal_server_exception.InternalServerException: <p>Request processing failed because of an error or failure with the service.</p>
@@ -882,6 +884,8 @@ class EMRServerlessClient:
             "resource_id": resource_id,
             "resource_type": resource_type,
         }
+        if access_system_profile_logs is not None:
+            input_["access_system_profile_logs"] = access_system_profile_logs
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1018,7 +1022,7 @@ class EMRServerlessClient:
             job_driver: <p>The job driver for the job run.</p>
             configuration_overrides: <p>The configuration overrides for the job run.</p>
             tags: <p>The tags assigned to the job run.</p>
-            execution_timeout_minutes: <p>The maximum duration for the job run to run. If the job run runs beyond this duration, it will be automatically cancelled.</p>
+            execution_timeout_minutes: <p>The maximum duration, in minutes, for the job run. If the job run exceeds this duration, Amazon EMR Serverless cancels it automatically.</p> <p>For BATCH mode job runs, the maximum value is 10080 minutes (7 days) starting with Amazon EMR release 7.11. Setting a value of 0 to disable the timeout is no longer supported for BATCH mode job runs.</p>
             name: <p>The optional job run name. This doesn't have to be unique.</p>
             mode: <p>The mode of the job run when it starts.</p>
             retry_policy: <p>The retry policy when job run starts.</p>

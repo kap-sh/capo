@@ -114,12 +114,12 @@ class ProvisionedConcurrencyConfig:
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
-            To get a provisioned concurrency configuration
-            The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified function.
-
-            >>> client.read(function_name='my-function', qualifier='BLUE')
             To view a provisioned concurrency configuration
             The following example displays details for the provisioned concurrency configuration for the BLUE alias of the specified function.
+
+            >>> client.read(function_name='my-function', qualifier='BLUE')
+            To get a provisioned concurrency configuration
+            The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified function.
 
             >>> client.read(function_name='my-function', qualifier='BLUE')
         """
@@ -293,12 +293,12 @@ class AsyncProvisionedConcurrencyConfig:
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
-            To get a provisioned concurrency configuration
-            The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified function.
-
-            >>> await client.read(function_name='my-function', qualifier='BLUE')
             To view a provisioned concurrency configuration
             The following example displays details for the provisioned concurrency configuration for the BLUE alias of the specified function.
+
+            >>> await client.read(function_name='my-function', qualifier='BLUE')
+            To get a provisioned concurrency configuration
+            The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified function.
 
             >>> await client.read(function_name='my-function', qualifier='BLUE')
         """

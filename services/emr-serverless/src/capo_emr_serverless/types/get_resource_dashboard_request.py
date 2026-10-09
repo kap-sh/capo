@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
@@ -17,6 +17,8 @@ class GetResourceDashboardRequest(TypedDict, closed=True):
     """<p>The ID of the resource.</p>"""
     resource_type: "capo_emr_serverless.types.resource_type.ResourceType"
     """<p>The type of resource to access the dashboard for. Currently, only <code>Session</code> is supported.</p>"""
+    access_system_profile_logs: NotRequired["bool"]
+    """<p>Allows access to system profile logs for Lake Formation-enabled sessions. Default is false.</p>"""
 
 
 # --- restJson1 ser/de ---

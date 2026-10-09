@@ -4667,6 +4667,9 @@ class AsyncLambdaClient:
             invocation_type: <p>Use one of the following options:</p> <ul> <li> <p> <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until the function returns a response or times out. The API operation response includes the function response and additional data.</p> </li> <li> <p> <code>DryRun</code> – Validate parameter values and verify that the IAM user or role has permission to invoke the function.</p> </li> </ul>
 
         Raises:
+            capo_lambda.errors.code_artifact_user_deleted_exception.CodeArtifactUserDeletedException: <p>The Lambda function couldn't be invoked because its code artifact user has been deleted. Wait for Lambda to provision a new code artifact user, or update the function's code package to recreate it.</p>
+            capo_lambda.errors.code_artifact_user_failed_exception.CodeArtifactUserFailedException: <p>The Lambda function couldn't be invoked because provisioning of its code artifact user failed. Update the function's code package or check the Lambda function's <code>State</code> and <code>StateReasonCode</code> for additional context.</p>
+            capo_lambda.errors.code_artifact_user_pending_exception.CodeArtifactUserPendingException: <p>The Lambda function couldn't be invoked because its code artifact user is still being provisioned. Wait for the function's <code>State</code> to become <code>Active</code> and try the request again.</p>
             capo_lambda.errors.ec2_access_denied_exception.EC2AccessDeniedException: <p>Need additional permissions to configure VPC settings.</p>
             capo_lambda.errors.ec2_throttled_exception.EC2ThrottledException: <p>Amazon EC2 throttled Lambda during Lambda function initialization using the execution role provided for the function.</p>
             capo_lambda.errors.ec2_unexpected_exception.EC2UnexpectedException: <p>Lambda received an unexpected Amazon EC2 client exception while setting up for the Lambda function.</p>
@@ -4777,7 +4780,7 @@ class AsyncLambdaClient:
 
         Args:
             function_name: <p>The name or ARN of the Lambda function. You can specify a function name, a partial ARN, or a full ARN.</p>
-            qualifier: <p>The function version or alias. If not specified, lists executions for the $LATEST version.</p>
+            qualifier: <p>The function version to filter executions by. If you don't specify a qualifier, this operation returns executions across all versions of the Lambda function.</p>
             durable_execution_name: <p>Filter executions by name. Only executions with names that matches this string are returned.</p>
             statuses: <p>Filter executions by status. Valid values: RUNNING, SUCCEEDED, FAILED, TIMED_OUT, STOPPED.</p>
             started_after: <p>Filter executions that started after this timestamp (ISO 8601 format).</p>
@@ -6548,12 +6551,12 @@ class AsyncLambdaClient:
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
-            To get a provisioned concurrency configuration
-            The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified function.
-
-            >>> await client.get_provisioned_concurrency_config(function_name='my-function', qualifier='BLUE')
             To view a provisioned concurrency configuration
             The following example displays details for the provisioned concurrency configuration for the BLUE alias of the specified function.
+
+            >>> await client.get_provisioned_concurrency_config(function_name='my-function', qualifier='BLUE')
+            To get a provisioned concurrency configuration
+            The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified function.
 
             >>> await client.get_provisioned_concurrency_config(function_name='my-function', qualifier='BLUE')
         """

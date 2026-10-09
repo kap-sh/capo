@@ -8817,6 +8817,7 @@ class AsyncDataZoneClient:
         *,
         config_overrides: Optional[AsyncDataZoneClientConfig] = None,
         description: Optional["capo_datazone.types.description.Description"] = None,
+        type: Optional["capo_datazone.types.notebook_type.NotebookType"] = None,
         client_token: Optional["capo_datazone.types.client_token.ClientToken"] = None,
     ) -> "capo_datazone.types.start_notebook_import_output.StartNotebookImportOutput":
         """<p>Starts a notebook import in Amazon SageMaker Unified Studio. This operation imports a notebook from an Amazon Simple Storage Service location into a project.</p>
@@ -8824,9 +8825,10 @@ class AsyncDataZoneClient:
         Args:
             domain_identifier: <p>The identifier of the Amazon SageMaker Unified Studio domain in which to import the notebook.</p>
             owning_project_identifier: <p>The identifier of the project that will own the imported notebook.</p>
-            source_location: <p>The source location of the notebook to import. This specifies the Amazon Simple Storage Service URI of the notebook file.</p>
+            source_location: <p>The source location of the notebook to import. Specify either a single Amazon Simple Storage Service URI, or a list of objects to import as the notebook's cells.</p>
             name: <p>The name of the imported notebook. The name must be between 1 and 256 characters.</p>
             description: <p>The description of the imported notebook.</p>
+            type: <p>The type of the notebook to import. If not specified, defaults to <code>DATA</code>.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotency of the request. This field is automatically populated if not provided.</p>
 
         Raises:
@@ -8865,6 +8867,8 @@ class AsyncDataZoneClient:
         }
         if description is not None:
             input_["description"] = description
+        if type is not None:
+            input_["type"] = type
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token

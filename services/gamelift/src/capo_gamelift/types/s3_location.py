@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class S3Location(TypedDict, closed=True):
     bucket: NotRequired["capo_gamelift.types.non_empty_string.NonEmptyString"]
-    """<p>An Amazon S3 bucket identifier. Thename of the S3 bucket.</p> <note> <p>Amazon GameLift Servers doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).</p> </note>"""
+    """<p>An Amazon S3 bucket identifier. The name of the S3 bucket.</p> <note> <p>Amazon GameLift Servers doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).</p> </note>"""
     key: NotRequired["capo_gamelift.types.non_empty_string.NonEmptyString"]
     """<p>The name of the zip file that contains the build files or script files. </p>"""
     role_arn: NotRequired["capo_gamelift.types.non_empty_string.NonEmptyString"]
