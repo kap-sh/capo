@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#AmazonS3``."""
 
+import random
 import time
 import uuid
 import warnings
@@ -4724,12 +4725,15 @@ class S3Client:
                 return op_output
             elif op_error is not None and op_error.code == "NotFound":
                 pass
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("bucket_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             time.sleep(delay)
             attempt += 1
@@ -4768,12 +4772,15 @@ class S3Client:
                 op_error = e
             if op_error is not None and op_error.code == "NotFound":
                 return op_error
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("bucket_not_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             time.sleep(delay)
             attempt += 1
@@ -5158,12 +5165,15 @@ class S3Client:
                 return op_output
             elif op_error is not None and op_error.code == "NotFound":
                 pass
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("object_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             time.sleep(delay)
             attempt += 1
@@ -5280,12 +5290,15 @@ class S3Client:
                 op_error = e
             if op_error is not None and op_error.code == "NotFound":
                 return op_error
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("object_not_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             time.sleep(delay)
             attempt += 1

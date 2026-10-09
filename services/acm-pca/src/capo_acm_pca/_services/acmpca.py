@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.acmpca#ACMPrivateCA``."""
 
+import random
 import time
 import warnings
 from collections.abc import Iterator
@@ -714,12 +715,15 @@ class ACMPCAClient:
                     "certificate_issued",
                     "errorType=AccessDeniedException (state=failure)",
                 )
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("certificate_issued", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             time.sleep(delay)
             attempt += 1
@@ -853,6 +857,8 @@ class ACMPCAClient:
                     "certificate_authority_csr_created",
                     "errorType=AccessDeniedException (state=failure)",
                 )
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
@@ -861,6 +867,7 @@ class ACMPCAClient:
                     "certificate_authority_csr_created", max_wait_time
                 )
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             time.sleep(delay)
             attempt += 1

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gameliftstreams#GameLiftStreams``."""
 
+import random
 import time
 import uuid
 import warnings
@@ -1696,12 +1697,15 @@ class AsyncGameLiftStreamsClient:
                 op_error = e
             if op_error is not None and op_error.code == "ResourceNotFoundException":
                 return op_error
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("application_deleted", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             await anysleep(delay)
             attempt += 1
@@ -2051,12 +2055,15 @@ class AsyncGameLiftStreamsClient:
                 op_error = e
             if op_error is not None and op_error.code == "ResourceNotFoundException":
                 return op_error
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("stream_group_deleted", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             await anysleep(delay)
             attempt += 1

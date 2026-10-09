@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kinesis#Kinesis_20131202``."""
 
+import random
 import time
 import warnings
 from collections.abc import Iterator
@@ -1005,12 +1006,15 @@ class KinesisClient:
                 op_error = e
             if op_error is not None and op_error.code == "ResourceNotFoundException":
                 return op_error
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("stream_not_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             time.sleep(delay)
             attempt += 1

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#AWSIdentityManagementV20100508``."""
 
+import random
 import time
 import warnings
 from collections.abc import AsyncIterator
@@ -4451,12 +4452,15 @@ class AsyncIAMClient:
                 return op_output
             elif op_error is not None and op_error.code == "NoSuchEntityException":
                 pass
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("instance_profile_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             await anysleep(delay)
             attempt += 1
@@ -4784,12 +4788,15 @@ class AsyncIAMClient:
                 return op_output
             elif op_error is not None and op_error.code == "NoSuchEntity":
                 pass
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("policy_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             await anysleep(delay)
             attempt += 1
@@ -4924,12 +4931,15 @@ class AsyncIAMClient:
                 return op_output
             elif op_error is not None and op_error.code == "NoSuchEntity":
                 pass
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("role_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             await anysleep(delay)
             attempt += 1
@@ -5428,12 +5438,15 @@ class AsyncIAMClient:
                 return op_output
             elif op_error is not None and op_error.code == "NoSuchEntity":
                 pass
+            elif op_error is not None:
+                raise op_error
 
             elapsed = time.monotonic() - start
             remaining = max_wait_time - elapsed
             if remaining <= 0:
                 raise WaiterTimeoutError("user_exists", max_wait_time)
             delay = min(max_delay, min_delay * (2**attempt))
+            delay = random.uniform(min_delay, delay)
             delay = min(delay, remaining)
             await anysleep(delay)
             attempt += 1
