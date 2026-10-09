@@ -491,7 +491,11 @@ def build_request(
             input_["checksum_mode"]
         )
     body: bytes | None = b""
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     context: zapros.RequestContext = {"signer": signer}
     if input_.get("checksum_mode") == "ENABLED":
         context["checksum_algorithms"] = RESPONSE_CHECKSUM_ALGORITHMS

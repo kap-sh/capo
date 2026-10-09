@@ -281,6 +281,7 @@ class S3ControlClientConfig(TypedDict, total=False, closed=True):
     use_dual_stack: bool | None
     endpoint: str | None
     credentials_provider: IdentityProvider[Credentials] | None
+    anonymous: bool | None
     use_arn_region: bool | None
 
 
@@ -297,6 +298,7 @@ class S3ControlClient:
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
         credentials: AWS credentials for request signing.
         credentials_provider: Provider that resolves AWS credentials. Takes precedence over ``credentials``.
+        anonymous: Send requests unsigned, without resolving credentials, even for operations that require authentication.
         use_arn_region: Enables this client to use an ARN's region when constructing an endpoint instead of the client's configured region.
     """
 
@@ -311,6 +313,7 @@ class S3ControlClient:
         endpoint: str | None = None,
         credentials: Credentials | None = None,
         credentials_provider: CredentialsProvider | None = None,
+        anonymous: bool | None = None,
         use_arn_region: bool | None = None,
     ):
         self._client = Client(http_handler).wrap_with_middleware(
@@ -338,6 +341,7 @@ class S3ControlClient:
                 "use_dual_stack": use_dual_stack,
                 "endpoint": endpoint,
                 "credentials_provider": resolved_credentials_provider,
+                "anonymous": anonymous,
                 "use_arn_region": use_arn_region,
             }
         )
@@ -367,6 +371,7 @@ class S3ControlClient:
             credentials_provider=overrides.get(
                 "credentials_provider", self._config.get("credentials_provider")
             ),
+            anonymous=overrides.get("anonymous", self._config.get("anonymous")),
             use_arn_region=overrides.get(
                 "use_arn_region", self._config.get("use_arn_region")
             ),

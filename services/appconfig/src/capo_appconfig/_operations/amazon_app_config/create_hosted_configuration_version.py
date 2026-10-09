@@ -167,7 +167,11 @@ def build_request(
         headers["VersionLabel"] = input_["version_label"]
     body: bytes | None = input_["content"]
     headers["content-type"] = "application/octet-stream"
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

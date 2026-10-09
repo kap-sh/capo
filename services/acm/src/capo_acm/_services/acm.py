@@ -150,6 +150,7 @@ class ACMClientConfig(TypedDict, total=False, closed=True):
     use_fips: bool | None
     use_dual_stack: bool | None
     credentials_provider: IdentityProvider[Credentials] | None
+    anonymous: bool | None
     service_type: str | None
 
 
@@ -166,6 +167,7 @@ class ACMClient:
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         credentials: AWS credentials for request signing.
         credentials_provider: Provider that resolves AWS credentials. Takes precedence over ``credentials``.
+        anonymous: Send requests unsigned, without resolving credentials, even for operations that require authentication.
         service_type: The service type: ACM or ACM-ACME. Injected via @staticContextParams.
     """
 
@@ -180,6 +182,7 @@ class ACMClient:
         use_dual_stack: bool | None = None,
         credentials: Credentials | None = None,
         credentials_provider: CredentialsProvider | None = None,
+        anonymous: bool | None = None,
         service_type: str | None = None,
     ):
         self._client = Client(http_handler).wrap_with_middleware(
@@ -207,6 +210,7 @@ class ACMClient:
                 "use_fips": use_fips,
                 "use_dual_stack": use_dual_stack,
                 "credentials_provider": resolved_credentials_provider,
+                "anonymous": anonymous,
                 "service_type": service_type,
             }
         )
@@ -236,6 +240,7 @@ class ACMClient:
             credentials_provider=overrides.get(
                 "credentials_provider", self._config.get("credentials_provider")
             ),
+            anonymous=overrides.get("anonymous", self._config.get("anonymous")),
             service_type=overrides.get(
                 "service_type", self._config.get("service_type")
             ),

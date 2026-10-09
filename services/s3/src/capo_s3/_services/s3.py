@@ -415,6 +415,7 @@ class S3ClientConfig(TypedDict, total=False, closed=True):
     endpoint: str | None
     use_global_endpoint: bool | None
     credentials_provider: IdentityProvider[Credentials] | None
+    anonymous: bool | None
     force_path_style: bool | None
     use_arn_region: bool | None
     disable_multi_region_access_points: bool | None
@@ -436,6 +437,7 @@ class S3Client:
         use_global_endpoint: The value of the ``AWS::S3::UseGlobalEndpoint`` endpoint parameter.
         credentials: AWS credentials for request signing.
         credentials_provider: Provider that resolves AWS credentials. Takes precedence over ``credentials``.
+        anonymous: Send requests unsigned, without resolving credentials, even for operations that require authentication.
         force_path_style: Forces this client to use path-style addressing for buckets.
         use_arn_region: Enables this client to use an ARN's region when constructing an endpoint instead of the client's configured region.
         disable_multi_region_access_points: Disables this client's usage of Multi-Region Access Points.
@@ -455,6 +457,7 @@ class S3Client:
         use_global_endpoint: bool | None = None,
         credentials: Credentials | None = None,
         credentials_provider: CredentialsProvider | None = None,
+        anonymous: bool | None = None,
         force_path_style: bool | None = None,
         use_arn_region: bool | None = None,
         disable_multi_region_access_points: bool | None = None,
@@ -489,6 +492,7 @@ class S3Client:
                 "endpoint": endpoint,
                 "use_global_endpoint": use_global_endpoint,
                 "credentials_provider": resolved_credentials_provider,
+                "anonymous": anonymous,
                 "force_path_style": force_path_style,
                 "use_arn_region": use_arn_region,
                 "disable_multi_region_access_points": disable_multi_region_access_points,
@@ -525,6 +529,7 @@ class S3Client:
             credentials_provider=overrides.get(
                 "credentials_provider", self._config.get("credentials_provider")
             ),
+            anonymous=overrides.get("anonymous", self._config.get("anonymous")),
             force_path_style=overrides.get(
                 "force_path_style", self._config.get("force_path_style")
             ),

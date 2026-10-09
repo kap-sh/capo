@@ -139,7 +139,11 @@ def build_request(
     if "schema_arn" in input_:
         headers["x-amz-data-partition"] = input_["schema_arn"]
     body: bytes | None = b""
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)

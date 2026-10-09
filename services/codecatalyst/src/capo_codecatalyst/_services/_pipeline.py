@@ -38,6 +38,7 @@ class OperationOptions:
     endpoint: str | None = None
     retry_max_attempts: int | None = None
     bearer_provider: BearerTokenProvider | None = None
+    anonymous: bool | None = None
 
 
 @dataclass
@@ -48,6 +49,7 @@ class AsyncOperationOptions:
     endpoint: str | None = None
     retry_max_attempts: int | None = None
     bearer_provider: BearerTokenProvider | None = None
+    anonymous: bool | None = None
 
 
 @dataclass

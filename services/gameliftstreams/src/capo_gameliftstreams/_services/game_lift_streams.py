@@ -144,6 +144,7 @@ class GameLiftStreamsClientConfig(TypedDict, total=False, closed=True):
     endpoint: str | None
     region: str | None
     credentials_provider: IdentityProvider[Credentials] | None
+    anonymous: bool | None
 
 
 class GameLiftStreamsClient:
@@ -158,6 +159,7 @@ class GameLiftStreamsClient:
         region: The value of the ``AWS::Region`` endpoint parameter.
         credentials: AWS credentials for request signing.
         credentials_provider: Provider that resolves AWS credentials. Takes precedence over ``credentials``.
+        anonymous: Send requests unsigned, without resolving credentials, even for operations that require authentication.
     """
 
     def __init__(
@@ -170,6 +172,7 @@ class GameLiftStreamsClient:
         region: str | None = None,
         credentials: Credentials | None = None,
         credentials_provider: CredentialsProvider | None = None,
+        anonymous: bool | None = None,
     ):
         self._client = Client(http_handler).wrap_with_middleware(
             lambda next: AuthMiddleware(next)
@@ -195,6 +198,7 @@ class GameLiftStreamsClient:
                 "endpoint": endpoint,
                 "region": region,
                 "credentials_provider": resolved_credentials_provider,
+                "anonymous": anonymous,
             }
         )
 
@@ -224,6 +228,7 @@ class GameLiftStreamsClient:
             credentials_provider=overrides.get(
                 "credentials_provider", self._config.get("credentials_provider")
             ),
+            anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
 

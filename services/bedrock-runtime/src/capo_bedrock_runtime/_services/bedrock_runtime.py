@@ -122,6 +122,7 @@ class BedrockRuntimeClientConfig(TypedDict, total=False, closed=True):
     endpoint: str | None
     credentials_provider: IdentityProvider[Credentials] | None
     bearer_provider: BearerTokenProvider | None
+    anonymous: bool | None
 
 
 class BedrockRuntimeClient:
@@ -139,6 +140,7 @@ class BedrockRuntimeClient:
         credentials_provider: Provider that resolves AWS credentials. Takes precedence over ``credentials``.
         bearer: Bearer token for authentication.
         bearer_provider: Provider that resolves bearer tokens. Takes precedence over ``bearer``.
+        anonymous: Send requests unsigned, without resolving credentials, even for operations that require authentication.
     """
 
     def __init__(
@@ -154,6 +156,7 @@ class BedrockRuntimeClient:
         credentials_provider: CredentialsProvider | None = None,
         bearer: str | None = None,
         bearer_provider: BearerTokenProvider | None = None,
+        anonymous: bool | None = None,
     ):
         self._client = Client(http_handler).wrap_with_middleware(
             lambda next: AuthMiddleware(next)
@@ -192,6 +195,7 @@ class BedrockRuntimeClient:
                 "endpoint": endpoint,
                 "credentials_provider": resolved_credentials_provider,
                 "bearer_provider": bearer_provider,
+                "anonymous": anonymous,
             }
         )
 
@@ -229,6 +233,7 @@ class BedrockRuntimeClient:
             bearer_provider=overrides.get(
                 "bearer_provider", self._config.get("bearer_provider")
             ),
+            anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
 

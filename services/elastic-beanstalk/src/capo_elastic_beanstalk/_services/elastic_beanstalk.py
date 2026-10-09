@@ -171,6 +171,7 @@ class ElasticBeanstalkClientConfig(TypedDict, total=False, closed=True):
     use_fips: bool | None
     endpoint: str | None
     credentials_provider: IdentityProvider[Credentials] | None
+    anonymous: bool | None
 
 
 class ElasticBeanstalkClient:
@@ -186,6 +187,7 @@ class ElasticBeanstalkClient:
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
         credentials: AWS credentials for request signing.
         credentials_provider: Provider that resolves AWS credentials. Takes precedence over ``credentials``.
+        anonymous: Send requests unsigned, without resolving credentials, even for operations that require authentication.
     """
 
     def __init__(
@@ -199,6 +201,7 @@ class ElasticBeanstalkClient:
         endpoint: str | None = None,
         credentials: Credentials | None = None,
         credentials_provider: CredentialsProvider | None = None,
+        anonymous: bool | None = None,
     ):
         self._client = Client(http_handler).wrap_with_middleware(
             lambda next: AuthMiddleware(next)
@@ -225,6 +228,7 @@ class ElasticBeanstalkClient:
                 "use_fips": use_fips,
                 "endpoint": endpoint,
                 "credentials_provider": resolved_credentials_provider,
+                "anonymous": anonymous,
             }
         )
 
@@ -253,6 +257,7 @@ class ElasticBeanstalkClient:
             credentials_provider=overrides.get(
                 "credentials_provider", self._config.get("credentials_provider")
             ),
+            anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
 

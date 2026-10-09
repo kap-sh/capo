@@ -127,7 +127,11 @@ def build_request(
         capo_odb.types.get_db_node_input.serialize_aws_json_1_0(input_), allow_nan=False
     ).encode()
     headers["content-type"] = "application/x-amz-json-1.0"
-    signer = get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)
