@@ -26,7 +26,7 @@ from capo_s3.errors import (
     UnknownServiceError,
 )
 from capo_s3.types.checksum_algorithm import ChecksumAlgorithm
-from zapros import AsyncClient, Client
+from zapros import AsyncClient, Client, Multipart, Part
 
 from tests.conftest import (
     AWS_REGION,
@@ -44,6 +44,14 @@ from tests.conftest import (
 DATA = b"hello capo " * 100
 MiB = 1024 * 1024
 CHECKSUM_ALGORITHMS = ["CRC32", "CRC32C", "SHA1", "SHA256", "CRC64NVME"]
+
+
+def post_form(fields: dict[str, str], data: bytes) -> Multipart:
+    """The form of a presigned POST: its fields, then the file."""
+    form = Multipart()
+    for name, value in fields.items():
+        form.text(name, value)
+    return form.part("file", Part.bytes(data).file_name("upload.txt"))
 
 
 # ---------------------------------------------------------------------------
@@ -691,6 +699,42 @@ class TestAsyncPresigned:  # unasync: generate
         )
         assert await aread_body(async_s3.get_object(bucket, "mp3.bin")) == b"C" * 1024
 
+    async def test_post(self, async_s3: AsyncS3Client, bucket: str):
+        post = await async_s3.presign_post(
+            bucket,
+            "post.txt",
+            expires_in=300,
+            fields={"Content-Type": "text/plain"},
+            conditions=[{"type": "content-length-range", "min": 1, "max": 64}],
+        )
+        async with AsyncClient() as http:
+            response = await http.request("POST", post["url"], multipart=post_form(post["fields"], b"via-post"))
+            assert response.status == 204
+            assert await aread_body(async_s3.get_object(bucket, "post.txt")) == b"via-post"
+            # a field the policy pins cannot be changed (403 on AWS, 400 on RustFS), nor a condition broken
+            moved = post_form({**post["fields"], "key": "other.txt"}, b"via-post")
+            assert (await http.request("POST", post["url"], multipart=moved)).status in (400, 403)
+            too_long = post_form(post["fields"], b"x" * 65)
+            assert (await http.request("POST", post["url"], multipart=too_long)).status == 400
+
+    async def test_post_under_a_key_prefix(self, async_s3: AsyncS3Client, bucket: str):
+        post = await async_s3.presign_post(
+            bucket,
+            "uploads/${filename}",
+            conditions=[
+                {"type": "starts-with", "field": "key", "prefix": "uploads/"},
+                {"type": "eq", "field": "Content-Type", "value": "text/plain"},
+            ],
+        )
+        # an exact match has one value to send, so the form already holds it
+        assert post["fields"]["Content-Type"] == "text/plain"
+        async with AsyncClient() as http:
+            response = await http.request("POST", post["url"], multipart=post_form(post["fields"], b"via-post"))
+            assert response.status == 204
+            assert await aread_body(async_s3.get_object(bucket, "uploads/upload.txt")) == b"via-post"
+            outside = post_form({**post["fields"], "key": "elsewhere/a.txt"}, b"via-post")
+            assert (await http.request("POST", post["url"], multipart=outside)).status in (400, 403)
+
 
 class TestPresigned:  # unasync: generated
     def test_get_and_head(self, s3: S3Client, bucket: str):
@@ -725,6 +769,42 @@ class TestPresigned:  # unasync: generated
             bucket, "mp3.bin", uid, multipart_upload={"parts": [{"part_number": 1, "e_tag": etag}]}
         )
         assert read_body(s3.get_object(bucket, "mp3.bin")) == b"C" * 1024
+
+    def test_post(self, s3: S3Client, bucket: str):
+        post = s3.presign_post(
+            bucket,
+            "post.txt",
+            expires_in=300,
+            fields={"Content-Type": "text/plain"},
+            conditions=[{"type": "content-length-range", "min": 1, "max": 64}],
+        )
+        with Client() as http:
+            response = http.request("POST", post["url"], multipart=post_form(post["fields"], b"via-post"))
+            assert response.status == 204
+            assert read_body(s3.get_object(bucket, "post.txt")) == b"via-post"
+            # a field the policy pins cannot be changed (403 on AWS, 400 on RustFS), nor a condition broken
+            moved = post_form({**post["fields"], "key": "other.txt"}, b"via-post")
+            assert (http.request("POST", post["url"], multipart=moved)).status in (400, 403)
+            too_long = post_form(post["fields"], b"x" * 65)
+            assert (http.request("POST", post["url"], multipart=too_long)).status == 400
+
+    def test_post_under_a_key_prefix(self, s3: S3Client, bucket: str):
+        post = s3.presign_post(
+            bucket,
+            "uploads/${filename}",
+            conditions=[
+                {"type": "starts-with", "field": "key", "prefix": "uploads/"},
+                {"type": "eq", "field": "Content-Type", "value": "text/plain"},
+            ],
+        )
+        # an exact match has one value to send, so the form already holds it
+        assert post["fields"]["Content-Type"] == "text/plain"
+        with Client() as http:
+            response = http.request("POST", post["url"], multipart=post_form(post["fields"], b"via-post"))
+            assert response.status == 204
+            assert read_body(s3.get_object(bucket, "uploads/upload.txt")) == b"via-post"
+            outside = post_form({**post["fields"], "key": "elsewhere/a.txt"}, b"via-post")
+            assert (http.request("POST", post["url"], multipart=outside)).status in (400, 403)
 
 
 # ---------------------------------------------------------------------------

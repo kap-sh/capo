@@ -49,6 +49,11 @@ from ._auth._providers import (
 from ._auth._signers import Signer as Signer
 from ._auth._signers import SigV4Signer as SigV4Signer
 from ._body import Body as Body
+from ._presigned_post import ContentLengthRange as ContentLengthRange
+from ._presigned_post import ExactMatch as ExactMatch
+from ._presigned_post import PostCondition as PostCondition
+from ._presigned_post import PresignedPost as PresignedPost
+from ._presigned_post import StartsWith as StartsWith
 from ._services._pipeline import (
     AsyncOperationOptions as AsyncOperationOptions,
 )

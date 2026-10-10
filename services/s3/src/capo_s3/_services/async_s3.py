@@ -4,7 +4,7 @@ import random
 import time
 import uuid
 import warnings
-from collections.abc import AsyncGenerator, AsyncIterator
+from collections.abc import AsyncGenerator, AsyncIterator, Mapping, Sequence
 from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Any, Iterable, Optional
 
@@ -28,6 +28,7 @@ from capo_s3._body import Body, aclosing_bodies
 from capo_s3._checksums import ChecksumMiddleware, strip_checksum_headers
 from capo_s3._iter import ensure_async_iterator
 from capo_s3._pagination import resolve_path as _resolve_path
+from capo_s3._presigned_post import PostCondition, PresignedPost, presign_post_sigv4
 from capo_s3._services._aws_config import aaws_config
 from capo_s3._services._pipeline import (
     AsyncInterceptor,
@@ -9933,6 +9934,47 @@ class AsyncS3Client:
             )
             await response.response.aclose()
             return response.output
+
+    async def presign_post(
+        self,
+        bucket: "capo_s3.types.bucket_name.BucketName",
+        key: "capo_s3.types.object_key.ObjectKey",
+        *,
+        expires_in: int = 3600,
+        fields: Mapping[str, str] | None = None,
+        conditions: Sequence[PostCondition] | None = None,
+        config_overrides: AsyncS3ClientConfig | None = None,
+    ) -> PresignedPost:
+        """A form that uploads an object to the bucket, usable without credentials: POST its ``fields`` to its ``url`` as ``multipart/form-data``, followed by the ``file`` field.
+
+        Args:
+            bucket: The bucket to upload to.
+            key: The key of the uploaded object. It is matched exactly, unless a ``starts-with`` condition on ``key`` says how it starts, which a key ending with ``${filename}`` needs.
+            expires_in: How long the form stays valid, in seconds.
+            fields: Form fields with a fixed value, such as ``acl`` or ``Content-Type``. Each is returned in ``fields`` and pinned to its value by the policy.
+            conditions: Policy conditions on the fields the uploader adds, such as ``{"type": "starts-with", "field": "Content-Type", "prefix": "image/"}`` or ``{"type": "content-length-range", "min": 0, "max": 1048576}``. An ``eq`` condition has one value to send, so it is returned in ``fields`` like an entry of ``fields``.
+        """
+        _, options_ = self.operation_options(config_overrides)
+        import capo_s3._operations.amazon_s3.head_bucket
+
+        # The form posts to the bucket itself, which is where HeadBucket's request goes.
+        request = capo_s3._operations.amazon_s3.head_bucket.build_request(
+            options_, {"bucket": bucket}
+        )
+        signer = (request.context or {}).get("signer")
+        if not isinstance(signer, SigV4Signer):
+            raise RuntimeError("presign requires SigV4 credentials")
+        creds = await signer.provider.aresolve_identity()
+        return presign_post_sigv4(
+            str(request.url),
+            creds,
+            signing_region=signer._auth_scheme["signingRegion"],
+            bucket=bucket,
+            key=key,
+            expires_in=expires_in,
+            fields=fields,
+            conditions=conditions,
+        )
 
     async def __aenter__(self) -> Self:
         return self
