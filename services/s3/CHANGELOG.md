@@ -1,5 +1,11 @@
 # aws-sdk-s3
 
+## 0.23.0
+
+### Minor Changes
+
+- 9609bdd: feat: add support for presign_post
+
 ## 0.22.0
 
 ### Minor Changes
