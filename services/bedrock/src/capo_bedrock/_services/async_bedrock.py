@@ -516,9 +516,12 @@ class AsyncBedrockClient:
         bearer_provider: BearerTokenProvider | None = None,
         anonymous: bool | None = None,
     ):
-        self._client = AsyncClient(http_handler).wrap_with_middleware(
-            lambda next: AuthMiddleware(next)
-        )
+        client = AsyncClient(http_handler)
+        # The handler the user gave us, or the default one for this environment.
+        # The SDK middlewares wrap it below, and the credential resolvers borrow
+        # it for their one-off calls.
+        raw_handler = client.handler
+        self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
         if credentials is not None and credentials_provider is not None:
             warnings.warn(
                 "Both credentials and credentials_provider given; provider takes precedence"
@@ -535,7 +538,7 @@ class AsyncBedrockClient:
             and bearer_provider is None
         ):
             resolved_credentials_provider = default_aws_credentials_chain(
-                AsyncClient(http_handler)
+                AsyncClient(raw_handler)
             )
         if bearer is not None and bearer_provider is not None:
             warnings.warn(
