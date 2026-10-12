@@ -21,7 +21,7 @@ classifiers = [
 dependencies = [
     "cbor2>=5.6",
     "jmespath>=1.0",
-    "zapros>=0.13.0",
+    "zapros>=0.21.0",
 ]
 
 [project.optional-dependencies]
