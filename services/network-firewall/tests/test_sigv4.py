@@ -91,13 +91,28 @@ class TestCanonicalPath:
     def test_s3_preserves_dot_segments(self):
         assert _s3_path("/a/../b/./c") == "/a/../b/./c"
 
-    def test_non_s3_double_encodes(self):
-        # "/foo bar" → first encode → "/foo%20bar" → second → "/foo%2520bar"
-        assert _std_path("/foo bar") == "/foo%2520bar"
-
-    def test_non_s3_already_encoded_double_encodes(self):
-        # "/foo%20bar" gets unquoted to "/foo bar", then double-encoded.
+    def test_non_s3_encodes_wire_path_once_more(self):
+        # The path arrives URI-encoded once ("/foo bar" is sent as "/foo%20bar").
         assert _std_path("/foo%20bar") == "/foo%2520bar"
+        assert _std_path("/a%3Ab/caf%C3%A9~") == "/a%253Ab/caf%25C3%25A9~"
+
+    def test_non_s3_keeps_encoded_slash_inside_segment(self):
+        # An ARN in a path label: its "/" is sent as "%2F" and must stay part
+        # of the segment, not become a separator.
+        assert (
+            _std_path("/model/arn%3Aaws%3Abedrock%3A%3Afoundation-model%2Fx/converse")
+            == "/model/arn%253Aaws%253Abedrock%253A%253Afoundation-model%252Fx/converse"
+        )
+        assert _s3_path("/bucket/a%2Fb") == "/bucket/a%2Fb"
+
+    def test_non_s3_encodes_literal_reserved_characters_once(self):
+        # "@" and "$" appear literally in a few URI templates and are sent as is.
+        assert _std_path("/@connections/abc") == "/%40connections/abc"
+        assert _std_path("/things/t/jobs/$next") == "/things/t/jobs/%24next"
+
+    def test_non_s3_does_not_decode_the_wire_path(self):
+        assert _std_path("/a%2fb") == "/a%252fb"
+        assert _std_path("/a%25b") == "/a%2525b"
 
     def test_non_s3_removes_dot_segments(self):
         # Mirrors botocore's normalize_url_path: "." dropped, ".." pops,

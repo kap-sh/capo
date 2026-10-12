@@ -17,7 +17,7 @@ import hmac
 import re
 from collections.abc import AsyncIterator, Iterator
 from typing import Any, Literal, TypedDict, cast
-from urllib.parse import quote, unquote
+from urllib.parse import quote
 
 import zapros
 from pywhatwgurl import URLSearchParams
@@ -134,11 +134,11 @@ def _remove_dot_segments(path: str) -> str:
 def _canonical_path(path: str, *, double_encode: bool, normalize: bool) -> str:
     """Build CanonicalURI.
 
-    Per the SigV4 spec, every segment is URI-encoded; standard services
-    normalize dot segments and URI-encode each segment **twice**. The
-    rules-engine ``disableNormalizePath`` / ``disableDoubleEncoding`` flags
-    turn those steps off — S3-family services set both, so the path is
-    signed exactly as provided.
+    ``path`` is the path as sent on the wire, so it is already URI-encoded
+    once. Standard services normalize dot segments and URI-encode each
+    segment a second time. The rules-engine ``disableNormalizePath`` /
+    ``disableDoubleEncoding`` flags turn those steps off — S3-family
+    services set both, so the path is signed exactly as provided.
     """
     if not path:
         return "/"
@@ -148,9 +148,9 @@ def _canonical_path(path: str, *, double_encode: bool, normalize: bool) -> str:
         path = _remove_dot_segments(path)
     if not double_encode:
         return path
-    decoded = unquote(path)
-    first = quote(decoded, safe="/~")
-    return quote(first, safe="/~")
+    # Never decode first: that would turn a "%2F" inside a segment (an ARN in
+    # a path label) into a separator and leave it out of the second encoding.
+    return quote(path, safe="/~")
 
 
 def _canonical_query(query: str) -> str:

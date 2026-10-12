@@ -13,9 +13,13 @@ import os
 from collections.abc import Iterator
 
 import pytest
+from capo_bedrock_runtime import AsyncBedrockRuntimeClient, BedrockRuntimeClient
+from capo_bedrock_runtime.errors import ValidationException
 from capo_ebs import EBSClient
 from capo_ec2 import EC2Client
 from capo_iam import AsyncIAMClient, Credentials, IAMClient, SsoCredentialsProvider
+from capo_iot_jobs_data_plane import AsyncIoTJobsDataPlaneClient, IoTJobsDataPlaneClient
+from capo_iot_jobs_data_plane.errors import UnknownServiceError as IoTJobsUnknownServiceError
 from capo_sts import AsyncSTSClient, STSClient
 from capo_sts.errors import UnknownServiceError
 from zapros import AsyncClient, Client
@@ -136,3 +140,45 @@ class TestCredentials:  # unasync: generated
     def _account(credentials: Credentials) -> str:
         with STSClient(region=AWS_REGION, credentials=credentials) as sts:
             return (sts.get_caller_identity()).get("account", "")
+
+
+class TestAsyncPathSigning:  # unasync: generate
+    """The canonical path is the path as sent, URI-encoded once more; AWS answers
+    InvalidSignatureException when the client signs anything else."""
+
+    async def test_arn_in_path_label(self, async_aws_credentials: Credentials):
+        # The "/" of an ARN is sent as "%2F" and has to be signed as "%252F".
+        model_arn = f"arn:aws:bedrock:{AWS_REGION}::foundation-model/capo.does-not-exist-v1:0"
+        async with AsyncBedrockRuntimeClient(region=AWS_REGION, credentials=async_aws_credentials) as bedrock:
+            with pytest.raises(ValidationException, match="model identifier is invalid"):
+                await bedrock.converse(model_arn, messages=[{"role": "user", "content": [{"text": "hi"}]}])
+
+    async def test_literal_dollar_in_uri_template(self, async_aws_credentials: Credentials):
+        # "/things/{thingName}/jobs/$next": the "$" is sent as is and signed as "%24".
+        async with AsyncIoTJobsDataPlaneClient(region=AWS_REGION, credentials=async_aws_credentials) as jobs:
+            with pytest.raises(IoTJobsUnknownServiceError) as info:
+                await jobs.start_next_pending_job_execution("capo-test-no-such-thing")
+        # The signature was accepted: this API only answers on the account's own data endpoint.
+        assert info.value.code == "AccessDeniedException"
+        assert "Invalid endpoint" in str(info.value)
+
+
+class TestPathSigning:  # unasync: generated
+    """The canonical path is the path as sent, URI-encoded once more; AWS answers
+    InvalidSignatureException when the client signs anything else."""
+
+    def test_arn_in_path_label(self, aws_credentials: Credentials):
+        # The "/" of an ARN is sent as "%2F" and has to be signed as "%252F".
+        model_arn = f"arn:aws:bedrock:{AWS_REGION}::foundation-model/capo.does-not-exist-v1:0"
+        with BedrockRuntimeClient(region=AWS_REGION, credentials=aws_credentials) as bedrock:
+            with pytest.raises(ValidationException, match="model identifier is invalid"):
+                bedrock.converse(model_arn, messages=[{"role": "user", "content": [{"text": "hi"}]}])
+
+    def test_literal_dollar_in_uri_template(self, aws_credentials: Credentials):
+        # "/things/{thingName}/jobs/$next": the "$" is sent as is and signed as "%24".
+        with IoTJobsDataPlaneClient(region=AWS_REGION, credentials=aws_credentials) as jobs:
+            with pytest.raises(IoTJobsUnknownServiceError) as info:
+                jobs.start_next_pending_job_execution("capo-test-no-such-thing")
+        # The signature was accepted: this API only answers on the account's own data endpoint.
+        assert info.value.code == "AccessDeniedException"
+        assert "Invalid endpoint" in str(info.value)

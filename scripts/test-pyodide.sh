@@ -10,7 +10,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 # The service packages tests/ imports; the root is not a package.
-SERVICES=(s3 sts iam ebs ec2 transcribe-streaming)
+SERVICES=(s3 sts iam ebs ec2 transcribe-streaming bedrock-runtime iot-jobs-data-plane)
 
 # 1. create the Pyodide venv once
 [ -d .pyodide-venv ] || uv run pyodide venv .pyodide-venv
