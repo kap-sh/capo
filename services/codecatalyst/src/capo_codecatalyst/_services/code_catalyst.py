@@ -175,9 +175,8 @@ class CodeCatalystClient:
         bearer_provider: BearerTokenProvider | None = None,
         anonymous: bool | None = None,
     ):
-        self._client = Client(http_handler).wrap_with_middleware(
-            lambda next: AuthMiddleware(next)
-        )
+        client = Client(http_handler)
+        self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
         if bearer is not None and bearer_provider is not None:
             warnings.warn(
                 "Both bearer and bearer_provider given; provider takes precedence"

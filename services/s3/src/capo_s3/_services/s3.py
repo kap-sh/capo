@@ -466,11 +466,14 @@ class S3Client:
         accelerate: bool | None = None,
         disable_s3_express_session_auth: bool | None = None,
     ):
-        self._client = (
-            Client(http_handler)
-            .wrap_with_middleware(lambda next: AuthMiddleware(next))
-            .wrap_with_middleware(lambda next: ChecksumMiddleware(next))
-        )
+        client = Client(http_handler)
+        # The handler the user gave us, or the default one for this environment.
+        # The SDK middlewares wrap it below, and the credential resolvers borrow
+        # it for their one-off calls.
+        raw_handler = client.handler
+        self._client = client.wrap_with_middleware(
+            lambda next: AuthMiddleware(next)
+        ).wrap_with_middleware(lambda next: ChecksumMiddleware(next))
         if credentials is not None and credentials_provider is not None:
             warnings.warn(
                 "Both credentials and credentials_provider given; provider takes precedence"
@@ -482,7 +485,7 @@ class S3Client:
             resolved_credentials_provider = StaticAwsCredentialsProvider(credentials)
         if resolved_credentials_provider is None and credentials is None:
             resolved_credentials_provider = default_aws_credentials_chain(
-                Client(http_handler)
+                Client(raw_handler)
             )
         self._config = S3ClientConfig(
             {
